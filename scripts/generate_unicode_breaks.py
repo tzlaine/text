@@ -94,10 +94,10 @@ inline bidi_bracket_data bidi_bracket(uint32_t cp) noexcept
 struct bidi_mirroring_data
 {{
     uint32_t cp_;
-    uint32_t mirror_;
+    int index_; // within bidi_mirroreds()
 }};
 
-inline uint32_t bidi_mirroring(uint32_t cp) noexcept
+inline int bidi_mirroring(uint32_t cp) noexcept
 {{
     constexpr std::array<bidi_mirroring_data, {3}> mirrorings = {{{{
 {2}
@@ -109,8 +109,16 @@ inline uint32_t bidi_mirroring(uint32_t cp) noexcept
             return lhs.cp_ < rhs.cp_;
         }});
     if (it == mirrorings.end() || it->cp_ != cp)
-        return 0;
-    return it->mirror_;
+        return -1;
+    return it->index_;
+}}
+
+inline std::array<uint32_t, {3}> const & bidi_mirroreds() noexcept
+{{
+    static std::array<uint32_t, 364> const retval = {{{{
+{4}
+    }}}};
+    return retval;
 }}
 
 }}}}}}
@@ -252,7 +260,8 @@ def extract_bidi_bracket_properties(filename):
     return retval
 
 def extract_bidi_mirroring_properties(filename):
-    retval = []
+    values = []
+    mapping = []
     bidi_mirroring_lines = open(filename, 'r').readlines()
     for line in bidi_mirroring_lines:
         line = line[:-1]
@@ -263,8 +272,18 @@ def extract_bidi_mirroring_properties(filename):
                 comment = line[comment_start + 1:].strip()
                 line = line[:comment_start]
             tokens = map(lambda x: x.strip(), line.split(';'))
-            retval.append('{{0x{}, 0x{}}},'.format(tokens[0], tokens[1]))
-    return retval
+            values.append('0x{},'.format(tokens[0]))
+    for line in bidi_mirroring_lines:
+        line = line[:-1]
+        if not line.startswith('#') and len(line) != 0:
+            comment_start = line.find('#')
+            comment = ''
+            if comment_start != -1:
+                comment = line[comment_start + 1:].strip()
+                line = line[:comment_start]
+            tokens = map(lambda x: x.strip(), line.split(';'))
+            mapping.append('{{0x{}, {}}},'.format(tokens[0], values.index('0x' + tokens[1] + ',')))
+    return mapping, values
 
 (grapheme_break_intervals, num_grapheme_intervals, grapheme_break_intervals_map) = \
     extract_break_properties('GraphemeBreakProperty.txt', 'grapheme_prop')
@@ -293,7 +312,8 @@ cpp_file.write(cpp_file_form.format('bidi_prop', num_bidi_intervals, bidi_interv
 
 bidi_bracket_properties = extract_bidi_bracket_properties('BidiBrackets.txt')
 bidi_bracket_properties_lines = '        ' + '\n        '.join(bidi_bracket_properties)
-bidi_mirroring_properties = extract_bidi_mirroring_properties('BidiMirroring.txt')
-bidi_mirroring_properties_lines = '        ' + '\n        '.join(bidi_mirroring_properties)
+bidi_mirroring_mapping, bidi_mirroring_values = extract_bidi_mirroring_properties('BidiMirroring.txt')
+bidi_mirroring_mapping_lines = '        ' + '\n        '.join(bidi_mirroring_mapping)
+bidi_mirroring_values_lines = '        ' + '\n        '.join(bidi_mirroring_values)
 hpp_file = open('bidirectional.hpp', 'w')
-hpp_file.write(bidi_header_form.format(bidi_bracket_properties_lines, len(bidi_bracket_properties), bidi_mirroring_properties_lines, len(bidi_mirroring_properties)))
+hpp_file.write(bidi_header_form.format(bidi_bracket_properties_lines, len(bidi_bracket_properties), bidi_mirroring_mapping_lines, len(bidi_mirroring_mapping), bidi_mirroring_values_lines))

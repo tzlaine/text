@@ -574,14 +574,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     /** TODO */
     template<typename CPIter>
-    inline CPIter next_hard_line_break(CPIter first, CPIter last) noexcept
+    CPIter next_hard_line_break(CPIter first, CPIter last) noexcept
     {
         return detail::next_line_break_impl(first, last, true);
     }
 
     /** TODO */
     template<typename CPIter>
-    inline CPIter next_possible_line_break(CPIter first, CPIter last) noexcept
+    CPIter next_possible_line_break(CPIter first, CPIter last) noexcept
     {
         return detail::next_line_break_impl(first, last, false);
     }
@@ -609,7 +609,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     /** Returns the bounds of the line (using hard line breaks) that
         <code>it</code> lies within. */
     template<typename CPIter>
-    inline cp_range<CPIter> line(CPIter first, CPIter it, CPIter last) noexcept
+    cp_range<CPIter> line(CPIter first, CPIter it, CPIter last) noexcept
     {
         cp_range<CPIter> retval{prev_hard_line_break(first, it, last)};
         retval.last = next_hard_line_break(retval.first, last);
@@ -631,7 +631,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         off into a line, searching from <code>it</code> in either
         direction. */
     template<typename CPIter>
-    inline cp_range<CPIter>
+    cp_range<CPIter>
     possible_line(CPIter first, CPIter it, CPIter last) noexcept
     {
         cp_range<CPIter> retval{prev_possible_line_break(first, it, last)};

@@ -8,6 +8,7 @@
 
 #include <boost/container/small_vector.hpp>
 #include <boost/container/static_vector.hpp>
+#include <boost/optional.hpp>
 
 #include <stack>
 
@@ -112,6 +113,56 @@ namespace boost { namespace text {
 
         using props_and_embeddings_t =
             container::small_vector<prop_and_embedding_t, 1024>;
+
+        struct props_and_embeddings_cp_iterator
+        {
+            using value_type = uint32_t;
+            using pointer = value_type *;
+            using reference = value_type &;
+            using difference_type = std::ptrdiff_t;
+            using iterator_category = std::bidirectional_iterator_tag;
+
+            reference operator*() const noexcept { return it_->cp_; }
+            pointer operator->() const noexcept { return &**this; }
+
+            props_and_embeddings_cp_iterator & operator++() noexcept
+            {
+                ++it_;
+                return *this;
+            }
+            props_and_embeddings_cp_iterator operator++(int)noexcept
+            {
+                auto const retval = *this;
+                ++*this;
+                return retval;
+            }
+            props_and_embeddings_cp_iterator & operator--() noexcept
+            {
+                --it_;
+                return *this;
+            }
+            props_and_embeddings_cp_iterator operator--(int)noexcept
+            {
+                auto const retval = *this;
+                --*this;
+                return retval;
+            }
+
+            friend bool operator==(
+                props_and_embeddings_cp_iterator lhs,
+                props_and_embeddings_cp_iterator rhs) noexcept
+            {
+                return lhs.it_ == rhs.it_;
+            }
+            friend bool operator!=(
+                props_and_embeddings_cp_iterator lhs,
+                props_and_embeddings_cp_iterator rhs) noexcept
+            {
+                return lhs.it_ != rhs.it_;
+            }
+
+            props_and_embeddings_t::iterator it_;
+        };
 
         struct level_run
         {
@@ -235,18 +286,18 @@ namespace boost { namespace text {
         using all_runs_t = container::small_vector<level_run, 1024>;
         using run_sequences_t = container::small_vector<run_sequence_t, 32>;
 
-        inline all_runs_t find_all_runs(props_and_embeddings_t & pae)
+        inline all_runs_t find_all_runs(
+            props_and_embeddings_t::iterator first,
+            props_and_embeddings_t::iterator last)
         {
             container::small_vector<level_run, 1024> retval;
             {
-                auto it = pae.begin();
-                auto const end = pae.end();
-                while (it != end) {
-                    auto run = next_level_run(it, end);
+                while (first != last) {
+                    auto run = next_level_run(first, last);
                     if (run.empty())
                         break;
                     retval.push_back(run);
-                    it = run.last_;
+                    first = run.last_;
                 }
             }
             return retval;
@@ -276,6 +327,7 @@ namespace boost { namespace text {
                         if (pdi_it != end) {
                             auto const all_runs_end =
                                 &all_runs[0] + all_runs.size();
+                            // TODO: lower_bound instead?
                             auto const run_it = std::find_if(
                                 &run, all_runs_end, [pdi_it](level_run r) {
                                     return pdi_it < r.last_;
@@ -756,58 +808,222 @@ namespace boost { namespace text {
             }
         }
 
-        // TODO: L1, L2, L3, L4
+        // https://unicode.org/reports/tr9/#L1
+        inline void
+        l1(cp_range<props_and_embeddings_cp_iterator> line,
+           int paragraph_embedding_level)
+        {
+            auto set_paragraph_embedding =
+                [paragraph_embedding_level](prop_and_embedding_t pae) {
+                    pae.embedding_ = paragraph_embedding_level;
+                    return pae;
+                };
+            auto const end = line.end().it_;
+            auto first_contiguous_ws_or_isolate_it = end;
+            for (auto it = line.begin().it_; it != end; ++it) {
+                auto const original_prop = boost::text::bidi_prop(it->cp_);
+                if (original_prop == bidi_prop_t::B ||
+                    original_prop == bidi_prop_t::S) {
+                    it->embedding_ = paragraph_embedding_level;
+                    if (first_contiguous_ws_or_isolate_it != end) {
+                        std::transform(
+                            first_contiguous_ws_or_isolate_it,
+                            it,
+                            first_contiguous_ws_or_isolate_it,
+                            set_paragraph_embedding);
+                        first_contiguous_ws_or_isolate_it = end;
+                    }
+                } else if (
+                    original_prop == bidi_prop_t::WS ||
+                    isolate_initiator(original_prop) ||
+                    original_prop == bidi_prop_t::PDI) {
+                    if (first_contiguous_ws_or_isolate_it == end)
+                        first_contiguous_ws_or_isolate_it = it;
+                } else {
+                    first_contiguous_ws_or_isolate_it = end;
+                }
+            }
+            if (first_contiguous_ws_or_isolate_it != end) {
+                std::transform(
+                    first_contiguous_ws_or_isolate_it,
+                    end,
+                    first_contiguous_ws_or_isolate_it,
+                    set_paragraph_embedding);
+            }
+         }
+
+        struct reordered_run
+        {
+            using iterator = props_and_embeddings_t::iterator;
+
+            bool reversed() const noexcept { return last_ < first_; }
+            int embedding() const noexcept
+            {
+                return reversed() ? last_->embedding_ : first_->embedding_;
+            }
+
+            void reverse() noexcept { std::swap(first_, last_); }
+
+            iterator first_;
+            iterator last_;
+        };
+
+        using reordered_runs_t = container::small_vector<reordered_run, 1024>;
+
+        // TODO: This should be put somewhere it can be reused more broadly.
+        template<typename Iter, typename Sentinel = Iter>
+        struct foreach_subrange_range
+        {
+            using iterator = Iter;
+            using sentinel = Sentinel;
+
+            foreach_subrange_range() {}
+            foreach_subrange_range(iterator first, sentinel last) :
+                first_(first),
+                last_(last)
+            {}
+
+            iterator begin() const noexcept { return first_; }
+            sentinel end() const noexcept { return last_; }
+
+        private:
+            iterator first_;
+            sentinel last_;
+        };
+
+        // TODO: This should be put somewhere it can be reused more broadly.
+        template<typename FwdIter, typename Sentinel, typename T, typename Func>
+        void foreach_subrange(FwdIter first, Sentinel last, T const & x, Func f)
+        {
+            using value_type =
+                typename std::iterator_traits<FwdIter>::value_type;
+            while (first != last) {
+                first = std::find(first, last, x);
+                auto next = std::find_if_not(
+                    first, last, [&x](value_type const & elem) {
+                        return elem == x;
+                    });
+                f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
+                first = next;
+            }
+        }
+
+        // TODO: This should be put somewhere it can be reused more broadly.
+        template<
+            typename FwdIter,
+            typename Sentinel,
+            typename Pred,
+            typename Func>
+        void foreach_subrange_if(FwdIter first, Sentinel last, Pred p, Func f)
+        {
+            while (first != last) {
+                first = std::find_if(first, last, p);
+                auto next = std::find_if_not(first, last, p);
+                f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
+                first = next;
+            }
+        }
+
+        inline reordered_runs_t l2(all_runs_t const & all_runs)
+        {
+            reordered_runs_t retval;
+            std::transform(
+                all_runs.begin(),
+                all_runs.end(),
+                std::back_inserter(retval),
+                [](level_run run) {
+                    return reordered_run{run.first_, run.last_};
+                });
+            auto min_max_it = std::minmax_element(
+                retval.begin(),
+                retval.end(),
+                [](reordered_run lhs, reordered_run rhs) {
+                    return lhs.embedding() < rhs.embedding();
+                });
+            auto lo = min_max_it.first->embedding();
+            auto hi = min_max_it.second->embedding() + 1;
+            if (even(lo))
+                ++lo;
+            for (int i = hi; i-- > lo;) {
+                foreach_subrange_if(
+                    retval.begin(),
+                    retval.end(),
+                    [i](reordered_run run) { return i <= run.embedding(); },
+                    [](foreach_subrange_range<reordered_runs_t::iterator> r) {
+                        std::reverse(r.begin(), r.end());
+                        for (auto & elem : r) {
+                            elem.reverse();
+                        }
+                    });
+            }
+            return retval;
+        }
+
+        enum fwd_rev_cp_iter_kind { user_it, rev_user_it, mirror_array_it };
 
         template<typename CPIter>
         struct fwd_rev_cp_iter
         {
-            using value_type =
-                typename std::iterator_traits<CPIter>::value_type;
-            using pointer = typename std::iterator_traits<CPIter>::pointer;
-            using reference = typename std::iterator_traits<CPIter>::reference;
+            using value_type = uint32_t;
+            using pointer = uint32_t;
+            using reference = uint32_t;
             using difference_type =
                 typename std::iterator_traits<CPIter>::difference_type;
-            using iterator_category =
-                typename std::iterator_traits<CPIter>::iterator_category;
+            using iterator_category = std::forward_iterator_tag;
 
-            fwd_rev_cp_iter() noexcept : reverse_(false) {}
-            fwd_rev_cp_iter(CPIter it) noexcept : reverse_(false)
+            using mirrors_array_t =
+                typename std::remove_reference<typename std::remove_cv<decltype(
+                    bidi_mirroreds())>::type>::type;
+            using kind_t = fwd_rev_cp_iter_kind;
+
+            fwd_rev_cp_iter() noexcept : kind_(kind_t::user_it) {}
+            fwd_rev_cp_iter(CPIter it) noexcept : kind_(kind_t::user_it)
             {
                 new (&it_) CPIter(std::move(it));
             }
             fwd_rev_cp_iter(std::reverse_iterator<CPIter> rit) noexcept :
-                reverse_(true)
+                kind_(kind_t::rev_user_it)
             {
                 new (&rit_) std::reverse_iterator<CPIter>(std::move(rit));
             }
+            fwd_rev_cp_iter(
+                mirrors_array_t::const_iterator ait,
+                fwd_rev_cp_iter_kind k) noexcept :
+                kind_(k)
+            {
+                assert(kind_ == kind_t::mirror_array_it);
+                new (&ait_) mirrors_array_t::const_iterator(ait);
+            }
 
             fwd_rev_cp_iter(fwd_rev_cp_iter const & other) noexcept :
-                reverse_(other.reverse_)
+                kind_(other.kind_)
             {
-                if (reverse_)
+                if (kind_ == kind_t::user_it)
+                    new (&it_) CPIter(other.it_);
+                else if (kind_ == kind_t::rev_user_it)
                     new (&rit_) std::reverse_iterator<CPIter>(other.rit_);
                 else
-                    new (&it_) CPIter(other.it_);
+                    new (&ait_) mirrors_array_t::const_iterator(other.ait_);
             }
             fwd_rev_cp_iter(fwd_rev_cp_iter && other) noexcept :
-                reverse_(other.reverse_)
+                kind_(other.kind_)
             {
-                if (reverse_) {
+                if (kind_ == kind_t::user_it) {
+                    new (&it_) CPIter(std::move(other.it_));
+                } else if (kind_ == kind_t::rev_user_it) {
                     new (&rit_)
                         std::reverse_iterator<CPIter>(std::move(other.rit_));
                 } else {
-                    new (&it_) CPIter(std::move(other.it_));
+                    new (&ait_) mirrors_array_t::const_iterator(other.ait_);
                 }
             }
-            fwd_rev_cp_iter &
-            operator=(fwd_rev_cp_iter const & other) noexcept
+            fwd_rev_cp_iter & operator=(fwd_rev_cp_iter const & other) noexcept
             {
                 fwd_rev_cp_iter tmp(other);
                 std::swap(*this, tmp);
                 return *this;
             }
-            fwd_rev_cp_iter &
-            operator=(fwd_rev_cp_iter && other) noexcept
+            fwd_rev_cp_iter & operator=(fwd_rev_cp_iter && other) noexcept
             {
                 fwd_rev_cp_iter tmp(std::move(other));
                 std::swap(*this, tmp);
@@ -816,21 +1032,26 @@ namespace boost { namespace text {
             ~fwd_rev_cp_iter()
             {
                 using reverse_iterator_t = std::reverse_iterator<CPIter>;
-                if (reverse_)
+                using array_iterator_t = mirrors_array_t::const_iterator;
+                if (kind_ == kind_t::user_it)
+                    it_.~CPIter();
+                else if (kind_ == kind_t::rev_user_it)
                     rit_.~reverse_iterator_t();
                 else
-                    it_.~CPIter();
+                    ait_.~array_iterator_t();
             }
 
             fwd_rev_cp_iter & operator++() noexcept
             {
-                if (reverse_)
+                if (kind_ == kind_t::user_it)
+                    ++it_;
+                else if (kind_ == kind_t::rev_user_it)
                     ++rit_;
                 else
-                    ++it_;
+                    ++ait_;
                 return *this;
             }
-            fwd_rev_cp_iter operator++(int) noexcept
+            fwd_rev_cp_iter operator++(int)noexcept
             {
                 fwd_rev_cp_iter retval = *this;
                 ++*this;
@@ -839,31 +1060,42 @@ namespace boost { namespace text {
 
             fwd_rev_cp_iter & operator--() noexcept
             {
-                if (reverse_)
+                if (kind_ == kind_t::user_it)
                     --rit_;
-                else
+                else if (kind_ == kind_t::rev_user_it)
                     --it_;
+                else
+                    --ait_;
                 return *this;
             }
-            fwd_rev_cp_iter operator--(int) noexcept
+            fwd_rev_cp_iter operator--(int)noexcept
             {
                 fwd_rev_cp_iter retval = *this;
                 --*this;
                 return retval;
             }
 
-            reference operator*() noexcept { return reverse_ ? *rit_ : *it_; }
-            pointer operator->() noexcept
+            reference operator*() noexcept
             {
-                return reverse_ ? rit_.operator->() : it_.operator->();
+                if (kind_ == kind_t::user_it)
+                    return *it_;
+                else if (kind_ == kind_t::rev_user_it)
+                    return *rit_;
+                else
+                    return *ait_;
             }
 
             friend bool operator==(
                 fwd_rev_cp_iter const & lhs,
                 fwd_rev_cp_iter const & rhs) noexcept
             {
-                assert(lhs.reverse_ == rhs.reverse_);
-                return lhs.reverse_ ? lhs.rit_ == rhs.rit_ : lhs.it_ == rhs.it_;
+                assert(lhs.kind_ == rhs.kind_);
+                if (lhs.kind_ == kind_t::user_it)
+                    return lhs.it_ == rhs.it_;
+                else if (lhs.kind_ == kind_t::rev_user_it)
+                    return lhs.rit_ == rhs.rit_;
+                else
+                    return lhs.ait_ == rhs.ait_;
             }
             friend bool operator!=(
                 fwd_rev_cp_iter const & lhs,
@@ -873,13 +1105,25 @@ namespace boost { namespace text {
             }
 
         private:
-            union {
+            union
+            {
                 CPIter it_;
                 std::reverse_iterator<CPIter> rit_;
+                mirrors_array_t::const_iterator ait_;
             };
-            bool reverse_;
+            fwd_rev_cp_iter_kind kind_;
         };
     }
+
+    /** TODO */
+    struct next_hard_line_break_callable
+    {
+        template<typename CPIter>
+        CPIter operator()(CPIter first, CPIter last) noexcept
+        {
+            return next_hard_line_break(first, last);
+        }
+    };
 
     /** TODO */
     template<typename CPIter>
@@ -893,6 +1137,7 @@ namespace boost { namespace text {
             last_(last)
         {}
 
+        bool empty() const noexcept { return first_ == last_; }
         iterator begin() const noexcept { return first_; }
         iterator end() const noexcept { return last_; }
 
@@ -903,9 +1148,21 @@ namespace boost { namespace text {
 
     /** TODO
         TODO: Document that CPIter must be bidirectional.
+        TODO: Document that NextLineBreakFunc must be polymorphic, taking and
+        iterator whose value_type is uint32_t
+        TODO: Accept an optional paragraph_embedding_level (or make an
+        overload that takes same), in support of H1.  This replaces the call
+        to p2_p3() in X1, but not in X5.
     */
-    template<typename CPIter, typename OutIter>
-    OutIter bidirectional_order(CPIter first, CPIter last, OutIter out)
+    template<
+        typename CPIter,
+        typename OutIter,
+        typename NextLineBreakFunc = next_hard_line_break_callable>
+    OutIter bidirectional_order(
+        CPIter first,
+        CPIter last,
+        OutIter out,
+        NextLineBreakFunc && next_line_break = NextLineBreakFunc{})
     {
         static_assert(
             std::is_same<
@@ -1182,7 +1439,8 @@ namespace boost { namespace text {
                     });
 
                 // https://unicode.org/reports/tr9/#X10
-                auto all_runs = detail::find_all_runs(props_and_embeddings);
+                auto all_runs = detail::find_all_runs(
+                    props_and_embeddings.begin(), props_and_embeddings.end());
                 auto run_sequences =
                     detail::find_run_sequences(props_and_embeddings, all_runs);
 
@@ -1202,6 +1460,95 @@ namespace boost { namespace text {
                     detail::n2(run_sequence);
 
                     detail::i1_i2(run_sequence);
+                }
+
+                // TODO: Need a way to indicate the positions of soft line
+                // breaks (but probably not hard ones) interleaved with the
+                // subranges produced below.  Probably the way to do this is to
+                // output an empty range that indicates a line break.
+
+                lazy_segment_range<
+                    detail::props_and_embeddings_cp_iterator,
+                    NextLineBreakFunc>
+                    lines{{detail::props_and_embeddings_cp_iterator{
+                               props_and_embeddings.begin()},
+                           detail::props_and_embeddings_cp_iterator{
+                               props_and_embeddings.end()}},
+                          {detail::props_and_embeddings_cp_iterator{
+                               props_and_embeddings.end()},
+                           detail::props_and_embeddings_cp_iterator{
+                               props_and_embeddings.end()}}};
+                auto cp_line_start = paragraph.begin();
+                for (auto line : lines) {
+                    l1(line, paragraph_embedding_level);
+
+                    // https://unicode.org/reports/tr9/#L2
+                    all_runs =
+                        detail::find_all_runs(line.begin().it_, line.end().it_);
+                    auto reordered_runs = l2(all_runs);
+
+                    // TODO: Document that L3 is the caller's responsibility.
+
+                    // Output the reordered subranges.
+                    for (auto run : reordered_runs) {
+                        auto out_first = cp_line_start;
+                        auto out_last = cp_line_start;
+                        std::advance(
+                            out_last, line.end().it_ - line.begin().it_);
+                        cp_line_start = out_last;
+
+                        auto out_value =
+                            bidirectional_subrange<CPIter>{out_first, out_last};
+
+                        if (run.reversed()) {
+                            // https://unicode.org/reports/tr9/#L4
+
+                            // If this run's directionality is R (aka odd, aka
+                            // reversed), produce 1-code-point ranges for the
+                            // mirrored characters in the run, if any.
+                            while (out_first != out_last) {
+                                int mirror_index = -1;
+                                auto it = std::find_if(
+                                    out_value.begin(),
+                                    out_value.end(),
+                                    [&mirror_index](uint32_t cp) {
+                                        mirror_index =
+                                            detail::bidi_mirroring(cp);
+                                        return mirror_index != -1;
+                                    });
+                                if (it != out_value.end()) {
+                                    if (it != out_value.begin()) {
+                                        auto prev_subrange =
+                                            bidirectional_subrange<CPIter>{
+                                                out_value.begin(), it};
+                                        *out = prev_subrange;
+                                        ++out;
+                                    }
+                                    *out = bidirectional_subrange<CPIter>{
+                                        detail::fwd_rev_cp_iter<CPIter>{
+                                            detail::bidi_mirroreds().begin() +
+                                                mirror_index,
+                                            detail::fwd_rev_cp_iter_kind::
+                                                mirror_array_it},
+                                        detail::fwd_rev_cp_iter<CPIter>{
+                                            detail::bidi_mirroreds().begin() +
+                                                mirror_index + 1,
+                                            detail::fwd_rev_cp_iter_kind::
+                                                mirror_array_it}};
+                                    ++out;
+                                    out_value = bidirectional_subrange<CPIter>{
+                                        ++it, out_last};
+                                }
+                            }
+                            if (!out_value.empty()) {
+                                *out = out_value;
+                                ++out;
+                            }
+                        } else {
+                            *out = out_value;
+                            ++out;
+                        }
+                    }
                 }
             }
         }
