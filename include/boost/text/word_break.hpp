@@ -602,9 +602,9 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         template<typename CPIter>
         struct next_word_callable
         {
-            CPIter operator()(CPIter first, CPIter it, CPIter last) noexcept
+            CPIter operator()(CPIter it, CPIter last) noexcept
             {
-                return next_word_break(first, it, last);
+                return next_word_break(it, last);
             }
         };
     }
@@ -614,7 +614,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     inline cp_range<CPIter> word(CPIter first, CPIter it, CPIter last) noexcept
     {
         cp_range<CPIter> retval{prev_word_break(first, it, last)};
-        retval.last = next_word_break(first, retval.first, last);
+        retval.last = next_word_break(retval.first, last);
         return retval;
     }
 
@@ -624,7 +624,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     lazy_segment_range<CPIter, detail::next_word_callable<CPIter>>
     words(CPIter first, CPIter last) noexcept
     {
-        return {{first, first, last}, {first, last, last}};
+        return {{first, last}, {last, last}};
     }
 
 }}

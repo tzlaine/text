@@ -43,30 +43,30 @@ namespace boost { namespace text {
 
         \pre <code>it</code> is at the beginning of a paragraph. */
     template<typename CPIter>
-    CPIter next_paragraph_break(CPIter first, CPIter it, CPIter last) noexcept
+    CPIter next_paragraph_break(CPIter first, CPIter last) noexcept
     {
-        if (it == last)
+        if (first == last)
             return last;
-        while (++it != last) {
-            if (detail::paragraph_break(*it)) {
+        while (++first != last) {
+            if (detail::paragraph_break(*first)) {
                 // Eat LF after CR.
-                if (*it == 0xd && std::next(it) != last &&
-                    *std::next(it) == 0xa) {
-                    ++it;
+                if (*first == 0xd && std::next(first) != last &&
+                    *std::next(first) == 0xa) {
+                    ++first;
                 }
-                return ++it;
+                return ++first;
             }
         }
-        return it;
+        return first;
     }
 
     namespace detail {
         template<typename CPIter>
         struct next_paragraph_callable
         {
-            CPIter operator()(CPIter first, CPIter it, CPIter last) noexcept
+            CPIter operator()(CPIter it, CPIter last) noexcept
             {
-                return next_paragraph_break(first, it, last);
+                return next_paragraph_break(it, last);
             }
         };
     }
@@ -77,7 +77,7 @@ namespace boost { namespace text {
     cp_range<CPIter> paragraph(CPIter first, CPIter it, CPIter last) noexcept
     {
         cp_range<CPIter> retval{prev_paragraph_break(first, it, last)};
-        retval.last = next_paragraph_break(first, retval.first, last);
+        retval.last = next_paragraph_break(retval.first, last);
         return retval;
     }
 
@@ -85,9 +85,9 @@ namespace boost { namespace text {
         <code>[first, last]</code>. */
     template<typename CPIter>
     lazy_segment_range<CPIter, detail::next_paragraph_callable<CPIter>>
-    paragraphs(CPIter first, CPIter it, CPIter last) noexcept
+    paragraphs(CPIter first, CPIter last) noexcept
     {
-        return {{first, it, last}, {last, last, last}};
+        return {{first, last}, {last, last}};
     }
 
 }}

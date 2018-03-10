@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_LINE_BREAK_HPP
 #define BOOST_TEXT_LINE_BREAK_HPP
 
+#include <boost/text/lazy_segment_range.hpp>
+
 #include <algorithm>
 #include <array>
 
@@ -579,9 +581,74 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     /** TODO */
     template<typename CPIter>
-    inline CPIter next_line_break(CPIter first, CPIter last) noexcept
+    inline CPIter next_possible_line_break(CPIter first, CPIter last) noexcept
     {
         return detail::next_line_break_impl(first, last, false);
+    }
+
+    namespace detail {
+        template<typename CPIter>
+        struct next_hard_line_break_callable
+        {
+            CPIter operator()(CPIter it, CPIter last) noexcept
+            {
+                return next_hard_line_break(it, last);
+            }
+        };
+        template<typename CPIter>
+        struct next_possible_line_break_callable
+        {
+            CPIter operator()(CPIter it, CPIter last) noexcept
+            {
+                return next_possible_line_break(it, last);
+            }
+        };
+    }
+
+#if 0 // TODO: Depends on prev_hard_line_break().
+    /** Returns the bounds of the line (using hard line breaks) that
+        <code>it</code> lies within. */
+    template<typename CPIter>
+    inline cp_range<CPIter> line(CPIter first, CPIter it, CPIter last) noexcept
+    {
+        cp_range<CPIter> retval{prev_hard_line_break(first, it, last)};
+        retval.last = next_hard_line_break(retval.first, last);
+        return retval;
+    }
+#endif
+
+    /** Returns a lazy range of the code point ranges delimiting lines (using
+        hard line breaks) in <code>[first, last]</code>. */
+    template<typename CPIter>
+    lazy_segment_range<CPIter, detail::next_hard_line_break_callable<CPIter>>
+    lines(CPIter first, CPIter last) noexcept
+    {
+        return {{first, first, last}, {first, last, last}};
+    }
+
+#if 0 // TODO: Depends on prev_possible_line_break().
+    /** Returns the bounds of the smallest chunk of text that could be broken
+        off into a line, searching from <code>it</code> in either
+        direction. */
+    template<typename CPIter>
+    inline cp_range<CPIter>
+    possible_line(CPIter first, CPIter it, CPIter last) noexcept
+    {
+        cp_range<CPIter> retval{prev_possible_line_break(first, it, last)};
+        retval.last = next_possible_line_break(retval.first, last);
+        return retval;
+    }
+#endif
+
+    /** Returns a lazy range of the code point ranges delimiting possible
+        lines in <code>[first, last]</code>. */
+    template<typename CPIter>
+    lazy_segment_range<
+        CPIter,
+        detail::next_possible_line_break_callable<CPIter>>
+    possible_lines(CPIter first, CPIter last) noexcept
+    {
+        return {{first, last}, {last, last}};
     }
 
 }}

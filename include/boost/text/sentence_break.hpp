@@ -570,9 +570,9 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         template<typename CPIter>
         struct next_sentence_callable
         {
-            CPIter operator()(CPIter first, CPIter it, CPIter last) noexcept
+            CPIter operator()(CPIter it, CPIter last) noexcept
             {
-                return next_sentence_break(first, it, last);
+                return next_sentence_break(it, last);
             }
         };
     }
@@ -584,7 +584,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     sentence(CPIter first, CPIter it, CPIter last) noexcept
     {
         cp_range<CPIter> retval{prev_sentence_break(first, it, last)};
-        retval.last = next_sentence_break(first, retval.first, last);
+        retval.last = next_sentence_break(retval.first, last);
         return retval;
     }
 
@@ -594,7 +594,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     lazy_segment_range<CPIter, detail::next_sentence_callable<CPIter>>
     sentences(CPIter first, CPIter last) noexcept
     {
-        return {{first, first, last}, {first, last, last}};
+        return {{first, last}, {last, last}};
     }
 
 }}

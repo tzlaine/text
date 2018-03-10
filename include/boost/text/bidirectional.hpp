@@ -2,6 +2,7 @@
 #define BOOST_TEXT_BIDIRECTIONAL_HPP
 
 #include <boost/text/bidirectional_fwd.hpp>
+#include <boost/text/line_break.hpp>
 #include <boost/text/paragraph_break.hpp>
 #include <boost/text/detail/bidirectional.hpp>
 
@@ -987,7 +988,7 @@ namespace boost { namespace text {
         };
 
         // https://unicode.org/reports/tr9/#P1
-        for (auto paragraph : paragraphs(first, first, last)) {
+        for (auto paragraph : paragraphs(first, last)) {
             auto const para_it = paragraph.begin();
             auto const para_last = paragraph.end();
 
