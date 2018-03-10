@@ -1693,7 +1693,9 @@ TEST(line, breaks_8)
     {
         std::array<uint32_t, 2> cps = {{ 0x29, 0x24 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+#if 0 // LB25 has explicit rule "CP x PR"
         EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 1);
+#endif
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
@@ -1721,9 +1723,11 @@ TEST(line, breaks_8)
     {
         std::array<uint32_t, 3> cps = {{ 0x29, 0x308, 0x24 }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+#if 0 // LB25 has explicit rule "CP x PR"
         EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 2);
+#endif
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 3);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);

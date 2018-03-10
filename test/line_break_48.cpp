@@ -249,6 +249,7 @@ TEST(line, breaks_48)
     {
         std::array<uint32_t, 24> cps = {{ 0x7b, 0x30, 0x2c, 0x31, 0x7d, 0x2b, 0x7b, 0x32, 0x2c, 0x33, 0x7d, 0x2295, 0x7b, 0x2212, 0x34, 0x2c, 0x35, 0x7d, 0x2296, 0x7b, 0x36, 0x2c, 0x37, 0x7d }};
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+#if 0 // LB25 has explicit rule "CL x PR"
         EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
@@ -270,6 +271,7 @@ TEST(line, breaks_48)
         EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 11);
+#endif
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
         EXPECT_EQ(boost::text::next_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 18);
 //        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
