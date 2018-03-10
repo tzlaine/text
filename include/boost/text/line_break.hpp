@@ -201,7 +201,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         {
             if (state.it != first && !skippable(state.prev_prop) &&
                 lb9_x(state.prev_prop) && skippable(state.prop)) {
-                // TODO: -> find_if (here and elsewhere!)
                 auto temp_it = std::find_if_not(
                     std::next(state.it), last, [](uint32_t cp) {
                         return skippable(line_prop(cp));
@@ -265,10 +264,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             bool released_;
         };
 
-        // TODO: Get rid of 'first' and initial '++it'.  Since the
-        // precondition for calling this function is that 'it' is at SOT or a
-        // line break, previous state can be ignored.  This also applies to
-        // other break algorithms.
         template<typename CPIter>
         inline CPIter next_line_break_impl(
             CPIter first, CPIter last, bool hard_breaks_only) noexcept
