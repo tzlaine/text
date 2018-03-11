@@ -1915,6 +1915,197 @@ TEST(detail_bidi, n1_)
     }
 }
 
+TEST(detail_bidi, l2_)
+{
+    {
+        props_and_embeddings_t paes = {
+            {'c', 0, bidi_prop_t::L, false},
+            {'a', 0, bidi_prop_t::L, false},
+            {'r', 0, bidi_prop_t::L, false},
+            {' ', 0, bidi_prop_t::WS, false},
+            {'m', 0, bidi_prop_t::L, false},
+            {'e', 0, bidi_prop_t::L, false},
+            {'a', 0, bidi_prop_t::L, false},
+            {'n', 0, bidi_prop_t::L, false},
+            {'s', 0, bidi_prop_t::L, false},
+            {' ', 0, bidi_prop_t::WS, false},
+            {'C', 1, bidi_prop_t::R, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'R', 1, bidi_prop_t::R, false},
+            {'.', 0, bidi_prop_t::CS, false},
+        };
+
+        auto runs = find_all_runs(paes.begin(), paes.end());
+        reordered_runs_t reordered_runs = l2(runs);
+
+        string result;
+        for (auto run : reordered_runs) {
+            for (auto pae : run) {
+                result += (char)pae.cp_;
+            }
+        }
+
+        EXPECT_EQ(result, "car means RAC.");
+    }
+    {
+        props_and_embeddings_t paes = {
+            {'<', 0, bidi_prop_t::RLI, false},
+            {'c', 2, bidi_prop_t::L, false},
+            {'a', 2, bidi_prop_t::L, false},
+            {'r', 2, bidi_prop_t::L, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'M', 1, bidi_prop_t::R, false},
+            {'E', 1, bidi_prop_t::R, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'N', 1, bidi_prop_t::R, false},
+            {'S', 1, bidi_prop_t::R, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'C', 1, bidi_prop_t::R, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'R', 1, bidi_prop_t::R, false},
+            {'.', 1, bidi_prop_t::CS, false},
+            {'=', 0, bidi_prop_t::PDI, false},
+        };
+
+        auto runs = find_all_runs(paes.begin(), paes.end());
+        reordered_runs_t reordered_runs = l2(runs);
+
+        string result;
+        for (auto run : reordered_runs) {
+            for (auto pae : run) {
+                result += (char)pae.cp_;
+            }
+        }
+
+        EXPECT_EQ(result, "<.RAC SNAEM car=");
+    }
+    {
+        props_and_embeddings_t paes = {
+            {'h', 0, bidi_prop_t::L, false},
+            {'e', 0, bidi_prop_t::L, false},
+            {' ', 0, bidi_prop_t::WS, false},
+            {'s', 0, bidi_prop_t::L, false},
+            {'a', 0, bidi_prop_t::L, false},
+            {'i', 0, bidi_prop_t::L, false},
+            {'d', 0, bidi_prop_t::L, false},
+            {' ', 0, bidi_prop_t::WS, false},
+            {'"', 0, bidi_prop_t::ON, false},
+            {'<', 0, bidi_prop_t::RLI, false},
+            {'c', 2, bidi_prop_t::L, false},
+            {'a', 2, bidi_prop_t::L, false},
+            {'r', 2, bidi_prop_t::L, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'M', 1, bidi_prop_t::R, false},
+            {'E', 1, bidi_prop_t::R, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'N', 1, bidi_prop_t::R, false},
+            {'S', 1, bidi_prop_t::R, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'C', 1, bidi_prop_t::R, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'R', 1, bidi_prop_t::R, false},
+            {'=', 0, bidi_prop_t::PDI, false},
+            {'.', 0, bidi_prop_t::CS, false},
+            {'"', 0, bidi_prop_t::ON, false},
+            {' ', 0, bidi_prop_t::WS, false},
+            {'"', 0, bidi_prop_t::ON, false},
+            {'<', 0, bidi_prop_t::RLI, false},
+            {'I', 1, bidi_prop_t::R, false},
+            {'T', 1, bidi_prop_t::R, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'D', 1, bidi_prop_t::R, false},
+            {'O', 1, bidi_prop_t::R, false},
+            {'E', 1, bidi_prop_t::R, false},
+            {'S', 1, bidi_prop_t::R, false},
+            {'=', 0, bidi_prop_t::PDI, false},
+            {',', 0, bidi_prop_t::CS, false},
+            {'"', 0, bidi_prop_t::ON, false},
+            {' ', 0, bidi_prop_t::WS, false},
+            {'s', 0, bidi_prop_t::L, false},
+            {'h', 0, bidi_prop_t::L, false},
+            {'e', 0, bidi_prop_t::L, false},
+            {' ', 0, bidi_prop_t::WS, false},
+            {'a', 0, bidi_prop_t::L, false},
+            {'g', 0, bidi_prop_t::L, false},
+            {'r', 0, bidi_prop_t::L, false},
+            {'e', 0, bidi_prop_t::L, false},
+            {'e', 0, bidi_prop_t::L, false},
+            {'d', 0, bidi_prop_t::L, false},
+            {'.', 0, bidi_prop_t::CS, false},
+        };
+
+        auto runs = find_all_runs(paes.begin(), paes.end());
+        reordered_runs_t reordered_runs = l2(runs);
+
+        string result;
+        for (auto run : reordered_runs) {
+            for (auto pae : run) {
+                result += (char)pae.cp_;
+            }
+        }
+
+        EXPECT_EQ(result, R"(he said “<RAC SNAEM car=.” “<SEOD TI=,” she agreed.)");
+    }
+    {
+        props_and_embeddings_t paes = {
+            {'D', 1, bidi_prop_t::R, false},
+            {'I', 1, bidi_prop_t::R, false},
+            {'D', 1, bidi_prop_t::R, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'Y', 1, bidi_prop_t::R, false},
+            {'O', 1, bidi_prop_t::R, false},
+            {'U', 1, bidi_prop_t::R, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'S', 1, bidi_prop_t::R, false},
+            {'A', 1, bidi_prop_t::R, false},
+            {'Y', 1, bidi_prop_t::R, false},
+            {' ', 1, bidi_prop_t::WS, false},
+            {'\'', 1, bidi_prop_t::ON, false},
+            {'>', 1, bidi_prop_t::LRI, false},
+            {'h', 2, bidi_prop_t::L, false},
+            {'e', 2, bidi_prop_t::L, false},
+            {' ', 2, bidi_prop_t::WS, false},
+            {'s', 2, bidi_prop_t::L, false},
+            {'a', 2, bidi_prop_t::L, false},
+            {'i', 2, bidi_prop_t::L, false},
+            {'d', 2, bidi_prop_t::L, false},
+            {' ', 2, bidi_prop_t::WS, false},
+            {'"', 2, bidi_prop_t::ON, false},
+            {'<', 2, bidi_prop_t::RLI, false},
+            {'c', 4, bidi_prop_t::L, false},
+            {'a', 4, bidi_prop_t::L, false},
+            {'r', 4, bidi_prop_t::L, false},
+            {' ', 3, bidi_prop_t::WS, false},
+            {'M', 3, bidi_prop_t::R, false},
+            {'E', 3, bidi_prop_t::R, false},
+            {'A', 3, bidi_prop_t::R, false},
+            {'N', 3, bidi_prop_t::R, false},
+            {'S', 3, bidi_prop_t::R, false},
+            {' ', 3, bidi_prop_t::WS, false},
+            {'C', 3, bidi_prop_t::R, false},
+            {'A', 3, bidi_prop_t::R, false},
+            {'R', 3, bidi_prop_t::R, false},
+            {'=', 2, bidi_prop_t::PDI, false},
+            {'"', 2, bidi_prop_t::ON, false},
+            {'=', 1, bidi_prop_t::PDI, false},
+            {'\'', 1, bidi_prop_t::ON, false},
+            {'?', 1, bidi_prop_t::ON, false},
+        };
+
+        auto runs = find_all_runs(paes.begin(), paes.end());
+        reordered_runs_t reordered_runs = l2(runs);
+
+        string result;
+        for (auto run : reordered_runs) {
+            for (auto pae : run) {
+                result += (char)pae.cp_;
+            }
+        }
+
+        EXPECT_EQ(result, R"(?‘=he said “<RAC SNAEM car=”>’ YAS UOY DID)");
+    }
+}
+
 // TODO: This is just here for early-stage testing.  Remove once an actual
 // test exists for this function.
 TEST(detail_bidi, bidirectional_order_instantiation)

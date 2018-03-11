@@ -862,6 +862,9 @@ namespace boost { namespace text {
                 return reversed() ? last_->embedding_ : first_->embedding_;
             }
 
+            iterator begin() const noexcept { return first_; }
+            iterator end() const noexcept { return last_; }
+
             void reverse() noexcept { std::swap(first_, last_); }
 
             iterator first_;
