@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_BIDIRECTIONAL_HPP
 #define BOOST_TEXT_BIDIRECTIONAL_HPP
 
+#include <boost/text/algorithm.hpp>
 #include <boost/text/bidirectional_fwd.hpp>
 #include <boost/text/line_break.hpp>
 #include <boost/text/paragraph_break.hpp>
@@ -872,60 +873,6 @@ namespace boost { namespace text {
         };
 
         using reordered_runs_t = container::small_vector<reordered_run, 1024>;
-
-        // TODO: This should be put somewhere it can be reused more broadly.
-        template<typename Iter, typename Sentinel = Iter>
-        struct foreach_subrange_range
-        {
-            using iterator = Iter;
-            using sentinel = Sentinel;
-
-            foreach_subrange_range() {}
-            foreach_subrange_range(iterator first, sentinel last) :
-                first_(first),
-                last_(last)
-            {}
-
-            iterator begin() const noexcept { return first_; }
-            sentinel end() const noexcept { return last_; }
-
-        private:
-            iterator first_;
-            sentinel last_;
-        };
-
-        // TODO: This should be put somewhere it can be reused more broadly.
-        template<typename FwdIter, typename Sentinel, typename T, typename Func>
-        void foreach_subrange(FwdIter first, Sentinel last, T const & x, Func f)
-        {
-            using value_type =
-                typename std::iterator_traits<FwdIter>::value_type;
-            while (first != last) {
-                first = std::find(first, last, x);
-                auto next = std::find_if_not(
-                    first, last, [&x](value_type const & elem) {
-                        return elem == x;
-                    });
-                f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
-                first = next;
-            }
-        }
-
-        // TODO: This should be put somewhere it can be reused more broadly.
-        template<
-            typename FwdIter,
-            typename Sentinel,
-            typename Pred,
-            typename Func>
-        void foreach_subrange_if(FwdIter first, Sentinel last, Pred p, Func f)
-        {
-            while (first != last) {
-                first = std::find_if(first, last, p);
-                auto next = std::find_if_not(first, last, p);
-                f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
-                first = next;
-            }
-        }
 
         inline reordered_runs_t l2(all_runs_t const & all_runs)
         {

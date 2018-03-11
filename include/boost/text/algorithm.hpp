@@ -924,6 +924,115 @@ namespace boost { namespace text {
         return back(string_view(r));
     }
 
+    /** TODO */
+    template<typename BidiIter, typename T>
+    BidiIter find_backward(BidiIter first, BidiIter last, T const & x)
+    {
+        if (first == last)
+            return last;
+        auto it = last;
+        while (it != first) {
+            if (*--it == x)
+                return it;
+        }
+        return last;
+    }
+
+    /** TODO */
+    template<typename BidiIter, typename T>
+    BidiIter find_not_backward(BidiIter first, BidiIter last, T const & x)
+    {
+        if (first == last)
+            return last;
+        auto it = last;
+        while (it != first) {
+            if (*--it != x)
+                return it;
+        }
+        return last;
+    }
+
+    /** TODO */
+    template<typename BidiIter, typename Pred>
+    BidiIter find_if_backward(BidiIter first, BidiIter last, Pred p)
+    {
+        if (first == last)
+            return last;
+        auto it = last;
+        while (it != first) {
+            if (p(*--it))
+                return it;
+        }
+        return last;
+    }
+
+    /** TODO */
+    template<typename BidiIter, typename Pred>
+    BidiIter find_if_not_backward(BidiIter first, BidiIter last, Pred p)
+    {
+        if (first == last)
+            return last;
+        auto it = last;
+        while (it != first) {
+            if (!p(*--it))
+                return it;
+        }
+        return last;
+    }
+
+    template<typename Iter, typename Sentinel = Iter>
+    struct foreach_subrange_range
+    {
+        using iterator = Iter;
+        using sentinel = Sentinel;
+
+        foreach_subrange_range() {}
+        foreach_subrange_range(iterator first, sentinel last) :
+            first_(first),
+            last_(last)
+        {}
+
+        iterator begin() const noexcept { return first_; }
+        sentinel end() const noexcept { return last_; }
+
+    private:
+        iterator first_;
+        sentinel last_;
+    };
+
+    /** TODO */
+    template<typename FwdIter, typename Sentinel, typename T, typename Func>
+    void foreach_subrange(FwdIter first, Sentinel last, T const & x, Func f)
+    {
+        using value_type = typename std::iterator_traits<FwdIter>::value_type;
+        while (first != last) {
+            first = std::find(first, last, x);
+            auto next =
+                std::find_if_not(first, last, [&x](value_type const & elem) {
+                    return elem == x;
+                });
+            f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
+            first = next;
+        }
+    }
+
+    /** TODO */
+    template<typename FwdIter, typename Sentinel, typename Pred, typename Func>
+    void foreach_subrange_if(FwdIter first, Sentinel last, Pred p, Func f)
+    {
+        while (first != last) {
+            first = std::find_if(first, last, p);
+            auto next = std::find_if_not(first, last, p);
+            f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
+            first = next;
+        }
+    }
+
+    /** TODO: foreach_partition(), range overloads of the above. */
+
+    // TODO: Separate constexpr versions into their own namespace and header,
+    // and only provide the non-constexpr ones here.
+
 }}
 
 #endif

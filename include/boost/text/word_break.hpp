@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_WORD_BREAK_HPP
 #define BOOST_TEXT_WORD_BREAK_HPP
 
+#include <boost/text/algorithm.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <array>
@@ -195,57 +196,6 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             }
             return state;
         }
-
-        // TODO: Put these somewhere it can be more broadly reused.
-        template<typename BidiIter, typename T>
-        BidiIter find_backward(BidiIter first, BidiIter last, T const & x)
-        {
-            if (first == last)
-                return last;
-            auto it = last;
-            while (it != first) {
-                if (*--it == x)
-                    return it;
-            }
-            return last;
-        }
-        template<typename BidiIter, typename T>
-        BidiIter find_not_backward(BidiIter first, BidiIter last, T const & x)
-        {
-            if (first == last)
-                return last;
-            auto it = last;
-            while (it != first) {
-                if (*--it != x)
-                    return it;
-            }
-            return last;
-        }
-        template<typename BidiIter, typename Pred>
-        BidiIter find_if_backward(BidiIter first, BidiIter last, Pred p)
-        {
-            if (first == last)
-                return last;
-            auto it = last;
-            while (it != first) {
-                if (p(*--it))
-                    return it;
-            }
-            return last;
-        }
-        template<typename BidiIter, typename Pred>
-        BidiIter find_if_not_backward(BidiIter first, BidiIter last, Pred p)
-        {
-            if (first == last)
-                return last;
-            auto it = last;
-            while (it != first) {
-                if (!p(*--it))
-                    return it;
-            }
-            return last;
-        }
-
     }
 
     // TODO: Sentinels!  Also, audit elsewhere for places that can use them.
@@ -255,8 +205,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         point of the word <code>it</code> is within is returned (even if
         <code>it</code> is already at the first code point of a word. */
     template<typename CPIter>
-    inline CPIter
-    prev_word_break(CPIter first, CPIter it, CPIter last) noexcept
+    inline CPIter prev_word_break(CPIter first, CPIter it, CPIter last) noexcept
     {
         if (it == first)
             return it;
@@ -273,7 +222,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         // Special case: If state.prop is skippable, we need to skip backward
         // until we find a non-skippable.
         if (detail::skippable(state.prop)) {
-            state.it = detail::find_if_not_backward(first, it, [](uint32_t cp) {
+            state.it = find_if_not_backward(first, it, [](uint32_t cp) {
                 return detail::skippable(word_prop(cp));
             });
             state.next_prop = word_prop(*std::next(state.it));
@@ -333,8 +282,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         // ZWJ)*
         auto skip = [](detail::word_break_state<CPIter> state, CPIter first) {
             if (detail::skippable(state.prev_prop)) {
-                auto temp_it = detail::find_if_not_backward(
-                    first, state.it, [](uint32_t cp) {
+                auto temp_it =
+                    find_if_not_backward(first, state.it, [](uint32_t cp) {
                         return detail::skippable(word_prop(cp));
                     });
                 if (temp_it == state.it)
