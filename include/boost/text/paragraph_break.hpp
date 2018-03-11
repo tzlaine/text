@@ -28,13 +28,11 @@ namespace boost { namespace text {
     template<typename CPIter>
     CPIter prev_paragraph_break(CPIter first, CPIter it, CPIter last) noexcept
     {
-        while (it != first) {
-            if (detail::paragraph_break(*--it)) {
-                ++it;
-                break;
-            }
-        }
-        return it;
+        auto const initial_it = it;
+        it = find_if_backward(first, it, detail::paragraph_break);
+        if (it == initial_it)
+            return first;
+        return ++it;
     }
 
     /** Finds the next paragraph break after <code>it</code>.  This will be
@@ -47,17 +45,13 @@ namespace boost { namespace text {
     {
         if (first == last)
             return last;
-        while (++first != last) {
-            if (detail::paragraph_break(*first)) {
-                // Eat LF after CR.
-                if (*first == 0xd && std::next(first) != last &&
-                    *std::next(first) == 0xa) {
-                    ++first;
-                }
-                return ++first;
-            }
+        first = std::find_if(std::next(first), last, detail::paragraph_break);
+        // Eat LF after CR.
+        if (*first == 0xd && std::next(first) != last &&
+            *std::next(first) == 0xa) {
+            ++first;
         }
-        return first;
+        return ++first;
     }
 
     namespace detail {
