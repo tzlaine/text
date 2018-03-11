@@ -196,6 +196,56 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             return state;
         }
 
+        // TODO: Put these somewhere it can be more broadly reused.
+        template<typename BidiIter, typename T>
+        BidiIter find_backward(BidiIter first, BidiIter last, T const & x)
+        {
+            if (first == last)
+                return last;
+            auto it = last;
+            while (it != first) {
+                if (*--it == x)
+                    return it;
+            }
+            return last;
+        }
+        template<typename BidiIter, typename T>
+        BidiIter find_not_backward(BidiIter first, BidiIter last, T const & x)
+        {
+            if (first == last)
+                return last;
+            auto it = last;
+            while (it != first) {
+                if (*--it != x)
+                    return it;
+            }
+            return last;
+        }
+        template<typename BidiIter, typename Pred>
+        BidiIter find_if_backward(BidiIter first, BidiIter last, Pred p)
+        {
+            if (first == last)
+                return last;
+            auto it = last;
+            while (it != first) {
+                if (p(*--it))
+                    return it;
+            }
+            return last;
+        }
+        template<typename BidiIter, typename Pred>
+        BidiIter find_if_not_backward(BidiIter first, BidiIter last, Pred p)
+        {
+            if (first == last)
+                return last;
+            auto it = last;
+            while (it != first) {
+                if (!p(*--it))
+                    return it;
+            }
+            return last;
+        }
+
     }
 
     // TODO: Sentinels!  Also, audit elsewhere for places that can use them.
@@ -223,10 +273,12 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         // Special case: If state.prop is skippable, we need to skip backward
         // until we find a non-skippable.
         if (detail::skippable(state.prop)) {
-            while (state.it != first && detail::skippable(state.prop)) {
-                state.next_prop = state.prop;
-                state.prop = word_prop(*--state.it);
-            }
+            state.it = detail::find_if_not_backward(first, it, [](uint32_t cp) {
+                return detail::skippable(word_prop(cp));
+            });
+            state.next_prop = word_prop(*std::next(state.it));
+            state.prop = word_prop(*state.it);
+
             // If we end up on a non-skippable that should break before the
             // skippable(s) we just moved over, break on the last skippable.
             if (!detail::skippable(state.prop) &&
@@ -281,13 +333,13 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         // ZWJ)*
         auto skip = [](detail::word_break_state<CPIter> state, CPIter first) {
             if (detail::skippable(state.prev_prop)) {
-                auto temp_it = state.it;
-                auto temp_prev_prop = word_prop(*--temp_it);
-                while (temp_it != first && detail::skippable(temp_prev_prop)) {
-                    temp_prev_prop = word_prop(*--temp_it);
-                }
-                if (temp_it == first && detail::skippable(temp_prev_prop))
+                auto temp_it = detail::find_if_not_backward(
+                    first, state.it, [](uint32_t cp) {
+                        return detail::skippable(word_prop(cp));
+                    });
+                if (temp_it == state.it)
                     return state;
+                auto temp_prev_prop = word_prop(*temp_it);
                 if (!detail::linebreak(temp_prev_prop)) {
                     state.it = temp_it;
                     state.it_points_to_prev = true;
