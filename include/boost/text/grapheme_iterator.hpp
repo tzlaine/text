@@ -45,8 +45,8 @@ namespace boost { namespace text {
         friend struct grapheme_iterator;
     };
 
-    /** A bidirectional filtering iterator that finds the extended grapheme
-        clusters in a sequence of code points. */
+    /** A bidirectional filtering iterator that iterates over the extended
+        grapheme clusters in a sequence of code points. */
     template<typename Iter, typename Sentinel>
     struct grapheme_iterator
     {
@@ -73,13 +73,10 @@ namespace boost { namespace text {
         grapheme_iterator() noexcept : grapheme_{} {}
 
         grapheme_iterator(Iter first, Iter it, Sentinel last) noexcept :
-            grapheme_{it, it},
+            grapheme_{it, next_grapheme_break(it, last)},
             first_(first),
             last_(last)
-        {
-            if (grapheme_.first_ != last_)
-                find_next_break();
-        }
+        {}
 
         reference operator*() const noexcept { return grapheme_; }
 
@@ -90,7 +87,7 @@ namespace boost { namespace text {
         grapheme_iterator & operator++() noexcept
         {
             grapheme_.first_ = grapheme_.last_;
-            find_next_break();
+            grapheme_.last_ = next_grapheme_break(grapheme_.last_, last_);
             return *this;
         }
 
@@ -105,9 +102,7 @@ namespace boost { namespace text {
         {
             grapheme_.last_ = grapheme_.first_;
             grapheme_.first_ =
-                find_grapheme_start(first_, --grapheme_.first_, last_);
-            break_.prop_ = grapheme_prop(*grapheme_.first_);
-            break_.fsm_ = grapheme_break_fsm{};
+                prev_grapheme_break(first_, --grapheme_.first_, last_);
             return *this;
         }
 
@@ -133,27 +128,9 @@ namespace boost { namespace text {
         }
 
     private:
-        void find_next_break() noexcept
-        {
-            if (grapheme_.last_ != last_) {
-                break_ =
-                    grapheme_break(break_.fsm_, break_.prop_, *grapheme_.last_);
-                ++grapheme_.last_;
-            }
-            while (grapheme_.last_ != last_) {
-                auto const new_break =
-                    grapheme_break(break_.fsm_, break_.prop_, *grapheme_.last_);
-                if (new_break)
-                    break;
-                break_ = new_break;
-                ++grapheme_.last_;
-            }
-        }
-
         value_type grapheme_;
         Iter first_;
         Sentinel last_;
-        grapheme_break_t break_;
     };
 
 }}

@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_GRAPHEME_BREAK_HPP
 #define BOOST_TEXT_GRAPHEME_BREAK_HPP
 
+#include <boost/text/algorithm.hpp>
+
 #include <array>
 
 #include <cassert>
@@ -31,86 +33,53 @@ namespace boost { namespace text {
         E_Base_GAZ
     };
 
-    /** A state machine used in the detection of extended grapheme clusters.
-        Only suitable for detection in the forward direction. */
-    struct grapheme_break_fsm
-    {
-        enum class state {
-            use_table,
-            emoji_mod, // GB10
-            emoji_flag // GB12, GB13
-        };
-
-        grapheme_break_fsm() noexcept : state_(state::use_table) {}
-
-        bool no_break(grapheme_prop_t prop) noexcept
-        {
-            if (state_ == state::emoji_mod) {
-                if (prop == grapheme_prop_t::E_Modifier) {
-                    state_ = state::use_table;
-                    return true;
-                }
-                if (prop != grapheme_prop_t::Extend)
-                    state_ = state::use_table;
-            } else if (
-                prop == grapheme_prop_t::E_Base ||
-                prop == grapheme_prop_t::E_Base_GAZ) {
-                state_ = state::emoji_mod;
-            }
-
-            if (state_ == state::emoji_flag) {
-                if (prop == grapheme_prop_t::Regional_Indicator) {
-                    state_ = state::use_table;
-                    return true;
-                } else {
-                    state_ = state::use_table;
-                }
-            } else if (prop == grapheme_prop_t::Regional_Indicator) {
-                state_ = state::emoji_flag;
-            }
-
-            return false;
-        }
-
-    private:
-        state state_;
-    };
-
-    /** A bookkeeping struct used to apply a \c grapheme_break_fsm to repeated
-        calls to \c grapheme_break(). */
-    struct grapheme_break_t
-    {
-        grapheme_break_t() noexcept : break_(false), prop_(grapheme_prop_t::LF)
-        {}
-        grapheme_break_t(
-            bool b, grapheme_prop_t p, grapheme_break_fsm fsm) noexcept :
-            break_(b),
-            prop_(p),
-            fsm_(fsm)
-        {}
-
-        operator bool() const noexcept { return break_; }
-
-        bool break_;
-        grapheme_prop_t prop_;
-        grapheme_break_fsm fsm_;
-    };
-
     /** Returns the grapheme property associated with code point \a cp. */
     grapheme_prop_t grapheme_prop(uint32_t cp) noexcept;
 
-    /** Returns true if and only if the table from the Unicode Character
-        Database indicates a break between \a lhs and \a rhs. */
-    inline bool
-    grapheme_table_break(grapheme_prop_t lhs, grapheme_prop_t rhs) noexcept
-    {
-        // Note that RI.RI was changed to '1' since that case is handled in
-        // the grapheme break FSM.
+    namespace detail {
+        inline bool skippable(grapheme_prop_t prop) noexcept
+        {
+            return prop == grapheme_prop_t::Extend;
+        }
 
-        // clang-format off
+        enum class grapheme_break_emoji_state_t {
+            none,
+            first_emoji, // Indicates that prop points to an odd-count
+                         // emoji.
+            second_emoji // Indicates that prop points to an even-count
+                         // emoji.
+        };
+
+        template<typename CPIter>
+        struct grapheme_break_state
+        {
+            CPIter it;
+            // TODO bool it_points_to_prev = false;
+
+            grapheme_prop_t prev_prop;
+            grapheme_prop_t prop;
+
+            grapheme_break_emoji_state_t emoji_state;
+        };
+
+        template<typename CPIter>
+        grapheme_break_state<CPIter> next(grapheme_break_state<CPIter> state)
+        {
+            ++state.it;
+            state.prev_prop = state.prop;
+            return state;
+        }
+
+        inline bool
+        table_grapheme_break(grapheme_prop_t lhs, grapheme_prop_t rhs) noexcept
+        {
+            // Note that RI.RI was changed to '1' since that case is handled in
+            // the grapheme break FSM.
+
+            // clang-format off
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/GraphemeBreakTest.html.
 constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
-//  Other CR LF Ctrl Ext Pre SpcMk L  V  T  LV LVT RI E_Bse E_Mod ZWJ GAZ EBG
+//   Other CR LF Ctrl Ext Pre SpcMk L  V  T  LV LVT RI E_Bse E_Mod ZWJ GAZ EBG
     {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  1,  1}}, // Other
     {{1,   1, 0, 1,   1,  1,  1,    1, 1, 1, 1, 1,  1, 1,    1,    1,  1,  1}}, // CR
     {{1,   1, 1, 1,   1,  1,  1,    1, 1, 1, 1, 1,  1, 1,    1,    1,  1,  1}}, // LF
@@ -135,34 +104,43 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  1,  1}}, // Glue_After_Zwj
     {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    0,    0,  1,  1}}, // E_Base_GAZ
 }};
-        // clang-format on
-        auto const lhs_int = static_cast<int>(lhs);
-        auto const rhs_int = static_cast<int>(rhs);
-        return grapheme_breaks[lhs_int][rhs_int];
-    }
+            // clang-format on
+            auto const lhs_int = static_cast<int>(lhs);
+            auto const rhs_int = static_cast<int>(rhs);
+            return grapheme_breaks[lhs_int][rhs_int];
+        }
 
-    /** Returns a \c grapheme_break_t that indicates whether a grapheme break
-        was detected and that contains the current break-detection state. */
-    inline grapheme_break_t grapheme_break(
-        grapheme_break_fsm fsm, grapheme_prop_t prop, uint32_t cp) noexcept
-    {
-        auto const cp_prop = grapheme_prop(cp);
-        if (fsm.no_break(cp_prop)) {
-            return grapheme_break_t(false, cp_prop, fsm);
-        } else {
-            return grapheme_break_t(
-                grapheme_table_break(prop, cp_prop), cp_prop, fsm);
+        template<typename CPIter, typename Sentinel>
+        grapheme_break_state<CPIter> skip_forward(
+            grapheme_break_state<CPIter> state, CPIter first, Sentinel last)
+        {
+            if (state.it != first &&
+                (state.prev_prop == grapheme_prop_t::E_Base ||
+                 state.prev_prop == grapheme_prop_t::E_Base_GAZ) &&
+                skippable(state.prop)) {
+                auto temp_it =
+                    find_if_not(std::next(state.it), last, [](uint32_t cp) {
+                        return skippable(grapheme_prop(cp));
+                    });
+                if (temp_it == last) {
+                    state.it = temp_it;
+                } else {
+                    auto const temp_prop = grapheme_prop(*temp_it);
+                    state.it = temp_it;
+                    state.prop = temp_prop;
+                }
+            }
+            return state;
         }
     }
-
-    // TODO: Consistency with the {word,sentence,paragraph} break functions.
 
     /** Searches backward to find the start of the grapheme in which \a
         current is found, without searching before \a first or after \a
         last. */
     template<typename CPIter, typename Sentinel>
-    CPIter find_grapheme_start(CPIter first, CPIter current, Sentinel last) noexcept
+    CPIter prev_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
+        auto current = it;
         assert(current != last);
 
         // See http://www.unicode.org/reports/tr15/#Stream_Safe_Text_Format
@@ -214,7 +192,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
             if (current != first) {
                 auto it = current;
                 auto const prop = grapheme_prop(*--it);
-                if (grapheme_table_break(prop, current_prop))
+                if (detail::table_grapheme_break(prop, current_prop))
                     break;
 
                 current = it;
@@ -223,6 +201,70 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         }
 
         return current;
+    }
+
+    /** TODO */
+    template<typename CPIter, typename Sentinel>
+    CPIter next_grapheme_break(CPIter first, Sentinel last) noexcept
+    {
+        if (first == last)
+            return first;
+
+        detail::grapheme_break_state<CPIter> state;
+        state.it = first;
+
+        if (++state.it == last)
+            return state.it;
+
+        state.prev_prop = grapheme_prop(*std::prev(state.it));
+        state.prop = grapheme_prop(*state.it);
+
+        state.emoji_state =
+            state.prev_prop == grapheme_prop_t::Regional_Indicator
+                ? detail::grapheme_break_emoji_state_t::first_emoji
+                : detail::grapheme_break_emoji_state_t::none;
+
+        for (; state.it != last; state = next(state)) {
+            state.prop = grapheme_prop(*state.it);
+
+            // GB3
+            if (state.prev_prop == grapheme_prop_t::CR &&
+                state.prop == grapheme_prop_t::LF) {
+                continue;
+            }
+
+            // GB5
+            if (state.prop == grapheme_prop_t::Control ||
+                state.prop == grapheme_prop_t::CR ||
+                state.prop == grapheme_prop_t::LF) {
+                return state.it;
+            }
+
+            // GB10
+            state = detail::skip_forward(state, first, last);
+            if (state.it == last)
+                return state.it;
+
+            if (state.emoji_state ==
+                detail::grapheme_break_emoji_state_t::first_emoji) {
+                if (state.prop == grapheme_prop_t::Regional_Indicator) {
+                    state.emoji_state =
+                        detail::grapheme_break_emoji_state_t::none;
+                    continue;
+                } else {
+                    state.emoji_state =
+                        detail::grapheme_break_emoji_state_t::none;
+                }
+            } else if (state.prop == grapheme_prop_t::Regional_Indicator) {
+                state.emoji_state =
+                    detail::grapheme_break_emoji_state_t::first_emoji;
+            }
+
+            if (detail::table_grapheme_break(state.prev_prop, state.prop))
+                return state.it;
+        }
+
+        return state.it;
     }
 
 }}

@@ -385,7 +385,7 @@ grapheme_cps_and_breaks = extract_cps_and_breaks('GraphemeBreakTest.txt')
 if '--perf' in sys.argv:
     generate_prop_lookup_perf_tests(grapheme_cps_and_breaks, 'grapheme')
     exit(0)
-generate_break_tests(grapheme_cps_and_breaks, 'grapheme')
+generate_break_tests_2(grapheme_cps_and_breaks, 'grapheme')
 generate_iterator_tests(grapheme_cps_and_breaks, 'grapheme')
 
 word_prop_names = {

@@ -925,17 +925,27 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename BidiIter, typename T>
-    BidiIter find_backward(BidiIter first, BidiIter last, T const & x)
+    template<typename BidiIter, typename Sentinel, typename Pred>
+    BidiIter find_if(BidiIter first, Sentinel last, Pred p)
     {
-        if (first == last)
-            return last;
-        auto it = last;
-        while (it != first) {
-            if (*--it == x)
-                return it;
+        while (first != last) {
+            if (p(*first))
+                return first;
+            ++first;
         }
-        return last;
+        return first;
+    }
+
+    /** TODO */
+    template<typename BidiIter, typename Sentinel, typename Pred>
+    BidiIter find_if_not(BidiIter first, Sentinel last, Pred p)
+    {
+        while (first != last) {
+            if (!p(*first))
+                return first;
+            ++first;
+        }
+        return first;
     }
 
     /** TODO */
