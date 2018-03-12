@@ -2110,7 +2110,7 @@ TEST(detail_bidi, l2_)
 // test exists for this function.
 TEST(detail_bidi, bidirectional_order_instantiation)
 {
-    std::array<uint32_t, 1> str = {'a'};
+    std::array<uint32_t, 1> str = {{'a'}};
     std::array<bidirectional_subrange<std::array<uint32_t, 1>::iterator>, 1024>
         subranges;
     bidirectional_order(str.begin(), str.end(), subranges.begin());
