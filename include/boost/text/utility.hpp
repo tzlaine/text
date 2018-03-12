@@ -51,27 +51,32 @@ namespace boost { namespace text {
     };
 
     /** TODO */
-    template<typename CPIter>
+    template<typename CPIter, typename Sentinel = CPIter>
     struct cp_range
     {
         using iterator = CPIter;
+        using sentinel = Sentinel;
 
-        bool empty() const noexcept { return first == last; }
+        cp_range() {}
+        cp_range(iterator first, sentinel last) : first_(first), last_(last) {}
 
-        iterator begin() const { return first; }
-        iterator end() const { return last; }
+        bool empty() const noexcept { return first_ == last_; }
+
+        iterator begin() const { return first_; }
+        sentinel end() const { return last_; }
 
         friend bool operator==(cp_range lhs, cp_range rhs)
         {
-            return lhs.first == rhs.first && lhs.last == rhs.last;
+            return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
         }
         friend bool operator!=(cp_range lhs, cp_range rhs)
         {
             return !(lhs == rhs);
         }
 
-        CPIter first;
-        CPIter last;
+    private:
+        iterator first_;
+        sentinel last_;
     };
 
 }}
