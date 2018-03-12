@@ -171,26 +171,20 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         {
             if (state.it != first && !skippable(state.prev_prop) &&
                 skippable(state.prop)) {
-                auto temp_it = state.it;
-                while (std::next(temp_it) != last) {
-                    auto temp_next_prop = word_prop(*++temp_it);
-                    if (!skippable(temp_next_prop))
-                        break;
-                }
-                if (temp_it == last) {
-                    state.it = last;
-                } else {
-                    auto const temp_prop = word_prop(*temp_it);
-                    state.it = temp_it;
-                    state.prop = temp_prop;
-                    state.next_prop = word_prop_t::Other;
-                    state.next_next_prop = word_prop_t::Other;
-                    if (std::next(state.it) != last) {
-                        state.next_prop = word_prop(*std::next(state.it));
-                        if (std::next(state.it, 2) != last) {
-                            state.next_next_prop =
-                                word_prop(*std::next(state.it, 2));
-                        }
+                auto temp_it = std::find_if_not(
+                    state.it, std::prev(last), [](uint32_t cp) {
+                        return skippable(word_prop(cp));
+                    });
+                auto const temp_prop = word_prop(*temp_it);
+                state.it = temp_it;
+                state.prop = temp_prop;
+                state.next_prop = word_prop_t::Other;
+                state.next_next_prop = word_prop_t::Other;
+                if (std::next(state.it) != last) {
+                    state.next_prop = word_prop(*std::next(state.it));
+                    if (std::next(state.it, 2) != last) {
+                        state.next_next_prop =
+                            word_prop(*std::next(state.it, 2));
                     }
                 }
             }
