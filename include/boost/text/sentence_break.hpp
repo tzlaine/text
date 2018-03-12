@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_SENTENCE_BREAK_HPP
 #define BOOST_TEXT_SENTENCE_BREAK_HPP
 
+#include <boost/text/algorithm.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <array>
@@ -210,10 +211,12 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         // Special case: If state.prop is skippable, we need to skip backward
         // until we find a non-skippable.
         if (detail::skippable(state.prop)) {
-            while (state.it != first && detail::skippable(state.prop)) {
-                state.next_prop = state.prop;
-                state.prop = sentence_prop(*--state.it);
-            }
+            state.it = find_if_not_backward(first, state.it, [](uint32_t cp) {
+                return detail::skippable(sentence_prop(cp));
+            });
+            state.next_prop = sentence_prop(*std::next(state.it));
+            state.prop = sentence_prop(*state.it);
+
             // If we end up on a non-skippable that should break before the
             // skippable(s) we just moved over, break on the last skippable.
             if (!detail::skippable(state.prop) &&
@@ -265,13 +268,14 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         // SB5: Except after ParaSep, ignore/skip (Extend | Format)*
         auto skip = [](detail::sentence_break_state<CPIter> state, CPIter first) {
             if (detail::skippable(state.prev_prop)) {
-                auto temp_it = state.it;
-                auto temp_prev_prop = sentence_prop(*--temp_it);
-                while (temp_it != first && detail::skippable(temp_prev_prop)) {
-                    temp_prev_prop = sentence_prop(*--temp_it);
-                }
-                if (temp_it == first && detail::skippable(temp_prev_prop))
+                auto temp_it =
+                    find_if_not_backward(first, state.it, [](uint32_t cp) {
+                        return detail::skippable(sentence_prop(cp));
+                    });
+
+                if (temp_it == state.it)
                     return state;
+                auto temp_prev_prop = sentence_prop(*temp_it);
                 if (!detail::para_sep(temp_prev_prop)) {
                     state.it = temp_it;
                     state.it_points_to_prev = true;
