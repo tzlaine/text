@@ -2,6 +2,7 @@
 #define BOOST_TEXT_GRAPHEME_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
+#include <boost/text/utility.hpp>
 
 #include <array>
 
@@ -54,6 +55,7 @@ namespace boost { namespace text {
         struct grapheme_break_state
         {
             CPIter it;
+            bool it_points_to_prev = false;
 
             grapheme_prop_t prev_prop;
             grapheme_prop_t prop;
@@ -66,6 +68,16 @@ namespace boost { namespace text {
         {
             ++state.it;
             state.prev_prop = state.prop;
+            return state;
+        }
+
+        template<typename CPIter>
+        grapheme_break_state<CPIter> prev(grapheme_break_state<CPIter> state)
+        {
+            if (!state.it_points_to_prev)
+                --state.it;
+            state.it_points_to_prev = false;
+            state.prop = state.prev_prop;
             return state;
         }
 
@@ -138,67 +150,123 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     template<typename CPIter, typename Sentinel>
     CPIter prev_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
-        auto current = it;
-        assert(current != last);
+        if (it == first)
+            return it;
 
-        // See http://www.unicode.org/reports/tr15/#Stream_Safe_Text_Format
-        int const max_steps = 31;
+        if (it == last && --it == first)
+            return it;
 
-        auto current_prop = grapheme_prop(*current);
-        while (current != first) {
-            // GB10
-            if (current_prop == grapheme_prop_t::E_Modifier) {
-                auto it = current;
-                for (int i = 0; i < max_steps; ++i) {
-                    if (it == first) {
-                        it = current;
-                        break;
-                    }
-                    auto const prop = grapheme_prop(*--it);
-                    if (prop == grapheme_prop_t::E_Base ||
-                        prop == grapheme_prop_t::E_Base_GAZ) {
-                        break;
-                    } else if (prop != grapheme_prop_t::Extend) {
-                        it = current;
-                        break;
-                    }
+        detail::grapheme_break_state<CPIter> state;
+
+        state.it = it;
+
+        state.prop = grapheme_prop(*state.it);
+
+        #if 0
+        // Special case: If state.prop is skippable, we need to search in both
+        // directions to see if we're in the middle of a GB10 sequence.  If so,
+        // the beginning of it is our break point.
+        if (detail::skippable(state.prop)) {
+            auto before_it = find_if_not_backward(first, it, [](uint32_t cp) {
+                return detail::skippable(grapheme_prop(cp));
+            });
+            auto after_it = find_if_not(it, last, [](uint32_t cp) {
+                return detail::skippable(grapheme_prop(cp));
+            });
+            if (before_it != it && after_it != last) {
+                auto const before_prop = grapheme_prop(*before_it);
+                auto const after_prop = grapheme_prop(*after_it);
+                if ((before_prop == grapheme_prop_t::E_Base ||
+                     before_prop == grapheme_prop_t::E_Base_GAZ) &&
+                    after_prop == grapheme_prop_t::E_Modifier) {
+                    return before_it;
                 }
-                if (it != current) {
-                    current_prop = grapheme_prop(*it);
-                    current = it;
-                }
-            } else if (current_prop == grapheme_prop_t::Regional_Indicator) {
-                auto it = current;
-                auto num_ris = 1;
-                for (int i = 0; i < max_steps; ++i) {
-                    if (it == first)
-                        break;
-                    auto const prop = grapheme_prop(*--it);
-                    if (prop == grapheme_prop_t::Regional_Indicator) {
-                        ++num_ris;
-                    } else {
-                        break;
-                    }
-                }
-                it = current;
-                if ((num_ris & 1) == 0)
-                    --it;
-                current_prop = grapheme_prop(*it);
-                current = it;
-            }
-
-            if (current != first) {
-                auto it = current;
-                auto const prop = grapheme_prop(*--it);
-                if (detail::table_grapheme_break(prop, current_prop))
-                    break;
-
-                current = it;
-                current_prop = prop;
             }
         }
+        #endif
 
-        return current;
+        state.prev_prop = grapheme_prop(*std::prev(state.it));
+
+        state.emoji_state = detail::grapheme_break_emoji_state_t::none;
+
+        // GB10
+        auto skip = [](detail::grapheme_break_state<CPIter> state,
+                       CPIter first) {
+            if (state.prop == grapheme_prop_t::E_Modifier &&
+                detail::skippable(state.prev_prop)) {
+                auto temp_it =
+                    find_if_not_backward(first, state.it, [](uint32_t cp) {
+                        return detail::skippable(grapheme_prop(cp));
+                    });
+                if (temp_it == state.it)
+                    return state;
+                auto temp_prev_prop = grapheme_prop(*temp_it);
+                if (temp_prev_prop == grapheme_prop_t::E_Base ||
+                    temp_prev_prop == grapheme_prop_t::E_Base_GAZ) {
+                    state.it = temp_it;
+                    state.it_points_to_prev = true;
+                    state.prev_prop = temp_prev_prop;
+                }
+            }
+            return state;
+        };
+
+        for (; state.it != first; state = prev(state)) {
+            state.prev_prop = grapheme_prop(*std::prev(state.it));
+
+            // When we see an RI, back up to the first RI so we can see what
+            // emoji state we're supposed to be in here.
+            if (state.emoji_state == detail::grapheme_break_emoji_state_t::none &&
+                state.prop == grapheme_prop_t::Regional_Indicator) {
+                int ris_before = 0;
+                find_if_not_backward(
+                    first, state.it, [&ris_before](uint32_t cp) {
+                        bool const ri = grapheme_prop(cp) ==
+                                        grapheme_prop_t::Regional_Indicator;
+                        if (ri)
+                            ++ris_before;
+                        return ri;
+                    });
+                state.emoji_state =
+                    (ris_before % 2 == 0)
+                        ? detail::grapheme_break_emoji_state_t::first_emoji
+                        : detail::grapheme_break_emoji_state_t::second_emoji;
+            }
+
+            // If we end up breaking durign this iteration, we want the break
+            // to show up after the skip, so that the skippable CPs go with
+            // the CP before them.  This is to maintain symmetry with
+            // next_grapheme_break().
+            auto after_skip_it = state.it;
+
+            // Puting this here means not having to do it explicitly below
+            // between prev_prop and prop (and transitively, between prop and
+            // next_prop).
+            state = skip(state, first);
+
+            if (state.emoji_state ==
+                detail::grapheme_break_emoji_state_t::first_emoji) {
+                if (state.prev_prop == grapheme_prop_t::Regional_Indicator) {
+                    state.emoji_state =
+                        detail::grapheme_break_emoji_state_t::second_emoji;
+                    return after_skip_it;
+                } else {
+                    state.emoji_state = detail::grapheme_break_emoji_state_t::none;
+                }
+            } else if (
+                state.emoji_state ==
+                    detail::grapheme_break_emoji_state_t::second_emoji &&
+                state.prev_prop == grapheme_prop_t::Regional_Indicator) {
+                state.emoji_state =
+                    detail::grapheme_break_emoji_state_t::first_emoji;
+                continue;
+            }
+
+            if (detail::table_grapheme_break(state.prev_prop, state.prop))
+                return after_skip_it;
+        }
+
+        return first;
     }
 
     /** TODO */
@@ -251,6 +319,38 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 
         return state.it;
     }
+
+    namespace detail {
+        template<typename CPIter, typename Sentinel>
+        struct next_word_callable
+        {
+            CPIter operator()(CPIter it, Sentinel last) noexcept
+            {
+                return next_word_break(it, last);
+            }
+        };
+    }
+
+    /** Returns the bounds of the word that <code>it</code> lies within. */
+    template<typename CPIter, typename Sentinel>
+    inline cp_range<CPIter, Sentinel>
+    word(CPIter first, CPIter it, Sentinel last) noexcept
+    {
+        cp_range<CPIter> retval{prev_word_break(first, it, last)};
+        retval.last = next_word_break(retval.first, last);
+        return retval;
+    }
+
+#if 0
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>[first, last]</code>. */
+    template<typename CPIter, typename Sentinel>
+    lazy_segment_range<CPIter, detail::next_word_callable<CPIter, Sentinel>>
+    words(CPIter first, Sentinel last) noexcept
+    {
+        return {{first, last}, {last, last}};
+    }
+#endif
 
 }}
 
