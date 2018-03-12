@@ -54,7 +54,6 @@ namespace boost { namespace text {
         struct grapheme_break_state
         {
             CPIter it;
-            // TODO bool it_points_to_prev = false;
 
             grapheme_prop_t prev_prop;
             grapheme_prop_t prop;
@@ -122,9 +121,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
                     find_if_not(std::next(state.it), last, [](uint32_t cp) {
                         return skippable(grapheme_prop(cp));
                     });
-                if (temp_it == last) {
-                    state.it = temp_it;
-                } else {
+                if (temp_it != last &&
+                    grapheme_prop(*temp_it) == grapheme_prop_t::E_Modifier) {
                     auto const temp_prop = grapheme_prop(*temp_it);
                     state.it = temp_it;
                     state.prop = temp_prop;
@@ -226,19 +224,6 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 
         for (; state.it != last; state = next(state)) {
             state.prop = grapheme_prop(*state.it);
-
-            // GB3
-            if (state.prev_prop == grapheme_prop_t::CR &&
-                state.prop == grapheme_prop_t::LF) {
-                continue;
-            }
-
-            // GB5
-            if (state.prop == grapheme_prop_t::Control ||
-                state.prop == grapheme_prop_t::CR ||
-                state.prop == grapheme_prop_t::LF) {
-                return state.it;
-            }
 
             // GB10
             state = detail::skip_forward(state, first, last);
