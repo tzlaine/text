@@ -7,7 +7,7 @@
 namespace boost { namespace text {
 
     namespace detail {
-        template<typename CPIter, typename NextFunc>
+        template<typename CPIter, typename Sentinel, typename NextFunc>
         struct const_lazy_segment_iterator;
 
         template<typename CPIter>
@@ -24,13 +24,13 @@ namespace boost { namespace text {
             cp_range<CPIter> value_;
         };
 
-        template<typename CPIter, typename NextFunc>
+        template<typename CPIter, typename Sentinel, typename NextFunc>
         struct const_lazy_segment_iterator
         {
         private:
             CPIter prev_;
             CPIter it_;
-            CPIter last_;
+            Sentinel last_;
 
         public:
             using value_type = cp_range<CPIter>;
@@ -39,9 +39,9 @@ namespace boost { namespace text {
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::forward_iterator_tag;
 
-            const_lazy_segment_iterator(CPIter it, CPIter last) noexcept :
+            const_lazy_segment_iterator(CPIter it, Sentinel last) noexcept :
                 prev_(it),
-                it_(it),
+                it_(NextFunc{}(it, last)),
                 last_(last)
             {}
 
@@ -70,13 +70,13 @@ namespace boost { namespace text {
                 const_lazy_segment_iterator lhs,
                 const_lazy_segment_iterator rhs) noexcept
             {
-                return lhs.it_ == rhs.it_;
+                return lhs.it_ == rhs.last_;
             }
             friend bool operator!=(
                 const_lazy_segment_iterator lhs,
                 const_lazy_segment_iterator rhs) noexcept
             {
-                return lhs.it_ != rhs.it_;
+                return lhs.it_ != rhs.last_;
             }
         };
     }
@@ -88,10 +88,11 @@ namespace boost { namespace text {
         produced by <code>lazy_segment_range</code> will be paragraphs.  Each
         range is lazily produced; an output range is not produced until the
         point at which one of the lazy range's iterators is dereferenced. */
-    template<typename CPIter, typename Func>
+    template<typename CPIter, typename Sentinel, typename Func>
     struct lazy_segment_range
     {
-        using iterator = detail::const_lazy_segment_iterator<CPIter, Func>;
+        using iterator =
+            detail::const_lazy_segment_iterator<CPIter, Sentinel, Func>;
 
         lazy_segment_range() noexcept {}
         lazy_segment_range(iterator first, iterator last) noexcept :

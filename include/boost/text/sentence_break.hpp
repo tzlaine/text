@@ -571,10 +571,10 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     }
 
     namespace detail {
-        template<typename CPIter>
+        template<typename CPIter, typename Sentinel>
         struct next_sentence_callable
         {
-            CPIter operator()(CPIter it, CPIter last) noexcept
+            CPIter operator()(CPIter it, Sentinel last) noexcept
             {
                 return next_sentence_break(it, last);
             }
@@ -583,20 +583,22 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
     /** Returns the bounds of the sentence that <code>it</code> lies
         within. */
-    template<typename CPIter>
+    template<typename CPIter, typename Sentinel>
     inline cp_range<CPIter>
-    sentence(CPIter first, CPIter it, CPIter last) noexcept
+    sentence(CPIter first, CPIter it, Sentinel last) noexcept
     {
-        cp_range<CPIter> retval{prev_sentence_break(first, it, last)};
-        retval.last = next_sentence_break(retval.first, last);
-        return retval;
+        first = prev_sentence_break(first, it, last);
+        return cp_range<CPIter>{first, next_sentence_break(first, last)};
     }
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
         <code>[first, last]</code>. */
-    template<typename CPIter>
-    lazy_segment_range<CPIter, detail::next_sentence_callable<CPIter>>
-    sentences(CPIter first, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    lazy_segment_range<
+        CPIter,
+        Sentinel,
+        detail::next_sentence_callable<CPIter, Sentinel>>
+    sentences(CPIter first, Sentinel last) noexcept
     {
         return {{first, last}, {last, last}};
     }

@@ -31,9 +31,10 @@ namespace boost { namespace text {
     /** TODO */
     struct text
     {
-        using iterator = grapheme_iterator<utf8::to_utf32_iterator<char *>>;
-        using const_iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
+        using iterator =
+            grapheme_iterator<utf8::to_utf32_iterator<char *, char *>>;
+        using const_iterator = grapheme_iterator<
+            utf8::to_utf32_iterator<char const *, char const *>>;
         using reverse_iterator = std::reverse_iterator<iterator>;
         using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
@@ -450,17 +451,22 @@ namespace boost { namespace text {
     private:
         static iterator make_iter(char * first, char * it, char * last)
         {
-            return iterator{utf8::to_utf32_iterator<char *>{first},
-                            utf8::to_utf32_iterator<char *>{it},
-                            utf8::to_utf32_iterator<char *>{last}};
+            return iterator{
+                utf8::to_utf32_iterator<char *, char *>{first, first, last},
+                utf8::to_utf32_iterator<char *, char *>{first, it, last},
+                utf8::to_utf32_iterator<char *, char *>{first, last, last}};
         }
 
         static const_iterator
         make_iter(char const * first, char const * it, char const * last)
         {
-            return const_iterator{utf8::to_utf32_iterator<char const *>{first},
-                                  utf8::to_utf32_iterator<char const *>{it},
-                                  utf8::to_utf32_iterator<char const *>{last}};
+            return const_iterator{
+                utf8::to_utf32_iterator<char const *, char const *>{
+                    first, first, last},
+                utf8::to_utf32_iterator<char const *, char const *>{
+                    first, it, last},
+                utf8::to_utf32_iterator<char const *, char const *>{
+                    first, last, last}};
         }
 
         template<typename Iter>

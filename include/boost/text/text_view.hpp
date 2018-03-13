@@ -15,8 +15,8 @@ namespace boost { namespace text {
     /** TODO */
     struct text_view
     {
-        using iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
+        using iterator = grapheme_iterator<
+            utf8::to_utf32_iterator<char const *, char const *>>;
         using const_iterator = iterator;
         using reverse_iterator = std::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
@@ -192,9 +192,12 @@ namespace boost { namespace text {
         static iterator
         make_iter(char const * first, char const * it, char const * last)
         {
-            return iterator{utf8::to_utf32_iterator<char const *>{first},
-                            utf8::to_utf32_iterator<char const *>{it},
-                            utf8::to_utf32_iterator<char const *>{last}};
+            return iterator{utf8::to_utf32_iterator<char const *, char const *>{
+                                first, first, last},
+                            utf8::to_utf32_iterator<char const *, char const *>{
+                                first, it, last},
+                            utf8::to_utf32_iterator<char const *, char const *>{
+                                first, last, last}};
         }
 
         iterator first_;

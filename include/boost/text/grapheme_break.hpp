@@ -2,6 +2,7 @@
 #define BOOST_TEXT_GRAPHEME_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
+#include <boost/text/lazy_segment_range.hpp>
 #include <boost/text/utility.hpp>
 
 #include <array>
@@ -157,36 +158,9 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
             return it;
 
         detail::grapheme_break_state<CPIter> state;
-
         state.it = it;
-
         state.prop = grapheme_prop(*state.it);
-
-        #if 0
-        // Special case: If state.prop is skippable, we need to search in both
-        // directions to see if we're in the middle of a GB10 sequence.  If so,
-        // the beginning of it is our break point.
-        if (detail::skippable(state.prop)) {
-            auto before_it = find_if_not_backward(first, it, [](uint32_t cp) {
-                return detail::skippable(grapheme_prop(cp));
-            });
-            auto after_it = find_if_not(it, last, [](uint32_t cp) {
-                return detail::skippable(grapheme_prop(cp));
-            });
-            if (before_it != it && after_it != last) {
-                auto const before_prop = grapheme_prop(*before_it);
-                auto const after_prop = grapheme_prop(*after_it);
-                if ((before_prop == grapheme_prop_t::E_Base ||
-                     before_prop == grapheme_prop_t::E_Base_GAZ) &&
-                    after_prop == grapheme_prop_t::E_Modifier) {
-                    return before_it;
-                }
-            }
-        }
-        #endif
-
         state.prev_prop = grapheme_prop(*std::prev(state.it));
-
         state.emoji_state = detail::grapheme_break_emoji_state_t::none;
 
         // GB10
@@ -322,35 +296,35 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 
     namespace detail {
         template<typename CPIter, typename Sentinel>
-        struct next_word_callable
+        struct next_grapheme_callable
         {
             CPIter operator()(CPIter it, Sentinel last) noexcept
             {
-                return next_word_break(it, last);
+                return next_grapheme_break(it, last);
             }
         };
     }
 
-    /** Returns the bounds of the word that <code>it</code> lies within. */
+    /** Returns the bounds of the grapheme that <code>it</code> lies within. */
     template<typename CPIter, typename Sentinel>
-    inline cp_range<CPIter, Sentinel>
-    word(CPIter first, CPIter it, Sentinel last) noexcept
+    inline cp_range<CPIter>
+    grapheme(CPIter first, CPIter it, Sentinel last) noexcept
     {
-        cp_range<CPIter> retval{prev_word_break(first, it, last)};
-        retval.last = next_word_break(retval.first, last);
-        return retval;
+        first = prev_grapheme_break(first, it, last);
+        return cp_range<CPIter>{first, next_grapheme_break(first, last)};
     }
 
-#if 0
-    /** Returns a lazy range of the code point ranges delimiting words in
+    /** Returns a lazy range of the code point ranges delimiting graphemes in
         <code>[first, last]</code>. */
     template<typename CPIter, typename Sentinel>
-    lazy_segment_range<CPIter, detail::next_word_callable<CPIter, Sentinel>>
-    words(CPIter first, Sentinel last) noexcept
+    lazy_segment_range<
+        CPIter,
+        Sentinel,
+        detail::next_grapheme_callable<CPIter, Sentinel>>
+    graphemes(CPIter first, Sentinel last) noexcept
     {
-        return {{first, last}, {last, last}};
+        return {{first, last}, {first, last}};
     }
-#endif
 
 }}
 

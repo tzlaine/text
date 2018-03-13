@@ -594,10 +594,10 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     }
 
     namespace detail {
-        template<typename CPIter>
+        template<typename CPIter, typename Sentinel>
         struct next_word_callable
         {
-            CPIter operator()(CPIter it, CPIter last) noexcept
+            CPIter operator()(CPIter it, Sentinel last) noexcept
             {
                 return next_word_break(it, last);
             }
@@ -605,19 +605,22 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     }
 
     /** Returns the bounds of the word that <code>it</code> lies within. */
-    template<typename CPIter>
-    inline cp_range<CPIter> word(CPIter first, CPIter it, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    inline cp_range<CPIter>
+    word(CPIter first, CPIter it, Sentinel last) noexcept
     {
-        cp_range<CPIter> retval{prev_word_break(first, it, last)};
-        retval.last = next_word_break(retval.first, last);
-        return retval;
+        first = prev_word_break(first, it, last);
+        return cp_range<CPIter>{first, next_word_break(first, last)};
     }
 
     /** Returns a lazy range of the code point ranges delimiting words in
         <code>[first, last]</code>. */
-    template<typename CPIter>
-    lazy_segment_range<CPIter, detail::next_word_callable<CPIter>>
-    words(CPIter first, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    lazy_segment_range<
+        CPIter,
+        Sentinel,
+        detail::next_word_callable<CPIter, Sentinel>>
+    words(CPIter first, Sentinel last) noexcept
     {
         return {{first, last}, {last, last}};
     }

@@ -1419,6 +1419,7 @@ namespace boost { namespace text {
 
                 lazy_segment_range<
                     detail::props_and_embeddings_cp_iterator,
+                    detail::props_and_embeddings_cp_iterator,
                     NextLineBreakFunc>
                     lines{{detail::props_and_embeddings_cp_iterator{
                                props_and_embeddings.begin()},

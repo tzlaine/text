@@ -19,10 +19,10 @@ namespace boost { namespace text {
     /** An immutable range of code points that form an extended grapheme
         cluster. */
     template<typename Iter>
-    struct grapheme
+    struct grapheme_t
     {
-        grapheme() noexcept {}
-        grapheme(Iter f, Iter l) noexcept : first_(f), last_(l) {}
+        grapheme_t() noexcept {}
+        grapheme_t(Iter f, Iter l) noexcept : first_(f), last_(l) {}
 
         Iter begin() const noexcept { return first_; }
         Iter end() const noexcept { return last_; }
@@ -31,12 +31,12 @@ namespace boost { namespace text {
         Iter first_;
         Iter last_;
 
-        friend bool operator==(grapheme<Iter> lhs, grapheme<Iter> rhs)
+        friend bool operator==(grapheme_t<Iter> lhs, grapheme_t<Iter> rhs)
         {
             return lhs.first_ == rhs.first_ && lhs.last_ == rhs.last_;
         }
 
-        friend bool operator!=(grapheme<Iter> lhs, grapheme<Iter> rhs)
+        friend bool operator!=(grapheme_t<Iter> lhs, grapheme_t<Iter> rhs)
         {
             return !(lhs == rhs);
         }
@@ -50,7 +50,7 @@ namespace boost { namespace text {
     template<typename Iter, typename Sentinel>
     struct grapheme_iterator
     {
-        using value_type = grapheme<Iter>;
+        using value_type = grapheme_t<Iter>;
         using difference_type = int;
         using pointer = value_type const *;
         using reference = value_type;

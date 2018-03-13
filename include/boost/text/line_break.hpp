@@ -587,18 +587,18 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     }
 
     namespace detail {
-        template<typename CPIter>
+        template<typename CPIter, typename Sentinel>
         struct next_hard_line_break_callable
         {
-            CPIter operator()(CPIter it, CPIter last) noexcept
+            CPIter operator()(CPIter it, Sentinel last) noexcept
             {
                 return next_hard_line_break(it, last);
             }
         };
-        template<typename CPIter>
+        template<typename CPIter, typename Sentinel>
         struct next_possible_line_break_callable
         {
-            CPIter operator()(CPIter it, CPIter last) noexcept
+            CPIter operator()(CPIter it, Sentinel last) noexcept
             {
                 return next_possible_line_break(it, last);
             }
@@ -608,19 +608,21 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 #if 0 // TODO: Depends on prev_hard_line_break().
     /** Returns the bounds of the line (using hard line breaks) that
         <code>it</code> lies within. */
-    template<typename CPIter>
+    template<typename CPIter, typename Sentinel>
     cp_range<CPIter> line(CPIter first, CPIter it, CPIter last) noexcept
     {
-        cp_range<CPIter> retval{prev_hard_line_break(first, it, last)};
-        retval.last = next_hard_line_break(retval.first, last);
-        return retval;
+        first = prev_hard_line_break(first, it, last);
+        return cp_range<CPIter>{first, next_hard_line_break(first, last)};
     }
 #endif
 
     /** Returns a lazy range of the code point ranges delimiting lines (using
         hard line breaks) in <code>[first, last]</code>. */
-    template<typename CPIter>
-    lazy_segment_range<CPIter, detail::next_hard_line_break_callable<CPIter>>
+    template<typename CPIter, typename Sentinel>
+    lazy_segment_range<
+        CPIter,
+        Sentinel,
+        detail::next_hard_line_break_callable<CPIter, Sentinel>>
     lines(CPIter first, CPIter last) noexcept
     {
         return {{first, first, last}, {first, last, last}};
@@ -630,23 +632,23 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     /** Returns the bounds of the smallest chunk of text that could be broken
         off into a line, searching from <code>it</code> in either
         direction. */
-    template<typename CPIter>
+    template<typename CPIter, typename Sentinel>
     cp_range<CPIter>
-    possible_line(CPIter first, CPIter it, CPIter last) noexcept
+    possible_line(CPIter first, CPIter it, Sentinel last) noexcept
     {
-        cp_range<CPIter> retval{prev_possible_line_break(first, it, last)};
-        retval.last = next_possible_line_break(retval.first, last);
-        return retval;
+        first = prev_possible_line_break(first, it, last);
+        return cp_range<CPIter>{first, next_possible_line_break(first, last)};
     }
 #endif
 
     /** Returns a lazy range of the code point ranges delimiting possible
         lines in <code>[first, last]</code>. */
-    template<typename CPIter>
+    template<typename CPIter, typename Sentinel>
     lazy_segment_range<
         CPIter,
-        detail::next_possible_line_break_callable<CPIter>>
-    possible_lines(CPIter first, CPIter last) noexcept
+        Sentinel,
+        detail::next_possible_line_break_callable<CPIter, Sentinel>>
+    possible_lines(CPIter first, Sentinel last) noexcept
     {
         return {{first, last}, {last, last}};
     }
