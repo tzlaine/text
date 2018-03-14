@@ -19,16 +19,22 @@ namespace boost { namespace text {
     /** TODO */
     struct utf32_range
     {
-        using iterator = utf8::to_utf32_iterator<char const *>;
+        using iterator = utf8::to_utf32_iterator<char const *, char const *>;
 
-        utf32_range() : first_(nullptr), last_(nullptr) {}
-        utf32_range(char const * f, char const * l) : first_(f), last_(l) {}
+        utf32_range() :
+            first_(nullptr, nullptr, nullptr),
+            last_(nullptr, nullptr, nullptr)
+        {}
+        utf32_range(char const * f, char const * l) :
+            first_(f, f, l),
+            last_(f, l, l)
+        {}
         utf32_range(iterator f, iterator l) : first_(f), last_(l) {}
         /** TODO: This is the discontiguous CharRange. */
         template<typename CharRange>
         utf32_range(CharRange const & r) :
-            first_(std::begin(r)),
-            last_(std::end(r))
+            first_(std::begin(r), std::begin(r), std::end(r)),
+            last_(std::begin(r), std::end(r), std::end(r))
         {}
 
         bool empty() const noexcept { return first_ == last_; }

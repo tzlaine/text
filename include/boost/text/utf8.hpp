@@ -188,6 +188,46 @@ namespace boost { namespace text { namespace utf8 {
 
             return retval;
         }
+
+        template<typename Iter>
+        BOOST_TEXT_CXX14_CONSTEXPR Iter decrement(Iter first, Iter it) noexcept
+        {
+            Iter retval = it;
+
+            int backup = 0;
+            while (backup < 4 && it != first && continuation(*--retval)) {
+                ++backup;
+            }
+            backup = it - retval;
+
+            if (continuation(*retval)) {
+                if (it != first)
+                    --it;
+                return it;
+            }
+
+            Iter first_invalid = end_of_invalid_utf8(retval);
+            if (first_invalid == retval)
+                ++first_invalid;
+            while (first_invalid && (first_invalid - retval) < backup) {
+                backup -= first_invalid - retval;
+                retval = first_invalid;
+                first_invalid = end_of_invalid_utf8(retval);
+                if (first_invalid == retval)
+                    ++first_invalid;
+            }
+
+            if (1 < backup) {
+                int const cp_bytes = code_point_bytes(*retval);
+                if (cp_bytes < backup) {
+                    if (it != first)
+                        --it;
+                    retval = it;
+                }
+            }
+
+            return retval;
+        }
     }
 
     /** Returns the first code unit in [first, last) that is not properly
@@ -354,6 +394,29 @@ namespace boost { namespace text { namespace utf8 {
         to_utf16_iterator when the iterator points to a 0. */
     struct null_sentinel
     {};
+
+
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator==(char const * p, null_sentinel)
+    {
+        return p == nullptr;
+    }
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator!=(char const * p, null_sentinel)
+    {
+        return p != nullptr;
+    }
+
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator==(null_sentinel, char const * p)
+    {
+        return p == nullptr;
+    }
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    operator!=(null_sentinel, char const * p)
+    {
+        return p != nullptr;
+    }
 
 
     /** A UTF-32 to UTF-8 converting iterator.  Set the ErrorHandler template
@@ -554,7 +617,10 @@ namespace boost { namespace text { namespace utf8 {
 
         Iter must be a bidirectional iterator with a 1-byte char
         value_type. */
-    template<typename Iter, typename ErrorHandler = use_replacement_character>
+    template<
+        typename Iter,
+        typename Sentinel,
+        typename ErrorHandler = use_replacement_character>
     struct to_utf32_iterator
     {
         using value_type = uint32_t;
@@ -566,25 +632,19 @@ namespace boost { namespace text { namespace utf8 {
         static bool const throw_on_error =
             noexcept(std::declval<ErrorHandler>()(0));
 
-        constexpr to_utf32_iterator() noexcept :
-            it_(),
-            next_(),
-            partial_decrement_(false)
-        {}
-        explicit constexpr to_utf32_iterator(Iter it) noexcept :
+        constexpr to_utf32_iterator() noexcept : first_(), it_(), last_() {}
+        explicit constexpr to_utf32_iterator(
+            Iter first, Iter it, Sentinel last) noexcept :
+            first_(first),
             it_(it),
-            next_(it),
-            partial_decrement_(false)
+            last_(last)
         {}
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR reference operator*() const
             noexcept(!throw_on_error)
         {
-            if (partial_decrement_)
-                const_cast<Iter &>(it_) = detail::decrement(it_ + 1);
-            partial_decrement_ = false;
-            return get_value();
+            return get_value().value_;
         }
 
         /** This function is constexpr in C++14 and later. */
@@ -594,14 +654,7 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator &
         operator++() noexcept(!throw_on_error)
         {
-            if (partial_decrement_) {
-                ++it_;
-            } else {
-                if (it_ == next_)
-                    get_value();
-                it_ = next_;
-            }
-            partial_decrement_ = false;
+            it_ = increment();
             return *this;
         }
 
@@ -618,10 +671,7 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR to_utf32_iterator &
         operator--() noexcept(!throw_on_error)
         {
-            if (partial_decrement_)
-                it_ = detail::decrement(it_ + 1);
-            --it_;
-            partial_decrement_ = true;
+            it_ = detail::decrement(first_, it_);
             return *this;
         }
 
@@ -678,6 +728,12 @@ namespace boost { namespace text { namespace utf8 {
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
+        struct get_value_result
+        {
+            reference value_;
+            Iter it_;
+        };
+
         BOOST_TEXT_CXX14_CONSTEXPR bool check_continuation(
             unsigned char c,
             unsigned char lo = 0x80,
@@ -693,11 +749,22 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR reference get_value() const
+        BOOST_TEXT_CXX14_CONSTEXPR bool at_end(Iter it) const
             noexcept(!throw_on_error)
         {
-            uint32_t retval = 0;
+            if (it == last_) {
+                ErrorHandler{}(
+                    "Invalid UTF-8 sequence; another code point before the end "
+                    "of string.");
+                return true;
+            } else {
+                return false;
+            }
+        }
 
+        BOOST_TEXT_CXX14_CONSTEXPR get_value_result get_value() const
+            noexcept(!throw_on_error)
+        {
             /*
                 Unicode 9, 3.9/D92
                 Table 3-7. Well-Formed UTF-8 Byte Sequences
@@ -715,138 +782,205 @@ namespace boost { namespace text { namespace utf8 {
                 U+100000..U+10FFFF F4         80..8F      80..BF     80..BF
             */
 
-            next_ = it_;
-            unsigned char curr_c = *next_;
+            uint32_t value = 0;
+            Iter next = it_;
+
+            if (at_end(next))
+                return get_value_result{replacement_character(), next};
+
+            unsigned char curr_c = *next;
 
             using detail::in;
 
+
             // One-byte
             if (curr_c <= 0x7f) {
-                retval = curr_c;
-                ++next_;
+                value = curr_c;
+                ++next;
                 // Two-byte
             } else if (in(0xc2, curr_c, 0xdf)) {
-                retval = curr_c & 0b00011111;
-                curr_c = *++next_;
+                value = curr_c & 0b00011111;
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                ++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
                 // Three-byte
             } else if (curr_c == 0xe0) {
-                retval = curr_c & 0b00001111;
-                curr_c = *++next_;
+                value = curr_c & 0b00001111;
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c, 0xa0, 0xbf))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                ++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
             } else if (in(0xe1, curr_c, 0xec)) {
-                retval = curr_c & 0b00001111;
-                curr_c = *++next_;
+                value = curr_c & 0b00001111;
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                ++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
             } else if (curr_c == 0xed) {
-                retval = curr_c & 0b00001111;
-                curr_c = *++next_;
+                value = curr_c & 0b00001111;
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c, 0x80, 0x9f))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                ++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
             } else if (in(0xed, curr_c, 0xef)) {
-                retval = curr_c & 0b00001111;
-                curr_c = *++next_;
+                value = curr_c & 0b00001111;
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                ++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
                 // Four-byte
             } else if (curr_c == 0xf0) {
-                retval = curr_c & 0b00000111;
-                curr_c = *++next_;
+                value = curr_c & 0b00000111;
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c, 0x90, 0xbf))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                ++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
             } else if (in(0xf1, curr_c, 0xf3)) {
-                retval = curr_c & 0b00000111;
-                curr_c = *++next_;
+                value = curr_c & 0b00000111;
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                ++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
             } else if (curr_c == 0xf4) {
-                retval = curr_c & 0b00000111;
-                curr_c = *++next_;
+                value = curr_c & 0b00000111;
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c, 0x80, 0x8f))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
+                if (at_end(next))
+                    return get_value_result{replacement_character(), next};
+                curr_c = *next;
                 if (!check_continuation(curr_c))
-                    return replacement_character();
-                retval = (retval << 6) + (curr_c & 0b00111111);
-                ++next_;
+                    return get_value_result{replacement_character(), next};
+                value = (value << 6) + (curr_c & 0b00111111);
+                ++next;
             } else {
-                retval = ErrorHandler{}("Invalid initial UTF-8 character.");
-                ++next_;
+                value = ErrorHandler{}("Invalid initial UTF-8 character.");
+                ++next;
             }
 
-            if (!valid_code_point(retval)) {
-                retval = ErrorHandler{}(
+            if (!valid_code_point(value)) {
+                value = ErrorHandler{}(
                     "UTF-8 sequence results in invalid UTF-32 code point.");
             }
 
-            return retval;
+            return get_value_result{value, next};
         }
 
+        BOOST_TEXT_CXX14_CONSTEXPR Iter increment() const
+            noexcept(!throw_on_error)
+        {
+            return get_value().it_;
+        }
+
+        Iter first_;
         Iter it_;
-        mutable Iter next_;
-        mutable bool partial_decrement_;
+        Sentinel last_;
 #endif
     };
 
     /** Returns a to_utf32_iterator<Iter> constructed from an Iter. */
-    template<typename Iter>
-    to_utf32_iterator<Iter> make_to_utf32_iterator(Iter it)
+    template<typename Iter, typename Sentinel>
+    to_utf32_iterator<Iter, Sentinel>
+    make_to_utf32_iterator(Iter first, Iter it, Sentinel last)
     {
-        return to_utf32_iterator<Iter>(it);
+        return to_utf32_iterator<Iter, Sentinel>(it);
     }
 
 
