@@ -510,30 +510,31 @@ namespace boost { namespace text {
             if (l1.empty() && l2.empty() && l3.empty() && l4.empty() &&
                 l4_overflow.empty()) {
                 return;
-           }
+            }
 
-           // TODO: Needs to change under certain compression schemes.
-           int const separators = static_cast<int>(strength_for_copies);
+            // TODO: Needs to change under certain compression schemes.
+            int const separators = static_cast<int>(strength_for_copies);
 
-           container::small_vector<uint32_t, 256> nfd;
-           if (collation_strength::quaternary < strength)
-               normalize_to_nfd(cps_first, cps_last, std::back_inserter(nfd));
+            container::small_vector<uint32_t, 256> nfd;
+            if (collation_strength::quaternary < strength)
+                normalize_to_nfd(cps_first, cps_last, std::back_inserter(nfd));
 
-           int size = l1.size();
-           if (collation_strength::primary < strength_for_copies) {
-               size += l2.size();
-               if (collation_strength::secondary < strength_for_copies) {
-                   size += l3.size();
-                   if (collation_strength::tertiary < strength_for_copies) {
-                       size += l4.size();
-                       if (!l4_overflow.empty()) {
-                           ++size;
-                           size += l4_overflow.size();
-                       }
-                       if (collation_strength::quaternary < strength_for_copies)
-                           size += nfd.size();
-                   }
-               }
+            int size = l1.size();
+            if (collation_strength::primary < strength_for_copies) {
+                size += l2.size();
+                if (collation_strength::secondary < strength_for_copies) {
+                    size += l3.size();
+                    if (collation_strength::tertiary < strength_for_copies) {
+                        size += l4.size();
+                        if (!l4_overflow.empty()) {
+                            ++size;
+                            size += l4_overflow.size();
+                        }
+                        if (collation_strength::quaternary <
+                            strength_for_copies)
+                            size += nfd.size();
+                    }
+                }
             }
             size += separators;
 
@@ -641,9 +642,9 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CodePointRange>
+    template<typename CPRange>
     text_sort_key collation_sort_key(
-        CodePointRange const & r,
+        CPRange const & r,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first_t case_first = case_first_t::off,
@@ -693,10 +694,10 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CodePointRange1, typename CodePointRange2>
+    template<typename CPRange1, typename CPRange2>
     int collate(
-        CodePointRange1 const & r1,
-        CodePointRange2 const & r2,
+        CPRange1 const & r1,
+        CPRange2 const & r2,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first_t case_first = case_first_t::off,

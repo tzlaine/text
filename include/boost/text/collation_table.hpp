@@ -227,10 +227,10 @@ namespace boost { namespace text {
             variable_weighting weighting =
                 variable_weighting::non_ignorable) const;
 
-        template<typename CodePointRange>
+        template<typename CPRange>
         container::small_vector<detail::collation_element, 1024>
         collation_elements(
-            CodePointRange & r,
+            CPRange & r,
             collation_strength strength = collation_strength::tertiary,
             case_first_t case_first = case_first_t::off,
             case_level_t case_level = case_level_t::off,
@@ -327,9 +327,8 @@ namespace boost { namespace text {
             l2_order_(l2_order)
         {}
 
-        template<typename CodePointRange1, typename CodePointRange2>
-        bool operator()(
-            CodePointRange1 const & r1, CodePointRange2 const & r2) const;
+        template<typename CPRange1, typename CPRange2>
+        bool operator()(CPRange1 const & r1, CPRange2 const & r2) const;
 
     private:
         collation_table table_;
@@ -562,8 +561,7 @@ namespace boost { namespace text {
         }
 
         inline bool well_formed_2(
-            collation_element ce,
-            tailoring_state_t const & tailoring_state)
+            collation_element ce, tailoring_state_t const & tailoring_state)
         {
             switch (ce_strength(ce)) {
             case collation_strength::secondary:
@@ -638,8 +636,7 @@ namespace boost { namespace text {
                 if (s == collation_strength::secondary) {
                     ce.l2_ = tailoring_state.last_secondary_in_primary_;
                 } else if (s == collation_strength::tertiary) {
-                    ce.l3_ =
-                        tailoring_state.last_tertiary_in_secondary_masked_;
+                    ce.l3_ = tailoring_state.last_tertiary_in_secondary_masked_;
                 }
                 increment_ce(ce, strength, true);
                 retval = true;
@@ -935,9 +932,7 @@ namespace boost { namespace text {
                         "Could not find the collation table element before the "
                         "one requested here");
                 }
-                reset_ces.assign(
-                    prev_it->ces_.begin(),
-                    prev_it->ces_.end());
+                reset_ces.assign(prev_it->ces_.begin(), prev_it->ces_.end());
 
                 if (reset.size() == 1u && reset[0] == first_variable) {
                     // Note: Special case: If the found CEs are < first
@@ -1270,9 +1265,9 @@ namespace boost { namespace text {
         return retval;
     }
 
-    template<typename CodePointRange1, typename CodePointRange2>
+    template<typename CPRange1, typename CPRange2>
     bool collation_compare::
-    operator()(CodePointRange1 const & r1, CodePointRange2 const & r2) const
+    operator()(CPRange1 const & r1, CPRange2 const & r2) const
     {
         return collate(
                    r1,

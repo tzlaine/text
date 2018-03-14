@@ -403,8 +403,8 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CodePointRange, typename OutIter>
-    inline OutIter normalize_to_nfd(CodePointRange const & r, OutIter out)
+    template<typename CPRange, typename OutIter>
+    inline OutIter normalize_to_nfd(CPRange const & r, OutIter out)
     {
         using std::begin;
         using std::end;
@@ -447,8 +447,8 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CodePointRange, typename OutIter>
-    inline OutIter normalize_to_nfkd(CodePointRange const & r, OutIter out)
+    template<typename CPRange, typename OutIter>
+    inline OutIter normalize_to_nfkd(CPRange const & r, OutIter out)
     {
         using std::begin;
         using std::end;
@@ -493,8 +493,8 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CodePointRange, typename OutIter>
-    inline OutIter normalize_to_nfc(CodePointRange const & r, OutIter out)
+    template<typename CPRange, typename OutIter>
+    inline OutIter normalize_to_nfc(CPRange const & r, OutIter out)
     {
         using std::begin;
         using std::end;
@@ -541,8 +541,8 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CodePointRange, typename OutIter>
-    inline OutIter normalize_to_nfkc(CodePointRange const & r, OutIter out)
+    template<typename CPRange, typename OutIter>
+    inline OutIter normalize_to_nfkc(CPRange const & r, OutIter out)
     {
         using std::begin;
         using std::end;
@@ -593,8 +593,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given range of code points is normalized
         NFD. */
-    template<typename CodePointRange>
-    bool normalized_nfd(CodePointRange const & r) noexcept
+    template<typename CPRange>
+    bool normalized_nfd(CPRange const & r) noexcept
     {
         using std::begin;
         using std::end;
@@ -617,8 +617,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given range of code points is normalized
         NFKD. */
-    template<typename CodePointRange>
-    bool normalized_nfkd(CodePointRange const & r) noexcept
+    template<typename CPRange>
+    bool normalized_nfkd(CPRange const & r) noexcept
     {
         using std::begin;
         using std::end;
@@ -639,8 +639,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given range of code points is normalized
         NFC. */
-    template<typename CodePointRange>
-    bool normalized_nfc(CodePointRange const & r) noexcept
+    template<typename CPRange>
+    bool normalized_nfc(CPRange const & r) noexcept
     {
         using std::begin;
         using std::end;
@@ -663,8 +663,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given range of code points is normalized
         NFKC. */
-    template<typename CodePointRange>
-    bool normalized_nfkc(CodePointRange const & r) noexcept
+    template<typename CPRange>
+    bool normalized_nfkc(CPRange const & r) noexcept
     {
         using std::begin;
         using std::end;
@@ -692,8 +692,8 @@ namespace boost { namespace text {
     }
 
     /** Returns true iff the given range of code points is in an FCD form. */
-    template<typename CodePointRange>
-    bool fcd_form(CodePointRange const & r) noexcept
+    template<typename CPRange>
+    bool fcd_form(CPRange const & r) noexcept
     {
         using std::begin;
         using std::end;
@@ -712,11 +712,11 @@ namespace boost { namespace text {
             [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
-    // TODO: Document CodePointRange.
+    // TODO: Document CPRange.
 
     /** TODO */
-    template<typename CodePointRange, typename OutIter>
-    inline OutIter normalize_to_fcc(CodePointRange const & r, OutIter out)
+    template<typename CPRange, typename OutIter>
+    inline OutIter normalize_to_fcc(CPRange const & r, OutIter out)
     {
         using std::begin;
         using std::end;
