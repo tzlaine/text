@@ -315,7 +315,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     }
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
-        <code>[first, last]</code>. */
+        <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
     lazy_segment_range<
         CPIter,

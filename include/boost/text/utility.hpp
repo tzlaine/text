@@ -85,6 +85,12 @@ namespace boost { namespace text {
         sentinel last_;
     };
 
+    namespace detail {
+        template<typename T>
+        using remove_cv_ref_t = typename std::remove_cv<
+            typename std::remove_reference<T>::type>::type;
+    }
+
 }}
 
 #endif

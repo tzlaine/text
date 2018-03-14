@@ -614,7 +614,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     }
 
     /** Returns a lazy range of the code point ranges delimiting words in
-        <code>[first, last]</code>. */
+        <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
     lazy_segment_range<
         CPIter,
@@ -623,6 +623,21 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     words(CPIter first, Sentinel last) noexcept
     {
         return {{first, last}, {last, last}};
+    }
+
+    // TODO: Make the other algorithms Range-friendly in their inputs.
+
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>range</code>. */
+    template<typename CPRange>
+    auto words(CPRange const & range) noexcept -> lazy_segment_range<
+        detail::remove_cv_ref_t<decltype(range.begin())>,
+        detail::remove_cv_ref_t<decltype(range.end())>,
+        detail::next_word_callable<
+            detail::remove_cv_ref_t<decltype(range.begin())>,
+            detail::remove_cv_ref_t<decltype(range.end())>>>
+    {
+        return {{range.begin(), range.end()}, {range.end(), range.end()}};
     }
 
 }}

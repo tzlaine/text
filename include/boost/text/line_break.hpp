@@ -617,7 +617,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 #endif
 
     /** Returns a lazy range of the code point ranges delimiting lines (using
-        hard line breaks) in <code>[first, last]</code>. */
+        hard line breaks) in <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
     lazy_segment_range<
         CPIter,
@@ -642,7 +642,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 #endif
 
     /** Returns a lazy range of the code point ranges delimiting possible
-        lines in <code>[first, last]</code>. */
+        lines in <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
     lazy_segment_range<
         CPIter,

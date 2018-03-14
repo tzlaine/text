@@ -5,6 +5,7 @@
 #include <boost/text/bidirectional_fwd.hpp>
 #include <boost/text/line_break.hpp>
 #include <boost/text/paragraph_break.hpp>
+#include <boost/text/utility.hpp>
 #include <boost/text/detail/bidirectional.hpp>
 
 #include <boost/container/small_vector.hpp>
@@ -922,8 +923,7 @@ namespace boost { namespace text {
             using iterator_category = std::forward_iterator_tag;
 
             using mirrors_array_t =
-                typename std::remove_reference<typename std::remove_cv<decltype(
-                    bidi_mirroreds())>::type>::type;
+                detail::remove_cv_ref_t<decltype(bidi_mirroreds())>;
             using kind_t = fwd_rev_cp_iter_kind;
 
             fwd_rev_cp_iter() noexcept : kind_(kind_t::user_it) {}

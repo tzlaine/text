@@ -75,7 +75,7 @@ namespace boost { namespace text {
     }
 
     /** Returns a lazy range of the code point ranges delimiting paragraphs in
-        <code>[first, last]</code>. */
+        <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
     lazy_segment_range<
         CPIter,

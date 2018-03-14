@@ -592,7 +592,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     }
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
-        <code>[first, last]</code>. */
+        <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
     lazy_segment_range<
         CPIter,
