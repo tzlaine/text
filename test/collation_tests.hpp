@@ -47,7 +47,7 @@ std::vector<uint32_t> collate_for_tests(
     boost::text::collation_strength strength)
 {
     boost::text::string str = boost::text::to_string(first_, last_);
-    boost::text::pseudonormalize_to_fcc(str);
+    boost::text::normalize_to_fcc(str);
 
     boost::container::static_vector<uint32_t, 1024> buf;
     boost::text::utf32_range as_utf32(str);

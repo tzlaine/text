@@ -299,7 +299,7 @@ namespace boost { namespace text {
         }
 #endif
 
-        // TODO: Experiment with writing out teh ccc values for reuse in case
+        // TODO: Experiment with writing out the ccc values for reuse in case
         // the result is not quick_check::yes.
         template<typename Iter, typename QuickCheckFunc>
         quick_check normalized_quick_check(
@@ -671,10 +671,10 @@ namespace boost { namespace text {
         return normalized_nfkc(begin(r), end(r));
     }
 
-    /** Returns true iff the given sequence of code points is in the
-        pseudonormalized FCD form. */
+    /** Returns true iff the given sequence of code points is in an FCD
+        form. */
     template<typename Iter>
-    bool pseudonormalized_fcd(Iter first, Iter last) noexcept
+    bool fcd_form(Iter first, Iter last) noexcept
     {
         // http://www.unicode.org/notes/tn5/#FCD_Test
         int prev_ccc = 0;
@@ -691,19 +691,18 @@ namespace boost { namespace text {
         return false;
     }
 
-    /** Returns true iff the given range of code points is in the
-        pseudonormalized FCD form. */
+    /** Returns true iff the given range of code points is in an FCD form. */
     template<typename CodePointRange>
-    bool pseudonormalized_fcd(CodePointRange const & r) noexcept
+    bool fcd_form(CodePointRange const & r) noexcept
     {
         using std::begin;
         using std::end;
-        return pseudonormalized_fcd(begin(r), end(r));
+        return fcd_form(begin(r), end(r));
     }
 
     /** TODO */
     template<typename Iter, typename OutIter>
-    inline OutIter pseudonormalize_to_fcc(Iter first, Iter last, OutIter out)
+    inline OutIter normalize_to_fcc(Iter first, Iter last, OutIter out)
     {
         return detail::normalize_to_composed<true>(
             first,
@@ -717,25 +716,25 @@ namespace boost { namespace text {
 
     /** TODO */
     template<typename CodePointRange, typename OutIter>
-    inline OutIter pseudonormalize_to_fcc(CodePointRange const & r, OutIter out)
+    inline OutIter normalize_to_fcc(CodePointRange const & r, OutIter out)
     {
         using std::begin;
         using std::end;
-        return pseudonormalize_to_fcc(begin(r), end(r), out);
+        return normalize_to_fcc(begin(r), end(r), out);
     }
 
     /** TODO */
-    inline void pseudonormalize_to_fcc(string & s)
+    inline void normalize_to_fcc(string & s)
     {
         // http://www.unicode.org/notes/tn5/#FCC
         utf32_range as_utf32(s);
-        if (pseudonormalized_fcd(as_utf32.begin(), as_utf32.end()))
+        if (fcd_form(as_utf32.begin(), as_utf32.end()))
             return;
 
         string temp;
         temp.reserve(s.size());
 
-        pseudonormalize_to_fcc(
+        normalize_to_fcc(
             as_utf32.begin(),
             as_utf32.end(),
             utf8::from_utf32_inserter(temp, temp.end()));

@@ -32,7 +32,7 @@ TEST(collation, relative_non_ignorable_1)
             g_cps.begin() + r.first, g_cps.begin() + r.second);
 
         curr_cps.clear();
-        boost::text::pseudonormalize_to_fcc(
+        boost::text::normalize_to_fcc(
             curr_un_norm, std::back_inserter(curr_cps));
 
         curr_key = boost::text::collation_sort_key(
