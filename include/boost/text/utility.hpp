@@ -89,6 +89,14 @@ namespace boost { namespace text {
         template<typename T>
         using remove_cv_ref_t = typename std::remove_cv<
             typename std::remove_reference<T>::type>::type;
+
+        template<typename Range>
+        using iterator_t =
+            remove_cv_ref_t<decltype(std::declval<Range>().begin())>;
+
+        template<typename Range>
+        using sentinel_t =
+            remove_cv_ref_t<decltype(std::declval<Range>().end())>;
     }
 
 }}

@@ -631,11 +631,11 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         <code>range</code>. */
     template<typename CPRange>
     auto words(CPRange const & range) noexcept -> lazy_segment_range<
-        detail::remove_cv_ref_t<decltype(range.begin())>,
-        detail::remove_cv_ref_t<decltype(range.end())>,
+        detail::iterator_t<CPRange>,
+        detail::sentinel_t<CPRange>,
         detail::next_word_callable<
-            detail::remove_cv_ref_t<decltype(range.begin())>,
-            detail::remove_cv_ref_t<decltype(range.end())>>>
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>>>
     {
         return {{range.begin(), range.end()}, {range.end(), range.end()}};
     }
