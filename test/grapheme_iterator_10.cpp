@@ -162,15 +162,15 @@ TEST(grapheme, iterator_10_0_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -348,15 +348,15 @@ TEST(grapheme, iterator_10_1_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -816,15 +816,15 @@ TEST(grapheme, iterator_10_4_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -1002,15 +1002,15 @@ TEST(grapheme, iterator_10_5_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -1188,15 +1188,15 @@ TEST(grapheme, iterator_10_6_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -1374,15 +1374,15 @@ TEST(grapheme, iterator_10_7_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -1560,15 +1560,15 @@ TEST(grapheme, iterator_10_8_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -1746,15 +1746,15 @@ TEST(grapheme, iterator_10_9_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -1932,15 +1932,15 @@ TEST(grapheme, iterator_10_10_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -2118,15 +2118,15 @@ TEST(grapheme, iterator_10_11_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -2245,15 +2245,15 @@ TEST(grapheme, iterator_10_12_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -2363,15 +2363,15 @@ TEST(grapheme, iterator_10_13_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -2540,15 +2540,15 @@ TEST(grapheme, iterator_10_14_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -2726,15 +2726,15 @@ TEST(grapheme, iterator_10_15_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -2853,15 +2853,15 @@ TEST(grapheme, iterator_10_16_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -2971,15 +2971,15 @@ TEST(grapheme, iterator_10_17_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -3148,15 +3148,15 @@ TEST(grapheme, iterator_10_18_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -3334,15 +3334,15 @@ TEST(grapheme, iterator_10_19_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -3520,15 +3520,15 @@ TEST(grapheme, iterator_10_20_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -3706,15 +3706,15 @@ TEST(grapheme, iterator_10_21_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -3892,15 +3892,15 @@ TEST(grapheme, iterator_10_22_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -4078,15 +4078,15 @@ TEST(grapheme, iterator_10_23_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -4264,15 +4264,15 @@ TEST(grapheme, iterator_10_24_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -4450,15 +4450,15 @@ TEST(grapheme, iterator_10_25_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -4636,15 +4636,15 @@ TEST(grapheme, iterator_10_26_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -4822,15 +4822,15 @@ TEST(grapheme, iterator_10_27_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -4949,15 +4949,15 @@ TEST(grapheme, iterator_10_28_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -5126,15 +5126,15 @@ TEST(grapheme, iterator_10_29_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -5312,15 +5312,15 @@ TEST(grapheme, iterator_10_30_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -5498,15 +5498,15 @@ TEST(grapheme, iterator_10_31_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -5684,15 +5684,15 @@ TEST(grapheme, iterator_10_32_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -5870,15 +5870,15 @@ TEST(grapheme, iterator_10_33_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -5997,15 +5997,15 @@ TEST(grapheme, iterator_10_34_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -6115,15 +6115,15 @@ TEST(grapheme, iterator_10_35_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -6292,15 +6292,15 @@ TEST(grapheme, iterator_10_36_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -6478,15 +6478,15 @@ TEST(grapheme, iterator_10_37_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -6664,15 +6664,15 @@ TEST(grapheme, iterator_10_38_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -6850,15 +6850,15 @@ TEST(grapheme, iterator_10_39_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -7036,15 +7036,15 @@ TEST(grapheme, iterator_10_40_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -7222,15 +7222,15 @@ TEST(grapheme, iterator_10_41_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -7690,15 +7690,15 @@ TEST(grapheme, iterator_10_44_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -7876,15 +7876,15 @@ TEST(grapheme, iterator_10_45_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -8062,15 +8062,15 @@ TEST(grapheme, iterator_10_46_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -8248,15 +8248,15 @@ TEST(grapheme, iterator_10_47_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -8434,15 +8434,15 @@ TEST(grapheme, iterator_10_48_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
@@ -8620,15 +8620,15 @@ TEST(grapheme, iterator_10_49_utf8)
 
         boost::text::utf8::null_sentinel sentinel;
         int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *> it(cus); ; ++it) {
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
             *index_it++ = it.base() - cus;
             if (it == sentinel)
                 break;
         }
 
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *>;
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
         boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus}, iter_t{cus}, sentinel);
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
