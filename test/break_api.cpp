@@ -25,10 +25,21 @@ TEST(break_apis, grapheme_break)
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
+    // Range API
+    {
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps, cps.begin() + 0) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps) - cps.begin(), 2);
+    }
 
     {
         auto const range =
             boost::text::grapheme(cps.begin(), cps.begin() + 0, cps.end());
+        EXPECT_EQ(range.begin() - cps.begin(), 0);
+        EXPECT_EQ(range.end() - cps.begin(), 2);
+    }
+    // Range API
+    {
+        auto const range = boost::text::grapheme(cps, cps.begin() + 0);
         EXPECT_EQ(range.begin() - cps.begin(), 0);
         EXPECT_EQ(range.end() - cps.begin(), 2);
     }
@@ -57,6 +68,22 @@ TEST(break_apis, grapheme_break)
     {
         auto const all_graphemes =
             boost::text::graphemes(cps.begin(), cps.end());
+
+        std::array<std::pair<int, int>, 3> const grapheme_bounds = {
+            {{0, 2}, {2, 3}}};
+
+        int i = 0;
+        for (auto grapheme : all_graphemes) {
+            EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+    }
+    // Range API
+    {
+        auto const all_graphemes = boost::text::graphemes(cps);
 
         std::array<std::pair<int, int>, 3> const grapheme_bounds = {
             {{0, 2}, {2, 3}}};
@@ -100,11 +127,14 @@ TEST(break_apis, grapheme_break_sentinel)
 
     char const * c_str = s.begin();
 
-    auto const begin = u32_iter(c_str, c_str, s.end());
+    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> cp_range{
+        u32_iter(c_str, c_str, s.end()), boost::text::utf8::null_sentinel{}};
+
+    auto const begin = cp_range.begin();
     auto const one = std::next(begin);
     auto const two = std::next(one);
     auto const three = std::next(two);
-    auto const end = boost::text::utf8::null_sentinel{};
+    auto const end = cp_range.end();
 
     {
         EXPECT_EQ(std::distance(begin, boost::text::prev_grapheme_break(begin, begin, end)), 0);
@@ -116,9 +146,20 @@ TEST(break_apis, grapheme_break_sentinel)
         EXPECT_EQ(std::distance(begin, boost::text::prev_grapheme_break(begin, three, end)), 2);
         EXPECT_EQ(std::distance(begin, boost::text::next_grapheme_break(two, end)), 3);
     }
+    // Range API
+    {
+        EXPECT_EQ(std::distance(begin, boost::text::prev_grapheme_break(cp_range, begin)), 0);
+        EXPECT_EQ(std::distance(begin, boost::text::next_grapheme_break(cp_range)), 2);
+    }
 
     {
         auto const range = boost::text::grapheme(begin, begin, end);
+        EXPECT_EQ(std::distance(begin, range.begin()), 0);
+        EXPECT_EQ(std::distance(begin, range.end()), 2);
+    }
+    // Range API
+    {
+        auto const range = boost::text::grapheme(cp_range, begin);
         EXPECT_EQ(std::distance(begin, range.begin()), 0);
         EXPECT_EQ(std::distance(begin, range.end()), 2);
     }
@@ -143,6 +184,24 @@ TEST(break_apis, grapheme_break_sentinel)
 
     {
         auto const all_graphemes = boost::text::graphemes(begin, end);
+
+        std::array<std::pair<int, int>, 3> const grapheme_bounds = {
+            {{0, 2}, {2, 3}}};
+
+        int i = 0;
+        for (auto grapheme : all_graphemes) {
+            EXPECT_EQ(
+                std::distance(begin, grapheme.begin()), grapheme_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(begin, grapheme.end()), grapheme_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+    }
+    // Range API
+    {
+        auto const all_graphemes = boost::text::graphemes(cp_range);
 
         std::array<std::pair<int, int>, 3> const grapheme_bounds = {
             {{0, 2}, {2, 3}}};

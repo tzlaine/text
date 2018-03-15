@@ -189,8 +189,8 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
     /** Finds the nearest sentence break at or before before <code>it</code>.
         If <code>it == first</code>, that is returned.  Otherwise, the first
-        code point of the sentence <code>it</code> is within is returned (even
-        if <code>it</code> is already at the first code point of a
+        code point of the sentence that <code>it</code> is within is returned
+        (even if <code>it</code> is already at the first code point of a
         sentence. */
     template<typename CPIter>
     inline CPIter
@@ -417,11 +417,11 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         return first;
     }
 
-    /** Finds the next sentence break after <code>first</code>.  This will be
-        the first code point after the current sentence, or <code>last</code>
-        if no next sentence exists.
+    /** Finds the next sentence break after <code>it</code>.  This will be the
+        first code point after the current sentence, or <code>last</code> if
+        no next sentence exists.
 
-        \pre <code>first</code> is at the beginning of a sentence. */
+        \pre <code>it</code> is at the beginning of a sentence. */
     template<typename CPIter>
     inline CPIter next_sentence_break(CPIter first, CPIter last) noexcept
     {

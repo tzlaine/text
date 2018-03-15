@@ -196,7 +196,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
     /** Finds the nearest word break at or before before <code>it</code>.  If
         <code>it == first</code>, that is returned.  Otherwise, the first code
-        point of the word <code>it</code> is within is returned (even if
+        point of the word that <code>it</code> is within is returned (even if
         <code>it</code> is already at the first code point of a word. */
     template<typename CPIter>
     inline CPIter prev_word_break(CPIter first, CPIter it, CPIter last) noexcept
@@ -446,7 +446,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return first;
     }
 
-    /** Finds the next word break after <code>first</code>.  This will be the
+    /** Finds the next word break after <code>it</code>.  This will be the
         first code point after the current word, or <code>last</code> if no
         next word exists.
 
@@ -593,6 +593,30 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return last;
     }
 
+    /** Finds the nearest word break at or before before <code>it</code>.  If
+        <code>it == range.begin()</code>, that is returned.  Otherwise, the
+        first code point of the word that <code>it</code> is within is
+        returned (even if <code>it</code> is already at the first code point
+        of a word. */
+    template<typename CPRange, typename CPIter>
+    inline auto prev_word_break(CPRange & range, CPIter it) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return prev_word_break(range.begin(), it, range.end());
+    }
+
+    /** Finds the next word break after <code>it</code>.  This will be the
+        first code point after the current word, or <code>range.end()</code>
+        if no next word exists.
+
+        \pre <code>it</code> is at the beginning of a word. */
+    template<typename CPRange>
+    inline auto next_word_break(CPRange & range) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return next_word_break(range.begin(), range.end());
+    }
+
     namespace detail {
         template<typename CPIter, typename Sentinel>
         struct next_word_callable
@@ -613,6 +637,15 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return cp_range<CPIter>{first, next_word_break(first, last)};
     }
 
+    /** Returns the bounds of the word that <code>it</code> lies within. */
+    template<typename CPRange, typename CPIter>
+    inline auto word(CPRange & range, CPIter it) noexcept
+        -> cp_range<detail::iterator_t<CPRange>>
+    {
+        auto first = prev_word_break(range.begin(), it, range.end());
+        return cp_range<CPIter>{first, next_word_break(first, range.end())};
+    }
+
     /** Returns a lazy range of the code point ranges delimiting words in
         <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
@@ -622,7 +655,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         detail::next_word_callable<CPIter, Sentinel>>
     words(CPIter first, Sentinel last) noexcept
     {
-        return {{first, last}, {last, last}};
+        return {{first, last}, {last}};
     }
 
     // TODO: Make the other algorithms Range-friendly in their inputs.
@@ -630,14 +663,14 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     /** Returns a lazy range of the code point ranges delimiting words in
         <code>range</code>. */
     template<typename CPRange>
-    auto words(CPRange const & range) noexcept -> lazy_segment_range<
+    auto words(CPRange & range) noexcept -> lazy_segment_range<
         detail::iterator_t<CPRange>,
         detail::sentinel_t<CPRange>,
         detail::next_word_callable<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        return {{range.begin(), range.end()}, {range.end(), range.end()}};
+        return {{range.begin(), range.end()}, {range.end()}};
     }
 
 }}

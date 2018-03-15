@@ -22,7 +22,7 @@ namespace boost { namespace text {
 
     /** Finds the nearest paragraph break at or before before <code>it</code>.
         If <code>it == first</code>, that is returned.  Otherwise, the first
-        code point of the paragraph <code>it</code> is within is returned
+        code point of the paragraph that <code>it</code> is within is returned
         (even if <code>it</code> is already at the first code point of a
         paragraph. */
     template<typename CPIter>

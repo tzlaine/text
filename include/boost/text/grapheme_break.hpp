@@ -294,6 +294,30 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         return state.it;
     }
 
+    /** Finds the nearest grapheme break at or before before <code>it</code>.
+        If <code>it == range.begin()</code>, that is returned.  Otherwise, the
+        first code point of the grapheme that <code>it</code> is within is
+        returned (even if <code>it</code> is already at the first code point
+        of a grapheme. */
+    template<typename CPRange, typename CPIter>
+    inline auto prev_grapheme_break(CPRange & range, CPIter it) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return prev_grapheme_break(range.begin(), it, range.end());
+    }
+
+    /** Finds the next grapheme break after <code>it</code>.  This will be the
+        first code point after the current grapheme, or
+        <code>range.end()</code> if no next grapheme exists.
+
+        \pre <code>it</code> is at the beginning of a grapheme. */
+    template<typename CPRange>
+    inline auto next_grapheme_break(CPRange & range) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return next_grapheme_break(range.begin(), range.end());
+    }
+
     namespace detail {
         template<typename CPIter, typename Sentinel>
         struct next_grapheme_callable
@@ -314,6 +338,16 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         return cp_range<CPIter>{first, next_grapheme_break(first, last)};
     }
 
+    /** Returns the bounds of the grapheme that <code>it</code> lies
+        within. */
+    template<typename CPRange, typename CPIter>
+    inline auto grapheme(CPRange & range, CPIter it) noexcept
+        -> cp_range<detail::iterator_t<CPRange>>
+    {
+        auto first = prev_grapheme_break(range.begin(), it, range.end());
+        return cp_range<CPIter>{first, next_grapheme_break(first, range.end())};
+    }
+
     /** Returns a lazy range of the code point ranges delimiting graphemes in
         <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
@@ -323,7 +357,20 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         detail::next_grapheme_callable<CPIter, Sentinel>>
     graphemes(CPIter first, Sentinel last) noexcept
     {
-        return {{first, last}, {first, last}};
+        return {{first, last}, {last}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting graphemes in
+        <code>range</code>. */
+    template<typename CPRange>
+    auto graphemes(CPRange & range) noexcept -> lazy_segment_range<
+        detail::iterator_t<CPRange>,
+        detail::sentinel_t<CPRange>,
+        detail::next_grapheme_callable<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>>>
+    {
+        return {{range.begin(), range.end()}, {range.end()}};
     }
 
 }}

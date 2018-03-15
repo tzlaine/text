@@ -45,6 +45,12 @@ namespace boost { namespace text {
                 last_(last)
             {}
 
+            const_lazy_segment_iterator(Sentinel last) noexcept :
+                prev_(),
+                it_(),
+                last_(last)
+            {}
+
             reference operator*() const noexcept
             {
                 return value_type{prev_, it_};
