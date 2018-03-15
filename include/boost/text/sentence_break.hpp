@@ -266,7 +266,8 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         }
 
         // SB5: Except after ParaSep, ignore/skip (Extend | Format)*
-        auto skip = [](detail::sentence_break_state<CPIter> state, CPIter first) {
+        auto skip = [](detail::sentence_break_state<CPIter> state,
+                       CPIter first) {
             if (detail::skippable(state.prev_prop)) {
                 auto temp_it =
                     find_if_not_backward(first, state.it, [](uint32_t cp) {
@@ -283,7 +284,8 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                     if (temp_it == first)
                         state.prev_prev_prop = sentence_prop_t::Other;
                     else
-                        state.prev_prev_prop = sentence_prop(*std::prev(temp_it));
+                        state.prev_prev_prop =
+                            sentence_prop(*std::prev(temp_it));
                 }
             }
             return state;
@@ -570,6 +572,30 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         return last;
     }
 
+    /** Finds the nearest sentence break at or before before <code>it</code>.
+        If <code>it == range.begin()</code>, that is returned.  Otherwise, the
+        first code point of the sentence that <code>it</code> is within is
+        returned (even if <code>it</code> is already at the first code point
+        of a sentence. */
+    template<typename CPRange, typename CPIter>
+    inline auto prev_sentence_break(CPRange & range, CPIter it) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return prev_sentence_break(range.begin(), it, range.end());
+    }
+
+    /** Finds the next sentence break after <code>it</code>.  This will be the
+        first code point after the current sentence, or
+        <code>range.end()</code> if no next sentence exists.
+
+        \pre <code>it</code> is at the beginning of a sentence. */
+    template<typename CPRange>
+    inline auto next_sentence_break(CPRange & range) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return next_sentence_break(range.begin(), range.end());
+    }
+
     namespace detail {
         template<typename CPIter, typename Sentinel>
         struct next_sentence_callable
@@ -591,6 +617,16 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         return cp_range<CPIter>{first, next_sentence_break(first, last)};
     }
 
+    /** Returns the bounds of the sentence that <code>it</code> lies
+        within. */
+    template<typename CPRange, typename CPIter>
+    inline auto sentence(CPRange & range, CPIter it) noexcept
+        -> cp_range<detail::iterator_t<CPRange>>
+    {
+        auto first = prev_sentence_break(range.begin(), it, range.end());
+        return cp_range<CPIter>{first, next_sentence_break(first, range.end())};
+    }
+
     /** Returns a lazy range of the code point ranges delimiting sentences in
         <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
@@ -600,7 +636,20 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         detail::next_sentence_callable<CPIter, Sentinel>>
     sentences(CPIter first, Sentinel last) noexcept
     {
-        return {{first, last}, {last, last}};
+        return {{first, last}, {last}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting sentences in
+        <code>range</code>. */
+    template<typename CPRange>
+    auto sentences(CPRange & range) noexcept -> lazy_segment_range<
+        detail::iterator_t<CPRange>,
+        detail::sentinel_t<CPRange>,
+        detail::next_sentence_callable<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>>>
+    {
+        return {{range.begin(), range.end()}, {range.end()}};
     }
 
 }}

@@ -54,6 +54,30 @@ namespace boost { namespace text {
         return ++first;
     }
 
+    /** Finds the nearest paragraph break at or before before <code>it</code>.
+        If <code>it == range.begin()</code>, that is returned.  Otherwise, the
+        first code point of the paragraph that <code>it</code> is within is
+        returned (even if <code>it</code> is already at the first code point
+        of a paragraph. */
+    template<typename CPRange, typename CPIter>
+    inline auto prev_paragraph_break(CPRange & range, CPIter it) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return prev_paragraph_break(range.begin(), it, range.end());
+    }
+
+    /** Finds the next paragraph break after <code>it</code>.  This will be the
+        first code point after the current paragraph, or
+        <code>range.end()</code> if no next paragraph exists.
+
+        \pre <code>it</code> is at the beginning of a paragraph. */
+    template<typename CPRange>
+    inline auto next_paragraph_break(CPRange & range) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return next_paragraph_break(range.begin(), range.end());
+    }
+
     namespace detail {
         template<typename CPIter, typename Sentinel>
         struct next_paragraph_callable
@@ -63,6 +87,17 @@ namespace boost { namespace text {
                 return next_paragraph_break(it, last);
             }
         };
+    }
+
+    /** Returns the bounds of the paragraph that <code>it</code> lies
+        within. */
+    template<typename CPRange, typename CPIter>
+    inline auto paragraph(CPRange & range, CPIter it) noexcept
+        -> cp_range<detail::iterator_t<CPRange>>
+    {
+        auto first = prev_paragraph_break(range.begin(), it, range.end());
+        return cp_range<CPIter>{first,
+                                next_paragraph_break(first, range.end())};
     }
 
     /** Returns the bounds of the paragraph that <code>it</code> lies
@@ -83,7 +118,20 @@ namespace boost { namespace text {
         detail::next_paragraph_callable<CPIter, Sentinel>>
     paragraphs(CPIter first, Sentinel last) noexcept
     {
-        return {{first, last}, {last, last}};
+        return {{first, last}, {last}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting paragraphs in
+        <code>range</code>. */
+    template<typename CPRange>
+    auto paragraphs(CPRange & range) noexcept -> lazy_segment_range<
+        detail::iterator_t<CPRange>,
+        detail::sentinel_t<CPRange>,
+        detail::next_paragraph_callable<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>>>
+    {
+        return {{range.begin(), range.end()}, {range.end()}};
     }
 
 }}

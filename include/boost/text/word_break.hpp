@@ -165,16 +165,18 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
         // WB4: Except after line breaks, ignore/skip (Extend | Format |
         // ZWJ)*
-        template<typename CPIter>
-        word_break_state<CPIter>
-        skip_forward(word_break_state<CPIter> state, CPIter first, CPIter last)
+        template<typename CPIter, typename Sentinel>
+        word_break_state<CPIter> skip_forward(
+            word_break_state<CPIter> state, CPIter first, Sentinel last)
         {
             if (state.it != first && !skippable(state.prev_prop) &&
                 skippable(state.prop)) {
-                auto temp_it = std::find_if_not(
-                    state.it, std::prev(last), [](uint32_t cp) {
+                auto temp_it =
+                    find_if_not(state.it, last, [](uint32_t cp) {
                         return skippable(word_prop(cp));
                     });
+                if (temp_it == last)
+                    --temp_it;
                 auto const temp_prop = word_prop(*temp_it);
                 state.it = temp_it;
                 state.prop = temp_prop;
@@ -198,8 +200,9 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         <code>it == first</code>, that is returned.  Otherwise, the first code
         point of the word that <code>it</code> is within is returned (even if
         <code>it</code> is already at the first code point of a word. */
-    template<typename CPIter>
-    inline CPIter prev_word_break(CPIter first, CPIter it, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    inline CPIter
+    prev_word_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
         if (it == first)
             return it;
@@ -446,22 +449,22 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return first;
     }
 
-    /** Finds the next word break after <code>it</code>.  This will be the
+    /** Finds the next word break after <code>first</code>.  This will be the
         first code point after the current word, or <code>last</code> if no
         next word exists.
 
         \pre <code>first</code> is at the beginning of a word. */
-    template<typename CPIter>
-    inline CPIter next_word_break(CPIter first, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    inline CPIter next_word_break(CPIter first, Sentinel last) noexcept
     {
         if (first == last)
-            return last;
+            return first;
 
         detail::word_break_state<CPIter> state;
         state.it = first;
 
         if (++state.it == last)
-            return last;
+            return state.it;
 
         state.prev_prev_prop = word_prop_t::Other;
         state.prev_prop = word_prop(*std::prev(state.it));
@@ -516,7 +519,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             // and prop).
             state = detail::skip_forward(state, first, last);
             if (state.it == last)
-                return last;
+                return state.it;
 
             // WB6
             if (detail::ah_letter(state.prev_prop) &&
@@ -524,7 +527,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 auto const temp_state =
                     detail::skip_forward(next(state), first, last);
                 if (temp_state.it == last)
-                    return last;
+                    return temp_state.it;
                 if (detail::ah_letter(temp_state.prop))
                     continue;
             }
@@ -543,7 +546,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 auto const temp_state =
                     detail::skip_forward(next(state), first, last);
                 if (temp_state.it == last)
-                    return last;
+                    return temp_state.it;
                 if (temp_state.prop == word_prop_t::Hebrew_Letter)
                     continue;
             }
@@ -568,7 +571,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 auto const temp_state =
                     detail::skip_forward(next(state), first, last);
                 if (temp_state.it == last)
-                    return last;
+                    return temp_state.it;
                 if (temp_state.prop == word_prop_t::Numeric)
                     continue;
             }
@@ -590,7 +593,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             if (detail::table_word_break(state.prev_prop, state.prop))
                 return state.it;
         }
-        return last;
+        return first;
     }
 
     /** Finds the nearest word break at or before before <code>it</code>.  If

@@ -145,9 +145,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         }
     }
 
-    /** Searches backward to find the start of the grapheme in which \a
-        current is found, without searching before \a first or after \a
-        last. */
+    /** Searches backward to find the start of the grapheme in which \a it is
+        found, without searching before \a first or after \a last. */
     template<typename CPIter, typename Sentinel>
     CPIter prev_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
@@ -190,7 +189,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 
             // When we see an RI, back up to the first RI so we can see what
             // emoji state we're supposed to be in here.
-            if (state.emoji_state == detail::grapheme_break_emoji_state_t::none &&
+            if (state.emoji_state ==
+                    detail::grapheme_break_emoji_state_t::none &&
                 state.prop == grapheme_prop_t::Regional_Indicator) {
                 int ris_before = 0;
                 find_if_not_backward(
@@ -225,7 +225,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
                         detail::grapheme_break_emoji_state_t::second_emoji;
                     return after_skip_it;
                 } else {
-                    state.emoji_state = detail::grapheme_break_emoji_state_t::none;
+                    state.emoji_state =
+                        detail::grapheme_break_emoji_state_t::none;
                 }
             } else if (
                 state.emoji_state ==

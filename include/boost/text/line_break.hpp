@@ -586,6 +586,56 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return detail::next_line_break_impl(first, last, false);
     }
 
+#if 0 // TODO: Depends on prev_*_line_break().
+    /** Finds the nearest hard line break at or before before <code>it</code>.
+        If <code>it == range.begin()</code>, that is returned.  Otherwise, the
+        first code point of the line that <code>it</code> is within is
+        returned (even if <code>it</code> is already at the first code point
+        of a line. */
+    template<typename CPRange, typename CPIter>
+    inline auto prev_hard_line_break(CPRange & range, CPIter it) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return prev_hard_line_break(range.begin(), it, range.end());
+    }
+
+    /** Finds the next hard line break after <code>it</code>.  This will be
+        the first code point after the current line, or
+        <code>range.end()</code> if no next line exists.
+
+        \pre <code>it</code> is at the beginning of a line. */
+    template<typename CPRange>
+    inline auto next_hard_line_break(CPRange & range) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return next_hard_line_break(range.begin(), range.end());
+    }
+
+    /** Finds the nearest possible line break at or before before
+        <code>it</code>.  If <code>it == range.begin()</code>, that is
+        returned.  Otherwise, the first code point of the line that
+        <code>it</code> is within is returned (even if <code>it</code> is
+        already at the first code point of a line. */
+    template<typename CPRange, typename CPIter>
+    inline auto prev_possible_line_break(CPRange & range, CPIter it) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return prev_possible_line_break(range.begin(), it, range.end());
+    }
+
+    /** Finds the next possible line break after <code>it</code>.  This will
+        be the first code point after the current line, or
+        <code>range.end()</code> if no next line exists.
+
+        \pre <code>it</code> is at the beginning of a line. */
+    template<typename CPRange>
+    inline auto next_possible_line_break(CPRange & range) noexcept
+        -> detail::iterator_t<CPRange>
+    {
+        return next_possible_line_break(range.begin(), range.end());
+    }
+#endif
+
     namespace detail {
         template<typename CPIter, typename Sentinel>
         struct next_hard_line_break_callable
@@ -605,7 +655,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         };
     }
 
-#if 0 // TODO: Depends on prev_hard_line_break().
+#if 0 // TODO: Depends on prev_*_line_break().
     /** Returns the bounds of the line (using hard line breaks) that
         <code>it</code> lies within. */
     template<typename CPIter, typename Sentinel>
@@ -613,6 +663,15 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     {
         first = prev_hard_line_break(first, it, last);
         return cp_range<CPIter>{first, next_hard_line_break(first, last)};
+    }
+
+    /** Returns the bounds of the line that <code>it</code> lies within. */
+    template<typename CPRange, typename CPIter>
+    inline auto line(CPRange & range, CPIter it) noexcept
+        -> cp_range<detail::iterator_t<CPRange>>
+    {
+        auto first = prev_line_break(range.begin(), it, range.end());
+        return cp_range<CPIter>{first, next_line_break(first, range.end())};
     }
 #endif
 
@@ -625,10 +684,23 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         detail::next_hard_line_break_callable<CPIter, Sentinel>>
     lines(CPIter first, CPIter last) noexcept
     {
-        return {{first, first, last}, {first, last, last}};
+        return {{first, last}, {last}};
     }
 
-#if 0 // TODO: Depends on prev_possible_line_break().
+    /** Returns a lazy range of the code point ranges delimiting lines in
+        <code>range</code>. */
+    template<typename CPRange>
+    auto lines(CPRange & range) noexcept -> lazy_segment_range<
+        detail::iterator_t<CPRange>,
+        detail::sentinel_t<CPRange>,
+        detail::next_hard_line_break_callable<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>>>
+    {
+        return {{range.begin(), range.end()}, {range.end()}};
+    }
+
+#if 0 // TODO: Depends on prev_*_line_break().
     /** Returns the bounds of the smallest chunk of text that could be broken
         off into a line, searching from <code>it</code> in either
         direction. */
@@ -638,6 +710,16 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     {
         first = prev_possible_line_break(first, it, last);
         return cp_range<CPIter>{first, next_possible_line_break(first, last)};
+    }
+
+    /** Returns the bounds of the possible line that <code>it</code> lies
+        within. */
+    template<typename CPRange, typename CPIter>
+    inline auto possible_line(CPRange & range, CPIter it) noexcept
+        -> cp_range<detail::iterator_t<CPRange>>
+    {
+        auto first = prev_line_break(range.begin(), it, range.end());
+        return cp_range<CPIter>{first, next_line_break(first, range.end())};
     }
 #endif
 
@@ -650,7 +732,20 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         detail::next_possible_line_break_callable<CPIter, Sentinel>>
     possible_lines(CPIter first, Sentinel last) noexcept
     {
-        return {{first, last}, {last, last}};
+        return {{first, last}, {last}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting possible
+        lines in <code>range</code>. */
+    template<typename CPRange>
+    auto possible_lines(CPRange & range) noexcept -> lazy_segment_range<
+        detail::iterator_t<CPRange>,
+        detail::sentinel_t<CPRange>,
+        detail::next_possible_line_break_callable<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>>>
+    {
+        return {{range.begin(), range.end()}, {range.end()}};
     }
 
 }}
