@@ -123,18 +123,18 @@ namespace boost { namespace text {
         }
 
         // SB5: Except after line breaks, ignore/skip (Extend | Format)*
-        template<typename CPIter>
+        template<typename CPIter, typename Sentinel>
         sentence_break_state<CPIter> skip_forward(
-            sentence_break_state<CPIter> state, CPIter first, CPIter last)
+            sentence_break_state<CPIter> state, CPIter first, Sentinel last)
         {
             if (state.it != first && !skippable(state.prev_prop) &&
                 skippable(state.prop)) {
-                auto temp_it = std::find_if_not(
+                auto temp_it = find_if_not(
                     std::next(state.it), last, [](uint32_t cp) {
                         return skippable(sentence_prop(cp));
                     });
                 if (temp_it == last) {
-                    state.it = last;
+                    state.it = temp_it;
                 } else {
                     auto const temp_prop = sentence_prop(*temp_it);
                     state.it = temp_it;
@@ -192,9 +192,9 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         code point of the sentence that <code>it</code> is within is returned
         (even if <code>it</code> is already at the first code point of a
         sentence. */
-    template<typename CPIter>
+    template<typename CPIter, typename Sentinel>
     inline CPIter
-    prev_sentence_break(CPIter first, CPIter it, CPIter last) noexcept
+    prev_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
         if (it == first)
             return it;
@@ -313,7 +313,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             auto const after_skip_it = state.it;
             state = skip(state, first);
             if (state.it == last)
-                return last;
+                return state.it;
 
             // SB6
             if (state.prev_prop == sentence_prop_t::ATerm &&
@@ -343,7 +343,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 if (aterm) {
                     auto it = after_skip_it;
                     while (it != last && detail::sb8_not(sentence_prop(*it))) {
-                        it = std::find_if_not(
+                        it = find_if_not(
                             std::next(it), last, [](uint32_t cp) {
                                 return detail::skippable(sentence_prop(cp));
                             });
@@ -424,17 +424,17 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         no next sentence exists.
 
         \pre <code>it</code> is at the beginning of a sentence. */
-    template<typename CPIter>
-    inline CPIter next_sentence_break(CPIter first, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    inline CPIter next_sentence_break(CPIter first, Sentinel last) noexcept
     {
         if (first == last)
-            return last;
+            return first;
 
         detail::sentence_break_state<CPIter> state;
         state.it = first;
 
         if (++state.it == last)
-            return last;
+            return state.it;
 
         state.prev_prev_prop = sentence_prop_t::Other;
         state.prev_prop = sentence_prop(*first);
@@ -468,7 +468,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             // and prop).
             state = detail::skip_forward(state, first, last);
             if (state.it == last)
-                return last;
+                return state.it;
 
             // SB6
             if (state.prev_prop == sentence_prop_t::ATerm &&
@@ -497,7 +497,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 if (aterm) {
                     auto it = state.it;
                     while (it != last && detail::sb8_not(sentence_prop(*it))) {
-                        it = std::find_if_not(
+                        it = find_if_not(
                             std::next(it), last, [](uint32_t cp) {
                                 return detail::skippable(sentence_prop(cp));
                             });
@@ -569,7 +569,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 }
             }
         }
-        return last;
+        return first;
     }
 
     /** Finds the nearest sentence break at or before before <code>it</code>.
