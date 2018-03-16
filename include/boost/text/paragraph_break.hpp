@@ -25,9 +25,11 @@ namespace boost { namespace text {
         code point of the paragraph that <code>it</code> is within is returned
         (even if <code>it</code> is already at the first code point of a
         paragraph. */
-    template<typename CPIter>
-    CPIter prev_paragraph_break(CPIter first, CPIter it, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    CPIter prev_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
+        if (it != first && it != last && *std::prev(it) == 0xd && *it == 0xa)
+            --it;
         auto const initial_it = it;
         it = find_if_backward(first, it, detail::paragraph_break);
         if (it == initial_it)
@@ -35,17 +37,19 @@ namespace boost { namespace text {
         return ++it;
     }
 
-    /** Finds the next paragraph break after <code>it</code>.  This will be
+    /** Finds the next paragraph break after <code>first</code>.  This will be
         the first code point after the current paragraph, or <code>last</code>
         if no next paragraph exists.
 
-        \pre <code>it</code> is at the beginning of a paragraph. */
-    template<typename CPIter>
-    CPIter next_paragraph_break(CPIter first, CPIter last) noexcept
+        \pre <code>first</code> is at the beginning of a paragraph. */
+    template<typename CPIter, typename Sentinel>
+    CPIter next_paragraph_break(CPIter first, Sentinel last) noexcept
     {
         if (first == last)
-            return last;
-        first = std::find_if(std::next(first), last, detail::paragraph_break);
+            return first;
+        first = find_if(std::next(first), last, detail::paragraph_break);
+        if (first == last)
+            return first;
         // Eat LF after CR.
         if (*first == 0xd && std::next(first) != last &&
             *std::next(first) == 0xa) {
@@ -66,11 +70,11 @@ namespace boost { namespace text {
         return prev_paragraph_break(range.begin(), it, range.end());
     }
 
-    /** Finds the next paragraph break after <code>it</code>.  This will be the
-        first code point after the current paragraph, or
+    /** Finds the next paragraph break after <code>range.begin()</code>.  This
+        will be the first code point after the current paragraph, or
         <code>range.end()</code> if no next paragraph exists.
 
-        \pre <code>it</code> is at the beginning of a paragraph. */
+        \pre <code>range.begin()</code> is at the beginning of a paragraph. */
     template<typename CPRange>
     inline auto next_paragraph_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>

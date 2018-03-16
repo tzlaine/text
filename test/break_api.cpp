@@ -692,12 +692,10 @@ TEST(break_apis, line_break_sentinel)
 }
 #endif
 
-#if 0
 TEST(break_apis, paragraph_break)
 {
-    // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷	
-    // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) × [13.2] LATIN SMALL LETTER A (ALetter) ÷ [999.0] FULL STOP (MidNumLet) ÷ [999.0] COLON (MidLetter) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [0.3]
-    std::array<uint32_t, 6> cps = {{0x61, 0x5f, 0x61, 0x2e, 0x3a, 0x61}};
+    // ÷ 0061 × 000D × 000A ÷ 002E × 000A ÷ 0061 ÷
+    std::array<uint32_t, 6> cps = {{0x61, 0xd, 0xa, 0x2e, 0xa, 0x61}};
 
     {
         EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -705,11 +703,11 @@ TEST(break_apis, paragraph_break)
         EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
         EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
         EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
         EXPECT_EQ(boost::text::next_paragraph_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
         EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
@@ -737,8 +735,8 @@ TEST(break_apis, paragraph_break)
     {
         auto const all_paragraphs = boost::text::paragraphs(cps.begin(), cps.end());
 
-        std::array<std::pair<int, int>, 4> const paragraph_bounds = {
-            {{0, 3}, {3, 4}, {4, 5}, {5, 6}}};
+        std::array<std::pair<int, int>, 3> const paragraph_bounds = {
+            {{0, 3}, {3, 5}, {5, 7}}};
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
@@ -753,8 +751,8 @@ TEST(break_apis, paragraph_break)
     {
         auto const all_paragraphs = boost::text::paragraphs(cps);
 
-        std::array<std::pair<int, int>, 4> const paragraph_bounds = {
-            {{0, 3}, {3, 4}, {4, 5}, {5, 6}}};
+        std::array<std::pair<int, int>, 3> const paragraph_bounds = {
+            {{0, 3}, {3, 5}, {5, 7}}};
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
@@ -772,11 +770,10 @@ TEST(break_apis, paragraph_break_sentinel)
     using u32_iter =
         boost::text::utf8::to_utf32_iterator<char const *, char const *>;
 
-    // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷	
-    // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) × [13.2] LATIN SMALL LETTER A (ALetter) ÷ [999.0] FULL STOP (MidNumLet) ÷ [999.0] COLON (MidLetter) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [0.3]
+    // ÷ 0061 × 000D × 000A ÷ 002E × 000A ÷ 0061 ÷
     boost::text::string s;
     {
-        std::array<uint32_t, 6> cps = {{0x61, 0x5f, 0x61, 0x2e, 0x3a, 0x61}};
+        std::array<uint32_t, 6> cps = {{0x61, 0xd, 0xa, 0x2e, 0xa, 0x61}};
         s = boost::text::string(
             boost::text::utf8::make_from_utf32_iterator(cps.begin()),
             boost::text::utf8::make_from_utf32_iterator(cps.end()));
@@ -807,11 +804,11 @@ TEST(break_apis, paragraph_break_sentinel)
         EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, one, end)), 0);
         EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(begin, end)), 3);
         EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, two, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(two, end)), 3);
+        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(begin, end)), 3);
         EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, three, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(three, end)), 4);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, four, end)), 4);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(four, end)), 5);
+        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(three, end)), 5);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, four, end)), 3);
+        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(three, end)), 5);
         EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, five, end)), 5);
         EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(five, end)), 6);
         EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(begin, six, end)), 5);
@@ -839,7 +836,7 @@ TEST(break_apis, paragraph_break_sentinel)
         auto const all_paragraphs = boost::text::paragraphs(begin, end);
 
         std::array<std::pair<int, int>, 4> const paragraph_bounds = {
-            {{0, 3}, {3, 4}, {4, 5}, {5, 6}}};
+            {{0, 3}, {3, 5}, {5, 7}}};
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
@@ -855,7 +852,7 @@ TEST(break_apis, paragraph_break_sentinel)
         auto const all_paragraphs = boost::text::paragraphs(cp_range);
 
         std::array<std::pair<int, int>, 4> const paragraph_bounds = {
-            {{0, 3}, {3, 4}, {4, 5}, {5, 6}}};
+            {{0, 3}, {3, 5}, {5, 7}}};
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
@@ -867,4 +864,3 @@ TEST(break_apis, paragraph_break_sentinel)
         }
     }
 }
-#endif
