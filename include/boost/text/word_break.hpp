@@ -593,7 +593,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             if (detail::table_word_break(state.prev_prop, state.prop))
                 return state.it;
         }
-        return first;
+        return state.it;
     }
 
     /** Finds the nearest word break at or before before <code>it</code>.  If

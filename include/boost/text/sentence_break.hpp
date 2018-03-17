@@ -569,7 +569,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 }
             }
         }
-        return first;
+        return state.it;
     }
 
     /** Finds the nearest sentence break at or before before <code>it</code>.
