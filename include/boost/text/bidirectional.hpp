@@ -206,7 +206,8 @@ namespace boost { namespace text {
                     first,
                     last,
                     [initial_level, skippable](prop_and_embedding_t pae) {
-                        return pae.embedding_ != initial_level;
+                        return !skippable(pae.prop_) &&
+                               pae.embedding_ != initial_level;
                     }),
                 false};
         }

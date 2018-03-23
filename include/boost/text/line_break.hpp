@@ -235,7 +235,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         {
             if (before(state.prev_prop)) {
                 auto const it = find_if_not(state.it, last, [](uint32_t cp) {
-                    return line_prop(cp) == line_prop_t::SP;
+                    auto const prop = line_prop(cp);
+                    return skippable(prop) || prop == line_prop_t::SP;
                 });
                 if (it == last)
                     return state;
@@ -251,31 +252,29 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             return state;
         }
 
-        template<
-            typename CPIter,
-            typename Sentinel,
-            typename BeforeFunc,
-            typename AfterFunc>
+        template<typename CPIter, typename BeforeFunc, typename AfterFunc>
         line_break_state<CPIter> skip_backward_spaces_between(
             line_break_state<CPIter> state,
-            Sentinel last,
+            CPIter first,
             BeforeFunc before,
             AfterFunc after)
         {
-            if (before(state.prev_prop)) {
+            if (after(state.prop)) {
                 auto const it =
-                    find_if_not_backward(state.it, last, [](uint32_t cp) {
-                        return line_prop(cp) == line_prop_t::SP;
+                    find_if_not_backward(first, state.it, [](uint32_t cp) {
+                        auto const prop = line_prop(cp);
+                        return skippable(prop) || prop == line_prop_t::SP;
                     });
-                if (it == last)
+                if (it == state.it)
                     return state;
                 auto const temp_prop = line_prop(*it);
-                if (after(temp_prop)) {
+                if (before(temp_prop)) {
                     state.it = it;
-                    state.prop = temp_prop;
-                    state.next_prop = line_prop_t::AL;
-                    if (std::next(state.it) != last)
-                        state.next_prop = line_prop(*std::next(state.it));
+                    state.it_points_to_prev = true;
+                    state.prev_prop = temp_prop;
+                    state.prev_prev_prop = line_prop_t::AL;
+                    if (state.it != first)
+                        state.prev_prev_prop = line_prop(*std::prev(state.it));
                 }
             }
             return state;
@@ -322,11 +321,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             // Special case: If state.prop is skippable, we need to skip
             // backward until we find a non-skippable.
             if (detail::skippable(state.prop)) {
-                state.it = find_if_not_backward(first, it, [](uint32_t cp) {
+                auto it_ = find_if_not_backward(first, it, [](uint32_t cp) {
                     return detail::skippable(line_prop(cp));
                 });
-                state.next_prop = line_prop(*std::next(state.it));
-                state.prop = line_prop(*state.it);
+                if (it_ != it) {
+                    state.it = it_;
+                    state.next_prop = line_prop(*std::next(state.it));
+                    state.prop = line_prop(*state.it);
+                }
 
                 // If we end up on a non-skippable that should break before the
                 // skippable(s) we just moved over, break on the last skippable.
@@ -334,6 +336,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     detail::table_line_break(state.prop, state.next_prop)) {
                     return ++state.it;
                 }
+
                 if (state.it == first)
                     return first;
             }
@@ -373,18 +376,29 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     if (temp_it == state.it)
                         return state;
                     auto temp_prev_prop = line_prop(*temp_it);
-                    state.it = temp_it;
-                    state.it_points_to_prev = true;
-                    state.prev_prop = temp_prev_prop;
-                    if (temp_it == first)
-                        state.prev_prev_prop = line_prop_t::AL;
-                    else
-                        state.prev_prev_prop = line_prop(*std::prev(temp_it));
+                    // Don't skip over the skippables id they are immediately
+                    // preceded by a breaking character.
+                    if (temp_prev_prop != line_prop_t::BK &&
+                        temp_prev_prop != line_prop_t::CR &&
+                        temp_prev_prop != line_prop_t::LF &&
+                        temp_prev_prop != line_prop_t::NL &&
+                        temp_prev_prop != line_prop_t::ZW &&
+                        temp_prev_prop != line_prop_t::SP) {
+                        state.it = temp_it;
+                        state.it_points_to_prev = true;
+                        state.prev_prop = temp_prev_prop;
+                        if (temp_it == first) {
+                            state.prev_prev_prop = line_prop_t::AL;
+                        } else {
+                            state.prev_prev_prop =
+                                line_prop(*std::prev(temp_it));
+                        }
+                    }
                 }
                 return state;
             };
 
-            for (; state.it != last; state = next(state)) {
+            for (; state.it != first; state = prev(state)) {
                 if (std::prev(state.it) != first)
                     state.prev_prev_prop = line_prop(*std::prev(state.it, 2));
                 else
@@ -537,6 +551,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 // LB13
                 if (state.prop == line_prop_t::CL ||
                     state.prop == line_prop_t::CP) {
+#if 0
                     // We know from this rule alone that there's no break
                     // here, but we also need to look ahead at whether LB16
                     // applies, since if we didn't, we'd bail out before ever
@@ -567,11 +582,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                         if (new_state.it != next_state.it)
                             state = new_state;
                     }
+#endif
                     continue;
                 }
                 if (state.prop == line_prop_t::EX ||
                     state.prop == line_prop_t::IS ||
                     state.prop == line_prop_t::SY) {
+#if 0
                     // As above, we need to check for the pattern
                     // NU(NU|SY|IS)* from LB24, even though without it we will
                     // still break here.
@@ -585,6 +602,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                         if (std::next(state.it) != last)
                             state.next_prop = line_prop(*std::next(state.it));
                     }
+#endif
 
                     continue;
                 }
@@ -593,13 +611,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {
                     auto const new_state = skip_backward_spaces_between(
                         state,
-                        last,
+                        first,
                         [](line_prop_t prop) {
                             return prop == line_prop_t::OP;
                         },
                         [](line_prop_t prop) { return true; });
                     if (new_state.it != state.it) {
-                        state = prev(new_state);
+                        state = new_state;
                         continue;
                     }
                 }
@@ -608,15 +626,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {
                     auto const new_state = skip_backward_spaces_between(
                         state,
-                        last,
+                        first,
                         [](line_prop_t prop) {
                             return prop == line_prop_t::QU;
                         },
                         [](line_prop_t prop) {
                             return prop == line_prop_t::OP;
                         });
-                    if (new_state.it == last)
-                        return new_state.it;
                     if (new_state.it != state.it) {
                         state = new_state;
                         continue;
@@ -627,7 +643,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {
                     auto const new_state = skip_backward_spaces_between(
                         state,
-                        last,
+                        first,
                         [](line_prop_t prop) {
                             return prop == line_prop_t::CL ||
                                    prop == line_prop_t::CP;
@@ -635,9 +651,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                         [](line_prop_t prop) {
                             return prop == line_prop_t::NS;
                         });
-
-                    if (new_state.it == last)
-                        return new_state.it;
                     if (new_state.it != state.it) {
                         state = new_state;
                         continue;
@@ -648,15 +661,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {
                     auto const new_state = skip_backward_spaces_between(
                         state,
-                        last,
+                        first,
                         [](line_prop_t prop) {
                             return prop == line_prop_t::B2;
                         },
                         [](line_prop_t prop) {
                             return prop == line_prop_t::B2;
                         });
-                    if (new_state.it == last)
-                        return new_state.it;
                     if (new_state.it != state.it) {
                         state = new_state;
                         continue;
@@ -667,14 +678,27 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     continue;
 
                 // LB24
-                if (state.prev_prop == line_prop_t::NU && after_nu(*state.it)) {
-                    auto it = find_if_not(state.it, last, after_nu);
-                    state.it = --it;
-                    state.prop = line_prop(*state.it);
-                    state.next_prop = line_prop_t::AL;
-                    if (std::next(state.it) != last)
-                        state.next_prop = line_prop(*std::next(state.it));
-                    continue;
+                if (after_nu(*state.it)) {
+                    auto it = find_if_not_backward(first, state.it, after_nu);
+                    if (it != state.it)
+                        ++it;
+                    if (it != state.it) {
+                        if (line_prop(*it) == line_prop_t::NU) {
+                            state.it = it;
+                            state.prop = line_prop(*state.it);
+                            state.prev_prop = line_prop_t::AL;
+                            state.prev_prev_prop = line_prop_t::AL;
+                            if (state.it != first) {
+                                state.prev_prop =
+                                    line_prop(*std::prev(state.it));
+                                if (std::prev(state.it) != first) {
+                                    state.prev_prev_prop =
+                                        line_prop(*std::prev(state.it, 2));
+                                }
+                            }
+                            continue;
+                        }
+                    }
                 }
 
                 // LB21a
@@ -1018,20 +1042,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
     /** TODO */
     template<typename CPIter, typename Sentinel>
-    CPIter next_hard_line_break(CPIter first, Sentinel last) noexcept
-    {
-        return detail::next_line_break_impl(first, last, true);
-    }
-
-    /** TODO */
-    template<typename CPIter, typename Sentinel>
-    CPIter next_possible_line_break(CPIter first, Sentinel last) noexcept
-    {
-        return detail::next_line_break_impl(first, last, false);
-    }
-
-    /** TODO */
-    template<typename CPIter, typename Sentinel>
     CPIter prev_hard_line_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
         return detail::prev_line_break_impl(first, it, last, true);
@@ -1043,6 +1053,20 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     prev_possible_line_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
         return detail::prev_line_break_impl(first, it, last, false);
+    }
+
+    /** TODO */
+    template<typename CPIter, typename Sentinel>
+    CPIter next_hard_line_break(CPIter first, Sentinel last) noexcept
+    {
+        return detail::next_line_break_impl(first, last, true);
+    }
+
+    /** TODO */
+    template<typename CPIter, typename Sentinel>
+    CPIter next_possible_line_break(CPIter first, Sentinel last) noexcept
+    {
+        return detail::next_line_break_impl(first, last, false);
     }
 
     /** Finds the nearest hard line break at or before before <code>it</code>.

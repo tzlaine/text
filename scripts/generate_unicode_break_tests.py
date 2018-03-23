@@ -166,7 +166,7 @@ def generate_break_tests(cps_and_breaks, prop_):
         cpp_file = open('{}_break_{:02}.cpp'.format(prop_, i), 'w')
         cpp_file.write(break_test_form.format(prop_, break_tests, i))
 
-def generate_break_tests_2(cps_and_breaks, prop_):
+def generate_break_tests_2(cps_and_breaks, prop_, prop_prefix = ''):
     for i in range(len(cps_and_breaks)):
         break_tests = ''
         chunk = cps_and_breaks[i]
@@ -187,9 +187,9 @@ def generate_break_tests_2(cps_and_breaks, prop_):
                 while next_break != len(cps) and not cps[next_break][1]:
                     next_break += 1
                 break_tests += '''\
-        EXPECT_EQ(boost::text::prev_{3}_break(cps.begin(), cps.begin() + {0}, cps.end()) - cps.begin(), {1});
-        EXPECT_EQ(boost::text::next_{3}_break(cps.begin() + {1}, cps.end()) - cps.begin(), {2});
-'''.format(j, prev_break, next_break, prop_)
+        EXPECT_EQ(boost::text::prev_{4}{3}_break(cps.begin(), cps.begin() + {0}, cps.end()) - cps.begin(), {1});
+        EXPECT_EQ(boost::text::next_{4}{3}_break(cps.begin() + {1}, cps.end()) - cps.begin(), {2});
+'''.format(j, prev_break, next_break, prop_, prop_prefix)
             break_tests += '    }\n\n'
         cpp_file = open('{}_break_{:02}.cpp'.format(prop_, i), 'w')
         cpp_file.write(break_test_form.format(prop_, break_tests, i))
@@ -419,5 +419,5 @@ generate_break_tests_2(word_cps_and_breaks, 'word')
 sentence_cps_and_breaks = extract_cps_and_breaks('SentenceBreakTest.txt')
 generate_break_tests_2(sentence_cps_and_breaks, 'sentence')
 
-line_cps_and_breaks = extract_cps_and_breaks('LineBreakTest.txt', 150)
-generate_break_tests_2(line_cps_and_breaks, 'line')
+line_cps_and_breaks = extract_cps_and_breaks('LineBreakTest.txt', 100)
+generate_break_tests_2(line_cps_and_breaks, 'line', 'possible_')
