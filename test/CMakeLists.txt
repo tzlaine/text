@@ -72,7 +72,7 @@ add_test_executable(common_op)
 add_test_executable(algorithm)
 add_test_executable(trie_map_0)
 add_test_executable(trie_map_1)
-add_test_executable(detail_bidi)
+# TODO add_test_executable(detail_bidi)
 
 set(LIMIT_TESTING_FOR_TRAVIS false CACHE BOOL "Travis kinda sucks, so...")
 if (LIMIT_TESTING_FOR_TRAVIS)
