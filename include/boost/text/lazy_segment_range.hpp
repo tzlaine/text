@@ -87,7 +87,7 @@ namespace boost { namespace text {
         };
     }
 
-    /** Represents a range of nonoverlapping ranges.  Each range represents
+    /** Represents a range of non-overlapping ranges.  Each range represents
         some semantically significant segment, the semantics of which are
         controlled by the <code>Func</code> template parameter.  For instance,
         if <code>Func</code> is <code>next_paragraph_break</code>, the ranges

@@ -205,9 +205,18 @@ namespace boost { namespace text {
 
     struct collation_compare;
 
-    /** TODO */
+    /** A collation table.  Such a table is necessary to use the collation
+        API.
+
+        collation_table has the semantics of a shared_ptr to const.  It can be
+        copied cheaply; copies should be made freely.
+
+        \see default_collation_table()
+        \see tailored_collation_table()
+    */
     struct collation_table
     {
+        /** Returns a comparison object. */
         collation_compare compare(
             collation_strength strength = collation_strength::tertiary,
             case_first_t case_first = case_first_t::off,
@@ -308,7 +317,8 @@ namespace boost { namespace text {
         friend collation_table load_table(filesystem::path const & path);
     };
 
-    /** TODO */
+    /** A function object suitable for use with standard algorithms that
+        accept a comparison object. */
     struct collation_compare
     {
         collation_compare(
@@ -1193,7 +1203,8 @@ namespace boost { namespace text {
         }
     }
 
-    /** TODO */
+    /** Returns a collation table created from the default, untailored
+        collation data. */
     inline collation_table default_collation_table()
     {
         collation_table retval;
@@ -1202,11 +1213,17 @@ namespace boost { namespace text {
         return retval;
     }
 
-    /** TODO
+    /** Returns a collation table tailored using the tailoring specified in \a
+        tailoring.
 
-        TODO: Document that suppressContractions only supports code points and
-        "-" code point ranges.
-    */
+        If \a report_errors and/or \a report_warnings are provided, they will
+        be used to report warnings and errors, respectively.
+
+        \note The suppressContractions element only supports code points and
+        code point ranges of the form "cp0-cp1".
+        \throws parse_error when a parse error is encountered.
+        \throws tailoring_error when some aspect of the requested tailoring
+        cannot be satisfied. */
     inline collation_table tailored_collation_table(
         string_view tailoring,
         string_view tailoring_filename = "",

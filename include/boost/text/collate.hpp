@@ -20,7 +20,7 @@
 
 namespace boost { namespace text {
 
-    /** TODO */
+    /** A collation sort key.  Consists of a sequence of 32-bit values. */
     struct text_sort_key
     {
         using const_iterator = std::vector<uint32_t>::const_iterator;
@@ -51,7 +51,8 @@ namespace boost { namespace text {
     }
 #endif
 
-    /** TODO */
+    /** Returns 0 if the given sort keys are equal, a value < 0 if \a lhs is
+        less than \a rhs, and a value > 0 otehrwise. */
     inline int
     compare(text_sort_key const & lhs, text_sort_key const & rhs) noexcept
     {
@@ -228,8 +229,6 @@ namespace boost { namespace text {
             bool after_variable,
             retain_case_bits_t retain_case_bits)
         {
-            // TODO: Don't do this if we want to have a case level, or
-            // re-order cases!
             if (retain_case_bits == retain_case_bits_t::no) {
                 auto it = first;
                 while (it != last) {
@@ -309,10 +308,10 @@ namespace boost { namespace text {
             return after_variable;
         }
 
-        template<typename Iter, typename LeadByteFunc>
+        template<typename CPIter, typename LeadByteFunc>
         void
-        s2(Iter first,
-           Iter last,
+        s2(CPIter first,
+           CPIter last,
            container::small_vector<collation_element, 1024> & ces,
            detail::collation_trie_t const & trie,
            collation_element const * collation_elements_first,
@@ -570,10 +569,10 @@ namespace boost { namespace text {
             assert(it == bytes.end());
         }
 
-        template<typename Iter>
+        template<typename CPIter>
         text_sort_key collation_sort_key(
-            Iter first,
-            Iter last,
+            CPIter first,
+            CPIter last,
             collation_strength strength,
             case_first_t case_first,
             case_level_t case_level,
@@ -581,12 +580,12 @@ namespace boost { namespace text {
             l2_weight_order l2_order,
             collation_table const & table);
 
-        template<typename Iter1, typename Iter2>
+        template<typename CPIter1, typename CPIter2>
         int collate(
-            Iter1 lhs_first,
-            Iter1 lhs_last,
-            Iter2 rhs_first,
-            Iter2 rhs_last,
+            CPIter1 lhs_first,
+            CPIter1 lhs_last,
+            CPIter2 rhs_first,
+            CPIter2 rhs_last,
             collation_strength strength,
             case_first_t case_first,
             case_level_t case_level,
@@ -618,11 +617,14 @@ namespace boost { namespace text {
 
     // TODO: Versions of the functions below that do not assume FCC.
 
-    /** TODO */
-    template<typename Iter>
+    /** Returns a collation sort key for the code points in <code>[first,
+        last)</code>, using the given collation table.  Any optional settings
+        such as case_first will be honored, so long as they do not conlfict
+        with the settings on the given table. */
+    template<typename CPIter>
     text_sort_key collation_sort_key(
-        Iter first,
-        Iter last,
+        CPIter first,
+        CPIter last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first_t case_first = case_first_t::off,
@@ -641,7 +643,10 @@ namespace boost { namespace text {
             table);
     }
 
-    /** TODO */
+    /** Returns a collation sort key for the code points in \a r, using the
+        given collation table.  Any optional settings such as case_first will
+        be honored, so long as they do not conlfict with the settings on the
+        given table. */
     template<typename CPRange>
     text_sort_key collation_sort_key(
         CPRange const & r,
@@ -666,13 +671,17 @@ namespace boost { namespace text {
     }
 
 
-    /** TODO */
-    template<typename Iter1, typename Iter2>
+    /** Returns the result of calling compare() on collation sort keys
+        produced using <code>[lhs_first, lhs_last)</code> and
+        <code>[rhs_first, rhs_last)</code>, respectively.  Any optional
+        settings such as case_first will be honored, so long as they do not
+        conlfict with the settings on the given table. */
+    template<typename CPIter1, typename CPIter2>
     int collate(
-        Iter1 lhs_first,
-        Iter1 lhs_last,
-        Iter2 rhs_first,
-        Iter2 rhs_last,
+        CPIter1 lhs_first,
+        CPIter1 lhs_last,
+        CPIter2 rhs_first,
+        CPIter2 rhs_last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first_t case_first = case_first_t::off,
@@ -693,7 +702,10 @@ namespace boost { namespace text {
             table);
     }
 
-    /** TODO */
+    /** Returns the result of calling compare() on collation sort keys
+        produced using \a r1 and \a r2, respectively.  Any optional settings
+        such as case_first will be honored, so long as they do not conlfict
+        with the settings on the given table. */
     template<typename CPRange1, typename CPRange2>
     int collate(
         CPRange1 const & r1,
@@ -726,10 +738,10 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { namespace detail {
 
-    template<typename Iter>
+    template<typename CPIter>
     text_sort_key collation_sort_key(
-        Iter first,
-        Iter last,
+        CPIter first,
+        CPIter last,
         collation_strength strength,
         case_first_t case_first,
         case_level_t case_level,

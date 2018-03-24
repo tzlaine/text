@@ -6,7 +6,10 @@
 
 namespace boost { namespace text {
 
-    /** TODO */
+    /** Collation strength.
+
+        \see https://www.unicode.org/reports/tr10/#Multi_Level_Comparison
+    */
     enum class collation_strength {
         primary,
         secondary,
@@ -15,19 +18,29 @@ namespace boost { namespace text {
         identical
     };
 
-    /** TODO */
+    /** Collation variable weighting.
+
+        \see https://www.unicode.org/reports/tr10/#Variable_Weighting
+    */
     enum class variable_weighting { non_ignorable, shifted };
 
-    /** TODO */
+    /** The order of L2 collation weights.  Only Canandian French uses
+        backward. */
     enum class l2_weight_order { forward, backward };
 
-    /** TODO */
+    /** Controls whether a notional case level used in a tailored collation table.
+
+        \see https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
+    */
     enum class case_level_t { on, off };
 
-    /** TODO */
+    /** Controls whether a preference is given to upper- or lower-case code
+        points in a tailored collation table.
+
+        \see https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
+    */
     enum class case_first_t { upper, lower, off };
 
-    /** TODO */
     template<typename CharIter>
     struct read_table_result;
 

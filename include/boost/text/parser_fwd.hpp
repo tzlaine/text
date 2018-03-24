@@ -13,8 +13,12 @@
 
 namespace boost { namespace text {
 
+    /** The type of callback used to report errors and warnings encountered
+        during parsing. */
     using parser_diagnostic_callback = std::function<void(string const &)>;
 
+    /** The type of exception thrown when some aspect of the requested
+        tailoring cannot be satisfied. */
     struct tailoring_error : std::exception
     {
         tailoring_error(string_view msg) : msg_(msg) {}
@@ -24,6 +28,7 @@ namespace boost { namespace text {
         string msg_;
     };
 
+    /** The type of exception thrown when a parse error is encountered. */
     struct parse_error : std::exception
     {
         parse_error(string_view msg, int line, int column) :

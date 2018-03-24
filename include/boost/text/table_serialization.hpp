@@ -7,21 +7,21 @@
 
 namespace boost { namespace text {
 
-    /** TODO */
     template<typename CharIter>
     CharIter write_table(collation_table const & table, CharIter out) noexcept;
 
-    /** TODO */
+    /** The type returned by read_table().  Contains the resulting collation
+        table and the final position of the iterator from which the table was
+        read. */
     template<typename CharIter>
     struct read_table_result
     {
         operator collation_table() && { return table; }
 
         collation_table table;
-        CharIter out;
+        CharIter it;
     };
 
-    /** TODO */
     template<typename CharIter>
     read_table_result<CharIter> read_table(CharIter it);
 
@@ -45,6 +45,8 @@ namespace boost { namespace text {
         }
     }
 
+    /** Serializes the given collation table, writing the results to \a out.
+        Returns the final value of \a out after the write. */
     template<typename CharIter>
     CharIter
     write_table(collation_table const & table_proper, CharIter out) noexcept
@@ -67,6 +69,8 @@ namespace boost { namespace text {
         return out;
     }
 
+    /** Deserializes a collation table by reading from \a it.  Returns the
+        final value of \a it after the read. */
     template<typename CharIter>
     read_table_result<CharIter> read_table(CharIter it)
     {
