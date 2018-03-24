@@ -14,6 +14,8 @@ namespace boost { namespace text {
         constexpr int vec_insert_max = 512;
     }
 
+    /** A sequence of T with discontiguous storage.  This data strucutre is a
+        generalization of unencoded_rope to non-char sequences. */
     template<typename T>
     struct segmented_vector
     {
