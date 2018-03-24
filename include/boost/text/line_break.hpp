@@ -235,8 +235,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         {
             if (before(state.prev_prop)) {
                 auto const it = find_if_not(state.it, last, [](uint32_t cp) {
-                    auto const prop = line_prop(cp);
-                    return skippable(prop) || prop == line_prop_t::SP;
+                    return line_prop(cp) == line_prop_t::SP;
                 });
                 if (it == last)
                     return state;
@@ -319,20 +318,65 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             state.prop = line_prop(*state.it);
 
             // Special case: If state.prop is skippable, we need to skip
-            // backward until we find a non-skippable.
-            if (detail::skippable(state.prop)) {
-                auto it_ = find_if_not_backward(first, it, [](uint32_t cp) {
-                    return detail::skippable(line_prop(cp));
-                });
+            // backward until we find a non-skippable, and if we're in one of
+            // the space-skipping rules (LB14-LB17), back up to the start of
+            // it.
+            if (state.prop == line_prop_t::SP ||
+                detail::skippable(state.prop)) {
+                auto space_or_skip = [](uint32_t cp) {
+                    auto const prop = line_prop(cp);
+                    return prop == line_prop_t::SP || detail::skippable(prop);
+                };
+                auto it_ = find_if_not_backward(first, it, space_or_skip);
+                bool in_space_skipper = false;
+                bool backed_up = false;
                 if (it_ != it) {
-                    state.it = it_;
-                    state.next_prop = line_prop(*std::next(state.it));
-                    state.prop = line_prop(*state.it);
+                    auto const prop = line_prop(*it_);
+                    switch (prop) {
+                    case line_prop_t::OP: // LB14
+                        in_space_skipper = true;
+                        break;
+                    case line_prop_t::QU: { // LB15
+                        auto it_2 = find_if_not(it, last, space_or_skip);
+                        in_space_skipper =
+                            it_2 != last && line_prop(*it_2) == line_prop_t::OP;
+                        break;
+                    }
+                    case line_prop_t::CL: // LB16
+                    case line_prop_t::CP: {
+                        auto it_2 = find_if_not(it, last, space_or_skip);
+                        in_space_skipper =
+                            it_2 != last && line_prop(*it_2) == line_prop_t::NS;
+                        break;
+                    }
+                    case line_prop_t::B2: { // LB17
+                        auto it_2 = find_if_not(it, last, space_or_skip);
+                        in_space_skipper =
+                            it_2 != last && line_prop(*it_2) == line_prop_t::B2;
+                        break;
+                    }
+                    default: break;
+                    }
+
+                    backed_up = in_space_skipper;
+                    if (!in_space_skipper && detail::skippable(state.prop)) {
+                        it_ = find_if_not_backward(first, it, [](uint32_t cp) {
+                            return detail::skippable(line_prop(cp));
+                        });
+                        backed_up = it_ != it;
+                    }
+
+                    if (backed_up) {
+                        state.it = it_;
+                        state.prop = line_prop(*state.it);
+                        state.next_prop = line_prop(*std::next(state.it));
+                    }
                 }
 
                 // If we end up on a non-skippable that should break before the
                 // skippable(s) we just moved over, break on the last skippable.
-                if (!detail::skippable(state.prop) &&
+                if (backed_up && !in_space_skipper &&
+                    !detail::skippable(state.prop) &&
                     detail::table_line_break(state.prop, state.next_prop)) {
                     return ++state.it;
                 }
@@ -348,21 +392,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             state.next_prop = line_prop_t::AL;
             if (std::next(state.it) != last)
                 state.next_prop = line_prop(*std::next(state.it));
-
-            // Since 'it' may be anywhere within the line in which it sits, we
-            // need to look forward to make sure that next_prop doesn't point
-            // to skippables.
-            {
-                if (std::next(state.it) != last) {
-                    auto temp_state = state;
-                    temp_state = next(temp_state);
-                    temp_state = detail::skip_forward(temp_state, first, last);
-                    if (temp_state.it == last)
-                        state.next_prop = line_prop_t::AL;
-                    else
-                        state.next_prop = temp_state.prop;
-                }
-            }
 
             state.emoji_state = detail::line_break_emoji_state_t::none;
 
@@ -476,26 +505,22 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     continue;
 
                 // LB7
-                // Even though a space means no break, we need to defer our
-                // early return until after we've seen if the space will be
-                // consumed in LB14-LB17 below.
-                bool const lb7_space = state.prop == line_prop_t::SP;
                 if (state.prop == line_prop_t::ZW)
                     continue;
 
                 // LB8
-                if (state.prev_prop == line_prop_t::ZW && !lb7_space)
-                    return state.it;
                 if (state.prev_prop == line_prop_t::ZW &&
-                    state.prop == line_prop_t::SP) {
-                    auto it = find_if_not(state.it, last, [](uint32_t cp) {
-                        return line_prop(cp) == line_prop_t::SP;
-                    });
-                    if (it == last)
-                        return it;
-                    auto const prop = line_prop(*it);
-                    if (!lb6(prop) && prop != line_prop_t::ZW)
-                        return it;
+                    state.prop != line_prop_t::SP) {
+                    return state.it;
+                }
+                if (state.prev_prop == line_prop_t::SP &&
+                    state.prop != line_prop_t::SP) {
+                    auto it =
+                        find_if_not_backward(first, state.it, [](uint32_t cp) {
+                            return line_prop(cp) == line_prop_t::SP;
+                        });
+                    if (it != state.it && line_prop(*it) == line_prop_t::ZW)
+                        return state.it;
                 }
 
                 // LB8a
@@ -551,59 +576,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 // LB13
                 if (state.prop == line_prop_t::CL ||
                     state.prop == line_prop_t::CP) {
-#if 0
-                    // We know from this rule alone that there's no break
-                    // here, but we also need to look ahead at whether LB16
-                    // applies, since if we didn't, we'd bail out before ever
-                    // reaching it due to LB12a above on the next iteration.
-                    if (std::next(state.it) != last) {
-                        // LB16
-                        auto next_state = next(state);
-                        if (std::next(next_state.it) != last) {
-                            next_state.next_prop =
-                                line_prop(*std::next(next_state.it));
-                        } else {
-                            next_state.next_prop = line_prop_t::AL;
-                        }
-
-                        auto const new_state = skip_forward_spaces_between(
-                            next_state,
-                            last,
-                            [](line_prop_t prop) {
-                                return prop == line_prop_t::CL ||
-                                       prop == line_prop_t::CP;
-                            },
-                            [](line_prop_t prop) {
-                                return prop == line_prop_t::NS;
-                            });
-
-                        if (new_state.it == last)
-                            return new_state.it;
-                        if (new_state.it != next_state.it)
-                            state = new_state;
-                    }
-#endif
                     continue;
                 }
                 if (state.prop == line_prop_t::EX ||
                     state.prop == line_prop_t::IS ||
                     state.prop == line_prop_t::SY) {
-#if 0
-                    // As above, we need to check for the pattern
-                    // NU(NU|SY|IS)* from LB24, even though without it we will
-                    // still break here.
-
-                    if (state.prev_prop == line_prop_t::NU &&
-                        after_nu(*state.it)) {
-                        auto it = find_if_not(state.it, last, after_nu);
-                        state.it = --it;
-                        state.prop = line_prop(*state.it);
-                        state.next_prop = line_prop_t::AL;
-                        if (std::next(state.it) != last)
-                            state.next_prop = line_prop(*std::next(state.it));
-                    }
-#endif
-
                     continue;
                 }
 
@@ -639,7 +616,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     }
                 }
 
-                // LB16 is handled as part of LB13.
+                // LB16
                 {
                     auto const new_state = skip_backward_spaces_between(
                         state,
@@ -674,9 +651,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     }
                 }
 
-                if (lb7_space)
-                    continue;
-
                 // LB24
                 if (after_nu(*state.it)) {
                     auto it = find_if_not_backward(first, state.it, after_nu);
@@ -696,6 +670,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                                         line_prop(*std::prev(state.it, 2));
                                 }
                             }
+
+                            if (table_line_break(state.prev_prop, state.prop))
+                                return state.it;
+
                             continue;
                         }
                     }
