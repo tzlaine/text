@@ -14,9 +14,7 @@ namespace boost { namespace text {
 
     struct string;
 
-    /** A reference to a constant contiguous sequence of char.  The sequence
-        is assumed to be UTF-8 encoded, though it is possible to construct a
-        sequence which is not. */
+    /** A reference to a constant contiguous sequence of char. */
     struct string_view
     {
         using iterator = char const *;
@@ -31,16 +29,11 @@ namespace boost { namespace text {
             \post data() == nullptr && size() == 0 */
         constexpr string_view() noexcept : data_(nullptr), size_(0) {}
 
-        /** Constructs a string_view from a null-terminated C string.  The UTF-8
-            encoding is checked only at the beginning and end of the string,
-            to prevent slicing of code points.  To fully check the encoding,
-            use checked_encoding().
+        /** Constructs a string_view from a null-terminated C string.
 
             This function is constexpr in C++14 and later.
 
-            \pre strlen(c_str) <= max_size()
-            \throw std::invalid_argument if the ends of the string are not valid
-           UTF-8. \post data() == c_str && size() == strlen(c_str) */
+            \pre strlen(c_str) <= max_size() */
         BOOST_TEXT_CXX14_CONSTEXPR string_view(char const * c_str) :
             data_(c_str),
             size_(detail::strlen(c_str))
@@ -48,15 +41,9 @@ namespace boost { namespace text {
             assert(detail::strlen(c_str) <= max_size());
         }
 
-        /** Constructs a string_view from an array of char.  The UTF-8 encoding
-            is checked only at the beginning and end of the string, to prevent
-            slicing of code points.  To fully check the encoding, use
-            checked_encoding().
+        /** Constructs a string_view from an array of char.
 
-            This function is constexpr in C++14 and later.
-
-            \throw std::invalid_argument if the ends of the string are not valid
-           UTF-8. \pre len >= 0 \post data() == c_str && size() == len */
+            This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR string_view(char const * c_str, int len) :
             data_(c_str),
             size_(len)
@@ -72,10 +59,7 @@ namespace boost { namespace text {
         /** Constructs a string_view from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept.
-
-            \throw std::invalid_argument if the ends of the range are not
-            valid UTF-8. */
+            CharRange models the Char_range concept. */
         template<typename CharRange>
         explicit string_view(
             CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0)
@@ -148,9 +132,7 @@ namespace boost { namespace text {
 
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
-            \pre lo <= hi
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8. */
+            \pre lo <= hi */
         BOOST_TEXT_CXX14_CONSTEXPR string_view operator()(int lo, int hi) const
         {
             if (lo < 0)
@@ -168,9 +150,7 @@ namespace boost { namespace text {
 
             This function is constexpr in C++14 and later.
 
-            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8. */
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
         BOOST_TEXT_CXX14_CONSTEXPR string_view operator()(int cut) const
         {
             int lo = 0;
@@ -229,10 +209,7 @@ namespace boost { namespace text {
 
         /** Creates a string_view from a char string literal.
 
-            This function is constexpr in C++14 and later.
-
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8.  */
+            This function is constexpr in C++14 and later. */
         inline BOOST_TEXT_CXX14_CONSTEXPR string_view
         operator"" _sv(char const * str, std::size_t len) noexcept
         {

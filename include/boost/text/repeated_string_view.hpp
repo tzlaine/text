@@ -87,9 +87,7 @@ namespace boost { namespace text {
 
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
-            \pre lo <= hi
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8. */
+            \pre lo <= hi */
         unencoded_rope_view operator()(int lo, int hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
@@ -97,9 +95,7 @@ namespace boost { namespace text {
 
             This function is constexpr in C++14 and later.
 
-            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8. */
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
         unencoded_rope_view operator()(int cut) const;
 
         constexpr bool empty() const noexcept { return view_.empty(); }

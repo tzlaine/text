@@ -8,7 +8,7 @@
 #endif
 
 
-// TODO: Apply the mutable insertion oprimization to erasure too, her ans in
+// TODO: Apply the mutable insertion optimization to erasure too, here and in
 // segmented_vector.
 
 namespace boost { namespace text {
@@ -21,10 +21,8 @@ namespace boost { namespace text {
         struct const_reverse_rope_iterator;
     }
 
-    /** A mutable sequence of char with copy-on-write semantics.  The sequence
-        is assumed to be UTF-8 encoded, though it is possible to construct a
-        sequence which is not. An unencoded_rope is non-contiguous and is not
-        null-terminated. */
+    /** A mutable sequence of char with copy-on-write semantics.  An
+        unencoded_rope is non-contiguous and is not null-terminated. */
     struct unencoded_rope
     {
         using iterator = detail::const_rope_iterator;
@@ -57,9 +55,6 @@ namespace boost { namespace text {
 #ifdef BOOST_TEXT_DOXYGEN
 
         /** Constructs an unencoded_rope from a sequence of char.
-
-            The sequence's UTF-8 encoding is not checked.  To check the
-            encoding, use a converting iterator.
 
             This function only participates in overload resolution if Iter
             models the Char_iterator concept. */
@@ -124,18 +119,14 @@ namespace boost { namespace text {
 
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
-            \pre lo <= hi
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8. */
+            \pre lo <= hi */
         unencoded_rope_view operator()(int lo, int hi) const;
 
         /** Returns a substring of *this as an unencoded_rope_view, taken from
             the first cut chars when cut => 0, or the last -cut chars when cut <
             0.
 
-            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8. */
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
         unencoded_rope_view operator()(int cut) const;
 
         /** Returns the maximum size an unencoded_rope can have. */
@@ -144,24 +135,20 @@ namespace boost { namespace text {
         /** Returns a substring of *this as a new unencoded_rope, taken from the
             range of chars at offsets [lo, hi).  If either of lo or hi is a
             negative value x, x is taken to be an offset from the end, and so x
-           + size() is used instead.
+            + size() is used instead.
 
             These preconditions apply to the values used after size() is added
             to any negative arguments.
 
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
-            \pre lo <= hi
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8. */
+            \pre lo <= hi */
         unencoded_rope substr(size_type lo, size_type hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
 
-            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8. */
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
         unencoded_rope substr(size_type cut) const;
 
         /** Visits each segment s of *this and calls f(s).  Each segment is a
@@ -239,24 +226,15 @@ namespace boost { namespace text {
         void clear() { ptr_ = detail::node_ptr<detail::rope_tag>(); }
 
         /** Inserts the null-terminated string into *this starting at offset
-            at.
-
-            \throw std::invalid_argument if insertion at offset at would break
-            UTF-8 encoding. */
+            at. */
         unencoded_rope & insert(size_type at, char const * c_str);
 
         /** Inserts the sequence of char from rv into *this starting at offset
-            at.
-
-            \throw std::invalid_argument if insertion at offset at would break
-            UTF-8 encoding. */
+            at. */
         unencoded_rope & insert(size_type at, unencoded_rope_view rv);
 
         /** Inserts the sequence of char from t into *this starting at offset
-            at, by moving the contents of t.
-
-            \throw std::invalid_argument if insertion at offset at would break
-            UTF-8 encoding. */
+            at, by moving the contents of t. */
         unencoded_rope & insert(size_type at, string && t)
         {
             return insert_impl(at, std::move(t), would_not_allocate);
@@ -268,13 +246,7 @@ namespace boost { namespace text {
             offset at.
 
             This function only participates in overload resolution if Iter
-            models the Char_iterator concept.
-
-            The inserted sequence's UTF-8 encoding is not checked.  To check
-            the encoding, use a converting iterator.
-
-            \throw std::invalid_argument if insertion at offset at would break
-            UTF-8 encoding. */
+            models the Char_iterator concept. */
         template<typename Iter>
         unencoded_rope & insert(size_type at, Iter first, Iter last);
 
@@ -282,12 +254,7 @@ namespace boost { namespace text {
             position at.
 
             This function only participates in overload resolution if Iter
-            models the Char_iterator concept.
-
-            No check is made to determine if insertion at position at would
-            break UTF-8 encoding, and the inserted sequence's UTF-8 encoding
-            is not checked.  To check the inserted sequence's encoding, use a
-            converting iterator. */
+            models the Char_iterator concept. */
         template<typename Iter>
         unencoded_rope & insert(const_iterator at, Iter first, Iter last);
 
@@ -309,9 +276,6 @@ namespace boost { namespace text {
         unencoded_rope & erase(unencoded_rope_view rv);
 
         /** Erases the portion of *this delimited by [first, last).
-
-            No check is made to determine whether erasing [first, last) breaks
-            UTF-8 encoding.
 
             \pre first <= last */
         unencoded_rope & erase(const_iterator first, const_iterator last);
@@ -337,9 +301,6 @@ namespace boost { namespace text {
             This function only participates in overload resolution if Iter
             models the Char_iterator concept.
 
-            The inserted sequence's UTF-8 encoding is not checked.  To check
-            the encoding, use a converting iterator.
-
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename Iter>
         unencoded_rope &
@@ -350,11 +311,6 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if Iter
             models the Char_iterator concept.
-
-            No check is made to determine if removing [old_first, old_last)
-            would break UTF-8 encoding, and the inserted sequence's UTF-8
-            encoding is not checked.  To check the inserted sequence's
-            encoding, use a converting iterator.
 
            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename Iter>

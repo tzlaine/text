@@ -14,9 +14,7 @@ namespace boost { namespace text {
     }
 
     /** A reference to a substring of an unencoded_rope, string, or
-        repeated_string_view.  The substring is assumed to be UTF-8 encoded,
-        though it is possible to construct an unencoded_rope_view which is
-        not. */
+        repeated_string_view. */
     struct unencoded_rope_view
     {
         using iterator = detail::const_rope_view_iterator;
@@ -32,15 +30,13 @@ namespace boost { namespace text {
         unencoded_rope_view() noexcept : ref_(rope_ref()), which_(which::r) {}
 
         /** Constructs an unencoded_rope_view covering the entire given
-            unencoded_rope. The UTF-8 encoding is not checked. */
+            unencoded_rope. */
         unencoded_rope_view(unencoded_rope const & r) noexcept;
 
         /** Constructs a substring of r, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
             is taken to be an offset from the end, and so x + size() is used
-            instead.  The UTF-8 encoding is checked only at the beginning and
-            end of the sequence, to prevent slicing of code points.  To fully
-            check the encoding, use checked_encoding().
+            instead.
 
             These preconditions apply to the values used after size() is added
             to any negative arguments.
@@ -48,22 +44,18 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= r.size()
             \pre 0 <= hi && lhi <= r.size()
             \pre lo <= hi
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8.
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
         unencoded_rope_view(unencoded_rope const & r, int lo, int hi);
 
         /** Constructs an unencoded_rope_view covering the entire given
-            unencoded_rope.  The UTF-8 encoding is not checked. */
+            unencoded_rope. */
         unencoded_rope_view(string const & r) noexcept;
 
         /** Constructs a substring of r, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
             is taken to be an offset from the end, and so x + size() is used
-            instead.  The UTF-8 encoding is checked only at the beginning and
-            end of the sequence, to prevent slicing of code points.  To fully
-            check the encoding, use checked_encoding().
+            instead.
 
             These preconditions apply to the values used after size() is added
             to any negative arguments.
@@ -71,34 +63,27 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= r.size()
             \pre 0 <= hi && lhi <= r.size()
             \pre lo <= hi
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8.
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
         unencoded_rope_view(string const & r, int lo, int hi);
 
         /** Constructs an unencoded_rope_view from a null-terminated C string.
-            The UTF-8 encoding is checked only at the beginning and end of the
-            string, to prevent slicing of code points.  To fully check the
-            encoding, use checked_encoding().
 
-            \pre strlen(c_str) <= max_size()
-            \throw std::invalid_argument if the ends of the string are not valid
-            UTF-8. \post data() == c_str && size() == strlen(c_str) */
+            \pre strlen(c_str) <= max_size() */
         unencoded_rope_view(char const * c_str) noexcept :
             ref_(string_view(c_str)),
             which_(which::tv)
         {}
 
         /** Constructs an unencoded_rope_view covering the entire given
-            string_view.  The UTF-8 encoding is not checked. */
+            string_view. */
         unencoded_rope_view(string_view tv) noexcept :
             ref_(tv),
             which_(which::tv)
         {}
 
         /** Constructs an unencoded_rope_view covering the entire given
-            repeated_string_view.  The UTF-8 encoding is not checked. */
+            repeated_string_view. */
         unencoded_rope_view(repeated_string_view rtv) noexcept :
             ref_(repeated_ref(rtv, 0, rtv.size())),
             which_(which::rtv)
@@ -107,9 +92,7 @@ namespace boost { namespace text {
         /** Constructs a substring of rtv, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
             is taken to be an offset from the end, and so x + size() is used
-            instead.  The UTF-8 encoding is checked only at the beginning and
-            end of the sequence, to prevent slicing of code points.  To fully
-            check the encoding, use checked_encoding().
+            instead.
 
             These preconditions apply to the values used after size() is added
             to any negative arguments.
@@ -117,8 +100,6 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= r.size()
             \pre 0 <= hi && lhi <= r.size()
             \pre lo <= hi
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8.
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
         unencoded_rope_view(repeated_string_view rtv, int lo, int hi);
@@ -147,17 +128,13 @@ namespace boost { namespace text {
 
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
-            \pre lo <= hi
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8. */
+            \pre lo <= hi */
         unencoded_rope_view operator()(int lo, int hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
 
-            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size()
-            \throw std::invalid_argument if the ends of the string are not
-            valid UTF-8. */
+            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
         unencoded_rope_view operator()(int cut) const
         {
             int lo = 0;
@@ -298,7 +275,7 @@ namespace boost { namespace text {
     }
 
     /** Creates a new unencoded_rope containing the concatenation of lhs and
-     * rhs. */
+        rhs. */
     inline unencoded_rope
     operator+(unencoded_rope_view lhs, unencoded_rope_view rhs);
 
