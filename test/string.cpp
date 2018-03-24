@@ -1082,6 +1082,3 @@ TEST(string, test_unformatted_output)
         EXPECT_EQ(oss.str(), "abc");
     }
 }
-
-// TODO: Add out-of-memory tests (in another file).  These should especially
-// test the Iter interfaces.

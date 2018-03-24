@@ -236,56 +236,6 @@ def ce(cet, cps):
         return None
     return implicit_ce(cps[0])
 
-def collation_elements_for_decomposition(cccs_dict, cet, cps):
-    longest_prefix = (cps[0],)
-    for i in reversed(range(1, len(cps))):
-        t = tuple(cps[0:i + 1])
-        if t in cet:
-            longest_prefix = t
-            break
-
-    i = len(longest_prefix)
-    while i < len(cps):
-        blocked = True
-        if i == len(longest_prefix) or ccc(cccs_dict, cps[i - 1]) < ccc(cccs_dict, cps[i]):
-            blocked = False
-        if not blocked:
-            new_longest = longest_prefix + (cps[i],)
-            if new_longest in cet:
-                longest_prefix = new_longest
-                cps = cps.pop(i)
-            else:
-                i += 1
-        else:
-            i += 1
-
-    cps = cps[len(longest_prefix):]
-
-    return (ce(cet, longest_prefix), cps)
-
-# http://www.unicode.org/reports/tr10/#Avoiding_Normalization
-def cet_from_cet_and_decompositions(cccs_dict, old_cet, decomposition_mapping):
-    cet = {}
-
-    for k,v in old_cet.items():
-        cet[k] = v
-
-    for k,v in decomposition_mapping.items():
-        v_initial = v
-        collation_elements = []
-        while len(v):
-            (ces, v) = collation_elements_for_decomposition(
-                cccs_dict, old_cet, v
-            )
-            if ces == None:
-                print hex(k),map(lambda x : hex(x), v0)
-            collation_elements += ces
-        if type(collation_elements[0][0]) == str:
-            collation_elements = (tuple(collation_elements),)
-        cet[(k,)] = tuple(collation_elements)
-
-    return cet
-
 def make_orignal_order(cet):
     original_order = dict(map(lambda x: (x[0], x[1][1]), sorted(cet.items())))
     for k in cet:
@@ -625,8 +575,6 @@ if __name__ == "__main__":
       map(lambda x: (x[0], indices_to_list(x[1], all_cps)), decomposition_mapping)
     decomposition_mapping = dict(decomposition_mapping)
 
-    # TODO: This appears not to be necessary.
-    #fcc_cet = cet_from_cet_and_decompositions(cccs_dict, cet, decomposition_mapping)
     fcc_cet = cet
 
     (fcc_cet, original_order) = make_orignal_order(fcc_cet)

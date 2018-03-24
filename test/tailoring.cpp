@@ -1030,8 +1030,7 @@ TEST(tailoring, ja)
         std::array<int, cases> const tertiary_result = {{-1, 0, -1, 1, -1, -1}};
 
         for (int i = 0; i < cases; ++i) {
-            // TODO: [caseLevel on]
-            // TODO: Needs a fix.
+            // TODO: Needs a fix?
             if (i == 5)
                 continue;
             EXPECT_EQ(
@@ -1107,7 +1106,6 @@ TEST(tailoring, ja)
                               {0x30c4, 0x30d0}}};
 
         for (int i = 0; i < cases - 1; ++i) {
-            // TODO: [caseLevel on]
             EXPECT_EQ(
                 text::collate(
                     tertiary_less[i],
@@ -1134,7 +1132,6 @@ TEST(tailoring, ja)
                                 {0x30a2, 0x30c4}}};
 
         for (int i = 0; i < cases - 1; ++i) {
-            // TODO: [caseLevel on]
             EXPECT_EQ(
                 text::collate(
                     quaternary_less[i],
@@ -1165,10 +1162,9 @@ TEST(tailoring, ja)
                                 {0x30A2, 0x30A4, 0x30A2}}};
 
         for (int i = 0; i < cases - 1; ++i) {
-            // TODO: Needs a fix
+            // TODO: Needs a fix?
             if (i == 3 || i == 5)
                 continue;
-            // TODO: [caseLevel on]
             EXPECT_EQ(
                 text::collate(
                     quaternary_less[i],

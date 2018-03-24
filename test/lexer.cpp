@@ -1,7 +1,4 @@
 #include <boost/text/detail/lexer.hpp>
-// TODO: Remove.
-#include <boost/text/collate.hpp>
-#include <boost/text/collation_table.hpp>
 
 #include "parser_tests.hpp"
 
