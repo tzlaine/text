@@ -381,9 +381,22 @@ suppressed_short_contractions = find_suppressed_contractions(short_suppression)
 suppressed_long_contractions = find_suppressed_contractions(long_suppression)
 
 def suppression_test(ns, string, suppressed_contractions):
-    retval = '''\
+    test_count = -1
+    max_tests = 150
+    block_index = 0
 
-TEST(tailoring, {0}_{1}_suppressions)
+    retval = ''
+
+    for sc in suppressed_contractions:
+        test_count += 1
+        if test_count == max_tests:
+            retval += '}\n'
+            test_count = 0
+            block_index += 1
+        if test_count == 0:
+            retval += '''\
+
+TEST(tailoring, {0}_{1}_suppressions_{2})
 {{
     text::collation_table const table =
         text::tailored_collation_table(
@@ -391,9 +404,8 @@ TEST(tailoring, {0}_{1}_suppressions)
             "{0}::{1}_collation_tailoring()",
             error, warning);
 
-'''.format(ns, string)
+'''.format(ns, string, block_index)
 
-    for sc in suppressed_contractions:
         retval += '''\
     {{
         uint32_t cps[{1}] = {{ {0} }};
@@ -413,7 +425,8 @@ TEST(tailoring, {0}_{1}_suppressions)
     }}
 '''.format(', '.join(map(lambda x: hex(x), sc[0])), len(sc[0]), ',\n            '.join(sc[1]))
 
-    retval += '}\n'
+    if test_count != 0:
+        retval += '}\n'
     return retval
 
 

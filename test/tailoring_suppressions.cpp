@@ -11,7 +11,7 @@ using namespace boost;
 auto const error = [](text::string const & s) { std::cout << s; };
 auto const warning = [](text::string const & s) {};
 
-TEST(tailoring, az_search_suppressions)
+TEST(tailoring, az_search_suppressions_0)
 {
     text::collation_table const table =
         text::tailored_collation_table(
@@ -2569,6 +2569,16 @@ TEST(tailoring, az_search_suppressions)
         for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
         EXPECT_EQ(result, ces);
     }
+}
+
+TEST(tailoring, az_search_suppressions_1)
+{
+    text::collation_table const table =
+        text::tailored_collation_table(
+            text::data::az::search_collation_tailoring(),
+            "az::search_collation_tailoring()",
+            error, warning);
+
     {
         uint32_t cps[2] = { 0xe43, 0xe22 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
@@ -5124,6 +5134,16 @@ TEST(tailoring, az_search_suppressions)
         for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
         EXPECT_EQ(result, ces);
     }
+}
+
+TEST(tailoring, az_search_suppressions_2)
+{
+    text::collation_table const table =
+        text::tailored_collation_table(
+            text::data::az::search_collation_tailoring(),
+            "az::search_collation_tailoring()",
+            error, warning);
+
     {
         uint32_t cps[2] = { 0xec2, 0xe9f };
         container::small_vector<text::detail::collation_element, 1024> ces = {
@@ -7679,6 +7699,16 @@ TEST(tailoring, az_search_suppressions)
         for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
         EXPECT_EQ(result, ces);
     }
+}
+
+TEST(tailoring, az_search_suppressions_3)
+{
+    text::collation_table const table =
+        text::tailored_collation_table(
+            text::data::az::search_collation_tailoring(),
+            "az::search_collation_tailoring()",
+            error, warning);
+
     {
         uint32_t cps[2] = { 0xaab6, 0xaaaf };
         container::small_vector<text::detail::collation_element, 1024> ces = {
@@ -10229,6 +10259,16 @@ TEST(tailoring, az_search_suppressions)
         for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
         EXPECT_EQ(result, ces);
     }
+}
+
+TEST(tailoring, az_search_suppressions_4)
+{
+    text::collation_table const table =
+        text::tailored_collation_table(
+            text::data::az::search_collation_tailoring(),
+            "az::search_collation_tailoring()",
+            error, warning);
+
     {
         uint32_t cps[2] = { 0xaabc, 0xaa9d };
         container::small_vector<text::detail::collation_element, 1024> ces = {
@@ -12779,6 +12819,16 @@ TEST(tailoring, az_search_suppressions)
         for (auto & ce : result) { ce.l1_ &= 0x00ffffff; }
         EXPECT_EQ(result, ces);
     }
+}
+
+TEST(tailoring, az_search_suppressions_5)
+{
+    text::collation_table const table =
+        text::tailored_collation_table(
+            text::data::az::search_collation_tailoring(),
+            "az::search_collation_tailoring()",
+            error, warning);
+
     {
         uint32_t cps[2] = { 0x19b7, 0x1995 };
         container::small_vector<text::detail::collation_element, 1024> ces = {
@@ -13648,7 +13698,7 @@ TEST(tailoring, az_search_suppressions)
     }
 }
 
-TEST(tailoring, bs_Cyrl_standard_suppressions)
+TEST(tailoring, bs_Cyrl_standard_suppressions_0)
 {
     text::collation_table const table =
         text::tailored_collation_table(
