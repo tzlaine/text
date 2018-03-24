@@ -924,7 +924,21 @@ namespace boost { namespace text {
         return back(string_view(r));
     }
 
-    /** TODO */
+    /** Range-friendly version of std::find(), taking an iterator and a
+        sentinel. */
+    template<typename BidiIter, typename Sentinel, typename T>
+    BidiIter find(BidiIter first, Sentinel last, T const & x)
+    {
+        while (first != last) {
+            if (*first == x)
+                return first;
+            ++first;
+        }
+        return first;
+    }
+
+    /** Range-friendly version of std::find_if(), taking an iterator and a
+        sentinel. */
     template<typename BidiIter, typename Sentinel, typename Pred>
     BidiIter find_if(BidiIter first, Sentinel last, Pred p)
     {
@@ -936,7 +950,8 @@ namespace boost { namespace text {
         return first;
     }
 
-    /** TODO */
+    /** Range-friendly version of std::find_if_not(), taking an iterator and a
+        sentinel. */
     template<typename BidiIter, typename Sentinel, typename Pred>
     BidiIter find_if_not(BidiIter first, Sentinel last, Pred p)
     {
@@ -948,7 +963,8 @@ namespace boost { namespace text {
         return first;
     }
 
-    /** TODO */
+    /** Analogue of std::find() that finds the last value in [first, last) not
+        equal to \a x. */
     template<typename BidiIter, typename T>
     BidiIter find_not_backward(BidiIter first, BidiIter last, T const & x)
     {
@@ -962,7 +978,8 @@ namespace boost { namespace text {
         return last;
     }
 
-    /** TODO */
+    /** Analogue of std::find() that finds the last value \a v in [first,
+        last) for which <code>p(v)</code> is true. */
     template<typename BidiIter, typename Pred>
     BidiIter find_if_backward(BidiIter first, BidiIter last, Pred p)
     {
@@ -976,7 +993,8 @@ namespace boost { namespace text {
         return last;
     }
 
-    /** TODO */
+    /** Analogue of std::find() that finds the last value \a v in [first,
+        last) for which <code>p(v)</code> is false. */
     template<typename BidiIter, typename Pred>
     BidiIter find_if_not_backward(BidiIter first, BidiIter last, Pred p)
     {
@@ -990,6 +1008,7 @@ namespace boost { namespace text {
         return last;
     }
 
+    /** A utility range type returned by foreach_subrange*(). */
     template<typename Iter, typename Sentinel = Iter>
     struct foreach_subrange_range
     {
@@ -1010,29 +1029,33 @@ namespace boost { namespace text {
         sentinel last_;
     };
 
-    /** TODO */
+    /** Calls <code>f(sub)</code> for each subrange \a sub in [first, last).
+        A subrange is a contiguous subsequence of elements, each of which is
+        equal to \a x.  Subranges passed to \a f are non-overlapping. */
     template<typename FwdIter, typename Sentinel, typename T, typename Func>
     void foreach_subrange(FwdIter first, Sentinel last, T const & x, Func f)
     {
         using value_type = typename std::iterator_traits<FwdIter>::value_type;
         while (first != last) {
-            first = std::find(first, last, x);
-            auto next =
-                std::find_if_not(first, last, [&x](value_type const & elem) {
-                    return elem == x;
-                });
+            first = find(first, last, x);
+            auto next = find_if_not(first, last, [&x](value_type const & elem) {
+                return elem == x;
+            });
             f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;
         }
     }
 
-    /** TODO */
+    /** Calls <code>f(sub)</code> for each subrange \a sub in [first, last).
+        A subrange is a contiguous subsequence of elements \a ei for which
+        <code>p(ei)</code> is true.  Subranges passed to \a f are
+        non-overlapping. */
     template<typename FwdIter, typename Sentinel, typename Pred, typename Func>
     void foreach_subrange_if(FwdIter first, Sentinel last, Pred p, Func f)
     {
         while (first != last) {
-            first = std::find_if(first, last, p);
-            auto next = std::find_if_not(first, last, p);
+            first = find_if(first, last, p);
+            auto next = find_if_not(first, last, p);
             f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;
         }
