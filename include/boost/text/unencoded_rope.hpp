@@ -8,9 +8,6 @@
 #endif
 
 
-// TODO: Apply the mutable insertion optimization to erasure too, here and in
-// segmented_vector.
-
 namespace boost { namespace text {
 
     struct unencoded_rope_view;
@@ -422,7 +419,9 @@ namespace boost { namespace text {
                 string & t =
                     const_cast<string &>(found.leaf_->as_leaf()->as_string());
                 auto const inserted_size = t.size() + size;
-                if (inserted_size <= t.capacity() ||
+                if (size < 0 && t.size() < found.offset_ + -size)
+                    return string_insertion{nullptr};
+                if ((0 < inserted_size && inserted_size <= t.capacity()) ||
                     (allocation_note == would_allocate &&
                      inserted_size <= detail::string_insert_max)) {
                     return string_insertion{&t, found};
@@ -685,8 +684,16 @@ namespace boost { namespace text {
         if (rv_null_terminated)
             rv = rv(0, -1);
 
-        ptr_ = btree_erase(
-            ptr_, rope_ref.lo_, rope_ref.hi_, detail::encoding_breakage_ok);
+        if (string_insertion insertion = mutable_insertion_leaf(
+                rope_ref.lo_, -rv.size(), would_not_allocate)) {
+            auto const rv_size = rv.size();
+            bump_along_path_to_leaf(ptr_, rope_ref.lo_, -rv_size);
+            insertion.string_->erase((*insertion.string_)(
+                insertion.found_.offset_, insertion.found_.offset_ + rv_size));
+        } else {
+            ptr_ = btree_erase(
+                ptr_, rope_ref.lo_, rope_ref.hi_, detail::encoding_breakage_ok);
+        }
 
         return *this;
     }
@@ -702,7 +709,15 @@ namespace boost { namespace text {
 
         auto const lo = first - begin();
         auto const hi = last - begin();
-        ptr_ = btree_erase(ptr_, lo, hi, detail::encoding_breakage_ok);
+        if (string_insertion insertion =
+                mutable_insertion_leaf(lo, -(hi - lo), would_not_allocate)) {
+            auto const size = hi - lo;
+            bump_along_path_to_leaf(ptr_, lo, -size);
+            insertion.string_->erase((*insertion.string_)(
+                insertion.found_.offset_, insertion.found_.offset_ + size));
+        } else {
+            ptr_ = btree_erase(ptr_, lo, hi, detail::encoding_breakage_ok);
+        }
 
         return *this;
     }

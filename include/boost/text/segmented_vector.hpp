@@ -257,7 +257,14 @@ namespace boost { namespace text {
             assert(begin() <= at && at < end());
 
             auto const lo = at - begin();
-            ptr_ = btree_erase(ptr_, lo, lo + 1, 0);
+            if (vec_insertion insertion =
+                    mutable_insertion_leaf(at, -1, would_not_allocate)) {
+                bump_along_path_to_leaf(ptr_, lo, -1);
+                insertion.vec_->erase(
+                    insertion.vec_->begin() + insertion.found_.offset_);
+            } else {
+                ptr_ = btree_erase(ptr_, lo, lo + 1, 0);
+            }
 
             return *this;
         }
@@ -275,7 +282,16 @@ namespace boost { namespace text {
 
             auto const lo = first - begin();
             auto const hi = last - begin();
-            ptr_ = btree_erase(ptr_, lo, hi, 0);
+            if (vec_insertion insertion = mutable_insertion_leaf(
+                    first, -(hi - lo), would_not_allocate)) {
+                auto const size = hi - lo;
+                bump_along_path_to_leaf(ptr_, lo, -size);
+                insertion.vec_->erase(
+                    insertion.vec_->begin() + insertion.found_.offset_,
+                    insertion.vec_->begin() + insertion.found_.offset_ + size);
+            } else {
+                ptr_ = btree_erase(ptr_, lo, hi, 0);
+            }
 
             return *this;
         }
@@ -365,7 +381,9 @@ namespace boost { namespace text {
                 std::vector<T> & v = const_cast<std::vector<T> &>(
                     found.leaf_->as_leaf()->as_vec());
                 auto const inserted_size = v.size() + size;
-                if (inserted_size <= v.capacity() ||
+                if (size < 0 && v.size() < found.offset_ + -size)
+                    return vec_insertion{nullptr};
+                if ((0 < inserted_size && inserted_size <= v.capacity()) ||
                     (allocation_note == would_allocate &&
                      inserted_size <= detail::vec_insert_max)) {
                     return vec_insertion{&v, found};
