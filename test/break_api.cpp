@@ -6,6 +6,8 @@
 
 #include <boost/text/utf8.hpp>
 
+#include <boost/algorithm/cxx14/equal.hpp>
+
 #include <gtest/gtest.h>
 
 
@@ -97,7 +99,7 @@ TEST(break_apis, grapheme_break_sentinel)
             boost::text::utf8::make_from_utf32_iterator(cps.begin()),
             boost::text::utf8::make_from_utf32_iterator(cps.end()));
         assert(s.size() == 9);
-        assert(std::equal(
+        assert(boost::algorithm::equal(
             cps.begin(),
             cps.end(),
             u32_iter(s.begin(), s.begin(), s.end()),
@@ -267,7 +269,7 @@ TEST(break_apis, word_break_sentinel)
         s = boost::text::string(
             boost::text::utf8::make_from_utf32_iterator(cps.begin()),
             boost::text::utf8::make_from_utf32_iterator(cps.end()));
-        assert(std::equal(
+        assert(boost::algorithm::equal(
             cps.begin(),
             cps.end(),
             u32_iter(s.begin(), s.begin(), s.end()),
@@ -436,7 +438,7 @@ TEST(break_apis, sentence_break_sentinel)
         s = boost::text::string(
             boost::text::utf8::make_from_utf32_iterator(cps.begin()),
             boost::text::utf8::make_from_utf32_iterator(cps.end()));
-        assert(std::equal(
+        assert(boost::algorithm::equal(
             cps.begin(),
             cps.end(),
             u32_iter(s.begin(), s.begin(), s.end()),
@@ -596,7 +598,7 @@ TEST(break_apis, line_break_sentinel)
         s = boost::text::string(
             boost::text::utf8::make_from_utf32_iterator(cps.begin()),
             boost::text::utf8::make_from_utf32_iterator(cps.end()));
-        assert(std::equal(
+        assert(boost::algorithm::equal(
             cps.begin(),
             cps.end(),
             u32_iter(s.begin(), s.begin(), s.end()),
@@ -760,7 +762,7 @@ TEST(break_apis, paragraph_break_sentinel)
         s = boost::text::string(
             boost::text::utf8::make_from_utf32_iterator(cps.begin()),
             boost::text::utf8::make_from_utf32_iterator(cps.end()));
-        assert(std::equal(
+        assert(boost::algorithm::equal(
             cps.begin(),
             cps.end(),
             u32_iter(s.begin(), s.begin(), s.end()),
