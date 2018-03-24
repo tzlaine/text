@@ -136,8 +136,6 @@ namespace boost { namespace text {
             if (empty())
                 return rhs.empty() ? 0 : -1;
 
-            // TODO: This could probably be optimized quite a bit by doing
-            // something equivalent to mismatch, segment-wise.
             auto const iters =
                 algorithm::mismatch(begin(), end(), rhs.begin(), rhs.end());
             if (iters.first == end()) {

@@ -229,9 +229,6 @@ namespace boost { namespace text {
                 auto const decomp = decompose(*first);
                 auto const it = std::find_if(
                     decomp.begin(), decomp.end(), [&quick_check_](uint32_t cp) {
-                        // TODO: Neither of these checks can be omitted.
-                        // Experiment with combining these into a single hash
-                        // lookup and measure the perf impact.
                         return !ccc(cp) && quick_check_(cp) == quick_check::yes;
                     });
                 if (it != decomp.end() && !hangul_final_v(buffer, *it) &&
@@ -287,7 +284,7 @@ namespace boost { namespace text {
         }
 
 #if 0
-        // TODO: The logic in
+        // NOTE: The logic in
         // http://www.unicode.org/reports/tr15/tr15-45.html#Detecting_Normalization_Forms
         // seems to indicate that if a supplementary character is encountered
         // in normalized_quick_check(), then we should proceed as normal for
@@ -392,9 +389,10 @@ namespace boost { namespace text {
         }
     }
 
-    /** TODO */
-    template<typename Iter, typename OutIter>
-    inline OutIter normalize_to_nfd(Iter first, Iter last, OutIter out)
+    /** Writes sequence <code>[first, last)</code> in Unicode normalization
+        form NFD to \a out. */
+    template<typename CPIter, typename OutIter>
+    inline OutIter normalize_to_nfd(CPIter first, CPIter last, OutIter out)
     {
         return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
@@ -402,7 +400,7 @@ namespace boost { namespace text {
             });
     }
 
-    /** TODO */
+    /** Writes sequence \a r in Unicode normalization form NFD to \a out. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfd(CPRange const & r, OutIter out)
     {
@@ -411,7 +409,9 @@ namespace boost { namespace text {
         return normalize_to_nfd(begin(r), end(r), out);
     }
 
-    /** TODO */
+    /** Puts the contents of \a s in Unicode normalization form NFD.
+        Normalization is not performed if \a s passes a normalization
+        quick-check. */
     inline void normalize_to_nfd(string & s)
     {
         utf32_range as_utf32(s);
@@ -436,9 +436,10 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-    /** TODO */
-    template<typename Iter, typename OutIter>
-    inline OutIter normalize_to_nfkd(Iter first, Iter last, OutIter out)
+    /** Writes sequence <code>[first, last)</code> in Unicode normalization
+        form NFKD to \a out. */
+    template<typename CPIter, typename OutIter>
+    inline OutIter normalize_to_nfkd(CPIter first, CPIter last, OutIter out)
     {
         return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
@@ -446,7 +447,7 @@ namespace boost { namespace text {
             });
     }
 
-    /** TODO */
+    /** Writes sequence \a r in Unicode normalization form NFKD to \a out. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfkd(CPRange const & r, OutIter out)
     {
@@ -455,7 +456,9 @@ namespace boost { namespace text {
         return normalize_to_nfkd(begin(r), end(r), out);
     }
 
-    /** TODO */
+    /** Puts the contents of \a s in Unicode normalization form NFKD.
+        Normalization is not performed if \a s passes a normalization
+        quick-check. */
     inline void normalize_to_nfkd(string & s)
     {
         utf32_range as_utf32(s);
@@ -480,9 +483,10 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-    /** TODO */
-    template<typename Iter, typename OutIter>
-    inline OutIter normalize_to_nfc(Iter first, Iter last, OutIter out)
+    /** Writes sequence <code>[first, last)</code> in Unicode normalization
+        form NFC to \a out. */
+    template<typename CPIter, typename OutIter>
+    inline OutIter normalize_to_nfc(CPIter first, CPIter last, OutIter out)
     {
         return detail::normalize_to_composed<false>(
             first,
@@ -492,7 +496,7 @@ namespace boost { namespace text {
             [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
-    /** TODO */
+    /** Writes sequence \a r in Unicode normalization form NFC to \a out. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfc(CPRange const & r, OutIter out)
     {
@@ -501,7 +505,9 @@ namespace boost { namespace text {
         return normalize_to_nfc(begin(r), end(r), out);
     }
 
-    /** TODO */
+    /** Puts the contents of \a s in Unicode normalization form NFC.
+        Normalization is not performed if \a s passes a normalization
+        quick-check. */
     inline void normalize_to_nfc(string & s)
     {
         utf32_range as_utf32(s);
@@ -526,9 +532,10 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-    /** TODO */
-    template<typename Iter, typename OutIter>
-    inline OutIter normalize_to_nfkc(Iter first, Iter last, OutIter out)
+    /** Writes sequence <code>[first, last)</code> in Unicode normalization
+        form NFKC to \a out. */
+    template<typename CPIter, typename OutIter>
+    inline OutIter normalize_to_nfkc(CPIter first, CPIter last, OutIter out)
     {
         return detail::normalize_to_composed<false>(
             first,
@@ -540,7 +547,7 @@ namespace boost { namespace text {
             });
     }
 
-    /** TODO */
+    /** Writes sequence \a r in Unicode normalization form NFKC to \a out. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfkc(CPRange const & r, OutIter out)
     {
@@ -549,7 +556,9 @@ namespace boost { namespace text {
         return normalize_to_nfkc(begin(r), end(r), out);
     }
 
-    /** TODO */
+    /** Puts the contents of \a s in Unicode normalization form NFKC.
+        Normalization is not performed if \a s passes a normalization
+        quick-check. */
     inline void normalize_to_nfkc(string & s)
     {
         utf32_range as_utf32(s);
@@ -574,15 +583,16 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-    // TODO: Create a uint32 iterator concept and apply it below.
+    // TODO: Docuement a CPIter iterator concept.  Must be bidi at least.
+    // TODO: Document CPRange.
 
     // TODO: Document how the normalized_*() functions should be used.
     // TODO: Document the assumption of safe stream format.
 
     /** Returns true iff the given sequence of code points is normalized
         NFD. */
-    template<typename Iter>
-    bool normalized_nfd(Iter first, Iter last) noexcept
+    template<typename CPIter>
+    bool normalized_nfd(CPIter first, CPIter last) noexcept
     {
         return detail::normalized_decomposed(
             first,
@@ -603,8 +613,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given sequence of code points is normalized
         NFKD. */
-    template<typename Iter>
-    bool normalized_nfkd(Iter first, Iter last) noexcept
+    template<typename CPIter>
+    bool normalized_nfkd(CPIter first, CPIter last) noexcept
     {
         return detail::normalized_decomposed(
             first,
@@ -627,8 +637,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given sequence of code points is normalized
         NFC. */
-    template<typename Iter>
-    bool normalized_nfc(Iter first, Iter last) noexcept
+    template<typename CPIter>
+    bool normalized_nfc(CPIter first, CPIter last) noexcept
     {
         return detail::normalized_composed(
             first,
@@ -649,8 +659,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given sequence of code points is normalized
         NFKC. */
-    template<typename Iter>
-    bool normalized_nfkc(Iter first, Iter last) noexcept
+    template<typename CPIter>
+    bool normalized_nfkc(CPIter first, CPIter last) noexcept
     {
         return detail::normalized_composed(
             first,
@@ -673,8 +683,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given sequence of code points is in an FCD
         form. */
-    template<typename Iter>
-    bool fcd_form(Iter first, Iter last) noexcept
+    template<typename CPIter>
+    bool fcd_form(CPIter first, CPIter last) noexcept
     {
         // http://www.unicode.org/notes/tn5/#FCD_Test
         int prev_ccc = 0;
@@ -700,9 +710,13 @@ namespace boost { namespace text {
         return fcd_form(begin(r), end(r));
     }
 
-    /** TODO */
-    template<typename Iter, typename OutIter>
-    inline OutIter normalize_to_fcc(Iter first, Iter last, OutIter out)
+    /** Writes sequence <code>[first, last)</code> in normalization
+        form FCC to \a out.
+
+        \see https://unicode.org/notes/tn5
+    */
+    template<typename CPIter, typename OutIter>
+    inline OutIter normalize_to_fcc(CPIter first, CPIter last, OutIter out)
     {
         return detail::normalize_to_composed<true>(
             first,
@@ -712,9 +726,10 @@ namespace boost { namespace text {
             [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
-    // TODO: Document CPRange.
+    /** Writes sequence \a r in normalization form FCC to \a out.
 
-    /** TODO */
+        \see https://unicode.org/notes/tn5
+    */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_fcc(CPRange const & r, OutIter out)
     {
@@ -723,7 +738,8 @@ namespace boost { namespace text {
         return normalize_to_fcc(begin(r), end(r), out);
     }
 
-    /** TODO */
+    /** Puts the contents of \a s in normalization form FCC.  Normalization is
+        not performed if \a s passes a normalization quick-check. */
     inline void normalize_to_fcc(string & s)
     {
         // http://www.unicode.org/notes/tn5/#FCC

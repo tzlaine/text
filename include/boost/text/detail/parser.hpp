@@ -588,8 +588,6 @@ namespace boost { namespace text { namespace detail {
                     filename));
             }
         } else if (*identifier == "suppressContractions") {
-            // TODO: Document that this only supports code points and "-" code
-            // point ranges.
             auto const inner_open_bracket_it = it;
             if (!require(it, end, token_kind::open_bracket))
                 throw one_token_parse_error(

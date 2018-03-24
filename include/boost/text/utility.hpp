@@ -7,7 +7,7 @@
 
 namespace boost { namespace text {
 
-    /** TODO */
+    /** Returns a string constructed from [first, last). */
     template<typename Iter>
     string to_string(Iter first, Iter last)
     {
@@ -16,7 +16,8 @@ namespace boost { namespace text {
             utf8::from_utf32_iterator<Iter>(last));
     }
 
-    /** TODO */
+    /** A range that adapts a sequence of <code>char const *</code> to a
+        sequence of code points. */
     struct utf32_range
     {
         using iterator = utf8::to_utf32_iterator<char const *, char const *>;
@@ -56,7 +57,7 @@ namespace boost { namespace text {
         iterator last_;
     };
 
-    /** TODO */
+    /** A range of code points. */
     template<typename CPIter, typename Sentinel = CPIter>
     struct cp_range
     {

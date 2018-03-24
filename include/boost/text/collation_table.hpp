@@ -206,7 +206,6 @@ namespace boost { namespace text {
     struct collation_compare;
 
     /** TODO */
-    // TODO: Serialization.
     struct collation_table
     {
         collation_compare compare(
@@ -1203,7 +1202,11 @@ namespace boost { namespace text {
         return retval;
     }
 
-    /** TODO */
+    /** TODO
+
+        TODO: Document that suppressContractions only supports code points and
+        "-" code point ranges.
+    */
     inline collation_table tailored_collation_table(
         string_view tailoring,
         string_view tailoring_filename = "",
