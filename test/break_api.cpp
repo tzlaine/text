@@ -515,53 +515,46 @@ TEST(break_apis, sentence_break_sentinel)
     }
 }
 
-#if 0
 TEST(break_apis, line_break)
 {
-    // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷	
-    // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) × [13.2] LATIN SMALL LETTER A (ALetter) ÷ [999.0] FULL STOP (MidNumLet) ÷ [999.0] COLON (MidLetter) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [0.3]
-    std::array<uint32_t, 6> cps = {{0x61, 0x5f, 0x61, 0x2e, 0x3a, 0x61}};
+    // × 200B × 0020 ÷ 0030 ÷	
+    // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU) ÷ [0.3]
+    std::array<uint32_t, 3> cps = {{0x200b, 0x20, 0x30}};
 
     {
-        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
     // Range API
     {
-        EXPECT_EQ(boost::text::prev_line_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_line_break(cps) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps, cps.begin() + 0) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps) - cps.begin(), 2);
     }
 
     {
         auto const range =
-            boost::text::line(cps.begin(), cps.begin() + 0, cps.end());
+            boost::text::possible_line(cps.begin(), cps.begin() + 0, cps.end());
         EXPECT_EQ(range.begin() - cps.begin(), 0);
-        EXPECT_EQ(range.end() - cps.begin(), 3);
+        EXPECT_EQ(range.end() - cps.begin(), 2);
     }
     // Range API
     {
-        auto const range = boost::text::line(cps, cps.begin() + 0);
+        auto const range = boost::text::possible_line(cps, cps.begin() + 0);
         EXPECT_EQ(range.begin() - cps.begin(), 0);
-        EXPECT_EQ(range.end() - cps.begin(), 3);
+        EXPECT_EQ(range.end() - cps.begin(), 2);
     }
 
     {
-        auto const all_lines = boost::text::lines(cps.begin(), cps.end());
+        auto const all_lines = boost::text::possible_lines(cps.begin(), cps.end());
 
         std::array<std::pair<int, int>, 4> const line_bounds = {
-            {{0, 3}, {3, 4}, {4, 5}, {5, 6}}};
+            {{0, 2}, {2, 3}}};
 
         int i = 0;
         for (auto line : all_lines) {
@@ -574,10 +567,10 @@ TEST(break_apis, line_break)
     }
     // Range API
     {
-        auto const all_lines = boost::text::lines(cps);
+        auto const all_lines = boost::text::possible_lines(cps);
 
         std::array<std::pair<int, int>, 4> const line_bounds = {
-            {{0, 3}, {3, 4}, {4, 5}, {5, 6}}};
+            {{0, 2}, {2, 3}}};
 
         int i = 0;
         for (auto line : all_lines) {
@@ -595,11 +588,11 @@ TEST(break_apis, line_break_sentinel)
     using u32_iter =
         boost::text::utf8::to_utf32_iterator<char const *, char const *>;
 
-    // ÷ 0061 × 005F × 0061 ÷ 002E ÷ 003A ÷ 0061 ÷	
-    // ÷ [0.2] LATIN SMALL LETTER A (ALetter) × [13.1] LOW LINE (ExtendNumLet) × [13.2] LATIN SMALL LETTER A (ALetter) ÷ [999.0] FULL STOP (MidNumLet) ÷ [999.0] COLON (MidLetter) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [0.3]
+    // × 200B × 0020 ÷ 0030 ÷	
+    // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU) ÷ [0.3]
     boost::text::string s;
     {
-        std::array<uint32_t, 6> cps = {{0x61, 0x5f, 0x61, 0x2e, 0x3a, 0x61}};
+        std::array<uint32_t, 3> cps = {{0x200b, 0x20, 0x30}};
         s = boost::text::string(
             boost::text::utf8::make_from_utf32_iterator(cps.begin()),
             boost::text::utf8::make_from_utf32_iterator(cps.end()));
@@ -619,50 +612,41 @@ TEST(break_apis, line_break_sentinel)
     auto const one = std::next(begin);
     auto const two = std::next(one);
     auto const three = std::next(two);
-    auto const four = std::next(three);
-    auto const five = std::next(four);
-    auto const six = std::next(five);
     auto const end = cp_range.end();
 
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_line_break(begin, begin, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_line_break(begin, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_line_break(begin, one, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_line_break(begin, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_line_break(begin, two, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_line_break(two, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_line_break(begin, three, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::next_line_break(three, end)), 4);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_line_break(begin, four, end)), 4);
-        EXPECT_EQ(std::distance(begin, boost::text::next_line_break(four, end)), 5);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_line_break(begin, five, end)), 5);
-        EXPECT_EQ(std::distance(begin, boost::text::next_line_break(five, end)), 6);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_line_break(begin, six, end)), 5);
-        EXPECT_EQ(std::distance(begin, boost::text::next_line_break(five, end)), 6);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, begin, end)), 0);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(begin, end)), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, one, end)), 0);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(begin, end)), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, two, end)), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(two, end)), 3);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, three, end)), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(two, end)), 3);
     }
     // Range API
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_line_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_line_break(cp_range)), 3);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(cp_range, begin)), 0);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(cp_range)), 2);
     }
 
     {
-        auto const range = boost::text::line(begin, begin, end);
+        auto const range = boost::text::possible_line(begin, begin, end);
         EXPECT_EQ(std::distance(begin, range.begin()), 0);
-        EXPECT_EQ(std::distance(begin, range.end()), 3);
+        EXPECT_EQ(std::distance(begin, range.end()), 2);
     }
     // Range API
     {
-        auto const range = boost::text::line(cp_range, begin);
+        auto const range = boost::text::possible_line(cp_range, begin);
         EXPECT_EQ(std::distance(begin, range.begin()), 0);
-        EXPECT_EQ(std::distance(begin, range.end()), 3);
+        EXPECT_EQ(std::distance(begin, range.end()), 2);
     }
 
     {
-        auto const all_lines = boost::text::lines(begin, end);
+        auto const all_lines = boost::text::possible_lines(begin, end);
 
         std::array<std::pair<int, int>, 4> const line_bounds = {
-            {{0, 3}, {3, 4}, {4, 5}, {5, 6}}};
+            {{0, 2}, {2, 3}}};
 
         int i = 0;
         for (auto line : all_lines) {
@@ -675,10 +659,10 @@ TEST(break_apis, line_break_sentinel)
     }
     // Range API
     {
-        auto const all_lines = boost::text::lines(cp_range);
+        auto const all_lines = boost::text::possible_lines(cp_range);
 
         std::array<std::pair<int, int>, 4> const line_bounds = {
-            {{0, 3}, {3, 4}, {4, 5}, {5, 6}}};
+            {{0, 2}, {2, 3}}};
 
         int i = 0;
         for (auto line : all_lines) {
@@ -690,7 +674,6 @@ TEST(break_apis, line_break_sentinel)
         }
     }
 }
-#endif
 
 TEST(break_apis, paragraph_break)
 {

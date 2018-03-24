@@ -209,7 +209,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                         return skippable(line_prop(cp));
                     });
                 if (temp_it == last) {
-                    state.it = last;
+                    state.it = temp_it;
                 } else {
                     auto const temp_prop = line_prop(*temp_it);
                     state.it = temp_it;
@@ -1174,8 +1174,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     inline auto possible_line(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        auto first = prev_line_break(range.begin(), it, range.end());
-        return cp_range<CPIter>{first, next_line_break(first, range.end())};
+        auto first = prev_possible_line_break(range.begin(), it, range.end());
+        return cp_range<CPIter>{first,
+                                next_possible_line_break(first, range.end())};
     }
 
     /** Returns a lazy range of the code point ranges delimiting possible
