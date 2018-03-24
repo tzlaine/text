@@ -10,6 +10,8 @@
 
 namespace boost { namespace trie {
 
+    /** A statically polymorphic less-than compariason object type.  This is
+        only necessary for pre-C++14 portablility. */
     struct less
     {
         template<typename T>
@@ -20,6 +22,9 @@ namespace boost { namespace trie {
         }
     };
 
+    /** An optional reference.  Its optionality is testable, via the operator
+        bool() members, and it is implicitly convertible to the underlying
+        value type. */
     template<typename T>
     struct optional_ref
     {
@@ -127,6 +132,8 @@ namespace boost { namespace trie {
         {};
     }
 
+    /** The result type for trie operations that produce a matching
+        subsequence. */
     struct trie_match_result
     {
         trie_match_result() : node(nullptr), size(0), match(false), leaf(false)
@@ -138,9 +145,20 @@ namespace boost { namespace trie {
             leaf(l)
         {}
 
+        /** An opaque pointer to the underlying trie node. */
         void const * node;
+
+        /** The size/length of the match, from the root through \a node,
+            inclusive. */
         std::ptrdiff_t size;
+
+        /** True iff this result represents a match.  Stated another way, \a
+            match is true iff \a node represents an element in the trie
+            (whether or not \a node has children). */
         bool match;
+
+        /** True iff \a node is a leaf (that is, that \a node hs no
+            children). */
         bool leaf;
 
         friend bool
@@ -160,6 +178,28 @@ namespace boost { namespace trie {
     // TODO: Key concept specifying that Key is a container.
     // TODO: Compare concept specifying that Compare compares Key::value_types.
     // Don't forget to mention that Compare must be statically polymorphic.
+
+    /** A trie, or prefix-tree.  A trie contains a set of keys, each of which
+        is a sequence, and a set of values, each associated with some key.
+        Each node in the trie represents some prefix found in at least one
+        member of the set of values contained in the trie.  If a certain node
+        represents the end of one of the keys, it has an associated value.
+        Such a node may or may not have children.
+
+        Complexity of lookups is always O(M), where M is the size of the Key
+        being lookep up.  Note that this implies that lookup complexity is
+        independent of the size of the trie.
+
+        \param Key The key-type; must be a sequence of values comparable via
+        Compare()(x, y).
+        \param Value The value-type.
+        \param Compare The type of the comparison object used to compare
+        elements of the key-type.
+
+        \note trie is not a C++ Container, according to the definition in the
+        C++ standard, in part because it does not have any iterators.  This
+        allows trie to do slightly less work when it does insertions and
+        erasures.  If you need iterators, use trie_map or trie_set. */
     template<typename Key, typename Value, typename Compare = less>
     struct trie
     {
@@ -223,6 +263,7 @@ namespace boost { namespace trie {
         return func(detail::char_range<Char const>{chars, chars + N - 1});     \
     }
 
+        /** Returns true if \a key is found in *this. */
         template<typename KeyRange>
         bool contains(KeyRange const & key) const noexcept
         {
@@ -236,6 +277,8 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_C_STR_OVERLOAD(bool, contains, const noexcept)
 
+        /** Returns the longeset subsequence of <code>[first, last)</code>
+            found in *this, whether or not it is a match. */
         template<typename KeyIter>
         match_result longest_subsequence(KeyIter first, KeyIter last) const
             noexcept
@@ -243,6 +286,8 @@ namespace boost { namespace trie {
             return longest_match_impl(first, last);
         }
 
+        /** Returns the longeset subsequence of \a key found in *this, whether
+            or not it is a match. */
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const noexcept
         {
@@ -254,6 +299,8 @@ namespace boost { namespace trie {
         BOOST_TRIE_C_STR_OVERLOAD(
             match_result, longest_subsequence, const noexcept)
 
+        /** Returns the longeset matching subsequence of <code>[first,
+            last)</code> found in *this. */
         template<typename KeyIter>
         match_result longest_match(KeyIter first, KeyIter last) const noexcept
         {
@@ -268,6 +315,8 @@ namespace boost { namespace trie {
             return retval;
         }
 
+        /** Returns the longeset matching subsequence of \a key found in
+            *this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
@@ -278,6 +327,7 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_C_STR_OVERLOAD(match_result, longest_match, const noexcept)
 
+        /** Returns the result of extending \a prev by one element, \a e. */
         template<typename KeyElementT>
         match_result extend_subsequence(match_result prev, KeyElementT e) const
             noexcept
@@ -287,6 +337,8 @@ namespace boost { namespace trie {
                 match_result{prev}, e_ptr, e_ptr + 1);
         }
 
+        /** Returns the result of extending \a prev by the longeset
+            subsequence of <code>[first, last)</code> found in *this. */
         template<typename KeyIter>
         match_result
         extend_subsequence(match_result prev, KeyIter first, KeyIter last) const
@@ -295,6 +347,9 @@ namespace boost { namespace trie {
             return extend_subsequence_impl(match_result{prev}, first, last);
         }
 
+        /** Writes the sequence of elements that would advance \a prev by one
+            element to \a out, and returns the final value of \out after the
+            writes. */
         template<typename OutIter>
         OutIter copy_next_key_elements(match_result prev, OutIter out) const
         {
@@ -302,6 +357,8 @@ namespace boost { namespace trie {
             return std::copy(node->key_begin(), node->key_end(), out);
         }
 
+        /** Returns an optional reference to the const value associated with
+            \a key in *this (if any). */
         template<typename KeyRange>
         optional_ref<value_type const> operator[](KeyRange const & key) const
             noexcept
@@ -325,6 +382,8 @@ namespace boost { namespace trie {
             size_ = 0;
         }
 
+        /** Returns an optional reference to the value associated with \a key
+            in *this (if any). */
         template<typename KeyRange>
         optional_ref<value_type> operator[](KeyRange const & key) noexcept
         {
@@ -341,6 +400,9 @@ namespace boost { namespace trie {
         BOOST_TRIE_C_STR_OVERLOAD(
             optional_ref<value_type>, operator[], noexcept)
 
+        /** Inserts the key/value pair <code>[first, last)</code>, \a value
+            into *this.  Returns false if the key already exists in *this,
+            true otherwise. */
         template<typename KeyIter>
         bool insert(KeyIter first, KeyIter last, Value value)
         {
@@ -361,6 +423,8 @@ namespace boost { namespace trie {
             return true;
         }
 
+        /** Inserts the key/value pair \a key, \a value into *this.  Returns
+            false if the key already exists in *this, true otherwise. */
         template<typename KeyRange>
         bool insert(KeyRange const & key, Value value)
         {
@@ -380,6 +444,8 @@ namespace boost { namespace trie {
                 std::move(value));
         }
 
+        /** Inserts the the sequence of key/value pairs <code>[first,
+            last)</code> into *this. */
         template<typename Iter>
         void insert(Iter first, Iter last)
         {
@@ -387,6 +453,8 @@ namespace boost { namespace trie {
                 insert(first->key, first->value);
             }
         }
+
+        /** Inserts the the sequence of key/value pairs \a r into *this. */
         template<typename Range>
         bool insert(Range const & r)
         {
@@ -395,6 +463,7 @@ namespace boost { namespace trie {
             return insert(begin(r), end(r));
         }
 
+        /** Inserts the the sequence of key/value pairs \a il into *this. */
         void insert(std::initializer_list<value_type> il)
         {
             for (auto const & x : il) {
@@ -402,6 +471,8 @@ namespace boost { namespace trie {
             }
         }
 
+        /** Erases the key/value pair associated with \a key from *this.
+            Returns true if the key is found in *this, false otherwise. */
         template<typename KeyRange>
         bool erase(KeyRange const & key)
         {

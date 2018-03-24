@@ -18,6 +18,7 @@ namespace boost { namespace trie {
     template<typename Key, typename Value>
     struct const_reverse_trie_map_iterator;
 
+    /** A key/value pair found in a trie_map. */
     template<typename Key, typename Value>
     struct trie_map_element
     {
@@ -67,6 +68,8 @@ namespace boost { namespace trie {
         }
     };
 
+    /** A range type returned by certain operations on a trie_map or
+        trie_set. */
     template<typename Iter>
     struct trie_range
     {
@@ -88,6 +91,8 @@ namespace boost { namespace trie {
         }
     };
 
+    /** A constant range type returned by certain operations on a trie_map or
+        trie_set. */
     template<typename Iter>
     struct const_trie_range
     {
@@ -111,6 +116,7 @@ namespace boost { namespace trie {
         }
     };
 
+    /** The result type of insert() operations on a trie_map or trie_set. */
     template<typename Iter>
     struct trie_insert_result
     {
@@ -221,6 +227,25 @@ namespace boost { namespace trie {
     // TODO: Key concept specifying that Key is a container.
     // TODO: Compare concept specifying that Compare compares Key::value_types.
     // Don't forget to mention that Compare must be statically polymorphic.
+
+    /** An associative container similar to std::map, built upon a trie, or
+        prefix-tree.  A trie_map contains a set of keys, each of which is a
+        sequence, and a set of values, each associated with some key.  Each
+        node in the trie_map represents some prefix found in at least one
+        member of the set of values contained in the trie_map.  If a certain
+        node represents the end of one of the keys, it has an associated
+        value.  Such a node may or may not have children.
+
+        Complexity of lookups is always O(M), where M is the size of the Key
+        being lookep up.  Note that this implies that lookup complexity is
+        independent of the size of the trie_map.
+
+        \param Key The key-type; must be a sequence of values comparable via
+        Compare()(x, y).
+        \param Value The value-type.
+        \param Compare The type of the comparison object used to compare
+        elements of the key-type.
+    */
     template<typename Key, typename Value, typename Compare = less>
     struct trie_map
     {
@@ -338,6 +363,7 @@ namespace boost { namespace trie {
         return func(detail::char_range<Char const>{chars, chars + N - 1});     \
     }
 
+        /** Returns true if \a key is found in *this. */
         template<typename KeyRange>
         bool contains(KeyRange const & key) const noexcept
         {
@@ -346,6 +372,9 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(bool, contains, const noexcept)
 
+        /** Returns the iterator pointing to the key/value pair associated
+            with \a key, if \a key is found in *this.  Returns end()
+            otherwise. */
         template<typename KeyRange>
         const_iterator find(KeyRange const & key) const noexcept
         {
@@ -364,6 +393,9 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(const_iterator, find, const noexcept)
 
+        /** Returns the iterator pointing to the first key/value pair whose
+            key is not less than \a key.  Returns end() if no such key can be
+            found. */
         template<typename KeyRange>
         const_iterator lower_bound(KeyRange const & key) const noexcept
         {
@@ -373,6 +405,9 @@ namespace boost { namespace trie {
         BOOST_TRIE_MAP_C_STR_OVERLOAD(
             const_iterator, lower_bound, const noexcept)
 
+        /** Returns the iterator pointing to the first key/value pair whose
+            key is not greater than \a key.  Returns end() if no such key can be
+            found. */
         template<typename KeyRange>
         const_iterator upper_bound(KeyRange const & key) const noexcept
         {
@@ -382,6 +417,8 @@ namespace boost { namespace trie {
         BOOST_TRIE_MAP_C_STR_OVERLOAD(
             const_iterator, upper_bound, const noexcept)
 
+        /** Returns the <code>const_range(lower_bound(key),
+            upper_bound(key))</code>.*/
         template<typename KeyRange>
         const_range equal_range(KeyRange const & key) const noexcept
         {
@@ -390,6 +427,8 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(const_range, equal_range, const noexcept)
 
+        /** Returns the longeset subsequence of <code>[first, last)</code>
+            found in *this, whether or not it is a match. */
         template<typename KeyIter>
         match_result longest_subsequence(KeyIter first, KeyIter last) const
             noexcept
@@ -397,6 +436,8 @@ namespace boost { namespace trie {
             return longest_match_impl(first, last);
         }
 
+        /** Returns the longeset subsequence of \a key found in *this, whether
+            or not it is a match. */
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const noexcept
         {
@@ -408,6 +449,8 @@ namespace boost { namespace trie {
         BOOST_TRIE_MAP_C_STR_OVERLOAD(
             match_result, longest_subsequence, const noexcept)
 
+        /** Returns the longeset matching subsequence of <code>[first,
+            last)</code> found in *this. */
         template<typename KeyIter>
         match_result longest_match(KeyIter first, KeyIter last) const noexcept
         {
@@ -422,6 +465,8 @@ namespace boost { namespace trie {
             return retval;
         }
 
+        /** Returns the longeset matching subsequence of \a key found in
+            *this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
@@ -433,6 +478,7 @@ namespace boost { namespace trie {
         BOOST_TRIE_MAP_C_STR_OVERLOAD(
             match_result, longest_match, const noexcept)
 
+        /** Returns the result of extending \a prev by one element, \a e. */
         template<typename KeyElementT>
         match_result extend_subsequence(match_result prev, KeyElementT e) const
             noexcept
@@ -441,6 +487,8 @@ namespace boost { namespace trie {
             return extend_subsequence_impl(prev, e_ptr, e_ptr + 1);
         }
 
+        /** Returns the result of extending \a prev by the longeset
+            subsequence of <code>[first, last)</code> found in *this. */
         template<typename KeyIter>
         match_result
         extend_subsequence(match_result prev, KeyIter first, KeyIter last) const
@@ -449,6 +497,9 @@ namespace boost { namespace trie {
             return extend_subsequence_impl(prev, first, last);
         }
 
+        /** Writes the sequence of elements that would advance \a prev by one
+            element to \a out, and returns the final value of \out after the
+            writes. */
         template<typename OutIter>
         OutIter copy_next_key_elements(match_result prev, OutIter out) const
         {
@@ -456,6 +507,8 @@ namespace boost { namespace trie {
             return std::copy(node->key_begin(), node->key_end(), out);
         }
 
+        /** Returns an optional reference to the const value associated with
+            \a key in *this (if any). */
         template<typename KeyRange>
         optional_ref<mapped_type const> operator[](KeyRange const & key) const
             noexcept
@@ -481,6 +534,9 @@ namespace boost { namespace trie {
             size_ = 0;
         }
 
+        /** Returns the iterator pointing to the key/value pair associated
+            with \a key, if \a key is found in *this.  Returns end()
+            otherwise. */
         template<typename KeyRange>
         iterator find(KeyRange const & key) noexcept
         {
@@ -489,6 +545,9 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(iterator, find, noexcept)
 
+        /** Returns the iterator pointing to the first key/value pair whose
+            key is not less than \a key.  Returns end() if no such key can be
+            found. */
         template<typename KeyRange>
         iterator lower_bound(KeyRange const & key) noexcept
         {
@@ -497,6 +556,9 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(iterator, lower_bound, noexcept)
 
+        /** Returns the iterator pointing to the first key/value pair whose
+            key is not greater than \a key.  Returns end() if no such key can be
+            found. */
         template<typename KeyRange>
         iterator upper_bound(KeyRange const & key) noexcept
         {
@@ -505,6 +567,8 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(iterator, upper_bound, noexcept)
 
+        /** Returns the <code>const_range(lower_bound(key),
+            upper_bound(key))</code>.*/
         template<typename KeyRange>
         range equal_range(KeyRange const & key) noexcept
         {
@@ -513,6 +577,8 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(range, equal_range, noexcept)
 
+        /** Returns an optional reference to the value associated with \a key
+            in *this (if any). */
         template<typename KeyRange>
         optional_ref<mapped_type> operator[](KeyRange const & key) noexcept
         {
@@ -525,6 +591,9 @@ namespace boost { namespace trie {
         BOOST_TRIE_MAP_C_STR_OVERLOAD(
             optional_ref<mapped_type>, operator[], noexcept)
 
+        /** Inserts the key/value pair <code>[first, last)</code>, \a value
+            into *this.  The \a inserted field of the result will be true if
+            the operation resulted in a new insertion, or false otherwise. */
         template<typename KeyIter>
         insert_result insert(KeyIter first, KeyIter last, Value value)
         {
@@ -547,6 +616,9 @@ namespace boost { namespace trie {
             return {iterator(iter_state_t{node->parent(), 0}), true};
         }
 
+        /** Inserts the key/value pair \a key, \a value into *this.  The \a
+            inserted field of the result will be true if the operation
+            resulted in a new insertion, or false otherwise. */
         template<typename KeyRange>
         insert_result insert(KeyRange const & key, Value value)
         {
@@ -566,12 +638,20 @@ namespace boost { namespace trie {
                 std::move(value));
         }
 
+        /** Inserts the the key/value pair \a e into *this.  The \a inserted
+            field of the result will be true if the operation resulted in a
+            new insertion, or false otherwise. */
         insert_result insert(value_type e)
         {
             using std::begin;
             using std::end;
             return insert(begin(e.key), end(e.key), std::move(e.value));
         }
+
+        /** Inserts the the sequence of key/value pairs <code>[first,
+            last)</code> into *this.  The \a inserted field of the result will
+            be true if the operation resulted in a new insertion, or false
+            otherwise. */
         template<typename Iter>
         void insert(Iter first, Iter last)
         {
@@ -579,6 +659,10 @@ namespace boost { namespace trie {
                 insert(first->key, first->value);
             }
         }
+
+        /** Inserts the the sequence of key/value pairs \a r into *this.  The
+            \a inserted field of the result will be true if the operation
+            resulted in a new insertion, or false otherwise. */
         template<typename Range>
         insert_result insert(Range const & r)
         {
@@ -587,6 +671,9 @@ namespace boost { namespace trie {
             return insert(begin(r), end(r));
         }
 
+        /** Inserts the the sequence of key/value pairs \a il into *this.  The
+            \a inserted field of the result will be true if the operation
+            resulted in a new insertion, or false otherwise. */
         void insert(std::initializer_list<value_type> il)
         {
             for (auto const & x : il) {
@@ -594,6 +681,11 @@ namespace boost { namespace trie {
             }
         }
 
+        /** Inserts the key/value pair <code>[first, last)</code>, \a value
+            into *this, or assigns \a value over the existing value associated
+            with <code>[first, last)</code>, if this key is already found in
+            *this.  The \a inserted field of the result will be true if the
+            operation resulted in a new insertion, or false otherwise. */
         template<typename KeyIter>
         insert_result insert_or_assign(KeyIter first, KeyIter last, Value value)
         {
@@ -611,6 +703,11 @@ namespace boost { namespace trie {
             return insert(first, last, std::move(value));
         }
 
+        /** Inserts the key/value pair \a key, \a value into *this, or assigns
+            \a value over the existing value associated with \a key, if \a key
+            is already found in *this.  The \a inserted field of the result
+            will be true if the operation resulted in a new insertion, or
+            false otherwise. */
         template<typename KeyRange>
         insert_result insert_or_assign(KeyRange const & key, Value value)
         {
@@ -630,6 +727,8 @@ namespace boost { namespace trie {
                 std::move(value));
         }
 
+        /** Erases the key/value pair associated with \a key from *this.
+            Returns true if the key is found in *this, false otherwise. */
         template<typename KeyRange>
         bool erase(KeyRange const & key) noexcept
         {
@@ -642,6 +741,8 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(bool, erase, noexcept)
 
+        /** Erases the key/value pair pointed to by \a it from *this.  Returns
+            an iterator to the next key/value pair in *this. */
         iterator erase(iterator it)
         {
             auto state = it.it_.state_;
@@ -675,6 +776,10 @@ namespace boost { namespace trie {
 
             return retval;
         }
+
+        /** Erases the sequence of key/value pairs pointed to by <code>[first,
+            last)</code> from *this.  Returns an iterator to the next
+            key/value pair in *this. */
         iterator erase(iterator first, iterator last)
         {
             auto retval = last;
