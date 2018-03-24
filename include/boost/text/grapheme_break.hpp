@@ -145,8 +145,11 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         }
     }
 
-    /** Searches backward to find the start of the grapheme in which \a it is
-        found, without searching before \a first or after \a last. */
+    /** Finds the nearest grapheme break at or before before <code>it</code>.
+        If <code>it == first</code>, that is returned.  Otherwise, the first
+        code point of the grapheme that <code>it</code> is within is returned
+        (even if <code>it</code> is already at the first code point of a
+        grapheme). */
     template<typename CPIter, typename Sentinel>
     CPIter prev_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
@@ -244,7 +247,11 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         return first;
     }
 
-    /** TODO */
+    /** Finds the next word break after <code>first</code>.  This will be the
+        first code point after the current word, or <code>last</code> if no
+        next word exists.
+
+        \pre <code>first</code> is at the beginning of a word. */
     template<typename CPIter, typename Sentinel>
     CPIter next_grapheme_break(CPIter first, Sentinel last) noexcept
     {
@@ -299,7 +306,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         If <code>it == range.begin()</code>, that is returned.  Otherwise, the
         first code point of the grapheme that <code>it</code> is within is
         returned (even if <code>it</code> is already at the first code point
-        of a grapheme. */
+        of a grapheme). */
     template<typename CPRange, typename CPIter>
     inline auto prev_grapheme_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
@@ -307,11 +314,11 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         return prev_grapheme_break(range.begin(), it, range.end());
     }
 
-    /** Finds the next grapheme break after <code>it</code>.  This will be the
-        first code point after the current grapheme, or
+    /** Finds the next grapheme break after <code>range.begin()</code>.  This
+        will be the first code point after the current grapheme, or
         <code>range.end()</code> if no next grapheme exists.
 
-        \pre <code>it</code> is at the beginning of a grapheme. */
+        \pre <code>range.begin()</code> is at the beginning of a grapheme. */
     template<typename CPRange>
     inline auto next_grapheme_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>

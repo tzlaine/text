@@ -24,7 +24,7 @@ namespace boost { namespace text {
         If <code>it == first</code>, that is returned.  Otherwise, the first
         code point of the paragraph that <code>it</code> is within is returned
         (even if <code>it</code> is already at the first code point of a
-        paragraph. */
+        paragraph). */
     template<typename CPIter, typename Sentinel>
     CPIter prev_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
@@ -62,7 +62,7 @@ namespace boost { namespace text {
         If <code>it == range.begin()</code>, that is returned.  Otherwise, the
         first code point of the paragraph that <code>it</code> is within is
         returned (even if <code>it</code> is already at the first code point
-        of a paragraph. */
+        of a paragraph). */
     template<typename CPRange, typename CPIter>
     inline auto prev_paragraph_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>

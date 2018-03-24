@@ -191,7 +191,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         If <code>it == first</code>, that is returned.  Otherwise, the first
         code point of the sentence that <code>it</code> is within is returned
         (even if <code>it</code> is already at the first code point of a
-        sentence. */
+        sentence). */
     template<typename CPIter, typename Sentinel>
     inline CPIter
     prev_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept
@@ -419,11 +419,11 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         return first;
     }
 
-    /** Finds the next sentence break after <code>it</code>.  This will be the
-        first code point after the current sentence, or <code>last</code> if
-        no next sentence exists.
+    /** Finds the next sentence break after <code>first</code>.  This will be
+        the first code point after the current sentence, or <code>last</code>
+        if no next sentence exists.
 
-        \pre <code>it</code> is at the beginning of a sentence. */
+        \pre <code>first</code> is at the beginning of a sentence. */
     template<typename CPIter, typename Sentinel>
     inline CPIter next_sentence_break(CPIter first, Sentinel last) noexcept
     {
@@ -576,7 +576,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         If <code>it == range.begin()</code>, that is returned.  Otherwise, the
         first code point of the sentence that <code>it</code> is within is
         returned (even if <code>it</code> is already at the first code point
-        of a sentence. */
+        of a sentence). */
     template<typename CPRange, typename CPIter>
     inline auto prev_sentence_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
@@ -584,11 +584,11 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         return prev_sentence_break(range.begin(), it, range.end());
     }
 
-    /** Finds the next sentence break after <code>it</code>.  This will be the
-        first code point after the current sentence, or
+    /** Finds the next sentence break after <code>range.begin()</code>.  This
+        will be the first code point after the current sentence, or
         <code>range.end()</code> if no next sentence exists.
 
-        \pre <code>it</code> is at the beginning of a sentence. */
+        \pre <code>range.begin()</code> is at the beginning of a sentence. */
     template<typename CPRange>
     inline auto next_sentence_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>

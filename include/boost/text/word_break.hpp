@@ -194,12 +194,10 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         }
     }
 
-    // TODO: Sentinels!  Also, audit elsewhere for places that can use them.
-
     /** Finds the nearest word break at or before before <code>it</code>.  If
         <code>it == first</code>, that is returned.  Otherwise, the first code
         point of the word that <code>it</code> is within is returned (even if
-        <code>it</code> is already at the first code point of a word. */
+        <code>it</code> is already at the first code point of a word). */
     template<typename CPIter, typename Sentinel>
     inline CPIter
     prev_word_break(CPIter first, CPIter it, Sentinel last) noexcept
@@ -600,7 +598,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         <code>it == range.begin()</code>, that is returned.  Otherwise, the
         first code point of the word that <code>it</code> is within is
         returned (even if <code>it</code> is already at the first code point
-        of a word. */
+        of a word). */
     template<typename CPRange, typename CPIter>
     inline auto prev_word_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
@@ -608,11 +606,11 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return prev_word_break(range.begin(), it, range.end());
     }
 
-    /** Finds the next word break after <code>it</code>.  This will be the
-        first code point after the current word, or <code>range.end()</code>
-        if no next word exists.
+    /** Finds the next word break after <code>range.begin()</code>.  This will
+        be the first code point after the current word, or
+        <code>range.end()</code> if no next word exists.
 
-        \pre <code>it</code> is at the beginning of a word. */
+        \pre <code>range.begin()</code> is at the beginning of a word. */
     template<typename CPRange>
     inline auto next_word_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
@@ -660,8 +658,6 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     {
         return {{first, last}, {last}};
     }
-
-    // TODO: Make the other algorithms Range-friendly in their inputs.
 
     /** Returns a lazy range of the code point ranges delimiting words in
         <code>range</code>. */
