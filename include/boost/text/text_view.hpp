@@ -69,11 +69,18 @@ namespace boost { namespace text {
             std::swap(last_, rhs.last_);
         }
 
-        // TODO: Make formatted.
-        /** Stream inserter; performs formatted output. */
+        /** Stream inserter; performs formatted output, in UTF-8 encoding. */
         friend std::ostream & operator<<(std::ostream & os, text_view tv)
         {
-            return os.write(tv.begin().base().base(), tv.storage_bytes());
+            if (os.good()) {
+                auto const size = tv.distance();
+                detail::pad_width_before(os, size);
+                if (os.good())
+                    os.write(tv.begin().base().base(), tv.storage_bytes());
+                if (os.good())
+                    detail::pad_width_after(os, size);
+            }
+            return os;
         }
 
     private:

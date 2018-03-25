@@ -5,6 +5,7 @@
 #include <boost/text/utf8.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
+#include <boost/container/small_vector.hpp>
 
 #include <iterator>
 
@@ -76,20 +77,16 @@ namespace boost { namespace text {
         template<typename CharRange>
         explicit text(
             CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0) :
-            str_()
-        {
-            str_.insert(0, r);
-        }
+            str_(r)
+        {}
 
         template<typename CharIter>
         text(
             CharIter first,
             CharIter last,
             detail::char_iter_ret_t<void *, CharIter> = 0) :
-            str_()
-        {
-            str_.insert(0, first, last);
-        }
+            str_(first, last)
+        {}
 
 #endif
 
@@ -231,29 +228,32 @@ namespace boost { namespace text {
 
         /** Erases the portion of *this delimited by tv.
 
-            \pre !std::less(tv.begin(), begin()) && !std::less(end(),
-            tv.end()) */
+            \pre !std::less(tv.begin().base().base(), begin().base().base()) &&
+            !std::less(end().base().base(), tv.end().base().base()) */
         text & erase(text_view tv) noexcept;
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
 
-            \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
-            old_substr.end()) */
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
         text & replace(text_view old_substr, text_view new_substr);
 
         /** Replaves the  portion of *this delimited by old_substr with the
             sequence of char from new_substr.
 
-            \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
-            old_substr.end()) */
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
         text & replace(text_view old_substr, string_view new_substr);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
 
-            \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
-            old_substr.end()) */
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
         text & replace(text_view old_substr, repeated_string_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -264,8 +264,9 @@ namespace boost { namespace text {
             This function only participates in overload resolution if
             CharRange models the CharRange concept.
 
-            \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
-            old_substr.end()) */
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
         template<typename CharRange>
         text & replace(text_view old_substr, CharRange const & r);
 
@@ -275,8 +276,9 @@ namespace boost { namespace text {
             This function only participates in overload resolution if CharIter
             models the CharIter concept.
 
-            \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
-            old_substr.end()) */
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
         template<typename CharIter>
         text & replace(text_view old_substr, CharIter first, CharIter last);
 
@@ -345,17 +347,24 @@ namespace boost { namespace text {
 
 #endif
 
-        // TODO: Do formatted output.
-        /** Stream inserter; performs formatted output. */
+        /** Stream inserter; performs formatted output, in UTF-8 encoding. */
         friend std::ostream & operator<<(std::ostream & os, text const & t)
         {
-            return os.write(t.str_.begin(), t.str_.size());
+            if (os.good()) {
+                auto const size = t.distance();
+                detail::pad_width_before(os, size);
+                if (os.good())
+                    os.write(t.begin().base().base(), t.storage_bytes());
+                if (os.good())
+                    detail::pad_width_after(os, size);
+            }
+            return os;
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
-        static iterator make_iter(char * first, char * it, char * last)
+        static iterator make_iter(char * first, char * it, char * last) noexcept
         {
             return iterator{
                 utf8::to_utf32_iterator<char *, char *>{first, first, last},
@@ -363,8 +372,8 @@ namespace boost { namespace text {
                 utf8::to_utf32_iterator<char *, char *>{first, last, last}};
         }
 
-        static const_iterator
-        make_iter(char const * first, char const * it, char const * last)
+        static const_iterator make_iter(
+            char const * first, char const * it, char const * last) noexcept
         {
             return const_iterator{
                 utf8::to_utf32_iterator<char const *, char const *>{
@@ -376,10 +385,21 @@ namespace boost { namespace text {
         }
 
         template<typename Iter>
-        static std::reverse_iterator<Iter> make_reverse_iter(Iter it)
+        static std::reverse_iterator<Iter> make_reverse_iter(Iter it) noexcept
         {
             return std::reverse_iterator<Iter>{it};
         }
+
+        bool self_reference(string_view sv) const noexcept;
+        bool self_reference(text_view tv) const noexcept;
+
+        using mutable_utf32_iter = utf8::to_utf32_iterator<char *, char *>;
+
+        mutable_utf32_iter prev_stable_cp(mutable_utf32_iter last) noexcept;
+        mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;
+
+        // https://www.unicode.org/reports/tr15/#Concatenation
+        void normalize_subrange(int from_near_offset, int to_near_offset);
 
         string str_;
 
@@ -466,18 +486,14 @@ namespace boost { namespace text {
     inline text::text(text_view tv) : str_()
     {
         str_.insert(
-            str_.begin(), tv.begin().base().base(), tv.end().base().base());
+            str_.begin(),
+            string_view(tv.begin().base().base(), tv.storage_bytes()));
     }
 
-    inline text::text(string_view sv) : str_()
-    {
-        str_.insert(str_.begin(), sv.begin(), sv.end());
-        normalize_to_fcc(str_);
-    }
+    inline text::text(string_view sv) : str_(sv) { normalize_to_fcc(str_); }
 
-    inline text::text(repeated_string_view rsv) : str_()
+    inline text::text(repeated_string_view rsv) : str_(rsv)
     {
-        str_.insert(str_.begin(), rsv.begin(), rsv.end());
         normalize_to_fcc(str_);
     }
 
@@ -494,7 +510,8 @@ namespace boost { namespace text {
     {
         clear();
         str_.insert(
-            str_.begin(), tv.begin().base().base(), tv.end().base().base());
+            str_.begin(),
+            string_view(tv.begin().base().base(), tv.storage_bytes()));
         return *this;
     }
 
@@ -521,32 +538,41 @@ namespace boost { namespace text {
 
     inline text & text::insert(iterator at, text_view tv)
     {
+        int const lo = at.base().base() - str_.begin();
+        int const hi = lo + tv.storage_bytes();
         str_.insert(
-            at.base().base(), tv.begin().base().base(), tv.end().base().base());
-        // TODO: Partial-normalize at either end of inserted tv.
+            at.base().base(),
+            string_view(tv.begin().base().base(), tv.storage_bytes()));
+        normalize_subrange(lo, lo);
+        normalize_subrange(hi, hi);
         return *this;
     }
 
     inline text & text::insert(iterator at, string_view sv)
     {
+        int const lo = at.base().base() - str_.begin();
+        int const hi = lo + sv.size();
         str_.insert(at.base().base() - str_.begin(), sv);
-        // TODO: Partial-normalize entirety of inserted sv.
+        normalize_subrange(lo, hi);
         return *this;
     }
 
     inline text & text::insert(iterator at, repeated_string_view rsv)
     {
+        int const lo = at.base().base() - str_.begin();
+        int const hi = lo + rsv.size();
         str_.insert(at.base().base() - str_.begin(), rsv);
-        // TODO: Partial-normalize entirety of inserted sv.
+        normalize_subrange(lo, hi);
         return *this;
     }
 
     inline text & text::erase(text_view tv) noexcept
     {
-        auto const first = tv.begin().base().base();
-        auto const last = tv.end().base().base();
-        str_.erase(string_view(first, last - first));
-        // TODO: Partial-normalize around first.
+        assert(self_reference(tv));
+
+        int const at = tv.begin().base().base() - str_.begin();
+        str_.erase(string_view(tv.begin().base().base(), tv.storage_bytes()));
+        normalize_subrange(at, at);
         return *this;
     }
 
@@ -554,26 +580,75 @@ namespace boost { namespace text {
     auto text::replace(text_view old_substr, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        // TODO
+        assert(self_reference(old_substr));
+
+        int const lo = old_substr.begin().base().base() - str_.begin();
+        int const old_size = storage_bytes();
+        int const old_substr_size = old_substr.storage_bytes();
+        str_.replace(
+            string_view(
+                old_substr.begin().base().base(), old_substr.storage_bytes()),
+            r);
+        int const new_size = storage_bytes();
+        int const hi = lo + old_substr_size + (new_size - old_size);
+
+        normalize_subrange(lo, hi);
+
         return *this;
     }
 
     inline text & text::replace(text_view old_substr, text_view new_substr)
     {
-        // TODO
+        assert(self_reference(old_substr));
+
+        int const lo = old_substr.begin().base().base() - str_.begin();
+        int const hi =
+            lo + old_substr.storage_bytes() +
+            (new_substr.storage_bytes() - old_substr.storage_bytes());
+        str_.replace(
+            string_view(
+                old_substr.begin().base().base(), old_substr.storage_bytes()),
+            string_view(
+                new_substr.begin().base().base(), new_substr.storage_bytes()));
+
+        normalize_subrange(lo, lo);
+        normalize_subrange(hi, hi);
+
         return *this;
     }
 
     inline text & text::replace(text_view old_substr, string_view new_substr)
     {
-        // TODO
+        assert(self_reference(old_substr));
+
+        int const lo = old_substr.begin().base().base() - str_.begin();
+        int const hi = lo + old_substr.storage_bytes() +
+                       (new_substr.size() - old_substr.storage_bytes());
+        str_.replace(
+            string_view(
+                old_substr.begin().base().base(), old_substr.storage_bytes()),
+            new_substr);
+
+        normalize_subrange(lo, hi);
+
         return *this;
     }
 
     inline text &
     text::replace(text_view old_substr, repeated_string_view new_substr)
     {
-        // TODO
+        assert(self_reference(old_substr));
+
+        int const lo = old_substr.begin().base().base() - str_.begin();
+        int const hi = lo + old_substr.storage_bytes() +
+                       (new_substr.size() - old_substr.storage_bytes());
+        str_.replace(
+            string_view(
+                old_substr.begin().base().base(), old_substr.storage_bytes()),
+            new_substr);
+
+        normalize_subrange(lo, hi);
+
         return *this;
     }
 
@@ -581,37 +656,52 @@ namespace boost { namespace text {
     auto text::replace(text_view old_substr, CharIter first, CharIter last)
         -> detail::char_iter_ret_t<text &, CharIter>
     {
-        // TODO
+        assert(self_reference(old_substr));
+
+        int const lo = old_substr.begin().base().base() - str_.begin();
+        int const old_size = storage_bytes();
+        int const old_substr_size = old_substr.storage_bytes();
+        str_.replace(
+            string_view(
+                old_substr.begin().base().base(), old_substr.storage_bytes()),
+            first,
+            last);
+        int const new_size = storage_bytes();
+        int const hi = lo + old_substr_size + (new_size - old_size);
+
+        normalize_subrange(lo, hi);
+
         return *this;
     }
 
     inline text & text::operator+=(char const * c_str)
     {
-        str_ += c_str;
-        // TODO: Partial-normalize entirety of inserted c_str.
-        return *this;
+        return operator+=(string_view(c_str));
     }
 
     inline text & text::operator+=(text_view tv)
     {
-        auto const first = tv.begin().base().base();
-        auto const last = tv.end().base().base();
-        str_ += string_view(first, last - first);
-        // TODO: Partial-normalize around old end().
+        int const at = storage_bytes();
+        str_ += string_view(tv.begin().base().base(), tv.storage_bytes());
+        normalize_subrange(at, at);
         return *this;
     }
 
     inline text & text::operator+=(string_view sv)
     {
+        int const lo = storage_bytes();
+        int const hi = lo + sv.size();
         str_ += sv;
-        // TODO: Partial-normalize around old end() to new end().
+        normalize_subrange(lo, hi);
         return *this;
     }
 
     inline text & text::operator+=(repeated_string_view rsv)
     {
+        int const lo = storage_bytes();
+        int const hi = lo + rsv.size();
         str_ += rsv;
-        // TODO: Partial-normalize around old end() to new end().
+        normalize_subrange(lo, hi);
         return *this;
     }
 
@@ -619,9 +709,63 @@ namespace boost { namespace text {
     auto text::operator+=(CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
+        int const lo = storage_bytes();
         str_.insert(str_.end(), r);
-        // TODO: Partial-normalize around old end() to new end().
+        int const hi = storage_bytes();
+        normalize_subrange(lo, hi);
         return *this;
+    }
+
+    bool text::self_reference(string_view sv) const noexcept
+    {
+        using less_t = std::less<char const *>;
+        less_t less;
+        return !less(sv.begin(), str_.begin()) && !less(str_.end(), sv.end());
+    }
+
+    bool text::self_reference(text_view tv) const noexcept
+    {
+        return self_reference(
+            string_view(tv.begin().base().base(), tv.storage_bytes()));
+    }
+
+    text::mutable_utf32_iter
+    text::prev_stable_cp(mutable_utf32_iter last) noexcept
+    {
+        auto const first =
+            mutable_utf32_iter(str_.begin(), str_.begin(), str_.end());
+        auto const it =
+            find_if_backward(first, last, detail::stable_fcc_code_point);
+        if (it == last)
+            return first;
+        return it;
+    }
+
+    text::mutable_utf32_iter
+    text::next_stable_cp(mutable_utf32_iter first) noexcept
+    {
+        auto const last =
+            mutable_utf32_iter(str_.begin(), str_.end(), str_.end());
+        auto const it = find_if(first, last, detail::stable_fcc_code_point);
+        return it;
+    }
+
+    void text::normalize_subrange(int from_near_offset, int to_near_offset)
+    {
+        mutable_utf32_iter first(
+            str_.begin(), str_.begin() + from_near_offset, str_.end());
+        mutable_utf32_iter last(
+            str_.begin(), str_.begin() + to_near_offset, str_.end());
+        first = prev_stable_cp(first);
+        last = next_stable_cp(last);
+
+        container::small_vector<char, 1024> buf;
+        normalize_to_fcc(
+            first, last, utf8::from_utf32_inserter(buf, buf.end()));
+
+        str_.replace(
+            string_view(first.base(), last.base() - first.base()),
+            string_view(&buf[0], buf.size()));
     }
 
 #endif // Doxygen
