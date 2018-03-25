@@ -1,4 +1,4 @@
-#include <boost/text/rope.hpp>
+#include <boost/text/unencoded_rope.hpp>
 
 #include <gtest/gtest.h>
 
@@ -24,7 +24,7 @@ TEST(const_rope_iterator, test_default_ctor)
 TEST(const_rope_iterator, test_c_str_ctor)
 {
     {
-        text::rope r_empty("");
+        text::unencoded_rope r_empty("");
         text::detail::const_rope_iterator it(r_empty, 0);
 
         EXPECT_TRUE(it == it);
@@ -39,7 +39,7 @@ TEST(const_rope_iterator, test_c_str_ctor)
     }
 
     {
-        text::rope r_a("a");
+        text::unencoded_rope r_a("a");
         text::detail::const_rope_iterator first(r_a, 0);
         text::detail::const_rope_iterator last(r_a, r_a.size());
 
@@ -132,7 +132,7 @@ TEST(const_reverse_rope_iterator, test_default_ctor)
 TEST(const_reverse_rope_iterator, test_c_str_ctor)
 {
     {
-        text::rope r_empty("");
+        text::unencoded_rope r_empty("");
         text::detail::const_reverse_rope_iterator it = r_empty.rbegin();
 
         EXPECT_TRUE(it == it);
@@ -146,7 +146,7 @@ TEST(const_reverse_rope_iterator, test_c_str_ctor)
     }
 
     {
-        text::rope r_a("a");
+        text::unencoded_rope r_a("a");
         text::detail::const_reverse_rope_iterator first = r_a.rbegin();
         text::detail::const_reverse_rope_iterator last = r_a.rend();
 
@@ -225,15 +225,15 @@ TEST(both_rope_iterators, test_larger_ropes)
     int const copies = 40;
 
     {
-        text::rope r;
+        text::unencoded_rope r;
 
-        text::text_view tv("text");
+        text::string_view tv("text");
         int i = 0;
         for (; i < text::detail::min_children - 1; ++i) {
             r.insert(0, tv);
         }
 
-        text::rope extra_ref = r;
+        text::unencoded_rope extra_ref = r;
         (void)extra_ref;
 
         for (; i < copies; ++i) {
@@ -243,23 +243,25 @@ TEST(both_rope_iterators, test_larger_ropes)
         {
             text::detail::const_rope_iterator first = r.begin();
             text::detail::const_rope_iterator last = r.end();
-            text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("text", copies));
+            text::string const from_first_last(first, last);
+            text::string const from_first_repeated(
+                text::repeated_string_view("text", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
 
         {
             text::detail::const_reverse_rope_iterator first = r.rbegin();
             text::detail::const_reverse_rope_iterator last = r.rend();
-            text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("txet", copies));
+            text::string const from_first_last(first, last);
+            text::string const from_first_repeated(
+                text::repeated_string_view("txet", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
     }
 
     {
-        text::rope r;
-        text::text t("text");
+        text::unencoded_rope r;
+        text::string t("text");
         for (int i = 0; i < copies; ++i) {
             r.insert(0, t);
         }
@@ -267,23 +269,25 @@ TEST(both_rope_iterators, test_larger_ropes)
         {
             text::detail::const_rope_iterator first = r.begin();
             text::detail::const_rope_iterator last = r.end();
-            text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("text", copies));
+            text::string const from_first_last(first, last);
+            text::string const from_first_repeated(
+                text::repeated_string_view("text", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
 
         {
             text::detail::const_reverse_rope_iterator first = r.rbegin();
             text::detail::const_reverse_rope_iterator last = r.rend();
-            text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("txet", copies));
+            text::string const from_first_last(first, last);
+            text::string const from_first_repeated(
+                text::repeated_string_view("txet", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
     }
 
     {
-        text::rope r;
-        text::repeated_text_view rtv("text", 2);
+        text::unencoded_rope r;
+        text::repeated_string_view rtv("text", 2);
         for (int i = 0; i < copies; ++i) {
             r.insert(r.size(), rtv);
         }
@@ -291,43 +295,47 @@ TEST(both_rope_iterators, test_larger_ropes)
         {
             text::detail::const_rope_iterator first = r.begin();
             text::detail::const_rope_iterator last = r.end();
-            text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("texttext", copies));
+            text::string const from_first_last(first, last);
+            text::string const from_first_repeated(
+                text::repeated_string_view("texttext", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
 
         {
             text::detail::const_reverse_rope_iterator first = r.rbegin();
             text::detail::const_reverse_rope_iterator last = r.rend();
-            text::text const from_first_last(first, last);
-            text::text const from_first_repeated(text::repeated_text_view("txettxet", copies));
+            text::string const from_first_last(first, last);
+            text::string const from_first_repeated(
+                text::repeated_string_view("txettxet", copies));
             EXPECT_EQ(from_first_last, from_first_repeated);
         }
     }
 
     {
-        text::repeated_text_view repeated("a bit longer text", 64 * 1024);
+        text::repeated_string_view repeated("a bit longer text", 64 * 1024);
 
-        text::rope r;
-        text::text t(repeated);
+        text::unencoded_rope r;
+        text::string t(repeated);
         r.insert(0, t);
         r.insert(5, "WAT");
 
         {
             text::detail::const_rope_iterator first = r.begin();
             text::detail::const_rope_iterator last = r.end();
-            text::text const from_first_last(first, last);
-            text::text built_up_otherwise("a bitWAT longer text");
-            built_up_otherwise += text::repeated_text_view("a bit longer text", 64 * 1024 - 1);
+            text::string const from_first_last(first, last);
+            text::string built_up_otherwise("a bitWAT longer text");
+            built_up_otherwise +=
+                text::repeated_string_view("a bit longer text", 64 * 1024 - 1);
             EXPECT_EQ(from_first_last, built_up_otherwise);
         }
 
         {
             text::detail::const_reverse_rope_iterator first = r.rbegin();
             text::detail::const_reverse_rope_iterator last = r.rend();
-            text::text const from_first_last(first, last);
-            text::text built_up_otherwise("a bitWAT longer text");
-            built_up_otherwise += text::repeated_text_view("a bit longer text", 64 * 1024 - 1);
+            text::string const from_first_last(first, last);
+            text::string built_up_otherwise("a bitWAT longer text");
+            built_up_otherwise +=
+                text::repeated_string_view("a bit longer text", 64 * 1024 - 1);
             std::reverse(built_up_otherwise.begin(), built_up_otherwise.end());
             EXPECT_EQ(from_first_last, built_up_otherwise);
         }

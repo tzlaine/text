@@ -15,6 +15,6 @@ struct app_state_t
     key_sequence_t input_seq_;
 };
 
-boost::optional<app_state_t> update (app_state_t state, event_t event);
+boost::optional<app_state_t> update(app_state_t state, event_t event);
 
 #endif

@@ -1,0 +1,63 @@
+[section _Text_ From 10,000 Feet (3048 Meters)]
+
+_Text_ is composed of three main layers:
+
+* The _s_ layer
+* The Unicode layer
+* The _t_ layer
+
+There are a couple of assorted bits that were necessary or useful to have
+around when implementing various parts of _Text_: _segv_ and
+_trie_\/_trie_m_\/_trie_s_.
+
+
+[heading The _s_ Layer]
+
+The types in this layer are encoding-agnostic.  Together, they form an
+exocsystem of types that consitutes "a better `std::string`".  The types in
+this layer are: _s_, _sv_, _rsv_, _ur_, and _urv_.
+
+
+[heading The Unicode Layer]
+
+This layer provides a few Unicode-related utility types, but is primarily
+comprised of the Unicode algorithms.  These algorithms are done in the style
+of the standard algorithms, with range-friendly interfaces.  There are
+algorithms for these Unicode operations:
+
+* UTF-8 <-> UTF-16, UTF-8 <-> UTF-32
+* Text segmentation (line breaks, word breaks, etc.)
+* Normalization, including the four Unicode normalization forms, plus the FCC form from _tn5_
+* Collation, including tailoring using the _ldml_coll_tail_ and serialization of collation tables
+* The Unicode Bidirectional Algorithm
+* TODO: Searching, Case-mapping, anything else?
+
+These algorithms are independent of the other two layers; it is possible to
+use _Text_ as a Unicode library without using the either of the _s_ or _t_
+layers.
+
+
+[heading The _t_ Layer]
+
+This layer is built on top of the Unicode layer.  Its types encode text as
+UTF-8, and maintain FCC normalization.  Much of their implementation is done
+in terms of the algorithms from the Unicode layer.  The types in this layer
+are: _t_, _tv_, _r_, and _rv_.
+
+
+[heading The Assorted Bits]
+
+Finally, there are some items that I wrote in the process of implementing
+everything else, that rise to the level of general utility.
+
+First is _segv_.  This is a discontiguous sequence of `T`, for which
+insertions anywhere in the sequence are cheap, with very cheap copies provided
+via a copy-on-write mechanism.  It is a generalization of _ur_ for arbitrary
+`T`.
+
+The remaining assorted types are _trie_, _trie_m_, and _trie_s_.  The first of
+these is a trie that is not a valid C++ container.  The latter two are
+analogous to `std::map` and `std::set`, respectively, just built on a trie
+instead of a binary tree.
+
+[endsect]

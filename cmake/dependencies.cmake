@@ -7,10 +7,10 @@
 # Boost
 ###############################################################################
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost 1.64.0 COMPONENTS system filesystem)
-if (Boost_INCLUDE_DIRS)
+find_package(Boost 1.64.0 COMPONENTS)
+if (Boost_INCLUDE_DIR)
   add_library(boost INTERFACE)
-  target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIRS})
+  target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIR})
 else ()
   message("-- Boost was not found; attempting to download it if we haven't already...")
   include(ExternalProject)
@@ -39,10 +39,7 @@ target_include_directories(gtest      INTERFACE ${CMAKE_HOME_DIRECTORY}/googlete
 target_include_directories(gtest_main INTERFACE ${CMAKE_HOME_DIRECTORY}/googletest-release-1.8.0/googletest/include)
 
 
-if (false)
 ###############################################################################
 # Google Benchmark
 ###############################################################################
-add_subdirectory(${CMAKE_SOURCE_DIR}/benchmark-v1.1.0)
-target_include_directories(benchmark INTERFACE ${CMAKE_HOME_DIRECTORY}/benchmark-v1.1.0/include)
-endif()
+add_subdirectory(${CMAKE_SOURCE_DIR}/benchmark-v1.2.0)

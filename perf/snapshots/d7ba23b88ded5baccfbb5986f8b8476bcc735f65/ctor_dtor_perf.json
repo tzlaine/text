@@ -1,0 +1,501 @@
+{
+  "context": {
+    "date": "2017-09-02 16:12:22",
+    "num_cpus": 8,
+    "mhz_per_cpu": 2300,
+    "cpu_scaling_enabled": false,
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_text_view_ctor_dtor/0",
+      "iterations": 193765726,
+      "real_time": 4,
+      "cpu_time": 4,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/1",
+      "iterations": 80943571,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/2",
+      "iterations": 80544944,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/3",
+      "iterations": 78730416,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/4",
+      "iterations": 82700282,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/5",
+      "iterations": 80697224,
+      "real_time": 8,
+      "cpu_time": 8,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/6",
+      "iterations": 75804338,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/7",
+      "iterations": 75902974,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/8",
+      "iterations": 76011771,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/9",
+      "iterations": 75847049,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/10",
+      "iterations": 75175050,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/11",
+      "iterations": 70643563,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/12",
+      "iterations": 76860575,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor/13",
+      "iterations": 76902795,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/0",
+      "iterations": 321370692,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/1",
+      "iterations": 319516526,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/2",
+      "iterations": 324138602,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/3",
+      "iterations": 321847959,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/4",
+      "iterations": 360767094,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/5",
+      "iterations": 329009212,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/6",
+      "iterations": 347082769,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/7",
+      "iterations": 342494239,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/8",
+      "iterations": 346771557,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/9",
+      "iterations": 313852086,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/10",
+      "iterations": 330892606,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/11",
+      "iterations": 295774231,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/12",
+      "iterations": 341556718,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_view_ctor_dtor_unchecked/13",
+      "iterations": 339148930,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/0",
+      "iterations": 96087852,
+      "real_time": 7,
+      "cpu_time": 7,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/1",
+      "iterations": 29665542,
+      "real_time": 25,
+      "cpu_time": 25,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/2",
+      "iterations": 28911642,
+      "real_time": 25,
+      "cpu_time": 25,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/3",
+      "iterations": 26820951,
+      "real_time": 26,
+      "cpu_time": 26,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/4",
+      "iterations": 28168107,
+      "real_time": 25,
+      "cpu_time": 25,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/5",
+      "iterations": 6970515,
+      "real_time": 96,
+      "cpu_time": 96,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/6",
+      "iterations": 6941208,
+      "real_time": 101,
+      "cpu_time": 100,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/7",
+      "iterations": 6267572,
+      "real_time": 106,
+      "cpu_time": 106,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/8",
+      "iterations": 3666803,
+      "real_time": 192,
+      "cpu_time": 192,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/9",
+      "iterations": 4949305,
+      "real_time": 129,
+      "cpu_time": 129,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/10",
+      "iterations": 3304880,
+      "real_time": 203,
+      "cpu_time": 203,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/11",
+      "iterations": 250655,
+      "real_time": 2713,
+      "cpu_time": 2713,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/12",
+      "iterations": 11291,
+      "real_time": 57968,
+      "cpu_time": 57949,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_ctor_dtor/13",
+      "iterations": 2,
+      "real_time": 336361504,
+      "cpu_time": 335876000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/0",
+      "iterations": 66216395,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/1",
+      "iterations": 4921640,
+      "real_time": 134,
+      "cpu_time": 134,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/2",
+      "iterations": 5015512,
+      "real_time": 135,
+      "cpu_time": 135,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/3",
+      "iterations": 5022602,
+      "real_time": 135,
+      "cpu_time": 135,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/4",
+      "iterations": 5036116,
+      "real_time": 134,
+      "cpu_time": 134,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/5",
+      "iterations": 2733991,
+      "real_time": 250,
+      "cpu_time": 250,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/6",
+      "iterations": 2460405,
+      "real_time": 281,
+      "cpu_time": 281,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/7",
+      "iterations": 2521514,
+      "real_time": 289,
+      "cpu_time": 289,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/8",
+      "iterations": 2425318,
+      "real_time": 290,
+      "cpu_time": 290,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/9",
+      "iterations": 2890317,
+      "real_time": 240,
+      "cpu_time": 240,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/10",
+      "iterations": 2254574,
+      "real_time": 312,
+      "cpu_time": 312,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/11",
+      "iterations": 245883,
+      "real_time": 2803,
+      "cpu_time": 2803,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/12",
+      "iterations": 11747,
+      "real_time": 57541,
+      "cpu_time": 57540,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_ctor_dtor/13",
+      "iterations": 2,
+      "real_time": 304260003,
+      "cpu_time": 304255000,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/0",
+      "iterations": 310560384,
+      "real_time": 2,
+      "cpu_time": 2,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/1",
+      "iterations": 72702346,
+      "real_time": 9,
+      "cpu_time": 9,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/2",
+      "iterations": 65319834,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/3",
+      "iterations": 66226419,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/4",
+      "iterations": 66159444,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/5",
+      "iterations": 66538026,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/6",
+      "iterations": 66414292,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/7",
+      "iterations": 66788795,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/8",
+      "iterations": 64607830,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/9",
+      "iterations": 65183585,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/10",
+      "iterations": 66815570,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/11",
+      "iterations": 66388467,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/12",
+      "iterations": 66038982,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_view_ctor_dtor/13",
+      "iterations": 64781824,
+      "real_time": 10,
+      "cpu_time": 10,
+      "time_unit": "ns"
+    }
+  ]
+}

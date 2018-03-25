@@ -1,0 +1,305 @@
+[section The _Text_ String Types]
+
+[heading The `string_view` Type]
+
+_sv_ is type at the center of _Text_.  It is used everywhere you would have
+used `char const *` before C++17, and everywhere you would use
+`std::string_view` in C++17 and later.
+
+Analogouly to `std::string_view`, it defines implicit conversions from `char
+const *` and _s_, so it can be used in interfaces that accept either.
+
+_sv_ is fully _ce_ in everything it does, if you have the compiler support
+(C++14 _ce_).  You can write very extensive compile-time operations using _sv_
+and the _Text_ algorithms.
+
+[string_view_lotsa_constexpr]
+
+_sv_ is a nearly immutable type; there are no mutating member functions,
+besides assignment and `swap()`.  It is small (the size of two pointers on
+most modern architectures) and cheap to copy.
+
+Its underlying sequence is always a sequence of `char`.  It is not a template.
+
+It has a signed size and index type, and since contiguous unowned sequences of
+`char` are unlikely to be huge, its size/index type is `int`.  It is still
+possible to deal with very large unowned sequences of `char` using _ur_,
+though node allocations are required when using that.
+
+It is also slice-able.  There are two slice operations, each using an
+overloaded call operator.  The first one is very much like the Python slicing
+index syntax.  Positive and negative indices are allowed.  Negative indices
+count from the end -- they are converted to positive indices by adding
+`size()`.
+
+[binary_slice_examples]
+
+The second slice operation takes a single index value, which may be positive
+or negative.  A positive value `x` create a prefix substring of length `x`,
+and a negative one creates a suffix substring of length `-x`.
+
+[unary_slice_examples]
+
+Of course, there is a user-defined literal for _sv_:
+
+[string_view_literal]
+
+Finally, there is an `explicit` conversion from any value of a type that
+models _CharRng_.  _CharRng_ is any contiguous sequence of `char` that
+provides `char const *` pointer access to its `char`s.  This give use
+conversions from `std::string` and other types that _sv_ does not explicitly
+know about.
+
+
+[heading The `string` Type]
+
+_s_ is a contiguous sequence of `char`.  The sequence of `char` is either
+stored in the _s_, if it is small, or is heap-allocated.  _s_ is also strongly
+exception-safe.  Its purpose is to be a better `std::string`.
+
+_sv_'s character type is `char` and its size/index type is `int`, for the same
+reasons given for _sv_.  It is also slice-able in the same way that _sv_ is.
+
+_s_ has its own user-defined literals:
+
+[string_literal]
+
+Unlike _sv_ though, _s_ is mutable.
+
+
+[heading The `repeated_string_view` Type]
+
+One of the things that differs between `std::string` and _s_ is that _s_ is
+missing all those overloads (including constructors) that take a number of
+characters to repeat.  For example, _s_ has no function for inserting a single
+character N times.  Instead of having all those overloads and using a
+heap-allocating type like _s_ to represent repeated characters, _Text_
+introduces a new non-allocating type for this, _rsv_.
+
+_rsv_ has semantics and an interface much like _sv_: it is near-immutable; it
+uses a signed size/index type (though a typically-larger one,
+`std::ptrdiff_t`); it uses `char` as its character type; and it is slice-able
+in the same way.
+
+With _rsv_ in hand, this code which allocates:
+
+    std::cout << std::string(indent, ' ');
+
+becomes this code, which does not:
+
+    std::cout << boost::text::repeated_string_view(" ", indent);
+
+
+[heading The `unencoded_rope` Type]
+
+In general, a _Rope_ is a heavyweight string; whereas a string is a simple
+array of contiguous storage, a _Rope_ is much more complicated and is
+typically a tree whose leaves are contiguous strings.
+
+The user's view of _Text_'s _ur_ is that it is a string that is inexpensive to
+insert into at any point -- even the middle or front -- no matter how large it
+is.  In addition, substrings within the _ur_ have copy-on-write semantics.
+This means that often a copy of a very large _ur_ is nearly free, and that a
+mutated copy of a _ur_ often shares much of its data with the _ur_ from which
+it was copied.
+
+_ur_'s implementation uses a tree structure similar to a B-tree, and each
+subtree is copy-on-write.  The tree consists of interior nodes that contain
+structural information, and leaf nodes which contain the data.  _ur_ only
+contains a single pointer to a root node.  Here is one of the simplest
+nonempty _urs_ you can have:
+
+[$../../doc/rope_text_leaf.svg]
+
+This _ur_ is just a single leaf node, containing the super-useful string
+`"text"`.  In this case, the leaf was a _s_ node, labeled here with `s`.
+There can also be leaf nodes for _rsvs_, labeled in these diagrams with `rsv`.
+The final leaf node type is a reference-to-_s_ leaf, labeled as `ref`.  More
+on that in a bit.
+
+If we copy the _ur_ above, we get something like this:
+
+[$../../doc/rope_text_leaf_extra_ref.svg]
+
+No copying was done, nor allocations performed.  Copying an entire tree only
+requires copying a pointer and incrementing a reference count.  The string in
+this _s_ leaf is only four characters, but let's suppose it was megabytes
+instead.  Inserting even a small sequence near the beginning of the string
+would be costly, since we'd have to copy all the characters after the
+insertion point.  And since the _s_ leaf may be shared, we would have to copy
+everything /before/ the insertion, too!  For large _s_ leaves, insertions into
+them result in something like this:
+
+[$../../doc/rope_text_refs_after_insert.svg]
+
+[note This is *not* what actually happens to small _s_ leaves with a reference
+count of 1!  Those are mutated in place.]
+
+Here, we see that we've made two new reference nodes, each of which refers to
+part of the original _s_, and we've put the inserted string in between,
+forming `"text text"`, which everyone knows is the *best* string.
+
+And now we see our first interior node.  Each interior node has a key and a
+pointer for each child, and a fixed maximum number of children.  Each key `Ki`
+is the cumulative size of all children in the range `[0, i]`.
+
+To make the images smaller, each interior node in these diagrams has a maximum
+of four children (the actually number is an implementation detail, but it's a
+lot higher).
+
+Now let's take a look at a more complicated _ur_:
+
+[$../../doc/rope_tree_structure.svg]
+
+In this tree, we have three interior nodes: the root and its two children.  We
+also have at least one of each type of leaf node.
+
+Copying even this _ur_ is very cheap, requiring only copying a pointer and
+incrementing a reference count:
+
+[$../../doc/rope_copy_add_ref.svg]
+
+Let's say we wanted to erase part of this _ur_.  We'll erase a substring that
+matches a whole leaf exactly, to keep things simpler:
+
+[$../../doc/rope_erase.svg]
+
+Simple, right?  In this case, we did the erasure by creating a copy of each
+node on the path from the root to the erased leaf, and just referring to all
+the other nodes that did not change.  Again, most of the string data and even
+interior nodes are shared among the three ropes in the diagram.  This same
+principle applies to `insert()`, `erase()`, and `replace()`.
+
+[note We don't make new nodes every time we need to do an insert, erase, or
+other mutation.  If the reference counts on the root-to-leaf path are all `1`,
+we will mutate the tree in place.]
+
+Besides the segmented nature of _ur_, there are some other properties you need
+to know about.  A _ur_ as a whole is copy-on-write; it is also therefore
+thread-safe for reading and writing; it is not null-terminated; it uses a
+signed size/index type (`std::ptrdiff_t`); it uses `char` as its character
+type; and it is slice-able.
+
+Insertions, erasures, and indexing each happen in `O(log_B(N))` time, where B
+is the branching factor (maximum number of children per interior node).  As
+mentioned before, B is an implementation detail, and thus subject to change,
+but it is unlikely to be less than 16.  That means very little pointer chasing
+is required to access an arbitrary element of a _ur_, because its tree is very
+shallow.
+
+As mentioned previously, mutations to a _ur_ are done in-place if the mutations
+do not affect nodes that are shared with other _urs_.
+
+If a mutation can be done in place, and the point of mutation falls within a
+_s_ leaf, the _s_ object is directly mutated if: the inserted string fits
+within the `capacity()` of the _s_, *or*
+
+* the _s_ object is not too large (there is a maximum size that is an
+  implementation detail, but is likely to be hundreds or thousands, not tens
+  or tens of thousands), *and*
+
+* the inserted object would cause an allocation if copied (i.e. it is a
+  _s_).
+
+One more thing.  _urs_ are meant to be passed by value.  Some of their
+thread-safety guarantees may not be fulfilled if they are *not* passed by
+value.  If you do not care about thread-safe use of _ur_, you can pass _urs_
+by `const &` if you like.  If you care about thread-safety, *always* pass them
+by value.
+
+_ur_ contains logic like the pseudocode below to determine when to create a
+partial copy of a _ur_'s tree, or when to mutate the tree in-place when
+performing inserts or erases on a _ur_:
+
+    path = find_path_from_root_to_mutation_point()
+    in_place = true
+    for (node : path)
+        if (node.references() == 1)
+            in_place = false
+
+Let's call the _ur_ `R`, and the thread on which the operation is being
+performed `T`.  Also, assume that all references to `R`'s root node exist in
+copies of `R`, and no reference (C++ reference/pointer) to `R` or any of its
+copies exists.
+
+With this assumption, we know at the end of the pseudocode `for` loop above,
+that there is still exactly one reference to each node in `path`.  For this
+not to be true, we would need to either:
+
+# Create a copy of one of the nodes on thread `T`.  Clearly we cannot, since
+  we're currently executing `insert()` or `erase()` instead.
+
+# Create a copy of one of the nodes on a thread other than `T`.  We can't do
+  this either, since we have no reference to `R` that can be used by another
+  thread, and we know that there are no other copies on any other threads
+  either, since each node's reference count is `1`.
+
+Were we to write references/pointers to `R` into our code, a thread other than
+`T` could create a copy of `R` between when we read the reference count of one
+of its nodes, and when we decided to mutate `R` in place or not.
+
+[important Therefore, if you care about using _urs_ in a thread-safe manner,
+always pass them by value.]
+
+[heading The `unencoded_rope_view` Type]
+
+Just as you can think of a _Rope_ as a heavyweight string, you can think of a
+_urv_ is a heavyweight _sv_.  It can bind to a _ur_, but also to any of _s_,
+_sv_, and even _rsv_.
+
+_urv_ has semantics and an interface much like _sv_: it is near-immutable; it
+uses a signed size/index type (`std::ptrdiff_t`); it uses `char` as its
+character type; and it is slice-able.
+
+A key use of _urv_ is that it can bind to all the other _Text_ string types.
+If your code expects to handle only _ss_, `char const *`s, and _svs_ as
+function parameters, use _sv_ in your interfaces.  If you also expect to
+handle _urs_ and _rsvs_, use _urv_ in your interfaces instead.
+
+
+[heading Common Operations]
+
+There are some operations that are common to all the _Text_ types.
+
+# Each has the slicing call operators.  Each slicing call operator returns a
+  view, and so does no allocate.
+
+# Each has an index operator with the signature `char operator[](size_type)
+  const noexcept`.
+
+# `operator+()` is defined for each (even _rsv_).  These operators allocate
+  memory.
+
+# `operator+=()` is defined for the mutable types, _s_ and _ur_.
+
+
+[heading Picking the Right String Type]
+
+[table Picking the Right String Type
+    [[If I need ...] [... my string type is:]]
+
+    [[to manipulate strings entirely at compile time] [_sv_]]
+    [[to capture a reference to a string that will outlive the reference, without allocating] [_sv_]]
+
+    [[a mutable string with efficient mutation at the end of the string] [_s_]]
+    [[a mutable string with efficient mutation at any point in the string] [_ur_]]
+    [[a string with contiguous storage] [_sv_ or _s_]]
+    [[a null-terminated string] [_s_]]
+    [[a mutable string the size of a single pointer] [_ur_]]
+    [[a thread-safe string] [_ur_]]
+    [[a string with the small-object optimization] [_s_]]
+    [[a string with copy-on-write semantics] [_ur_]]
+
+    [[to represent the repetition of a snippet of text, without allocating] [_rsv_]]
+
+    [[to capture `char const *`s, _svs_, and _ss_ in a function parameter] [_sv_]]
+    [[to capture `char const *`s, _svs_, _ss_, _rsvs_, _urs_, and _rvs_ in a function parameter] [_urv_]]
+]
+
+[tip For an overloaded function `foo()`, providing an overload for each of
+`foo(string_view)` and `foo(rope_view)` will create an ambiguity, since they
+are each implicitly constructible from `char const *`.  This will require you
+also to add a third overload `foo(char const *)`, so try to stick to one view
+type or the other when you can.]
+
+[endsect]

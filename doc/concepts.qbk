@@ -38,7 +38,7 @@ is an object of type `Iter`.
 
 Additionally, `Iter` must be a contiguous iterator.
 
-[heading CharIterator]
+[heading CharIter]
 
 A _CharIter_ is an iterator over a sequence of `char`.
 

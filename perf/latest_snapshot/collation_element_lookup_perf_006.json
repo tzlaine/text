@@ -1,0 +1,193 @@
+{
+  "context": {
+    "date": "2018-01-02 22:31:11",
+    "num_cpus": 8,
+    "mhz_per_cpu": 2300,
+    "cpu_scaling_enabled": false,
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_collation_element_lookup_600",
+      "iterations": 686665,
+      "real_time": 1047,
+      "cpu_time": 1047,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_601",
+      "iterations": 683694,
+      "real_time": 1047,
+      "cpu_time": 1046,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_602",
+      "iterations": 687717,
+      "real_time": 1055,
+      "cpu_time": 1054,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_603",
+      "iterations": 711794,
+      "real_time": 1046,
+      "cpu_time": 1045,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_604",
+      "iterations": 688617,
+      "real_time": 1054,
+      "cpu_time": 1053,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_605",
+      "iterations": 696434,
+      "real_time": 1044,
+      "cpu_time": 1044,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_606",
+      "iterations": 673615,
+      "real_time": 1056,
+      "cpu_time": 1055,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_607",
+      "iterations": 696413,
+      "real_time": 1050,
+      "cpu_time": 1050,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_608",
+      "iterations": 700266,
+      "real_time": 1042,
+      "cpu_time": 1041,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_609",
+      "iterations": 674790,
+      "real_time": 1067,
+      "cpu_time": 1066,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_610",
+      "iterations": 680061,
+      "real_time": 1062,
+      "cpu_time": 1061,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_611",
+      "iterations": 659121,
+      "real_time": 1044,
+      "cpu_time": 1043,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_612",
+      "iterations": 674010,
+      "real_time": 1061,
+      "cpu_time": 1061,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_613",
+      "iterations": 700701,
+      "real_time": 1058,
+      "cpu_time": 1057,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_614",
+      "iterations": 694796,
+      "real_time": 1052,
+      "cpu_time": 1051,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_615",
+      "iterations": 684978,
+      "real_time": 1044,
+      "cpu_time": 1043,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_616",
+      "iterations": 702621,
+      "real_time": 1054,
+      "cpu_time": 1053,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_617",
+      "iterations": 665659,
+      "real_time": 1052,
+      "cpu_time": 1052,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_618",
+      "iterations": 688373,
+      "real_time": 1055,
+      "cpu_time": 1054,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_619",
+      "iterations": 690111,
+      "real_time": 1060,
+      "cpu_time": 1059,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_620",
+      "iterations": 688848,
+      "real_time": 1063,
+      "cpu_time": 1063,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_621",
+      "iterations": 684135,
+      "real_time": 1052,
+      "cpu_time": 1051,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_622",
+      "iterations": 659239,
+      "real_time": 1051,
+      "cpu_time": 1050,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_623",
+      "iterations": 697969,
+      "real_time": 1041,
+      "cpu_time": 1040,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_624",
+      "iterations": 677815,
+      "real_time": 1035,
+      "cpu_time": 1034,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_625",
+      "iterations": 686389,
+      "real_time": 1035,
+      "cpu_time": 1035,
+      "time_unit": "ns"
+    }
+  ]
+}

@@ -29,26 +29,20 @@ endif()
 ##################################################
 # Code coverage
 ##################################################
-if (APPLE AND CMAKE_CXX_COMPILER_ID STREQUAL Clang)
-    set(BUILD_COVERAGE false CACHE BOOL "Set to true to enable code coverage when building tests.")
+if (UNIX)
+    set(BUILD_COVERAGE false CACHE BOOL "Set to true to enable code coverage when building tests.  Only Linux and Mac are supported.")
     if (BUILD_COVERAGE)
         message("-- Building for code coverage; disabling any sanitizers")
-        set(compile_flags -fprofile-arcs -ftest-coverage)
-        set(CMAKE_BUILD_TYPE RelWithDebInfo)
-        set(link_flags --coverage)
+        if (APPLE)
+            set(compile_flags -fprofile-arcs -ftest-coverage)
+            set(CMAKE_BUILD_TYPE RelWithDebInfo)
+            set(link_flags --coverage)
+        else ()
+            set(compile_flags --coverage)
+            set(CMAKE_BUILD_TYPE RelWithDebInfo)
+            set(link_flags --coverage)
+        endif ()
     endif ()
-endif ()
-
-
-##################################################
-# text library
-##################################################
-add_library(text INTERFACE)
-target_include_directories(text INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(text INTERFACE boost)
-if (link_flags)
-    target_link_libraries(text INTERFACE ${link_flags})
-    target_compile_options(text INTERFACE ${compile_flags})
 endif ()
 
 
@@ -56,6 +50,33 @@ endif ()
 # Dependencies
 ##################################################
 include(dependencies)
+
+
+##################################################
+# text library
+##################################################
+add_library(text
+    src/grapheme_break.cpp
+    src/word_break.cpp
+    src/sentence_break.cpp
+    src/line_break.cpp
+    src/bidi.cpp
+    src/normalization_data_cp_props.cpp
+    src/normalization_data_compose.cpp
+    src/collation_data_0.cpp
+    src/collation_data_1.cpp
+)
+
+target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(text PUBLIC boost)
+set_property(TARGET text PROPERTY CXX_STANDARD ${CXX_STD})
+if (link_flags)
+    target_link_libraries(text PUBLIC ${link_flags})
+    target_compile_options(text PUBLIC ${compile_flags})
+endif ()
+if (NOT MSVC)
+    target_compile_options(text PRIVATE -Wall)
+endif ()
 
 
 ##################################################
@@ -75,4 +96,5 @@ endif ()
 set(BUILD_EDITOR false CACHE BOOL "Set to true to build ncurses-based text editor.")
 
 add_subdirectory(test)
+add_subdirectory(perf)
 add_subdirectory(example)

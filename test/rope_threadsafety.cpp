@@ -1,4 +1,4 @@
-#include <boost/text/rope.hpp>
+#include <boost/text/unencoded_rope.hpp>
 
 #include <atomic>
 #include <thread>
@@ -6,18 +6,19 @@
 
 std::atomic<bool> done(false);
 
-void thread_function (boost::text::rope const & r)
+void thread_function(boost::text::unencoded_rope const & r)
 {
-    boost::text::rope local_r = r;
+    boost::text::unencoded_rope local_r = r;
 
     while (!done)
         ;
 }
 
-int main ()
+int main()
 {
-    std::unique_ptr<boost::text::rope> r(new boost::text::rope("some text"));
-    
+    std::unique_ptr<boost::text::unencoded_rope> r(
+        new boost::text::unencoded_rope("some text"));
+
     std::thread thread_0(thread_function, *r);
     std::thread thread_1(thread_function, *r);
     std::thread thread_2(thread_function, *r);

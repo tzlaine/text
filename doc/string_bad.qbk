@@ -29,12 +29,13 @@ overloads, and not counting assignment operators or swap:
 That's a lot!  Some are semantically synonymous, like `data()` and `begin()`,
 or `append()` and `operator+=()`.
 
-_t_ has these equivalent member functions (`operator+=()` still exists, but as
+_s_ has these equivalent member functions (`operator+=()` still exists, but as
 a nonmember):
 
 * `operator[]()`
 * `begin()` (non-`const`)
 * `end()` (non-`const`)
+* `assign()`
 * `reserve()`
 * `shrink_to_fit()`
 * `clear()`
@@ -43,7 +44,7 @@ a nonmember):
 * `replace()`
 * `resize()`
 
-This makes _t_ a type that is much easier to teach, audit, and write static
+This makes _s_ a type that is much easier to teach, audit, and write static
 checks for.
 
 Additionally, `std::string` has a number of search operations that are
@@ -82,8 +83,8 @@ any one-octet encoding.
 However, `std::string` lacks any guarantees of any kind that its contents are
 in a particular encoding.
 
-_Text_'s types address this by guaranteeing UTF-8 encoding at all times,
-unless the user explicitly opts out of this guarantee.
+_Text_'s types address this by guaranteeing UTF-8 encoding at all times for
+_t_ and its related types.  _s_ and its related types are encoding-agnostic.
 
 
 [heading Miscellaneous Limitations]
@@ -91,7 +92,7 @@ unless the user explicitly opts out of this guarantee.
 Finally, `std::string` is not thread-safe, cannot be implemented as
 copy-on-write, and is contiguous.
 
-_Text_ provide _r_ for those times when you want a string type that is
-thread-safe, copy-on-write, or cheap to insert into the middle of.
+_Text_ provide _ur_ and _r_ for those times when you want a string type that
+is thread-safe, copy-on-write, or cheap to insert into the middle of.
 
 [endsect]

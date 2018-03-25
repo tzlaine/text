@@ -1,0 +1,18 @@
+{
+  "context": {
+    "date": "2017-12-20 23:21:56",
+    "num_cpus": 8,
+    "mhz_per_cpu": 2300,
+    "cpu_scaling_enabled": false,
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_grapheme_prop",
+      "iterations": 28263,
+      "real_time": 24393,
+      "cpu_time": 24352,
+      "time_unit": "ns"
+    }
+  ]
+}

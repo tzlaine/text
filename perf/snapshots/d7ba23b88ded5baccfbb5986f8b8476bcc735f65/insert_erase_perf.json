@@ -1,0 +1,375 @@
+{
+  "context": {
+    "date": "2017-09-02 16:14:19",
+    "num_cpus": 8,
+    "mhz_per_cpu": 2300,
+    "cpu_scaling_enabled": false,
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_text_erase_insert_front/1",
+      "iterations": 21220223,
+      "real_time": 31,
+      "cpu_time": 31,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/2",
+      "iterations": 18427939,
+      "real_time": 38,
+      "cpu_time": 38,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/3",
+      "iterations": 16608261,
+      "real_time": 42,
+      "cpu_time": 42,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/4",
+      "iterations": 13426166,
+      "real_time": 48,
+      "cpu_time": 48,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/5",
+      "iterations": 14524419,
+      "real_time": 48,
+      "cpu_time": 48,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/6",
+      "iterations": 13529184,
+      "real_time": 50,
+      "cpu_time": 50,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/7",
+      "iterations": 11246245,
+      "real_time": 57,
+      "cpu_time": 57,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/8",
+      "iterations": 15876832,
+      "real_time": 43,
+      "cpu_time": 43,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/9",
+      "iterations": 9191418,
+      "real_time": 74,
+      "cpu_time": 74,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/10",
+      "iterations": 3059775,
+      "real_time": 225,
+      "cpu_time": 225,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/11",
+      "iterations": 188551,
+      "real_time": 3632,
+      "cpu_time": 3632,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/12",
+      "iterations": 7021,
+      "real_time": 93734,
+      "cpu_time": 93734,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_front/13",
+      "iterations": 6,
+      "real_time": 107802316,
+      "cpu_time": 107799333,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/1",
+      "iterations": 21611809,
+      "real_time": 32,
+      "cpu_time": 32,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/2",
+      "iterations": 21819497,
+      "real_time": 32,
+      "cpu_time": 32,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/3",
+      "iterations": 21783916,
+      "real_time": 32,
+      "cpu_time": 32,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/4",
+      "iterations": 21838966,
+      "real_time": 32,
+      "cpu_time": 32,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/5",
+      "iterations": 23051794,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/6",
+      "iterations": 23092479,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/7",
+      "iterations": 22701328,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/8",
+      "iterations": 22762599,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/9",
+      "iterations": 22727568,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/10",
+      "iterations": 22481076,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/11",
+      "iterations": 23024877,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/12",
+      "iterations": 22999609,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_text_erase_insert_back/13",
+      "iterations": 23105818,
+      "real_time": 30,
+      "cpu_time": 30,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/1",
+      "iterations": 2512554,
+      "real_time": 276,
+      "cpu_time": 276,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/2",
+      "iterations": 2749238,
+      "real_time": 254,
+      "cpu_time": 254,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/3",
+      "iterations": 2541711,
+      "real_time": 273,
+      "cpu_time": 273,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/4",
+      "iterations": 2356482,
+      "real_time": 291,
+      "cpu_time": 291,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/5",
+      "iterations": 2330521,
+      "real_time": 295,
+      "cpu_time": 295,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/6",
+      "iterations": 2338447,
+      "real_time": 298,
+      "cpu_time": 297,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/7",
+      "iterations": 2240057,
+      "real_time": 329,
+      "cpu_time": 329,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/8",
+      "iterations": 2302094,
+      "real_time": 299,
+      "cpu_time": 299,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/9",
+      "iterations": 1388090,
+      "real_time": 476,
+      "cpu_time": 476,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/10",
+      "iterations": 1378495,
+      "real_time": 504,
+      "cpu_time": 503,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/11",
+      "iterations": 517120,
+      "real_time": 1418,
+      "cpu_time": 1418,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/12",
+      "iterations": 523075,
+      "real_time": 1360,
+      "cpu_time": 1360,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_front/13",
+      "iterations": 402105,
+      "real_time": 1719,
+      "cpu_time": 1718,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/1",
+      "iterations": 2478552,
+      "real_time": 283,
+      "cpu_time": 283,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/2",
+      "iterations": 3040015,
+      "real_time": 228,
+      "cpu_time": 228,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/3",
+      "iterations": 2877887,
+      "real_time": 231,
+      "cpu_time": 231,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/4",
+      "iterations": 2991415,
+      "real_time": 230,
+      "cpu_time": 230,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/5",
+      "iterations": 2963440,
+      "real_time": 245,
+      "cpu_time": 245,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/6",
+      "iterations": 2977355,
+      "real_time": 229,
+      "cpu_time": 229,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/7",
+      "iterations": 3019936,
+      "real_time": 234,
+      "cpu_time": 234,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/8",
+      "iterations": 2944306,
+      "real_time": 230,
+      "cpu_time": 230,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/9",
+      "iterations": 1665085,
+      "real_time": 424,
+      "cpu_time": 424,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/10",
+      "iterations": 1542513,
+      "real_time": 459,
+      "cpu_time": 459,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/11",
+      "iterations": 407180,
+      "real_time": 1687,
+      "cpu_time": 1687,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/12",
+      "iterations": 388535,
+      "real_time": 1638,
+      "cpu_time": 1638,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_rope_erase_insert_back/13",
+      "iterations": 321651,
+      "real_time": 2329,
+      "cpu_time": 2329,
+      "time_unit": "ns"
+    }
+  ]
+}
