@@ -47,8 +47,8 @@ namespace boost { namespace text {
         explicit unencoded_rope(unencoded_rope_view rv);
 
         /** Move-constructs an unencoded_rope from a string. */
-        explicit unencoded_rope(string && t) :
-            ptr_(detail::make_node(std::move(t)))
+        explicit unencoded_rope(string && s) :
+            ptr_(detail::make_node(std::move(s)))
         {}
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -81,9 +81,9 @@ namespace boost { namespace text {
         unencoded_rope & operator=(unencoded_rope_view rv);
 
         /** Move-assignment from a string. */
-        unencoded_rope & operator=(string && t)
+        unencoded_rope & operator=(string && s)
         {
-            unencoded_rope temp(std::move(t));
+            unencoded_rope temp(std::move(s));
             swap(temp);
             return *this;
         }
@@ -236,9 +236,9 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from t into *this starting at offset
             at, by moving the contents of t. */
-        unencoded_rope & insert(size_type at, string && t)
+        unencoded_rope & insert(size_type at, string && s)
         {
-            return insert_impl(at, std::move(t), would_not_allocate);
+            return insert_impl(at, std::move(s), would_not_allocate);
         }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -293,7 +293,7 @@ namespace boost { namespace text {
             sequence of char from t by moving the contents of t.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        unencoded_rope & replace(unencoded_rope_view old_substr, string && t);
+        unencoded_rope & replace(unencoded_rope_view old_substr, string && s);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -360,7 +360,7 @@ namespace boost { namespace text {
         }
 
         /** Appends t to *this, by moving its contents into *this. */
-        unencoded_rope & operator+=(string && t);
+        unencoded_rope & operator+=(string && s);
 
         /** Stream inserter; performs unformatted output. */
         friend std::ostream & operator<<(std::ostream & os, unencoded_rope r)
@@ -757,10 +757,10 @@ namespace boost {
         }
 
         inline unencoded_rope &
-        unencoded_rope::replace(unencoded_rope_view old_substr, string && t)
+        unencoded_rope::replace(unencoded_rope_view old_substr, string && s)
         {
             return erase(old_substr)
-                .insert(old_substr.ref_.r_.lo_, std::move(t));
+                .insert(old_substr.ref_.r_.lo_, std::move(s));
         }
 
         template<typename CharIter>
@@ -795,9 +795,9 @@ namespace boost {
             return insert(size(), rv);
         }
 
-        inline unencoded_rope & unencoded_rope::operator+=(string && t)
+        inline unencoded_rope & unencoded_rope::operator+=(string && s)
         {
-            return insert(size(), std::move(t));
+            return insert(size(), std::move(s));
         }
 
         inline unencoded_rope::const_iterator unencoded_rope::begin() const
@@ -957,16 +957,16 @@ namespace boost {
 
         /** Creates a new unencoded_rope object that is the concatenation of r
            and t, by moving the contents of t into the result. */
-        inline unencoded_rope operator+(unencoded_rope r, string && t)
+        inline unencoded_rope operator+(unencoded_rope r, string && s)
         {
-            return r.insert(r.size(), std::move(t));
+            return r.insert(r.size(), std::move(s));
         }
 
         /** Creates a new unencoded_rope object that is the concatenation of t
            and r, by moving the contents of t into the result. */
-        inline unencoded_rope operator+(string && t, unencoded_rope r)
+        inline unencoded_rope operator+(string && s, unencoded_rope r)
         {
-            return r.insert(0, std::move(t));
+            return r.insert(0, std::move(s));
         }
 
 
@@ -983,20 +983,20 @@ namespace boost {
         {}
 
         inline unencoded_rope_view::unencoded_rope_view(
-            string const & r) noexcept :
-            ref_(string_view(r.begin(), r.size())),
+            string const & s) noexcept :
+            ref_(string_view(s.begin(), s.size())),
             which_(which::tv)
         {}
 
         inline unencoded_rope_view::unencoded_rope_view(
-            string const & r, int lo, int hi) :
-            ref_(r(lo, hi)),
+            string const & s, int lo, int hi) :
+            ref_(s(lo, hi)),
             which_(which::tv)
         {}
 
         inline unencoded_rope_view::unencoded_rope_view(
-            repeated_string_view rtv, int lo, int hi) :
-            ref_(repeated_ref(rtv, lo, hi)),
+            repeated_string_view rsv, int lo, int hi) :
+            ref_(repeated_ref(rsv, lo, hi)),
             which_(which::rtv)
         {}
 

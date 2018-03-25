@@ -44,7 +44,7 @@ namespace boost { namespace text {
             valid, null-terminated empty string */
         string() noexcept : storage_(), size_(0), heap_(false) {}
 
-        string(string const & t);
+        string(string const & s);
 
         string(string && rhs) noexcept : storage_(), size_(0), heap_(false)
         {
@@ -55,10 +55,10 @@ namespace boost { namespace text {
         string(char const * c_str);
 
         /** Constructs a string from a string_view. */
-        explicit string(string_view tv);
+        explicit string(string_view sv);
 
         /** Constructs a string from a repeated_string_view. */
-        explicit string(repeated_string_view tv);
+        explicit string(repeated_string_view rsv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -108,7 +108,7 @@ namespace boost { namespace text {
                 storage_.heap_.~heap_t();
         }
 
-        string & operator=(string const & t);
+        string & operator=(string const & s);
 
         string & operator=(string && rhs) noexcept
         {
@@ -135,7 +135,7 @@ namespace boost { namespace text {
 #endif
 
         /** Assignment from a repeated_string_view. */
-        string & operator=(repeated_string_view tv);
+        string & operator=(repeated_string_view rsv);
 
         iterator begin() noexcept { return ptr(); }
         iterator end() noexcept { return ptr() + size_; }
@@ -266,19 +266,19 @@ namespace boost { namespace text {
         /** Inserts c into *this at offset at. */
         string & insert(int at, char c);
 
-        /** Inserts the sequence of char from tv into *this starting at offset
+        /** Inserts the sequence of char from sv into *this starting at offset
             at. */
-        string & insert(int at, string_view tv);
-        /** Inserts the sequence of char from tv into *this starting at
+        string & insert(int at, string_view sv);
+        /** Inserts the sequence of char from sv into *this starting at
             position at. */
-        iterator insert(iterator at, string_view tv);
+        iterator insert(iterator at, string_view sv);
 
-        /** Inserts the sequence of char from rtv into *this starting at
+        /** Inserts the sequence of char from rsv into *this starting at
             offset at. */
-        string & insert(int at, repeated_string_view rtv);
-        /** Inserts the sequence of char from rtv into *this starting at
+        string & insert(int at, repeated_string_view rsv);
+        /** Inserts the sequence of char from rsv into *this starting at
             position at. */
-        iterator insert(iterator at, repeated_string_view rtv);
+        iterator insert(iterator at, repeated_string_view rsv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -350,11 +350,11 @@ namespace boost { namespace text {
 
 #endif
 
-        /** Erases the portion of *this delimited by tv.
+        /** Erases the portion of *this delimited by sv.
 
             \pre !std::less(tv.begin(), begin()) && !std::less(end(),
             tv.end()) */
-        string & erase(string_view tv) noexcept;
+        string & erase(string_view sv) noexcept;
 
         /** Erases the portion of *this delimited by [first, last).
 
@@ -569,10 +569,10 @@ namespace boost { namespace text {
         string & operator+=(char const * c_str);
 
         /** Appends tv to *this. */
-        string & operator+=(string_view tv);
+        string & operator+=(string_view sv);
 
         /** Appends rtv to *this. */
-        string & operator+=(repeated_string_view rtv);
+        string & operator+=(repeated_string_view rsv);
 
         /** Appends r to *this. */
         string & operator+=(unencoded_rope r);
@@ -598,9 +598,9 @@ namespace boost { namespace text {
 #endif
 
         /** Stream inserter; performs unformatted output. */
-        friend std::ostream & operator<<(std::ostream & os, string const & t)
+        friend std::ostream & operator<<(std::ostream & os, string const & s)
         {
-            return os.write(t.begin(), t.size());
+            return os.write(s.begin(), s.size());
         }
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -782,48 +782,48 @@ namespace boost { namespace text {
 #endif // Doxygen
     };
 
-    inline string::iterator begin(string & t) noexcept { return t.begin(); }
-    inline string::iterator end(string & t) noexcept { return t.end(); }
-    inline string::const_iterator begin(string const & t) noexcept
+    inline string::iterator begin(string & s) noexcept { return s.begin(); }
+    inline string::iterator end(string & s) noexcept { return s.end(); }
+    inline string::const_iterator begin(string const & s) noexcept
     {
-        return t.begin();
+        return s.begin();
     }
-    inline string::const_iterator end(string const & t) noexcept
+    inline string::const_iterator end(string const & s) noexcept
     {
-        return t.end();
+        return s.end();
     }
-    inline string::const_iterator cbegin(string const & t) noexcept
+    inline string::const_iterator cbegin(string const & s) noexcept
     {
-        return t.cbegin();
+        return s.cbegin();
     }
-    inline string::const_iterator cend(string const & t) noexcept
+    inline string::const_iterator cend(string const & s) noexcept
     {
-        return t.cend();
+        return s.cend();
     }
 
-    inline string::reverse_iterator rbegin(string & t) noexcept
+    inline string::reverse_iterator rbegin(string & s) noexcept
     {
-        return t.rbegin();
+        return s.rbegin();
     }
-    inline string::reverse_iterator rend(string & t) noexcept
+    inline string::reverse_iterator rend(string & s) noexcept
     {
-        return t.rend();
+        return s.rend();
     }
-    inline string::const_reverse_iterator rbegin(string const & t) noexcept
+    inline string::const_reverse_iterator rbegin(string const & s) noexcept
     {
-        return t.rbegin();
+        return s.rbegin();
     }
-    inline string::const_reverse_iterator rend(string const & t) noexcept
+    inline string::const_reverse_iterator rend(string const & s) noexcept
     {
-        return t.rend();
+        return s.rend();
     }
-    inline string::const_reverse_iterator crbegin(string const & t) noexcept
+    inline string::const_reverse_iterator crbegin(string const & s) noexcept
     {
-        return t.crbegin();
+        return s.crbegin();
     }
-    inline string::const_reverse_iterator crend(string const & t) noexcept
+    inline string::const_reverse_iterator crend(string const & s) noexcept
     {
-        return t.crend();
+        return s.crend();
     }
 
 }}
@@ -844,9 +844,9 @@ namespace boost { namespace text {
 
 #ifndef BOOST_TEXT_DOXYGEN
 
-    inline string::string(string const & t) : storage_(), size_(0), heap_(false)
+    inline string::string(string const & s) : storage_(), size_(0), heap_(false)
     {
-        insert(0, string_view(t.begin(), t.size() + 1));
+        insert(0, string_view(s.begin(), s.size() + 1));
     }
 
     inline string::string(char const * c_str) :
@@ -857,26 +857,26 @@ namespace boost { namespace text {
         insert(0, string_view(c_str));
     }
 
-    inline string::string(string_view tv) : storage_(), size_(0), heap_(false)
+    inline string::string(string_view sv) : storage_(), size_(0), heap_(false)
     {
-        insert(0, tv);
+        insert(0, sv);
     }
 
-    inline string::string(repeated_string_view rtv) :
+    inline string::string(repeated_string_view rsv) :
         storage_(),
         size_(0),
         heap_(false)
     {
-        insert(0, rtv);
+        insert(0, rsv);
     }
 
-    inline string & string::operator=(string const & t)
+    inline string & string::operator=(string const & s)
     {
-        if (t.size() <= size()) {
+        if (s.size() <= size()) {
             clear();
-            insert(0, string_view(t.begin(), t.size() + 1));
+            insert(0, string_view(s.begin(), s.size() + 1));
         } else {
-            string tmp(t);
+            string tmp(s);
             swap(tmp);
         }
         return *this;
@@ -901,15 +901,15 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline string & string::operator=(repeated_string_view rtv)
+    inline string & string::operator=(repeated_string_view rsv)
     {
-        assert(0 <= rtv.size());
-        bool const self_ref = self_reference(rtv.view());
-        if (!self_ref && rtv.size() <= size()) {
+        assert(0 <= rsv.size());
+        bool const self_ref = self_reference(rsv.view());
+        if (!self_ref && rsv.size() <= size()) {
             clear();
-            insert(0, rtv);
+            insert(0, rsv);
         } else {
-            string tmp(rtv);
+            string tmp(rsv);
             swap(tmp);
         }
         return *this;
@@ -986,33 +986,33 @@ namespace boost { namespace text {
         return insert(at, string_view(r));
     }
 
-    inline string & string::insert(int at, string_view tv)
+    inline string & string::insert(int at, string_view sv)
     {
         assert(0 <= at && at <= size_);
-        assert(0 <= tv.size());
+        assert(0 <= sv.size());
 
-        bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
-        if (tv_null_terminated)
-            tv = tv(0, -1);
+        bool const sv_null_terminated = !sv.empty() && sv.end()[-1] == '\0';
+        if (sv_null_terminated)
+            sv = sv(0, -1);
 
-        int const delta = tv.size();
+        int const delta = sv.size();
         if (!delta)
             return *this;
 
         bool const late_self_ref =
-            self_reference(tv) && at < tv.end() - begin();
+            self_reference(sv) && at < sv.end() - begin();
         int const available = capacity() - size_;
         if (late_self_ref || available < delta) {
             heap_t new_data = get_new_data(delta - available);
             char * buf = new_data.data_.get();
             buf = std::copy(cbegin(), cbegin() + at, buf);
-            buf = std::copy(tv.begin(), tv.end(), buf);
+            buf = std::copy(sv.begin(), sv.end(), buf);
             buf = std::copy(cbegin() + at, cend(), buf);
             set_heap(std::move(new_data));
         } else {
             std::copy_backward(cbegin() + at, cend(), end() + delta);
             char * buf = begin() + at;
-            std::copy(tv.begin(), tv.end(), buf);
+            std::copy(sv.begin(), sv.end(), buf);
         }
 
         size_ += delta;
@@ -1021,44 +1021,44 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline string::iterator string::insert(iterator at, string_view tv)
+    inline string::iterator string::insert(iterator at, string_view sv)
     {
         auto const offset = at - begin();
-        insert(at - begin(), tv);
+        insert(at - begin(), sv);
         return begin() + offset;
     }
 
-    inline string & string::insert(int at, repeated_string_view rtv)
+    inline string & string::insert(int at, repeated_string_view rsv)
     {
         assert(0 <= at && at <= size_);
-        assert(0 <= rtv.size());
+        assert(0 <= rsv.size());
 
-        bool const rtv_null_terminated =
-            !rtv.view().empty() && rtv.view().end()[-1] == '\0';
-        if (rtv_null_terminated)
-            rtv = repeat(rtv.view()(0, -1), rtv.count());
+        bool const rsv_null_terminated =
+            !rsv.view().empty() && rsv.view().end()[-1] == '\0';
+        if (rsv_null_terminated)
+            rsv = repeat(rsv.view()(0, -1), rsv.count());
 
-        int const delta = rtv.size();
+        int const delta = rsv.size();
         if (!delta)
             return *this;
 
         bool const late_self_ref =
-            self_reference(rtv.view()) && at < rtv.view().end() - begin();
+            self_reference(rsv.view()) && at < rsv.view().end() - begin();
         int const available = capacity() - size_;
         if (late_self_ref || available < delta) {
             heap_t new_data = get_new_data(delta - available);
             char * buf = new_data.data_.get();
             buf = std::copy(cbegin(), cbegin() + at, buf);
-            for (int i = 0; i < rtv.count(); ++i) {
-                buf = std::copy(rtv.view().begin(), rtv.view().end(), buf);
+            for (int i = 0; i < rsv.count(); ++i) {
+                buf = std::copy(rsv.view().begin(), rsv.view().end(), buf);
             }
             std::copy(cbegin() + at, cend(), buf);
             set_heap(std::move(new_data));
         } else {
             std::copy_backward(cbegin() + at, cend(), end() + delta);
             char * buf = begin() + at;
-            for (int i = 0; i < rtv.count(); ++i) {
-                buf = std::copy(rtv.view().begin(), rtv.view().end(), buf);
+            for (int i = 0; i < rsv.count(); ++i) {
+                buf = std::copy(rsv.view().begin(), rsv.view().end(), buf);
             }
         }
 
@@ -1069,25 +1069,25 @@ namespace boost { namespace text {
     }
 
     inline string::iterator
-    string::insert(iterator at, repeated_string_view rtv)
+    string::insert(iterator at, repeated_string_view rsv)
     {
         auto const offset = at - begin();
-        insert(at - begin(), rtv);
+        insert(at - begin(), rsv);
         return begin() + offset;
     }
 
-    inline string & string::erase(string_view tv) noexcept
+    inline string & string::erase(string_view sv) noexcept
     {
-        assert(0 <= tv.size());
+        assert(0 <= sv.size());
 
-        bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
-        if (tv_null_terminated)
-            tv = tv(0, -1);
+        bool const sv_null_terminated = !sv.empty() && sv.end()[-1] == '\0';
+        if (sv_null_terminated)
+            sv = sv(0, -1);
 
-        assert(self_reference(tv));
+        assert(self_reference(sv));
 
-        char * first = const_cast<char *>(tv.begin());
-        return erase(first, first + tv.size());
+        char * first = const_cast<char *>(sv.begin());
+        return erase(first, first + sv.size());
     }
 
     template<typename CharRange>
@@ -1227,17 +1227,17 @@ namespace boost { namespace text {
         return insert(size(), c_str);
     }
 
-    inline string & string::operator+=(string_view tv)
+    inline string & string::operator+=(string_view sv)
     {
-        return insert(size(), tv);
+        return insert(size(), sv);
     }
 
-    inline string & string::operator+=(repeated_string_view rtv)
+    inline string & string::operator+=(repeated_string_view rsv)
     {
-        assert(0 <= rtv.size());
-        reserve(size() + rtv.size());
-        for (std::ptrdiff_t i = 0; i < rtv.count(); ++i) {
-            insert(size(), rtv.view());
+        assert(0 <= rsv.size());
+        reserve(size() + rsv.size());
+        for (std::ptrdiff_t i = 0; i < rsv.count(); ++i) {
+            insert(size(), rsv.view());
         }
         return *this;
     }
@@ -1249,11 +1249,11 @@ namespace boost { namespace text {
         return insert(size(), string_view(r));
     }
 
-    inline bool string::self_reference(string_view tv) const
+    inline bool string::self_reference(string_view sv) const
     {
         using less_t = std::less<char const *>;
         less_t less;
-        return !less(tv.begin(), begin()) && !less(end(), tv.end());
+        return !less(sv.begin(), begin()) && !less(end(), sv.end());
     }
 
 #endif // Doxygen
@@ -1313,121 +1313,121 @@ namespace boost { namespace text {
     }
 
 
-    /** Creates a new string object that is the concatenation of t and c. */
-    inline string operator+(string t, char c) { return t += c; }
+    /** Creates a new string object that is the concatenation of s and c. */
+    inline string operator+(string s, char c) { return s += c; }
 
-    /** Creates a new string object that is the concatenation of t and c_str. */
+    /** Creates a new string object that is the concatenation of s and c_str. */
     template<int N>
-    inline string operator+(string t, char const (&c_str)[N])
+    inline string operator+(string s, char const (&c_str)[N])
     {
-        return t += string_view(c_str, N);
+        return s += string_view(c_str, N);
     }
 
-    /** Creates a new string object that is the concatenation of c_str and t. */
+    /** Creates a new string object that is the concatenation of c_str and s. */
     template<int N>
-    inline string operator+(char const (&c_str)[N], string t)
+    inline string operator+(char const (&c_str)[N], string s)
     {
-        return t.insert(0, string_view(c_str, N));
+        return s.insert(0, string_view(c_str, N));
     }
 
-    /** Creates a new string object that is the concatenation of t and c_str. */
-    inline string operator+(string t, char const * c_str)
+    /** Creates a new string object that is the concatenation of s and c_str. */
+    inline string operator+(string s, char const * c_str)
     {
-        return t += string_view(c_str);
+        return s += string_view(c_str);
     }
 
-    /** Creates a new string object that is the concatenation of c_str and t. */
-    inline string operator+(char const * c_str, string t)
+    /** Creates a new string object that is the concatenation of c_str and s. */
+    inline string operator+(char const * c_str, string s)
     {
-        return t.insert(0, string_view(c_str));
+        return s.insert(0, string_view(c_str));
     }
 
-    /** Creates a new string object that is the concatenation of t and tv. */
-    inline string operator+(string const & t, string_view tv)
+    /** Creates a new string object that is the concatenation of s and sv. */
+    inline string operator+(string const & s, string_view sv)
     {
-        return string(t) += tv;
+        return string(s) += sv;
     }
 
-    /** Creates a new string object that is the concatenation of t and tv.
+    /** Creates a new string object that is the concatenation of s and sv.
      */
-    inline string operator+(string && t, string_view tv) { return t += tv; }
+    inline string operator+(string && s, string_view sv) { return s += sv; }
 
-    /** Creates a new string object that is the concatenation of t and t2. */
-    inline string operator+(string const & t, string const & t2)
+    /** Creates a new string object that is the concatenation of s and s2. */
+    inline string operator+(string const & s, string const & s2)
     {
-        return string(t) += t2;
+        return string(s) += s2;
     }
 
-    /** Creates a new string object that is the concatenation of t and t2.
+    /** Creates a new string object that is the concatenation of s and s2.
      */
-    inline string operator+(string && t, string const & t2) { return t += t2; }
+    inline string operator+(string && s, string const & s2) { return s += s2; }
 
-    /** Creates a new string object that is the concatenation of t and t2. */
-    inline string operator+(string const & t, string && t2)
+    /** Creates a new string object that is the concatenation of s and s2. */
+    inline string operator+(string const & s, string && s2)
     {
-        return t2.insert(0, t);
+        return s2.insert(0, s);
     }
 
-    /** Creates a new string object that is the concatenation of t and t2.
+    /** Creates a new string object that is the concatenation of s and s2.
      */
-    inline string operator+(string && t, string && t2) { return t += t2; }
+    inline string operator+(string && s, string && s2) { return s += s2; }
 
-    /** Creates a new string object that is the concatenation of t and rtv.
+    /** Creates a new string object that is the concatenation of s and rsv.
      */
-    inline string operator+(string const & t, repeated_string_view rtv)
+    inline string operator+(string const & s, repeated_string_view rsv)
     {
-        return string(t) += rtv;
+        return string(s) += rsv;
     }
 
-    /** Creates a new string object that is the concatenation of t and rtv.
+    /** Creates a new string object that is the concatenation of s and rsv.
      */
-    inline string operator+(string && t, repeated_string_view rtv)
+    inline string operator+(string && s, repeated_string_view rsv)
     {
-        return t += rtv;
+        return s += rsv;
     }
 
-    /** Creates a new string object that is the concatenation of tv and t. */
-    inline string operator+(string_view tv, string const & t)
+    /** Creates a new string object that is the concatenation of sv and s. */
+    inline string operator+(string_view sv, string const & s)
     {
-        return (string() += tv) += t;
+        return (string() += sv) += s;
     }
 
-    /** Creates a new string object that is the concatenation of rtv and t. */
-    inline string operator+(repeated_string_view rtv, string const & t)
+    /** Creates a new string object that is the concatenation of rsv and s. */
+    inline string operator+(repeated_string_view rsv, string const & s)
     {
-        return (string() += rtv) += t;
+        return (string() += rsv) += s;
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Creates a new string object that is the concatenation of t and r.
+    /** Creates a new string object that is the concatenation of s and r.
 
         This function only participates in overload resolution if CharRange
         models the CharRange concept. */
     template<typename CharRange>
-    string operator+(string t, CharRange const & r);
+    string operator+(string s, CharRange const & r);
 
-    /** Creates a new string object that is the concatenation of r and t.
+    /** Creates a new string object that is the concatenation of r and s.
 
         This function only participates in overload resolution if CharRange
         models the CharRange concept. */
     template<typename CharRange>
-    string operator+(CharRange const & r, string const & t);
+    string operator+(CharRange const & r, string const & s);
 
 #else
 
     template<typename CharRange>
-    auto operator+(string t, CharRange const & r)
+    auto operator+(string s, CharRange const & r)
         -> detail::rng_alg_ret_t<string, CharRange>
     {
-        return t += r;
+        return s += r;
     }
 
     template<typename CharRange>
-    auto operator+(CharRange const & r, string const & t)
+    auto operator+(CharRange const & r, string const & s)
         -> detail::rng_alg_ret_t<string, CharRange>
     {
-        return (string() += r) += t;
+        return (string() += r) += s;
     }
 
 #endif

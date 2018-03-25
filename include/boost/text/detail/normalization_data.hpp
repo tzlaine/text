@@ -256,6 +256,19 @@ namespace boost { namespace text { namespace detail {
         return quick_check(it->second.nfkc_quick_check_);
     }
 
+    /** Returns true iff \a cp is a stable code point under FCC normalization
+        (meaning that is is ccc=0 and Quick_Check_NFC=Yes).
+
+        \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
+    inline bool stable_fcc_code_point(uint32_t cp) noexcept
+    {
+        auto const it = detail::g_cp_props_map.find(cp);
+        if (it == detail::g_cp_props_map.end())
+            return false;
+        return it->second.ccc_ == 0 &&
+               quick_check(it->second.nfc_quick_check_) == quick_check::yes;
+    }
+
 }}}
 
 #endif
