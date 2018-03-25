@@ -74,7 +74,7 @@ namespace boost { namespace text {
         /** Constructs a text_view from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept.
+            CharRange models the CharRange concept.
 
             \throw std::invalid_argument if the ends of the range are not
             valid UTF-8. */

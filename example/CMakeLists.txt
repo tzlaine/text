@@ -10,14 +10,12 @@ macro(add_sample name)
     endif ()
 endmacro()
 
-# TODO add_sample(utf8_guarantee)
 add_sample(slicing)
 
 add_sample(string_view_snippets)
-# TODO add_sample(string_snippets)
+add_sample(string_snippets)
 
 add_sample(hello_world)
-# TODO add_sample(encoding)
 add_sample(param_conventions)
 add_sample(code_point_to_utf8)
 

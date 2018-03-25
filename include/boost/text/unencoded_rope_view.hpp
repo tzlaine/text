@@ -152,13 +152,13 @@ namespace boost { namespace text {
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
 
         /** Visits each segment s of the underlying unencoded_rope and calls
-            f(s).  Each segment is a value whose type models a Char_iterator
+            f(s).  Each segment is a value whose type models a CharIter
             iterator-range.  Depending of the operation performed on each
             segment, this may be more efficient than iterating over [begin(),
             end()).
 
             \pre Fn is an Invocable accepting a single argument whose begin
-            and end model Char_iterator. */
+            and end model CharIter. */
         template<typename Fn>
         void foreach_segment(Fn && f) const;
 

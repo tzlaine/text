@@ -9,14 +9,8 @@ int main ()
 //[ string_literal
 using namespace boost::text::literals;
 boost::text::string t1 = "UDL here."_s;
-boost::text::string t2 = u8"UDL here."_s;
-boost::text::string t3 = u"UDL here."_s; // char16_t
-boost::text::string t4 = U"UDL here."_s; // char32_t
 //]
 (void)t1;
-(void)t2;
-(void)t3;
-(void)t4;
 }
 
 try {

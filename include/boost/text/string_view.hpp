@@ -59,7 +59,7 @@ namespace boost { namespace text {
         /** Constructs a string_view from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept. */
+            CharRange models the CharRange concept. */
         template<typename CharRange>
         explicit string_view(
             CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0)

@@ -9,33 +9,39 @@
 `std::string` is an infamous design.  It's fat -- why are there so many member
 functions?  It's not fat enough -- what if I need to support non-ASCII
 characters?  I could use `std::basic_string<CharT>` for some `CharT` that
-works for non-ASCII uses, but then I'm left using multiple types for strings,
-or making everything a template parameterized on `CharT`.
+works for non-ASCII uses, but then I'm left using multiple types for strings
+_emdash_ each of which is called string _emdash_ without any encoding
+guarantees.
 
-This library is an attempt to re-think `std::string` as an interoperable
-family of types, each suited to a different aspect of string processing.
+In part, this library is an attempt to re-think `std::string` as an
+interoperable family of types, each suited to a different aspect of string
+processing.
+
+C++ is one of a select few major languages with no built-in support for
+Unicode.  If nothing else, this is an embarassment that should be remedied.
+
+In part, this library is a Unicode implementation suitable for use by anyone.
 
 [heading Features]
 
-- _tv_, a `std::string_view` replacement that is: _ce_, optionally
-  null-terminated; UTF-8 encoded; and immutable.
-
-- _t_, a `std::string` replacement that is: always null-terminated; strongly
-  exception safe; UTF-8 encoded; and mutable.
-
-- _r_, a _Rope_-like type with copy-on-write semantics that is:
-  non-null-terminated; basically exception safe; UTF-8 encoded; and mutable.
-
-- _rv_, an immutable non-owning view of a _r_, _t_, _tv_, or _rtv_.
-
-- _rtv_, an immutable utility type representing a repeated _tv_.
-
-- Substrings of each of the five types above can be had with no copies or
-  allocations using a Python-like slicing interface.
-
-- Compilational simplicity -- none of the above five types is a template.
+- A family of types to replace `std::string`, for users that want "a better
+  string" but do not care about encoding or Unicode.  This includes _s_, _sv_,
+  _rsv_, _ur_, and _urv_.
 
 - Iterators converting UTF-8 to and from UTF-16 and UTF-32.
+
+- An implemenation of the Unicode algorithms for dealing with encodings,
+  normalization, etc.  It is not necessary to use any of _Text_'s string types
+  to make use of the Unicode algorithms.
+
+- A family of types for use in Unicode-aware text processing.  This includes
+  _t_, _tv_, _r_, and _rv_.
+
+- Substrings of each of the string-like types above can be had with no copies
+  or allocations using a Python-like slicing interface.
+
+- Compilational simplicity -- none of the above string or text types is a
+  template.
 
 - A small library of algorithms that replicates the functionality of
   `std::string`'s search members, plus a bit more.

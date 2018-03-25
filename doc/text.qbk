@@ -6,7 +6,7 @@
 [library Boost.Text (Proposed)
     [quickbook 1.3]
     [authors [Laine, Zach]]
-    [copyright 2017 T. Zachary Laine]
+    [copyright 2018 T. Zachary Laine]
     [category template]
     [id text]
     [dirname text]
@@ -24,12 +24,10 @@
 
 [/ Imports ]
 
-[import ../example/utf8_guarantee.cpp]
 [import ../example/slicing.cpp]
 [import ../example/string_view_snippets.cpp]
 [import ../example/string_snippets.cpp]
 [import ../example/hello_world.cpp]
-[import ../example/encoding.cpp]
 [import ../example/param_conventions.cpp]
 
 [/ Images ]
@@ -44,29 +42,52 @@
 
 [def _Text_                Boost.Text]
 [def _CharRng_             [link boost_text__proposed_.concepts.charrange CharRange]]
-[def _CharIter_            [link boost_text__proposed_.concepts.chariterator CharIterator]]
+[def _CharIter_            [link boost_text__proposed_.concepts.chariter CharIter]]
+
+[def _s_                   [classref boost::text::string `string`]]
+[def _ss_                  [classref boost::text::string `string`s]]
+[def _sv_                  [classref boost::text::string_view `string_view`]]
+[def _svs_                 [classref boost::text::string_view `string_view`s]]
+[def _rsv_                 [classref boost::text::repeated_string_view `repeated_string_view`]]
+[def _rsvs_                [classref boost::text::repeated_string_view `repeated_string_view`s]]
+[def _ur_                  [classref boost::text::unencoded_rope `unencoded_rope`]]
+[def _urs_                 [classref boost::text::unencoded_rope `unencoded_rope`s]]
+[def _urv_                 [classref boost::text::unencoded_rope_view `unencoded_rope_view`]]
+[def _urvs_                [classref boost::text::unencoded_rope_view `unencoded_rope_view`s]]
 
 [def _t_                   [classref boost::text::text `text`]]
 [def _ts_                  [classref boost::text::text `text`s]]
 [def _tv_                  [classref boost::text::text_view `text_view`]]
 [def _tvs_                 [classref boost::text::text_view `text_view`s]]
-[def _rtv_                 [classref boost::text::repeated_text_view `repeated_text_view`]]
-[def _rtvs_                [classref boost::text::repeated_text_view `repeated_text_view`s]]
 [def _r_                   [classref boost::text::rope `rope`]]
 [def _rs_                  [classref boost::text::rope `rope`s]]
 [def _rv_                  [classref boost::text::rope_view `rope_view`]]
 [def _rvs_                 [classref boost::text::rope_view `rope_view`s]]
+
+[def _segv_                [classref boost::text::segmented_vector `segmented_vector`]]
+[def _trie_                [classref boost::trie::trie `trie`]]
+[def _trie_m_              [classref boost::trie::trie_map `trie_map`]]
+[def _trie_s_              [classref boost::trie::trie_set `trie_set`]]
 
 [def _thread_unsafe_m_     [macroref BOOST_TEXT_THREAD_UNSAFE]]
 
 [def _ce_                  `constexpr`]
 
 [def _Rope_                [@https://en.wikipedia.org/wiki/Rope_(data_structure) Rope]]
+[def _tn5_                 [@https://unicode.org/notes/tn5 Unicode Technical Note #5]]
+[def _ldml_coll_tail_      [@https://unicode.org/reports/tr35/tr35-collation.html LDML syntax]]
+
+[def _emdash_              \u2014]
 
 [include intro.qbk]
 [include compiler_support.qbk]
 [include string_bad.qbk]
-[include manual.qbk]
+[include overview.qbk]
+[include string_layer.qbk]
+[include unicode_layer.qbk]
+[include text_layer.qbk]
+[include examples.qbk]
+[include configuration.qbk]
 [include concepts.qbk]
 
 [xinclude text_reference.xml]

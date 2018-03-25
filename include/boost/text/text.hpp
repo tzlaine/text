@@ -19,13 +19,13 @@ namespace boost { namespace text {
     /* TODO: Make sure we support operations on:
         char const *          checked     (=)string_view
         string_view           checked     (=)string_view
-        repeated_string_view  checked     
+        repeated_string_view  checked
         string                checked     (=)string_view, except sink params
         unencoded_rope        checked     (=)unencoded_rope_view
         unencoded_rope_view   checked     (=)unencoded_rope_view
         text_view             unchecked   (=)text_view
         text                  unchecked   (=)text_view
-        rope                  unchecked   
+        rope                  unchecked
     */
 
     /** TODO */
@@ -58,7 +58,7 @@ namespace boost { namespace text {
         /** Constructs a text from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept.
+            CharRange models the CharRange concept.
 
             \throw std::invalid_argument if the ends of the range are not
             valid UTF-8. */
@@ -71,7 +71,7 @@ namespace boost { namespace text {
             encoding, use a converting iterator.
 
             This function only participates in overload resolution if CharIter
-            models the Char_iterator concept. */
+            models the CharIter concept. */
         template<typename CharIter>
         text(CharIter first, Iter Charlast);
 
@@ -102,7 +102,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept.
+            CharRange models the CharRange concept.
 
             \throw std::invalid_argument if the ends of the range are not
             valid UTF-8. */
@@ -182,7 +182,7 @@ namespace boost { namespace text {
         int size() const noexcept { return str_.size(); }
 
         /** Returns the number of bytes of storage currently in use by
-            *this. */
+         *this. */
         int capacity() const noexcept { return str_.capacity(); }
 
         /** Returns the number of graphemes in *this.  This operation is
@@ -269,7 +269,7 @@ namespace boost { namespace text {
         /** Inserts the char range r into *this starting at offset at.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept.
+            CharRange models the CharRange concept.
 
             \throw std::invalid_argument if insertion at offset at would break
             UTF-8 encoding, or if the ends of the range are not valid
@@ -281,7 +281,7 @@ namespace boost { namespace text {
             position at.
 
             This function only participates in overload resolution if CharIter
-            models the Char_iterator concept.
+            models the CharIter concept.
 
             No check is made to determine if insertion at position at would
             break UTF-8 encoding, and the inserted sequence's UTF-8 encoding
@@ -316,8 +316,7 @@ namespace boost { namespace text {
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
-        text &
-        replace(text_view old_substr, text_view new_substr);
+        text & replace(text_view old_substr, text_view new_substr);
 
         /** TODO */
         text & replace(text_view old_substr, string_view new_substr);
@@ -327,8 +326,7 @@ namespace boost { namespace text {
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
-        text &
-        replace(text_view old_substr, repeated_string_view new_substr);
+        text & replace(text_view old_substr, repeated_string_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -336,21 +334,20 @@ namespace boost { namespace text {
             char range r.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept.
+            CharRange models the CharRange concept.
 
             \throw std::invalid_argument if the ends of the range are not
             valid UTF-8.
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
         template<typename CharRange>
-        text &
-        replace(text_view old_substr, CharRange const & r);
+        text & replace(text_view old_substr, CharRange const & r);
 
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence [first, last).
 
             This function only participates in overload resolution if CharIter
-            models the Char_iterator concept.
+            models the CharIter concept.
 
             The inserted sequence's UTF-8 encoding is not checked.  To check
             the encoding, use a converting iterator.
@@ -358,8 +355,7 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
         template<typename CharIter>
-        text &
-        replace(text_view old_substr, CharIter first, CharIter last);
+        text & replace(text_view old_substr, CharIter first, CharIter last);
 
 #else
 
@@ -368,8 +364,7 @@ namespace boost { namespace text {
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
         template<typename CharIter>
-        auto
-        replace(text_view old_substr, CharIter first, CharIter last)
+        auto replace(text_view old_substr, CharIter first, CharIter last)
             -> detail::char_iter_ret_t<text &, CharIter>;
 
 #endif
@@ -401,7 +396,8 @@ namespace boost { namespace text {
 
         // TODO: Is this redundant with the string_view overload?
         /** Appends tv to *this. */
-        text & operator+=(string const & t); // TODO: String overloads are needed elsewhere.
+        text & operator+=(
+            string const & t); // TODO: String overloads are needed elsewhere.
 
         /** Appends tv to *this. */
         text & operator+=(text_view tv);
@@ -423,7 +419,7 @@ namespace boost { namespace text {
         /** Appends the char range r to *this.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept.
+            CharRange models the CharRange concept.
 
             \throw std::invalid_argument if the ends of the range are not
             valid UTF-8. */
@@ -440,8 +436,7 @@ namespace boost { namespace text {
 
         // TODO: Do formatted output.
         /** Stream inserter; performs unformatted output. */
-        friend std::ostream &
-        operator<<(std::ostream & os, text const & t)
+        friend std::ostream & operator<<(std::ostream & os, text const & t)
         {
             return os.write(t.str_.begin(), t.str_.size());
         }
@@ -469,10 +464,10 @@ namespace boost { namespace text {
                     first, last, last}};
         }
 
-        template<typename Iter>
-        static std::reverse_iterator<Iter> make_reverse_iter(Iter it)
+        template<typename CharIter>
+        static std::reverse_iterator<CharIter> make_reverse_iter(CharIter it)
         {
-            return std::reverse_iterator<Iter>{it};
+            return std::reverse_iterator<CharIter>{it};
         }
 
         string str_;
@@ -663,8 +658,7 @@ namespace boost { namespace text {
         return insert(at, text_view(r));
     }
 
-    inline text &
-    text::insert(iterator at, text_view tv)
+    inline text & text::insert(iterator at, text_view tv)
     {
         str_.insert(
             at.base().base(), tv.begin().base().base(), tv.end().base().base());
@@ -677,8 +671,7 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text &
-    text::insert(iterator at, repeated_string_view rtv)
+    inline text & text::insert(iterator at, repeated_string_view rtv)
     {
         str_.insert(at.base().base() - str_.begin(), rtv);
         return *this;
@@ -700,31 +693,28 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::replace(
-        text_view old_substr, text_view new_substr)
+    inline text & text::replace(text_view old_substr, text_view new_substr)
+    {
+        // TODO
+        return *this;
+    }
+
+    inline text & text::replace(text_view old_substr, string_view new_substr)
     {
         // TODO
         return *this;
     }
 
     inline text &
-    text::replace(text_view old_substr, string_view new_substr)
+    text::replace(text_view old_substr, repeated_string_view new_substr)
     {
         // TODO
         return *this;
     }
 
-    inline text & text::replace(
-        text_view old_substr, repeated_string_view new_substr)
-    {
-        // TODO
-        return *this;
-    }
-
-    template<typename Iter>
-    auto
-    text::replace(text_view old_substr, Iter first, Iter last)
-        -> detail::char_iter_ret_t<text &, Iter>
+    template<typename CharIter>
+    auto text::replace(text_view old_substr, CharIter first, CharIter last)
+        -> detail::char_iter_ret_t<text &, CharIter>
     {
         // TODO
         return *this;
@@ -831,7 +821,7 @@ namespace boost { namespace text {
     /** Creates a new text object that is the concatenation of t and r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         \throw std::invalid_argument if the ends of the range are not valid
         UTF-8. */
@@ -841,7 +831,7 @@ namespace boost { namespace text {
     /** Creates a new text object that is the concatenation of r and t.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         \throw std::invalid_argument if the ends of the range are not valid
         UTF-8. */

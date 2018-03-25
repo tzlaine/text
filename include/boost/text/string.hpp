@@ -65,13 +65,16 @@ namespace boost { namespace text {
         /** Constructs a string from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept. */
+            CharRange models the CharRange concept. */
         template<typename CharRange>
         explicit string(CharRange const & r);
 
-        /** Constructs a string from a sequence of char.  */
-        template<typename Iter>
-        string(Iter first, Iter last);
+        /** Constructs a string from a sequence of char.
+
+            This function only participates in overload resolution if
+            CharIter models the CharIter concept. */
+        template<typename CharIter>
+        string(CharIter first, CharIter last);
 
 #else
 
@@ -85,9 +88,11 @@ namespace boost { namespace text {
             insert(0, r);
         }
 
-        template<typename Iter>
+        template<typename CharIter>
         string(
-            Iter first, Iter last, detail::char_iter_ret_t<void *, Iter> = 0) :
+            CharIter first,
+            CharIter last,
+            detail::char_iter_ret_t<void *, CharIter> = 0) :
             storage_(),
             size_(0),
             heap_(false)
@@ -117,7 +122,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept. */
+            CharRange models the CharRange concept. */
         template<typename CharRange>
         string & operator=(CharRange const & r);
 
@@ -280,32 +285,32 @@ namespace boost { namespace text {
         /** Inserts the char range r into *this starting at offset at.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept. */
+            CharRange models the CharRange concept. */
         template<typename CharRange>
         string & insert(int at, CharRange const & r);
 
         /** Inserts the char range r into *this starting at position at.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept. */
+            CharRange models the CharRange concept. */
         template<typename CharRange>
         iterator insert(iterator at, CharRange const & r);
 
         /** Inserts the char sequence [first, last) into *this starting at
             offset at.
 
-            This function only participates in overload resolution if Iter
-            models the Char_iterator concept. */
-        template<typename Iter>
-        string & insert(int at, Iter first, Iter last);
+            This function only participates in overload resolution if CharIter
+            models the CharIter concept. */
+        template<typename CharIter>
+        string & insert(int at, CharIter first, CharIter last);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
 
-            This function only participates in overload resolution if Iter
-            models the Char_iterator concept. */
-        template<typename Iter>
-        iterator insert(iterator at, Iter first, Iter last);
+            This function only participates in overload resolution if CharIter
+            models the CharIter concept. */
+        template<typename CharIter>
+        iterator insert(iterator at, CharIter first, CharIter last);
 
 #else
 
@@ -317,9 +322,9 @@ namespace boost { namespace text {
         auto insert(iterator at, CharRange const & r)
             -> detail::rng_alg_ret_t<iterator, CharRange>;
 
-        template<typename Iter>
-        auto insert(int at, Iter first, Iter last)
-            -> detail::char_iter_ret_t<string &, Iter>
+        template<typename CharIter>
+        auto insert(int at, CharIter first, CharIter last)
+            -> detail::char_iter_ret_t<string &, CharIter>
         {
             assert(0 <= at && at <= size_);
 
@@ -331,9 +336,9 @@ namespace boost { namespace text {
             return *this;
         }
 
-        template<typename Iter>
-        auto insert(iterator at, Iter first, Iter last)
-            -> detail::char_iter_ret_t<iterator, Iter>
+        template<typename CharIter>
+        auto insert(iterator at, CharIter first, CharIter last)
+            -> detail::char_iter_ret_t<iterator, CharIter>
         {
             assert(begin() <= at && at <= end());
 
@@ -387,7 +392,7 @@ namespace boost { namespace text {
             char range r.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept.
+            CharRange models the CharRange concept.
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
@@ -397,27 +402,27 @@ namespace boost { namespace text {
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence [first, last).
 
-            This function only participates in overload resolution if Iter
-            models the Char_iterator concept.
+            This function only participates in overload resolution if CharIter
+            models the CharIter concept.
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
-        template<typename Iter>
-        string & replace(string_view old_substr, Iter first, Iter last);
+        template<typename CharIter>
+        string & replace(string_view old_substr, CharIter first, CharIter last);
 
         /** Replaces the portion of *this delimited by [old_first, old_last)
             with the char sequence [new_first, new_last).
 
-            This function only participates in overload resolution if Iter
-            models the Char_iterator concept.
+            This function only participates in overload resolution if CharIter
+            models the CharIter concept.
 
            \pre old_first <= old_last */
-        template<typename Iter>
+        template<typename CharIter>
         string & replace(
             iterator old_first,
             iterator old_last,
-            Iter new_first,
-            Iter new_last);
+            CharIter new_first,
+            CharIter new_last);
 
 #else
 
@@ -425,18 +430,18 @@ namespace boost { namespace text {
         auto replace(string_view old_substr, CharRange const & r)
             -> detail::rng_alg_ret_t<string &, CharRange>;
 
-        template<typename Iter>
-        auto replace(string_view old_substr, Iter first, Iter last)
-            -> detail::char_iter_ret_t<string &, Iter>;
+        template<typename CharIter>
+        auto replace(string_view old_substr, CharIter first, CharIter last)
+            -> detail::char_iter_ret_t<string &, CharIter>;
 
-        // TODO: Perf test replace(Iter) against insert(Iter), and replace the
-        // insert(Iter) implementation if that is warranted.
-        template<typename Iter>
+        // TODO: Perf test replace(CharIter) against insert(CharIter), and
+        // replace the insert(CharIter) implementation if that is warranted.
+        template<typename CharIter>
         auto replace(
             iterator old_first,
             iterator old_last,
-            Iter new_first,
-            Iter new_last) -> detail::char_iter_ret_t<string &, Iter>
+            CharIter new_first,
+            CharIter new_last) -> detail::char_iter_ret_t<string &, CharIter>
         {
             assert(begin() <= old_first && old_last <= end());
             assert(old_first <= old_last);
@@ -580,7 +585,7 @@ namespace boost { namespace text {
         /** Appends the char range r to *this.
 
             This function only participates in overload resolution if
-            CharRange models the Char_range concept. */
+            CharRange models the CharRange concept. */
         template<typename CharRange>
         string & operator+=(CharRange const & r);
 
@@ -655,9 +660,9 @@ namespace boost { namespace text {
             ++size_;
         }
 
-        template<typename Iter>
-        auto insert_iter_impl(int at, Iter first, Iter last)
-            -> detail::char_iter_ret_t<iterator, Iter>
+        template<typename CharIter>
+        auto insert_iter_impl(int at, CharIter first, CharIter last)
+            -> detail::char_iter_ret_t<iterator, CharIter>
         {
             auto const initial_size = size_;
             try {
@@ -676,16 +681,16 @@ namespace boost { namespace text {
             return begin() + at + (size_ - initial_size);
         }
 
-        template<typename Iter>
+        template<typename CharIter>
         struct buf_ptr_iterator
         {
             char * buf_;
-            Iter it_;
+            CharIter it_;
         };
 
-        template<typename Iter>
-        buf_ptr_iterator<Iter>
-        fill_buf(char * buf, int size, Iter first, Iter last)
+        template<typename CharIter>
+        buf_ptr_iterator<CharIter>
+        fill_buf(char * buf, int size, CharIter first, CharIter last)
         {
             char * const buf_end = buf + size;
             while (first != last && buf != buf_end) {
@@ -706,15 +711,16 @@ namespace boost { namespace text {
             return it;
         }
 
-        template<typename Iter>
+        template<typename CharIter>
         int read_iters(
             char * buf,
             int size,
             std::list<heap_t> & bufs,
-            Iter first,
-            Iter last)
+            CharIter first,
+            CharIter last)
         {
-            buf_ptr_iterator<Iter> buf_first = fill_buf(buf, size, first, last);
+            buf_ptr_iterator<CharIter> buf_first =
+                fill_buf(buf, size, first, last);
 
             int chars_pushed = buf_first.buf_ - buf;
             int buf_size = size;
@@ -843,7 +849,10 @@ namespace boost { namespace text {
         insert(0, string_view(t.begin(), t.size() + 1));
     }
 
-    inline string::string(char const * c_str) : storage_(), size_(0), heap_(false)
+    inline string::string(char const * c_str) :
+        storage_(),
+        size_(0),
+        heap_(false)
     {
         insert(0, string_view(c_str));
     }
@@ -1194,9 +1203,9 @@ namespace boost { namespace text {
         return *this;
     }
 
-    template<typename Iter>
-    auto string::replace(string_view old_substr, Iter first, Iter last)
-        -> detail::char_iter_ret_t<string &, Iter>
+    template<typename CharIter>
+    auto string::replace(string_view old_substr, CharIter first, CharIter last)
+        -> detail::char_iter_ret_t<string &, CharIter>
     {
         assert(0 <= old_substr.size());
 
@@ -1361,10 +1370,7 @@ namespace boost { namespace text {
 
     /** Creates a new string object that is the concatenation of t and t2.
      */
-    inline string operator+(string && t, string && t2)
-    {
-        return t += t2;
-    }
+    inline string operator+(string && t, string && t2) { return t += t2; }
 
     /** Creates a new string object that is the concatenation of t and rtv.
      */
@@ -1397,14 +1403,14 @@ namespace boost { namespace text {
     /** Creates a new string object that is the concatenation of t and r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept. */
+        models the CharRange concept. */
     template<typename CharRange>
     string operator+(string t, CharRange const & r);
 
     /** Creates a new string object that is the concatenation of r and t.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept. */
+        models the CharRange concept. */
     template<typename CharRange>
     string operator+(CharRange const & r, string const & t);
 

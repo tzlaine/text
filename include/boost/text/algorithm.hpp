@@ -27,7 +27,7 @@ namespace boost { namespace text {
         lhs is lexicographically greater than rhs.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -43,7 +43,7 @@ namespace boost { namespace text {
         lhs is lexicographically greater than rhs.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -59,7 +59,7 @@ namespace boost { namespace text {
         lhs is lexicographically greater than rhs.
 
         This function only participates in overload resolution if LCharRange
-        and RCharRange each model the Char_range concept.
+        and RCharRange each model the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename LCharRange, typename RCharRange>
@@ -154,7 +154,7 @@ namespace boost { namespace text {
         considered to match the beginning of r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -170,7 +170,7 @@ namespace boost { namespace text {
         considered to match the beginning of r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -186,7 +186,7 @@ namespace boost { namespace text {
         considered to match the beginning of r.
 
         This function only participates in overload resolution if CharRange
-        and PatternCharRange each model the Char_range concept.
+        and PatternCharRange each model the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange, typename PatternCharRange>
@@ -238,7 +238,7 @@ namespace boost { namespace text {
         always considered to match the beginning of r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -254,7 +254,7 @@ namespace boost { namespace text {
         always considered to match the beginning of r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -270,7 +270,7 @@ namespace boost { namespace text {
         always considered to match the beginning of r.
 
         This function only participates in overload resolution if CharRange
-        and PatternCharRange each model the Char_range concept.
+        and PatternCharRange each model the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange, typename PatternCharRange>
@@ -328,7 +328,7 @@ namespace boost { namespace text {
         chars in p, or a value < 0 if none of the chars in p is found in r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -343,7 +343,7 @@ namespace boost { namespace text {
         chars in p, or a value < 0 if none of the chars in p is found in r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -358,7 +358,7 @@ namespace boost { namespace text {
         chars in p, or a value < 0 if none of the chars in p is found in r.
 
         This function only participates in overload resolution if CharRange
-        and PatternCharRange each model the Char_range concept.
+        and PatternCharRange each model the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange, typename PatternCharRange>
@@ -415,7 +415,7 @@ namespace boost { namespace text {
         chars in p, or a value < 0 if none of the chars in p is found in r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -430,7 +430,7 @@ namespace boost { namespace text {
         chars in p, or a value < 0 if none of the chars in p is found in r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -445,7 +445,7 @@ namespace boost { namespace text {
         chars in p, or a value < 0 if none of the chars in p is found in r.
 
         This function only participates in overload resolution if CharRange
-        and PatternCharRange each model the Char_range concept.
+        and PatternCharRange each model the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange, typename PatternCharRange>
@@ -509,7 +509,7 @@ namespace boost { namespace text {
         p.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -525,7 +525,7 @@ namespace boost { namespace text {
         p.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -541,7 +541,7 @@ namespace boost { namespace text {
         p.
 
         This function only participates in overload resolution if CharRange
-        and PatternCharRange each model the Char_range concept.
+        and PatternCharRange each model the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange, typename PatternCharRange>
@@ -602,7 +602,7 @@ namespace boost { namespace text {
         any char in pattern p, or a value < 0 if every char in r is in p.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -617,7 +617,7 @@ namespace boost { namespace text {
         any char in pattern p, or a value < 0 if every char in r is in p.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -632,7 +632,7 @@ namespace boost { namespace text {
         any char in pattern p, or a value < 0 if every char in r is in p.
 
         This function only participates in overload resolution if CharRange
-        and PatternCharRange each model the Char_range concept.
+        and PatternCharRange each model the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange, typename PatternCharRange>
@@ -731,7 +731,7 @@ namespace boost { namespace text {
         considered to match the end of r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -747,7 +747,7 @@ namespace boost { namespace text {
         considered to match the end of r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -763,7 +763,7 @@ namespace boost { namespace text {
         considered to match the end of r.
 
         This function only participates in overload resolution if CharRange
-        and PatternCharRange each model the Char_range concept.
+        and PatternCharRange each model the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange, typename PatternCharRange>
@@ -815,7 +815,7 @@ namespace boost { namespace text {
         considered to match the end of r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -831,7 +831,7 @@ namespace boost { namespace text {
         considered to match the end of r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange>
@@ -847,7 +847,7 @@ namespace boost { namespace text {
         considered to match the end of r.
 
         This function only participates in overload resolution if CharRange
-        and PatternCharRange each model the Char_range concept.
+        and PatternCharRange each model the CharRange concept.
 
         This function is constexpr in C++14 and later. */
     template<typename CharRange, typename PatternCharRange>
@@ -887,7 +887,7 @@ namespace boost { namespace text {
     /** Returns the first char of range r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later.
 
@@ -912,7 +912,7 @@ namespace boost { namespace text {
     /** Returns the last char of range r.
 
         This function only participates in overload resolution if CharRange
-        models the Char_range concept.
+        models the CharRange concept.
 
         This function is constexpr in C++14 and later.
 
