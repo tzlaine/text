@@ -1,6 +1,5 @@
 index.html
 boost_text__proposed_/intro.html
-boost_text__proposed_/compiler_support.html
 boost_text__proposed_/why_is_std__string_so_bad_.html
 boost_text__proposed_/an_overview_of_boost_text.html
 boost_text__proposed_/the__text__string_types.html
@@ -9,6 +8,7 @@ boost_text__proposed_/the__text__text_types_.html
 boost_text__proposed_/examples.html
 boost_text__proposed_/configuration.html
 boost_text__proposed_/concepts.html
+boost_text__proposed_/compiler_support.html
 reference.html
 header/boost/text/algorithm_hpp.html
 boost/text/foreach_subrange_range.html
