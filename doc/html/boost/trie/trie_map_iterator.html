@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct template trie_map_iterator</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/trie_map_hpp.html" title="Header &lt;boost/text/trie_map.hpp&gt;">
+<link rel="prev" href="trie_map_element.html" title="Struct template trie_map_element">
+<link rel="next" href="trie_range.html" title="Struct template trie_range">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="trie_map_element.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_map_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="trie_range.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.trie.trie_map_iterator"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct template trie_map_iterator</span></h2>
+<p>boost::trie::trie_map_iterator</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/trie_map_hpp.html" title="Header &lt;boost/text/trie_map.hpp&gt;">boost/text/trie_map.hpp</a>&gt;
+
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Key<span class="special">,</span> <span class="keyword">typename</span> Value<span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="trie_map_iterator.html" title="Struct template trie_map_iterator">trie_map_iterator</a> <span class="special">{</span>
+  <span class="comment">// types</span>
+  <span class="keyword">typedef</span> <a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a><span class="special">&lt;</span> <span class="identifier">Key</span><span class="special">,</span> <span class="identifier">Value</span> <span class="special">&gt;</span>   <a name="boost.trie.trie_map_iterator.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>       
+  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>                      <a name="boost.trie.trie_map_iterator.pointer"></a><span class="identifier">pointer</span><span class="special">;</span>          
+  <span class="keyword">typedef</span> <a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a><span class="special">&lt;</span> <span class="identifier">Key</span><span class="special">,</span> <span class="identifier">Value</span> <span class="special">&amp;</span> <span class="special">&gt;</span> <a name="boost.trie.trie_map_iterator.reference"></a><span class="identifier">reference</span><span class="special">;</span>        
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span>                   <a name="boost.trie.trie_map_iterator.difference_type"></a><span class="identifier">difference_type</span><span class="special">;</span>  
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">bidirectional_iterator_tag</span>  <a name="boost.trie.trie_map_iterator.iterator_category"></a><span class="identifier">iterator_category</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="trie_map_iterator.html#boost.trie.trie_map_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="trie_map_iterator.html#idm8401-bb"><span class="identifier">trie_map_iterator</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="trie_map_iterator.html#idm8402-bb"><span class="identifier">trie_map_iterator</span></a><span class="special">(</span><a class="link" href="trie_match_result.html" title="Struct trie_match_result">trie_match_result</a><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="trie_map_iterator.html#idm8407-bb"><span class="identifier">trie_map_iterator</span></a><span class="special">(</span><span class="emphasis"><em><span class="identifier">unspecified</span></em></span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="trie_map_iterator.html#idm8411-bb"><span class="identifier">trie_map_iterator</span></a><span class="special">(</span><a class="link" href="const_trie_map_iterator.html" title="Struct template const_trie_map_iterator">const_trie_map_iterator</a><span class="special">&lt;</span> <span class="identifier">Key</span><span class="special">,</span> <span class="identifier">Value</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="trie_map_iterator.html#idm8380-bb">public member functions</a></span>
+  <span class="identifier">reference</span> <a class="link" href="trie_map_iterator.html#idm8381-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">(</span><span class="keyword">noexcept</span><span class="special">(</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">reconstruct_key</span><span class="special">(</span><span class="identifier">it_</span><span class="special">.</span><span class="identifier">state_</span><span class="special">)</span><span class="special">)</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">pointer</span> <a class="link" href="trie_map_iterator.html#idm8383-bb"><span class="keyword">operator</span><span class="special">-&gt;</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">(</span><span class="keyword">noexcept</span><span class="special">(</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">reconstruct_key</span><span class="special">(</span><span class="identifier">it_</span><span class="special">.</span><span class="identifier">state_</span><span class="special">)</span><span class="special">)</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="trie_map_iterator.html" title="Struct template trie_map_iterator">trie_map_iterator</a> <span class="special">&amp;</span> <a class="link" href="trie_map_iterator.html#idm8385-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="trie_map_iterator.html" title="Struct template trie_map_iterator">trie_map_iterator</a> <a class="link" href="trie_map_iterator.html#idm8388-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="trie_map_iterator.html" title="Struct template trie_map_iterator">trie_map_iterator</a> <span class="special">&amp;</span> <a class="link" href="trie_map_iterator.html#idm8393-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="trie_map_iterator.html" title="Struct template trie_map_iterator">trie_map_iterator</a> <a class="link" href="trie_map_iterator.html#idm8396-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm25591"></a><h2>Description</h2>
+<div class="refsect2">
+<a name="idm25593"></a><h3>
+<a name="boost.trie.trie_map_iteratorconstruct-copy-destruct"></a><code class="computeroutput">trie_map_iterator</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a name="idm8401-bb"></a><span class="identifier">trie_map_iterator</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm8402-bb"></a><span class="identifier">trie_map_iterator</span><span class="special">(</span><a class="link" href="trie_match_result.html" title="Struct trie_match_result">trie_match_result</a> match_result<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idm8407-bb"></a><span class="identifier">trie_map_iterator</span><span class="special">(</span><span class="emphasis"><em><span class="identifier">unspecified</span></em></span> state<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idm8411-bb"></a><span class="identifier">trie_map_iterator</span><span class="special">(</span><a class="link" href="const_trie_map_iterator.html" title="Struct template const_trie_map_iterator">const_trie_map_iterator</a><span class="special">&lt;</span> <span class="identifier">Key</span><span class="special">,</span> <span class="identifier">Value</span> <span class="special">&gt;</span> it<span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm25643"></a><h3>
+<a name="idm8380-bb"></a><code class="computeroutput">trie_map_iterator</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="identifier">reference</span> <a name="idm8381-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">(</span><span class="keyword">noexcept</span><span class="special">(</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">reconstruct_key</span><span class="special">(</span><span class="identifier">it_</span><span class="special">.</span><span class="identifier">state_</span><span class="special">)</span><span class="special">)</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">pointer</span> <a name="idm8383-bb"></a><span class="keyword">operator</span><span class="special">-&gt;</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">(</span><span class="keyword">noexcept</span><span class="special">(</span><span class="identifier">detail</span><span class="special">::</span><span class="identifier">reconstruct_key</span><span class="special">(</span><span class="identifier">it_</span><span class="special">.</span><span class="identifier">state_</span><span class="special">)</span><span class="special">)</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="trie_map_iterator.html" title="Struct template trie_map_iterator">trie_map_iterator</a> <span class="special">&amp;</span> <a name="idm8385-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="trie_map_iterator.html" title="Struct template trie_map_iterator">trie_map_iterator</a> <a name="idm8388-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="trie_map_iterator.html" title="Struct template trie_map_iterator">trie_map_iterator</a> <span class="special">&amp;</span> <a name="idm8393-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="trie_map_iterator.html" title="Struct template trie_map_iterator">trie_map_iterator</a> <a name="idm8396-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="trie_map_element.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_map_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="trie_range.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

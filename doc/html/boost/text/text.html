@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/text_hpp.html" title="Header &lt;boost/text/text.hpp&gt;">
-<link rel="prev" href="literals/operato_idp140245662332632.html" title='Function operator""_t'>
-<link rel="next" href="checked_idp140245662356984.html" title="Function checked_encoding">
+<link rel="prev" href="literals/operator_t_idm6822.html" title='Function operator""_t'>
+<link rel="next" href="operator__idm6895.html" title="Function operator+">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="literals/operato_idp140245662332632.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/text_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="checked_idp140245662356984.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="literals/operator_t_idm6822.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/text_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="operator__idm6895.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.text.text"></a><div class="titlepage"></div>
@@ -25,119 +25,106 @@
 </span>
 <span class="keyword">struct</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">{</span>
   <span class="comment">// types</span>
-  <span class="keyword">typedef</span> <span class="keyword">char</span> <span class="special">*</span>       <a name="boost.text.text.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>              
-  <span class="keyword">typedef</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> <a name="boost.text.text.const_iterator"></a><span class="identifier">const_iterator</span><span class="special">;</span>        
-  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>  <a name="boost.text.text.reverse_iterator"></a><span class="identifier">reverse_iterator</span><span class="special">;</span>      
-  <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span>  <a name="boost.text.text.const_reverse_iterator"></a><span class="identifier">const_reverse_iterator</span><span class="special">;</span>
+  <span class="keyword">typedef</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a><span class="special">&lt;</span> <a class="link" href="utf8/to_utf32_iterator.html" title="Struct template to_utf32_iterator">utf8::to_utf32_iterator</a><span class="special">&lt;</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">,</span> <span class="keyword">char</span> <span class="special">*</span> <span class="special">&gt;</span> <span class="special">&gt;</span>             <a name="boost.text.text.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>              
+  <span class="keyword">typedef</span> <a class="link" href="grapheme_iterator.html" title="Struct template grapheme_iterator">grapheme_iterator</a><span class="special">&lt;</span> <a class="link" href="utf8/to_utf32_iterator.html" title="Struct template to_utf32_iterator">utf8::to_utf32_iterator</a><span class="special">&lt;</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <a name="boost.text.text.const_iterator"></a><span class="identifier">const_iterator</span><span class="special">;</span>        
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span>                                          <a name="boost.text.text.reverse_iterator"></a><span class="identifier">reverse_iterator</span><span class="special">;</span>      
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span>                                    <a name="boost.text.text.const_reverse_iterator"></a><span class="identifier">const_reverse_iterator</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="text.html#boost.text.textconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="text.html#idp140245662275752-bb"><span class="identifier">text</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="text.html#idp140245662277416-bb"><span class="identifier">text</span></a><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html#idp140245662294920-bb"><span class="identifier">text</span></a><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">explicit</span> <a class="link" href="text.html#idp140245662296280-bb"><span class="identifier">text</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">explicit</span> <a class="link" href="text.html#idp140245662298648-bb"><span class="identifier">text</span></a><span class="special">(</span><a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <span class="keyword">explicit</span> <a class="link" href="text.html#idp140245662301048-bb"><span class="identifier">text</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <a class="link" href="text.html#idp140245662304792-bb"><span class="identifier">text</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662308280-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662310008-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662311976-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662316024-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662318696-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html#idm6675-bb"><span class="identifier">text</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="text.html#idm6678-bb"><span class="identifier">text</span></a><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="text.html#idm6684-bb"><span class="identifier">text</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="text.html#idm6691-bb"><span class="identifier">text</span></a><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="text.html#idm6698-bb"><span class="identifier">text</span></a><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <span class="keyword">explicit</span> <a class="link" href="text.html#idm6705-bb"><span class="identifier">text</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">&gt;</span> <a class="link" href="text.html#idm6717-bb"><span class="identifier">text</span></a><span class="special">(</span><span class="identifier">CharIter</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6728-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6742-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6750-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6758-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6767-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6776-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="text.html#idp140245662143208-bb">public member functions</a></span>
-  <span class="identifier">iterator</span> <a class="link" href="text.html#idp140245662143736-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="text.html#idp140245662144760-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="text.html#idp140245662145784-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="text.html#idp140245662146808-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="text.html#idp140245662147832-bb"><span class="identifier">cbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="text.html#idp140245662148856-bb"><span class="identifier">cend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">reverse_iterator</span> <a class="link" href="text.html#idp140245662149880-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">reverse_iterator</span> <a class="link" href="text.html#idp140245662150920-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text.html#idp140245662151960-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text.html#idp140245662153000-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text.html#idp140245662154040-bb"><span class="identifier">crbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text.html#idp140245662155080-bb"><span class="identifier">crend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="text.html#idp140245662156120-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">int</span> <a class="link" href="text.html#idp140245662157896-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">int</span> <a class="link" href="text.html#idp140245662159400-bb"><span class="identifier">capacity</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">char</span> <a class="link" href="text.html#idp140245662161240-bb"><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="text_view.html" title="Struct text_view">text_view</a> <a class="link" href="text.html#idp140245662164040-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <a class="link" href="text_view.html" title="Struct text_view">text_view</a> <a class="link" href="text.html#idp140245662169656-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">int</span> <a class="link" href="text.html#idp140245662173416-bb"><span class="identifier">max_size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">int</span> <a class="link" href="text.html#idp140245662174872-bb"><span class="identifier">compare</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="text.html#idp140245662177224-bb"><span class="keyword">operator</span><span class="special">==</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="text.html#idp140245662179016-bb"><span class="keyword">operator</span><span class="special">!=</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="text.html#idp140245662180808-bb"><span class="keyword">operator</span><span class="special">&lt;</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="text.html#idp140245662182600-bb"><span class="keyword">operator</span><span class="special">&lt;=</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="text.html#idp140245662184392-bb"><span class="keyword">operator</span><span class="special">&gt;</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="text.html#idp140245662186184-bb"><span class="keyword">operator</span><span class="special">&gt;=</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="text.html#idp140245662187976-bb"><span class="identifier">clear</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">char</span> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662190152-bb"><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662192632-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662196568-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662200520-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662205528-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662211496-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662216568-bb"><span class="identifier">erase</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662219784-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662223832-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662227656-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">,</span> <a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662231496-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662237048-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">,</span> <span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662242888-bb"><span class="identifier">replace</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="text.html#idp140245662249320-bb"><span class="identifier">resize</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">char</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="text.html#idp140245662253336-bb"><span class="identifier">reserve</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="text.html#idp140245662255912-bb"><span class="identifier">shrink_to_fit</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="text.html#idp140245662257880-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662260232-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662262344-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662264584-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662266840-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="rope.html" title="Struct rope">rope</a><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662269080-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="rope_view.html" title="Struct rope_view">rope_view</a><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662271320-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="text.html#idm6360-bb">public member functions</a></span>
+  <span class="identifier">iterator</span> <a class="link" href="text.html#idm6361-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="text.html#idm6363-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="text.html#idm6365-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="text.html#idm6367-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="text.html#idm6369-bb"><span class="identifier">cbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="text.html#idm6371-bb"><span class="identifier">cend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">reverse_iterator</span> <a class="link" href="text.html#idm6373-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">reverse_iterator</span> <a class="link" href="text.html#idm6375-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text.html#idm6377-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text.html#idm6379-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text.html#idm6381-bb"><span class="identifier">crbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text.html#idm6383-bb"><span class="identifier">crend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="text.html#idm6385-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="text.html#idm6389-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="text.html#idm6393-bb"><span class="identifier">capacity</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="text.html#idm6397-bb"><span class="identifier">count_graphemes</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="text.html#idm6401-bb"><span class="identifier">max_size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="text.html#idm6405-bb"><span class="identifier">clear</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6412-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6426-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <a class="link" href="string_view.html" title="Struct string_view">string_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6440-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6454-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6470-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">CharIter</span><span class="special">,</span> <span class="identifier">CharIter</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6485-bb"><span class="identifier">erase</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6496-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6510-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">,</span> <a class="link" href="string_view.html" title="Struct string_view">string_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6521-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">,</span> <a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6535-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6554-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">,</span> <span class="identifier">CharIter</span><span class="special">,</span> <span class="identifier">CharIter</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="text.html#idm6573-bb"><span class="identifier">reserve</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="text.html#idm6582-bb"><span class="identifier">shrink_to_fit</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="text.html#idm6589-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="string.html" title="Struct string">string</a> <a class="link" href="text.html#idm6596-bb"><span class="identifier">extract</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="text.html#idm6601-bb"><span class="identifier">replace</span></a><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6608-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6615-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6623-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6631-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6639-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6647-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><span class="identifier">rope</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6654-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><span class="identifier">rope_view</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a class="link" href="text.html#idm6661-bb"><span class="keyword">operator</span><span class="special">+=</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="text.html#idp140245662321400-bb">friend functions</a></span>
-  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="text.html#idp140245662321928-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="text.html#idm6785-bb">friend functions</a></span>
+  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="text.html#idm6786-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp140686293603976"></a><h2>Description</h2>
-<p>A mutable contiguous null-terminated sequence of char. The sequence is assumed to be UTF-8 encoded, though it is possible to construct a sequence which is not. Strongly exception safe. </p>
+<a name="idm18183"></a><h2>Description</h2>
+<p>TODO </p>
 <div class="refsect2">
-<a name="idp140686293604824"></a><h3>
+<a name="idm18186"></a><h3>
 <a name="boost.text.textconstruct-copy-destruct"></a><code class="computeroutput">text</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><a name="idp140245662275752-bb"></a><span class="identifier">text</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Default ctor.</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Postconditions:</span></p></td>
-<td><p>size() == 0 &amp;&amp; capacity() == 0; begin(), end() delimit a valid, null-terminated empty string </p></td>
-</tr></tbody>
-</table></div>
+<pre class="literallayout"><a name="idm6675-bb"></a><span class="identifier">text</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<p>Default ctor. </p>
 </li>
-<li class="listitem"><pre class="literallayout"><a name="idp140245662277416-bb"></a><span class="identifier">text</span><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idp140245662294920-bb"></a><span class="identifier">text</span><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">explicit</span> <a name="idp140245662296280-bb"></a><span class="identifier">text</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm6678-bb"></a><span class="identifier">text</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> t<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a text from a string. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm6684-bb"></a><span class="identifier">text</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs a text from a <code class="computeroutput"><a class="link" href="text_view.html" title="Struct text_view">text_view</a></code>. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">explicit</span> <a name="idp140245662298648-bb"></a><span class="identifier">text</span><span class="special">(</span><a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
-<p>Constructs a text from a <code class="computeroutput"><a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>. </p>
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm6691-bb"></a><span class="identifier">text</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a text from a <code class="computeroutput"><a class="link" href="string_view.html" title="Struct string_view">string_view</a></code>. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <span class="keyword">explicit</span> <a name="idp140245662301048-bb"></a><span class="identifier">text</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm6698-bb"></a><span class="identifier">text</span><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Constructs a text from a <code class="computeroutput"><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <span class="keyword">explicit</span> <a name="idm6705-bb"></a><span class="identifier">text</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs a text from a range of char.</p>
-<p>This function only participates in overload resolution if CharRange models the Char_range concept.</p>
+<p>This function only participates in overload resolution if CharRange models the CharRange concept.</p>
 <p>
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
@@ -152,17 +139,15 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <a name="idp140245662304792-bb"></a><span class="identifier">text</span><span class="special">(</span><span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Iter</span> last<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">&gt;</span> <a name="idm6717-bb"></a><span class="identifier">text</span><span class="special">(</span><span class="identifier">CharIter</span> first<span class="special">,</span> <span class="identifier">Iter</span> Charlast<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs a text from a sequence of char.</p>
 <p>The sequence's UTF-8 encoding is not checked. To check the encoding, use a converting iterator.</p>
-<p>This function only participates in overload resolution if Iter models the Char_iterator concept. </p>
+<p>This function only participates in overload resolution if CharIter models the CharIter concept. </p>
 </li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662308280-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662310008-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662311976-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6728-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
 <p>Assignment from a range of char.</p>
-<p>This function only participates in overload resolution if CharRange models the Char_range concept.</p>
+<p>This function only participates in overload resolution if CharRange models the CharRange concept.</p>
 <p>
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
@@ -177,134 +162,65 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662316024-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6742-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a string. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6750-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span> t<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a string. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6758-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
 <p>Assignment from a <code class="computeroutput"><a class="link" href="text_view.html" title="Struct text_view">text_view</a></code>. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662318696-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
-<p>Assignment from a <code class="computeroutput"><a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>. </p>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6767-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a <code class="computeroutput"><a class="link" href="string_view.html" title="Struct string_view">string_view</a></code>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6776-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Assignment from a <code class="computeroutput"><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>. </p>
 </li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idp140686293688904"></a><h3>
-<a name="idp140245662143208-bb"></a><code class="computeroutput">text</code> public member functions</h3>
+<a name="idm18392"></a><h3>
+<a name="idm6360-bb"></a><code class="computeroutput">text</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idp140245662143736-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idp140245662144760-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idp140245662145784-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idp140245662146808-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idp140245662147832-bb"></a><span class="identifier">cbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idp140245662148856-bb"></a><span class="identifier">cend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="idp140245662149880-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="idp140245662150920-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idp140245662151960-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idp140245662153000-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idp140245662154040-bb"></a><span class="identifier">crbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idp140245662155080-bb"></a><span class="identifier">crend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm6361-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm6363-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm6365-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm6367-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm6369-bb"></a><span class="identifier">cbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm6371-bb"></a><span class="identifier">cend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="idm6373-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="idm6375-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm6377-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm6379-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm6381-bb"></a><span class="identifier">crbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm6383-bb"></a><span class="identifier">crend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="idp140245662156120-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Returns true if size() == 0, false otherwise.</p>
-<p>An empty text is still a valid null-terminated empty string. </p>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idm6385-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns true if size() == 0, false otherwise. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">int</span> <a name="idp140245662157896-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Returns the number of characters controlled by *this, not including the null terminator. </p>
+<pre class="literallayout"><span class="keyword">int</span> <a name="idm6389-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of bytes controlled by *this, not including the null terminator. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">int</span> <a name="idp140245662159400-bb"></a><span class="identifier">capacity</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Returns the number of bytes of storage currently in use by *this.</p>
-<p>Even if the capcity is 0, the text is still a valid null-terminated empty string. </p>
+<pre class="literallayout"><span class="keyword">int</span> <a name="idm6393-bb"></a><span class="identifier">capacity</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of bytes of storage currently in use by this. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">char</span> <a name="idp140245662161240-bb"></a><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="keyword">int</span> i<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Returns the i-th char of *this (not a reference).</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>0 &lt;= i &amp;&amp; i &lt; size() </p></td>
-</tr></tbody>
-</table></div>
+<pre class="literallayout"><span class="keyword">int</span> <a name="idm6397-bb"></a><span class="identifier">count_graphemes</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of graphemes in *this. This operation is O(n). </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text_view.html" title="Struct text_view">text_view</a> <a name="idp140245662164040-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="keyword">int</span> lo<span class="special">,</span> <span class="keyword">int</span> hi<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
-<p>Returns a substring of *this, taken from the range of chars at offsets [lo, hi). If either of lo or hi is a negative value x, x is taken to be an offset from the end, and so x + size() is used instead.</p>
-<p>These preconditions apply to the values used after size() is added to any negative arguments.</p>
-<p>
-
-
-
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>0 &lt;= lo &amp;&amp; lo &lt;= size() </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>0 &lt;= hi &amp;&amp; lhi &lt;= size() </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>lo &lt;= hi </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Throws:</span></p></td>
-<td>std::invalid_argument if the ends of the string are not valid UTF-8. </td>
-</tr>
-</tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><a class="link" href="text_view.html" title="Struct text_view">text_view</a> <a name="idp140245662169656-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="keyword">int</span> cut<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
-<p>Returns a substring of *this, taken from the first cut chars when cut =&gt; 0, or the last -cut chars when cut &lt; 0.</p>
-<p>
-
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>0 &lt;= cut &amp;&amp; cut &lt;= size() || 0 &lt;= -cut &amp;&amp; -cut &lt;= size() </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Throws:</span></p></td>
-<td>std::invalid_argument if the ends of the string are not valid UTF-8. </td>
-</tr>
-</tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="keyword">int</span> <a name="idp140245662173416-bb"></a><span class="identifier">max_size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">int</span> <a name="idm6401-bb"></a><span class="identifier">max_size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Returns the maximum size a text can have. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">int</span> <a name="idp140245662174872-bb"></a><span class="identifier">compare</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Lexicographical compare. Returns a value &lt; 0 when *this is lexicographically less than rhs, 0 if *this == rhs, and a value &gt; 0 if *this is lexicographically greater than rhs. </p>
-</li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp140245662177224-bb"></a><span class="keyword">operator</span><span class="special">==</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp140245662179016-bb"></a><span class="keyword">operator</span><span class="special">!=</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp140245662180808-bb"></a><span class="keyword">operator</span><span class="special">&lt;</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp140245662182600-bb"></a><span class="keyword">operator</span><span class="special">&lt;=</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp140245662184392-bb"></a><span class="keyword">operator</span><span class="special">&gt;</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idp140245662186184-bb"></a><span class="keyword">operator</span><span class="special">&gt;=</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> rhs<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idp140245662187976-bb"></a><span class="identifier">clear</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm6405-bb"></a><span class="identifier">clear</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Clear.</p>
 <p>
 </p>
@@ -315,17 +231,12 @@
 </colgroup>
 <tbody><tr>
 <td><p><span class="term">Postconditions:</span></p></td>
-<td><p>size() == 0 &amp;&amp; capacity() == 0; begin(), end() delimit a valid, null-terminated empty string </p></td>
+<td><p>size() == 0 &amp;&amp; capacity() == 0; begin(), end() delimit an empty string </p></td>
 </tr></tbody>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">char</span> <span class="special">&amp;</span> <a name="idp140245662190152-bb"></a><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="keyword">int</span> i<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Returns a reference to the i-th char of *this.</p>
-<p>No check is made (or could be made) to check that writes through the returned reference do not break UTF-8 encoding. </p>
-</li>
-<li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662192632-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> at<span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6412-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> at<span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
 <p>Inserts the sequence of char from tv into *this starting at offset at.</p>
 <p>
 </p>
@@ -341,7 +252,23 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662196568-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> at<span class="special">,</span> <a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a> rtv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6426-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> at<span class="special">,</span> <a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence of char from tv into *this starting at offset at.</p>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term">Throws:</span></p></td>
+<td>std::invalid_argument if insertion at offset at would break UTF-8 encoding. </td>
+</tr></tbody>
+</table></div>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6440-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> at<span class="special">,</span> <a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rtv<span class="special">)</span><span class="special">;</span></pre>
 <p>Inserts the sequence of char from rtv into *this starting at offset at.</p>
 <p>
 </p>
@@ -357,9 +284,9 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662200520-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> at<span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6454-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> at<span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
 <p>Inserts the char range r into *this starting at offset at.</p>
-<p>This function only participates in overload resolution if CharRange models the Char_range concept.</p>
+<p>This function only participates in overload resolution if CharRange models the CharRange concept.</p>
 <p>
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
@@ -374,31 +301,14 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662205528-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> at<span class="special">,</span> <span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Iter</span> last<span class="special">)</span><span class="special">;</span></pre>
-<p>Inserts the char sequence [first, last) into *this starting at offset at.</p>
-<p>This function only participates in overload resolution if Iter models the Char_iterator concept.</p>
-<p>The inserted sequence's UTF-8 encoding is not checked. To check the encoding, use a converting iterator.</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Throws:</span></p></td>
-<td>std::invalid_argument if insertion at offset at would break UTF-8 encoding. </td>
-</tr></tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662211496-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> at<span class="special">,</span> <span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Iter</span> last<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">&gt;</span> 
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6470-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> at<span class="special">,</span> <span class="identifier">CharIter</span> first<span class="special">,</span> <span class="identifier">CharIter</span> last<span class="special">)</span><span class="special">;</span></pre>
 <p>Inserts the char sequence [first, last) into *this starting at position at.</p>
-<p>This function only participates in overload resolution if Iter models the Char_iterator concept.</p>
+<p>This function only participates in overload resolution if CharIter models the CharIter concept.</p>
 <p>No check is made to determine if insertion at position at would break UTF-8 encoding, and the inserted sequence's UTF-8 encoding is not checked. To check the inserted sequence's encoding, use a converting iterator. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662216568-bb"></a><span class="identifier">erase</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6485-bb"></a><span class="identifier">erase</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Erases the portion of *this delimited by tv.</p>
 <p>
 </p>
@@ -414,24 +324,7 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662219784-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Erases the portion of *this delimited by [first, last).</p>
-<p>No check is made to determine whether erasing [first, last) breaks UTF-8 encoding.</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>first &lt;= last </p></td>
-</tr></tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662223832-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> old_substr<span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a> new_substr<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6496-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> old_substr<span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a> new_substr<span class="special">)</span><span class="special">;</span></pre>
 <p>Replaces the portion of *this delimited by old_substr with the sequence of char from new_substr.</p>
 <p>
 </p>
@@ -447,7 +340,11 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662227656-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> old_substr<span class="special">,</span> <a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a> new_substr<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6510-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> old_substr<span class="special">,</span> <a class="link" href="string_view.html" title="Struct string_view">string_view</a> new_substr<span class="special">)</span><span class="special">;</span></pre>
+<p>TODO </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6521-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> old_substr<span class="special">,</span> <a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> new_substr<span class="special">)</span><span class="special">;</span></pre>
 <p>Replaces the portion of *this delimited by old_substr with the sequence of char from new_substr.</p>
 <p>
 </p>
@@ -464,9 +361,9 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> 
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662231496-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> old_substr<span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6535-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> old_substr<span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
 <p>Replaces the portion of *this delimited by old_substr with the char range r.</p>
-<p>This function only participates in overload resolution if CharRange models the Char_range concept.</p>
+<p>This function only participates in overload resolution if CharRange models the CharRange concept.</p>
 <p>
 
 </p>
@@ -488,10 +385,10 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> 
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662237048-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> old_substr<span class="special">,</span> <span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Iter</span> last<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharIter<span class="special">&gt;</span> 
+  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6554-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> old_substr<span class="special">,</span> <span class="identifier">CharIter</span> first<span class="special">,</span> <span class="identifier">CharIter</span> last<span class="special">)</span><span class="special">;</span></pre>
 <p>Replaces the portion of *this delimited by old_substr with the char sequence [first, last).</p>
-<p>This function only participates in overload resolution if Iter models the Char_iterator concept.</p>
+<p>This function only participates in overload resolution if CharIter models the CharIter concept.</p>
 <p>The inserted sequence's UTF-8 encoding is not checked. To check the encoding, use a converting iterator.</p>
 <p>
 </p>
@@ -507,50 +404,7 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> 
-  <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662242888-bb"></a><span class="identifier">replace</span><span class="special">(</span><span class="identifier">iterator</span> old_first<span class="special">,</span> <span class="identifier">iterator</span> old_last<span class="special">,</span> <span class="identifier">Iter</span> new_first<span class="special">,</span> 
-                 <span class="identifier">Iter</span> new_last<span class="special">)</span><span class="special">;</span></pre>
-<p>Replaces the portion of *this delimited by [old_first, old_last) with the char sequence [new_first, new_last).</p>
-<p>This function only participates in overload resolution if Iter models the Char_iterator concept.</p>
-<p>No check is made to determine if removing [old_first, old_last) would break UTF-8 encoding, and the inserted sequence's UTF-8 encoding is not checked. To check the inserted sequence's encoding, use a converting iterator.</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>old_first &lt;= old_last </p></td>
-</tr></tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idp140245662249320-bb"></a><span class="identifier">resize</span><span class="special">(</span><span class="keyword">int</span> new_size<span class="special">,</span> <span class="keyword">char</span> c<span class="special">)</span><span class="special">;</span></pre>
-<p>Changes the size of *this to new_size. Truncates if new_size &lt; size(), and appends new_size - size() repetitions of c it size() &lt; new_size.</p>
-<p>
-
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term">Postconditions:</span></p></td>
-<td><p>size() == new_size </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Throws:</span></p></td>
-<td>std::invalid_argument if truncating to new_size would break UTF-8 encoding. </td>
-</tr>
-</tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idp140245662253336-bb"></a><span class="identifier">reserve</span><span class="special">(</span><span class="keyword">int</span> new_size<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm6573-bb"></a><span class="identifier">reserve</span><span class="special">(</span><span class="keyword">int</span> new_size<span class="special">)</span><span class="special">;</span></pre>
 <p>Reserves storage enough for a string of at least new_size bytes.</p>
 <p>
 </p>
@@ -566,7 +420,7 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idp140245662255912-bb"></a><span class="identifier">shrink_to_fit</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm6582-bb"></a><span class="identifier">shrink_to_fit</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>Reduces storage used by *this to just the amount necessary to contain size() chars.</p>
 <p>
 </p>
@@ -582,33 +436,49 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idp140245662257880-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm6589-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Swaps *this with rhs. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662260232-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <a name="idm6596-bb"></a><span class="identifier">extract</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<p>TODO </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm6601-bb"></a><span class="identifier">replace</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span> s<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>TODO </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6608-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
 <p>Appends c_str to *this. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662262344-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6615-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre>
 <p>Appends tv to *this. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662264584-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a> rtv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6623-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Appends tv to *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6631-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Appends tv to *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6639-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rtv<span class="special">)</span><span class="special">;</span></pre>
 <p>Appends rtv to *this. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662266840-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="rope.html" title="Struct rope">rope</a> r<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6647-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><span class="identifier">rope</span> r<span class="special">)</span><span class="special">;</span></pre>
 <p>Appends r to *this. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662269080-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="rope_view.html" title="Struct rope_view">rope_view</a> rv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6654-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><span class="identifier">rope_view</span> rv<span class="special">)</span><span class="special">;</span></pre>
 <p>Appends r to *this. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idp140245662271320-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="special">&amp;</span> <a name="idm6661-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
 <p>Appends the char range r to *this.</p>
-<p>This function only participates in overload resolution if CharRange models the Char_range concept.</p>
+<p>This function only participates in overload resolution if CharRange models the CharRange concept.</p>
 <p>
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
@@ -625,10 +495,10 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idp140686294047080"></a><h3>
-<a name="idp140245662321400-bb"></a><code class="computeroutput">text</code> friend functions</h3>
+<a name="idm19033"></a><h3>
+<a name="idm6785-bb"></a><code class="computeroutput">text</code> friend functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idp140245662321928-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm6786-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre>
 <p>Stream inserter; performs unformatted output. </p>
 </li></ol></div>
 </div>
@@ -636,7 +506,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2017 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -644,7 +514,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="literals/operato_idp140245662332632.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/text_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="checked_idp140245662356984.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="literals/operator_t_idm6822.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/text_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="operator__idm6895.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

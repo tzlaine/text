@@ -1,0 +1,264 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct template trie</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/trie_hpp.html" title="Header &lt;boost/text/trie.hpp&gt;">
+<link rel="prev" href="optional_ref.html" title="Struct template optional_ref">
+<link rel="next" href="trie_match_result.html" title="Struct trie_match_result">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="optional_ref.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="trie_match_result.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.trie.trie"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct template trie</span></h2>
+<p>boost::trie::trie</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/trie_hpp.html" title="Header &lt;boost/text/trie.hpp&gt;">boost/text/trie.hpp</a>&gt;
+
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Key<span class="special">,</span> <span class="keyword">typename</span> Value<span class="special">,</span> <span class="keyword">typename</span> Compare <span class="special">=</span> <a class="link" href="less.html" title="Struct less">less</a><span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="trie.html" title="Struct template trie">trie</a> <span class="special">{</span>
+  <span class="comment">// types</span>
+  <span class="keyword">typedef</span> <span class="identifier">Value</span>                    <a name="boost.trie.trie.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>      
+  <span class="keyword">typedef</span> <span class="identifier">Compare</span>                  <a name="boost.trie.trie.key_compare"></a><span class="identifier">key_compare</span><span class="special">;</span>     
+  <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="identifier">Key</span><span class="special">::</span><span class="identifier">value_type</span> <a name="boost.trie.trie.key_element_type"></a><span class="identifier">key_element_type</span><span class="special">;</span>
+  <span class="keyword">typedef</span> <span class="identifier">value_type</span> <span class="special">&amp;</span>             <a name="boost.trie.trie.reference"></a><span class="identifier">reference</span><span class="special">;</span>       
+  <span class="keyword">typedef</span> <span class="identifier">value_type</span> <span class="keyword">const</span> <span class="special">&amp;</span>       <a name="boost.trie.trie.const_reference"></a><span class="identifier">const_reference</span><span class="special">;</span> 
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span>           <a name="boost.trie.trie.size_type"></a><span class="identifier">size_type</span><span class="special">;</span>       
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span>           <a name="boost.trie.trie.difference_type"></a><span class="identifier">difference_type</span><span class="special">;</span> 
+  <span class="keyword">typedef</span> <a class="link" href="trie_match_result.html" title="Struct trie_match_result">trie_match_result</a>        <a name="boost.trie.trie.match_result"></a><span class="identifier">match_result</span><span class="special">;</span>    
+
+  <span class="comment">// <a class="link" href="trie.html#boost.trie.trieconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="trie.html#idm7436-bb"><span class="identifier">trie</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="trie.html#idm7437-bb"><span class="identifier">trie</span></a><span class="special">(</span><span class="identifier">Compare</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <a class="link" href="trie.html#idm7440-bb"><span class="identifier">trie</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Compare</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">Compare</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Range<span class="special">&gt;</span> <span class="keyword">explicit</span> <a class="link" href="trie.html#idm7450-bb"><span class="identifier">trie</span></a><span class="special">(</span><span class="identifier">Range</span><span class="special">,</span> <span class="identifier">Compare</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">Compare</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="trie.html#idm7458-bb"><span class="identifier">trie</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="trie.html" title="Struct template trie">trie</a> <span class="special">&amp;</span> <a class="link" href="trie.html#idm7461-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="trie.html#idm7224-bb">public member functions</a></span>
+  <span class="keyword">bool</span> <a class="link" href="trie.html#idm7225-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="trie.html#idm7227-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> <span class="keyword">bool</span> <a class="link" href="trie.html#idm7229-bb"><span class="identifier">contains</span></a><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyIter<span class="special">&gt;</span> 
+    <span class="identifier">match_result</span> <a class="link" href="trie.html#idm7238-bb"><span class="identifier">longest_subsequence</span></a><span class="special">(</span><span class="identifier">KeyIter</span><span class="special">,</span> <span class="identifier">KeyIter</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> 
+    <span class="identifier">match_result</span> <a class="link" href="trie.html#idm7249-bb"><span class="identifier">longest_subsequence</span></a><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+   <a class="link" href="trie.html#idm7258-bb"><span class="identifier">BOOST_TRIE_C_STR_OVERLOAD</span></a><span class="special">(</span><span class="identifier">match_result</span><span class="special">,</span> <span class="identifier">longest_subsequence</span><span class="special">,</span> 
+                             <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">)</span><span class="special">;</span>
+   <a class="link" href="trie.html#idm7269-bb"><span class="keyword">while</span></a><span class="special">(</span><span class="identifier">node</span><span class="special">-&gt;</span><span class="special">)</span><span class="special">;</span>
+   <a class="link" href="trie.html#idm7273-bb"><span class="keyword">if</span></a><span class="special">(</span><span class="special">!</span><span class="special">!</span><span class="identifier">node</span><span class="special">-&gt;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> 
+    <span class="identifier">match_result</span> <a class="link" href="trie.html#idm7277-bb"><span class="identifier">longest_match</span></a><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyElementT<span class="special">&gt;</span> 
+    <span class="identifier">match_result</span> <a class="link" href="trie.html#idm7286-bb"><span class="identifier">extend_subsequence</span></a><span class="special">(</span><span class="identifier">match_result</span><span class="special">,</span> <span class="identifier">KeyElementT</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyIter<span class="special">&gt;</span> 
+    <span class="identifier">match_result</span> 
+    <a class="link" href="trie.html#idm7298-bb"><span class="identifier">extend_subsequence</span></a><span class="special">(</span><span class="identifier">match_result</span><span class="special">,</span> <span class="identifier">KeyIter</span><span class="special">,</span> <span class="identifier">KeyIter</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> OutIter<span class="special">&gt;</span> 
+    <span class="identifier">OutIter</span> <a class="link" href="trie.html#idm7312-bb"><span class="identifier">copy_next_key_elements</span></a><span class="special">(</span><span class="identifier">match_result</span><span class="special">,</span> <span class="identifier">OutIter</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> 
+    <a class="link" href="optional_ref.html" title="Struct template optional_ref">optional_ref</a><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="keyword">const</span>  <span class="special">&gt;</span> 
+    <a class="link" href="trie.html#idm7324-bb"><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+   <a class="link" href="trie.html#idm7334-bb"><span class="identifier">BOOST_TRIE_C_STR_OVERLOAD</span></a><span class="special">(</span><a class="link" href="optional_ref.html" title="Struct template optional_ref">optional_ref</a><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="keyword">const</span> <span class="special">&gt;</span><span class="special">,</span> <span class="keyword">operator</span><span class="special">,</span> 
+                             <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> 
+    <a class="link" href="optional_ref.html" title="Struct template optional_ref">optional_ref</a><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span> <a class="link" href="trie.html#idm7343-bb"><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+   <a class="link" href="trie.html#idm7353-bb"><span class="identifier">BOOST_TRIE_C_STR_OVERLOAD</span></a><span class="special">(</span><a class="link" href="optional_ref.html" title="Struct template optional_ref">optional_ref</a><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span><span class="special">,</span> <span class="keyword">operator</span><span class="special">,</span> <span class="keyword">noexcept</span><span class="special">)</span><span class="special">;</span>
+   <a class="link" href="trie.html#idm7366-bb"><span class="keyword">if</span></a><span class="special">(</span><span class="identifier">first</span> <span class="special">=</span> <span class="special">=</span><span class="identifier">last</span> <span class="special">&amp;&amp;</span><span class="identifier">match</span><span class="special">.</span><span class="identifier">match</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">node</span> <a class="link" href="trie.html#idm7371-bb"><span class="identifier">value</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> <span class="keyword">bool</span> <a class="link" href="trie.html#idm7373-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">Value</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Char<span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> N<span class="special">&gt;</span> <span class="keyword">bool</span> <a class="link" href="trie.html#idm7385-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">Char</span> <span class="keyword">const</span> <span class="special">(</span><span class="special">&amp;</span><span class="special">)</span><span class="special">,</span> <span class="identifier">Value</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="trie.html#idm7395-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">Iter</span><span class="special">,</span> <span class="identifier">Iter</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Range<span class="special">&gt;</span> <span class="keyword">bool</span> <a class="link" href="trie.html#idm7406-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">Range</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="trie.html#idm7415-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> <span class="keyword">bool</span> <a class="link" href="trie.html#idm7422-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="trie.html#idm7431-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="trie.html" title="Struct template trie">trie</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="trie.html#idm7466-bb">private member functions</a></span>
+  <a class="link" href="trie.html" title="Struct template trie">trie</a> <span class="keyword">const</span>  <span class="special">*</span> <a class="link" href="trie.html#idm7467-bb"><span class="identifier">const_this</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyIter<span class="special">&gt;</span> 
+    <span class="identifier">match_result</span> <a class="link" href="trie.html#idm7470-bb"><span class="identifier">longest_match_impl</span></a><span class="special">(</span><span class="identifier">KeyIter</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyIter</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyIter<span class="special">&gt;</span> 
+    <span class="identifier">match_result</span> 
+    <a class="link" href="trie.html#idm7478-bb"><span class="identifier">extend_subsequence_impl</span></a><span class="special">(</span><span class="identifier">match_result</span><span class="special">,</span> <span class="identifier">KeyIter</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyIter</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyIter<span class="special">&gt;</span> 
+    node_t <span class="special">*</span> <a class="link" href="trie.html#idm7488-bb"><span class="identifier">create_children</span></a><span class="special">(</span>node_t <span class="special">*</span><span class="special">,</span> <span class="identifier">KeyIter</span><span class="special">,</span> <span class="identifier">KeyIter</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// <a class="link" href="trie.html#idm7500-bb">private static functions</a></span>
+  <span class="keyword">static</span> node_t <span class="keyword">const</span>  <span class="special">*</span> <a class="link" href="trie.html#idm7501-bb"><span class="identifier">to_node_ptr</span></a><span class="special">(</span><span class="keyword">void</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// public data members</span>
+  <span class="identifier">KeyIter</span> <span class="identifier">last</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">auto</span> <span class="identifier">node</span><span class="special">;</span>
+  <span class="keyword">return</span> <span class="identifier">retval</span><span class="special">;</span>
+  <span class="identifier">KeyIter</span> <span class="identifier">last</span><span class="special">;</span>
+  <span class="identifier">KeyIter</span> <span class="identifier">Value</span> <span class="identifier">value</span><span class="special">;</span>
+   <span class="identifier">size_</span><span class="special">;</span>
+  <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm20799"></a><h2>Description</h2>
+<p>A trie, or prefix-tree. A trie contains a set of keys, each of which is a sequence, and a set of values, each associated with some key. Each node in the trie represents some prefix found in at least one member of the set of values contained in the trie. If a certain node represents the end of one of the keys, it has an associated value. Such a node may or may not have children.</p>
+<p>Complexity of lookups is always O(M), where M is the size of the Key being lookep up. Note that this implies that lookup complexity is independent of the size of the trie.</p>
+<p>
+</p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>trie is not a C++ Container, according to the definition in the C++ standard, in part because it does not have any iterators. This allows trie to do slightly less work when it does insertions and erasures. If you need iterators, use <a class="link" href="trie_map.html" title="Struct template trie_map">trie_map</a> or <a class="link" href="trie_set.html" title="Struct template trie_set">trie_set</a>. </p></td></tr>
+</table></div>
+<p>
+</p>
+<div class="refsect2">
+<a name="idm20808"></a><h3>
+<a name="boost.trie.trieconstruct-copy-destruct"></a><code class="computeroutput">trie</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a name="idm7436-bb"></a><span class="identifier">trie</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm7437-bb"></a><span class="identifier">trie</span><span class="special">(</span><span class="identifier">Compare</span> <span class="keyword">const</span> <span class="special">&amp;</span> comp<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> 
+  <a name="idm7440-bb"></a><span class="identifier">trie</span><span class="special">(</span><span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Iter</span> last<span class="special">,</span> <span class="identifier">Compare</span> <span class="keyword">const</span> <span class="special">&amp;</span> comp <span class="special">=</span> <span class="identifier">Compare</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Range<span class="special">&gt;</span> 
+  <span class="keyword">explicit</span> <a name="idm7450-bb"></a><span class="identifier">trie</span><span class="special">(</span><span class="identifier">Range</span> r<span class="special">,</span> <span class="identifier">Compare</span> <span class="keyword">const</span> <span class="special">&amp;</span> comp <span class="special">=</span> <span class="identifier">Compare</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm7458-bb"></a><span class="identifier">trie</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span> il<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="trie.html" title="Struct template trie">trie</a> <span class="special">&amp;</span> <a name="idm7461-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span> il<span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm20908"></a><h3>
+<a name="idm7224-bb"></a><code class="computeroutput">trie</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm7225-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">size_type</span> <a name="idm7227-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> <span class="keyword">bool</span> <a name="idm7229-bb"></a><span class="identifier">contains</span><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> key<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns true if <span class="emphasis"><em>key</em></span> is found in *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyIter<span class="special">&gt;</span> 
+  <span class="identifier">match_result</span> <a name="idm7238-bb"></a><span class="identifier">longest_subsequence</span><span class="special">(</span><span class="identifier">KeyIter</span> first<span class="special">,</span> <span class="identifier">KeyIter</span> last<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the longeset subsequence of <code class="computeroutput">[first, last)</code> found in *this, whether or not it is a match. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> 
+  <span class="identifier">match_result</span> <a name="idm7249-bb"></a><span class="identifier">longest_subsequence</span><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> key<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the longeset subsequence of <span class="emphasis"><em>key</em></span> found in *this, whether or not it is a match. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"> <a name="idm7258-bb"></a><span class="identifier">BOOST_TRIE_C_STR_OVERLOAD</span><span class="special">(</span><span class="identifier">match_result</span><span class="special">,</span> <span class="identifier">longest_subsequence</span><span class="special">,</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">)</span><span class="special">;</span></pre>
+<p>Returns the longeset matching subsequence of <code class="computeroutput">[first, last)</code> found in *this. </p>
+</li>
+<li class="listitem"><pre class="literallayout"> <a name="idm7269-bb"></a><span class="keyword">while</span><span class="special">(</span><span class="identifier">node</span><span class="special">-&gt;</span> parent<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"> <a name="idm7273-bb"></a><span class="keyword">if</span><span class="special">(</span><span class="special">!</span><span class="special">!</span><span class="identifier">node</span><span class="special">-&gt;</span> value<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> 
+  <span class="identifier">match_result</span> <a name="idm7277-bb"></a><span class="identifier">longest_match</span><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> key<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the longeset matching subsequence of <span class="emphasis"><em>key</em></span> found in this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyElementT<span class="special">&gt;</span> 
+  <span class="identifier">match_result</span> 
+  <a name="idm7286-bb"></a><span class="identifier">extend_subsequence</span><span class="special">(</span><span class="identifier">match_result</span> prev<span class="special">,</span> <span class="identifier">KeyElementT</span> e<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the result of extending <span class="emphasis"><em>prev</em></span> by one element, <span class="emphasis"><em>e</em></span>. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyIter<span class="special">&gt;</span> 
+  <span class="identifier">match_result</span> 
+  <a name="idm7298-bb"></a><span class="identifier">extend_subsequence</span><span class="special">(</span><span class="identifier">match_result</span> prev<span class="special">,</span> <span class="identifier">KeyIter</span> first<span class="special">,</span> <span class="identifier">KeyIter</span> last<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the result of extending <span class="emphasis"><em>prev</em></span> by the longeset subsequence of <code class="computeroutput">[first, last)</code> found in *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> OutIter<span class="special">&gt;</span> 
+  <span class="identifier">OutIter</span> <a name="idm7312-bb"></a><span class="identifier">copy_next_key_elements</span><span class="special">(</span><span class="identifier">match_result</span> prev<span class="special">,</span> <span class="identifier">OutIter</span> out<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<p>Writes the sequence of elements that would advance <span class="emphasis"><em>prev</em></span> by one element to <span class="emphasis"><em>out</em></span>, and returns the final value of  after the writes. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> 
+  <a class="link" href="optional_ref.html" title="Struct template optional_ref">optional_ref</a><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="keyword">const</span>  <span class="special">&gt;</span> 
+  <a name="idm7324-bb"></a><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> key<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns an optional reference to the const value associated with <span class="emphasis"><em>key</em></span> in *this (if any). </p>
+</li>
+<li class="listitem"><pre class="literallayout"> <a name="idm7334-bb"></a><span class="identifier">BOOST_TRIE_C_STR_OVERLOAD</span><span class="special">(</span><a class="link" href="optional_ref.html" title="Struct template optional_ref">optional_ref</a><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="keyword">const</span> <span class="special">&gt;</span><span class="special">,</span> <span class="keyword">operator</span><span class="special">,</span> 
+                           <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> 
+  <a class="link" href="optional_ref.html" title="Struct template optional_ref">optional_ref</a><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span> <a name="idm7343-bb"></a><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> key<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns an optional reference to the value associated with <span class="emphasis"><em>key</em></span> in *this (if any). </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"> <a name="idm7353-bb"></a><span class="identifier">BOOST_TRIE_C_STR_OVERLOAD</span><span class="special">(</span><a class="link" href="optional_ref.html" title="Struct template optional_ref">optional_ref</a><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span><span class="special">,</span> <span class="keyword">operator</span><span class="special">,</span> <span class="keyword">noexcept</span><span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the key/value pair <code class="computeroutput">[first, last)</code>, <span class="emphasis"><em>value</em></span> into *this. Returns false if the key already exists in *this, true otherwise. </p>
+</li>
+<li class="listitem"><pre class="literallayout"> <a name="idm7366-bb"></a><span class="keyword">if</span><span class="special">(</span><span class="identifier">first</span> <span class="special">=</span> <span class="special">=</span><span class="identifier">last</span> <span class="special">&amp;&amp;</span><span class="identifier">match</span><span class="special">.</span><span class="identifier">match</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">node</span> <a name="idm7371-bb"></a><span class="identifier">value</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> <span class="keyword">bool</span> <a name="idm7373-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">Value</span> value<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the key/value pair <span class="emphasis"><em>key</em></span>, <span class="emphasis"><em>value</em></span> into *this. Returns false if the key already exists in *this, true otherwise. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Char<span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> N<span class="special">&gt;</span> 
+  <span class="keyword">bool</span> <a name="idm7385-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">Char</span> <span class="keyword">const</span> <span class="special">(</span><span class="special">&amp;</span><span class="special">)</span> chars<span class="special">,</span> <span class="identifier">Value</span> value<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iter<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idm7395-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">Iter</span> first<span class="special">,</span> <span class="identifier">Iter</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the the sequence of key/value pairs <code class="computeroutput">[first, last)</code> into *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Range<span class="special">&gt;</span> <span class="keyword">bool</span> <a name="idm7406-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">Range</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the the sequence of key/value pairs <span class="emphasis"><em>r</em></span> into *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm7415-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">initializer_list</span><span class="special">&lt;</span> <span class="identifier">value_type</span> <span class="special">&gt;</span> il<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the the sequence of key/value pairs <span class="emphasis"><em>il</em></span> into *this. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyRange<span class="special">&gt;</span> <span class="keyword">bool</span> <a name="idm7422-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">KeyRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> key<span class="special">)</span><span class="special">;</span></pre>
+<p>Erases the key/value pair associated with <span class="emphasis"><em>key</em></span> from *this. Returns true if the key is found in *this, false otherwise. </p>
+</li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idm7431-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="trie.html" title="Struct template trie">trie</a> <span class="special">&amp;</span> other<span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm21357"></a><h3>
+<a name="idm7466-bb"></a><code class="computeroutput">trie</code> private member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a class="link" href="trie.html" title="Struct template trie">trie</a> <span class="keyword">const</span>  <span class="special">*</span> <a name="idm7467-bb"></a><span class="identifier">const_this</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyIter<span class="special">&gt;</span> 
+  <span class="identifier">match_result</span> 
+  <a name="idm7470-bb"></a><span class="identifier">longest_match_impl</span><span class="special">(</span><span class="identifier">KeyIter</span> <span class="special">&amp;</span> first<span class="special">,</span> <span class="identifier">KeyIter</span> last<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyIter<span class="special">&gt;</span> 
+  <span class="identifier">match_result</span> 
+  <a name="idm7478-bb"></a><span class="identifier">extend_subsequence_impl</span><span class="special">(</span><span class="identifier">match_result</span> prev<span class="special">,</span> <span class="identifier">KeyIter</span> <span class="special">&amp;</span> first<span class="special">,</span> <span class="identifier">KeyIter</span> last<span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyIter<span class="special">&gt;</span> 
+  node_t <span class="special">*</span> <a name="idm7488-bb"></a><span class="identifier">create_children</span><span class="special">(</span>node_t <span class="special">*</span> node<span class="special">,</span> <span class="identifier">KeyIter</span> first<span class="special">,</span> <span class="identifier">KeyIter</span> last<span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+<div class="refsect2">
+<a name="idm21431"></a><h3>
+<a name="idm7500-bb"></a><code class="computeroutput">trie</code> private static functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">static</span> node_t <span class="keyword">const</span>  <span class="special">*</span> <a name="idm7501-bb"></a><span class="identifier">to_node_ptr</span><span class="special">(</span><span class="keyword">void</span> <span class="keyword">const</span> <span class="special">*</span> ptr<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="optional_ref.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="trie_match_result.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

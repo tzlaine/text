@@ -31,51 +31,52 @@
       <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code> is an infamous design. It's fat --
       why are there so many member functions? It's not fat enough -- what if I need
       to support non-ASCII characters? I could use <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span></code> for some <code class="computeroutput"><span class="identifier">CharT</span></code>
-      that works for non-ASCII uses, but then I'm left using multiple types for strings,
-      or making everything a template parameterized on <code class="computeroutput"><span class="identifier">CharT</span></code>.
+      that works for non-ASCII uses, but then I'm left using multiple types for strings
+      &#8212; each of which is called string &#8212; without any encoding guarantees.
     </p>
 <p>
-      This library is an attempt to re-think <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
+      In part, this library is an attempt to re-think <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
       as an interoperable family of types, each suited to a different aspect of string
       processing.
+    </p>
+<p>
+      C++ is one of a select few major languages with no built-in support for Unicode.
+      If nothing else, this is an embarassment that should be remedied.
+    </p>
+<p>
+      In part, this library is a Unicode implementation suitable for use by anyone.
     </p>
 <h4>
 <a name="boost_text__proposed_.intro.h1"></a>
       <span class="phrase"><a name="boost_text__proposed_.intro.features"></a></span><a class="link" href="intro.html#boost_text__proposed_.intro.features">Features</a>
     </h4>
 <p>
-      - <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>,
-      a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code> replacement that is: <code class="computeroutput"><span class="keyword">constexpr</span></code>, optionally null-terminated; UTF-8
-      encoded; and immutable.
-    </p>
-<p>
-      - <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>,
-      a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code> replacement that is: always null-terminated;
-      strongly exception safe; UTF-8 encoded; and mutable.
-    </p>
-<p>
-      - <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>,
-      a <a href="https://en.wikipedia.org/wiki/Rope_(data_structure)" target="_top">Rope</a>-like
-      type with copy-on-write semantics that is: non-null-terminated; basically exception
-      safe; UTF-8 encoded; and mutable.
-    </p>
-<p>
-      - <code class="computeroutput"><a class="link" href="../boost/text/rope_view.html" title="Struct rope_view">rope_view</a></code>,
-      an immutable non-owning view of a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>, or <code class="computeroutput"><a class="link" href="../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>.
-    </p>
-<p>
-      - <code class="computeroutput"><a class="link" href="../boost/text/repeated_text_view.html" title="Struct repeated_text_view">repeated_text_view</a></code>,
-      an immutable utility type representing a repeated <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>.
-    </p>
-<p>
-      - Substrings of each of the five types above can be had with no copies or allocations
-      using a Python-like slicing interface.
-    </p>
-<p>
-      - Compilational simplicity -- none of the above five types is a template.
+      - A family of types to replace <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>,
+      for users that want "a better string" but do not care about encoding
+      or Unicode. This includes <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>,
+      and <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>.
     </p>
 <p>
       - Iterators converting UTF-8 to and from UTF-16 and UTF-32.
+    </p>
+<p>
+      - An implemenation of the Unicode algorithms for dealing with encodings, normalization,
+      etc. It is not necessary to use any of Boost.Text's string types to make use
+      of the Unicode algorithms.
+    </p>
+<p>
+      - A family of types for use in Unicode-aware text processing. This includes
+      <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>,
+      <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>,
+      <code class="computeroutput">rope</code>,
+      and <code class="computeroutput">rope_view</code>.
+    </p>
+<p>
+      - Substrings of each of the string-like types above can be had with no copies
+      or allocations using a Python-like slicing interface.
+    </p>
+<p>
+      - Compilational simplicity -- none of the above string or text types is a template.
     </p>
 <p>
       - A small library of algorithms that replicates the functionality of <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>'s
@@ -84,7 +85,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2017 T. Zachary Laine<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

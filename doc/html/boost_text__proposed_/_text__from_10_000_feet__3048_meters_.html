@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Boost.Text From 10,000 Feet (3048 Meters)</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="prev" href="why_is_std__string_so_bad_.html" title="Why is std::string So Bad?">
+<link rel="next" href="the__text__string_types.html" title="The Boost.Text String Types">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="why_is_std__string_so_bad_.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="the__text__string_types.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_text__proposed_._text__from_10_000_feet__3048_meters_"></a><a class="link" href="_text__from_10_000_feet__3048_meters_.html" title="Boost.Text From 10,000 Feet (3048 Meters)">Boost.Text
+    From 10,000 Feet (3048 Meters)</a>
+</h2></div></div></div>
+<p>
+      Boost.Text is composed of three main layers:
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+          The <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
+          layer
+        </li>
+<li class="listitem">
+          The Unicode layer
+        </li>
+<li class="listitem">
+          The <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+          layer
+        </li>
+</ul></div>
+<p>
+      There are a couple of assorted bits that were necessary or useful to have around
+      when implementing various parts of Boost.Text: <code class="computeroutput"><a class="link" href="../boost/text/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code> and <code class="computeroutput"><a class="link" href="../boost/trie/trie.html" title="Struct template trie">trie</a></code>/<code class="computeroutput"><a class="link" href="../boost/trie/trie_map.html" title="Struct template trie_map">trie_map</a></code>/<code class="computeroutput"><a class="link" href="../boost/trie/trie_set.html" title="Struct template trie_set">trie_set</a></code>.
+    </p>
+<h4>
+<a name="boost_text__proposed_._text__from_10_000_feet__3048_meters_.h0"></a>
+      <span class="phrase"><a name="boost_text__proposed_._text__from_10_000_feet__3048_meters_.the__classname_alt__boost__text__string___code__phrase_role__identifier__string__phrase___code___classname__layer"></a></span><a class="link" href="_text__from_10_000_feet__3048_meters_.html#boost_text__proposed_._text__from_10_000_feet__3048_meters_.the__classname_alt__boost__text__string___code__phrase_role__identifier__string__phrase___code___classname__layer">The
+      string
+      Layer</a>
+    </h4>
+<p>
+      The types in this layer are encoding-agnostic. Together, they form an exocsystem
+      of types that consitutes "a better <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>".
+      The types in this layer are: <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>, <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>,
+      and <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>.
+    </p>
+<h4>
+<a name="boost_text__proposed_._text__from_10_000_feet__3048_meters_.h1"></a>
+      <span class="phrase"><a name="boost_text__proposed_._text__from_10_000_feet__3048_meters_.the_unicode_layer"></a></span><a class="link" href="_text__from_10_000_feet__3048_meters_.html#boost_text__proposed_._text__from_10_000_feet__3048_meters_.the_unicode_layer">The
+      Unicode Layer</a>
+    </h4>
+<p>
+      This layer provides a few Unicode-related utility types, but is primarily comprised
+      of the Unicode algorithms. These algorithms are done in the style of the standard
+      algorithms, with range-friendly interfaces. There are algorithms for these
+      Unicode operations:
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+          UTF-8 &lt;-&gt; UTF-16, UTF-8 &lt;-&gt; UTF-32
+        </li>
+<li class="listitem">
+          Text segmentation (line breaks, word breaks, etc.)
+        </li>
+<li class="listitem">
+          Normalization, including the four Unicode normalization forms, plus the
+          FCC form from <a href="https://unicode.org/notes/tn5" target="_top">Unicode Technical
+          Note #5</a>
+        </li>
+<li class="listitem">
+          Collation, including tailoring using the <a href="https://unicode.org/reports/tr35/tr35-collation.html" target="_top">LDML
+          syntax</a> and serialization of collation tables
+        </li>
+<li class="listitem">
+          The Unicode Bidirectional Algorithm
+        </li>
+<li class="listitem">
+          TODO: Searching, Case-mapping, anything else?
+        </li>
+</ul></div>
+<p>
+      These algorithms are independent of the other two layers; it is possible to
+      use Boost.Text as a Unicode library without using the either of the <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
+      or <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+      layers.
+    </p>
+<h4>
+<a name="boost_text__proposed_._text__from_10_000_feet__3048_meters_.h2"></a>
+      <span class="phrase"><a name="boost_text__proposed_._text__from_10_000_feet__3048_meters_.the__classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname__layer"></a></span><a class="link" href="_text__from_10_000_feet__3048_meters_.html#boost_text__proposed_._text__from_10_000_feet__3048_meters_.the__classname_alt__boost__text__text___code__phrase_role__identifier__text__phrase___code___classname__layer">The
+      text
+      Layer</a>
+    </h4>
+<p>
+      This layer is built on top of the Unicode layer. Its types encode text as UTF-8,
+      and maintain FCC normalization. Much of their implementation is done in terms
+      of the algorithms from the Unicode layer. The types in this layer are: <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>,
+      <code class="computeroutput"><a class="link" href="../boost/text/text_view.html" title="Struct text_view">text_view</a></code>,
+      <code class="computeroutput">rope</code>,
+      and <code class="computeroutput">rope_view</code>.
+    </p>
+<h4>
+<a name="boost_text__proposed_._text__from_10_000_feet__3048_meters_.h3"></a>
+      <span class="phrase"><a name="boost_text__proposed_._text__from_10_000_feet__3048_meters_.the_assorted_bits"></a></span><a class="link" href="_text__from_10_000_feet__3048_meters_.html#boost_text__proposed_._text__from_10_000_feet__3048_meters_.the_assorted_bits">The
+      Assorted Bits</a>
+    </h4>
+<p>
+      Finally, there are some items that I wrote in the process of implementing everything
+      else, that rise to the level of general utility.
+    </p>
+<p>
+      First is <code class="computeroutput"><a class="link" href="../boost/text/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>.
+      This is a discontiguous sequence of <code class="computeroutput"><span class="identifier">T</span></code>,
+      for which insertions anywhere in the sequence are cheap, with very cheap copies
+      provided via a copy-on-write mechanism. It is a generalization of <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>
+      for arbitrary <code class="computeroutput"><span class="identifier">T</span></code>.
+    </p>
+<p>
+      The remaining assorted types are <code class="computeroutput"><a class="link" href="../boost/trie/trie.html" title="Struct template trie">trie</a></code>, <code class="computeroutput"><a class="link" href="../boost/trie/trie_map.html" title="Struct template trie_map">trie_map</a></code>, and <code class="computeroutput"><a class="link" href="../boost/trie/trie_set.html" title="Struct template trie_set">trie_set</a></code>. The first of these
+      is a trie that is not a valid C++ container. The latter two are analogous to
+      <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span></code> and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">set</span></code>, respectively,
+      just built on a trie instead of a binary tree.
+    </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="why_is_std__string_so_bad_.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="the__text__string_types.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

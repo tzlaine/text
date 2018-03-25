@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct template trie_map_element</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/trie_map_hpp.html" title="Header &lt;boost/text/trie_map.hpp&gt;">
+<link rel="prev" href="trie_map.html" title="Struct template trie_map">
+<link rel="next" href="trie_map_iterator.html" title="Struct template trie_map_iterator">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="trie_map.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_map_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="trie_map_iterator.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.trie.trie_map_element"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct template trie_map_element</span></h2>
+<p>boost::trie::trie_map_element</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/trie_map_hpp.html" title="Header &lt;boost/text/trie_map.hpp&gt;">boost/text/trie_map.hpp</a>&gt;
+
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Key<span class="special">,</span> <span class="keyword">typename</span> Value<span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a> <span class="special">{</span>
+  <span class="comment">// <a class="link" href="trie_map_element.html#boost.trie.trie_map_elementconstruct-copy-destruct">construct/copy/destruct</a></span>
+  <a class="link" href="trie_map_element.html#idm8325-bb"><span class="identifier">trie_map_element</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="trie_map_element.html#idm8326-bb"><span class="identifier">trie_map_element</span></a><span class="special">(</span><span class="identifier">Key</span><span class="special">,</span> <span class="identifier">Value</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyT<span class="special">,</span> <span class="keyword">typename</span> ValueT<span class="special">&gt;</span> 
+    <a class="link" href="trie_map_element.html#idm8331-bb"><span class="identifier">trie_map_element</span></a><span class="special">(</span><a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a><span class="special">&lt;</span> <span class="identifier">KeyT</span><span class="special">,</span> <span class="identifier">ValueT</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyT<span class="special">,</span> <span class="keyword">typename</span> ValueT<span class="special">&gt;</span> 
+    <a class="link" href="trie_map_element.html#idm8338-bb"><span class="identifier">trie_map_element</span></a><span class="special">(</span><a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a><span class="special">&lt;</span> <span class="identifier">KeyT</span><span class="special">,</span> <span class="identifier">ValueT</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyT<span class="special">,</span> <span class="keyword">typename</span> ValueT<span class="special">&gt;</span> 
+    <a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a> <span class="special">&amp;</span> <a class="link" href="trie_map_element.html#idm8345-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a><span class="special">&lt;</span> <span class="identifier">KeyT</span><span class="special">,</span> <span class="identifier">ValueT</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyT<span class="special">,</span> <span class="keyword">typename</span> ValueT<span class="special">&gt;</span> 
+    <a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a> <span class="special">&amp;</span> <a class="link" href="trie_map_element.html#idm8354-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a><span class="special">&lt;</span> <span class="identifier">KeyT</span><span class="special">,</span> <span class="identifier">ValueT</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+
+  <span class="comment">// public data members</span>
+  <span class="identifier">Key</span> <span class="identifier">key</span><span class="special">;</span>
+  <span class="identifier">Value</span> <span class="identifier">value</span><span class="special">;</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm25288"></a><h2>Description</h2>
+<p>A key/value pair found in a <a class="link" href="trie_map.html" title="Struct template trie_map">trie_map</a>. </p>
+<div class="refsect2">
+<a name="idm25292"></a><h3>
+<a name="boost.trie.trie_map_elementconstruct-copy-destruct"></a><code class="computeroutput">trie_map_element</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem"><pre class="literallayout"><a name="idm8325-bb"></a><span class="identifier">trie_map_element</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm8326-bb"></a><span class="identifier">trie_map_element</span><span class="special">(</span><span class="identifier">Key</span> k<span class="special">,</span> <span class="identifier">Value</span> v<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyT<span class="special">,</span> <span class="keyword">typename</span> ValueT<span class="special">&gt;</span> 
+  <a name="idm8331-bb"></a><span class="identifier">trie_map_element</span><span class="special">(</span><a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a><span class="special">&lt;</span> <span class="identifier">KeyT</span><span class="special">,</span> <span class="identifier">ValueT</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyT<span class="special">,</span> <span class="keyword">typename</span> ValueT<span class="special">&gt;</span> 
+  <a name="idm8338-bb"></a><span class="identifier">trie_map_element</span><span class="special">(</span><a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a><span class="special">&lt;</span> <span class="identifier">KeyT</span><span class="special">,</span> <span class="identifier">ValueT</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyT<span class="special">,</span> <span class="keyword">typename</span> ValueT<span class="special">&gt;</span> 
+  <a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a> <span class="special">&amp;</span> <a name="idm8345-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a><span class="special">&lt;</span> <span class="identifier">KeyT</span><span class="special">,</span> <span class="identifier">ValueT</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyT<span class="special">,</span> <span class="keyword">typename</span> ValueT<span class="special">&gt;</span> 
+  <a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a> <span class="special">&amp;</span> <a name="idm8354-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="trie_map_element.html" title="Struct template trie_map_element">trie_map_element</a><span class="special">&lt;</span> <span class="identifier">KeyT</span><span class="special">,</span> <span class="identifier">ValueT</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="trie_map.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_map_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="trie_map_iterator.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

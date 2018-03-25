@@ -1,0 +1,182 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Examples</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="prev" href="the__text__text_types_.html" title="The Boost.Text Text Types">
+<link rel="next" href="configuration.html" title="Configuration">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="the__text__text_types_.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="configuration.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_text__proposed_.examples"></a><a class="link" href="examples.html" title="Examples">Examples</a>
+</h2></div></div></div>
+<h4>
+<a name="boost_text__proposed_.examples.h0"></a>
+      <span class="phrase"><a name="boost_text__proposed_.examples.hello__world_"></a></span><a class="link" href="examples.html#boost_text__proposed_.examples.hello__world_">Hello,
+      World!</a>
+    </h4>
+<p>
+      Ok, here is the obligatory "Hello, world!" example:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">text</span><span class="special">/</span><span class="identifier">string</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+
+
+<span class="keyword">int</span> <span class="identifier">main</span> <span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span> <span class="keyword">const</span> <span class="identifier">string_view</span><span class="special">(</span><span class="string">"Hello, world!\n"</span><span class="special">);</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="keyword">const</span> <span class="identifier">string</span><span class="special">(</span><span class="string">"&#1074;&#1089;&#1077;&#1084; &#1087;&#1088;&#1080;&#1074;&#1077;&#1090;!\n"</span><span class="special">);</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">string_view</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">string</span><span class="special">;</span>
+
+    <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      Pretty simple, we've just made a non-owning <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>, and an owning-and-allocating
+      <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>.
+      They each say "Hello, World!". The second one is what the Internet
+      assures me is idiomatic Russian meaning the same thing.
+    </p>
+<h4>
+<a name="boost_text__proposed_.examples.h1"></a>
+      <span class="phrase"><a name="boost_text__proposed_.examples.using_boost_text_types_in_interfaces"></a></span><a class="link" href="examples.html#boost_text__proposed_.examples.using_boost_text_types_in_interfaces">Using
+      Boost.Text Types in Interfaces</a>
+    </h4>
+<p>
+      There are particular parameter passing conventions that some of the Boost.Text
+      types are designed for. For instance, <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>, like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code>,
+      is designed to bind to any <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code>, <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>,
+      or <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
+      argument, without making a copy. <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code> is therefore a replacement
+      for the multiple overloads it would take to handle all those types. If <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>
+      was not implicitly convertible from <code class="computeroutput"><span class="keyword">char</span>
+      <span class="keyword">const</span> <span class="special">*</span></code>
+      and <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>,
+      this is the sort of code you would have to write:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">print_string_without</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span> <span class="identifier">str</span><span class="special">)</span>
+<span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span><span class="special">;</span> <span class="special">}</span>
+
+<span class="keyword">void</span> <span class="identifier">print_string_without</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">str</span><span class="special">)</span>
+<span class="special">{</span> <span class="identifier">print_string_without</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span><span class="special">(</span><span class="identifier">str</span><span class="special">));</span> <span class="special">}</span>
+
+<span class="keyword">void</span> <span class="identifier">print_string_without</span> <span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> <span class="identifier">str</span><span class="special">)</span>
+<span class="special">{</span> <span class="identifier">print_string_without</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span><span class="special">(</span><span class="identifier">str</span><span class="special">));</span> <span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      And here is what you can write with <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>'s implicit conversions:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">print_string_with</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span> <span class="identifier">str</span><span class="special">)</span>
+<span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span><span class="special">;</span> <span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      If you want to write a function parameter that handles any of Boost.Text's
+      types, <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
+      is available:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">print_any_string_type</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">unencoded_rope_view</span> <span class="identifier">str</span><span class="special">)</span>
+<span class="special">{</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span><span class="special">;</span> <span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      And, sure enough, you can call it with any of the Boost.Text types, and even
+      <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span>
+      <span class="special">*</span></code>:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">print_any_string_type</span><span class="special">(</span><span class="string">"1\n"</span><span class="special">);</span>
+<span class="identifier">print_any_string_type</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span><span class="special">(</span><span class="string">"2\n"</span><span class="special">));</span>
+<span class="identifier">print_any_string_type</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"3\n"</span><span class="special">));</span>
+<span class="identifier">print_any_string_type</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"4\n"</span><span class="special">,</span> <span class="number">4</span><span class="special">));</span>
+<span class="identifier">print_any_string_type</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">unencoded_rope</span><span class="special">(</span><span class="string">"5\n"</span><span class="special">));</span>
+</pre>
+<p>
+    </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
+        is less efficient than <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code> for binding to
+        <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">strings</a></code>
+        and <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_views</a></code>
+        (though only a little). If you know you need that extra efficiency, and you
+        know you <span class="bold"><strong>don't</strong></span> need to support <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_ropes</a></code>
+        or <code class="computeroutput"><a class="link" href="../boost/text/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_views</a></code>
+        as arguments to your function, stick to <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>.
+      </p></td></tr>
+</table></div>
+<h4>
+<a name="boost_text__proposed_.examples.h2"></a>
+      <span class="phrase"><a name="boost_text__proposed_.examples.ropes_in_practice"></a></span><a class="link" href="examples.html#boost_text__proposed_.examples.ropes_in_practice">Ropes
+      in Practice</a>
+    </h4>
+<p>
+      A key use of ropes is in text editors. Every text editor you've ever used that
+      handles large files gracefully has done something to break the file into chunks
+      -- editing the beginning of a 64MB file that is stored in a contiguous sequence
+      in memory is way too slow. The use of a rope is a common approach to remedy
+      this.
+    </p>
+<p>
+      In the example directory, there are two programs, <code class="computeroutput"><span class="identifier">text_editor</span></code>
+      and <code class="computeroutput"><span class="identifier">rope_editor</span></code>. The first
+      uses an in-memory <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
+      object to store text that is edited. It is unusably slow. The second does nearly
+      the same thing, but uses a <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>. It is way more
+      usable.
+    </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        These editors are pretty lame. They don't have cut/copy/paste, and can't
+        even save your file! They use Emacs keybindings for what little they do.
+        They use the ncurses library, which is apparently pretty buggy on MacOS.
+      </p></td></tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="the__text__text_types_.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="configuration.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
