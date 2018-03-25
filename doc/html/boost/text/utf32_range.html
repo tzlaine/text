@@ -28,41 +28,41 @@
   <span class="keyword">typedef</span> <a class="link" href="utf8/to_utf32_iterator.html" title="Struct template to_utf32_iterator">utf8::to_utf32_iterator</a><span class="special">&lt;</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> <span class="special">&gt;</span> <a name="boost.text.utf32_range.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="utf32_range.html#boost.text.utf32_rangeconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="utf32_range.html#idm10407-bb"><span class="identifier">utf32_range</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="utf32_range.html#idm10408-bb"><span class="identifier">utf32_range</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="utf32_range.html#idm10413-bb"><span class="identifier">utf32_range</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="utf32_range.html#idm10418-bb"><span class="identifier">utf32_range</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="utf32_range.html#idm10370-bb"><span class="identifier">utf32_range</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="utf32_range.html#idm10371-bb"><span class="identifier">utf32_range</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="utf32_range.html#idm10376-bb"><span class="identifier">utf32_range</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="utf32_range.html#idm10381-bb"><span class="identifier">utf32_range</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="utf32_range.html#idm10400-bb">public member functions</a></span>
-  <span class="keyword">bool</span> <a class="link" href="utf32_range.html#idm10401-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="utf32_range.html#idm10403-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="utf32_range.html#idm10405-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="utf32_range.html#idm10363-bb">public member functions</a></span>
+  <span class="keyword">bool</span> <a class="link" href="utf32_range.html#idm10364-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="utf32_range.html#idm10366-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="utf32_range.html#idm10368-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm33672"></a><h2>Description</h2>
+<a name="idm33529"></a><h2>Description</h2>
 <p>A range that adapts a sequence of <code class="computeroutput">char const *</code> to a sequence of code points. </p>
 <div class="refsect2">
-<a name="idm33676"></a><h3>
+<a name="idm33533"></a><h3>
 <a name="boost.text.utf32_rangeconstruct-copy-destruct"></a><code class="computeroutput">utf32_range</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm10407-bb"></a><span class="identifier">utf32_range</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm10408-bb"></a><span class="identifier">utf32_range</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> f<span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> l<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm10413-bb"></a><span class="identifier">utf32_range</span><span class="special">(</span><span class="identifier">iterator</span> f<span class="special">,</span> <span class="identifier">iterator</span> l<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm10370-bb"></a><span class="identifier">utf32_range</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm10371-bb"></a><span class="identifier">utf32_range</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> f<span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> l<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm10376-bb"></a><span class="identifier">utf32_range</span><span class="special">(</span><span class="identifier">iterator</span> f<span class="special">,</span> <span class="identifier">iterator</span> l<span class="special">)</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a name="idm10418-bb"></a><span class="identifier">utf32_range</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a name="idm10381-bb"></a><span class="identifier">utf32_range</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
 <p>TODO: This is the discontiguous CharRange. </p>
 </li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm33731"></a><h3>
-<a name="idm10400-bb"></a><code class="computeroutput">utf32_range</code> public member functions</h3>
+<a name="idm33588"></a><h3>
+<a name="idm10363-bb"></a><code class="computeroutput">utf32_range</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm10401-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm10403-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm10405-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm10364-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm10366-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm10368-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

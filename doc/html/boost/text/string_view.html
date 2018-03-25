@@ -106,7 +106,7 @@
 <p>This function is constexpr in C++14 and later. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm6056-bb"></a><span class="identifier">string_view</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm6056-bb"></a><span class="identifier">string_view</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span> a<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Constructs a <code class="computeroutput"><a class="link" href="string_view.html" title="Struct string_view">string_view</a></code> from a string.</p>
 <p>
 </p>
@@ -117,7 +117,7 @@
 </colgroup>
 <tbody><tr>
 <td><p><span class="term">Postconditions:</span></p></td>
-<td><p>data() == t.begin() &amp;&amp; size() == t.size() </p></td>
+<td><p>data() == a.begin() &amp;&amp; size() == a.size() </p></td>
 </tr></tbody>
 </table></div>
 </li>
@@ -229,7 +229,7 @@
 <a name="idm16552"></a><h3>
 <a name="idm6092-bb"></a><code class="computeroutput">string_view</code> friend functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm6093-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm6093-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="string_view.html" title="Struct string_view">string_view</a> sv<span class="special">)</span><span class="special">;</span></pre>
 <p>Stream inserter; performs unformatted output. </p>
 </li></ol></div>
 </div>

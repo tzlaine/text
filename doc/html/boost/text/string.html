@@ -135,18 +135,18 @@
 </tr></tbody>
 </table></div>
 </li>
-<li class="listitem"><pre class="literallayout"><a name="idm5508-bb"></a><span class="identifier">string</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm5508-bb"></a><span class="identifier">string</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span> s<span class="special">)</span><span class="special">;</span></pre></li>
 <li class="listitem"><pre class="literallayout"><a name="idm5512-bb"></a><span class="identifier">string</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 <li class="listitem">
 <pre class="literallayout"><a name="idm5516-bb"></a><span class="identifier">string</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs a string from a null-terminated string. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm5521-bb"></a><span class="identifier">string</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm5521-bb"></a><span class="identifier">string</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> sv<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs a string from a <code class="computeroutput"><a class="link" href="string_view.html" title="Struct string_view">string_view</a></code>. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm5528-bb"></a><span class="identifier">string</span><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm5528-bb"></a><span class="identifier">string</span><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rsv<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs a string from a <code class="computeroutput"><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>. </p>
 </li>
 <li class="listitem">
@@ -159,7 +159,7 @@
 <p>Constructs a string from a sequence of char.</p>
 <p>This function only participates in overload resolution if CharIter models the CharIter concept. </p>
 </li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5554-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5554-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span> s<span class="special">)</span><span class="special">;</span></pre></li>
 <li class="listitem"><pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5560-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5566-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
@@ -167,7 +167,7 @@
 <p>This function only participates in overload resolution if CharRange models the CharRange concept. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5576-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5576-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rsv<span class="special">)</span><span class="special">;</span></pre>
 <p>Assignment from a <code class="computeroutput"><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>. </p>
 </li>
 <li class="listitem"><pre class="literallayout"><a name="idm5553-bb"></a><span class="special">~</span><span class="identifier">string</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
@@ -319,20 +319,20 @@
 <p>Inserts c into *this at offset at. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5220-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> at<span class="special">,</span> <a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
-<p>Inserts the sequence of char from tv into *this starting at offset at. </p>
+<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5220-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> at<span class="special">,</span> <a class="link" href="string_view.html" title="Struct string_view">string_view</a> sv<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence of char from sv into *this starting at offset at. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm5230-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> at<span class="special">,</span> <a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
-<p>Inserts the sequence of char from tv into *this starting at position at. </p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm5230-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> at<span class="special">,</span> <a class="link" href="string_view.html" title="Struct string_view">string_view</a> sv<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence of char from sv into *this starting at position at. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5239-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> at<span class="special">,</span> <a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rtv<span class="special">)</span><span class="special">;</span></pre>
-<p>Inserts the sequence of char from rtv into *this starting at offset at. </p>
+<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5239-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> at<span class="special">,</span> <a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rsv<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence of char from rsv into *this starting at offset at. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm5249-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> at<span class="special">,</span> <a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rtv<span class="special">)</span><span class="special">;</span></pre>
-<p>Inserts the sequence of char from rtv into *this starting at position at. </p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm5249-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> at<span class="special">,</span> <a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rsv<span class="special">)</span><span class="special">;</span></pre>
+<p>Inserts the sequence of char from rsv into *this starting at position at. </p>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> <a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5258-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="keyword">int</span> at<span class="special">,</span> <span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">)</span><span class="special">;</span></pre>
@@ -357,8 +357,8 @@
 <p>This function only participates in overload resolution if CharIter models the CharIter concept. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5308-bb"></a><span class="identifier">erase</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Erases the portion of *this delimited by tv.</p>
+<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5308-bb"></a><span class="identifier">erase</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> sv<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Erases the portion of *this delimited by sv.</p>
 <p>
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
@@ -536,11 +536,11 @@
 <p>Appends c_str to *this. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5460-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5460-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> sv<span class="special">)</span><span class="special">;</span></pre>
 <p>Appends tv to *this. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5468-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rtv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="string.html" title="Struct string">string</a> <span class="special">&amp;</span> <a name="idm5468-bb"></a><span class="keyword">operator</span><span class="special">+=</span><span class="special">(</span><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rsv<span class="special">)</span><span class="special">;</span></pre>
 <p>Appends rtv to *this. </p>
 </li>
 <li class="listitem">
@@ -562,7 +562,7 @@
 <a name="idm15149"></a><h3>
 <a name="idm5585-bb"></a><code class="computeroutput">string</code> friend functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm5586-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm5586-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="string.html" title="Struct string">string</a> <span class="keyword">const</span> <span class="special">&amp;</span> s<span class="special">)</span><span class="special">;</span></pre>
 <p>Stream inserter; performs unformatted output. </p>
 </li></ol></div>
 </div>

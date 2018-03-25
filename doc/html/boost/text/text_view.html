@@ -31,183 +31,81 @@
   <span class="keyword">typedef</span> <span class="identifier">reverse_iterator</span>                                                           <a name="boost.text.text_view.const_reverse_iterator"></a><span class="identifier">const_reverse_iterator</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="text_view.html#boost.text.text_viewconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="text_view.html#idm7026-bb"><span class="identifier">text_view</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="text_view.html#idm7033-bb"><span class="identifier">text_view</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text_view.html#idm7048-bb"><span class="identifier">text_view</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="text_view.html#idm7065-bb"><span class="identifier">text_view</span></a><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> 
-    <span class="keyword">explicit</span> <a class="link" href="text_view.html#idm7075-bb"><span class="identifier">text_view</span></a><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <span class="special">=</span> <span class="number">0</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="text_view.html#idm7030-bb"><span class="identifier">text_view</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="text_view.html#idm7033-bb"><span class="identifier">text_view</span></a><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="text_view.html#idm7040-bb"><span class="identifier">text_view</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="text_view.html#idm7000-bb">public member functions</a></span>
-  <span class="identifier">const_iterator</span> <a class="link" href="text_view.html#idm7001-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="text_view.html#idm7003-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text_view.html#idm7005-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text_view.html#idm7007-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="text_view.html#idm7009-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">int</span> <a class="link" href="text_view.html#idm7011-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">int</span> <a class="link" href="text_view.html#idm7013-bb"><span class="identifier">max_size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="text_view.html#idm7018-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="text_view.html#idm6999-bb">public member functions</a></span>
+  <span class="identifier">const_iterator</span> <a class="link" href="text_view.html#idm7000-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="text_view.html#idm7002-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text_view.html#idm7004-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="text_view.html#idm7006-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="text_view.html#idm7008-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="text_view.html#idm7010-bb"><span class="identifier">storage_bytes</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="text_view.html#idm7014-bb"><span class="identifier">distance</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="text_view.html#idm7018-bb"><span class="identifier">max_size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="text_view.html#idm7023-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="text_view.html#idm7092-bb">friend functions</a></span>
-  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="text_view.html#idm7093-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
-
-  <span class="comment">// <a class="link" href="text_view.html#idm7102-bb">private static functions</a></span>
-  <span class="keyword">static</span> <span class="identifier">iterator</span> <a class="link" href="text_view.html#idm7103-bb"><span class="identifier">make_iter</span></a><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="text_view.html#idm7048-bb">friend functions</a></span>
+  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="text_view.html#idm7049-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm19520"></a><h2>Description</h2>
-<p>TODO </p>
+<a name="idm19480"></a><h2>Description</h2>
+<p>A reference to a constant sequence of graphemes. The underlying storage is a string that is UTF-8-encoded and FCC-normalized. </p>
 <div class="refsect2">
-<a name="idm19523"></a><h3>
+<a name="idm19483"></a><h3>
 <a name="boost.text.text_viewconstruct-copy-destruct"></a><code class="computeroutput">text_view</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><a name="idm7026-bb"></a><span class="identifier">text_view</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Default ctor.</p>
-<p>This function is constexpr.</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Postconditions:</span></p></td>
-<td><p>data() == nullptr &amp;&amp; size() == 0 </p></td>
-</tr></tbody>
-</table></div>
+<pre class="literallayout"><a name="idm7030-bb"></a><span class="identifier">text_view</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Default ctor. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm7033-bb"></a><span class="identifier">text_view</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">)</span><span class="special">;</span></pre>
-<p>Constructs a <code class="computeroutput"><a class="link" href="text_view.html" title="Struct text_view">text_view</a></code> from a null-terminated C string. The UTF-8 encoding is checked only at the beginning and end of the string, to prevent slicing of code points. To fully check the encoding, use checked_encoding().</p>
-<p>This function is constexpr in C++14 and later.</p>
-<p>
-
-
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>strlen(c_str) &lt;= max_size() </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Postconditions:</span></p></td>
-<td><p>data() == c_str &amp;&amp; size() == strlen(c_str) </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Throws:</span></p></td>
-<td>std::invalid_argument if the ends of the string are not valid UTF-8. </td>
-</tr>
-</tbody>
-</table></div>
+<pre class="literallayout"><a name="idm7033-bb"></a><span class="identifier">text_view</span><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><a class="link" href="text_view.html" title="Struct text_view">text_view</a></code> from a text. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm7048-bb"></a><span class="identifier">text_view</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> c_str<span class="special">,</span> <span class="keyword">int</span> len<span class="special">)</span><span class="special">;</span></pre>
-<p>Constructs a <code class="computeroutput"><a class="link" href="text_view.html" title="Struct text_view">text_view</a></code> from an array of char. The UTF-8 encoding is checked only at the beginning and end of the string, to prevent slicing of code points. To fully check the encoding, use checked_encoding().</p>
-<p>This function is constexpr in C++14 and later.</p>
-<p>
-
-
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>len &gt;= 0 </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Postconditions:</span></p></td>
-<td><p>data() == c_str &amp;&amp; size() == len </p></td>
-</tr>
-<tr>
-<td><p><span class="term">Throws:</span></p></td>
-<td>std::invalid_argument if the ends of the string are not valid UTF-8. </td>
-</tr>
-</tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><a name="idm7065-bb"></a><span class="identifier">text_view</span><span class="special">(</span><a class="link" href="text.html" title="Struct text">text</a> <span class="keyword">const</span> <span class="special">&amp;</span> t<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Constructs a <code class="computeroutput"><a class="link" href="text_view.html" title="Struct text_view">text_view</a></code> from a text.</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Postconditions:</span></p></td>
-<td><p>data() == t.begin() &amp;&amp; size() == t.size() </p></td>
-</tr></tbody>
-</table></div>
-</li>
-<li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CharRange<span class="special">&gt;</span> 
-  <span class="keyword">explicit</span> <a name="idm7075-bb"></a><span class="identifier">text_view</span><span class="special">(</span><span class="identifier">CharRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> r<span class="special">,</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <span class="special">=</span> <span class="number">0</span><span class="special">)</span><span class="special">;</span></pre>
-<p>Constructs a <code class="computeroutput"><a class="link" href="text_view.html" title="Struct text_view">text_view</a></code> from a range of char.</p>
-<p>This function only participates in overload resolution if CharRange models the CharRange concept.</p>
-<p>
-</p>
-<div class="variablelist"><table border="0" class="variablelist compact">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term">Throws:</span></p></td>
-<td>std::invalid_argument if the ends of the range are not valid UTF-8. </td>
-</tr></tbody>
-</table></div>
+<pre class="literallayout"><a name="idm7040-bb"></a><span class="identifier">text_view</span><span class="special">(</span><span class="identifier">const_iterator</span> first<span class="special">,</span> <span class="identifier">const_iterator</span> last<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Constructs a <code class="computeroutput"><a class="link" href="text_view.html" title="Struct text_view">text_view</a></code> from a pair of text iterators. </p>
 </li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm19657"></a><h3>
-<a name="idm7000-bb"></a><code class="computeroutput">text_view</code> public member functions</h3>
+<a name="idm19528"></a><h3>
+<a name="idm6999-bb"></a><code class="computeroutput">text_view</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm7001-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm7003-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm7005-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm7007-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm7009-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">int</span> <a name="idm7011-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm7000-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm7002-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm7004-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm7006-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm7008-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">int</span> <a name="idm7013-bb"></a><span class="identifier">max_size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">int</span> <a name="idm7010-bb"></a><span class="identifier">storage_bytes</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of bytes controlled by *this, not including the null terminator. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">int</span> <a name="idm7014-bb"></a><span class="identifier">distance</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Returns the number of graphemes in *this. This operation is O(n). </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><span class="keyword">int</span> <a name="idm7018-bb"></a><span class="identifier">max_size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Returns the maximum size a <code class="computeroutput"><a class="link" href="text_view.html" title="Struct text_view">text_view</a></code> can have. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm7018-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
-<p>Swaps *this with rhs.</p>
-<p>This function is constexpr in C++14 and later. </p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm7023-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="text_view.html" title="Struct text_view">text_view</a> <span class="special">&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<p>Swaps *this with rhs. </p>
 </li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm19756"></a><h3>
-<a name="idm7092-bb"></a><code class="computeroutput">text_view</code> friend functions</h3>
+<a name="idm19639"></a><h3>
+<a name="idm7048-bb"></a><code class="computeroutput">text_view</code> friend functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm7093-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
-<p>Stream inserter; performs unformatted output. </p>
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm7049-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="text_view.html" title="Struct text_view">text_view</a> tv<span class="special">)</span><span class="special">;</span></pre>
+<p>Stream inserter; performs formatted output, in UTF-8 encoding. </p>
 </li></ol></div>
-</div>
-<div class="refsect2">
-<a name="idm19782"></a><h3>
-<a name="idm7102-bb"></a><code class="computeroutput">text_view</code> private static functions</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">iterator</span> 
-<a name="idm7103-bb"></a><span class="identifier">make_iter</span><span class="special">(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> first<span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> it<span class="special">,</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> last<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>

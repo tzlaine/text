@@ -79,7 +79,7 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm4465-bb"></a><span class="identifier">repeated_string_view</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> tv<span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> count<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm4465-bb"></a><span class="identifier">repeated_string_view</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> sv<span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> count<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Constructs a <code class="computeroutput"><a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code> from a <code class="computeroutput"><a class="link" href="string_view.html" title="Struct string_view">string_view</a></code> and a count.</p>
 <p>This function is constexpr in C++14 and later.</p>
 <p>
@@ -91,7 +91,7 @@
 </colgroup>
 <tbody><tr>
 <td><p><span class="term">Postconditions:</span></p></td>
-<td><p>view() == tv &amp;&amp; count() == count </p></td>
+<td><p>view() == sv &amp;&amp; count() == count </p></td>
 </tr></tbody>
 </table></div>
 </li>
@@ -195,7 +195,7 @@
 <a name="idm10803"></a><h3>
 <a name="idm4479-bb"></a><code class="computeroutput">repeated_string_view</code> friend functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm4480-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rtv<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm4480-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a> rsv<span class="special">)</span><span class="special">;</span></pre>
 <p>Stream inserter; performs unformatted output. </p>
 </li></ol></div>
 </div>
