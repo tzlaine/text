@@ -104,11 +104,26 @@ namespace boost { namespace text {
     }
     inline text_view::iterator end(text_view tv) noexcept { return tv.end(); }
 
+    inline text_view::iterator cbegin(text_view tv) noexcept
+    {
+        return tv.begin();
+    }
+    inline text_view::iterator cend(text_view tv) noexcept { return tv.end(); }
+
     inline text_view::reverse_iterator rbegin(text_view tv) noexcept
     {
         return tv.rbegin();
     }
     inline text_view::reverse_iterator rend(text_view tv) noexcept
+    {
+        return tv.rend();
+    }
+
+    inline text_view::reverse_iterator crbegin(text_view tv) noexcept
+    {
+        return tv.rbegin();
+    }
+    inline text_view::reverse_iterator crend(text_view tv) noexcept
     {
         return tv.rend();
     }

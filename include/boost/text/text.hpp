@@ -17,18 +17,6 @@ namespace boost { namespace text {
     struct repeated_string_view;
     struct text_view;
 
-    /* TODO: Make sure we support operations on:
-        char const *          checked     (=)string_view
-        string_view           checked     (=)string_view
-        repeated_string_view  checked
-        string                checked     (=)string_view, except sink params
-        unencoded_rope        checked     (=)unencoded_rope_view
-        unencoded_rope_view   checked     (=)unencoded_rope_view
-        text_view             unchecked   (=)text_view
-        text                  unchecked   (=)text_view
-        rope                  unchecked
-    */
-
     /** A mutable contiguous null-terminated sequence of graphemes.  The
         underlying storage is a string that is UTF-8-encoded and
         FCC-normalized. */

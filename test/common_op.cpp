@@ -6,6 +6,41 @@
 
 using namespace boost;
 
+/*  Each of the operations below should work for the following types:
+
+    char (&literal)[N]
+    char const * c_str
+    std::string str
+
+    string_view sv
+    repeated_string_view rsv
+    string s
+    unencoded_rope ur
+    unencoded_rope_view urv
+
+    text_view tv
+    repeated_text_view rtv
+    text t
+    rope r 
+    rope_view rv
+*/
+
+/*  TODO: Covered operations must be:
+    T (U const &)
+    T (U &&)
+    T::operator=(U const &)
+    T::operator=(U &&)
+    operator==(T const &, U const &)
+    operator+(T const &, U const &)
+
+    Only for string/unencoded_rope/text/rope:
+    operator+=(const &)
+    operator+=(&&)
+    insert()
+    erase()
+    replace()
+*/
+
 TEST(common_operations, test_operator_plus)
 {
     text::string_view const tv("tv");
@@ -148,7 +183,7 @@ TEST(common_operations, test_operator_plus_assign)
     }
 }
 
-TEST(common_operations, copy_assign_broken_encoding_no_throw)
+TEST(common_operations, copy_assign)
 {
     // Unicode 9, 3.9/D90-D92
     // uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
