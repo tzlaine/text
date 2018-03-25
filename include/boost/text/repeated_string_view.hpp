@@ -30,13 +30,13 @@ namespace boost { namespace text {
 
             This function is constexpr in C++14 and later.
 
-            \post view() == tv && count() == count */
+            \post view() == sv && count() == count */
         BOOST_TEXT_CXX14_CONSTEXPR
-        repeated_string_view(string_view tv, std::ptrdiff_t count) noexcept :
-            view_(tv),
+        repeated_string_view(string_view sv, std::ptrdiff_t count) noexcept :
+            view_(sv),
             count_(count)
         {
-            assert(0 <= tv.size());
+            assert(0 <= sv.size());
             assert(0 <= count);
         }
 
@@ -176,10 +176,10 @@ namespace boost { namespace text {
 
         /** Stream inserter; performs unformatted output. */
         friend std::ostream &
-        operator<<(std::ostream & os, repeated_string_view rtv)
+        operator<<(std::ostream & os, repeated_string_view rsv)
         {
-            for (std::ptrdiff_t i = 0; i < rtv.count(); ++i) {
-                os.write(rtv.view().begin(), rtv.view().size());
+            for (std::ptrdiff_t i = 0; i < rsv.count(); ++i) {
+                os.write(rsv.view().begin(), rsv.view().size());
             }
             return os;
         }
@@ -195,10 +195,10 @@ namespace boost { namespace text {
 
         \post count >= 0 */
     inline BOOST_TEXT_CXX14_CONSTEXPR repeated_string_view
-    repeat(string_view tv, std::ptrdiff_t count)
+    repeat(string_view sv, std::ptrdiff_t count)
     {
         assert(0 <= count);
-        return repeated_string_view(tv, count);
+        return repeated_string_view(sv, count);
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -244,25 +244,25 @@ namespace boost { namespace text {
     }
 
     inline constexpr repeated_string_view::iterator
-    begin(repeated_string_view rtv) noexcept
+    begin(repeated_string_view rsv) noexcept
     {
-        return rtv.begin();
+        return rsv.begin();
     }
     inline constexpr repeated_string_view::iterator
-    end(repeated_string_view rtv) noexcept
+    end(repeated_string_view rsv) noexcept
     {
-        return rtv.end();
+        return rsv.end();
     }
 
     inline constexpr repeated_string_view::reverse_iterator
-    rbegin(repeated_string_view rtv) noexcept
+    rbegin(repeated_string_view rsv) noexcept
     {
-        return rtv.rbegin();
+        return rsv.rbegin();
     }
     inline constexpr repeated_string_view::reverse_iterator
-    rend(repeated_string_view rtv) noexcept
+    rend(repeated_string_view rsv) noexcept
     {
-        return rtv.rend();
+        return rsv.rend();
     }
 
 }}

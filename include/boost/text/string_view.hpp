@@ -53,8 +53,8 @@ namespace boost { namespace text {
 
         /** Constructs a string_view from a string.
 
-            \post data() == t.begin() && size() == t.size() */
-        string_view(string const & t) noexcept;
+            \post data() == a.begin() && size() == a.size() */
+        string_view(string const & a) noexcept;
 
         /** Constructs a string_view from a range of char.
 
@@ -195,9 +195,9 @@ namespace boost { namespace text {
         }
 
         /** Stream inserter; performs unformatted output. */
-        friend std::ostream & operator<<(std::ostream & os, string_view tv)
+        friend std::ostream & operator<<(std::ostream & os, string_view sv)
         {
-            return os.write(tv.begin(), tv.size());
+            return os.write(sv.begin(), sv.size());
         }
 
     private:
@@ -344,23 +344,23 @@ namespace boost { namespace text {
         return lhs >= string_view(rhs);
     }
 
-    inline constexpr string_view::iterator begin(string_view tv) noexcept
+    inline constexpr string_view::iterator begin(string_view sv) noexcept
     {
-        return tv.begin();
+        return sv.begin();
     }
-    inline constexpr string_view::iterator end(string_view tv) noexcept
+    inline constexpr string_view::iterator end(string_view sv) noexcept
     {
-        return tv.end();
+        return sv.end();
     }
 
     inline constexpr string_view::reverse_iterator
-    rbegin(string_view tv) noexcept
+    rbegin(string_view sv) noexcept
     {
-        return tv.rbegin();
+        return sv.rbegin();
     }
-    inline constexpr string_view::reverse_iterator rend(string_view tv) noexcept
+    inline constexpr string_view::reverse_iterator rend(string_view sv) noexcept
     {
-        return tv.rend();
+        return sv.rend();
     }
 
 }}
@@ -369,9 +369,9 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-    inline string_view::string_view(string const & t) noexcept :
-        data_(t.begin()),
-        size_(t.size())
+    inline string_view::string_view(string const & s) noexcept :
+        data_(s.begin()),
+        size_(s.size())
     {}
 
 }}

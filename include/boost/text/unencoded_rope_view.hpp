@@ -50,9 +50,9 @@ namespace boost { namespace text {
 
         /** Constructs an unencoded_rope_view covering the entire given
             unencoded_rope. */
-        unencoded_rope_view(string const & r) noexcept;
+        unencoded_rope_view(string const & s) noexcept;
 
-        /** Constructs a substring of r, taken from the range of chars at
+        /** Constructs a substring of s, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
             is taken to be an offset from the end, and so x + size() is used
             instead.
@@ -60,12 +60,12 @@ namespace boost { namespace text {
             These preconditions apply to the values used after size() is added
             to any negative arguments.
 
-            \pre 0 <= lo && lo <= r.size()
-            \pre 0 <= hi && lhi <= r.size()
+            \pre 0 <= lo && lo <= s.size()
+            \pre 0 <= hi && lhi <= s.size()
             \pre lo <= hi
-            \post size() == r.size() && begin() == r.begin() + lo && end() ==
-            r.begin() + hi */
-        unencoded_rope_view(string const & r, int lo, int hi);
+            \post size() == s.size() && begin() == s.begin() + lo && end() ==
+            s.begin() + hi */
+        unencoded_rope_view(string const & s, int lo, int hi);
 
         /** Constructs an unencoded_rope_view from a null-terminated C string.
 
@@ -77,19 +77,19 @@ namespace boost { namespace text {
 
         /** Constructs an unencoded_rope_view covering the entire given
             string_view. */
-        unencoded_rope_view(string_view tv) noexcept :
-            ref_(tv),
+        unencoded_rope_view(string_view sv) noexcept :
+            ref_(sv),
             which_(which::tv)
         {}
 
         /** Constructs an unencoded_rope_view covering the entire given
             repeated_string_view. */
-        unencoded_rope_view(repeated_string_view rtv) noexcept :
-            ref_(repeated_ref(rtv, 0, rtv.size())),
+        unencoded_rope_view(repeated_string_view rsv) noexcept :
+            ref_(repeated_ref(rsv, 0, rsv.size())),
             which_(which::rtv)
         {}
 
-        /** Constructs a substring of rtv, taken from the range of chars at
+        /** Constructs a substring of rsv, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
             is taken to be an offset from the end, and so x + size() is used
             instead.
@@ -97,12 +97,12 @@ namespace boost { namespace text {
             These preconditions apply to the values used after size() is added
             to any negative arguments.
 
-            \pre 0 <= lo && lo <= r.size()
-            \pre 0 <= hi && lhi <= r.size()
+            \pre 0 <= lo && lo <= rsv.size()
+            \pre 0 <= hi && lhi <= rsv.size()
             \pre lo <= hi
-            \post size() == r.size() && begin() == r.begin() + lo && end() ==
-            r.begin() + hi */
-        unencoded_rope_view(repeated_string_view rtv, int lo, int hi);
+            \post size() == rsv.size() && begin() == rsv.begin() + lo && end() ==
+            rsv.begin() + hi */
+        unencoded_rope_view(repeated_string_view rsv, int lo, int hi);
 
         const_iterator begin() const noexcept;
         const_iterator end() const noexcept;
