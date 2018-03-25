@@ -104,10 +104,6 @@ short-hand. The following macro will pick a few appropriate arguments in the
 product of the two specified ranges and will generate a benchmark for each such
 pair.
 
-```c++
-BENCHMARK(BM_SetInsert)->Ranges({{1<<10, 8<<10}, {1, 512}});
-```
-
 For more complex patterns of inputs, passing a custom function to `Apply` allows
 programmatic specification of an arbitrary set of arguments on which to run the
 benchmark. The following example enumerates a dense range on one parameter,
