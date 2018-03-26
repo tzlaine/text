@@ -19,20 +19,24 @@ using namespace boost;
     char const * c_str
     std::string str
 
-    string_view sv
     repeated_string_view rsv
+
+    string_view sv
     string s
     unencoded_rope ur
     unencoded_rope_view urv
 
     text_view tv
-    repeated_text_view rtv
     text t
     rope r 
     rope_view rv
 */
 
-/*  TODO: Covered operations must be:
+// TODO: finish writing these.
+/*  For each text-defined T above, covered operations must be:
+    T x = "str"; // Init from string literal.
+    std::vector<T> v = {"str"};  // Init from string literal in initializer_list.
+
     T (U const &)
     T (U &&)
     T::operator=(U const &)
@@ -53,6 +57,114 @@ using namespace boost;
     erase()
     replace()
 */
+
+// T x = "str"; // Init from string literal.
+TEST(common_operations, string_literal_init)
+{
+    char const * const c_str = "c_str";
+    (void)c_str;
+    std::string const str = "str";
+    (void)str;
+
+    text::string_view const sv = "sv";
+    (void)sv;
+    text::string const s = "s";
+    (void)s;
+    text::unencoded_rope const ur = "ur";
+    (void)ur;
+    text::unencoded_rope_view const urv = "urv";
+    (void)urv;
+
+    text::text const t = "t";
+    (void)t;
+    text::rope const r = "r";
+    (void)r;
+}
+
+// std::vector<T> v = {"str"};  // Init from string literal in initializer_list.
+TEST(common_operations, string_literal_init_initializer_list)
+{
+    std::vector<char const *> const c_str = {"c_str"};
+    (void)c_str;
+    std::vector<std::string> const str = {"str"};
+    (void)str;
+
+    std::vector<text::string_view> const sv = {"sv"};
+    (void)sv;
+    std::vector<text::string> const s = {"s"};
+    (void)s;
+    std::vector<text::unencoded_rope> const ur = {"ur"};
+    (void)ur;
+    std::vector<text::unencoded_rope_view> const urv = {"urv"};
+    (void)urv;
+
+    std::vector<text::text> const t = {"t"};
+    (void)t;
+    std::vector<text::rope> const r = {"r"};
+    (void)r;
+}
+
+#define ONE_OF_EACH()                                                          \
+    /* Should be written out by hand so that it does not decay: char           \
+       (&literal)[N]*/                                                         \
+    char const * const c_str = "c_str";                                        \
+    std::string const str("str");                                              \
+                                                                               \
+    text::repeated_string_view const rsv("rep", 2);                            \
+                                                                               \
+    text::string_view const sv("sv");                                          \
+    text::string const s("s");                                                 \
+    text::unencoded_rope const ur("ur");                                       \
+    text::unencoded_rope_view const urv(ur);                                   \
+                                                                               \
+    text::text const t("t");                                                   \
+    text::text_view const tv(t.begin(), t.end());                              \
+    text::rope const r("r");                                                   \
+    text::rope_view const rv(r)
+
+// T (U const &)
+TEST(common_operations, construction)
+{
+    ONE_OF_EACH();
+
+    // text::repeated_string_view
+    {
+        text::repeated_string_view const rsv_literal("literal", 2);
+        text::repeated_string_view const rsv_c_str(c_str, 2);
+        text::repeated_string_view const rsv_str(str, 2);
+        text::repeated_string_view const rsv_rsv(rsv);
+        text::repeated_string_view const rsv_sv(sv, 2);
+        text::repeated_string_view const rsv_s(s, 2);
+        // OK text::repeated_string_view const rsv_ur(ur, 2);
+        // OK text::repeated_string_view const rsv_urv(urv, 2);
+        text::repeated_string_view const rsv_t(t, 2);
+        text::repeated_string_view const rsv_tv(tv, 2);
+        // OK text::repeated_string_view const rsv_r(r, 2);
+        // OK text::repeated_string_view const rsv_rv(rv, 2);
+    }
+
+    // text::string_view
+    {
+        text::string_view const sv_literal("literal");
+        text::string_view const sv_c_str(c_str);
+        text::string_view const sv_str(str);
+        // OK text::string_view const sv_rsv(rsv);
+        text::string_view const sv_sv(sv);
+        text::string_view const sv_s(s);
+        // OK text::string_view const sv_ur(ur);
+        // OK text::string_view const sv_urv(urv);
+        text::string_view const sv_t(t);
+        text::string_view const sv_tv(tv);
+        // OK text::string_view const sv_r(r);
+        // OK text::string_view const sv_rv(rv);
+    }
+}
+
+// T (U &&)
+TEST(common_operations, move_construction)
+{
+    // TODO
+}
 
 TEST(common_operations, test_operator_plus)
 {

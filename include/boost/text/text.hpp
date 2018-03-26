@@ -32,6 +32,13 @@ namespace boost { namespace text {
         /** Default ctor. */
         text() {}
 
+        /** Constructs a text from a null-terminated string. */
+        text(char const * c_str);
+
+        /** Constructs a text from a null-terminated string. */
+        template<int N>
+        text(char (&c_str)[N]);
+
         /** Constructs a text from a string. */
         explicit text(string s);
 
@@ -470,6 +477,17 @@ namespace boost { namespace text {
     }
 
 #ifndef BOOST_TEXT_DOXYGEN
+
+    inline text::text(char const * c_str) : str_(c_str)
+    {
+        normalize_to_fcc(str_);
+    }
+
+    template<int N>
+    text::text(char (&c_str)[N]) : str_(string_view(c_str, N))
+    {
+        normalize_to_fcc(str_);
+    }
 
     inline text::text(text_view tv) : str_()
     {

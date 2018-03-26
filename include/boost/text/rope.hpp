@@ -29,7 +29,11 @@ namespace boost { namespace text {
         rope() {}
 
         /** Constructs a rope from a null-terminated string. */
-        explicit rope(char const * c_str);
+        rope(char const * c_str);
+
+        /** Constructs a rope from a null-terminated string. */
+        template<int N>
+        rope(char (&c_str)[N]);
 
         /** Constructs a rope from a string_view. */
         explicit rope(string_view sv);
@@ -382,7 +386,11 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-    rope::rope(char const * c_str) {}
+    rope::rope(char const * c_str) : rope_(text(c_str).extract()) {}
+
+    template<int N>
+    rope::rope(char (&c_str)[N]) : rope_(text(string_view(c_str, N)).extract())
+    {}
 
     rope::rope(rope_view rv) :
         rope_(rv.begin().base().base(), rv.end().base().base())

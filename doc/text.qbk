@@ -42,6 +42,7 @@
 
 [def _Text_                Boost.Text]
 [def _CharRng_             [link boost_text__proposed_.concepts.charrange CharRange]]
+[def _ContGrRng_           [link boost_text__proposed_.concepts.contiggraphemerange ContigGraphemeRange]]
 [def _CharIter_            [link boost_text__proposed_.concepts.chariter CharIter]]
 
 [def _s_                   [classref boost::text::string `string`]]

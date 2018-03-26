@@ -40,7 +40,11 @@ namespace boost { namespace text {
         unencoded_rope(unencoded_rope && rhs) noexcept = default;
 
         /** Constructs an unencoded_rope from a null-terminated string. */
-        explicit unencoded_rope(char const * c_str);
+        unencoded_rope(char const * c_str);
+
+        /** Constructs an unencoded_rope from a null-terminated string. */
+        template<int N>
+        unencoded_rope(char (&c_str)[N]);
 
         /** Constructs an unencoded_rope from an unencoded_rope_view. */
         explicit unencoded_rope(unencoded_rope_view rv);
@@ -490,6 +494,12 @@ namespace boost {
             ptr_(nullptr)
         {
             insert(0, unencoded_rope_view(c_str));
+        }
+
+        template<int N>
+        inline unencoded_rope::unencoded_rope(char (&c_str)[N])
+        {
+            insert(0, string_view(c_str, N));
         }
 
         inline unencoded_rope::unencoded_rope(unencoded_rope_view rv) :

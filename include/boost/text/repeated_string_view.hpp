@@ -40,6 +40,39 @@ namespace boost { namespace text {
             assert(0 <= count);
         }
 
+        /** Constructs a repeated_string_view from a range of char.
+
+            This function only participates in overload resolution if
+            CharRange models the CharRange concept. */
+        template<typename CharRange>
+        explicit repeated_string_view(
+            CharRange const & r,
+            std::ptrdiff_t count,
+            detail::rng_alg_ret_t<int *, CharRange> = 0) :
+            view_(string_view(r)),
+            count_(count)
+        {
+            assert(0 <= view_.size());
+            assert(0 <= count);
+        }
+
+        /** Constructs a repeated_string_view from a range of graphemes over
+            an underlying range of char.
+
+            This function only participates in overload resolution if
+            ContigGraphemeRange models the ContigGraphemeRange concept. */
+        template<typename ContigGraphemeRange>
+        explicit repeated_string_view(
+            ContigGraphemeRange const & r,
+            std::ptrdiff_t count,
+            detail::graph_rng_alg_ret_t<int *, ContigGraphemeRange> = 0) :
+            view_(string_view(r)),
+            count_(count)
+        {
+            assert(0 <= view_.size());
+            assert(0 <= count);
+        }
+
         constexpr const_iterator begin() const noexcept
         {
             return const_iterator(view_.begin(), view_.size(), 0);

@@ -4,6 +4,8 @@
 
 A _CharRng_ is a contiguous sequence of `char`.
 
+Example: _s_.
+
 Requirements on _CharRng_.  In the table below, `R` is a type that models
 _CharRng_; `r` is an object of type `R`; `Iter` is an iterator type; and `it`
 is an object of type `Iter`.
@@ -38,9 +40,52 @@ is an object of type `Iter`.
 
 Additionally, `Iter` must be a contiguous iterator.
 
+[heading ContigGraphemeRange]
+
+A _ContGrRng_ is a sequence of graphemes over an underlying contiguous
+sequence of `char`.
+
+Example: _t_.
+
+Requirements on _ContGrRng_.  In the table below, `R` is a type that models
+_ContGrRng_; `r` is an object of type `R`; `Iter` is an iterator type; and
+`it` is an object of type `Iter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]                      [Notes]]
+    [
+        [ `begin(r).base().base()` or `r.begin().base().base()` or `std::begin(r).base().base()` ]
+        [ Iter ]
+        [ The begin-iterator for the underlying sequence of `char` delimited by `r`. ]
+        [ If multiple `begin()` overloads exist, they are prefered in the order listed. ]
+    ]
+    [
+        [ `end(r).base().base()` or `r.end().base().base()` or `std::end(r).base().base()` ]
+        [ Iter ]
+        [ The end-iterator for the underlying sequence of `char` delimited by `r`. ]
+        [ If multiple `end()` overloads exist, they are prefered in the order listed. ]
+    ]
+    [
+        [ `typename std::iterator_traits<Iter>::iterator_category` ]
+        [ std::random_access_iterator_tag ]
+        [ `Iter` must be a random access iterator. ]
+        []
+    ]
+    [
+        [ `&*it` ]
+        [ `char *` ]
+        [ It must be possible to access the `char` sequence underlying `r` as an array. ]
+        [ The result will be `char const *` if `Iter` is a `const_iterator`. ]
+    ]
+]
+
+Additionally, `Iter` must be a contiguous iterator.
+
 [heading CharIter]
 
-A _CharIter_ is an iterator over a sequence of `char`.
+A _CharIter_ is a bidirectional iterator over a sequence of `char`.
+
+Example: _r_`::iterator`.
 
 Requirements on _CharIter_.  In the table below, `Iter` is a type that models
 _CharIter_.
@@ -59,7 +104,6 @@ _CharIter_.
     ]
 ]
 
-_CharIter_ does not need to be a contiguous iterator, and _CharIter_ does
-not need to have a particular iterator category.
+_CharIter_ does not need to be a contiguous iterator.
 
 [endsect]

@@ -35,6 +35,10 @@ namespace boost { namespace text { namespace detail {
     using remove_v_t = typename std::remove_volatile<T>::type;
 
     template<typename T>
+    using remove_cv_ref_t =
+        typename std::remove_cv<typename std::remove_reference<T>::type>::type;
+
+    template<typename T>
     struct fixup_ptr<T *>
     {
         using type = remove_v_t<T> const *;
@@ -202,6 +206,33 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename R1>
     using char_iter_ret_t = typename char_iter_ret<T, R1>::type;
+
+
+
+    template<typename T>
+    using is_grapheme_char_range = std::integral_constant<
+        bool,
+        is_char_iter<remove_cv_ref_t<decltype(
+            std::declval<const T>().begin().base().base())>>::value &&
+            is_char_iter<remove_cv_ref_t<decltype(
+                std::declval<const T>().end().base().base())>>::value>;
+
+    template<
+        typename T,
+        typename R1,
+        bool R1IsGraphemeCharRange = is_grapheme_char_range<R1>::value>
+    struct graph_rng_alg_ret
+    {
+    };
+
+    template<typename T, typename R1>
+    struct graph_rng_alg_ret<T, R1, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1>
+    using graph_rng_alg_ret_t = typename graph_rng_alg_ret<T, R1>::type;
 
 
 

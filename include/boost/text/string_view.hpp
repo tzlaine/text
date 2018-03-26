@@ -74,6 +74,28 @@ namespace boost { namespace text {
             }
         }
 
+        /** Constructs a string_view from a range of graphemes over an
+            underlying range of char.
+
+            This function only participates in overload resolution if
+            ContigGraphemeRange models the ContigGraphemeRange concept. */
+        template<typename ContigGraphemeRange>
+        explicit string_view(
+            ContigGraphemeRange const & r,
+            detail::graph_rng_alg_ret_t<int *, ContigGraphemeRange> = 0)
+        {
+            using std::begin;
+            using std::end;
+            if (begin(r) == end(r)) {
+                data_ = nullptr;
+                size_ = 0;
+            } else {
+                *this = string_view(
+                    &*begin(r).base().base(),
+                    end(r).base().base() - begin(r).base().base());
+            }
+        }
+
         constexpr string_view(string_view const & rhs) noexcept :
             data_(rhs.data_),
             size_(rhs.size_)
@@ -93,11 +115,23 @@ namespace boost { namespace text {
         constexpr const_iterator begin() const noexcept { return data_; }
         constexpr const_iterator end() const noexcept { return data_ + size_; }
 
+        constexpr const_iterator cbegin() const noexcept { return data_; }
+        constexpr const_iterator cend() const noexcept { return data_ + size_; }
+
         constexpr const_reverse_iterator rbegin() const noexcept
         {
             return reverse_iterator(end());
         }
         constexpr const_reverse_iterator rend() const noexcept
+        {
+            return reverse_iterator(begin());
+        }
+
+        constexpr const_reverse_iterator crbegin() const noexcept
+        {
+            return reverse_iterator(end());
+        }
+        constexpr const_reverse_iterator crend() const noexcept
         {
             return reverse_iterator(begin());
         }
@@ -353,12 +387,32 @@ namespace boost { namespace text {
         return sv.end();
     }
 
+    inline constexpr string_view::iterator cbegin(string_view sv) noexcept
+    {
+        return sv.begin();
+    }
+    inline constexpr string_view::iterator cend(string_view sv) noexcept
+    {
+        return sv.end();
+    }
+
     inline constexpr string_view::reverse_iterator
     rbegin(string_view sv) noexcept
     {
         return sv.rbegin();
     }
     inline constexpr string_view::reverse_iterator rend(string_view sv) noexcept
+    {
+        return sv.rend();
+    }
+
+    inline constexpr string_view::reverse_iterator
+    crbegin(string_view sv) noexcept
+    {
+        return sv.rbegin();
+    }
+    inline constexpr string_view::reverse_iterator
+    crend(string_view sv) noexcept
     {
         return sv.rend();
     }

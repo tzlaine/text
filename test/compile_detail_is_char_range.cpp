@@ -1,6 +1,11 @@
 #include <boost/text/algorithm.hpp>
 #include <boost/text/string_view.hpp>
 #include <boost/text/string.hpp>
+#include <boost/text/text.hpp>
+#include <boost/text/text_view.hpp>
+#include <boost/text/rope.hpp>
+#include <boost/text/rope_view.hpp>
+
 #include <boost/range/iterator_range_core.hpp>
 
 #include <array>
@@ -78,3 +83,12 @@ static_assert(!text::detail::is_char_range<int[5]>{}, "");
 // This may look wrong, but we don't care, because this decays to a char *
 // anyway!
 static_assert(!text::detail::is_char_range<char[5]>{}, "");
+
+static_assert(!text::detail::is_char_range<text::text>{}, "");
+static_assert(!text::detail::is_char_range<text::text_view>{}, "");
+static_assert(!text::detail::is_char_range<text::rope>{}, "");
+static_assert(!text::detail::is_char_range<text::rope_view>{}, "");
+
+
+static_assert(text::detail::is_grapheme_char_range<text::text>{}, "");
+static_assert(text::detail::is_grapheme_char_range<text::text_view>{}, "");
