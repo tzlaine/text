@@ -11,7 +11,6 @@
 namespace boost { namespace text {
 
     struct unencoded_rope_view;
-    struct unencoded_rope;
 
     namespace detail {
         struct const_rope_iterator;
@@ -91,8 +90,14 @@ namespace boost { namespace text {
         const_iterator begin() const noexcept;
         const_iterator end() const noexcept;
 
+        const_iterator cbegin() const noexcept;
+        const_iterator cend() const noexcept;
+
         const_reverse_iterator rbegin() const noexcept;
         const_reverse_iterator rend() const noexcept;
+
+        const_reverse_iterator crbegin() const noexcept;
+        const_reverse_iterator crend() const noexcept;
 
         bool empty() const noexcept { return size() == 0; }
 
@@ -811,6 +816,17 @@ namespace boost {
             return const_iterator(*this, size());
         }
 
+        inline unencoded_rope::const_iterator unencoded_rope::cbegin() const
+            noexcept
+        {
+            return begin();
+        }
+        inline unencoded_rope::const_iterator unencoded_rope::cend() const
+            noexcept
+        {
+            return end();
+        }
+
         inline unencoded_rope::const_reverse_iterator
         unencoded_rope::rbegin() const noexcept
         {
@@ -820,6 +836,17 @@ namespace boost {
         unencoded_rope::rend() const noexcept
         {
             return const_reverse_iterator(const_iterator(*this, -1));
+        }
+
+        inline unencoded_rope::const_reverse_iterator
+        unencoded_rope::crbegin() const noexcept
+        {
+            return rbegin();
+        }
+        inline unencoded_rope::const_reverse_iterator
+        unencoded_rope::crend() const noexcept
+        {
+            return rend();
         }
 
         inline unencoded_rope_view unencoded_rope::
@@ -1028,6 +1055,17 @@ namespace boost {
             return const_iterator(); // This should never execute.
         }
 
+        inline unencoded_rope_view::const_iterator
+        unencoded_rope_view::cbegin() const noexcept
+        {
+            return begin();
+        }
+        inline unencoded_rope_view::const_iterator
+        unencoded_rope_view::cend() const noexcept
+        {
+            return end();
+        }
+
         inline unencoded_rope_view::const_reverse_iterator
         unencoded_rope_view::rbegin() const noexcept
         {
@@ -1037,6 +1075,17 @@ namespace boost {
         unencoded_rope_view::rend() const noexcept
         {
             return const_reverse_iterator(begin() - 1);
+        }
+
+        inline unencoded_rope_view::const_reverse_iterator
+        unencoded_rope_view::crbegin() const noexcept
+        {
+            return rbegin();
+        }
+        inline unencoded_rope_view::const_reverse_iterator
+        unencoded_rope_view::crend() const noexcept
+        {
+            return rend();
         }
 
         inline bool unencoded_rope_view::empty() const noexcept
@@ -1227,6 +1276,17 @@ namespace boost {
             return rv.end();
         }
 
+        inline unencoded_rope_view::iterator
+        cbegin(unencoded_rope_view rv) noexcept
+        {
+            return rv.cbegin();
+        }
+        inline unencoded_rope_view::iterator
+        cend(unencoded_rope_view rv) noexcept
+        {
+            return rv.cend();
+        }
+
         inline unencoded_rope_view::reverse_iterator
         rbegin(unencoded_rope_view rv) noexcept
         {
@@ -1236,6 +1296,17 @@ namespace boost {
         rend(unencoded_rope_view rv) noexcept
         {
             return rv.rend();
+        }
+
+        inline unencoded_rope_view::reverse_iterator
+        crbegin(unencoded_rope_view rv) noexcept
+        {
+            return rv.crbegin();
+        }
+        inline unencoded_rope_view::reverse_iterator
+        crend(unencoded_rope_view rv) noexcept
+        {
+            return rv.crend();
         }
 
 

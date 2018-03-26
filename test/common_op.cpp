@@ -1,5 +1,12 @@
+#include <boost/text/string.hpp>
+#include <boost/text/string_view.hpp>
 #include <boost/text/unencoded_rope.hpp>
+#include <boost/text/unencoded_rope_view.hpp>
+
 #include <boost/text/text.hpp>
+#include <boost/text/text_view.hpp>
+#include <boost/text/rope.hpp>
+#include <boost/text/rope_view.hpp>
 
 #include <gtest/gtest.h>
 
@@ -32,6 +39,12 @@ using namespace boost;
     T::operator=(U &&)
     operator==(T const &, U const &)
     operator+(T const &, U const &)
+    operator<<(std::ostream&, T const &)
+
+    T::begin(), T::end(), T::cbegin(), T::cend()
+    T::rbegin(), T::rend(), T::crbegin(), T::crend()
+    begin(T const &), end(T const &), cbegin(T const &), cend(T const &)
+    rbegin(T const &), rend(T const &), crbegin(T const &), crend(T const &)
 
     Only for string/unencoded_rope/text/rope:
     operator+=(const &)

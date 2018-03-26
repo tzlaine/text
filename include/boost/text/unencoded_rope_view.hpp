@@ -107,8 +107,14 @@ namespace boost { namespace text {
         const_iterator begin() const noexcept;
         const_iterator end() const noexcept;
 
+        const_iterator cbegin() const noexcept;
+        const_iterator cend() const noexcept;
+
         const_reverse_iterator rbegin() const noexcept;
         const_reverse_iterator rend() const noexcept;
+
+        const_reverse_iterator crbegin() const noexcept;
+        const_reverse_iterator crend() const noexcept;
 
         bool empty() const noexcept;
         size_type size() const noexcept;
@@ -173,6 +179,8 @@ namespace boost { namespace text {
             std::swap(ref_, rhs.ref_);
             std::swap(which_, rhs.which_);
         }
+
+        // TODO: operator<<()
 
 #ifndef BOOST_TEXT_DOXYGEN
 

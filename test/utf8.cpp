@@ -620,6 +620,8 @@ TEST(utf_8, test_0xfffd)
 
 TEST(utf_8, test_end_of_invalid_utf8)
 {
+    auto const none = boost::optional<char const *>{};
+
     {
         char const bad_utf8[] = {0x61,
                                  char(0xf1),
@@ -638,22 +640,22 @@ TEST(utf_8, test_end_of_invalid_utf8)
         // 0xfffd, 0x0063, 0xfffd, 0xfffd, 0x0064};
 
         EXPECT_EQ(
-            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 0), nullptr);
+            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 0), none);
         EXPECT_EQ(
-            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 1),
+            *text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 1),
             bad_utf8 + 4);
         EXPECT_EQ(
-            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 4),
+            *text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 4),
             bad_utf8 + 6);
         EXPECT_EQ(
-            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 6),
+            *text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 6),
             bad_utf8 + 7);
         EXPECT_EQ(
-            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 7), nullptr);
+            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 7), none);
         EXPECT_EQ(
-            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 9), nullptr);
+            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 9), none);
         EXPECT_EQ(
-            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 12), nullptr);
+            text::utf8::detail::end_of_invalid_utf8(bad_utf8 + 12), none);
     }
     {
         // Unicode 9, 3.9/D90-D92
@@ -669,9 +671,9 @@ TEST(utf_8, test_end_of_invalid_utf8)
                              char(0x8c),
                              char(0x82)};
 
-        EXPECT_EQ(text::utf8::detail::end_of_invalid_utf8(utf8 + 0), nullptr);
-        EXPECT_EQ(text::utf8::detail::end_of_invalid_utf8(utf8 + 1), nullptr);
-        EXPECT_EQ(text::utf8::detail::end_of_invalid_utf8(utf8 + 3), nullptr);
-        EXPECT_EQ(text::utf8::detail::end_of_invalid_utf8(utf8 + 6), nullptr);
+        EXPECT_EQ(text::utf8::detail::end_of_invalid_utf8(utf8 + 0), none);
+        EXPECT_EQ(text::utf8::detail::end_of_invalid_utf8(utf8 + 1), none);
+        EXPECT_EQ(text::utf8::detail::end_of_invalid_utf8(utf8 + 3), none);
+        EXPECT_EQ(text::utf8::detail::end_of_invalid_utf8(utf8 + 6), none);
     }
 }
