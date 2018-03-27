@@ -104,6 +104,37 @@ namespace boost { namespace text {
             rsv.begin() + hi */
         unencoded_rope_view(repeated_string_view rsv, int lo, int hi);
 
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Constructs a unencoded_rope_view from a range of char.
+
+            This function only participates in overload resolution if
+            ContigCharRange models the ContigCharRange concept. */
+        template<typename ContigCharRange>
+        explicit unencoded_rope_view(ContigCharRange const & r);
+
+        /** Constructs a unencoded_rope_view from a range of graphemes over an
+            underlying range of char.
+
+            This function only participates in overload resolution if
+            ContigGraphemeRange models the ContigGraphemeRange concept. */
+        template<typename ContigGraphemeRange>
+        explicit unencoded_rope_view(ContigGraphemeRange const & r);
+
+#else
+
+        template<typename ContigCharRange>
+        explicit unencoded_rope_view(
+            ContigCharRange const & r,
+            detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0);
+
+        template<typename ContigGraphemeRange>
+        explicit unencoded_rope_view(
+            ContigGraphemeRange const & r,
+            detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> = 0);
+
+#endif
+
         const_iterator begin() const noexcept;
         const_iterator end() const noexcept;
 

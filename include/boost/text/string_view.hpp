@@ -56,13 +56,29 @@ namespace boost { namespace text {
             \post data() == a.begin() && size() == a.size() */
         string_view(string const & a) noexcept;
 
+#ifdef BOOST_TEXT_DOXYGEN
+
         /** Constructs a string_view from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
-        template<typename CharRange>
+            ContigCharRange models the ContigCharRange concept. */
+        template<typename ContigCharRange>
+        explicit string_view(ContigCharRange const & r);
+
+        /** Constructs a string_view from a range of graphemes over an
+            underlying range of char.
+
+            This function only participates in overload resolution if
+            ContigGraphemeRange models the ContigGraphemeRange concept. */
+        template<typename ContigGraphemeRange>
+        explicit string_view(ContigGraphemeRange const & r);
+
+#else
+
+        template<typename ContigCharRange>
         explicit string_view(
-            CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0)
+            ContigCharRange const & r,
+            detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0)
         {
             using std::begin;
             using std::end;
@@ -74,15 +90,10 @@ namespace boost { namespace text {
             }
         }
 
-        /** Constructs a string_view from a range of graphemes over an
-            underlying range of char.
-
-            This function only participates in overload resolution if
-            ContigGraphemeRange models the ContigGraphemeRange concept. */
         template<typename ContigGraphemeRange>
         explicit string_view(
             ContigGraphemeRange const & r,
-            detail::graph_rng_alg_ret_t<int *, ContigGraphemeRange> = 0)
+            detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> = 0)
         {
             using std::begin;
             using std::end;
@@ -95,6 +106,8 @@ namespace boost { namespace text {
                     end(r).base().base() - begin(r).base().base());
             }
         }
+
+#endif
 
         constexpr string_view(string_view const & rhs) noexcept :
             data_(rhs.data_),

@@ -35,10 +35,6 @@ namespace boost { namespace text { namespace detail {
     using remove_v_t = typename std::remove_volatile<T>::type;
 
     template<typename T>
-    using remove_cv_ref_t =
-        typename std::remove_cv<typename std::remove_reference<T>::type>::type;
-
-    template<typename T>
     struct fixup_ptr<T *>
     {
         using type = remove_v_t<T> const *;
@@ -46,6 +42,10 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T>
     using fixup_ptr_t = typename fixup_ptr<T>::type;
+
+    template<typename T>
+    using remove_cv_ref_t =
+        typename std::remove_cv<typename std::remove_reference<T>::type>::type;
 
     struct nonesuch
     {};
@@ -89,18 +89,18 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using has_member_begin = decltype(&*std::declval<T>().begin());
+    using has_member_begin = decltype(*std::declval<T>().begin());
     template<typename T>
-    using has_free_unqualified_begin = decltype(&*begin(std::declval<T>()));
+    using has_free_unqualified_begin = decltype(*begin(std::declval<T>()));
     template<typename T>
-    using has_free_std_begin = decltype(&*std::begin(std::declval<T>()));
+    using has_free_std_begin = decltype(*std::begin(std::declval<T>()));
 
     template<typename T>
-    using has_member_end = decltype(&*std::declval<T>().end());
+    using has_member_end = decltype(*std::declval<T>().end());
     template<typename T>
-    using has_free_unqualified_end = decltype(&*end(std::declval<T>()));
+    using has_free_unqualified_end = decltype(*end(std::declval<T>()));
     template<typename T>
-    using has_free_std_end = decltype(&*std::end(std::declval<T>()));
+    using has_free_std_end = decltype(*std::end(std::declval<T>()));
 
     template<typename T>
     using value_type_ = typename std::remove_cv<typename std::remove_reference<
@@ -122,28 +122,26 @@ namespace boost { namespace text { namespace detail {
     using is_char_range = std::integral_constant<
         bool,
         std::is_same<
-            fixup_ptr_t<detected_or<
+            remove_cv_ref_t<detected_or<
                 detected_or<
                     detected_t<has_free_std_begin, T>,
                     has_free_unqualified_begin,
                     T>,
                 has_member_begin,
                 T>>,
-            char const *>::value &&
+            char>::value &&
             std::is_same<
-                fixup_ptr_t<detected_or<
+                remove_cv_ref_t<detected_or<
                     detected_or<
                         detected_t<has_free_std_end, T>,
                         has_free_unqualified_end,
                         T>,
                     has_member_end,
                     T>>,
-                char const *>::value &&
+                char>::value &&
             std::is_same<
                 iterator_category_<T>,
-                std::random_access_iterator_tag>::value &&
-            !std::is_same<T, unencoded_rope>::value &&
-            !std::is_same<T, unencoded_rope_view>::value>;
+                std::random_access_iterator_tag>::value>;
 
 
 
@@ -182,6 +180,88 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename R1, typename R2>
     using rngs_alg_ret_t = typename rngs_alg_ret<T, R1, R2>::type;
+
+
+
+    template<typename T>
+    using has_contig_member_begin = decltype(&*std::declval<T>().begin());
+    template<typename T>
+    using has_contig_free_unqualified_begin =
+        decltype(&*begin(std::declval<T>()));
+    template<typename T>
+    using has_contig_free_std_begin = decltype(&*std::begin(std::declval<T>()));
+
+    template<typename T>
+    using has_contig_member_end = decltype(&*std::declval<T>().end());
+    template<typename T>
+    using has_contig_free_unqualified_end = decltype(&*end(std::declval<T>()));
+    template<typename T>
+    using has_contig_free_std_end = decltype(&*std::end(std::declval<T>()));
+
+    template<typename T>
+    using is_contig_char_range = std::integral_constant<
+        bool,
+        std::is_same<
+            fixup_ptr_t<detected_or<
+                detected_or<
+                    detected_t<has_contig_free_std_begin, T>,
+                    has_contig_free_unqualified_begin,
+                    T>,
+                has_contig_member_begin,
+                T>>,
+            char const *>::value &&
+            std::is_same<
+                fixup_ptr_t<detected_or<
+                    detected_or<
+                        detected_t<has_contig_free_std_end, T>,
+                        has_contig_free_unqualified_end,
+                        T>,
+                    has_contig_member_end,
+                    T>>,
+                char const *>::value &&
+            std::is_same<
+                iterator_category_<T>,
+                std::random_access_iterator_tag>::value &&
+            !std::is_same<T, unencoded_rope>::value &&
+            !std::is_same<T, unencoded_rope_view>::value>;
+
+
+
+    template<
+        typename T,
+        typename R1,
+        bool R1IsContigCharRange = is_contig_char_range<R1>::value>
+    struct contig_rng_alg_ret
+    {
+    };
+
+    template<typename T, typename R1>
+    struct contig_rng_alg_ret<T, R1, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1>
+    using contig_rng_alg_ret_t = typename contig_rng_alg_ret<T, R1>::type;
+
+    template<
+        typename T,
+        typename R1,
+        typename R2,
+        bool R1IsContigCharRange = is_contig_char_range<R1>::value,
+        bool R2IsContigCharRange = is_contig_char_range<R2>::value>
+    struct contig_rngs_alg_ret
+    {
+    };
+
+    template<typename T, typename R1, typename R2>
+    struct contig_rngs_alg_ret<T, R1, R2, true, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1, typename R2>
+    using contig_rngs_alg_ret_t = typename contig_rngs_alg_ret<T, R1, R2>::type;
 
 
 
@@ -233,6 +313,43 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename R1>
     using graph_rng_alg_ret_t = typename graph_rng_alg_ret<T, R1>::type;
+
+
+
+    template<typename T>
+    using is_contig_grapheme_char_range = std::integral_constant<
+        bool,
+        (std::is_same<
+             decltype(std::declval<const T>().begin().base().base()),
+             char const *>::value ||
+         std::is_same<
+             decltype(std::declval<const T>().begin().base().base()),
+             char *>::value) &&
+            (std::is_same<
+                 decltype(std::declval<const T>().end().base().base()),
+                 char const *>::value ||
+             std::is_same<
+                 decltype(std::declval<const T>().end().base().base()),
+                 char *>::value)>;
+
+    template<
+        typename T,
+        typename R1,
+        bool R1IsContigGraphemeCharRange =
+            is_contig_grapheme_char_range<R1>::value>
+    struct contig_graph_rng_alg_ret
+    {
+    };
+
+    template<typename T, typename R1>
+    struct contig_graph_rng_alg_ret<T, R1, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1>
+    using contig_graph_rng_alg_ret_t =
+        typename contig_graph_rng_alg_ret<T, R1>::type;
 
 
 

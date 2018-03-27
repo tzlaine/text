@@ -1,6 +1,9 @@
 #include <boost/text/algorithm.hpp>
+
 #include <boost/text/string_view.hpp>
 #include <boost/text/string.hpp>
+#include <boost/text/unencoded_rope.hpp>
+#include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/text.hpp>
 #include <boost/text/text_view.hpp>
 #include <boost/text/rope.hpp>
@@ -46,6 +49,8 @@ static_assert(text::detail::is_char_range<text::string_view>{}, "");
 static_assert(text::detail::is_char_range<text::string_view const>{}, "");
 static_assert(text::detail::is_char_range<text::string>{}, "");
 static_assert(text::detail::is_char_range<text::string const>{}, "");
+static_assert(text::detail::is_char_range<text::unencoded_rope>{}, "");
+static_assert(text::detail::is_char_range<text::unencoded_rope_view>{}, "");
 static_assert(text::detail::is_char_range<std::string>{}, "");
 static_assert(text::detail::is_char_range<std::string const>{}, "");
 static_assert(text::detail::is_char_range<std::vector<char>>{}, "");
@@ -90,5 +95,16 @@ static_assert(!text::detail::is_char_range<text::rope>{}, "");
 static_assert(!text::detail::is_char_range<text::rope_view>{}, "");
 
 
+static_assert(!text::detail::is_contig_char_range<text::unencoded_rope>{}, "");
+static_assert(!text::detail::is_contig_char_range<text::unencoded_rope_view>{}, "");
+
+
 static_assert(text::detail::is_grapheme_char_range<text::text>{}, "");
 static_assert(text::detail::is_grapheme_char_range<text::text_view>{}, "");
+static_assert(text::detail::is_grapheme_char_range<text::rope>{}, "");
+static_assert(text::detail::is_grapheme_char_range<text::rope_view>{}, "");
+
+static_assert(text::detail::is_contig_grapheme_char_range<text::text>{}, "");
+static_assert(text::detail::is_contig_grapheme_char_range<text::text_view>{}, "");
+static_assert(!text::detail::is_contig_grapheme_char_range<text::rope>{}, "");
+static_assert(!text::detail::is_contig_grapheme_char_range<text::rope_view>{}, "");

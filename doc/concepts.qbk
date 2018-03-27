@@ -2,9 +2,9 @@
 
 [heading CharRange]
 
-A _CharRng_ is a contiguous sequence of `char`.
+A _CharRng_ is a possibly-discontiguous sequence of `char`.
 
-Example: _s_.
+Example: _ur_.
 
 Requirements on _CharRng_.  In the table below, `R` is a type that models
 _CharRng_; `r` is an object of type `R`; `Iter` is an iterator type; and `it`
@@ -31,6 +31,28 @@ is an object of type `Iter`.
         []
     ]
     [
+        [ `*it` ]
+        [ `char` ]
+        [ It must be possible to access the `char` sequence underlying `r`. ]
+        []
+    ]
+]
+
+
+[heading ContigCharRange]
+
+A _ContCharRng_ is a contiguous sequence of `char`.
+
+Example: _s_.
+
+Requirements on _ContCharRng_.  All the requirements on _CharRng_ apply, in
+addition to the following table.  In the table, `R` is a type that models
+_ContCharRng_; `r` is an object of type `R`; `Iter` is an iterator type; and
+`it` is an object of type `Iter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]                      [Notes]]
+    [
         [ `&*it` ]
         [ `char *` ]
         [ It must be possible to access the `char` sequence underlying `r` as an array. ]
@@ -40,16 +62,17 @@ is an object of type `Iter`.
 
 Additionally, `Iter` must be a contiguous iterator.
 
-[heading ContigGraphemeRange]
 
-A _ContGrRng_ is a sequence of graphemes over an underlying contiguous
+[heading GraphemeRange]
+
+A _GrRng_ is a sequence of graphemes over an underlying possibly-discontiguous
 sequence of `char`.
 
-Example: _t_.
+Example: _r_.
 
-Requirements on _ContGrRng_.  In the table below, `R` is a type that models
-_ContGrRng_; `r` is an object of type `R`; `Iter` is an iterator type; and
-`it` is an object of type `Iter`.
+Requirements on _GrRng_.  In the table below, `R` is a type that models
+_GrRng_; `r` is an object of type `R`; `Iter` is an iterator type; and `it` is
+an object of type `Iter`.
 
 [table Expression Requirements
     [[Expression]    [Type]     [Description]                      [Notes]]
@@ -72,7 +95,30 @@ _ContGrRng_; `r` is an object of type `R`; `Iter` is an iterator type; and
         []
     ]
     [
-        [ `&*it` ]
+        [ `*it->base().base()` ]
+        [ `char` ]
+        [ It must be possible to access the `char` sequence underlying `r`. ]
+        []
+    ]
+]
+
+
+[heading ContigGraphemeRange]
+
+A _ContGrRng_ is a sequence of graphemes over an underlying contiguous
+sequence of `char`.
+
+Example: _t_.
+
+Requirements on _ContGrRng_.  All the requirements on _GrRng_ apply, in
+addition to the following table.  In the table, `R` is a type that models
+_ContGrRng_; `r` is an object of type `R`; `Iter` is an iterator type; and
+`it` is an object of type `Iter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]                      [Notes]]
+    [
+        [ `&*it->base().base()` ]
         [ `char *` ]
         [ It must be possible to access the `char` sequence underlying `r` as an array. ]
         [ The result will be `char const *` if `Iter` is a `const_iterator`. ]
@@ -80,6 +126,7 @@ _ContGrRng_; `r` is an object of type `R`; `Iter` is an iterator type; and
 ]
 
 Additionally, `Iter` must be a contiguous iterator.
+
 
 [heading CharIter]
 

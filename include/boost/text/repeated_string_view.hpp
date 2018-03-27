@@ -43,12 +43,12 @@ namespace boost { namespace text {
         /** Constructs a repeated_string_view from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
-        template<typename CharRange>
+            ContigCharRange models the ContigCharRange concept. */
+        template<typename ContigCharRange>
         explicit repeated_string_view(
-            CharRange const & r,
+            ContigCharRange const & r,
             std::ptrdiff_t count,
-            detail::rng_alg_ret_t<int *, CharRange> = 0) :
+            detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0) :
             view_(string_view(r)),
             count_(count)
         {
@@ -65,7 +65,8 @@ namespace boost { namespace text {
         explicit repeated_string_view(
             ContigGraphemeRange const & r,
             std::ptrdiff_t count,
-            detail::graph_rng_alg_ret_t<int *, ContigGraphemeRange> = 0) :
+            detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> =
+                0) :
             view_(string_view(r)),
             count_(count)
         {

@@ -56,6 +56,13 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
+        /** Constructs a unencoded_rope from a range of char.
+
+            This function only participates in overload resolution if
+            CharRange models the CharRange concept. */
+        template<typename CharRange>
+        explicit unencoded_rope(CharRange const & r);
+
         /** Constructs an unencoded_rope from a sequence of char.
 
             This function only participates in overload resolution if CharIter
@@ -63,7 +70,23 @@ namespace boost { namespace text {
         template<typename CharIter>
         unencoded_rope(CharIter first, CharIter last);
 
+        /** Constructs a unencoded_rope from a range of graphemes over an
+            underlying range of char.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        explicit unencoded_rope(GraphemeRange const & r);
+
 #else
+
+        template<typename CharRange>
+        explicit unencoded_rope(
+            CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0) :
+            ptr_()
+        {
+            insert(0, r);
+        }
 
         template<typename CharIter>
         unencoded_rope(
@@ -73,6 +96,20 @@ namespace boost { namespace text {
             ptr_()
         {
             insert(0, first, last);
+        }
+
+        template<typename GraphemeRange>
+        explicit unencoded_rope(
+            GraphemeRange const & r,
+            detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0)
+        {
+            using std::begin;
+            using std::end;
+            if (begin(r) == end(r)) {
+                clear();
+            } else {
+                insert(0, begin(r).base().base(), end(r).base().base());
+            }
         }
 
 #endif
@@ -252,6 +289,20 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
+        /** Inserts the char sequence r into *this starting at offset at.
+
+            This function only participates in overload resolution if
+            CharRange models the CharRange concept. */
+        template<typename CharRange>
+        auto insert(size_type at, CharRange const & r);
+
+        /** Inserts the char sequence r into *this starting at position at.
+
+            This function only participates in overload resolution if
+            CharRange models the CharRange concept. */
+        template<typename CharRange>
+        auto insert(const_iterator at, CharRange const & r);
+
         /** Inserts the char sequence [first, last) into *this starting at
             offset at.
 
@@ -270,6 +321,14 @@ namespace boost { namespace text {
         insert(const_iterator at, CharIter first, CharIter last);
 
 #else
+
+        template<typename CharRange>
+        auto insert(size_type at, CharRange const & r)
+            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>;
+
+        template<typename CharRange>
+        auto insert(const_iterator at, CharRange const & r)
+            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>;
 
         template<typename CharIter>
         auto insert(size_type at, CharIter first, CharIter last)
@@ -657,6 +716,26 @@ namespace boost {
             return *this;
         }
 
+        template<typename CharRange>
+        auto unencoded_rope::insert(size_type at, CharRange const & r)
+            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>
+        {
+            using std::begin;
+            using std::end;
+            insert(at, begin(r), end(r));
+            return *this;
+        }
+
+        template<typename CharRange>
+        auto unencoded_rope::insert(const_iterator at, CharRange const & r)
+            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>
+        {
+            using std::begin;
+            using std::end;
+            insert(at, begin(r), end(r));
+            return *this;
+        }
+
         template<typename CharIter>
         auto unencoded_rope::insert(size_type at, CharIter first, CharIter last)
             -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
@@ -1036,6 +1115,39 @@ namespace boost {
             ref_(repeated_ref(rsv, lo, hi)),
             which_(which::rtv)
         {}
+
+        template<typename ContigCharRange>
+        unencoded_rope_view::unencoded_rope_view(
+            ContigCharRange const & r,
+            detail::contig_rng_alg_ret_t<int *, ContigCharRange>) :
+            ref_(rope_ref())
+        {
+            using std::begin;
+            using std::end;
+            if (begin(r) == end(r)) {
+                *this = unencoded_rope_view();
+            } else {
+                *this = unencoded_rope_view(
+                    string_view(&*begin(r), end(r) - begin(r)));
+            }
+        }
+
+        template<typename ContigGraphemeRange>
+        unencoded_rope_view::unencoded_rope_view(
+            ContigGraphemeRange const & r,
+            detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange>) :
+            ref_(rope_ref())
+        {
+            using std::begin;
+            using std::end;
+            if (begin(r) == end(r)) {
+                *this = unencoded_rope_view();
+            } else {
+                *this = unencoded_rope_view(string_view(
+                    &*begin(r).base().base(),
+                    end(r).base().base() - begin(r).base().base()));
+            }
+        }
 
         inline unencoded_rope_view::const_iterator
         unencoded_rope_view::begin() const noexcept

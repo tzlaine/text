@@ -76,6 +76,14 @@ namespace boost { namespace text {
         template<typename CharIter>
         string(CharIter first, CharIter last);
 
+        /** Constructs a string from a range of graphemes over an underlying
+            range of char.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        explicit string(GraphemeRange const & r);
+
 #else
 
         template<typename CharRange>
@@ -100,6 +108,20 @@ namespace boost { namespace text {
             insert(0, first, last);
         }
 
+        template<typename GraphemeRange>
+        explicit string(
+            GraphemeRange const & r,
+            detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0)
+        {
+            using std::begin;
+            using std::end;
+            if (begin(r) == end(r)) {
+                clear();
+            } else {
+                insert(0, begin(r).base().base(), end(r).base().base());
+            }
+        }
+
 #endif
 
         ~string()
@@ -118,7 +140,6 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        // TODO: Loosen this to allow discontiguous ranges.
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
@@ -133,6 +154,9 @@ namespace boost { namespace text {
             -> detail::rng_alg_ret_t<string &, CharRange>;
 
 #endif
+
+        /** Assignment from a string_view. */
+        string & operator=(string_view sv);
 
         /** Assignment from a repeated_string_view. */
         string & operator=(repeated_string_view rsv);
@@ -882,20 +906,33 @@ namespace boost { namespace text {
         return *this;
     }
 
+    inline string & string::operator=(string_view sv)
+    {
+        bool const self_ref = self_reference(sv);
+        if (self_ref) {
+            erase(string_view(sv.end(), end() - sv.end()));
+            erase(string_view(begin(), sv.begin() - begin()));
+        } else if (sv.size() <= size()) {
+            clear();
+            insert(0, sv);
+        } else {
+            string tmp(sv);
+            swap(tmp);
+        }
+        return *this;
+    }
+
     template<typename CharRange>
     auto string::operator=(CharRange const & r)
         -> detail::rng_alg_ret_t<string &, CharRange>
     {
-        auto tv = string_view(r);
-        bool const self_ref = self_reference(tv);
-        if (self_ref) {
-            erase(string_view(tv.end(), end() - tv.end()));
-            erase(string_view(begin(), tv.begin() - begin()));
-        } else if (tv.size() <= size()) {
+        using std::begin;
+        using std::end;
+        if (std::distance(begin(r), end(r)) <= size()) {
             clear();
-            insert(0, tv);
+            insert(0, r);
         } else {
-            string tmp(tv);
+            string tmp(r);
             swap(tmp);
         }
         return *this;
@@ -976,14 +1013,18 @@ namespace boost { namespace text {
     auto string::insert(int at, CharRange const & r)
         -> detail::rng_alg_ret_t<string &, CharRange>
     {
-        return insert(at, string_view(r));
+        using std::begin;
+        using std::end;
+        return insert(at, begin(r), end(r));
     }
 
     template<typename CharRange>
     auto string::insert(iterator at, CharRange const & r)
         -> detail::rng_alg_ret_t<iterator, CharRange>
     {
-        return insert(at, string_view(r));
+        using std::begin;
+        using std::end;
+        return insert(at, begin(r), end(r));
     }
 
     inline string & string::insert(int at, string_view sv)
