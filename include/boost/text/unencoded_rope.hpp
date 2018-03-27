@@ -128,6 +128,52 @@ namespace boost { namespace text {
             return *this;
         }
 
+        /** Assignment from a null-terminated string. */
+        unencoded_rope & operator=(char const * c_str);
+
+        /** Assignment from a null-terminated string. */
+        template<int N>
+        unencoded_rope & operator=(char (&c_str)[N]);
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Assignment from a range of char.
+
+            This function only participates in overload resolution if
+            CharRange models the CharRange concept. */
+        template<typename CharRange>
+        unencoded_rope & operator=(CharRange const & r);
+
+        /** Assignment from a range of graphemes over an underlying range of
+            char.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        unencoded_rope & operator=(GraphemeRange const & r);
+
+#else
+
+        template<typename CharRange>
+        auto operator=(CharRange const & r)
+            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>
+        {
+            unencoded_rope temp(r);
+            swap(temp);
+            return *this;
+        }
+
+        template<typename GraphemeRange>
+        auto operator=(GraphemeRange const & r)
+            -> detail::graph_rng_alg_ret_t<unencoded_rope &, GraphemeRange>
+        {
+            unencoded_rope temp(r);
+            swap(temp);
+            return *this;
+        }
+
+#endif
+
         const_iterator begin() const noexcept;
         const_iterator end() const noexcept;
 
@@ -575,6 +621,21 @@ namespace boost {
                 extra_ref = ptr_;
 
             unencoded_rope temp(rv);
+            swap(temp);
+            return *this;
+        }
+
+        inline unencoded_rope & unencoded_rope::operator=(char const * c_str)
+        {
+            unencoded_rope temp(c_str);
+            swap(temp);
+            return *this;
+        }
+
+        template<int N>
+        unencoded_rope & unencoded_rope::operator=(char (&c_str)[N])
+        {
+            unencoded_rope temp(c_str);
             swap(temp);
             return *this;
         }

@@ -357,6 +357,215 @@ TEST(common_operations, move_construction)
     // TODO
 }
 
+// T::operator=(U const &)
+TEST(common_operations, assignment_operators)
+{
+    ONE_OF_EACH();
+
+    // text::repeated_string_view
+
+    // text::string_view
+    {
+        text::string_view sv_literal;
+        sv_literal = "literal";
+        text::string_view sv_c_str;
+        sv_c_str = c_str;
+        text::string_view sv_str;
+        sv_str = str;
+        // OK text::string_view sv_rsv(rsv);
+        text::string_view sv_sv;
+        sv_sv = sv;
+        text::string_view sv_s;
+        sv_s = s;
+        // OK text::string_view sv_ur(ur);
+        // OK text::string_view sv_urv(urv);
+        text::string_view sv_t;
+        sv_t = t;
+        text::string_view sv_tv;
+        sv_tv = tv;
+        // OK text::string_view sv_r(r);
+        // OK text::string_view sv_rv(rv);
+    }
+
+    // text::string
+    {
+        text::string s_literal;
+        s_literal = "literal";
+        text::string s_c_str;
+        s_c_str = c_str;
+        text::string s_str;
+        s_str = str;
+        text::string s_rsv;
+        s_rsv = rsv;
+        text::string s_sv;
+        s_sv = sv;
+        text::string s_s;
+        s_s = s;
+        text::string s_ur;
+        s_ur = ur;
+        text::string s_urv;
+        s_urv = urv;
+        text::string s_t;
+        s_t = t;
+        text::string s_tv;
+        s_tv = tv;
+        text::string s_r;
+        s_r = r;
+        text::string s_rv;
+        s_rv = rv;
+    }
+
+    // text::unencoded_rope
+    {
+        text::unencoded_rope ur_literal;
+        ur_literal = "literal";
+        text::unencoded_rope ur_c_str;
+        ur_c_str = c_str;
+        text::unencoded_rope ur_str;
+        ur_str = str;
+        text::unencoded_rope ur_rsv;
+        ur_rsv = rsv;
+        text::unencoded_rope ur_sv;
+        ur_sv = sv;
+        text::unencoded_rope ur_s;
+        ur_s = s;
+        text::unencoded_rope ur_ur;
+        ur_ur = ur;
+        text::unencoded_rope ur_urv;
+        ur_urv = urv;
+        text::unencoded_rope ur_t;
+        ur_t = t;
+        text::unencoded_rope ur_tv;
+        ur_tv = tv;
+        text::unencoded_rope ur_r;
+        ur_r = r;
+        text::unencoded_rope ur_rv;
+        ur_rv = rv;
+    }
+
+#if 0
+    // text::unencoded_rope_view
+    {
+        text::unencoded_rope_view urv_literal;
+        urv_literal = "literal";
+        text::unencoded_rope_view urv_c_str;
+        urv_c_str = c_str;
+        text::unencoded_rope_view urv_str;
+        urv_str = str;
+        text::unencoded_rope_view urv_rsv;
+        urv_rsv = rsv;
+        text::unencoded_rope_view urv_sv;
+        urv_sv = sv;
+        text::unencoded_rope_view urv_s;
+        urv_s = s;
+        text::unencoded_rope_view urv_ur;
+        urv_ur = ur;
+        text::unencoded_rope_view urv_urv;
+        urv_urv = urv;
+        text::unencoded_rope_view urv_t;
+        urv_t = t;
+        text::unencoded_rope_view urv_tv;
+        urv_tv = tv;
+        // OK text::unencoded_rope_view urv_r(r);
+        // OK text::unencoded_rope_view urv_rv(rv);
+    }
+
+    // text::text_view
+    {
+        // OK text::text_view tv_literal("literal");
+        // OK text::text_view tv_c_str(c_str);
+        // OK text::text_view tv_str(str);
+        // OK text::text_view tv_rsv(rsv);
+        // OK text::text_view tv_sv(sv);
+        // OK text::text_view tv_s(s);
+        // OK text::text_view tv_ur(ur);
+        // OK text::text_view tv_urv(urv);
+        text::text_view tv_t;
+        tv_t = t;
+        text::text_view tv_tv;
+        tv_tv = tv;
+        // OK text::text_view tv_r(r);
+        // OK text::text_view tv_rv(rv);
+    }
+
+    // text::text
+    {
+        text::text t_literal;
+        t_literal = "literal";
+        text::text t_c_str(;
+        t_c_str = c_str;
+        text::text t_str;
+        t_str = str;
+        text::text t_rsv;
+        t_rsv = rsv;
+        text::text t_sv;
+        t_sv = sv;
+        text::text t_s;
+        t_s = s;
+        text::text t_ur;
+        t_ur = ur;
+        text::text t_urv;
+        t_urv = urv;
+        text::text t_t;
+        t_t = t;
+        text::text t_tv;
+        t_tv = tv;
+        text::text t_r;
+        t_r = r;
+        text::text t_rv;
+        t_rv = rv;
+    }
+
+    // text::rope
+    {
+        text::rope r_literal;
+        r_literal = "literal";
+        text::rope r_c_str;
+        r_c_str = c_str;
+        text::rope r_str;
+        r_str = str;
+        text::rope r_rsv;
+        r_rsv = rsv;
+        text::rope r_sv;
+        r_sv = sv;
+        text::rope r_s;
+        r_s = s;
+        text::rope r_ur;
+        r_ur = ur;
+        text::rope r_urv;
+        r_urv = urv;
+        text::rope r_t;
+        r_t = t;
+        text::rope r_tv;
+        r_tv = tv;
+        text::rope r_r;
+        r_r = r;
+        text::rope r_rv;
+        r_rv = rv;
+    }
+
+    // text::rope_view
+    {
+        // OK text::rope_view rv_literal("literal");
+        // OK text::rope_view rv_c_str(c_str);
+        // OK text::rope_view rv_str(str);
+        // OK text::rope_view rv_rsv(rsv);
+        // OK text::rope_view rv_sv(sv);
+        // OK text::rope_view rv_s(s);
+        // OK text::rope_view rv_ur(ur);
+        // OK text::rope_view rv_urv(urv);
+        text::rope_view rv_t;
+        rv_t = t;
+        text::rope_view rv_tv;
+        rv_tv = tv;
+        text::rope_view rv_r;
+        rv_r = r;
+        text::rope_view rv_rv;
+        rv_rv = rv;
+    }
+#endif
+}
+
 TEST(common_operations, test_operator_plus)
 {
     text::string_view const tv("tv");
@@ -527,7 +736,7 @@ TEST(common_operations, copy_assign)
 
     EXPECT_NO_THROW(text::string_view(tv));
     EXPECT_NO_THROW(text::string_view(t));
-    EXPECT_NO_THROW(text::string_view(text::string(t)));
+    EXPECT_NO_THROW(text::string_view(t));
 
     EXPECT_NO_THROW(text::repeated_string_view(tv, 2));
     EXPECT_NO_THROW(text::repeated_string_view(rtv));
@@ -548,13 +757,13 @@ TEST(common_operations, copy_assign)
     EXPECT_NO_THROW(text::unencoded_rope_view(tv));
     EXPECT_NO_THROW(text::unencoded_rope_view(rtv));
     EXPECT_NO_THROW(text::unencoded_rope_view(t));
-    EXPECT_NO_THROW(text::unencoded_rope_view(text::string(t)));
+    EXPECT_NO_THROW(text::unencoded_rope_view(t));
     EXPECT_NO_THROW(text::unencoded_rope_view(r));
     EXPECT_NO_THROW(text::unencoded_rope_view(rv));
 
     EXPECT_NO_THROW(text::string_view() = tv);
     EXPECT_NO_THROW(text::string_view() = t);
-    EXPECT_NO_THROW(text::string_view() = text::string(t));
+    EXPECT_NO_THROW(text::string_view() = t);
 
     EXPECT_NO_THROW(text::repeated_string_view() = rtv);
 
@@ -574,7 +783,7 @@ TEST(common_operations, copy_assign)
     EXPECT_NO_THROW(text::unencoded_rope_view() = tv);
     EXPECT_NO_THROW(text::unencoded_rope_view() = rtv);
     EXPECT_NO_THROW(text::unencoded_rope_view() = t);
-    EXPECT_NO_THROW(text::unencoded_rope_view() = text::string(t));
+    EXPECT_NO_THROW(text::unencoded_rope_view() = t);
     EXPECT_NO_THROW(text::unencoded_rope_view() = r);
     EXPECT_NO_THROW(text::unencoded_rope_view() = rv);
 }

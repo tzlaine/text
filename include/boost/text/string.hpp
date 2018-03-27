@@ -54,6 +54,10 @@ namespace boost { namespace text {
         /** Constructs a string from a null-terminated string. */
         string(char const * c_str);
 
+        /** Constructs a string from a null-terminated string. */
+        template<int N>
+        string(char (&c_str)[N]);
+
         /** Constructs a string from a string_view. */
         explicit string(string_view sv);
 
@@ -113,9 +117,7 @@ namespace boost { namespace text {
             GraphemeRange const & r,
             detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0)
         {
-            using std::begin;
-            using std::end;
-            insert(0, begin(r).base().base(), end(r).base().base());
+            insert(0, r);
         }
 
 #endif
@@ -125,6 +127,11 @@ namespace boost { namespace text {
             if (heap_)
                 storage_.heap_.~heap_t();
         }
+
+        string & operator=(char const * c_str);
+
+        template<int N>
+        string & operator=(char (&c_str)[N]);
 
         string & operator=(string const & s);
 
@@ -143,11 +150,23 @@ namespace boost { namespace text {
         template<typename CharRange>
         string & operator=(CharRange const & r);
 
+        /** Assignment from a range of graphemes over an underlying range of
+            char.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        string & operator=(GraphemeRange const & r);
+
 #else
 
         template<typename CharRange>
         auto operator=(CharRange const & r)
             -> detail::rng_alg_ret_t<string &, CharRange>;
+
+        template<typename GraphemeRange>
+        auto operator=(GraphemeRange const & r)
+            -> detail::graph_rng_alg_ret_t<string &, GraphemeRange>;
 
 #endif
 
@@ -332,6 +351,22 @@ namespace boost { namespace text {
         template<typename CharIter>
         iterator insert(iterator at, CharIter first, CharIter last);
 
+        /** Inserts the underlying range of char from the given range of
+            graphemes into *this starting at offset at.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        string & insert(int at, GraphemeRange const & r);
+
+        /** Inserts the underlying range of char from the given range of
+            graphemes into *this starting at position at.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        iterator insert(iterator at, GraphemeRange const & r);
+
 #else
 
         template<typename CharRange>
@@ -367,6 +402,14 @@ namespace boost { namespace text {
 
             return insert_iter_impl(at - begin(), first, last);
         }
+
+        template<typename GraphemeRange>
+        auto insert(int at, GraphemeRange const & r)
+            -> detail::graph_rng_alg_ret_t<string &, GraphemeRange>;
+
+        template<typename GraphemeRange>
+        auto insert(iterator at, GraphemeRange const & r)
+            -> detail::graph_rng_alg_ret_t<iterator, GraphemeRange>;
 
 #endif
 
@@ -877,6 +920,12 @@ namespace boost { namespace text {
         insert(0, string_view(c_str));
     }
 
+    template<int N>
+    string::string(char (&c_str)[N]) : storage_(), size_(0), heap_(false)
+    {
+        insert(0, string_view(c_str, N));
+    }
+
     inline string::string(string_view sv) : storage_(), size_(0), heap_(false)
     {
         insert(0, sv);
@@ -888,6 +937,17 @@ namespace boost { namespace text {
         heap_(false)
     {
         insert(0, rsv);
+    }
+
+    inline string & string::operator=(char const * c_str)
+    {
+        return *this = string_view(c_str);
+    }
+
+    template<int N>
+    string & string::operator=(char (&c_str)[N])
+    {
+        return *this = string_view(c_str, N);
     }
 
     inline string & string::operator=(string const & s)
@@ -925,6 +985,25 @@ namespace boost { namespace text {
         using std::begin;
         using std::end;
         if (std::distance(begin(r), end(r)) <= size()) {
+            clear();
+            insert(0, r);
+        } else {
+            string tmp(r);
+            swap(tmp);
+        }
+        return *this;
+    }
+
+
+    template<typename GraphemeRange>
+    auto string::operator=(GraphemeRange const & r)
+        -> detail::graph_rng_alg_ret_t<string &, GraphemeRange>
+    {
+        using std::begin;
+        using std::end;
+        auto const first = begin(r).base().base();
+        auto const last = end(r).base().base();
+        if (std::distance(first, last) <= size()) {
             clear();
             insert(0, r);
         } else {
@@ -1111,6 +1190,24 @@ namespace boost { namespace text {
         auto const offset = at - begin();
         insert(at - begin(), rsv);
         return begin() + offset;
+    }
+
+    template<typename GraphemeRange>
+    auto string::insert(int at, GraphemeRange const & r)
+        -> detail::graph_rng_alg_ret_t<string &, GraphemeRange>
+    {
+        using std::begin;
+        using std::end;
+        return insert(at, begin(r).base().base(), end(r).base().base());
+    }
+
+    template<typename GraphemeRange>
+    auto string::insert(iterator at, GraphemeRange const & r)
+        -> detail::graph_rng_alg_ret_t<iterator, GraphemeRange>
+    {
+        using std::begin;
+        using std::end;
+        return insert(at, begin(r).base().base(), end(r).base().base());
     }
 
     inline string & string::erase(string_view sv) noexcept

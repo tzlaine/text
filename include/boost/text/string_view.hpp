@@ -56,6 +56,9 @@ namespace boost { namespace text {
             \post data() == a.begin() && size() == a.size() */
         string_view(string const & a) noexcept;
 
+        /** Forbid construction from a temporary string. */
+        string_view(string && a) noexcept = delete;
+
 #ifdef BOOST_TEXT_DOXYGEN
 
         /** Constructs a string_view from a range of char.
@@ -124,6 +127,45 @@ namespace boost { namespace text {
             size_ = rhs.size_;
             return *this;
         }
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Assignment from a range of char.
+
+            This function only participates in overload resolution if
+            ContigCharRange models the ContigCharRange concept. */
+        template<typename ContigCharRange>
+        string_view & operator=(ContigCharRange const & r);
+
+        /** Assignment from a range of graphemes over an underlying range of
+            char.
+
+            This function only participates in overload resolution if
+            ContigGraphemeRange models the ContigGraphemeRange concept. */
+        template<typename ContigGraphemeRange>
+        string_view & operator=(ContigGraphemeRange const & r);
+
+#else
+
+        template<typename ContigCharRange>
+        auto operator=(ContigCharRange const & r)
+            -> detail::contig_rng_alg_ret_t<string_view &, ContigCharRange>
+        {
+            string_view temp(r);
+            swap(temp);
+            return *this;
+        }
+
+        template<typename ContigGraphemeRange>
+        auto operator=(ContigGraphemeRange const & r) -> detail::
+            contig_graph_rng_alg_ret_t<string_view &, ContigGraphemeRange>
+        {
+            string_view temp(r);
+            swap(temp);
+            return *this;
+        }
+
+#endif
 
         constexpr const_iterator begin() const noexcept { return data_; }
         constexpr const_iterator end() const noexcept { return data_ + size_; }
