@@ -115,11 +115,7 @@ namespace boost { namespace text {
         {
             using std::begin;
             using std::end;
-            if (begin(r) == end(r)) {
-                clear();
-            } else {
-                insert(0, begin(r).base().base(), end(r).base().base());
-            }
+            insert(0, begin(r).base().base(), end(r).base().base());
         }
 
 #endif

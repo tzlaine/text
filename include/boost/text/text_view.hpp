@@ -28,6 +28,9 @@ namespace boost { namespace text {
         /** Constructs a text_view from a text. */
         text_view(text const & t) noexcept;
 
+        /** Disallow construction from a temporary text. */
+        text_view(text && t) noexcept = delete;
+
         /** Constructs a text_view from a pair of text iterators. */
         text_view(const_iterator first, const_iterator last) noexcept :
             first_(first),

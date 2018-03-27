@@ -37,11 +37,17 @@ namespace boost { namespace text {
         /** Constructs a rope_view from a text. */
         rope_view(text const & t) noexcept;
 
+        /** Disable construction from a temporary text. */
+        rope_view(text && t) noexcept = delete;
+
         /** Constructs a rope_view from a text_view. */
         rope_view(text_view tv) noexcept;
 
         /** Constructs a rope_view from a rope. */
         rope_view(rope const & r) noexcept;
+
+        /** Disable construction from a temporary rope. */
+        rope_view(rope && r) noexcept = delete;
 
         /** Constructs a rope_view from a pair of rope iterators. */
         rope_view(const_rope_iterator first, const_rope_iterator last) noexcept;

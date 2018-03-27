@@ -130,15 +130,23 @@ TEST(common_operations, construction)
     // text::repeated_string_view
     {
         text::repeated_string_view const rsv_literal("literal", 2);
+        (void)rsv_literal;
         text::repeated_string_view const rsv_c_str(c_str, 2);
+        (void)rsv_c_str;
         text::repeated_string_view const rsv_str(str, 2);
+        (void)rsv_str;
         text::repeated_string_view const rsv_rsv(rsv);
+        (void)rsv_rsv;
         text::repeated_string_view const rsv_sv(sv, 2);
+        (void)rsv_sv;
         text::repeated_string_view const rsv_s(s, 2);
+        (void)rsv_s;
         // OK text::repeated_string_view const rsv_ur(ur, 2);
         // OK text::repeated_string_view const rsv_urv(urv, 2);
         text::repeated_string_view const rsv_t(t, 2);
+        (void)rsv_t;
         text::repeated_string_view const rsv_tv(tv, 2);
+        (void)rsv_tv;
         // OK text::repeated_string_view const rsv_r(r, 2);
         // OK text::repeated_string_view const rsv_rv(rv, 2);
     }
@@ -146,15 +154,22 @@ TEST(common_operations, construction)
     // text::string_view
     {
         text::string_view const sv_literal("literal");
+        (void)sv_literal;
         text::string_view const sv_c_str(c_str);
+        (void)sv_c_str;
         text::string_view const sv_str(str);
+        (void)sv_str;
         // OK text::string_view const sv_rsv(rsv);
         text::string_view const sv_sv(sv);
+        (void)sv_sv;
         text::string_view const sv_s(s);
+        (void)sv_s;
         // OK text::string_view const sv_ur(ur);
         // OK text::string_view const sv_urv(urv);
         text::string_view const sv_t(t);
+        (void)sv_t;
         text::string_view const sv_tv(tv);
+        (void)sv_tv;
         // OK text::string_view const sv_r(r);
         // OK text::string_view const sv_rv(rv);
     }
@@ -162,49 +177,177 @@ TEST(common_operations, construction)
     // text::string
     {
         text::string const s_literal("literal");
+        (void)s_literal;
         text::string const s_c_str(c_str);
+        (void)s_c_str;
         text::string const s_str(str);
+        (void)s_str;
         text::string const s_rsv(rsv);
+        (void)s_rsv;
         text::string const s_sv(sv);
+        (void)s_sv;
         text::string const s_s(s);
+        (void)s_s;
         text::string const s_ur(ur);
+        (void)s_ur;
         text::string const s_urv(urv);
+        (void)s_urv;
         text::string const s_t(t);
+        (void)s_t;
         text::string const s_tv(tv);
+        (void)s_tv;
         text::string const s_r(r);
+        (void)s_r;
         text::string const s_rv(rv);
+        (void)s_rv;
     }
 
     // text::unencoded_rope
     {
         text::unencoded_rope const ur_literal("literal");
+        (void)ur_literal;
         text::unencoded_rope const ur_c_str(c_str);
+        (void)ur_c_str;
         text::unencoded_rope const ur_str(str);
+        (void)ur_str;
         text::unencoded_rope const ur_rsv(rsv);
+        (void)ur_rsv;
         text::unencoded_rope const ur_sv(sv);
+        (void)ur_sv;
         text::unencoded_rope const ur_s(s);
+        (void)ur_s;
         text::unencoded_rope const ur_ur(ur);
+        (void)ur_ur;
         text::unencoded_rope const ur_urv(urv);
+        (void)ur_urv;
         text::unencoded_rope const ur_t(t);
+        (void)ur_t;
         text::unencoded_rope const ur_tv(tv);
+        (void)ur_tv;
         text::unencoded_rope const ur_r(r);
+        (void)ur_r;
         text::unencoded_rope const ur_rv(rv);
+        (void)ur_rv;
     }
 
     // text::unencoded_rope_view
     {
         text::unencoded_rope_view const urv_literal("literal");
+        (void)urv_literal;
         text::unencoded_rope_view const urv_c_str(c_str);
+        (void)urv_c_str;
         text::unencoded_rope_view const urv_str(str);
+        (void)urv_str;
         text::unencoded_rope_view const urv_rsv(rsv);
+        (void)urv_rsv;
         text::unencoded_rope_view const urv_sv(sv);
+        (void)urv_sv;
         text::unencoded_rope_view const urv_s(s);
+        (void)urv_s;
         text::unencoded_rope_view const urv_ur(ur);
+        (void)urv_ur;
         text::unencoded_rope_view const urv_urv(urv);
+        (void)urv_urv;
         text::unencoded_rope_view const urv_t(t);
+        (void)urv_t;
         text::unencoded_rope_view const urv_tv(tv);
+        (void)urv_tv;
         // OK text::unencoded_rope_view const urv_r(r);
         // OK text::unencoded_rope_view const urv_rv(rv);
+    }
+
+    // text::text_view
+    {
+        // OK text::text_view const tv_literal("literal");
+        // OK text::text_view const tv_c_str(c_str);
+        // OK text::text_view const tv_str(str);
+        // OK text::text_view const tv_rsv(rsv);
+        // OK text::text_view const tv_sv(sv);
+        // OK text::text_view const tv_s(s);
+        // OK text::text_view const tv_ur(ur);
+        // OK text::text_view const tv_urv(urv);
+        text::text_view const tv_t(t);
+        (void)tv_t;
+        text::text_view const tv_tv(tv);
+        (void)tv_tv;
+        // OK text::text_view const tv_r(r);
+        // OK text::text_view const tv_rv(rv);
+    }
+
+    // text::text
+    {
+        text::text const t_literal("literal");
+        (void)t_literal;
+        text::text const t_c_str(c_str);
+        (void)t_c_str;
+        text::text const t_str(str);
+        (void)t_str;
+        text::text const t_rsv(rsv);
+        (void)t_rsv;
+        text::text const t_sv(sv);
+        (void)t_sv;
+        text::text const t_s(s);
+        (void)t_s;
+        text::text const t_ur(ur);
+        (void)t_ur;
+        text::text const t_urv(urv);
+        (void)t_urv;
+        text::text const t_t(t);
+        (void)t_t;
+        text::text const t_tv(tv);
+        (void)t_tv;
+        text::text const t_r(r);
+        (void)t_r;
+        text::text const t_rv(rv);
+        (void)t_rv;
+    }
+
+    // text::rope
+    {
+        text::rope const r_literal("literal");
+        (void)r_literal;
+        text::rope const r_c_str(c_str);
+        (void)r_c_str;
+        text::rope const r_str(str);
+        (void)r_str;
+        text::rope const r_rsv(rsv);
+        (void)r_rsv;
+        text::rope const r_sv(sv);
+        (void)r_sv;
+        text::rope const r_s(s);
+        (void)r_s;
+        text::rope const r_ur(ur);
+        (void)r_ur;
+        text::rope const r_urv(urv);
+        (void)r_urv;
+        text::rope const r_t(t);
+        (void)r_t;
+        text::rope const r_tv(tv);
+        (void)r_tv;
+        text::rope const r_r(r);
+        (void)r_r;
+        text::rope const r_rv(rv);
+        (void)r_rv;
+    }
+
+    // text::rope_view
+    {
+        // OK text::rope_view const rv_literal("literal");
+        // OK text::rope_view const rv_c_str(c_str);
+        // OK text::rope_view const rv_str(str);
+        // OK text::rope_view const rv_rsv(rsv);
+        // OK text::rope_view const rv_sv(sv);
+        // OK text::rope_view const rv_s(s);
+        // OK text::rope_view const rv_ur(ur);
+        // OK text::rope_view const rv_urv(urv);
+        text::rope_view const rv_t(t);
+        (void)rv_t;
+        text::rope_view const rv_tv(tv);
+        (void)rv_tv;
+        text::rope_view const rv_r(r);
+        (void)rv_r;
+        text::rope_view const rv_rv(rv);
+        (void)rv_rv;
     }
 }
 

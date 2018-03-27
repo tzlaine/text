@@ -67,21 +67,30 @@ namespace boost { namespace text {
         template<typename CharIter>
         text(CharIter first, Iter Charlast);
 
+        /** Constructs a text from a range of graphemes over an underlying
+            range of char.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        explicit text(GraphemeRange const & r);
+
 #else
 
         template<typename CharRange>
         explicit text(
-            CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0) :
-            str_(r)
-        {}
+            CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0);
 
         template<typename CharIter>
         text(
             CharIter first,
             CharIter last,
-            detail::char_iter_ret_t<void *, CharIter> = 0) :
-            str_(first, last)
-        {}
+            detail::char_iter_ret_t<void *, CharIter> = 0);
+
+        template<typename GraphemeRange>
+        explicit text(
+            GraphemeRange const & r,
+            detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0);
 
 #endif
 
@@ -489,6 +498,8 @@ namespace boost { namespace text {
         normalize_to_fcc(str_);
     }
 
+    inline text::text(string s) : str_(std::move(s)) { normalize_to_fcc(str_); }
+
     inline text::text(text_view tv) : str_()
     {
         str_.insert(
@@ -499,6 +510,32 @@ namespace boost { namespace text {
     inline text::text(string_view sv) : str_(sv) { normalize_to_fcc(str_); }
 
     inline text::text(repeated_string_view rsv) : str_(rsv)
+    {
+        normalize_to_fcc(str_);
+    }
+
+    template<typename CharRange>
+    text::text(CharRange const & r, detail::rng_alg_ret_t<int *, CharRange>) :
+        str_(r)
+    {
+        normalize_to_fcc(str_);
+    }
+
+    template<typename CharIter>
+    text::text(
+        CharIter first,
+        CharIter last,
+        detail::char_iter_ret_t<void *, CharIter>) :
+        str_(first, last)
+    {
+        normalize_to_fcc(str_);
+    }
+
+    template<typename GraphemeRange>
+    text::text(
+        GraphemeRange const & r,
+        detail::graph_rng_alg_ret_t<int *, GraphemeRange>) :
+        str_(r)
     {
         normalize_to_fcc(str_);
     }
