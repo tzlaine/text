@@ -197,7 +197,10 @@ namespace boost { namespace text {
         return make_iter(view_.begin(), view_.end(), view_.end());
     }
 
-    int rope_view::storage_bytes() const noexcept { return view_.size(); }
+    inline int rope_view::storage_bytes() const noexcept
+    {
+        return view_.size();
+    }
 
     template<typename Fn>
     void rope_view::foreach_segment(Fn && f) const
@@ -205,9 +208,12 @@ namespace boost { namespace text {
         view_.foreach_segment(static_cast<Fn &&>(f));
     }
 
-    void rope_view::swap(rope_view & rhs) noexcept { view_.swap(rhs.view_); }
+    inline void rope_view::swap(rope_view & rhs) noexcept
+    {
+        view_.swap(rhs.view_);
+    }
 
-    rope_view::iterator rope_view::make_iter(
+    inline rope_view::iterator rope_view::make_iter(
         detail::const_rope_view_iterator first,
         detail::const_rope_view_iterator it,
         detail::const_rope_view_iterator last) noexcept

@@ -41,11 +41,11 @@ namespace boost { namespace text {
         /** Constructs a rope from a rope_view. */
         explicit rope(rope_view rv);
 
-        /** Move-constructs a rope from a string. */
-        explicit rope(string && s);
+        /** Constructs a rope from a string. */
+        explicit rope(string s);
 
-        /** Move-constructs a rope from a text. */
-        explicit rope(text && t);
+        /** Constructs a rope from a text. */
+        explicit rope(text t);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -77,6 +77,13 @@ namespace boost { namespace text {
 
 #endif
 
+        /** Assignment from a null-terminated string. */
+        rope & operator=(char const * c_str);
+
+        /** Assignment from a null-terminated string. */
+        template<int N>
+        rope & operator=(char (&c_str)[N]);
+
         /** Assignment from a rope_view. */
         rope & operator=(rope_view rv);
 
@@ -84,10 +91,10 @@ namespace boost { namespace text {
         rope & operator=(string_view sv);
 
         /** Move-assignment from a string. */
-        rope & operator=(string && s);
+        rope & operator=(string s);
 
         /** Move-assignment from a text. */
-        rope & operator=(text && t);
+        rope & operator=(text t);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -386,29 +393,29 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
-    rope::rope(char const * c_str) : rope_(text(c_str).extract()) {}
+    inline rope::rope(char const * c_str) : rope_(text(c_str).extract()) {}
 
     template<int N>
     rope::rope(char (&c_str)[N]) : rope_(text(string_view(c_str, N)).extract())
     {}
 
-    rope::rope(rope_view rv) :
+    inline rope::rope(rope_view rv) :
         rope_(rv.begin().base().base(), rv.end().base().base())
     {}
 
-    rope::rope(string_view sv)
+    inline rope::rope(string_view sv)
     {
         text t(sv);
         insert(begin(), std::move(t).extract());
     }
 
-    rope::rope(string && s)
+    inline rope::rope(string s)
     {
         normalize_to_fcc(s);
         insert(begin(), std::move(s));
     }
 
-    rope::rope(text && t) : rope_(std::move(t).extract()) {}
+    inline rope::rope(text t) : rope_(std::move(t).extract()) {}
 
     template<typename CharRange>
     rope::rope(CharRange const & r, detail::rng_alg_ret_t<int *, CharRange>)
@@ -427,28 +434,43 @@ namespace boost { namespace text {
         insert(begin(), std::move(t).extract());
     }
 
-    rope & rope::operator=(rope_view rv)
+    inline rope & rope::operator=(char const * c_str)
+    {
+        rope temp(c_str);
+        swap(temp);
+        return *this;
+    }
+
+    template<int N>
+    rope & rope::operator=(char (&c_str)[N])
+    {
+        rope temp(string_view(c_str, N));
+        swap(temp);
+        return *this;
+    }
+
+    inline rope & rope::operator=(rope_view rv)
     {
         rope temp(rv);
         swap(temp);
         return *this;
     }
 
-    rope & rope::operator=(string_view sv)
+    inline rope & rope::operator=(string_view sv)
     {
         rope temp(sv);
         swap(temp);
         return *this;
     }
 
-    rope & rope::operator=(string && s)
+    inline rope & rope::operator=(string s)
     {
         rope temp(std::move(s));
         swap(temp);
         return *this;
     }
 
-    rope & rope::operator=(text && t)
+    inline rope & rope::operator=(text t)
     {
         rope temp(std::move(t));
         swap(temp);
@@ -464,38 +486,44 @@ namespace boost { namespace text {
         return *this;
     }
 
-    rope::const_iterator rope::begin() const noexcept
+    inline rope::const_iterator rope::begin() const noexcept
     {
         return make_iter(rope_.begin(), rope_.begin(), rope_.end());
     }
-    rope::const_iterator rope::end() const noexcept
+    inline rope::const_iterator rope::end() const noexcept
     {
         return make_iter(rope_.begin(), rope_.end(), rope_.end());
     }
 
-    rope::const_iterator rope::cbegin() const noexcept { return begin(); }
-    rope::const_iterator rope::cend() const noexcept { return end(); }
+    inline rope::const_iterator rope::cbegin() const noexcept
+    {
+        return begin();
+    }
+    inline rope::const_iterator rope::cend() const noexcept { return end(); }
 
-    rope::const_reverse_iterator rope::rbegin() const noexcept
+    inline rope::const_reverse_iterator rope::rbegin() const noexcept
     {
         return reverse_iterator(end());
     }
-    rope::const_reverse_iterator rope::rend() const noexcept
+    inline rope::const_reverse_iterator rope::rend() const noexcept
     {
         return reverse_iterator(begin());
     }
 
-    rope::const_reverse_iterator rope::crbegin() const noexcept
+    inline rope::const_reverse_iterator rope::crbegin() const noexcept
     {
         return rbegin();
     }
-    rope::const_reverse_iterator rope::crend() const noexcept { return rend(); }
+    inline rope::const_reverse_iterator rope::crend() const noexcept
+    {
+        return rend();
+    }
 
-    bool rope::empty() const noexcept { return rope_.empty(); }
+    inline bool rope::empty() const noexcept { return rope_.empty(); }
 
-    int rope::storage_bytes() const noexcept { return rope_.size(); }
+    inline int rope::storage_bytes() const noexcept { return rope_.size(); }
 
-    int rope::distance() const noexcept
+    inline int rope::distance() const noexcept
     {
         return std::distance(begin(), end());
     }
@@ -506,26 +534,26 @@ namespace boost { namespace text {
         rope_.foreach_segment(static_cast<Fn &&>(f));
     }
 
-    bool rope::equal_root(rope rhs) const noexcept
+    inline bool rope::equal_root(rope rhs) const noexcept
     {
         return rope_.equal_root(rhs.rope_);
     }
 
-    void rope::clear() noexcept { rope_.clear(); }
+    inline void rope::clear() noexcept { rope_.clear(); }
 
-    rope & rope::insert(iterator at, rope_view rv)
+    inline rope & rope::insert(iterator at, rope_view rv)
     {
         // TODO
         return *this;
     }
 
-    rope & rope::insert(iterator at, string_view sv)
+    inline rope & rope::insert(iterator at, string_view sv)
     {
         // TODO
         return *this;
     }
 
-    rope & rope::insert(iterator at, repeated_string_view rsv)
+    inline rope & rope::insert(iterator at, repeated_string_view rsv)
     {
         // TODO
         return *this;
@@ -547,25 +575,26 @@ namespace boost { namespace text {
         return *this;
     }
 
-    rope & rope::erase(rope_view rv)
+    inline rope & rope::erase(rope_view rv)
     {
         // TODO
         return *this;
     }
 
-    rope & rope::replace(rope_view old_substr, rope_view new_substr)
+    inline rope & rope::replace(rope_view old_substr, rope_view new_substr)
     {
         // TODO
         return *this;
     }
 
-    rope & rope::replace(rope_view old_substr, string_view new_substr)
+    inline rope & rope::replace(rope_view old_substr, string_view new_substr)
     {
         // TODO
         return *this;
     }
 
-    rope & rope::replace(rope_view old_substr, repeated_string_view new_substr)
+    inline rope &
+    rope::replace(rope_view old_substr, repeated_string_view new_substr)
     {
         // TODO
         return *this;
@@ -587,31 +616,37 @@ namespace boost { namespace text {
         return *this;
     }
 
-    void rope::swap(rope & rhs) noexcept { rope_.swap(rhs.rope_); }
+    inline void rope::swap(rope & rhs) noexcept { rope_.swap(rhs.rope_); }
 
-    unencoded_rope rope::extract() && noexcept { return std::move(rope_); }
+    inline unencoded_rope rope::extract() && noexcept
+    {
+        return std::move(rope_);
+    }
 
-    void rope::replace(unencoded_rope && ur) noexcept { rope_ = std::move(ur); }
+    inline void rope::replace(unencoded_rope && ur) noexcept
+    {
+        rope_ = std::move(ur);
+    }
 
-    rope & rope::operator+=(char const * c_str)
+    inline rope & rope::operator+=(char const * c_str)
     {
         // TODO
         return *this;
     }
 
-    rope & rope::operator+=(rope_view rv)
+    inline rope & rope::operator+=(rope_view rv)
     {
         // TODO
         return *this;
     }
 
-    rope & rope::operator+=(string_view sv)
+    inline rope & rope::operator+=(string_view sv)
     {
         // TODO
         return *this;
     }
 
-    rope & rope::operator+=(repeated_string_view rsv)
+    inline rope & rope::operator+=(repeated_string_view rsv)
     {
         // TODO
         return *this;
@@ -625,7 +660,7 @@ namespace boost { namespace text {
         return *this;
     }
 
-    rope::iterator rope::make_iter(
+    inline rope::iterator rope::make_iter(
         detail::const_rope_iterator first,
         detail::const_rope_iterator it,
         detail::const_rope_iterator last) noexcept

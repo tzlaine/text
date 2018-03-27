@@ -443,7 +443,6 @@ TEST(common_operations, assignment_operators)
         ur_rv = rv;
     }
 
-#if 0
     // text::unencoded_rope_view
     {
         text::unencoded_rope_view urv_literal;
@@ -451,7 +450,7 @@ TEST(common_operations, assignment_operators)
         text::unencoded_rope_view urv_c_str;
         urv_c_str = c_str;
         text::unencoded_rope_view urv_str;
-        urv_str = str;
+// TODO        urv_str = str;
         text::unencoded_rope_view urv_rsv;
         urv_rsv = rsv;
         text::unencoded_rope_view urv_sv;
@@ -492,7 +491,7 @@ TEST(common_operations, assignment_operators)
     {
         text::text t_literal;
         t_literal = "literal";
-        text::text t_c_str(;
+        text::text t_c_str;
         t_c_str = c_str;
         text::text t_str;
         t_str = str;
@@ -563,7 +562,6 @@ TEST(common_operations, assignment_operators)
         text::rope_view rv_rv;
         rv_rv = rv;
     }
-#endif
 }
 
 TEST(common_operations, test_operator_plus)

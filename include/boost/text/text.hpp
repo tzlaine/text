@@ -93,6 +93,25 @@ namespace boost { namespace text {
             detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0);
 
 #endif
+        /** Assignment from a null-terminated string. */
+        text & operator=(char const * c_str);
+
+        /** Assignment from a null-terminated string. */
+        template<int N>
+        text & operator=(char (&c_str)[N]);
+
+        /** Assignment from a string. */
+        text & operator=(string s);
+
+        /** Assignment from a text_view. */
+        text & operator=(text_view tv);
+
+        /** Assignment from a string_view. */
+        text & operator=(string_view sv);
+
+        /** Assignment from a repeated_string_view. */
+        text & operator=(repeated_string_view rsv);
+
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -103,28 +122,25 @@ namespace boost { namespace text {
         template<typename CharRange>
         text & operator=(CharRange const & r);
 
+        /** Assignment from a range of graphemes over an underlying range of
+            char.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        text & operator=(GraphemeRange const & r);
+
 #else
 
         template<typename CharRange>
         auto operator=(CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
+        template<typename GraphemeRange>
+        auto operator=(GraphemeRange const & r)
+            -> detail::graph_rng_alg_ret_t<text &, GraphemeRange>;
+
 #endif
-
-        /** Assignment from a string. */
-        text & operator=(string const & s);
-
-        /** Assignment from a string. */
-        text & operator=(string && s);
-
-        /** Assignment from a text_view. */
-        text & operator=(text_view tv);
-
-        /** Assignment from a string_view. */
-        text & operator=(string_view sv);
-
-        /** Assignment from a repeated_string_view. */
-        text & operator=(repeated_string_view rsv);
 
         iterator begin() noexcept
         {
@@ -540,21 +556,30 @@ namespace boost { namespace text {
         normalize_to_fcc(str_);
     }
 
-    template<typename CharRange>
-    auto text::operator=(CharRange const & r)
-        -> detail::rng_alg_ret_t<text &, CharRange>
+    inline text & text::operator=(char const * c_str)
     {
-        str_ = r;
+        str_ = string_view(c_str);
         normalize_to_fcc(str_);
+        return *this;
+    }
+
+    template<int N>
+    text & text::operator=(char (&c_str)[N])
+    {
+        str_ = string_view(c_str, N);
+        normalize_to_fcc(str_);
+        return *this;
+    }
+
+    inline text & text::operator=(string s)
+    {
+        str_ = std::move(s);
         return *this;
     }
 
     inline text & text::operator=(text_view tv)
     {
-        clear();
-        str_.insert(
-            str_.begin(),
-            string_view(tv.begin().base().base(), tv.storage_bytes()));
+        str_ = string_view(tv.begin().base().base(), tv.storage_bytes());
         return *this;
     }
 
@@ -571,6 +596,25 @@ namespace boost { namespace text {
         normalize_to_fcc(str_);
         return *this;
     }
+
+    template<typename CharRange>
+    auto text::operator=(CharRange const & r)
+        -> detail::rng_alg_ret_t<text &, CharRange>
+    {
+        str_ = r;
+        normalize_to_fcc(str_);
+        return *this;
+    }
+
+    template<typename GraphemeRange>
+    auto text::operator=(GraphemeRange const & r)
+        -> detail::graph_rng_alg_ret_t<text &, GraphemeRange>
+    {
+        str_ = r;
+        normalize_to_fcc(str_);
+        return *this;
+    }
+
 
     template<typename CharRange>
     auto text::insert(iterator at, CharRange const & r)
@@ -759,20 +803,20 @@ namespace boost { namespace text {
         return *this;
     }
 
-    bool text::self_reference(string_view sv) const noexcept
+    inline bool text::self_reference(string_view sv) const noexcept
     {
         using less_t = std::less<char const *>;
         less_t less;
         return !less(sv.begin(), str_.begin()) && !less(str_.end(), sv.end());
     }
 
-    bool text::self_reference(text_view tv) const noexcept
+    inline bool text::self_reference(text_view tv) const noexcept
     {
         return self_reference(
             string_view(tv.begin().base().base(), tv.storage_bytes()));
     }
 
-    text::mutable_utf32_iter
+    inline text::mutable_utf32_iter
     text::prev_stable_cp(mutable_utf32_iter last) noexcept
     {
         auto const first =
@@ -784,7 +828,7 @@ namespace boost { namespace text {
         return it;
     }
 
-    text::mutable_utf32_iter
+    inline text::mutable_utf32_iter
     text::next_stable_cp(mutable_utf32_iter first) noexcept
     {
         auto const last =
@@ -793,7 +837,8 @@ namespace boost { namespace text {
         return it;
     }
 
-    void text::normalize_subrange(int from_near_offset, int to_near_offset)
+    inline void
+    text::normalize_subrange(int from_near_offset, int to_near_offset)
     {
         mutable_utf32_iter first(
             str_.begin(), str_.begin() + from_near_offset, str_.end());

@@ -33,6 +33,9 @@ namespace boost { namespace text {
             unencoded_rope. */
         unencoded_rope_view(unencoded_rope const & r) noexcept;
 
+        /** Forbid construction from a temporary unencoded_rope. */
+        unencoded_rope_view(unencoded_rope && r) noexcept = delete;
+
         /** Constructs a substring of r, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
             is taken to be an offset from the end, and so x + size() is used
@@ -49,8 +52,11 @@ namespace boost { namespace text {
         unencoded_rope_view(unencoded_rope const & r, int lo, int hi);
 
         /** Constructs an unencoded_rope_view covering the entire given
-            unencoded_rope. */
+            string. */
         unencoded_rope_view(string const & s) noexcept;
+
+        /** Forbid construction from a temporary string. */
+        unencoded_rope_view(string && r) noexcept = delete;
 
         /** Constructs a substring of s, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -72,6 +78,15 @@ namespace boost { namespace text {
             \pre strlen(c_str) <= max_size() */
         unencoded_rope_view(char const * c_str) noexcept :
             ref_(string_view(c_str)),
+            which_(which::tv)
+        {}
+
+        /** Constructs an unencoded_rope_view from a null-terminated C string.
+
+            \pre strlen(c_str) <= max_size() */
+        template<int N>
+        unencoded_rope_view(char (&c_str)[N]) noexcept :
+            ref_(string_view(c_str, N)),
             which_(which::tv)
         {}
 
@@ -203,6 +218,94 @@ namespace boost { namespace text {
             lexicographically less than rhs, 0 if *this == rhs, and a value >
             0 if *this is lexicographically greater than rhs. */
         int compare(unencoded_rope_view rhs) const noexcept;
+
+        /** Assignment from an unencoded_rope. */
+        unencoded_rope_view & operator=(unencoded_rope const & r) noexcept
+        {
+            return *this = unencoded_rope_view(r);
+        }
+
+        /** Assignment from a string. */
+        unencoded_rope_view & operator=(string const & s) noexcept
+        {
+            return *this = unencoded_rope_view(s);
+        }
+
+        /** Forbid assignment from an unencoded_rope. */
+        unencoded_rope_view & operator=(unencoded_rope && r) noexcept = delete;
+
+        /** Forbid assignment from a string. */
+        unencoded_rope_view & operator=(string && s) noexcept = delete;
+
+        /** Assignment from a null-terminated C string.
+
+            \pre strlen(c_str) <= max_size() */
+        unencoded_rope_view & operator=(char const * c_str) noexcept
+        {
+            return *this = unencoded_rope_view(c_str);
+        }
+
+        /** Assignment from a null-terminated C string.
+
+            \pre strlen(c_str) <= max_size() */
+        template<int N>
+        unencoded_rope_view & operator=(char (&c_str)[N]) noexcept
+        {
+            return *this = unencoded_rope_view(string_view(c_str, N));
+        }
+
+        /** Assignment from a string_view. */
+        unencoded_rope_view & operator=(string_view sv) noexcept
+        {
+            return *this = unencoded_rope_view(sv);
+        }
+
+        /** Assignment from a repeated_string_view. */
+        unencoded_rope_view & operator=(repeated_string_view rsv) noexcept
+        {
+            return *this = unencoded_rope_view(rsv);
+        }
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+#if 0 // TODO
+        /** Assignment from a range of char.
+
+            This function only participates in overload resolution if
+            ContigCharRange models the ContigCharRange concept. */
+        template<typename ContigCharRange>
+        unencoded_rope_view & operator=(ContigCharRange const & r);
+#endif
+
+        /** Assignment from a range of graphemes over an underlying range of
+            char.
+
+            This function only participates in overload resolution if
+            ContigGraphemeRange models the ContigGraphemeRange concept. */
+        template<typename ContigGraphemeRange>
+        unencoded_rope_view & operator=(ContigGraphemeRange const & r);
+
+#else
+
+#if 0 // TODO
+        template<typename ContigCharRange>
+        auto operator=(ContigCharRange const & r) -> detail::
+            contig_rng_alg_ret_t<unencoded_rope_view &, ContigCharRange>
+        {
+            return *this = unencoded_rope_view(r);
+        }
+#endif
+
+        template<typename ContigGraphemeRange>
+        auto operator=(ContigGraphemeRange const & r)
+            -> detail::contig_graph_rng_alg_ret_t<
+                unencoded_rope_view &,
+                ContigGraphemeRange>
+        {
+            return *this = unencoded_rope_view(r);
+        }
+
+#endif
 
         /** Swaps *this with rhs. */
         void swap(unencoded_rope_view & rhs) noexcept
