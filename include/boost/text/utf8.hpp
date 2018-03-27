@@ -3,8 +3,6 @@
 
 #include <boost/text/config.hpp>
 
-#include <boost/optional.hpp>
-
 #include <iterator>
 #include <type_traits>
 #include <stdexcept>
@@ -80,9 +78,48 @@ namespace boost { namespace text { namespace utf8 {
 
     namespace detail {
 
+        // optional is not constexpr friendly.
+        template <typename Iter>
+        struct optional_iter
+        {
+            constexpr optional_iter() : valid_(false) {}
+            constexpr optional_iter(Iter it) : it_(it), valid_(true) {}
+
+            BOOST_TEXT_CXX14_CONSTEXPR operator bool() const noexcept
+            {
+                return valid_;
+            }
+            BOOST_TEXT_CXX14_CONSTEXPR Iter operator*() const noexcept
+            {
+                assert(valid_);
+                return it_;
+            }
+            Iter & operator*() noexcept
+            {
+                assert(valid_);
+                return it_;
+            }
+
+            friend constexpr bool
+            operator==(optional_iter lhs, optional_iter rhs) noexcept
+            {
+                return lhs.valid_ == rhs.valid_ &&
+                       (!lhs.valid_ || lhs.it_ == rhs.it_);
+            }
+            friend constexpr bool
+            operator!=(optional_iter lhs, optional_iter rhs) noexcept
+            {
+                return !(lhs == rhs);
+            }
+
+        private:
+            Iter it_;
+            bool valid_;
+        };
+
         // Follow Table 3-7 in Unicode 9, 3.9/D92
         template<typename Iter>
-        BOOST_TEXT_CXX14_CONSTEXPR optional<Iter>
+        BOOST_TEXT_CXX14_CONSTEXPR optional_iter<Iter>
         end_of_invalid_utf8(Iter it) noexcept
         {
             assert(!continuation(*it));
@@ -90,12 +127,12 @@ namespace boost { namespace text { namespace utf8 {
             using detail::in;
 
             if (in(0, *it, 0x7f))
-                return optional<Iter>{};
+                return optional_iter<Iter>{};
 
             if (in(0xc2, *it, 0xdf)) {
                 if (!continuation(*(it + 1)))
                     return it + 1;
-                return optional<Iter>{};
+                return optional_iter<Iter>{};
             }
 
             if (in(0xe0, *it, 0xe0)) {
@@ -103,28 +140,28 @@ namespace boost { namespace text { namespace utf8 {
                     return it + 1;
                 if (!continuation(*(it + 2)))
                     return it + 2;
-                return optional<Iter>{};
+                return optional_iter<Iter>{};
             }
             if (in(0xe1, *it, 0xec)) {
                 if (!continuation(*(it + 1)))
                     return it + 1;
                 if (!continuation(*(it + 2)))
                     return it + 2;
-                return optional<Iter>{};
+                return optional_iter<Iter>{};
             }
             if (in(0xed, *it, 0xed)) {
                 if (!continuation(*(it + 1), 0x80, 0x9f))
                     return it + 1;
                 if (!continuation(*(it + 2)))
                     return it + 2;
-                return optional<Iter>{};
+                return optional_iter<Iter>{};
             }
             if (in(0xee, *it, 0xef)) {
                 if (!continuation(*(it + 1)))
                     return it + 1;
                 if (!continuation(*(it + 2)))
                     return it + 2;
-                return optional<Iter>{};
+                return optional_iter<Iter>{};
             }
 
             if (in(0xf0, *it, 0xf0)) {
@@ -134,7 +171,7 @@ namespace boost { namespace text { namespace utf8 {
                     return it + 2;
                 if (!continuation(*(it + 3)))
                     return it + 3;
-                return optional<Iter>{};
+                return optional_iter<Iter>{};
             }
             if (in(0xf1, *it, 0xf3)) {
                 if (!continuation(*(it + 1)))
@@ -143,7 +180,7 @@ namespace boost { namespace text { namespace utf8 {
                     return it + 2;
                 if (!continuation(*(it + 3)))
                     return it + 3;
-                return optional<Iter>{};
+                return optional_iter<Iter>{};
             }
             if (in(0xf4, *it, 0xf4)) {
                 if (!continuation(*(it + 1), 0x80, 0x8f))
@@ -152,7 +189,7 @@ namespace boost { namespace text { namespace utf8 {
                     return it + 2;
                 if (!continuation(*(it + 3)))
                     return it + 3;
-                return optional<Iter>{};
+                return optional_iter<Iter>{};
             }
 
             return it;
@@ -172,7 +209,7 @@ namespace boost { namespace text { namespace utf8 {
             if (continuation(*retval))
                 return it - 1;
 
-            optional<Iter> first_invalid = end_of_invalid_utf8(retval);
+            optional_iter<Iter> first_invalid = end_of_invalid_utf8(retval);
             if (first_invalid == retval)
                 ++*first_invalid;
             while (first_invalid && (*first_invalid - retval) < backup) {
@@ -209,7 +246,7 @@ namespace boost { namespace text { namespace utf8 {
                 return it;
             }
 
-            optional<Iter> first_invalid = end_of_invalid_utf8(retval);
+            optional_iter<Iter> first_invalid = end_of_invalid_utf8(retval);
             if (first_invalid == retval)
                 ++*first_invalid;
             while (first_invalid && (*first_invalid - retval) < backup) {

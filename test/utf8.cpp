@@ -620,7 +620,7 @@ TEST(utf_8, test_0xfffd)
 
 TEST(utf_8, test_end_of_invalid_utf8)
 {
-    auto const none = boost::optional<char const *>{};
+    auto const none = text::utf8::detail::optional_iter<char const *>{};
 
     {
         char const bad_utf8[] = {0x61,
