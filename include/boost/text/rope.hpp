@@ -391,6 +391,8 @@ namespace boost { namespace text {
 #include <boost/text/rope_view.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
 
+#ifndef BOOST_TEXT_DOXYGEN
+
 namespace boost { namespace text {
 
     inline rope::rope(char const * c_str) : rope_(text(c_str).extract()) {}
@@ -677,5 +679,49 @@ namespace boost { namespace text {
     }
 
 }}
+
+#else
+
+namespace boost { namespace text {
+
+    inline bool operator==(rope const & lhs, rope_view rhs) noexcept
+    {
+        return algorithm::equal(
+            lhs.begin().base().base(),
+            lhs.end().base().base(),
+            rhs.begin().base().base(),
+            rhs.end().base().base());
+    }
+    inline bool operator==(rope_view lhs, rope const & rhs) noexcept
+    {
+        return rhs == lhs;
+    }
+
+    inline bool operator!=(rope const & lhs, rope_view rhs) noexcept
+    {
+        return !(lhs == rhs);
+    }
+    inline bool operator!=(rope_view lhs, rope const & rhs) noexcept
+    {
+        return !(lhs == rhs);
+    }
+
+    inline bool operator==(rope const & lhs, rope const & rhs) noexcept
+    {
+        return algorithm::equal(
+            lhs.begin().base().base(),
+            lhs.end().base().base(),
+            rhs.begin().base().base(),
+            rhs.end().base().base());
+    }
+
+    inline bool operator!=(rope const & lhs, rope const & rhs) noexcept
+    {
+        return !(lhs == rhs);
+    }
+
+}}
+
+#endif
 
 #endif

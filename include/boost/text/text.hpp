@@ -858,7 +858,6 @@ namespace boost { namespace text {
 
 #endif // Doxygen
 
-
     inline bool operator==(text const & lhs, text_view rhs) noexcept
     {
         return algorithm::equal(
@@ -867,7 +866,6 @@ namespace boost { namespace text {
             rhs.begin().base().base(),
             rhs.end().base().base());
     }
-
     inline bool operator==(text_view lhs, text const & rhs) noexcept
     {
         return rhs == lhs;
@@ -877,36 +875,24 @@ namespace boost { namespace text {
     {
         return !(lhs == rhs);
     }
-
     inline bool operator!=(text_view lhs, text const & rhs) noexcept
     {
         return !(lhs == rhs);
     }
 
-    inline bool operator==(char const * lhs, text const & rhs) noexcept
+    inline bool operator==(text const & lhs, text const & rhs) noexcept
     {
-        return detail::compare_impl(
-                   lhs,
-                   lhs + strlen(lhs),
-                   rhs.begin().base().base(),
-                   rhs.end().base().base()) == 0;
+        return algorithm::equal(
+            lhs.begin().base().base(),
+            lhs.end().base().base(),
+            rhs.begin().base().base(),
+            rhs.end().base().base());
     }
 
-    inline bool operator!=(char const * lhs, text const & rhs) noexcept
-    {
-        return !(lhs == rhs);
-    }
-
-    inline bool operator==(text const & lhs, char const * rhs) noexcept
-    {
-        return rhs == lhs;
-    }
-
-    inline bool operator!=(text const & lhs, char const * rhs) noexcept
+    inline bool operator!=(text const & lhs, text const & rhs) noexcept
     {
         return !(lhs == rhs);
     }
-
 
     /** Creates a new text object that is the concatenation of t and t2. */
     inline text operator+(text t, text const & t2) { return t += t2; }

@@ -140,56 +140,6 @@ namespace boost { namespace text {
         }
 
 
-        /** Lexicographical compare.  Returns a value < 0 when *this is
-            lexicographically less than rhs, 0 if *this == rhs, and a value >
-            0 if *this is lexicographically greater than rhs.
-
-            This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR
-        int compare(repeated_string_view rhs) const noexcept
-        {
-            if (view_ == rhs.view_) {
-                if (count_ < rhs.count_)
-                    return -1;
-                else if (count_ == rhs.count_)
-                    return 0;
-                else
-                    return 1;
-            } else {
-                repeated_string_view shorter =
-                    view().size() < rhs.view().size() ? *this : rhs;
-                repeated_string_view longer =
-                    view().size() < rhs.view().size() ? rhs : *this;
-                if (shorter.view() == longer.view()(shorter.view().size())) {
-                    // If one is a prefix of the other, the prefix might be
-                    // repeated within the other an arbitrary number of times,
-                    // so we need to do this the hard way...
-                    const_iterator lhs_first = begin();
-                    const_iterator const lhs_last = end();
-                    const_iterator rhs_first = rhs.begin();
-                    const_iterator const rhs_last = rhs.end();
-                    while (lhs_first != lhs_last && rhs_first != rhs_last) {
-                        if (*lhs_first < *rhs_first)
-                            return -1;
-                        else if (*lhs_first > *rhs_first)
-                            return 1;
-                        ++lhs_first;
-                        ++rhs_first;
-                    }
-                    if (lhs_first == lhs_last) {
-                        if (rhs_first == rhs_last)
-                            return 0;
-                        else
-                            return -1;
-                    } else {
-                        return 1;
-                    }
-                } else {
-                    return view_.compare(rhs.view_);
-                }
-            }
-        }
-
         /** Swaps *this with rhs.
 
             This function is constexpr in C++14 and later. */
@@ -235,46 +185,16 @@ namespace boost { namespace text {
         return repeated_string_view(sv, count);
     }
 
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    inline bool
     operator==(repeated_string_view lhs, repeated_string_view rhs) noexcept
     {
-        return lhs.compare(rhs) == 0;
+        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
 
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    inline bool
     operator!=(repeated_string_view lhs, repeated_string_view rhs) noexcept
     {
-        return lhs.compare(rhs) != 0;
-    }
-
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator<(repeated_string_view lhs, repeated_string_view rhs) noexcept
-    {
-        return lhs.compare(rhs) < 0;
-    }
-
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator<=(repeated_string_view lhs, repeated_string_view rhs) noexcept
-    {
-        return lhs.compare(rhs) <= 0;
-    }
-
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator>(repeated_string_view lhs, repeated_string_view rhs) noexcept
-    {
-        return lhs.compare(rhs) > 0;
-    }
-
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator>=(repeated_string_view lhs, repeated_string_view rhs) noexcept
-    {
-        return lhs.compare(rhs) >= 0;
+        return !(lhs == rhs);
     }
 
     inline constexpr repeated_string_view::iterator

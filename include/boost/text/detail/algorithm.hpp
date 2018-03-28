@@ -148,19 +148,21 @@ namespace boost { namespace text { namespace detail {
     template<
         typename T,
         typename R1,
-        bool R1IsCharRange = is_char_range<R1>::value>
+        typename Exclude,
+        bool R1IsCharRange =
+            is_char_range<R1>::value && !std::is_same<R1, Exclude>::value>
     struct rng_alg_ret
     {
     };
 
-    template<typename T, typename R1>
-    struct rng_alg_ret<T, R1, true>
+    template<typename T, typename R1, typename Exclude>
+    struct rng_alg_ret<T, R1, Exclude, true>
     {
         using type = T;
     };
 
-    template<typename T, typename R1>
-    using rng_alg_ret_t = typename rng_alg_ret<T, R1>::type;
+    template<typename T, typename R1, typename Exclude = void>
+    using rng_alg_ret_t = typename rng_alg_ret<T, R1, Exclude>::type;
 
     template<
         typename T,

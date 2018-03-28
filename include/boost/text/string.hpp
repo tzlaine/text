@@ -7,6 +7,8 @@
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/utility.hpp>
 
+#include <boost/algorithm/cxx14/equal.hpp>
+
 #include <algorithm>
 #include <array>
 #include <list>
@@ -115,7 +117,10 @@ namespace boost { namespace text {
         template<typename GraphemeRange>
         explicit string(
             GraphemeRange const & r,
-            detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0)
+            detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0) :
+            storage_(),
+            size_(0),
+            heap_(false)
         {
             insert(0, r);
         }
@@ -268,13 +273,6 @@ namespace boost { namespace text {
             lexicographically less than rhs, 0 if *this == rhs, and a value >
             0 if *this is lexicographically greater than rhs. */
         int compare(string_view rhs) const noexcept;
-
-        bool operator==(string_view rhs) const noexcept;
-        bool operator!=(string_view rhs) const noexcept;
-        bool operator<(string_view rhs) const noexcept;
-        bool operator<=(string_view rhs) const noexcept;
-        bool operator>(string_view rhs) const noexcept;
-        bool operator>=(string_view rhs) const noexcept;
 
         /** Clear.
 
@@ -1042,36 +1040,6 @@ namespace boost { namespace text {
         return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end());
     }
 
-    inline bool string::operator==(string_view rhs) const noexcept
-    {
-        return compare(rhs) == 0;
-    }
-
-    inline bool string::operator!=(string_view rhs) const noexcept
-    {
-        return compare(rhs) != 0;
-    }
-
-    inline bool string::operator<(string_view rhs) const noexcept
-    {
-        return compare(rhs) < 0;
-    }
-
-    inline bool string::operator<=(string_view rhs) const noexcept
-    {
-        return compare(rhs) <= 0;
-    }
-
-    inline bool string::operator>(string_view rhs) const noexcept
-    {
-        return compare(rhs) > 0;
-    }
-
-    inline bool string::operator>=(string_view rhs) const noexcept
-    {
-        return compare(rhs) >= 0;
-    }
-
     inline string & string::insert(int at, char c)
     {
         char chars[2] = {c, 0};
@@ -1446,6 +1414,85 @@ namespace boost { namespace text {
         return lhs.compare(string_view(rhs)) >= 0;
     }
 
+    template<typename CharRange>
+    auto operator==(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+    template<typename CharRange>
+    auto operator==(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return rhs == lhs;
+    }
+
+    template<typename CharRange>
+    auto operator!=(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return !(lhs == rhs);
+    }
+    template<typename CharRange>
+    auto operator!=(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return rhs != lhs;
+    }
+
+    template<typename CharRange>
+    auto operator<(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return detail::generalized_compare(
+                   lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) < 0;
+    }
+    template<typename CharRange>
+    auto operator<(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return detail::generalized_compare(
+                   lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) < 0;
+    }
+
+    template<typename CharRange>
+    auto operator<=(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return lhs < rhs || lhs == rhs;
+    }
+    template<typename CharRange>
+    auto operator<=(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return lhs < rhs || lhs == rhs;
+    }
+
+    template<typename CharRange>
+    auto operator>(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return rhs < lhs;
+    }
+    template<typename CharRange>
+    auto operator>(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return rhs < lhs;
+    }
+
+    template<typename CharRange>
+    auto operator>=(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return rhs <= lhs;
+    }
+    template<typename CharRange>
+    auto operator>=(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return rhs <= lhs;
+    }
 
     /** Creates a new string object that is the concatenation of s and c. */
     inline string operator+(string s, char c) { return s += c; }

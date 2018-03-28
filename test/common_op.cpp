@@ -122,6 +122,8 @@ TEST(common_operations, string_literal_init_initializer_list)
     text::rope const r("r");                                                   \
     text::rope_view const rv(r)
 
+// TODO: Each of the "OK" cases below needs a compile-fail test.
+
 // T (U const &)
 TEST(common_operations, construction)
 {
@@ -561,6 +563,233 @@ TEST(common_operations, assignment_operators)
         rv_r = r;
         text::rope_view rv_rv;
         rv_rv = rv;
+    }
+}
+
+// T::operator=(U &&)
+TEST(common_operations, move_assignment_operators)
+{
+//    ONE_OF_EACH();
+}
+
+// operator==(T const &, U const &)
+TEST(common_operations, equality_comparisons)
+{
+    ONE_OF_EACH();
+
+    // text::repeated_string_view
+
+    // text::string_view
+    {
+        text::string_view sv_literal("literal");
+        EXPECT_TRUE(sv_literal == "literal");
+        EXPECT_TRUE("literal" == sv_literal);
+        text::string_view sv_c_str(c_str);
+        EXPECT_TRUE(sv_c_str == c_str);
+        EXPECT_TRUE(c_str == sv_c_str);
+        // OK text::string_view sv_str(str);
+        // OK text::string_view sv_rsv(rsv);
+        text::string_view sv_sv(sv);
+        EXPECT_TRUE(sv_sv == sv);
+        EXPECT_TRUE(sv == sv_sv);
+        text::string_view sv_s(s);
+        EXPECT_TRUE(sv_s == s);
+        EXPECT_TRUE(s == sv_s);
+        // OK text::string_view sv_ur(ur);
+        // OK text::string_view sv_urv(urv);
+        // OK text::string_view sv_t(t);
+        // OK text::string_view sv_tv(tv);
+        // OK text::string_view sv_r(r);
+        // OK text::string_view sv_rv(rv);
+    }
+
+    // text::string
+    {
+        text::string s_literal("literal");
+        EXPECT_TRUE(s_literal == "literal");
+        EXPECT_TRUE("literal" == s_literal);
+        text::string s_c_str(c_str);
+        EXPECT_TRUE(s_c_str == c_str);
+        EXPECT_TRUE(c_str == s_c_str);
+        text::string s_str(str);
+        EXPECT_TRUE(s_str == str);
+        EXPECT_TRUE(str == s_str);
+        text::string s_rsv(rsv);
+        EXPECT_TRUE(s_rsv == rsv);
+        EXPECT_TRUE(rsv == s_rsv);
+        text::string s_sv(sv);
+        EXPECT_TRUE(s_sv == sv);
+        EXPECT_TRUE(sv == s_sv);
+        text::string s_s(s);
+        EXPECT_TRUE(s_s == s);
+        EXPECT_TRUE(s == s_s);
+        text::string s_ur(ur);
+        EXPECT_TRUE(s_ur == ur);
+        EXPECT_TRUE(ur == s_ur);
+        text::string s_urv(urv);
+        EXPECT_TRUE(s_urv == urv);
+        EXPECT_TRUE(urv == s_urv);
+        // OK text::string s_t(t);
+        // OK text::string s_tv(tv);
+        // OK text::string s_r(r);
+        // OK text::string s_rv(rv);
+    }
+
+    // text::unencoded_rope
+    {
+        text::unencoded_rope ur_literal("literal");
+        EXPECT_TRUE(ur_literal == "literal");
+        EXPECT_TRUE("literal" == ur_literal);
+        text::unencoded_rope ur_c_str(c_str);
+        EXPECT_TRUE(ur_c_str == c_str);
+        EXPECT_TRUE(c_str == ur_c_str);
+        text::unencoded_rope ur_str(str);
+        EXPECT_TRUE(ur_str == str);
+        EXPECT_TRUE(str == ur_str);
+        text::unencoded_rope ur_rsv(rsv);
+        EXPECT_TRUE(ur_rsv == rsv);
+        EXPECT_TRUE(rsv == ur_rsv);
+        text::unencoded_rope ur_sv(sv);
+        EXPECT_TRUE(ur_sv == sv);
+        EXPECT_TRUE(sv == ur_sv);
+        text::unencoded_rope ur_s(s);
+        EXPECT_TRUE(ur_s == s);
+        EXPECT_TRUE(s == ur_s);
+        text::unencoded_rope ur_ur(ur);
+        EXPECT_TRUE(ur_ur == ur);
+        EXPECT_TRUE(ur == ur_ur);
+        text::unencoded_rope ur_urv(urv);
+        EXPECT_TRUE(ur_urv == urv);
+        EXPECT_TRUE(urv == ur_urv);
+        // OK text::unencoded_rope ur_t(t);
+        // OK text::unencoded_rope ur_tv(tv);
+        // OK text::unencoded_rope ur_r(r);
+        // OK text::unencoded_rope ur_rv(rv);
+    }
+
+    // text::unencoded_rope_view
+    {
+        text::unencoded_rope_view urv_literal("literal");
+        EXPECT_TRUE(urv_literal == "literal");
+        EXPECT_TRUE("literal" == urv_literal);
+        text::unencoded_rope_view urv_c_str(c_str);
+        EXPECT_TRUE(urv_c_str == c_str);
+        EXPECT_TRUE(c_str == urv_c_str);
+        // OK text::unencoded_rope_view urv_str(str);
+        // OK text::unencoded_rope_view urv_rsv(rsv);
+        text::unencoded_rope_view urv_sv(sv);
+        EXPECT_TRUE(urv_sv == sv);
+        EXPECT_TRUE(sv == urv_sv);
+        text::unencoded_rope_view urv_s(s);
+        EXPECT_TRUE(urv_s == s);
+        EXPECT_TRUE(s == urv_s);
+        text::unencoded_rope_view urv_ur(ur);
+        EXPECT_TRUE(urv_ur == ur);
+        EXPECT_TRUE(ur == urv_ur);
+        text::unencoded_rope_view urv_urv(urv);
+        EXPECT_TRUE(urv_urv == urv);
+        EXPECT_TRUE(urv == urv_urv);
+        // OK text::unencoded_rope_view urv_t(t);
+        // OK text::unencoded_rope_view urv_tv(tv);
+        // OK text::unencoded_rope_view urv_r(r);
+        // OK text::unencoded_rope_view urv_rv(rv);
+    }
+
+    // text::text_view
+    {
+        // OK text::text_view tv_literal("literal");
+        // OK text::text_view tv_c_str(c_str);
+        // OK text::text_view tv_str(str);
+        // OK text::text_view tv_rsv(rsv);
+        // OK text::text_view tv_sv(sv);
+        // OK text::text_view tv_s(s);
+        // OK text::text_view tv_ur(ur);
+        // OK text::text_view tv_urv(urv);
+        text::text_view tv_t(t);
+        EXPECT_TRUE(tv_t == t);
+        EXPECT_TRUE(t == tv_t);
+        text::text_view tv_tv(tv);
+        EXPECT_TRUE(tv_tv == tv);
+        EXPECT_TRUE(tv == tv_tv);
+        // OK text::text_view tv_r(r);
+        // OK text::text_view tv_rv(rv);
+    }
+
+    // text::text
+    {
+        // TODO: Make it so that these do not compile.
+        text::text t_literal("literal");
+        EXPECT_TRUE(t_literal == "literal");
+        EXPECT_TRUE("literal" == t_literal);
+        text::text t_c_str(c_str);
+        EXPECT_TRUE(t_c_str == c_str);
+        EXPECT_TRUE(c_str == t_c_str);
+        // OK text::text t_str(str);
+        // OK text::text t_rsv(rsv);
+        // OK text::text t_sv(sv);
+        // OK text::text t_s(s);
+        // OK text::text t_ur(ur);
+        // OK text::text t_urv(urv);
+        text::text t_t(t);
+        EXPECT_TRUE(t_t == t);
+        EXPECT_TRUE(t == t_t);
+        text::text t_tv(tv);
+        EXPECT_TRUE(t_tv == tv);
+        EXPECT_TRUE(tv == t_tv);
+        text::text t_r(r);
+        EXPECT_TRUE(t_r == r);
+        EXPECT_TRUE(r == t_r);
+        text::text t_rv(rv);
+        EXPECT_TRUE(t_rv == rv);
+        EXPECT_TRUE(rv == t_rv);
+    }
+
+    // text::rope
+    {
+        // OK text::rope r_literal("literal");
+        // OK text::rope r_c_str(c_str);
+        // OK text::rope r_str(str);
+        // OK text::rope r_rsv(rsv);
+        // OK text::rope r_sv(sv);
+        // OK text::rope r_s(s);
+        // OK text::rope r_ur(ur);
+        // OK text::rope r_urv(urv);
+        text::rope r_t(t);
+        EXPECT_TRUE(r_t == t);
+        EXPECT_TRUE(t == r_t);
+        text::rope r_tv(tv);
+        EXPECT_TRUE(r_tv == tv);
+        EXPECT_TRUE(tv == r_tv);
+        text::rope r_r(r);
+        EXPECT_TRUE(r_r == r);
+        EXPECT_TRUE(r == r_r);
+        text::rope r_rv(rv);
+        EXPECT_TRUE(r_rv == rv);
+        EXPECT_TRUE(rv == r_rv);
+    }
+
+    // text::rope_view
+    {
+        // OK text::rope_view rv_literal("literal");
+        // OK text::rope_view rv_c_str(c_str);
+        // OK text::rope_view rv_str(str);
+        // OK text::rope_view rv_rsv(rsv);
+        // OK text::rope_view rv_sv(sv);
+        // OK text::rope_view rv_s(s);
+        // OK text::rope_view rv_ur(ur);
+        // OK text::rope_view rv_urv(urv);
+        text::rope_view rv_t(t);
+        EXPECT_TRUE(rv_t == t);
+        EXPECT_TRUE(t == rv_t);
+        text::rope_view rv_tv(tv);
+        EXPECT_TRUE(rv_tv == tv);
+        EXPECT_TRUE(tv == rv_tv);
+        text::rope_view rv_r(r);
+        EXPECT_TRUE(rv_r == r);
+        EXPECT_TRUE(r == rv_r);
+        text::rope_view rv_rv(rv);
+        EXPECT_TRUE(rv_rv == rv);
+        EXPECT_TRUE(rv == rv_rv);
     }
 }
 

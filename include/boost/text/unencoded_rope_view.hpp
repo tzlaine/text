@@ -314,8 +314,6 @@ namespace boost { namespace text {
             std::swap(which_, rhs.which_);
         }
 
-        // TODO: operator<<()
-
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:

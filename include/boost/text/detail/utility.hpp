@@ -174,6 +174,26 @@ namespace boost { namespace text { namespace detail {
 
 #endif
 
-}}}
+    template<typename Iter1, typename Iter2>
+    int generalized_compare(
+        Iter1 l_first, Iter1 l_last, Iter2 r_first, Iter2 r_last) noexcept
+    {
+        auto const iters =
+            algorithm::mismatch(l_first, l_last, r_first, r_last);
+        if (iters.first == l_last) {
+            if (iters.second == r_last)
+                return 0;
+            else
+                return -1;
+        } else if (iters.second == r_last) {
+            return 1;
+        } else if (*iters.first < *iters.second) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+    }
+}}
 
 #endif
