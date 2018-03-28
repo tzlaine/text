@@ -339,12 +339,19 @@ namespace boost { namespace text {
 #else
 
         template<typename CharRange>
-        auto insert(size_type at, CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>;
+        auto insert(size_type at, CharRange const & r) -> detail::rng_alg_ret_t<
+            unencoded_rope &,
+            CharRange,
+            string_view,
+            repeated_string_view>;
 
         template<typename CharRange>
         auto insert(const_iterator at, CharRange const & r)
-            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>;
+            -> detail::rng_alg_ret_t<
+                unencoded_rope &,
+                CharRange,
+                string_view,
+                repeated_string_view>;
 
         template<typename CharIter>
         auto insert(size_type at, CharIter first, CharIter last)
@@ -745,7 +752,11 @@ namespace boost { namespace text {
 
     template<typename CharRange>
     auto unencoded_rope::insert(size_type at, CharRange const & r)
-        -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>
+        -> detail::rng_alg_ret_t<
+            unencoded_rope &,
+            CharRange,
+            string_view,
+            repeated_string_view>
     {
         using std::begin;
         using std::end;
@@ -755,7 +766,11 @@ namespace boost { namespace text {
 
     template<typename CharRange>
     auto unencoded_rope::insert(const_iterator at, CharRange const & r)
-        -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>
+        -> detail::rng_alg_ret_t<
+            unencoded_rope &,
+            CharRange,
+            string_view,
+            repeated_string_view>
     {
         using std::begin;
         using std::end;
