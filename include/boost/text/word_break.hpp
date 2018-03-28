@@ -603,7 +603,9 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     inline auto prev_word_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return prev_word_break(range.begin(), it, range.end());
+        using std::begin;
+        using std::end;
+        return prev_word_break(begin(range), it, end(range));
     }
 
     /** Finds the next word break after <code>range.begin()</code>.  This will
@@ -615,7 +617,9 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     inline auto next_word_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return next_word_break(range.begin(), range.end());
+        using std::begin;
+        using std::end;
+        return next_word_break(begin(range), end(range));
     }
 
     namespace detail {
@@ -643,8 +647,10 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     inline auto word(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        auto first = prev_word_break(range.begin(), it, range.end());
-        return cp_range<CPIter>{first, next_word_break(first, range.end())};
+        using std::begin;
+        using std::end;
+        auto first = prev_word_break(begin(range), it, end(range));
+        return cp_range<CPIter>{first, next_word_break(first, end(range))};
     }
 
     /** Returns a lazy range of the code point ranges delimiting words in
@@ -669,7 +675,9 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        return {{range.begin(), range.end()}, {range.end()}};
+        using std::begin;
+        using std::end;
+        return {{begin(range), end(range)}, {end(range)}};
     }
 
 }}

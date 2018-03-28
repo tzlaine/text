@@ -1075,7 +1075,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     inline auto prev_hard_line_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return prev_hard_line_break(range.begin(), it, range.end());
+        using std::begin;
+        using std::end;
+        return prev_hard_line_break(begin(range), it, end(range));
     }
 
     /** Finds the next hard line break after <code>range.begin()</code>.  This
@@ -1087,7 +1089,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     inline auto next_hard_line_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return next_hard_line_break(range.begin(), range.end());
+        using std::begin;
+        using std::end;
+        return next_hard_line_break(begin(range), end(range));
     }
 
     /** Finds the nearest line break opportunity at or before before
@@ -1099,7 +1103,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     inline auto prev_possible_line_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return prev_possible_line_break(range.begin(), it, range.end());
+        using std::begin;
+        using std::end;
+        return prev_possible_line_break(begin(range), it, end(range));
     }
 
     /** Finds the next line break opportunity after
@@ -1111,7 +1117,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     inline auto next_possible_line_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return next_possible_line_break(range.begin(), range.end());
+        using std::begin;
+        using std::end;
+        return next_possible_line_break(begin(range), end(range));
     }
 
     namespace detail {
@@ -1148,7 +1156,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     inline auto line(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        auto first = prev_line_break(range.begin(), it, range.end());
+        using std::begin;
+        using std::end;
+        auto first = prev_line_break(begin(range), it, end(range));
         return cp_range<CPIter>{first, next_line_break(first, range.end())};
     }
 
@@ -1174,7 +1184,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        return {{range.begin(), range.end()}, {range.end()}};
+        using std::begin;
+        using std::end;
+        return {{begin(range), end(range)}, {end(range)}};
     }
 
     /** Returns the bounds of the smallest chunk of text that could be broken
@@ -1195,9 +1207,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     inline auto possible_line(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        auto first = prev_possible_line_break(range.begin(), it, range.end());
+        using std::begin;
+        using std::end;
+        auto first = prev_possible_line_break(begin(range), it, end(range));
         return cp_range<CPIter>{first,
-                                next_possible_line_break(first, range.end())};
+                                next_possible_line_break(first, end(range))};
     }
 
     /** Returns a lazy range of the code point ranges delimiting possible
@@ -1222,7 +1236,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        return {{range.begin(), range.end()}, {range.end()}};
+        using std::begin;
+        using std::end;
+        return {{begin(range), end(range)}, {end(range)}};
     }
 
 }}

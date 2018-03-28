@@ -1418,13 +1418,17 @@ namespace boost { namespace text {
     auto operator==(CharRange const & lhs, string const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
     {
-        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+        using std::begin;
+        using std::end;
+        return algorithm::equal(begin(lhs), end(lhs), rhs.begin(), rhs.end());
     }
     template<typename CharRange>
     auto operator==(string const & lhs, CharRange const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, string>
     {
-        return rhs == lhs;
+        using std::begin;
+        using std::end;
+        return algorithm::equal(lhs.begin(), lhs.end(), begin(rhs), end(rhs));
     }
 
     template<typename CharRange>
@@ -1444,15 +1448,19 @@ namespace boost { namespace text {
     auto operator<(CharRange const & lhs, string const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
     {
+        using std::begin;
+        using std::end;
         return detail::generalized_compare(
-                   lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) < 0;
+                   begin(lhs), end(lhs), rhs.begin(), rhs.end()) < 0;
     }
     template<typename CharRange>
     auto operator<(string const & lhs, CharRange const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, string>
     {
+        using std::begin;
+        using std::end;
         return detail::generalized_compare(
-                   lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) < 0;
+                   lhs.begin(), lhs.end(), begin(rhs), end(rhs)) < 0;
     }
 
     template<typename CharRange>

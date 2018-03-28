@@ -311,7 +311,9 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     inline auto prev_grapheme_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return prev_grapheme_break(range.begin(), it, range.end());
+        using std::begin;
+        using std::end;
+        return prev_grapheme_break(begin(range), it, end(range));
     }
 
     /** Finds the next grapheme break after <code>range.begin()</code>.  This
@@ -323,7 +325,9 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     inline auto next_grapheme_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return next_grapheme_break(range.begin(), range.end());
+        using std::begin;
+        using std::end;
+        return next_grapheme_break(begin(range), end(range));
     }
 
     namespace detail {
@@ -352,7 +356,9 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     inline auto grapheme(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        auto first = prev_grapheme_break(range.begin(), it, range.end());
+        using std::begin;
+        using std::end;
+        auto first = prev_grapheme_break(begin(range), it, end(range));
         return cp_range<CPIter>{first, next_grapheme_break(first, range.end())};
     }
 
@@ -378,7 +384,9 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        return {{range.begin(), range.end()}, {range.end()}};
+        using std::begin;
+        using std::end;
+        return {{begin(range), end(range)}, {end(range)}};
     }
 
 }}
