@@ -86,7 +86,7 @@ namespace boost { namespace text {
             \pre strlen(c_str) <= max_size() */
         template<int N>
         unencoded_rope_view(char (&c_str)[N]) noexcept :
-            ref_(string_view(c_str, N)),
+            ref_(string_view(c_str, N - 1)),
             which_(which::tv)
         {}
 
@@ -251,7 +251,7 @@ namespace boost { namespace text {
         template<int N>
         unencoded_rope_view & operator=(char (&c_str)[N]) noexcept
         {
-            return *this = unencoded_rope_view(string_view(c_str, N));
+            return *this = unencoded_rope_view(string_view(c_str, N - 1));
         }
 
         /** Assignment from a string_view. */

@@ -572,7 +572,7 @@ namespace boost { namespace text {
     template<int N>
     inline unencoded_rope::unencoded_rope(char (&c_str)[N])
     {
-        insert(0, string_view(c_str, N));
+        insert(0, string_view(c_str, N - 1));
     }
 
     inline unencoded_rope::unencoded_rope(unencoded_rope_view rv) :
@@ -607,7 +607,7 @@ namespace boost { namespace text {
     template<int N>
     unencoded_rope & unencoded_rope::operator=(char (&c_str)[N])
     {
-        unencoded_rope temp(c_str);
+        unencoded_rope temp(string_view(c_str, N - 1));
         swap(temp);
         return *this;
     }

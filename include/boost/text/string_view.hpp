@@ -333,7 +333,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR bool
     operator==(char (&lhs)[N], string_view rhs) noexcept
     {
-        return string_view(lhs, N) == rhs;
+        return string_view(lhs, N - 1) == rhs;
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -341,7 +341,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR bool
     operator==(string_view lhs, char (&rhs)[N]) noexcept
     {
-        return lhs == string_view(rhs, N);
+        return lhs == string_view(rhs, N - 1);
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -370,7 +370,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR bool
     operator!=(char (&lhs)[N], string_view rhs) noexcept
     {
-        return string_view(lhs, N) != rhs;
+        return string_view(lhs, N - 1) != rhs;
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -378,7 +378,7 @@ namespace boost { namespace text {
     BOOST_TEXT_CXX14_CONSTEXPR bool
     operator!=(string_view lhs, char (&rhs)[N]) noexcept
     {
-        return lhs != string_view(rhs, N);
+        return lhs != string_view(rhs, N - 1);
     }
 
     /** This function is constexpr in C++14 and later. */

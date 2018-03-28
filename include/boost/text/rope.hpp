@@ -398,7 +398,8 @@ namespace boost { namespace text {
     inline rope::rope(char const * c_str) : rope_(text(c_str).extract()) {}
 
     template<int N>
-    rope::rope(char (&c_str)[N]) : rope_(text(string_view(c_str, N)).extract())
+    rope::rope(char (&c_str)[N]) :
+        rope_(text(string_view(c_str, N - 1)).extract())
     {}
 
     inline rope::rope(rope_view rv) :
@@ -446,7 +447,7 @@ namespace boost { namespace text {
     template<int N>
     rope & rope::operator=(char (&c_str)[N])
     {
-        rope temp(string_view(c_str, N));
+        rope temp(string_view(c_str, N - 1));
         swap(temp);
         return *this;
     }

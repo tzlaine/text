@@ -921,7 +921,7 @@ namespace boost { namespace text {
     template<int N>
     string::string(char (&c_str)[N]) : storage_(), size_(0), heap_(false)
     {
-        insert(0, string_view(c_str, N));
+        insert(0, string_view(c_str, N - 1));
     }
 
     inline string::string(string_view sv) : storage_(), size_(0), heap_(false)
@@ -945,7 +945,7 @@ namespace boost { namespace text {
     template<int N>
     string & string::operator=(char (&c_str)[N])
     {
-        return *this = string_view(c_str, N);
+        return *this = string_view(c_str, N - 1);
     }
 
     inline string & string::operator=(string const & s)
@@ -1509,14 +1509,14 @@ namespace boost { namespace text {
     template<int N>
     inline string operator+(string s, char const (&c_str)[N])
     {
-        return s += string_view(c_str, N);
+        return s += string_view(c_str, N - 1);
     }
 
     /** Creates a new string object that is the concatenation of c_str and s. */
     template<int N>
     inline string operator+(char const (&c_str)[N], string s)
     {
-        return s.insert(0, string_view(c_str, N));
+        return s.insert(0, string_view(c_str, N - 1));
     }
 
     /** Creates a new string object that is the concatenation of s and c_str. */

@@ -509,7 +509,7 @@ namespace boost { namespace text {
     }
 
     template<int N>
-    text::text(char (&c_str)[N]) : str_(string_view(c_str, N))
+    text::text(char (&c_str)[N]) : str_(string_view(c_str, N - 1))
     {
         normalize_to_fcc(str_);
     }
@@ -566,7 +566,7 @@ namespace boost { namespace text {
     template<int N>
     text & text::operator=(char (&c_str)[N])
     {
-        str_ = string_view(c_str, N);
+        str_ = string_view(c_str, N - 1);
         normalize_to_fcc(str_);
         return *this;
     }
