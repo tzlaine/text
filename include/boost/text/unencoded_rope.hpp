@@ -1260,14 +1260,14 @@ namespace boost { namespace text {
        and r2. */
     inline unencoded_rope operator+(unencoded_rope r, unencoded_rope r2)
     {
-        return r.insert(r.size(), std::move(r2));
+        return r += r2;
     }
 
     /** Creates a new unencoded_rope object that is the concatenation of r
        and rv. */
     inline unencoded_rope operator+(unencoded_rope r, unencoded_rope_view rv)
     {
-        return r.insert(r.size(), rv);
+        return r += rv;
     }
 
     /** Creates a new unencoded_rope object that is the concatenation of rv
@@ -1281,7 +1281,7 @@ namespace boost { namespace text {
        and t, by moving the contents of t into the result. */
     inline unencoded_rope operator+(unencoded_rope r, string && s)
     {
-        return r.insert(r.size(), std::move(s));
+        return r += std::move(s);
     }
 
     /** Creates a new unencoded_rope object that is the concatenation of t
