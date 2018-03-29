@@ -904,6 +904,29 @@ namespace boost { namespace text {
         return !(lhs == rhs);
     }
 
+    /** Creates a new text object that is the concatenation of t and c_str. */
+    inline text operator+(text t, char const * c_str) { return t += c_str; }
+
+    /** Creates a new text object that is the concatenation of c_str and t. */
+    inline text operator+(char const * c_str, text const & t)
+    {
+        return text(c_str) += t;
+    }
+
+    /** Creates a new text object that is the concatenation of t and c_str. */
+    template<int N>
+    inline text operator+(text t, char (&c_str)[N])
+    {
+        return t += string_view(c_str, N - 1);
+    }
+
+    /** Creates a new text object that is the concatenation of c_str and t. */
+    template<int N>
+    inline text operator+(char (&c_str)[N], text const & t)
+    {
+        return text(string_view(c_str, N - 1)) += t;
+    }
+
     /** Creates a new text object that is the concatenation of t and t2. */
     inline text operator+(text t, text const & t2) { return t += t2; }
 

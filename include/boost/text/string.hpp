@@ -1544,14 +1544,18 @@ namespace boost { namespace text {
     /** Creates a new string object that is the concatenation of s and s2. */
     inline string operator+(string const & s, string const & s2)
     {
-        return string(s) += s2;
+        return string(s) += string_view(s2);
     }
 
     /** Creates a new string object that is the concatenation of s and s2.
      */
-    inline string operator+(string && s, string const & s2) { return s += s2; }
+    inline string operator+(string && s, string const & s2)
+    {
+        return s += string_view(s2);
+    }
 
-    /** Creates a new string object that is the concatenation of s and s2. */
+    /** Creates a new string object that is the concatenation of s and s2.
+     */
     inline string operator+(string const & s, string && s2)
     {
         return s2.insert(0, s);
@@ -1559,7 +1563,10 @@ namespace boost { namespace text {
 
     /** Creates a new string object that is the concatenation of s and s2.
      */
-    inline string operator+(string && s, string && s2) { return s += s2; }
+    inline string operator+(string && s, string && s2)
+    {
+        return s += string_view(s2);
+    }
 
     /** Creates a new string object that is the concatenation of s and rsv.
      */
@@ -1578,13 +1585,13 @@ namespace boost { namespace text {
     /** Creates a new string object that is the concatenation of sv and s. */
     inline string operator+(string_view sv, string const & s)
     {
-        return (string() += sv) += s;
+        return (string() += sv) += string_view(s);
     }
 
     /** Creates a new string object that is the concatenation of rsv and s. */
     inline string operator+(repeated_string_view rsv, string const & s)
     {
-        return (string() += rsv) += s;
+        return (string() += rsv) += string_view(s);
     }
 
 #ifdef BOOST_TEXT_DOXYGEN

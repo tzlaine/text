@@ -66,7 +66,7 @@ namespace boost { namespace text {
             This function only participates in overload resolution if
             ContigCharRange models the ContigCharRange concept. */
         template<typename ContigCharRange>
-        explicit string_view(ContigCharRange const & r);
+        string_view(ContigCharRange const & r);
 
         /** Constructs a string_view from a range of graphemes over an
             underlying range of char.
@@ -79,7 +79,7 @@ namespace boost { namespace text {
 #else
 
         template<typename ContigCharRange>
-        explicit string_view(
+        string_view(
             ContigCharRange const & r,
             detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0)
         {
@@ -503,6 +503,9 @@ namespace boost { namespace text {
     {
         return sv.rend();
     }
+
+    inline int operator+(string_view lhs, char const * rhs) noexcept = delete;
+    inline int operator+(char const * lhs, string_view rhs) noexcept = delete;
 
 }}
 

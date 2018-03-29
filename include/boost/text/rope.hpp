@@ -162,6 +162,9 @@ namespace boost { namespace text {
             at. */
         rope & insert(iterator at, rope_view rv);
 
+        /** Inserts s into *this starting at position at. */
+        rope & insert(iterator at, string && s);
+
         /** Inserts the sequence of char from sv into *this starting at position
             at. */
         rope & insert(iterator at, string_view sv);
@@ -543,6 +546,12 @@ namespace boost { namespace text {
         return *this;
     }
 
+    inline rope & rope::insert(iterator at, string && s)
+    {
+        // TODO
+        return *this;
+    }
+
     inline rope & rope::insert(iterator at, string_view sv)
     {
         // TODO
@@ -674,7 +683,7 @@ namespace boost { namespace text {
 
 }}
 
-#else
+#endif
 
 namespace boost { namespace text {
 
@@ -714,8 +723,88 @@ namespace boost { namespace text {
         return !(lhs == rhs);
     }
 
-}}
+    /** Creates a new rope object that is the concatenation of t and t2. */
+    inline rope operator+(rope t, rope const & t2) { return t += t2; }
+
+    /** Creates a new rope object that is the concatenation of t and tv. */
+    inline rope operator+(rope t, rope_view tv) { return t += tv; }
+
+    /** Creates a new rope object that is the concatenation of tv and t. */
+    inline rope operator+(rope_view tv, rope const & t)
+    {
+        return (rope() += tv) += t;
+    }
+
+    /** Creates a new rope object that is the concatenation of t and rtv. */
+    inline rope operator+(rope t, repeated_string_view rtv) { return t += rtv; }
+
+    /** Creates a new rope object that is the concatenation of rtv and t. */
+    inline rope operator+(repeated_string_view rtv, rope const & t)
+    {
+        return (rope() += rtv) += t;
+    }
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+    /** Creates a new rope object that is the concatenation of t and r.
+
+        This function only participates in overload resolution if CharRange
+        models the CharRange concept.
+
+        \throw std::invalid_argument if the ends of the range are not valid
+        UTF-8. */
+    template<typename CharRange>
+    rope operator+(rope t, CharRange const & r);
+
+    /** Creates a new rope object that is the concatenation of r and t.
+
+        This function only participates in overload resolution if CharRange
+        models the CharRange concept.
+
+        \throw std::invalid_argument if the ends of the range are not valid
+        UTF-8. */
+    template<typename CharRange>
+    rope operator+(CharRange const & r, rope const & t);
+
+#else
+
+    template<typename CharRange>
+    auto operator+(rope t, CharRange const & r)
+        -> detail::rng_alg_ret_t<rope, CharRange>
+    {
+        return t += r;
+    }
+
+    template<typename CharRange>
+    auto operator+(CharRange const & r, rope const & t)
+        -> detail::rng_alg_ret_t<rope, CharRange>
+    {
+        return (rope() += r) += t;
+    }
 
 #endif
+
+    /** Creates a new rope object that is the concatenation of t and rv. */
+    inline rope operator+(text t, rope_view rv)
+    {
+        return rope(std::move(t)) += rv;
+    }
+
+    /** Creates a new rope object that is the concatenation of r and t. */
+    inline rope operator+(rope_view rv, text const & t)
+    {
+        return rope(rv) += t;
+    }
+
+    /** Creates a new rope object that is the concatenation of t and r. */
+    inline rope operator+(text t, rope const & r)
+    {
+        return rope(std::move(t)) += r;
+    }
+
+    /** Creates a new rope object that is the concatenation of r and t. */
+    inline rope operator+(rope r, text const & t) { return r += t; }
+
+}}
 
 #endif

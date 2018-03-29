@@ -253,6 +253,15 @@ namespace boost { namespace text {
         return rsv.crend();
     }
 
+    inline int operator+(
+        repeated_string_view lhs, repeated_string_view rhs) noexcept = delete;
+
+    inline int
+    operator+(string_view lhs, repeated_string_view rhs) noexcept = delete;
+
+    inline int
+    operator+(repeated_string_view lhs, string_view rhs) noexcept = delete;
+
 }}
 
 #    include <boost/text/unencoded_rope_view.hpp>

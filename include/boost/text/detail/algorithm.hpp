@@ -103,45 +103,47 @@ namespace boost { namespace text { namespace detail {
     using has_free_std_end = decltype(*std::end(std::declval<T>()));
 
     template<typename T>
-    using value_type_ = typename std::remove_cv<typename std::remove_reference<
-        typename std::iterator_traits<T>::value_type>::type>::type;
+    using value_type_ = typename std::remove_cv<
+        typename std::remove_reference<typename T::value_type>::type>::type;
 
-    nonesuch callable_iterator_category(...);
-
-    template<typename T>
-    typename std::iterator_traits<typename T::iterator>::iterator_category
-    callable_iterator_category(T &&);
 
     template<typename T>
-    using iterator_category_ =
-        decltype(callable_iterator_category(std::declval<T>()));
+    using nonpointer_iterator_category_ =
+        typename T::iterator::iterator_category;
+
+    template<typename T>
+    using iterator_category_ = typename std::conditional<
+        std::is_pointer<typename T::iterator>::value,
+        std::random_access_iterator_tag,
+        detected_t<nonpointer_iterator_category_, T>>::type;
 
 
 
     template<typename T>
     using is_char_range = std::integral_constant<
         bool,
-        std::is_same<
-            remove_cv_ref_t<detected_or<
-                detected_or<
-                    detected_t<has_free_std_begin, T>,
-                    has_free_unqualified_begin,
-                    T>,
-                has_member_begin,
-                T>>,
-            char>::value &&
-            std::is_same<
+        std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value || // TODO
+            (std::is_same<
                 remove_cv_ref_t<detected_or<
                     detected_or<
-                        detected_t<has_free_std_end, T>,
-                        has_free_unqualified_end,
+                        detected_t<has_free_std_begin, T>,
+                        has_free_unqualified_begin,
                         T>,
-                    has_member_end,
+                    has_member_begin,
                     T>>,
                 char>::value &&
-            std::is_same<
-                iterator_category_<T>,
-                std::random_access_iterator_tag>::value>;
+                 std::is_same<
+                     remove_cv_ref_t<detected_or<
+                         detected_or<
+                             detected_t<has_free_std_end, T>,
+                             has_free_unqualified_end,
+                             T>,
+                         has_member_end,
+                         T>>,
+                     char>::value &&
+                     std::is_same<
+                         detected_t<iterator_category_, T>,
+                         std::random_access_iterator_tag>::value)>;
 
 
 
@@ -276,7 +278,9 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     using is_char_iter = std::integral_constant<
         bool,
-        std::is_same<detected_t<value_type_, T>, char>::value>;
+        std::is_same<char const *, T>::value ||
+            std::is_same<char *, T>::value ||
+            std::is_same<detected_t<value_type_, T>, char>::value>;
 
     template<
         typename T,

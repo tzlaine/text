@@ -1257,7 +1257,37 @@ namespace boost { namespace text {
     }
 
     /** Creates a new unencoded_rope object that is the concatenation of r
-       and r2. */
+        and c_str. */
+    inline unencoded_rope operator+(unencoded_rope r, char const * c_str)
+    {
+        return r += string_view(c_str);
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of c_str
+        and r. */
+    inline unencoded_rope operator+(char const * c_str, unencoded_rope r)
+    {
+        return r.insert(0, c_str);
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of r
+        and c_str. */
+    template<int N>
+    unencoded_rope operator+(unencoded_rope r, char (&c_str)[N])
+    {
+        return r += string_view(c_str, N - 1);
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of c_str
+        and r. */
+    template<int N>
+    unencoded_rope operator+(char (&c_str)[N], unencoded_rope r)
+    {
+        return r.insert(0, string_view(c_str, N - 1));
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of r
+        and r2. */
     inline unencoded_rope operator+(unencoded_rope r, unencoded_rope r2)
     {
         return r += r2;
@@ -1610,13 +1640,6 @@ namespace boost { namespace text {
     {
         rv.foreach_segment(detail::segment_inserter{os});
         return os;
-    }
-
-    inline unencoded_rope
-    operator+(unencoded_rope_view lhs, unencoded_rope_view rhs)
-    {
-        unencoded_rope retval(lhs);
-        return retval += rhs;
     }
 
     inline string & string::operator+=(unencoded_rope r)

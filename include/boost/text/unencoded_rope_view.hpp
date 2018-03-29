@@ -126,7 +126,7 @@ namespace boost { namespace text {
             This function only participates in overload resolution if
             ContigCharRange models the ContigCharRange concept. */
         template<typename ContigCharRange>
-        explicit unencoded_rope_view(ContigCharRange const & r);
+        unencoded_rope_view(ContigCharRange const & r);
 
         /** Constructs a unencoded_rope_view from a range of graphemes over an
             underlying range of char.
@@ -139,7 +139,7 @@ namespace boost { namespace text {
 #else
 
         template<typename ContigCharRange>
-        explicit unencoded_rope_view(
+        unencoded_rope_view(
             ContigCharRange const & r,
             detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0);
 
@@ -268,14 +268,12 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-#if 0 // TODO
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
             ContigCharRange models the ContigCharRange concept. */
         template<typename ContigCharRange>
         unencoded_rope_view & operator=(ContigCharRange const & r);
-#endif
 
         /** Assignment from a range of graphemes over an underlying range of
             char.
@@ -287,14 +285,12 @@ namespace boost { namespace text {
 
 #else
 
-#if 0 // TODO
         template<typename ContigCharRange>
         auto operator=(ContigCharRange const & r) -> detail::
             contig_rng_alg_ret_t<unencoded_rope_view &, ContigCharRange>
         {
             return *this = unencoded_rope_view(r);
         }
-#endif
 
         template<typename ContigGraphemeRange>
         auto operator=(ContigGraphemeRange const & r)
@@ -414,10 +410,8 @@ namespace boost { namespace text {
         return lhs.compare(rhs) >= 0;
     }
 
-    /** Creates a new unencoded_rope containing the concatenation of lhs and
-        rhs. */
-    inline unencoded_rope
-    operator+(unencoded_rope_view lhs, unencoded_rope_view rhs);
+    inline int
+    operator+(unencoded_rope_view lhs, unencoded_rope_view rhs) = delete;
 
 }}
 

@@ -137,6 +137,8 @@ namespace boost { namespace text {
         return tv.rend();
     }
 
+    inline int operator+(text_view const & t, char const * c_str) = delete;
+
 }}
 
 #include <boost/text/text.hpp>
