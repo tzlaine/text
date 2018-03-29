@@ -1058,6 +1058,17 @@ namespace boost { namespace text {
         return r.end();
     }
 
+    inline unencoded_rope::const_iterator
+    cbegin(unencoded_rope const & r) noexcept
+    {
+        return r.cbegin();
+    }
+    inline unencoded_rope::const_iterator
+    cend(unencoded_rope const & r) noexcept
+    {
+        return r.cend();
+    }
+
     inline unencoded_rope::const_reverse_iterator
     rbegin(unencoded_rope const & r) noexcept
     {
@@ -1067,6 +1078,17 @@ namespace boost { namespace text {
     rend(unencoded_rope const & r) noexcept
     {
         return r.rend();
+    }
+
+    inline unencoded_rope::const_reverse_iterator
+    crbegin(unencoded_rope const & r) noexcept
+    {
+        return r.crbegin();
+    }
+    inline unencoded_rope::const_reverse_iterator
+    crend(unencoded_rope const & r) noexcept
+    {
+        return r.crend();
     }
 
     inline bool unencoded_rope::self_reference(unencoded_rope_view rv) const
@@ -1544,6 +1566,17 @@ namespace boost { namespace text {
     rend(unencoded_rope_view rv) noexcept
     {
         return rv.rend();
+    }
+
+    inline unencoded_rope_view::reverse_iterator
+    crbegin(unencoded_rope_view rv) noexcept
+    {
+        return rv.crbegin();
+    }
+    inline unencoded_rope_view::reverse_iterator
+    crend(unencoded_rope_view rv) noexcept
+    {
+        return rv.crend();
     }
 
     inline int unencoded_rope_view::compare(unencoded_rope_view rhs) const

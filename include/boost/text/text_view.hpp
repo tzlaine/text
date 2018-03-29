@@ -40,6 +40,9 @@ namespace boost { namespace text {
         const_iterator begin() const noexcept { return first_; }
         const_iterator end() const noexcept { return last_; }
 
+        const_iterator cbegin() const noexcept { return begin(); }
+        const_iterator cend() const noexcept { return end(); }
+
         const_reverse_iterator rbegin() const noexcept
         {
             return reverse_iterator(end());
@@ -48,6 +51,9 @@ namespace boost { namespace text {
         {
             return reverse_iterator(begin());
         }
+
+        const_reverse_iterator crbegin() const noexcept { return rbegin(); }
+        const_reverse_iterator crend() const noexcept { return rend(); }
 
         bool empty() const noexcept { return first_ == last_; }
 

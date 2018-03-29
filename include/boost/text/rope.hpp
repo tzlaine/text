@@ -347,8 +347,6 @@ namespace boost { namespace text {
 #endif // Doxygen
     };
 
-    inline rope::iterator begin(rope & t) noexcept { return t.begin(); }
-    inline rope::iterator end(rope & t) noexcept { return t.end(); }
     inline rope::const_iterator begin(rope const & t) noexcept
     {
         return t.begin();
@@ -363,11 +361,6 @@ namespace boost { namespace text {
         return t.cend();
     }
 
-    inline rope::reverse_iterator rbegin(rope & t) noexcept
-    {
-        return t.rbegin();
-    }
-    inline rope::reverse_iterator rend(rope & t) noexcept { return t.rend(); }
     inline rope::const_reverse_iterator rbegin(rope const & t) noexcept
     {
         return t.rbegin();

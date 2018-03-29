@@ -83,6 +83,9 @@ namespace boost { namespace text {
             return const_iterator(view_.begin(), view_.size(), size());
         }
 
+        constexpr const_iterator cbegin() const noexcept { return begin(); }
+        constexpr const_iterator cend() const noexcept { return end(); }
+
         constexpr const_reverse_iterator rbegin() const noexcept
         {
             return const_reverse_iterator(end());
@@ -90,6 +93,15 @@ namespace boost { namespace text {
         constexpr const_reverse_iterator rend() const noexcept
         {
             return const_reverse_iterator(begin());
+        }
+
+        constexpr const_reverse_iterator crbegin() const noexcept
+        {
+            return rbegin();
+        }
+        constexpr const_reverse_iterator crend() const noexcept
+        {
+            return rend();
         }
 
         /** Returns the repeated view. */
@@ -208,6 +220,17 @@ namespace boost { namespace text {
         return rsv.end();
     }
 
+    inline constexpr repeated_string_view::iterator
+    cbegin(repeated_string_view rsv) noexcept
+    {
+        return rsv.cbegin();
+    }
+    inline constexpr repeated_string_view::iterator
+    cend(repeated_string_view rsv) noexcept
+    {
+        return rsv.cend();
+    }
+
     inline constexpr repeated_string_view::reverse_iterator
     rbegin(repeated_string_view rsv) noexcept
     {
@@ -217,6 +240,17 @@ namespace boost { namespace text {
     rend(repeated_string_view rsv) noexcept
     {
         return rsv.rend();
+    }
+
+    inline constexpr repeated_string_view::reverse_iterator
+    crbegin(repeated_string_view rsv) noexcept
+    {
+        return rsv.crbegin();
+    }
+    inline constexpr repeated_string_view::reverse_iterator
+    crend(repeated_string_view rsv) noexcept
+    {
+        return rsv.crend();
     }
 
 }}
