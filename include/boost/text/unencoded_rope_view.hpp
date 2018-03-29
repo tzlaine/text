@@ -126,7 +126,7 @@ namespace boost { namespace text {
             This function only participates in overload resolution if
             ContigCharRange models the ContigCharRange concept. */
         template<typename ContigCharRange>
-        unencoded_rope_view(ContigCharRange const & r);
+        explicit unencoded_rope_view(ContigCharRange const & r);
 
         /** Constructs a unencoded_rope_view from a range of graphemes over an
             underlying range of char.
@@ -139,7 +139,7 @@ namespace boost { namespace text {
 #else
 
         template<typename ContigCharRange>
-        unencoded_rope_view(
+        explicit unencoded_rope_view(
             ContigCharRange const & r,
             detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0);
 

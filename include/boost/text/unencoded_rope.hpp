@@ -1308,18 +1308,54 @@ namespace boost { namespace text {
     }
 
     /** Creates a new unencoded_rope object that is the concatenation of r
-       and t, by moving the contents of t into the result. */
+        and t, by moving the contents of t into the result. */
     inline unencoded_rope operator+(unencoded_rope r, string && s)
     {
         return r += std::move(s);
     }
 
     /** Creates a new unencoded_rope object that is the concatenation of t
-       and r, by moving the contents of t into the result. */
+        and r, by moving the contents of t into the result. */
     inline unencoded_rope operator+(string && s, unencoded_rope r)
     {
         return r.insert(0, std::move(s));
     }
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+    /** Creates a new unencoded_rope object that is the concatenation of ur
+        and r.
+
+        This function only participates in overload resolution if CharRange
+        models the CharRange concept. */
+    template<typename CharRange>
+    unencoded_rope & operator+(unencoded_rope ur, CharRange const & r);
+
+    /** Creates a new unencoded_rope object that is the concatenation of r
+        and ur.
+
+        This function only participates in overload resolution if CharRange
+        models the CharRange concept. */
+    template<typename CharRange>
+    unencoded_rope & operator+(CharRange const & r, unencoded_rope const & ur);
+
+#else
+
+    template<typename CharRange>
+    auto operator+(unencoded_rope ur, CharRange const & r)
+        -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
+    {
+        return ur; // TODO
+    }
+
+    template<typename CharRange>
+    auto operator+(CharRange const & r, unencoded_rope ur)
+        -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
+    {
+        return ur; // TODO
+    }
+
+#endif
 
 
     inline unencoded_rope_view::unencoded_rope_view(
