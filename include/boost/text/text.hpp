@@ -858,6 +858,16 @@ namespace boost { namespace text {
 
 #endif // Doxygen
 
+    inline bool
+    operator==(text const & lhs, char const * rhs) noexcept = delete;
+    inline bool
+    operator==(char const * lhs, text const & rhs) noexcept = delete;
+
+    inline bool
+    operator!=(text const & lhs, char const * rhs) noexcept = delete;
+    inline bool
+    operator!=(char const * lhs, text const & rhs) noexcept = delete;
+
     inline bool operator==(text const & lhs, text_view rhs) noexcept
     {
         return algorithm::equal(

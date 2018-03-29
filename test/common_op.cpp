@@ -717,13 +717,8 @@ TEST(common_operations, equality_comparisons)
 
     // text::text
     {
-        // TODO: Make it so that these do not compile.
-        text::text t_literal("literal");
-        EXPECT_TRUE(t_literal == "literal");
-        EXPECT_TRUE("literal" == t_literal);
-        text::text t_c_str(c_str);
-        EXPECT_TRUE(t_c_str == c_str);
-        EXPECT_TRUE(c_str == t_c_str);
+        // OK text::text t_literal("literal");
+        // OK text::text t_c_str(c_str);
         // OK text::text t_str(str);
         // OK text::text t_rsv(rsv);
         // OK text::text t_sv(sv);
