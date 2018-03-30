@@ -158,6 +158,15 @@ namespace boost { namespace text {
         /** Clear. */
         void clear() noexcept;
 
+        /** Inserts the sequence of char from c_str into *this starting at
+            position at. */
+        rope & insert(iterator at, char const * c_str);
+
+        /** Inserts the sequence of char from c_str into *this starting at
+            position at. */
+        template<int N>
+        rope & insert(iterator at, char (&c_str)[N]);
+
         /** Inserts the sequence of char from rv into *this starting at position
             at. */
         rope & insert(iterator at, rope_view rv);
@@ -317,8 +326,7 @@ namespace boost { namespace text {
             if (os.good()) {
                 auto const size = r.distance();
                 detail::pad_width_before(os, size);
-                if (os.good())
-                    r.foreach_segment(detail::segment_inserter{os});
+                os << r.rope_;
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -385,6 +393,7 @@ namespace boost { namespace text {
 
 #include <boost/text/text.hpp>
 #include <boost/text/rope_view.hpp>
+#include <boost/text/normalize.hpp>
 #include <boost/text/detail/rope_iterator.hpp>
 
 #ifndef BOOST_TEXT_DOXYGEN
@@ -540,6 +549,17 @@ namespace boost { namespace text {
 
     inline void rope::clear() noexcept { rope_.clear(); }
 
+    inline rope & rope::insert(iterator at, char const * c_str)
+    {
+        return insert(at, string_view(c_str));
+    }
+
+    template<int N>
+    rope & rope::insert(iterator at, char (&c_str)[N])
+    {
+        return insert(at, string_view(c_str, N - 1));
+    }
+
     inline rope & rope::insert(iterator at, rope_view rv)
     {
         // TODO
@@ -635,8 +655,7 @@ namespace boost { namespace text {
 
     inline rope & rope::operator+=(char const * c_str)
     {
-        // TODO
-        return *this;
+        return *this += string_view(c_str);
     }
 
     inline rope & rope::operator+=(rope_view rv)
@@ -723,30 +742,53 @@ namespace boost { namespace text {
         return !(lhs == rhs);
     }
 
-    /** Creates a new rope object that is the concatenation of t and t2. */
-    inline rope operator+(rope t, rope const & t2) { return t += t2; }
+    /** Creates a new rope object that is the concatenation of r and c_str. */
+    inline rope operator+(rope t, char const * c_str) { return t += c_str; }
 
-    /** Creates a new rope object that is the concatenation of t and tv. */
-    inline rope operator+(rope t, rope_view tv) { return t += tv; }
-
-    /** Creates a new rope object that is the concatenation of tv and t. */
-    inline rope operator+(rope_view tv, rope const & t)
+    /** Creates a new rope object that is the concatenation of c_str and r. */
+    inline rope operator+(char const * c_str, rope const & r)
     {
-        return (rope() += tv) += t;
+        return rope(c_str) += r;
     }
 
-    /** Creates a new rope object that is the concatenation of t and rtv. */
-    inline rope operator+(rope t, repeated_string_view rtv) { return t += rtv; }
-
-    /** Creates a new rope object that is the concatenation of rtv and t. */
-    inline rope operator+(repeated_string_view rtv, rope const & t)
+    /** Creates a new rope object that is the concatenation of r and c_str. */
+    template<int N>
+    rope operator+(rope t, char (&c_str)[N])
     {
-        return (rope() += rtv) += t;
+        return t += string_view(c_str, N - 1);
+    }
+
+    /** Creates a new rope object that is the concatenation of c_str and r. */
+    template<int N>
+    rope operator+(char (&c_str)[N], rope const & r)
+    {
+        return rope(string_view(c_str, N - 1)) += r;
+    }
+
+    /** Creates a new rope object that is the concatenation of r and r2. */
+    inline rope operator+(rope r, rope const & r2) { return r += r2; }
+
+    /** Creates a new rope object that is the concatenation of r and rv. */
+    inline rope operator+(rope r, rope_view rv) { return r += rv; }
+
+    /** Creates a new rope object that is the concatenation of rv and r. */
+    inline rope operator+(rope_view rv, rope const & r)
+    {
+        return rope(rv) += r;
+    }
+
+    /** Creates a new rope object that is the concatenation of r and rsv. */
+    inline rope operator+(rope r, repeated_string_view rsv) { return r += rsv; }
+
+    /** Creates a new rope object that is the concatenation of rsv and r. */
+    inline rope operator+(repeated_string_view rsv, rope const & r)
+    {
+        return rope(rsv) += r;
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-    /** Creates a new rope object that is the concatenation of t and r.
+    /** Creates a new rope object that is the concatenation of r and r2.
 
         This function only participates in overload resolution if CharRange
         models the CharRange concept.
@@ -754,9 +796,9 @@ namespace boost { namespace text {
         \throw std::invalid_argument if the ends of the range are not valid
         UTF-8. */
     template<typename CharRange>
-    rope operator+(rope t, CharRange const & r);
+    rope operator+(rope r, CharRange const & r2);
 
-    /** Creates a new rope object that is the concatenation of r and t.
+    /** Creates a new rope object that is the concatenation of r and r2.
 
         This function only participates in overload resolution if CharRange
         models the CharRange concept.
@@ -764,25 +806,32 @@ namespace boost { namespace text {
         \throw std::invalid_argument if the ends of the range are not valid
         UTF-8. */
     template<typename CharRange>
-    rope operator+(CharRange const & r, rope const & t);
+    rope operator+(CharRange const & r, rope const & r2);
 
 #else
 
     template<typename CharRange>
-    auto operator+(rope t, CharRange const & r)
+    auto operator+(rope r, CharRange const & r2)
         -> detail::rng_alg_ret_t<rope, CharRange>
     {
-        return t += r;
+        return r += r2;
     }
 
     template<typename CharRange>
-    auto operator+(CharRange const & r, rope const & t)
+    auto operator+(CharRange const & r, rope const & r2)
         -> detail::rng_alg_ret_t<rope, CharRange>
     {
-        return (rope() += r) += t;
+        return rope(r) += r2;
     }
 
 #endif
+
+    /** Creates a new rope object that is the concatenation of t and rv. */
+    inline text & operator+=(text & t, rope_view rv)
+    {
+        return t.insert(
+            t.end(), rv.begin().base().base(), rv.end().base().base());
+    }
 
     /** Creates a new rope object that is the concatenation of t and rv. */
     inline rope operator+(text t, rope_view rv)
@@ -797,6 +846,13 @@ namespace boost { namespace text {
     }
 
     /** Creates a new rope object that is the concatenation of t and r. */
+    inline text & operator+=(text & t, rope const & r)
+    {
+        return t.insert(
+            t.end(), r.begin().base().base(), r.end().base().base());
+    }
+
+    /** Creates a new rope object that is the concatenation of t and r. */
     inline rope operator+(text t, rope const & r)
     {
         return rope(std::move(t)) += r;
@@ -804,6 +860,13 @@ namespace boost { namespace text {
 
     /** Creates a new rope object that is the concatenation of r and t. */
     inline rope operator+(rope r, text const & t) { return r += t; }
+
+
+    text & text::insert(iterator at, rope_view rv)
+    {
+        // TODO
+        return *this;
+    }
 
 }}
 

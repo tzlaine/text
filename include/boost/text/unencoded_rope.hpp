@@ -292,9 +292,17 @@ namespace boost { namespace text {
             at. */
         unencoded_rope & insert(size_type at, char const * c_str);
 
+        /** Inserts the null-terminated string into *this starting at position
+            at. */
+        unencoded_rope & insert(const_iterator at, char const * c_str);
+
         /** Inserts the sequence of char from rv into *this starting at offset
             at. */
         unencoded_rope & insert(size_type at, unencoded_rope_view rv);
+
+        /** Inserts the sequence of char from rv into *this starting at
+            position at. */
+        unencoded_rope & insert(const_iterator at, unencoded_rope_view rv);
 
         /** Inserts the sequence of char from t into *this starting at offset
             at, by moving the contents of t. */
@@ -302,6 +310,10 @@ namespace boost { namespace text {
         {
             return insert_impl(at, std::move(s), would_not_allocate);
         }
+
+        /** Inserts the sequence of char from t into *this starting at
+            position at, by moving the contents of t. */
+        unencoded_rope & insert(const_iterator at, string && s);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -433,6 +445,13 @@ namespace boost { namespace text {
         /** Swaps *this with rhs. */
         void swap(unencoded_rope & rhs) { ptr_.swap(rhs.ptr_); }
 
+        /** Appends c_str to *this. */
+        unencoded_rope & operator+=(char const * c_str);
+
+        /** Appends c_str to *this. */
+        template<int N>
+        unencoded_rope & operator+=(char (&c_str)[N]);
+
         /** Appends rv to *this. */
         unencoded_rope & operator+=(unencoded_rope_view rv);
 
@@ -452,6 +471,27 @@ namespace boost { namespace text {
 
         /** Appends t to *this, by moving its contents into *this. */
         unencoded_rope & operator+=(string && s);
+
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Append r to *this.
+
+            This function only participates in overload resolution if CharRange
+            models the CharRange concept. */
+        template<typename CharRange>
+        unencoded_rope & operator+=(CharRange const & r);
+
+#else
+
+        template<typename CharRange>
+        auto operator+=(CharRange const & r)
+            -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
+        {
+            return *this; // TODO
+        }
+
+#endif
 
         /** Stream inserter; performs unformatted output. */
         friend std::ostream & operator<<(std::ostream & os, unencoded_rope r)
@@ -626,6 +666,12 @@ namespace boost { namespace text {
     }
 
     inline unencoded_rope &
+    unencoded_rope::insert(const_iterator at, char const * c_str)
+    {
+        return insert(at - begin(), unencoded_rope_view(c_str));
+    }
+
+    inline unencoded_rope &
     unencoded_rope::insert(size_type at, unencoded_rope_view rv)
     {
         assert(0 <= at && at <= size());
@@ -748,6 +794,18 @@ namespace boost { namespace text {
             });
 
         return *this;
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::insert(const_iterator at, unencoded_rope_view rv)
+    {
+        return insert(at - begin(), rv);
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::insert(const_iterator at, string && s)
+    {
+        return insert_impl(at - begin(), std::move(s), would_not_allocate);
     }
 
     template<typename CharRange>
@@ -916,6 +974,17 @@ namespace boost { namespace text {
         assert(begin() <= old_first && old_last <= end());
         return erase(old_first, old_last)
             .insert(old_first, new_first, new_last);
+    }
+
+    inline unencoded_rope & unencoded_rope::operator+=(char const * c_str)
+    {
+        return insert(size(), unencoded_rope_view(c_str));
+    }
+
+    template<int N>
+    unencoded_rope & unencoded_rope::operator+=(char (&c_str)[N])
+    {
+        return insert(size(), unencoded_rope_view(c_str, N - 1));
     }
 
     inline unencoded_rope & unencoded_rope::operator+=(unencoded_rope_view rv)

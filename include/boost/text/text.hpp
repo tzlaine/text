@@ -16,6 +16,7 @@ namespace boost { namespace text {
     struct string;
     struct repeated_string_view;
     struct text_view;
+    struct rope_view;
 
     /** A mutable contiguous null-terminated sequence of graphemes.  The
         underlying storage is a string that is UTF-8-encoded and
@@ -202,17 +203,26 @@ namespace boost { namespace text {
             empty string */
         void clear() noexcept { str_.clear(); }
 
-        /** Inserts the sequence of char from tv into *this starting at position
-            at. */
-        text & insert(iterator at, text_view tv);
+        /** Inserts the sequence of char from c_str into *this starting at
+            position at. */
+        text & insert(iterator at, char const * c_str);
 
-        /** Inserts the sequence of char from sv into *this starting at position
-            at. */
-        text & insert(iterator at, string_view sv);
+        /** Inserts the sequence of char from c_str into *this starting at
+            position at. */
+        template<int N>
+        text & insert(iterator at, char (&c_str)[N]);
+
+        /** Inserts the sequence of char from t into *this starting at
+            position at. */
+        text & insert(iterator at, text const & t);
 
         /** Inserts the sequence of char from rsv into *this starting at
             position at. */
         text & insert(iterator at, repeated_string_view rsv);
+
+        /** Inserts the sequence of char from rv into *this starting at
+            position at. */
+        text & insert(iterator at, rope_view rv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -241,7 +251,8 @@ namespace boost { namespace text {
         auto insert(iterator at, CharIter first, CharIter last)
             -> detail::char_iter_ret_t<text &, CharIter>
         {
-            return str_.insert(at.base().base(), first, last);
+            str_.insert(at.base().base(), first, last);
+            return *this;
         }
 
 #endif
@@ -338,8 +349,10 @@ namespace boost { namespace text {
         /** Appends c_str to *this. */
         text & operator+=(char const * c_str);
 
+#if 0
         /** Appends tv to *this. */
         text & operator+=(text_view tv);
+#endif
 
         /** Appends tv to *this. */
         text & operator+=(string_view sv);
@@ -373,8 +386,7 @@ namespace boost { namespace text {
             if (os.good()) {
                 auto const size = t.distance();
                 detail::pad_width_before(os, size);
-                if (os.good())
-                    os.write(t.begin().base().base(), t.storage_bytes());
+                os << t.str_;
                 if (os.good())
                     detail::pad_width_after(os, size);
             }
@@ -468,6 +480,7 @@ namespace boost { namespace text {
 
 #include <boost/text/string.hpp>
 #include <boost/text/text_view.hpp>
+#include <boost/text/rope.hpp>
 #include <boost/text/normalize.hpp>
 
 namespace boost { namespace text {
@@ -620,27 +633,31 @@ namespace boost { namespace text {
     auto text::insert(iterator at, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        return insert(at, string_view(r));
+        using std::begin;
+        using std::end;
+        return insert(at, begin(r), end(r));
     }
 
-    inline text & text::insert(iterator at, text_view tv)
+    inline text & text::insert(iterator at, char const * c_str)
+    {
+        return insert(at, c_str, c_str + std::strlen(c_str));
+    }
+
+    template<int N>
+    text & text::insert(iterator at, char (&c_str)[N])
+    {
+        return insert(at, c_str, c_str + N - 1);
+    }
+
+    inline text & text::insert(iterator at, text const & t)
     {
         int const lo = at.base().base() - str_.begin();
-        int const hi = lo + tv.storage_bytes();
+        int const hi = lo + t.storage_bytes();
         str_.insert(
             at.base().base(),
-            string_view(tv.begin().base().base(), tv.storage_bytes()));
+            string_view(t.begin().base().base(), t.storage_bytes()));
         normalize_subrange(lo, lo);
         normalize_subrange(hi, hi);
-        return *this;
-    }
-
-    inline text & text::insert(iterator at, string_view sv)
-    {
-        int const lo = at.base().base() - str_.begin();
-        int const hi = lo + sv.size();
-        str_.insert(at.base().base() - str_.begin(), sv);
-        normalize_subrange(lo, hi);
         return *this;
     }
 
@@ -766,6 +783,7 @@ namespace boost { namespace text {
         return operator+=(string_view(c_str));
     }
 
+#if 0
     inline text & text::operator+=(text_view tv)
     {
         int const at = storage_bytes();
@@ -773,6 +791,7 @@ namespace boost { namespace text {
         normalize_subrange(at, at);
         return *this;
     }
+#endif
 
     inline text & text::operator+=(string_view sv)
     {
@@ -904,13 +923,16 @@ namespace boost { namespace text {
         return !(lhs == rhs);
     }
 
+    /** Creates a new text object that is the concatenation of t and t2. */
+    inline text operator+(text t, text const & t2) { return t += t2; }
+
     /** Creates a new text object that is the concatenation of t and c_str. */
     inline text operator+(text t, char const * c_str) { return t += c_str; }
 
     /** Creates a new text object that is the concatenation of c_str and t. */
     inline text operator+(char const * c_str, text const & t)
     {
-        return text(c_str) += t;
+        return text(c_str) + t;
     }
 
     /** Creates a new text object that is the concatenation of t and c_str. */
@@ -924,20 +946,14 @@ namespace boost { namespace text {
     template<int N>
     inline text operator+(char (&c_str)[N], text const & t)
     {
-        return text(string_view(c_str, N - 1)) += t;
+        return text(string_view(c_str, N - 1)) + t;
     }
-
-    /** Creates a new text object that is the concatenation of t and t2. */
-    inline text operator+(text t, text const & t2) { return t += t2; }
 
     /** Creates a new text object that is the concatenation of t and tv. */
     inline text operator+(text t, text_view tv) { return t += tv; }
 
     /** Creates a new text object that is the concatenation of tv and t. */
-    inline text operator+(text_view tv, text const & t)
-    {
-        return (text() += tv) += t;
-    }
+    inline text operator+(text_view tv, text const & t) { return text(tv) + t; }
 
     /** Creates a new text object that is the concatenation of t and rtv. */
     inline text operator+(text t, repeated_string_view rtv) { return t += rtv; }
@@ -945,7 +961,7 @@ namespace boost { namespace text {
     /** Creates a new text object that is the concatenation of rtv and t. */
     inline text operator+(repeated_string_view rtv, text const & t)
     {
-        return (text() += rtv) += t;
+        return text(rtv) + t;
     }
 
 #ifdef BOOST_TEXT_DOXYGEN
@@ -983,7 +999,7 @@ namespace boost { namespace text {
     auto operator+(CharRange const & r, text const & t)
         -> detail::rng_alg_ret_t<text, CharRange>
     {
-        return (text() += r) += t;
+        return text(r) + t;
     }
 
 #endif
