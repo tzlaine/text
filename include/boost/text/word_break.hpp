@@ -199,8 +199,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         point of the word that <code>it</code> is within is returned (even if
         <code>it</code> is already at the first code point of a word). */
     template<typename CPIter, typename Sentinel>
-    inline CPIter
-    prev_word_break(CPIter first, CPIter it, Sentinel last) noexcept
+    CPIter prev_word_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
         if (it == first)
             return it;
@@ -453,7 +452,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
         \pre <code>first</code> is at the beginning of a word. */
     template<typename CPIter, typename Sentinel>
-    inline CPIter next_word_break(CPIter first, Sentinel last) noexcept
+    CPIter next_word_break(CPIter first, Sentinel last) noexcept
     {
         if (first == last)
             return first;
@@ -600,7 +599,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         returned (even if <code>it</code> is already at the first code point
         of a word). */
     template<typename CPRange, typename CPIter>
-    inline auto prev_word_break(CPRange & range, CPIter it) noexcept
+    auto prev_word_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -614,7 +613,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
         \pre <code>range.begin()</code> is at the beginning of a word. */
     template<typename CPRange>
-    inline auto next_word_break(CPRange & range) noexcept
+    auto next_word_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -635,8 +634,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
     /** Returns the bounds of the word that <code>it</code> lies within. */
     template<typename CPIter, typename Sentinel>
-    inline cp_range<CPIter>
-    word(CPIter first, CPIter it, Sentinel last) noexcept
+    cp_range<CPIter> word(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_word_break(first, it, last);
         return cp_range<CPIter>{first, next_word_break(first, last)};
@@ -644,7 +642,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
     /** Returns the bounds of the word that <code>it</code> lies within. */
     template<typename CPRange, typename CPIter>
-    inline auto word(CPRange & range, CPIter it) noexcept
+    auto word(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
         using std::begin;

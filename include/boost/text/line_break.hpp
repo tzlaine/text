@@ -299,7 +299,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         };
 
         template<typename CPIter, typename Sentinel>
-        inline CPIter prev_line_break_impl(
+        CPIter prev_line_break_impl(
             CPIter first,
             CPIter it,
             Sentinel last,
@@ -713,7 +713,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
 
         template<typename CPIter, typename Sentinel>
-        inline CPIter next_line_break_impl(
+        CPIter next_line_break_impl(
             CPIter first, Sentinel last, bool hard_breaks_only) noexcept
         {
             if (first == last)
@@ -1072,7 +1072,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         of a line).  A hard line break follows any code points with the
         property BK, CR (not followed by LF), LF, or NL. */
     template<typename CPRange, typename CPIter>
-    inline auto prev_hard_line_break(CPRange & range, CPIter it) noexcept
+    auto prev_hard_line_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -1086,7 +1086,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         \pre <code>range.begin()</code> is at the beginning of a line. */
     template<typename CPRange>
-    inline auto next_hard_line_break(CPRange & range) noexcept
+    auto next_hard_line_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -1100,7 +1100,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         <code>it</code> is within is returned (even if <code>it</code> is
         already at the first code point of a line. */
     template<typename CPRange, typename CPIter>
-    inline auto prev_possible_line_break(CPRange & range, CPIter it) noexcept
+    auto prev_possible_line_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -1114,7 +1114,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         \pre <code>range.begin()</code> is at the beginning of a line. */
     template<typename CPRange>
-    inline auto next_possible_line_break(CPRange & range) noexcept
+    auto next_possible_line_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -1153,7 +1153,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     /** Returns the bounds of the line (using hard line breaks) that
         <code>it</code> lies within. */
     template<typename CPRange, typename CPIter>
-    inline auto line(CPRange & range, CPIter it) noexcept
+    auto line(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
         using std::begin;
@@ -1204,7 +1204,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         off into a line, searching from <code>it</code> in either
         direction. */
     template<typename CPRange, typename CPIter>
-    inline auto possible_line(CPRange & range, CPIter it) noexcept
+    auto possible_line(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
         using std::begin;

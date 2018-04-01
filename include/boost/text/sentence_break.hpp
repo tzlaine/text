@@ -193,8 +193,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         (even if <code>it</code> is already at the first code point of a
         sentence). */
     template<typename CPIter, typename Sentinel>
-    inline CPIter
-    prev_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept
+    CPIter prev_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
         if (it == first)
             return it;
@@ -425,7 +424,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         \pre <code>first</code> is at the beginning of a sentence. */
     template<typename CPIter, typename Sentinel>
-    inline CPIter next_sentence_break(CPIter first, Sentinel last) noexcept
+    CPIter next_sentence_break(CPIter first, Sentinel last) noexcept
     {
         if (first == last)
             return first;
@@ -578,7 +577,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         returned (even if <code>it</code> is already at the first code point
         of a sentence). */
     template<typename CPRange, typename CPIter>
-    inline auto prev_sentence_break(CPRange & range, CPIter it) noexcept
+    auto prev_sentence_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -592,7 +591,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         \pre <code>range.begin()</code> is at the beginning of a sentence. */
     template<typename CPRange>
-    inline auto next_sentence_break(CPRange & range) noexcept
+    auto next_sentence_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -614,8 +613,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     /** Returns the bounds of the sentence that <code>it</code> lies
         within. */
     template<typename CPIter, typename Sentinel>
-    inline cp_range<CPIter>
-    sentence(CPIter first, CPIter it, Sentinel last) noexcept
+    cp_range<CPIter> sentence(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_sentence_break(first, it, last);
         return cp_range<CPIter>{first, next_sentence_break(first, last)};
@@ -624,7 +622,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     /** Returns the bounds of the sentence that <code>it</code> lies
         within. */
     template<typename CPRange, typename CPIter>
-    inline auto sentence(CPRange & range, CPIter it) noexcept
+    auto sentence(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
         using std::begin;

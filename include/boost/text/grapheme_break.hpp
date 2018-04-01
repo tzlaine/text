@@ -308,7 +308,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         returned (even if <code>it</code> is already at the first code point
         of a grapheme). */
     template<typename CPRange, typename CPIter>
-    inline auto prev_grapheme_break(CPRange & range, CPIter it) noexcept
+    auto prev_grapheme_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -322,7 +322,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 
         \pre <code>range.begin()</code> is at the beginning of a grapheme. */
     template<typename CPRange>
-    inline auto next_grapheme_break(CPRange & range) noexcept
+    auto next_grapheme_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -343,7 +343,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 
     /** Returns the bounds of the grapheme that <code>it</code> lies within. */
     template<typename CPIter, typename Sentinel>
-    inline cp_range<CPIter>
+    cp_range<CPIter>
     grapheme(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_grapheme_break(first, it, last);
@@ -353,7 +353,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     /** Returns the bounds of the grapheme that <code>it</code> lies
         within. */
     template<typename CPRange, typename CPIter>
-    inline auto grapheme(CPRange & range, CPIter it) noexcept
+    auto grapheme(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
         using std::begin;

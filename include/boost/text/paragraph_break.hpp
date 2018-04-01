@@ -64,7 +64,7 @@ namespace boost { namespace text {
         returned (even if <code>it</code> is already at the first code point
         of a paragraph). */
     template<typename CPRange, typename CPIter>
-    inline auto prev_paragraph_break(CPRange & range, CPIter it) noexcept
+    auto prev_paragraph_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -78,7 +78,7 @@ namespace boost { namespace text {
 
         \pre <code>range.begin()</code> is at the beginning of a paragraph. */
     template<typename CPRange>
-    inline auto next_paragraph_break(CPRange & range) noexcept
+    auto next_paragraph_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
         using std::begin;
@@ -100,7 +100,7 @@ namespace boost { namespace text {
     /** Returns the bounds of the paragraph that <code>it</code> lies
         within. */
     template<typename CPRange, typename CPIter>
-    inline auto paragraph(CPRange & range, CPIter it) noexcept
+    auto paragraph(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
         using std::begin;
