@@ -13,6 +13,8 @@
 
 namespace boost { namespace text {
 
+    // TODO: These Iter template parameters all should be CPIter.
+
     template<typename Iter, typename Sentinel = Iter>
     struct grapheme_iterator;
 
@@ -51,7 +53,7 @@ namespace boost { namespace text {
     struct grapheme_iterator
     {
         using value_type = grapheme_t<Iter>;
-        using difference_type = int;
+        using difference_type = std::ptrdiff_t;
         using pointer = value_type const *;
         using reference = value_type;
         using iterator_category = std::bidirectional_iterator_tag;
@@ -125,6 +127,16 @@ namespace boost { namespace text {
             grapheme_iterator<Iter, Sentinel> rhs) noexcept
         {
             return !(lhs == rhs);
+        }
+
+        friend bool operator==(grapheme_iterator<Iter, Sentinel> it, Sentinel s)
+        {
+            return it.grapheme_.begin() == s;
+        }
+
+        friend bool operator==(Sentinel s, grapheme_iterator<Iter, Sentinel> it)
+        {
+            return s == it.grapheme_.begin();
         }
 
     private:
