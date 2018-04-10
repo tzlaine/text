@@ -105,11 +105,7 @@ namespace boost { namespace text {
         {
             using std::begin;
             using std::end;
-            if (begin(r) == end(r)) {
-                clear();
-            } else {
-                insert(0, begin(r).base().base(), end(r).base().base());
-            }
+            insert(0, begin(r).base().base(), end(r).base().base());
         }
 
 #endif
@@ -488,7 +484,9 @@ namespace boost { namespace text {
         auto operator+=(CharRange const & r)
             -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
         {
-            return *this; // TODO
+            using std::begin;
+            using std::end;
+            return insert(size(), begin(r), end(r));
         }
 
 #endif
@@ -1414,14 +1412,16 @@ namespace boost { namespace text {
     auto operator+(unencoded_rope ur, CharRange const & r)
         -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
     {
-        return ur; // TODO
+        return ur += r;
     }
 
     template<typename CharRange>
     auto operator+(CharRange const & r, unencoded_rope ur)
         -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
     {
-        return ur; // TODO
+        using std::begin;
+        using std::end;
+        return ur.insert(0, begin(r), end(r));
     }
 
 #endif
