@@ -13,6 +13,8 @@ namespace boost { namespace text {
         repeated many times, without allocating storage. */
     struct repeated_string_view
     {
+        using value_type = char;
+        using size_type = std::ptrdiff_t;
         using iterator = detail::const_repeated_chars_iterator;
         using const_iterator = detail::const_repeated_chars_iterator;
         using reverse_iterator = detail::const_reverse_repeated_chars_iterator;
@@ -32,7 +34,7 @@ namespace boost { namespace text {
 
             \post view() == sv && count() == count */
         BOOST_TEXT_CXX14_CONSTEXPR
-        repeated_string_view(string_view sv, std::ptrdiff_t count) noexcept :
+        repeated_string_view(string_view sv, size_type count) noexcept :
             view_(sv),
             count_(count)
         {
@@ -47,7 +49,7 @@ namespace boost { namespace text {
         template<typename ContigCharRange>
         explicit repeated_string_view(
             ContigCharRange const & r,
-            std::ptrdiff_t count,
+            size_type count,
             detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0) :
             view_(string_view(r)),
             count_(count)
@@ -64,7 +66,7 @@ namespace boost { namespace text {
         template<typename ContigGraphemeRange>
         explicit repeated_string_view(
             ContigGraphemeRange const & r,
-            std::ptrdiff_t count,
+            size_type count,
             detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> =
                 0) :
             view_(string_view(r)),
@@ -108,14 +110,14 @@ namespace boost { namespace text {
         constexpr string_view view() const noexcept { return view_; }
 
         /** Returns the number of times the view is repeated. */
-        constexpr std::ptrdiff_t count() const noexcept { return count_; }
+        constexpr size_type count() const noexcept { return count_; }
 
         /** Returns the i-th char of *this (not a reference).
 
             This function is constexpr in C++14 and later.
 
             \pre i < size() */
-        BOOST_TEXT_CXX14_CONSTEXPR char operator[](int i) const noexcept
+        BOOST_TEXT_CXX14_CONSTEXPR char operator[](size_type i) const noexcept
         {
             assert(i < size());
             return begin()[i];
@@ -134,7 +136,7 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        unencoded_rope_view operator()(int lo, int hi) const;
+        unencoded_rope_view operator()(size_type lo, size_type hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
@@ -142,11 +144,11 @@ namespace boost { namespace text {
             This function is constexpr in C++14 and later.
 
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        unencoded_rope_view operator()(int cut) const;
+        unencoded_rope_view operator()(size_type cut) const;
 
         constexpr bool empty() const noexcept { return view_.empty(); }
 
-        constexpr std::ptrdiff_t size() const noexcept
+        constexpr size_type size() const noexcept
         {
             return count_ * view_.size();
         }
@@ -164,7 +166,7 @@ namespace boost { namespace text {
                 rhs.view_ = tmp;
             }
             {
-                std::ptrdiff_t tmp = count_;
+                size_type tmp = count_;
                 count_ = rhs.count_;
                 rhs.count_ = tmp;
             }
@@ -174,7 +176,7 @@ namespace boost { namespace text {
         friend std::ostream &
         operator<<(std::ostream & os, repeated_string_view rsv)
         {
-            for (std::ptrdiff_t i = 0; i < rsv.count(); ++i) {
+            for (size_type i = 0; i < rsv.count(); ++i) {
                 os.write(rsv.view().begin(), rsv.view().size());
             }
             return os;
@@ -182,7 +184,7 @@ namespace boost { namespace text {
 
     private:
         string_view view_;
-        std::ptrdiff_t count_;
+        size_type count_;
     };
 
     /** Creates a repeated_string_view from a string_view and a count.

@@ -307,6 +307,8 @@ namespace boost { namespace text { namespace detail {
 
         switch (node.as_leaf()->which_) {
         case which::t:
+            assert(lo < INT_MAX);
+            assert(hi < INT_MAX);
             if (!leaf_mutable)
                 return make_ref(node.as_leaf(), lo, hi, encoding_note);
             {
@@ -344,6 +346,8 @@ namespace boost { namespace text { namespace detail {
             return node;
         }
         case which::ref: {
+            assert(lo < INT_MAX);
+            assert(hi < INT_MAX);
             if (!leaf_mutable)
                 return make_ref(
                     node.as_leaf()->as_reference(), lo, hi, encoding_note);

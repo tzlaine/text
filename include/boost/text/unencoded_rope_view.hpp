@@ -17,12 +17,12 @@ namespace boost { namespace text {
         repeated_string_view. */
     struct unencoded_rope_view
     {
+        using value_type = char;
+        using size_type = std::ptrdiff_t;
         using iterator = detail::const_rope_view_iterator;
         using const_iterator = detail::const_rope_view_iterator;
         using reverse_iterator = detail::const_reverse_rope_view_iterator;
         using const_reverse_iterator = detail::const_reverse_rope_view_iterator;
-
-        using size_type = std::ptrdiff_t;
 
         /** Default ctor.
 
@@ -49,7 +49,8 @@ namespace boost { namespace text {
             \pre lo <= hi
             \post size() == r.size() && begin() == r.begin() + lo && end() ==
             r.begin() + hi */
-        unencoded_rope_view(unencoded_rope const & r, int lo, int hi);
+        unencoded_rope_view(
+            unencoded_rope const & r, size_type lo, size_type hi);
 
         /** Constructs an unencoded_rope_view covering the entire given
             string. */
@@ -117,7 +118,8 @@ namespace boost { namespace text {
             \pre lo <= hi
             \post size() == rsv.size() && begin() == rsv.begin() + lo && end() ==
             rsv.begin() + hi */
-        unencoded_rope_view(repeated_string_view rsv, int lo, int hi);
+        unencoded_rope_view(
+            repeated_string_view rsv, size_type lo, size_type hi);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -168,7 +170,7 @@ namespace boost { namespace text {
         /** Returns the i-th char of *this (not a reference).
 
             \pre i < size() */
-        char operator[](int i) const noexcept;
+        char operator[](size_type i) const noexcept;
 
         /** Returns a substring of *this, taken from the range of chars at
             offsets [lo, hi).  If either of lo or hi is a negative value x, x
@@ -181,16 +183,16 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        unencoded_rope_view operator()(int lo, int hi) const;
+        unencoded_rope_view operator()(size_type lo, size_type hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
 
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        unencoded_rope_view operator()(int cut) const
+        unencoded_rope_view operator()(size_type cut) const
         {
-            int lo = 0;
-            int hi = cut;
+            size_type lo = 0;
+            size_type hi = cut;
             if (cut < 0) {
                 lo = cut + size();
                 hi = size();
@@ -318,29 +320,35 @@ namespace boost { namespace text {
         struct rope_ref
         {
             rope_ref() : r_(nullptr), lo_(0), hi_(0) {}
-            rope_ref(unencoded_rope const * r, int lo, int hi) :
+            rope_ref(
+                unencoded_rope const * r,
+                std::ptrdiff_t lo,
+                std::ptrdiff_t hi) :
                 r_(r),
                 lo_(lo),
                 hi_(hi)
             {}
 
             unencoded_rope const * r_;
-            int lo_;
-            int hi_;
+            size_type lo_;
+            size_type hi_;
         };
 
         struct repeated_ref
         {
             repeated_ref() : rtv_(), lo_(0), hi_(0) {}
-            repeated_ref(repeated_string_view rtv, int lo, int hi) :
+            repeated_ref(
+                repeated_string_view rtv,
+                std::ptrdiff_t lo,
+                std::ptrdiff_t hi) :
                 rtv_(rtv),
                 lo_(lo),
                 hi_(hi)
             {}
 
             repeated_string_view rtv_;
-            int lo_;
-            int hi_;
+            size_type lo_;
+            size_type hi_;
         };
 
         union ref
@@ -362,7 +370,8 @@ namespace boost { namespace text {
             repeated_ref rtv_;
         };
 
-        unencoded_rope_view(unencoded_rope const * r, int lo, int hi) :
+        unencoded_rope_view(
+            unencoded_rope const * r, std::ptrdiff_t lo, std::ptrdiff_t hi) :
             ref_(rope_ref(r, lo, hi)),
             which_(which::r)
         {}
@@ -420,12 +429,13 @@ namespace boost { namespace text {
 namespace boost { namespace text {
 
     inline unencoded_rope_view repeated_string_view::
-    operator()(int lo, int hi) const
+    operator()(size_type lo, size_type hi) const
     {
         return unencoded_rope_view(*this)(hi, lo);
     }
 
-    inline unencoded_rope_view repeated_string_view::operator()(int cut) const
+    inline unencoded_rope_view repeated_string_view::
+    operator()(size_type cut) const
     {
         return unencoded_rope_view(*this)(cut);
     }

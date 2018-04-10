@@ -23,6 +23,8 @@ namespace boost { namespace text {
         FCC-normalized. */
     struct text
     {
+        using value_type = cp_range<utf8::to_utf32_iterator<char *, char *>>;
+        using size_type = int;
         using iterator =
             grapheme_iterator<utf8::to_utf32_iterator<char *, char *>>;
         using const_iterator = grapheme_iterator<

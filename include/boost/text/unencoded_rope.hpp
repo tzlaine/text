@@ -23,13 +23,12 @@ namespace boost { namespace text {
         unencoded_rope is non-contiguous and is not null-terminated. */
     struct unencoded_rope
     {
+        using value_type = char;
+        using size_type = std::ptrdiff_t;
         using iterator = detail::const_rope_iterator;
         using const_iterator = detail::const_rope_iterator;
         using reverse_iterator = detail::const_reverse_rope_iterator;
         using const_reverse_iterator = detail::const_reverse_rope_iterator;
-        using value_type = char;
-
-        using size_type = std::ptrdiff_t;
 
         /** Default ctor.
 
@@ -209,14 +208,14 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        unencoded_rope_view operator()(int lo, int hi) const;
+        unencoded_rope_view operator()(size_type lo, size_type hi) const;
 
         /** Returns a substring of *this as an unencoded_rope_view, taken from
             the first cut chars when cut => 0, or the last -cut chars when cut <
             0.
 
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        unencoded_rope_view operator()(int cut) const;
+        unencoded_rope_view operator()(size_type cut) const;
 
         /** Returns the maximum size an unencoded_rope can have. */
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
@@ -1036,7 +1035,8 @@ namespace boost { namespace text {
         return rend();
     }
 
-    inline unencoded_rope_view unencoded_rope::operator()(int lo, int hi) const
+    inline unencoded_rope_view unencoded_rope::
+    operator()(size_type lo, size_type hi) const
     {
         if (lo < 0)
             lo += size();
@@ -1048,10 +1048,10 @@ namespace boost { namespace text {
         return unencoded_rope_view(*this, lo, hi);
     }
 
-    inline unencoded_rope_view unencoded_rope::operator()(int cut) const
+    inline unencoded_rope_view unencoded_rope::operator()(size_type cut) const
     {
-        int lo = 0;
-        int hi = cut;
+        size_type lo = 0;
+        size_type hi = cut;
         if (cut < 0) {
             lo = cut + size();
             hi = size();
@@ -1104,8 +1104,8 @@ namespace boost { namespace text {
 
     inline unencoded_rope unencoded_rope::substr(size_type cut) const
     {
-        int lo = 0;
-        int hi = cut;
+        size_type lo = 0;
+        size_type hi = cut;
         if (cut < 0) {
             lo = cut + size();
             hi = size();
@@ -1434,7 +1434,7 @@ namespace boost { namespace text {
     {}
 
     inline unencoded_rope_view::unencoded_rope_view(
-        unencoded_rope const & r, int lo, int hi) :
+        unencoded_rope const & r, size_type lo, size_type hi) :
         ref_(rope_ref(&r, lo, hi)),
         which_(which::r)
     {}
@@ -1451,7 +1451,7 @@ namespace boost { namespace text {
     {}
 
     inline unencoded_rope_view::unencoded_rope_view(
-        repeated_string_view rsv, int lo, int hi) :
+        repeated_string_view rsv, size_type lo, size_type hi) :
         ref_(repeated_ref(rsv, lo, hi)),
         which_(which::rtv)
     {}
@@ -1561,14 +1561,14 @@ namespace boost { namespace text {
         return end() - begin();
     }
 
-    inline char unencoded_rope_view::operator[](int i) const noexcept
+    inline char unencoded_rope_view::operator[](size_type i) const noexcept
     {
         assert(1 < size());
         return begin()[i];
     }
 
     inline unencoded_rope_view unencoded_rope_view::
-    operator()(int lo, int hi) const
+    operator()(size_type lo, size_type hi) const
     {
         if (lo < 0)
             lo += size();

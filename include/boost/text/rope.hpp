@@ -18,6 +18,10 @@ namespace boost { namespace text {
     /** TODO. */
     struct rope
     {
+        using value_type = cp_range<utf8::to_utf32_iterator<
+            detail::const_rope_iterator,
+            detail::const_rope_iterator>>;
+        using size_type = std::ptrdiff_t;
         using iterator = grapheme_iterator<utf8::to_utf32_iterator<
             detail::const_rope_iterator,
             detail::const_rope_iterator>>;
@@ -130,14 +134,14 @@ namespace boost { namespace text {
 
         /** Returns the number of bytes controlled by *this, not including the
             null terminator. */
-        int storage_bytes() const noexcept;
+        size_type storage_bytes() const noexcept;
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
-        int distance() const noexcept;
+        size_type distance() const noexcept;
 
         /** Returns the maximum size a rope can have. */
-        std::ptrdiff_t max_size() const noexcept { return PTRDIFF_MAX; }
+        size_type max_size() const noexcept { return PTRDIFF_MAX; }
 
         /** Visits each segment s of *this and calls f(s).  Each segment is a
             string_view or repeated_string_view.  Depending of the operation
@@ -349,7 +353,8 @@ namespace boost { namespace text {
         mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;
 
         // https://www.unicode.org/reports/tr15/#Concatenation
-        void normalize_subrange(int from_near_offset, int to_near_offset);
+        void normalize_subrange(
+            size_type from_near_offset, size_type to_near_offset);
 
         unencoded_rope rope_;
 
@@ -529,9 +534,12 @@ namespace boost { namespace text {
 
     inline bool rope::empty() const noexcept { return rope_.empty(); }
 
-    inline int rope::storage_bytes() const noexcept { return rope_.size(); }
+    inline rope_view::size_type rope::storage_bytes() const noexcept
+    {
+        return rope_.size();
+    }
 
-    inline int rope::distance() const noexcept
+    inline rope_view::size_type rope::distance() const noexcept
     {
         return std::distance(begin(), end());
     }

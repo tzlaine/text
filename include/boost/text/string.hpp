@@ -35,6 +35,7 @@ namespace boost { namespace text {
     struct string
     {
         using value_type = char;
+        using size_type = int;
         using iterator = char *;
         using const_iterator = char const *;
         using reverse_iterator = detail::reverse_char_iterator;

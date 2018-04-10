@@ -20,6 +20,10 @@ namespace boost { namespace text {
     /** TODO. */
     struct rope_view
     {
+        using value_type = cp_range<utf8::to_utf32_iterator<
+            detail::const_rope_view_iterator,
+            detail::const_rope_view_iterator>>;
+        using size_type = std::ptrdiff_t;
         using iterator = grapheme_iterator<utf8::to_utf32_iterator<
             detail::const_rope_view_iterator,
             detail::const_rope_view_iterator>>;
@@ -74,14 +78,17 @@ namespace boost { namespace text {
 
         /** Returns the number of bytes controlled by *this, not including the
             null terminator. */
-        int storage_bytes() const noexcept;
+        size_type storage_bytes() const noexcept;
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
-        int distance() const noexcept { return std::distance(begin(), end()); }
+        size_type distance() const noexcept
+        {
+            return std::distance(begin(), end());
+        }
 
         /** Returns the maximum size a rope_view can have. */
-        int max_size() const noexcept { return INT_MAX; }
+        size_type max_size() const noexcept { return PTRDIFF_MAX; }
 
         /** Visits each segment s of the underlying unencoded_rope and calls
             f(s).  Each segment is a value whose type models a CharIter
@@ -197,7 +204,7 @@ namespace boost { namespace text {
         return make_iter(view_.begin(), view_.end(), view_.end());
     }
 
-    inline int rope_view::storage_bytes() const noexcept
+    inline rope_view::size_type rope_view::storage_bytes() const noexcept
     {
         return view_.size();
     }

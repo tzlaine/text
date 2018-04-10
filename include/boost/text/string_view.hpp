@@ -17,6 +17,8 @@ namespace boost { namespace text {
     /** A reference to a constant contiguous sequence of char. */
     struct string_view
     {
+        using value_type = char;
+        using size_type = int;
         using iterator = char const *;
         using const_iterator = char const *;
         using reverse_iterator = detail::const_reverse_char_iterator;
