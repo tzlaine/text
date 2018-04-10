@@ -4,7 +4,7 @@
 #include <boost/text/detail/utility.hpp>
 
 #ifndef BOOST_TEXT_THREAD_UNSAFE
-#    include <boost/atomic.hpp>
+#include <boost/atomic.hpp>
 #endif
 #include <boost/align/align.hpp>
 #include <boost/align/aligned_alloc.hpp>
@@ -697,13 +697,12 @@ namespace boost { namespace text { namespace detail {
             bump_keys(node, i, -child_size);
     }
 
-    template<typename T, typename LeafDatum>
+    template<typename T>
     inline node_ptr<T> slice_leaf(
         node_ptr<T> const & node,
         std::ptrdiff_t lo,
         std::ptrdiff_t hi,
-        bool immutable,
-        LeafDatum)
+        bool immutable)
     {
         assert(node);
         assert(0 <= lo && lo <= size(node.get()));
@@ -746,12 +745,9 @@ namespace boost { namespace text { namespace detail {
         node_ptr<T> other_slice;
     };
 
-    template<typename T, typename LeafDatum>
-    inline leaf_slices<T> erase_leaf(
-        node_ptr<T> & node,
-        std::ptrdiff_t lo,
-        std::ptrdiff_t hi,
-        LeafDatum datum)
+    template<typename T>
+    inline leaf_slices<T>
+    erase_leaf(node_ptr<T> & node, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         assert(node);
         assert(0 <= lo && lo <= size(node.get()));
@@ -778,9 +774,9 @@ namespace boost { namespace text { namespace detail {
         }
 
         if (hi != leaf_size)
-            retval.other_slice = slice_leaf(node, hi, leaf_size, true, datum);
+            retval.other_slice = slice_leaf(node, hi, leaf_size, true);
         if (lo != 0)
-            retval.slice = slice_leaf(node, 0, lo, false, datum);
+            retval.slice = slice_leaf(node, 0, lo, false);
 
         if (!retval.slice)
             retval.slice.swap(retval.other_slice);
@@ -848,9 +844,9 @@ namespace boost { namespace text { namespace detail {
     }
 
     // Analogous to btree_split_child(), for leaf nodes.
-    template<typename T, typename LeafDatum>
-    inline void btree_split_leaf(
-        node_ptr<T> const & parent, int i, std::ptrdiff_t at, LeafDatum datum)
+    template<typename T>
+    inline void
+    btree_split_leaf(node_ptr<T> const & parent, int i, std::ptrdiff_t at)
     {
         assert(0 <= i && i < num_children(parent));
         assert(0 <= at && at <= size(parent.get()));
@@ -865,9 +861,8 @@ namespace boost { namespace text { namespace detail {
         if (cut == 0 || cut == child_size)
             return;
 
-        node_ptr<T> right = slice_leaf(child, cut, child_size, true, datum);
-        node_ptr<T> left =
-            slice_leaf(child, 0, cut, child_immutable(child), datum);
+        node_ptr<T> right = slice_leaf(child, cut, child_size, true);
+        node_ptr<T> left = slice_leaf(child, 0, cut, child_immutable(child));
 
         auto mut_parent = parent.write();
         children(mut_parent)[i] = left;
@@ -878,12 +873,9 @@ namespace boost { namespace text { namespace detail {
     }
 
     // Follows CLRS.
-    template<typename T, typename LeafDatum>
+    template<typename T>
     inline node_ptr<T> btree_insert_nonfull(
-        node_ptr<T> & parent,
-        std::ptrdiff_t at,
-        node_ptr<T> && node,
-        LeafDatum datum)
+        node_ptr<T> & parent, std::ptrdiff_t at, node_ptr<T> && node)
     {
         assert(!parent->leaf_);
         assert(0 <= at && at <= size(parent.get()));
@@ -893,7 +885,7 @@ namespace boost { namespace text { namespace detail {
         if (leaf_children(parent)) {
             // Note that this split may add a node to parent, for a
             // maximum of two added nodes in the leaf code path.
-            btree_split_leaf(parent, i, at, datum);
+            btree_split_leaf(parent, i, at);
             if (keys(parent)[i] <= at)
                 ++i;
 
@@ -915,8 +907,7 @@ namespace boost { namespace text { namespace detail {
             node_ptr<T> new_child = btree_insert_nonfull(
                 children(mut_parent)[i],
                 at - offset(mut_parent, i),
-                std::move(node),
-                datum);
+                std::move(node));
             delta += size(new_child.get());
             children(mut_parent)[i] = new_child;
             for (int j = i, size = num_keys(mut_parent); j < size; ++j) {
@@ -928,12 +919,9 @@ namespace boost { namespace text { namespace detail {
     }
 
     // Follows CLRS.
-    template<typename T, typename LeafDatum>
-    inline node_ptr<T> btree_insert(
-        node_ptr<T> & root,
-        std::ptrdiff_t at,
-        node_ptr<T> && node,
-        LeafDatum datum)
+    template<typename T>
+    inline node_ptr<T>
+    btree_insert(node_ptr<T> & root, std::ptrdiff_t at, node_ptr<T> && node)
     {
         assert(0 <= at && at <= size(root.get()));
         assert(node->leaf_);
@@ -946,8 +934,7 @@ namespace boost { namespace text { namespace detail {
             auto const root_size = size(root.get());
             new_root->children_.push_back(std::move(root));
             new_root->keys_.push_back(root_size);
-            return btree_insert_nonfull(
-                new_root_ptr, at, std::move(node), datum);
+            return btree_insert_nonfull(new_root_ptr, at, std::move(node));
         } else if (full(root) || (leaf_children(root) && almost_full(root))) {
             interior_node_t<T> * new_root = nullptr;
             node_ptr<T> new_root_ptr(new_root = new_interior_node<T>());
@@ -955,10 +942,9 @@ namespace boost { namespace text { namespace detail {
             new_root->children_.push_back(std::move(root));
             new_root->keys_.push_back(root_size);
             new_root_ptr = btree_split_child(new_root_ptr, 0);
-            return btree_insert_nonfull(
-                new_root_ptr, at, std::move(node), datum);
+            return btree_insert_nonfull(new_root_ptr, at, std::move(node));
         } else {
-            return btree_insert_nonfull(root, at, std::move(node), datum);
+            return btree_insert_nonfull(root, at, std::move(node));
         }
     }
 
@@ -968,12 +954,11 @@ namespace boost { namespace text { namespace detail {
     // downward pass, with no backtracking.  This function only erases
     // entire segments; the segments must have been split appropriately
     // before this function is ever called.
-    template<typename T, typename LeafDatum>
+    template<typename T>
     inline node_ptr<T> btree_erase(
         node_ptr<T> const & node,
         std::ptrdiff_t at,
-        leaf_node_t<T> const * leaf,
-        LeafDatum datum)
+        leaf_node_t<T> const * leaf)
     {
         assert(node);
 
@@ -1027,8 +1012,8 @@ namespace boost { namespace text { namespace detail {
                 }
 
                 std::ptrdiff_t const offset_ = offset(node, child_index);
-                new_child = btree_erase(
-                    child, at - offset_ + moved_node_size, leaf, datum);
+                new_child =
+                    btree_erase(child, at - offset_ + moved_node_size, leaf);
             } else if (
                 child_index != num_children(node) - 1 &&
                 min_children + 1 <=
@@ -1055,7 +1040,7 @@ namespace boost { namespace text { namespace detail {
                 }
 
                 std::ptrdiff_t const offset_ = offset(node, child_index);
-                new_child = btree_erase(child, at - offset_, leaf, datum);
+                new_child = btree_erase(child, at - offset_, leaf);
             } else {
                 auto const right_index =
                     child_index == 0 ? child_index + 1 : child_index;
@@ -1092,7 +1077,7 @@ namespace boost { namespace text { namespace detail {
                 }
 
                 std::ptrdiff_t const offset_ = offset(node, left_index);
-                new_child = btree_erase(left, at - offset_, leaf, datum);
+                new_child = btree_erase(left, at - offset_, leaf);
 
                 // This can only happen if node is the root.
                 if (num_children(node) == 2)
@@ -1107,8 +1092,8 @@ namespace boost { namespace text { namespace detail {
             }
         } else {
             std::ptrdiff_t const offset_ = offset(node, child_index);
-            new_child = btree_erase(
-                children(node)[child_index], at - offset_, leaf, datum);
+            new_child =
+                btree_erase(children(node)[child_index], at - offset_, leaf);
         }
 
         {
@@ -1124,12 +1109,9 @@ namespace boost { namespace text { namespace detail {
         return node;
     }
 
-    template<typename T, typename LeafDatum>
-    inline node_ptr<T> btree_erase(
-        node_ptr<T> & root,
-        std::ptrdiff_t lo,
-        std::ptrdiff_t hi,
-        LeafDatum datum)
+    template<typename T>
+    inline node_ptr<T>
+    btree_erase(node_ptr<T> & root, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         assert(root);
         assert(0 <= lo && lo <= size(root.get()));
@@ -1142,7 +1124,7 @@ namespace boost { namespace text { namespace detail {
             return node_ptr<T>();
         } else if (root->leaf_) {
             leaf_slices<T> slices;
-            slices = erase_leaf(root, lo, hi, datum);
+            slices = erase_leaf(root, lo, hi);
             if (!slices.other_slice) {
                 return slices.slice;
             } else {
@@ -1165,13 +1147,9 @@ namespace boost { namespace text { namespace detail {
             auto const hi_leaf_size = size(found_hi.leaf_->get());
             if (found_hi.offset_ != 0 && found_hi.offset_ != hi_leaf_size) {
                 node_ptr<T> suffix = slice_leaf(
-                    *found_hi.leaf_,
-                    found_hi.offset_,
-                    hi_leaf_size,
-                    true,
-                    datum);
+                    *found_hi.leaf_, found_hi.offset_, hi_leaf_size, true);
                 auto const suffix_at = hi - found_hi.offset_ + hi_leaf_size;
-                root = btree_insert(root, suffix_at, std::move(suffix), datum);
+                root = btree_insert(root, suffix_at, std::move(suffix));
                 detail::find_leaf(root, suffix_at, found_hi);
             }
 
@@ -1181,12 +1159,12 @@ namespace boost { namespace text { namespace detail {
             detail::find_leaf(root, lo, found_lo);
             if (found_lo.offset_ != 0) {
                 auto const lo_leaf_size = size(found_lo.leaf_->get());
-                node_ptr<T> prefix = slice_leaf(
-                    *found_lo.leaf_, 0, found_lo.offset_, true, datum);
+                node_ptr<T> prefix =
+                    slice_leaf(*found_lo.leaf_, 0, found_lo.offset_, true);
                 if (prefix.get() == found_lo.leaf_->get())
                     hi -= lo_leaf_size;
                 root = btree_insert(
-                    root, lo - found_lo.offset_, std::move(prefix), datum);
+                    root, lo - found_lo.offset_, std::move(prefix));
                 detail::find_leaf(root, lo, found_lo);
             }
 
@@ -1195,7 +1173,7 @@ namespace boost { namespace text { namespace detail {
 
             leaf_node_t<T> const * leaf_lo = found_lo.leaf_->as_leaf();
             while (true) {
-                root = btree_erase(root, lo, leaf_lo, datum);
+                root = btree_erase(root, lo, leaf_lo);
                 assert(final_size <= size(root.get()));
                 if (size(root.get()) == final_size)
                     break;
@@ -1232,8 +1210,7 @@ namespace boost { namespace text { namespace detail {
             prev_key = key;
         }
 
-        if (children_size != size)
-        {
+        if (children_size != size) {
             (void)0; // set breakpoint here
         }
         assert(children_size == size);
