@@ -39,8 +39,8 @@ TEST(collation, relative_shifted_4)
             curr_cps,
             table(),
             boost::text::collation_strength::identical,
-            boost::text::case_first_t::off,
-            boost::text::case_level_t::off,
+            boost::text::case_first::off,
+            boost::text::case_level::off,
             boost::text::variable_weighting::shifted);
 
         if (!first) {

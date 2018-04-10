@@ -100,8 +100,8 @@ TEST(parser, data)
         [](boost::text::collation_strength strength) {{}},
         [](boost::text::variable_weighting weighting) {{}},
         [](boost::text::l2_weight_order order) {{}},
-        [](boost::text::case_level_t case_level) {{}},
-        [](boost::text::case_first_t case_first) {{}},
+        [](boost::text::case_level) {{}},
+        [](boost::text::case_first) {{}},
         [](boost::text::detail::cp_seq_t const & suppressions) {{}},
         [](std::vector<boost::text::detail::reorder_group> const & reorder_groups) {{}},
         [](boost::text::string const & s) {{
@@ -308,8 +308,8 @@ TEST(tailoring, {0}_{1}_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " {0}::{1}_collation_tailoring() "

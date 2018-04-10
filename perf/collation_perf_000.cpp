@@ -23,7 +23,7 @@ uint32_t cps_000[] = {
 void BM_collation_000(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_000, cps_000 + 102, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_000, cps_000 + 102, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_000);
@@ -35,7 +35,7 @@ uint32_t cps_001[] = {
 void BM_collation_001(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_001, cps_001 + 102, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_001, cps_001 + 102, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_001);
@@ -47,7 +47,7 @@ uint32_t cps_002[] = {
 void BM_collation_002(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_002, cps_002 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_002, cps_002 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_002);
@@ -59,7 +59,7 @@ uint32_t cps_003[] = {
 void BM_collation_003(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_003, cps_003 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_003, cps_003 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_003);
@@ -71,7 +71,7 @@ uint32_t cps_004[] = {
 void BM_collation_004(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_004, cps_004 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_004, cps_004 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_004);
@@ -83,7 +83,7 @@ uint32_t cps_005[] = {
 void BM_collation_005(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_005, cps_005 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_005, cps_005 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_005);
@@ -95,7 +95,7 @@ uint32_t cps_006[] = {
 void BM_collation_006(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_006, cps_006 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_006, cps_006 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_006);
@@ -107,7 +107,7 @@ uint32_t cps_007[] = {
 void BM_collation_007(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_007, cps_007 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_007, cps_007 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_007);
@@ -119,7 +119,7 @@ uint32_t cps_008[] = {
 void BM_collation_008(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_008, cps_008 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_008, cps_008 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_008);
@@ -131,7 +131,7 @@ uint32_t cps_009[] = {
 void BM_collation_009(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_009, cps_009 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_009, cps_009 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_009);
@@ -143,7 +143,7 @@ uint32_t cps_010[] = {
 void BM_collation_010(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_010, cps_010 + 102, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_010, cps_010 + 102, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_010);
@@ -155,7 +155,7 @@ uint32_t cps_011[] = {
 void BM_collation_011(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_011, cps_011 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_011, cps_011 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_011);
@@ -167,7 +167,7 @@ uint32_t cps_012[] = {
 void BM_collation_012(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_012, cps_012 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_012, cps_012 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_012);
@@ -179,7 +179,7 @@ uint32_t cps_013[] = {
 void BM_collation_013(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_013, cps_013 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_013, cps_013 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_013);
@@ -191,7 +191,7 @@ uint32_t cps_014[] = {
 void BM_collation_014(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_014, cps_014 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_014, cps_014 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_014);
@@ -203,7 +203,7 @@ uint32_t cps_015[] = {
 void BM_collation_015(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_015, cps_015 + 105, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_015, cps_015 + 105, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_015);
@@ -215,7 +215,7 @@ uint32_t cps_016[] = {
 void BM_collation_016(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_016, cps_016 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_016, cps_016 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_016);
@@ -227,7 +227,7 @@ uint32_t cps_017[] = {
 void BM_collation_017(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_017, cps_017 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_017, cps_017 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_017);
@@ -239,7 +239,7 @@ uint32_t cps_018[] = {
 void BM_collation_018(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_018, cps_018 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_018, cps_018 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_018);
@@ -251,7 +251,7 @@ uint32_t cps_019[] = {
 void BM_collation_019(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_019, cps_019 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_019, cps_019 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_019);
@@ -263,7 +263,7 @@ uint32_t cps_020[] = {
 void BM_collation_020(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_020, cps_020 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_020, cps_020 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_020);
@@ -275,7 +275,7 @@ uint32_t cps_021[] = {
 void BM_collation_021(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_021, cps_021 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_021, cps_021 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_021);
@@ -287,7 +287,7 @@ uint32_t cps_022[] = {
 void BM_collation_022(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_022, cps_022 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_022, cps_022 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_022);
@@ -299,7 +299,7 @@ uint32_t cps_023[] = {
 void BM_collation_023(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_023, cps_023 + 102, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_023, cps_023 + 102, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_023);
@@ -311,7 +311,7 @@ uint32_t cps_024[] = {
 void BM_collation_024(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_024, cps_024 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_024, cps_024 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_024);
@@ -323,7 +323,7 @@ uint32_t cps_025[] = {
 void BM_collation_025(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_025, cps_025 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_025, cps_025 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_025);
@@ -335,7 +335,7 @@ uint32_t cps_026[] = {
 void BM_collation_026(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_026, cps_026 + 104, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_026, cps_026 + 104, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_026);
@@ -347,7 +347,7 @@ uint32_t cps_027[] = {
 void BM_collation_027(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_027, cps_027 + 104, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_027, cps_027 + 104, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_027);
@@ -359,7 +359,7 @@ uint32_t cps_028[] = {
 void BM_collation_028(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_028, cps_028 + 106, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_028, cps_028 + 106, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_028);
@@ -371,7 +371,7 @@ uint32_t cps_029[] = {
 void BM_collation_029(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_029, cps_029 + 104, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_029, cps_029 + 104, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_029);
@@ -383,7 +383,7 @@ uint32_t cps_030[] = {
 void BM_collation_030(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_030, cps_030 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_030, cps_030 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_030);
@@ -395,7 +395,7 @@ uint32_t cps_031[] = {
 void BM_collation_031(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_031, cps_031 + 107, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_031, cps_031 + 107, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_031);
@@ -407,7 +407,7 @@ uint32_t cps_032[] = {
 void BM_collation_032(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_032, cps_032 + 198, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_032, cps_032 + 198, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_032);
@@ -419,7 +419,7 @@ uint32_t cps_033[] = {
 void BM_collation_033(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_033, cps_033 + 198, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_033, cps_033 + 198, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_033);
@@ -431,7 +431,7 @@ uint32_t cps_034[] = {
 void BM_collation_034(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_034, cps_034 + 135, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_034, cps_034 + 135, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_034);
@@ -443,7 +443,7 @@ uint32_t cps_035[] = {
 void BM_collation_035(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_035, cps_035 + 197, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_035, cps_035 + 197, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_035);
@@ -455,7 +455,7 @@ uint32_t cps_036[] = {
 void BM_collation_036(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_036, cps_036 + 158, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_036, cps_036 + 158, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_036);
@@ -467,7 +467,7 @@ uint32_t cps_037[] = {
 void BM_collation_037(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_037, cps_037 + 103, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_037, cps_037 + 103, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_037);
@@ -479,7 +479,7 @@ uint32_t cps_038[] = {
 void BM_collation_038(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_038, cps_038 + 122, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_038, cps_038 + 122, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_038);
@@ -491,7 +491,7 @@ uint32_t cps_039[] = {
 void BM_collation_039(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_039, cps_039 + 101, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_039, cps_039 + 101, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_039);
@@ -503,7 +503,7 @@ uint32_t cps_040[] = {
 void BM_collation_040(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_040, cps_040 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_040, cps_040 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_040);
@@ -515,7 +515,7 @@ uint32_t cps_041[] = {
 void BM_collation_041(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_041, cps_041 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_041, cps_041 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_041);
@@ -527,7 +527,7 @@ uint32_t cps_042[] = {
 void BM_collation_042(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_042, cps_042 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_042, cps_042 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_042);
@@ -539,7 +539,7 @@ uint32_t cps_043[] = {
 void BM_collation_043(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_043, cps_043 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_043, cps_043 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_043);
@@ -551,7 +551,7 @@ uint32_t cps_044[] = {
 void BM_collation_044(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_044, cps_044 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_044, cps_044 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_044);
@@ -563,7 +563,7 @@ uint32_t cps_045[] = {
 void BM_collation_045(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_045, cps_045 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_045, cps_045 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_045);
@@ -575,7 +575,7 @@ uint32_t cps_046[] = {
 void BM_collation_046(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_046, cps_046 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_046, cps_046 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_046);
@@ -587,7 +587,7 @@ uint32_t cps_047[] = {
 void BM_collation_047(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_047, cps_047 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_047, cps_047 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_047);
@@ -599,7 +599,7 @@ uint32_t cps_048[] = {
 void BM_collation_048(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_048, cps_048 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_048, cps_048 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_048);
@@ -611,7 +611,7 @@ uint32_t cps_049[] = {
 void BM_collation_049(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_049, cps_049 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_049, cps_049 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_049);
@@ -623,7 +623,7 @@ uint32_t cps_050[] = {
 void BM_collation_050(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_050, cps_050 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_050, cps_050 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_050);
@@ -635,7 +635,7 @@ uint32_t cps_051[] = {
 void BM_collation_051(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_051, cps_051 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_051, cps_051 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_051);
@@ -647,7 +647,7 @@ uint32_t cps_052[] = {
 void BM_collation_052(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_052, cps_052 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_052, cps_052 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_052);
@@ -659,7 +659,7 @@ uint32_t cps_053[] = {
 void BM_collation_053(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_053, cps_053 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_053, cps_053 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_053);
@@ -671,7 +671,7 @@ uint32_t cps_054[] = {
 void BM_collation_054(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_054, cps_054 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_054, cps_054 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_054);
@@ -683,7 +683,7 @@ uint32_t cps_055[] = {
 void BM_collation_055(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_055, cps_055 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_055, cps_055 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_055);
@@ -695,7 +695,7 @@ uint32_t cps_056[] = {
 void BM_collation_056(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_056, cps_056 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_056, cps_056 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_056);
@@ -707,7 +707,7 @@ uint32_t cps_057[] = {
 void BM_collation_057(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_057, cps_057 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_057, cps_057 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_057);
@@ -719,7 +719,7 @@ uint32_t cps_058[] = {
 void BM_collation_058(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_058, cps_058 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_058, cps_058 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_058);
@@ -731,7 +731,7 @@ uint32_t cps_059[] = {
 void BM_collation_059(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_059, cps_059 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_059, cps_059 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_059);
@@ -743,7 +743,7 @@ uint32_t cps_060[] = {
 void BM_collation_060(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_060, cps_060 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_060, cps_060 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_060);
@@ -755,7 +755,7 @@ uint32_t cps_061[] = {
 void BM_collation_061(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_061, cps_061 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_061, cps_061 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_061);
@@ -767,7 +767,7 @@ uint32_t cps_062[] = {
 void BM_collation_062(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_062, cps_062 + 176, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_062, cps_062 + 176, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_062);
@@ -779,7 +779,7 @@ uint32_t cps_063[] = {
 void BM_collation_063(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_063, cps_063 + 196, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_063, cps_063 + 196, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_063);
@@ -791,7 +791,7 @@ uint32_t cps_064[] = {
 void BM_collation_064(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_064, cps_064 + 104, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_064, cps_064 + 104, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_064);
@@ -803,7 +803,7 @@ uint32_t cps_065[] = {
 void BM_collation_065(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_065, cps_065 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_065, cps_065 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_065);
@@ -815,7 +815,7 @@ uint32_t cps_066[] = {
 void BM_collation_066(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_066, cps_066 + 106, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_066, cps_066 + 106, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_066);
@@ -827,7 +827,7 @@ uint32_t cps_067[] = {
 void BM_collation_067(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_067, cps_067 + 105, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_067, cps_067 + 105, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_067);
@@ -839,7 +839,7 @@ uint32_t cps_068[] = {
 void BM_collation_068(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_068, cps_068 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_068, cps_068 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_068);
@@ -851,7 +851,7 @@ uint32_t cps_069[] = {
 void BM_collation_069(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_069, cps_069 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_069, cps_069 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_069);
@@ -863,7 +863,7 @@ uint32_t cps_070[] = {
 void BM_collation_070(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_070, cps_070 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_070, cps_070 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_070);
@@ -875,7 +875,7 @@ uint32_t cps_071[] = {
 void BM_collation_071(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_071, cps_071 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_071, cps_071 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_071);
@@ -887,7 +887,7 @@ uint32_t cps_072[] = {
 void BM_collation_072(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_072, cps_072 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_072, cps_072 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_072);
@@ -899,7 +899,7 @@ uint32_t cps_073[] = {
 void BM_collation_073(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_073, cps_073 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_073, cps_073 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_073);
@@ -911,7 +911,7 @@ uint32_t cps_074[] = {
 void BM_collation_074(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_074, cps_074 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_074, cps_074 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_074);
@@ -923,7 +923,7 @@ uint32_t cps_075[] = {
 void BM_collation_075(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_075, cps_075 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_075, cps_075 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_075);
@@ -935,7 +935,7 @@ uint32_t cps_076[] = {
 void BM_collation_076(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_076, cps_076 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_076, cps_076 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_076);
@@ -947,7 +947,7 @@ uint32_t cps_077[] = {
 void BM_collation_077(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_077, cps_077 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_077, cps_077 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_077);
@@ -959,7 +959,7 @@ uint32_t cps_078[] = {
 void BM_collation_078(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_078, cps_078 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_078, cps_078 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_078);
@@ -971,7 +971,7 @@ uint32_t cps_079[] = {
 void BM_collation_079(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_079, cps_079 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_079, cps_079 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_079);
@@ -983,7 +983,7 @@ uint32_t cps_080[] = {
 void BM_collation_080(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_080, cps_080 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_080, cps_080 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_080);
@@ -995,7 +995,7 @@ uint32_t cps_081[] = {
 void BM_collation_081(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_081, cps_081 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_081, cps_081 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_081);
@@ -1007,7 +1007,7 @@ uint32_t cps_082[] = {
 void BM_collation_082(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_082, cps_082 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_082, cps_082 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_082);
@@ -1019,7 +1019,7 @@ uint32_t cps_083[] = {
 void BM_collation_083(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_083, cps_083 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_083, cps_083 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_083);
@@ -1031,7 +1031,7 @@ uint32_t cps_084[] = {
 void BM_collation_084(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_084, cps_084 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_084, cps_084 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_084);
@@ -1043,7 +1043,7 @@ uint32_t cps_085[] = {
 void BM_collation_085(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_085, cps_085 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_085, cps_085 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_085);
@@ -1055,7 +1055,7 @@ uint32_t cps_086[] = {
 void BM_collation_086(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_086, cps_086 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_086, cps_086 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_086);
@@ -1067,7 +1067,7 @@ uint32_t cps_087[] = {
 void BM_collation_087(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_087, cps_087 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_087, cps_087 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_087);
@@ -1079,7 +1079,7 @@ uint32_t cps_088[] = {
 void BM_collation_088(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_088, cps_088 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_088, cps_088 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_088);
@@ -1091,7 +1091,7 @@ uint32_t cps_089[] = {
 void BM_collation_089(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_089, cps_089 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_089, cps_089 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_089);
@@ -1103,7 +1103,7 @@ uint32_t cps_090[] = {
 void BM_collation_090(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_090, cps_090 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_090, cps_090 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_090);
@@ -1115,7 +1115,7 @@ uint32_t cps_091[] = {
 void BM_collation_091(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_091, cps_091 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_091, cps_091 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_091);
@@ -1127,7 +1127,7 @@ uint32_t cps_092[] = {
 void BM_collation_092(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_092, cps_092 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_092, cps_092 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_092);
@@ -1139,7 +1139,7 @@ uint32_t cps_093[] = {
 void BM_collation_093(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_093, cps_093 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_093, cps_093 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_093);
@@ -1151,7 +1151,7 @@ uint32_t cps_094[] = {
 void BM_collation_094(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_094, cps_094 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_094, cps_094 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_094);
@@ -1163,7 +1163,7 @@ uint32_t cps_095[] = {
 void BM_collation_095(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_095, cps_095 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_095, cps_095 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_095);
@@ -1175,7 +1175,7 @@ uint32_t cps_096[] = {
 void BM_collation_096(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_096, cps_096 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_096, cps_096 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_096);
@@ -1187,7 +1187,7 @@ uint32_t cps_097[] = {
 void BM_collation_097(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_097, cps_097 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_097, cps_097 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_097);
@@ -1199,7 +1199,7 @@ uint32_t cps_098[] = {
 void BM_collation_098(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_098, cps_098 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_098, cps_098 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_098);
@@ -1211,7 +1211,7 @@ uint32_t cps_099[] = {
 void BM_collation_099(benchmark::State & state)
 {
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_099, cps_099 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first_t::off, boost::text::case_level_t::off, boost::text::variable_weighting::shifted));
+        benchmark::DoNotOptimize(boost::text::collation_sort_key(cps_099, cps_099 + 100, table(), boost::text::collation_strength::quaternary, boost::text::case_first::off, boost::text::case_level::off, boost::text::variable_weighting::shifted));
     }
 }
 BENCHMARK(BM_collation_099);

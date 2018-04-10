@@ -359,24 +359,24 @@ TEST({1}, iterator_{3:02}_{4}_utf8)
 
 
 grapheme_prop_names = {
-    'Other': 'boost::text::grapheme_prop_t::Other',
-    'Prepend': 'boost::text::grapheme_prop_t::Prepend',
-    'CR': 'boost::text::grapheme_prop_t::CR',
-    'LF': 'boost::text::grapheme_prop_t::LF',
-    'Control': 'boost::text::grapheme_prop_t::Control',
-    'Extend': 'boost::text::grapheme_prop_t::Extend',
-    'RI': 'boost::text::grapheme_prop_t::Regional_Indicator',
-    'SpacingMark': 'boost::text::grapheme_prop_t::SpacingMark',
-    'L': 'boost::text::grapheme_prop_t::L',
-    'V': 'boost::text::grapheme_prop_t::V',
-    'T': 'boost::text::grapheme_prop_t::T',
-    'LV': 'boost::text::grapheme_prop_t::LV',
-    'LVT': 'boost::text::grapheme_prop_t::LVT',
-    'E_Base': 'boost::text::grapheme_prop_t::E_Base',
-    'E_Modifier': 'boost::text::grapheme_prop_t::E_Modifier',
-    'ZWJ': 'boost::text::grapheme_prop_t::ZWJ',
-    'Glue_After_Zwj': 'boost::text::grapheme_prop_t::Glue_After_Zwj',
-    'EBG': 'boost::text::grapheme_prop_t::E_Base_GAZ'
+    'Other': 'boost::text::grapheme_property::Other',
+    'Prepend': 'boost::text::grapheme_property::Prepend',
+    'CR': 'boost::text::grapheme_property::CR',
+    'LF': 'boost::text::grapheme_property::LF',
+    'Control': 'boost::text::grapheme_property::Control',
+    'Extend': 'boost::text::grapheme_property::Extend',
+    'RI': 'boost::text::grapheme_property::Regional_Indicator',
+    'SpacingMark': 'boost::text::grapheme_property::SpacingMark',
+    'L': 'boost::text::grapheme_property::L',
+    'V': 'boost::text::grapheme_property::V',
+    'T': 'boost::text::grapheme_property::T',
+    'LV': 'boost::text::grapheme_property::LV',
+    'LVT': 'boost::text::grapheme_property::LVT',
+    'E_Base': 'boost::text::grapheme_property::E_Base',
+    'E_Modifier': 'boost::text::grapheme_property::E_Modifier',
+    'ZWJ': 'boost::text::grapheme_property::ZWJ',
+    'Glue_After_Zwj': 'boost::text::grapheme_property::Glue_After_Zwj',
+    'EBG': 'boost::text::grapheme_property::E_Base_GAZ'
 }
 
 import sys
@@ -389,28 +389,28 @@ generate_break_tests_2(grapheme_cps_and_breaks, 'grapheme')
 generate_iterator_tests(grapheme_cps_and_breaks, 'grapheme')
 
 word_prop_names = {
-    'Other': 'boost::text::word_prop_t::Other',
-    'Double_Quote': 'boost::text::word_prop_t::Double_Quote',
-    'Single_Quote': 'boost::text::word_prop_t::Single_Quote',
-    'Hebrew_Letter': 'boost::text::word_prop_t::Hebrew_Letter',
-    'CR': 'boost::text::word_prop_t::CR',
-    'LF': 'boost::text::word_prop_t::LF',
-    'Newline': 'boost::text::word_prop_t::Newline',
-    'Extend_FE': 'boost::text::word_prop_t::Extend',
-    'RI': 'boost::text::word_prop_t::Regional_Indicator',
-    'Format_FE': 'boost::text::word_prop_t::Format',
-    'Katakana': 'boost::text::word_prop_t::Katakana',
-    'ALetter': 'boost::text::word_prop_t::ALetter',
-    'MidLetter': 'boost::text::word_prop_t::MidLetter',
-    'MidNum': 'boost::text::word_prop_t::MidNum',
-    'MidNumLet': 'boost::text::word_prop_t::MidNumLet',
-    'Numeric': 'boost::text::word_prop_t::Numeric',
-    'ExtendNumLet': 'boost::text::word_prop_t::ExtendNumLet',
-    'E_Base': 'boost::text::word_prop_t::E_Base',
-    'E_Modifier': 'boost::text::word_prop_t::E_Modifier',
-    'ZWJ_FE': 'boost::text::word_prop_t::ZWJ',
-    'Glue_After_Zwj': 'boost::text::word_prop_t::Glue_After_Zwj',
-    'EBG': 'boost::text::word_prop_t::E_Base_GAZ'
+    'Other': 'boost::text::word_property::Other',
+    'Double_Quote': 'boost::text::word_property::Double_Quote',
+    'Single_Quote': 'boost::text::word_property::Single_Quote',
+    'Hebrew_Letter': 'boost::text::word_property::Hebrew_Letter',
+    'CR': 'boost::text::word_property::CR',
+    'LF': 'boost::text::word_property::LF',
+    'Newline': 'boost::text::word_property::Newline',
+    'Extend_FE': 'boost::text::word_property::Extend',
+    'RI': 'boost::text::word_property::Regional_Indicator',
+    'Format_FE': 'boost::text::word_property::Format',
+    'Katakana': 'boost::text::word_property::Katakana',
+    'ALetter': 'boost::text::word_property::ALetter',
+    'MidLetter': 'boost::text::word_property::MidLetter',
+    'MidNum': 'boost::text::word_property::MidNum',
+    'MidNumLet': 'boost::text::word_property::MidNumLet',
+    'Numeric': 'boost::text::word_property::Numeric',
+    'ExtendNumLet': 'boost::text::word_property::ExtendNumLet',
+    'E_Base': 'boost::text::word_property::E_Base',
+    'E_Modifier': 'boost::text::word_property::E_Modifier',
+    'ZWJ_FE': 'boost::text::word_property::ZWJ',
+    'Glue_After_Zwj': 'boost::text::word_property::Glue_After_Zwj',
+    'EBG': 'boost::text::word_property::E_Base_GAZ'
 }
 
 word_cps_and_breaks = extract_cps_and_breaks('WordBreakTest.txt')

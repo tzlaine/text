@@ -655,29 +655,29 @@ namespace boost { namespace text { namespace detail {
             require_close_bracket(open_bracket_it);
             tailoring.l2_weight_order_(l2_weight_order::backward);
         } else if (*identifier == "caseLevel") {
-            auto case_level = case_level_t::off;
+            auto case_lvl = case_level::off;
             if (require(it, end, "on"))
-                case_level = case_level_t::on;
+                case_lvl = case_level::on;
             else if (require(it, end, "off"))
-                case_level = case_level_t::off;
+                case_lvl = case_level::off;
             else
                 throw one_token_parse_error(
                     "Expected 'on' or 'off' here", it, end);
             require_close_bracket(open_bracket_it);
-            tailoring.case_level_(case_level);
+            tailoring.case_level_(case_lvl);
         } else if (*identifier == "caseFirst") {
-            auto case_first = case_first_t::off;
+            auto case_1st = case_first::off;
             if (require(it, end, "upper"))
-                case_first = case_first_t::upper;
+                case_1st = case_first::upper;
             else if (require(it, end, "lower"))
-                case_first = case_first_t::lower;
+                case_1st = case_first::lower;
             else if (require(it, end, "off"))
-                case_first = case_first_t::off;
+                case_1st = case_first::off;
             else
                 throw one_token_parse_error(
                     "Expected 'upper', 'lower', or 'off' here", it, end);
             require_close_bracket(open_bracket_it);
-            tailoring.case_first_(case_first);
+            tailoring.case_first_(case_1st);
         } else if (*identifier == "normalization") {
             it = std::find_if(it, end, [](token const & t) {
                 return t.kind() == token_kind::close_bracket;

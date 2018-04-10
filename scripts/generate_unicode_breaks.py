@@ -15,7 +15,7 @@ struct {0}_interval
 {{
     uint32_t lo_;
     uint32_t hi_;
-    {0}_t prop_;
+    {0}erty prop_;
 }};
 
 bool operator<({0}_interval lhs, {0}_interval rhs) noexcept
@@ -25,11 +25,11 @@ static constexpr std::array<{0}_interval, {1}> g_{0}_intervals = {{{{
 {2}
 }}}};
 
-static const std::unordered_map<uint32_t, {0}_t> g_{0}_map = {{
+static const std::unordered_map<uint32_t, {0}erty> g_{0}_map = {{
 {4}
 }};
 
-{0}_t {0}(uint32_t cp) noexcept
+{0}erty {0}(uint32_t cp) noexcept
 {{
     auto const it = g_{0}_map.find(cp);
     if (it == g_{0}_map.end()) {{
@@ -37,7 +37,7 @@ static const std::unordered_map<uint32_t, {0}_t> g_{0}_map = {{
                                           g_{0}_intervals.end(),
                                           {0}_interval{{cp, cp + 1}});
         if (it2 == g_{0}_intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
-            return {0}_t::{5};
+            return {0}erty::{5};
         return it2->prop_;
     }}
     return it->second;
@@ -129,7 +129,7 @@ inline std::array<uint32_t, {3}> const & bidi_mirroreds() noexcept
 
 def extract_break_properties(filename, prop_):
     intervals = []
-    prop_enum = prop_ + '_t'
+    prop_enum = prop_ + 'erty'
     break_prop_lines = open(filename, 'r').readlines()
     for line in break_prop_lines:
         line = line[:-1]
@@ -186,7 +186,7 @@ def extract_line_break_properties(filename, prop_):
         gen_category[int(tokens[0], 16)] = tokens[2]
 
     intervals = []
-    prop_enum = prop_ + '_t'
+    prop_enum = prop_ + 'erty'
     break_prop_lines = open(filename, 'r').readlines()
     for line in break_prop_lines:
         line = line[:-1]

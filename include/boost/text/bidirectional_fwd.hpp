@@ -6,7 +6,7 @@ namespace boost { namespace text {
 
     /** The bidirectional algorithm character properties outlined in Unicode
         10. */
-    enum class bidi_prop_t {
+    enum class bidi_property {
         L,
         R,
         EN,

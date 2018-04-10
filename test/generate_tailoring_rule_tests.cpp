@@ -254,8 +254,8 @@ detail::collation_tailoring_interface g_callbacks = {
         g_shifted = weighting == variable_weighting::shifted;
     },
     [](l2_weight_order order) {},
-    [](case_level_t case_level) {},
-    [](case_first_t case_first) {},
+    [](case_level) {},
+    [](case_first) {},
     [](detail::cp_seq_t const & suppressions) {},
     [](std::vector<detail::reorder_group> const & reorder_groups) {},
     [](string const & s) { std::cout << s; },

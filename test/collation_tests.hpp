@@ -61,8 +61,8 @@ std::vector<uint32_t> collate_for_tests(
             first,
             last,
             boost::text::collation_strength::primary,
-            boost::text::case_first_t::off,
-            boost::text::case_level_t::off,
+            boost::text::case_first::off,
+            boost::text::case_level::off,
             weighting);
 
     std::vector<uint32_t> retval;
@@ -71,8 +71,8 @@ std::vector<uint32_t> collate_for_tests(
         ces.end(),
         ces.size(),
         strength,
-        boost::text::case_first_t::off,
-        boost::text::case_level_t::off,
+        boost::text::case_first::off,
+        boost::text::case_level::off,
         boost::text::l2_weight_order::forward,
         first,
         last,

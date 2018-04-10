@@ -32,14 +32,14 @@ namespace boost { namespace text {
 
         \see https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
     */
-    enum class case_level_t { on, off };
+    enum class case_level { on, off };
 
     /** Controls whether a preference is given to upper- or lower-case code
         points in a tailored collation table.
 
         \see https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
     */
-    enum class case_first_t { upper, lower, off };
+    enum class case_first { upper, lower, off };
 
     template<typename CharIter>
     struct read_table_result;

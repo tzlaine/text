@@ -27,17 +27,6 @@ namespace boost { namespace text { namespace utf8 {
         {};
     }
 
-    /** A tag type passed to some constructors to indicate that no UTF-8
-        encoding checks should be performed. */
-    struct unchecked_t
-    {};
-
-    namespace {
-
-        /** A value of unchecked_t that you can use when needed. */
-        constexpr unchecked_t unchecked{};
-    }
-
     /** The replacement character used to mark invalid portions of a Unicode
         sequence when converting between two encodings.
 

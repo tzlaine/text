@@ -400,11 +400,10 @@ namespace boost { namespace text {
         inline collation_element modify_for_case(
             collation_element ce,
             collation_strength strength,
-            case_first_t case_first,
-            case_level_t case_level) noexcept
+            case_first case_1st,
+            case_level case_lvl) noexcept
         {
-            if (case_first == case_first_t::off &&
-                case_level == case_level_t::off) {
+            if (case_1st == case_first::off && case_lvl == case_level::off) {
                 ce.l3_ &= disable_case_level_mask;
                 return ce;
             }
@@ -412,7 +411,7 @@ namespace boost { namespace text {
             uint16_t c = 0; // Set 1, 2, or 3 below.
             auto const case_bits = ce.l3_ & case_level_bits_mask;
 
-            if (case_first == case_first_t::upper) {
+            if (case_1st == case_first::upper) {
                 c = (case_bits == upper_case_bits)
                         ? 1
                         : ((case_bits == mixed_case_bits) ? 2 : 3);
@@ -422,7 +421,7 @@ namespace boost { namespace text {
                         : ((case_bits == mixed_case_bits) ? 2 : 1);
             }
 
-            if (case_level == case_level_t::on) {
+            if (case_lvl == case_level::on) {
                 if (strength == collation_strength::primary) {
                     if (!ce.l1_)
                         ce.l2_ = 0;
@@ -453,8 +452,8 @@ namespace boost { namespace text {
            CEIter ces_last,
            int ces_size,
            collation_strength strength,
-           case_first_t case_first,
-           case_level_t case_level,
+           case_first case_1st,
+           case_level case_lvl,
            l2_weight_order l2_order,
            CPIter cps_first,
            CPIter cps_last,
@@ -480,12 +479,12 @@ namespace boost { namespace text {
 #endif
 
             auto const strength_for_copies =
-                case_level == case_level_t::on
+                case_lvl == case_level::on
                     ? collation_strength(static_cast<int>(strength) + 1)
                     : strength;
             for (; ces_first != ces_last; ++ces_first) {
                 auto ce = *ces_first;
-                ce = modify_for_case(ce, strength, case_first, case_level);
+                ce = modify_for_case(ce, strength, case_1st, case_lvl);
                 if (ce.l1_)
                     l1.push_back(ce.l1_);
                 if (collation_strength::secondary <= strength_for_copies) {
@@ -574,8 +573,8 @@ namespace boost { namespace text {
             CPIter first,
             CPIter last,
             collation_strength strength,
-            case_first_t case_first,
-            case_level_t case_level,
+            case_first case_1st,
+            case_level case_lvl,
             variable_weighting weighting,
             l2_weight_order l2_order,
             collation_table const & table);
@@ -587,8 +586,8 @@ namespace boost { namespace text {
             CPIter2 rhs_first,
             CPIter2 rhs_last,
             collation_strength strength,
-            case_first_t case_first,
-            case_level_t case_level,
+            case_first case_1st,
+            case_level case_lvl,
             variable_weighting weighting,
             l2_weight_order l2_order,
             collation_table const & table)
@@ -597,8 +596,8 @@ namespace boost { namespace text {
                 lhs_first,
                 lhs_last,
                 strength,
-                case_first,
-                case_level,
+                case_1st,
+                case_lvl,
                 weighting,
                 l2_order,
                 table);
@@ -606,8 +605,8 @@ namespace boost { namespace text {
                 rhs_first,
                 rhs_last,
                 strength,
-                case_first,
-                case_level,
+                case_1st,
+                case_lvl,
                 weighting,
                 l2_order,
                 table);
@@ -627,8 +626,8 @@ namespace boost { namespace text {
         CPIter last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first_t case_first = case_first_t::off,
-        case_level_t case_level = case_level_t::off,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
@@ -636,8 +635,8 @@ namespace boost { namespace text {
             first,
             last,
             strength,
-            case_first,
-            case_level,
+            case_1st,
+            case_lvl,
             weighting,
             l2_order,
             table);
@@ -652,8 +651,8 @@ namespace boost { namespace text {
         CPRange const & r,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first_t case_first = case_first_t::off,
-        case_level_t case_level = case_level_t::off,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
@@ -664,8 +663,8 @@ namespace boost { namespace text {
             end(r),
             table,
             strength,
-            case_first,
-            case_level,
+            case_1st,
+            case_lvl,
             weighting,
             l2_order);
     }
@@ -684,8 +683,8 @@ namespace boost { namespace text {
         CPIter2 rhs_last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first_t case_first = case_first_t::off,
-        case_level_t case_level = case_level_t::off,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
@@ -695,8 +694,8 @@ namespace boost { namespace text {
             rhs_first,
             rhs_last,
             strength,
-            case_first,
-            case_level,
+            case_1st,
+            case_lvl,
             weighting,
             l2_order,
             table);
@@ -712,8 +711,8 @@ namespace boost { namespace text {
         CPRange2 const & r2,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first_t case_first = case_first_t::off,
-        case_level_t case_level = case_level_t::off,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
@@ -726,8 +725,8 @@ namespace boost { namespace text {
             end(r2),
             table,
             strength,
-            case_first,
-            case_level,
+            case_1st,
+            case_lvl,
             weighting,
             l2_order);
     }
@@ -743,8 +742,8 @@ namespace boost { namespace text { namespace detail {
         CPIter first,
         CPIter last,
         collation_strength strength,
-        case_first_t case_first,
-        case_level_t case_level,
+        case_first case_1st,
+        case_level case_lvl,
         variable_weighting weighting,
         l2_weight_order l2_order,
         collation_table const & table)
@@ -755,10 +754,10 @@ namespace boost { namespace text { namespace detail {
             l2_order = *table.l2_order();
         if (table.weighting())
             weighting = *table.weighting();
-        if (table.case_first())
-            case_first = *table.case_first();
-        if (table.case_level())
-            case_level = *table.case_level();
+        if (table.case_1st())
+            case_1st = *table.case_1st();
+        if (table.case_lvl())
+            case_lvl = *table.case_lvl();
 
         container::small_vector<collation_element, 1024> ces;
         std::array<uint32_t, 256> buffer;
@@ -796,8 +795,8 @@ namespace boost { namespace text { namespace detail {
                     buffer.begin(),
                     s2_it,
                     strength,
-                    case_first,
-                    case_level,
+                    case_1st,
+                    case_lvl,
                     weighting);
             ces.insert(ces.end(), temp.begin(), temp.end());
             buf_it = std::copy(s2_it, buf_it, buffer.begin());
@@ -809,8 +808,8 @@ namespace boost { namespace text { namespace detail {
            ces.end(),
            ces.size(),
            strength,
-           case_first,
-           case_level,
+           case_1st,
+           case_lvl,
            l2_order,
            initial_first,
            last,
