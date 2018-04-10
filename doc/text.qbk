@@ -88,6 +88,7 @@
 [include string_layer.qbk]
 [include unicode_layer.qbk]
 [include text_layer.qbk]
+[include trie.qbk]
 [include examples.qbk]
 [include configuration.qbk]
 [include concepts.qbk]
