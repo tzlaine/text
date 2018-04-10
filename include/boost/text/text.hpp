@@ -349,11 +349,6 @@ namespace boost { namespace text {
         /** Appends c_str to *this. */
         text & operator+=(char const * c_str);
 
-#if 0
-        /** Appends tv to *this. */
-        text & operator+=(text_view tv);
-#endif
-
         /** Appends tv to *this. */
         text & operator+=(string_view sv);
 
@@ -782,16 +777,6 @@ namespace boost { namespace text {
     {
         return operator+=(string_view(c_str));
     }
-
-#if 0
-    inline text & text::operator+=(text_view tv)
-    {
-        int const at = storage_bytes();
-        str_ += string_view(tv.begin().base().base(), tv.storage_bytes());
-        normalize_subrange(at, at);
-        return *this;
-    }
-#endif
 
     inline text & text::operator+=(string_view sv)
     {

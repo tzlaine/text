@@ -395,7 +395,6 @@ TEST(common_operations, construction)
     }
 }
 
-#if 0 // TODO
 // T (U &&)
 TEST(common_operations, move_construction)
 {
@@ -415,14 +414,14 @@ TEST(common_operations, move_construction)
         (void)rsv_sv;
         text::repeated_string_view const rsv_s(std::move(s), 2);
         (void)rsv_s;
-        // OK text::repeated_string_view const rsv_ur(ur, 2);
         // OK text::repeated_string_view const rsv_urv(urv, 2);
-        text::repeated_string_view const rsv_t(std::move(t), 2);
-        (void)rsv_t;
+        // OK text::repeated_string_view const rsv_ur(ur, 2);
         text::repeated_string_view const rsv_tv(std::move(tv), 2);
         (void)rsv_tv;
-        // OK text::repeated_string_view const rsv_r(r, 2);
+        text::repeated_string_view const rsv_t(std::move(t), 2);
+        (void)rsv_t;
         // OK text::repeated_string_view const rsv_rv(rv, 2);
+        // OK text::repeated_string_view const rsv_r(r, 2);
     }
 
     // text::string_view
@@ -439,14 +438,14 @@ TEST(common_operations, move_construction)
         text::string_view const sv_sv(std::move(sv));
         (void)sv_sv;
         // OK text::string_view const sv_s(std::move(s));
-        // OK text::string_view const sv_ur(ur);
         // OK text::string_view const sv_urv(urv);
-        text::string_view const sv_t(std::move(t));
-        (void)sv_t;
+        // OK text::string_view const sv_ur(ur);
         text::string_view const sv_tv(std::move(tv));
         (void)sv_tv;
-        // OK text::string_view const sv_r(r);
+        text::string_view const sv_t(std::move(t));
+        (void)sv_t;
         // OK text::string_view const sv_rv(rv);
+        // OK text::string_view const sv_r(r);
     }
 
     // text::string
@@ -465,18 +464,18 @@ TEST(common_operations, move_construction)
         (void)s_sv;
         text::string const s_s(std::move(s));
         (void)s_s;
-        text::string const s_ur(std::move(ur));
-        (void)s_ur;
         text::string const s_urv(std::move(urv));
         (void)s_urv;
-        text::string const s_t(std::move(t));
-        (void)s_t;
+        text::string const s_ur(std::move(ur));
+        (void)s_ur;
         text::string const s_tv(std::move(tv));
         (void)s_tv;
-        text::string const s_r(std::move(r));
-        (void)s_r;
+        text::string const s_t(std::move(t));
+        (void)s_t;
         text::string const s_rv(std::move(rv));
         (void)s_rv;
+        text::string const s_r(std::move(r));
+        (void)s_r;
     }
 
     // text::unencoded_rope
@@ -495,18 +494,18 @@ TEST(common_operations, move_construction)
         (void)ur_sv;
         text::unencoded_rope const ur_s(std::move(s));
         (void)ur_s;
-        text::unencoded_rope const ur_ur(std::move(ur));
-        (void)ur_ur;
         text::unencoded_rope const ur_urv(std::move(urv));
         (void)ur_urv;
-        text::unencoded_rope const ur_t(std::move(t));
-        (void)ur_t;
+        text::unencoded_rope const ur_ur(std::move(ur));
+        (void)ur_ur;
         text::unencoded_rope const ur_tv(std::move(tv));
         (void)ur_tv;
-        text::unencoded_rope const ur_r(std::move(r));
-        (void)ur_r;
+        text::unencoded_rope const ur_t(std::move(t));
+        (void)ur_t;
         text::unencoded_rope const ur_rv(std::move(rv));
         (void)ur_rv;
+        text::unencoded_rope const ur_r(std::move(r));
+        (void)ur_r;
     }
 
     // text::unencoded_rope_view
@@ -524,15 +523,15 @@ TEST(common_operations, move_construction)
         text::unencoded_rope_view const urv_sv(std::move(sv));
         (void)urv_sv;
         // OK text::unencoded_rope_view const urv_s(std::move(s));
-        // OK text::unencoded_rope_view const urv_ur(std::move(ur));
         text::unencoded_rope_view const urv_urv(std::move(urv));
         (void)urv_urv;
-        text::unencoded_rope_view const urv_t(std::move(t));
-        (void)urv_t;
+        // OK text::unencoded_rope_view const urv_ur(std::move(ur));
         text::unencoded_rope_view const urv_tv(std::move(tv));
         (void)urv_tv;
-        // OK text::unencoded_rope_view const urv_r(r);
+        text::unencoded_rope_view const urv_t(std::move(t));
+        (void)urv_t;
         // OK text::unencoded_rope_view const urv_rv(rv);
+        // OK text::unencoded_rope_view const urv_r(r);
     }
 
     // text::text_view
@@ -545,13 +544,13 @@ TEST(common_operations, move_construction)
         // OK text::text_view const tv_rsv(rsv);
         // OK text::text_view const tv_sv(sv);
         // OK text::text_view const tv_s(s);
-        // OK text::text_view const tv_ur(ur);
         // OK text::text_view const tv_urv(urv);
-        // OK text::text_view const tv_t(std::move(t));
+        // OK text::text_view const tv_ur(ur);
         text::text_view const tv_tv(std::move(tv));
         (void)tv_tv;
-        // OK text::text_view const tv_r(r);
+        // OK text::text_view const tv_t(std::move(t));
         // OK text::text_view const tv_rv(rv);
+        // OK text::text_view const tv_r(r);
     }
 
     // text::text
@@ -570,18 +569,18 @@ TEST(common_operations, move_construction)
         (void)t_sv;
         text::text const t_s(std::move(s));
         (void)t_s;
-        text::text const t_ur(std::move(ur));
-        (void)t_ur;
         text::text const t_urv(std::move(urv));
         (void)t_urv;
-        text::text const t_t(std::move(t));
-        (void)t_t;
+        text::text const t_ur(std::move(ur));
+        (void)t_ur;
         text::text const t_tv(std::move(tv));
         (void)t_tv;
-        text::text const t_r(std::move(r));
-        (void)t_r;
+        text::text const t_t(std::move(t));
+        (void)t_t;
         text::text const t_rv(std::move(rv));
         (void)t_rv;
+        text::text const t_r(std::move(r));
+        (void)t_r;
     }
 
     // text::rope
@@ -600,18 +599,18 @@ TEST(common_operations, move_construction)
         (void)r_sv;
         text::rope const r_s(std::move(s));
         (void)r_s;
-        text::rope const r_ur(std::move(ur));
-        (void)r_ur;
         text::rope const r_urv(std::move(urv));
         (void)r_urv;
-        text::rope const r_t(std::move(t));
-        (void)r_t;
+        text::rope const r_ur(std::move(ur));
+        (void)r_ur;
         text::rope const r_tv(std::move(tv));
         (void)r_tv;
-        text::rope const r_r(std::move(r));
-        (void)r_r;
+        text::rope const r_t(std::move(t));
+        (void)r_t;
         text::rope const r_rv(std::move(rv));
         (void)r_rv;
+        text::rope const r_r(std::move(r));
+        (void)r_r;
     }
 
     // text::rope_view
@@ -624,17 +623,16 @@ TEST(common_operations, move_construction)
         // OK text::rope_view const rv_rsv(rsv);
         // OK text::rope_view const rv_sv(sv);
         // OK text::rope_view const rv_s(s);
-        // OK text::rope_view const rv_ur(ur);
         // OK text::rope_view const rv_urv(urv);
-        // OK text::rope_view const rv_t(std::move(t));
+        // OK text::rope_view const rv_ur(ur);
         text::rope_view const rv_tv(std::move(tv));
         (void)rv_tv;
-        // OK text::rope_view const rv_r(std::move(r));
+        // OK text::rope_view const rv_t(std::move(t));
         text::rope_view const rv_rv(std::move(rv));
         (void)rv_rv;
+        // OK text::rope_view const rv_r(std::move(r));
     }
 }
-#endif
 
 // T::operator=(U const &)
 TEST(common_operations, assignment_operators)
@@ -1462,7 +1460,6 @@ TEST(common_operations, begin_end_variants)
     EXPECT_EQ(rend(rv), crend(rv));
 }
 
-#if 0 // TODO
 // operator+=(U const &)
 TEST(common_operations, operator_plus_equal)
 {
@@ -1535,7 +1532,7 @@ TEST(common_operations, operator_plus_equal)
         t_ = t;
         EXPECT_EQ(t_ += str, text::text("tstr"));
         t_ = t;
-        EXPECT_EQ(t_ += rsv, text::text("trsv"));
+        EXPECT_EQ(t_ += rsv, text::text("trsvrsv"));
         t_ = t;
         EXPECT_EQ(t_ += sv, text::text("tsv"));
         t_ = t;
@@ -1554,6 +1551,7 @@ TEST(common_operations, operator_plus_equal)
         EXPECT_EQ(t_ += rv, text::rope("tr"));
     }
 
+#if 0 // TODO
     // text::rope
     {
         text::rope r_;
@@ -1583,12 +1581,11 @@ TEST(common_operations, operator_plus_equal)
         r_ = r;
         EXPECT_EQ(r_ += rv, text::rope("rr"));
     }
+#endif
 
     // text::rope_view
 }
-#endif
 
-#if 0 // TODO
 // operator+=(U &&)
 TEST(common_operations, operator_plus_equal_move)
 {
@@ -1661,7 +1658,7 @@ TEST(common_operations, operator_plus_equal_move)
         t_ = t;
         EXPECT_EQ(t_ += std::move(str), text::text("tstr"));
         t_ = t;
-        EXPECT_EQ(t_ += std::move(rsv), text::text("trsv"));
+        EXPECT_EQ(t_ += std::move(rsv), text::text("trsvrsv"));
         t_ = t;
         EXPECT_EQ(t_ += std::move(sv), text::text("tsv"));
         t_ = t;
@@ -1680,6 +1677,7 @@ TEST(common_operations, operator_plus_equal_move)
         EXPECT_EQ(t_ += std::move(rv), text::rope("tr"));
     }
 
+#if 0 // TODO
     // text::rope
     {
         text::rope r_;
@@ -1709,12 +1707,11 @@ TEST(common_operations, operator_plus_equal_move)
         r_ = r;
         EXPECT_EQ(r_ += std::move(rv), text::rope("rr"));
     }
+#endif
 
     // text::rope_view
 }
-#endif
 
-#if 0 // TODO
 // insert()
 TEST(common_operations, insert)
 {
@@ -1781,46 +1778,46 @@ TEST(common_operations, insert)
 
         ur_ = s;
         ur_.insert(ur_.end(), "literal");
-        EXPECT_EQ(ur_, "urliteral");
+        EXPECT_EQ(ur_, "sliteral");
         ur_ = s;
         ur_.insert(ur_.size(), "literal");
-        EXPECT_EQ(ur_, "urliteral");
+        EXPECT_EQ(ur_, "sliteral");
         ur_ = s;
         ur_.insert(ur_.end(), c_str);
-        EXPECT_EQ(ur_, "urc_str");
+        EXPECT_EQ(ur_, "sc_str");
         ur_ = s;
         ur_.insert(ur_.size(), c_str);
-        EXPECT_EQ(ur_, "urc_str");
+        EXPECT_EQ(ur_, "sc_str");
         ur_ = s;
         ur_.insert(ur_.end(), str);
-        EXPECT_EQ(ur_, "urstr");
+        EXPECT_EQ(ur_, "sstr");
         ur_ = s;
         ur_.insert(ur_.size(), str);
-        EXPECT_EQ(ur_, "urstr");
+        EXPECT_EQ(ur_, "sstr");
         ur_ = s;
         ur_.insert(ur_.end(), rsv);
-        EXPECT_EQ(ur_, "urrsvrsv");
+        EXPECT_EQ(ur_, "srsvrsv");
         ur_ = s;
         ur_.insert(ur_.size(), rsv);
-        EXPECT_EQ(ur_, "urrsvrsv");
+        EXPECT_EQ(ur_, "srsvrsv");
         ur_ = s;
         ur_.insert(ur_.end(), sv);
-        EXPECT_EQ(ur_, "ursv");
+        EXPECT_EQ(ur_, "ssv");
         ur_ = s;
         ur_.insert(ur_.size(), sv);
-        EXPECT_EQ(ur_, "ursv");
+        EXPECT_EQ(ur_, "ssv");
         ur_ = s;
         ur_.insert(ur_.end(), s);
-        EXPECT_EQ(ur_, "urs");
+        EXPECT_EQ(ur_, "ss");
         ur_ = s;
         ur_.insert(ur_.size(), s);
-        EXPECT_EQ(ur_, "urs");
+        EXPECT_EQ(ur_, "ss");
         ur_ = s;
         ur_.insert(ur_.end(), urv);
-        EXPECT_EQ(ur_, "urur");
+        EXPECT_EQ(ur_, "sur");
         ur_ = s;
         ur_.insert(ur_.size(), urv);
-        EXPECT_EQ(ur_, "urur");
+        EXPECT_EQ(ur_, "sur");
         // OK ur_.insert(ur_.end(), t);
         // OK ur_.insert(ur_.end(), tv);
         // OK ur_.insert(ur_.end(), r);
@@ -1845,7 +1842,7 @@ TEST(common_operations, insert)
         EXPECT_EQ(t_, text::text("tstr"));
         t_ = t;
         t_.insert(t_.end(), rsv);
-        EXPECT_EQ(t_, text::text("trsv"));
+        EXPECT_EQ(t_, text::text("trsvrsv"));
         t_ = t;
         t_.insert(t_.end(), sv);
         EXPECT_EQ(t_, text::text("tsv"));
@@ -1872,6 +1869,7 @@ TEST(common_operations, insert)
         EXPECT_EQ(t_, text::rope("tr"));
     }
 
+#if 0 // TODO
     // text::rope
     {
         text::rope r_;
@@ -1913,10 +1911,10 @@ TEST(common_operations, insert)
         r_.insert(r_.end(), rv);
         EXPECT_EQ(r_, text::rope("rr"));
     }
+#endif
 
     // text::rope_view
 }
-#endif
 
 TEST(common_operations, test_operator_plus)
 {

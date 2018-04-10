@@ -864,8 +864,7 @@ namespace boost { namespace text {
 
     text & text::insert(iterator at, rope_view rv)
     {
-        // TODO
-        return *this;
+        return insert(at, rv.begin().base().base(), rv.end().base().base());
     }
 
 }}

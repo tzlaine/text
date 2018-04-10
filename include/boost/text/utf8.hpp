@@ -1646,7 +1646,8 @@ namespace boost { namespace text { namespace utf8 {
                 from_utf32_iterator<uint32_t const *>(cps),
                 from_utf32_iterator<uint32_t const *>(cps + 1),
                 chars);
-            it_ = c_->insert(it_, chars, chars_end);
+            c_->insert(it_, chars, chars_end);
+            it_ += chars_end - chars;
             return *this;
         }
 
