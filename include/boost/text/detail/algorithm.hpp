@@ -123,6 +123,7 @@ namespace boost { namespace text { namespace detail {
     using is_char_range = std::integral_constant<
         bool,
         std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value || // TODO
+        std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value || // TODO
             (std::is_same<
                 remove_cv_ref_t<detected_or<
                     detected_or<

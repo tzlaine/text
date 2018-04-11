@@ -16,7 +16,7 @@ namespace boost { namespace text {
             cp_range<CPIter> * operator->() const noexcept { return &value_; }
 
         private:
-            template<typename CPIter_, typename NextFunc>
+            template<typename CPIter_, typename Sentinel_, typename NextFunc_>
             friend struct const_lazy_segment_iterator;
 
             segment_arrow_proxy(cp_range<CPIter> value) : value_(value) {}

@@ -71,7 +71,7 @@ namespace boost { namespace text { namespace utf8 {
         template <typename Iter>
         struct optional_iter
         {
-            constexpr optional_iter() : valid_(false) {}
+            constexpr optional_iter() : it_(), valid_(false) {}
             constexpr optional_iter(Iter it) : it_(it), valid_(true) {}
 
             BOOST_TEXT_CXX14_CONSTEXPR operator bool() const noexcept
@@ -89,13 +89,13 @@ namespace boost { namespace text { namespace utf8 {
                 return it_;
             }
 
-            friend constexpr bool
+            friend BOOST_TEXT_CXX14_CONSTEXPR bool
             operator==(optional_iter lhs, optional_iter rhs) noexcept
             {
                 return lhs.valid_ == rhs.valid_ &&
                        (!lhs.valid_ || lhs.it_ == rhs.it_);
             }
-            friend constexpr bool
+            friend BOOST_TEXT_CXX14_CONSTEXPR bool
             operator!=(optional_iter lhs, optional_iter rhs) noexcept
             {
                 return !(lhs == rhs);
