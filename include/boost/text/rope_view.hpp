@@ -10,6 +10,7 @@
 namespace boost { namespace text {
 
     namespace detail {
+        struct rope_iterator;
         struct const_rope_iterator;
     }
 
@@ -31,6 +32,9 @@ namespace boost { namespace text {
         using reverse_iterator = std::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
+        using rope_iterator = grapheme_iterator<utf8::to_utf32_iterator<
+            detail::rope_iterator,
+            detail::rope_iterator>>;
         using const_rope_iterator = grapheme_iterator<utf8::to_utf32_iterator<
             detail::const_rope_iterator,
             detail::const_rope_iterator>>;
@@ -53,7 +57,12 @@ namespace boost { namespace text {
         /** Disable construction from a temporary rope. */
         rope_view(rope && r) noexcept = delete;
 
-        /** Constructs a rope_view from a pair of rope iterators. */
+#if 0 // TODO
+        /** Constructs a rope_view from a pair of rope_iterators. */
+        rope_view(rope_iterator first, rope_iterator last) noexcept;
+#endif
+
+        /** Constructs a rope_view from a pair of const_rope_iterators. */
         rope_view(const_rope_iterator first, const_rope_iterator last) noexcept;
 
         const_iterator begin() const noexcept;
@@ -71,8 +80,8 @@ namespace boost { namespace text {
             return reverse_iterator(begin());
         }
 
-        const_reverse_iterator crbegin() const noexcept { return rend(); }
-        const_reverse_iterator crend() const noexcept { return rbegin(); }
+        const_reverse_iterator crbegin() const noexcept { return rbegin(); }
+        const_reverse_iterator crend() const noexcept { return rend(); }
 
         bool empty() const noexcept { return begin() == end(); }
 
@@ -185,6 +194,17 @@ namespace boost { namespace text {
     {}
 
     inline rope_view::rope_view(rope const & r) noexcept : view_(r.rope_) {}
+
+#if 0 // TODO
+    inline rope_view::rope_view(
+        rope_iterator first, rope_iterator last) noexcept
+    {
+        auto const lo =
+            first.base().base() - first.base().base().rope_->begin();
+        auto const hi = last.base().base() - last.base().base().rope_->begin();
+        view_ = unencoded_rope_view(*first.base().base().rope_, lo, hi);
+    }
+#endif
 
     inline rope_view::rope_view(
         const_rope_iterator first, const_rope_iterator last) noexcept

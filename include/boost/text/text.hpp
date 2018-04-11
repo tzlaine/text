@@ -10,6 +10,21 @@
 #include <iterator>
 
 
+#ifndef BOOST_TEXT_DOXYGEN
+
+#ifdef BOOST_TEXT_TESTING
+#define BOOST_TEXT_CHECK_TEXT_NORMALIZATION()                                  \
+    do {                                                                       \
+        string str2(str_);                                                     \
+        normalize_to_fcc(str2);                                                \
+        assert(str_ == str2);                                                  \
+    } while (false)
+#else
+#define BOOST_TEXT_CHECK_TEXT_NORMALIZATION()
+#endif
+
+#endif
+
 namespace boost { namespace text {
 
     struct string_view;
@@ -419,9 +434,6 @@ namespace boost { namespace text {
             return std::reverse_iterator<Iter>{it};
         }
 
-        bool self_reference(string_view sv) const noexcept;
-        bool self_reference(text_view tv) const noexcept;
-
         using mutable_utf32_iter = utf8::to_utf32_iterator<char *, char *>;
 
         mutable_utf32_iter prev_stable_cp(mutable_utf32_iter last) noexcept;
@@ -487,27 +499,8 @@ namespace boost { namespace text {
         /** Creates a text from a char string literal. */
         inline text operator"" _t(char const * str, std::size_t len)
         {
-            assert(len < INT_MAX);
-            assert(utf8::encoded(str, str + len));
-            return text(str, str + len);
-        }
-
-        /** Creates a text from a char16_t string literal. */
-        inline text operator"" _t(char16_t const * str, std::size_t len)
-        {
             assert(len < INT_MAX / 2);
-            return text(
-                utf8::from_utf16_iterator<char16_t const *>(str),
-                utf8::from_utf16_iterator<char16_t const *>(str + len));
-        }
-
-        /** Creates a text from a char32_t string literal. */
-        inline text operator"" _t(char32_t const * str, std::size_t len)
-        {
-            assert(len < INT_MAX / 4);
-            return text(
-                utf8::from_utf32_iterator<char32_t const *>(str),
-                utf8::from_utf32_iterator<char32_t const *>(str + len));
+            return text(str, str + len);
         }
     }
 
@@ -516,28 +509,40 @@ namespace boost { namespace text {
     inline text::text(char const * c_str) : str_(c_str)
     {
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     template<int N>
     text::text(char (&c_str)[N]) : str_(string_view(c_str, N - 1))
     {
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
-    inline text::text(string s) : str_(std::move(s)) { normalize_to_fcc(str_); }
+    inline text::text(string s) : str_(std::move(s))
+    {
+        normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+    }
 
     inline text::text(text_view tv) : str_()
     {
         str_.insert(
             str_.begin(),
             string_view(tv.begin().base().base(), tv.storage_bytes()));
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
-    inline text::text(string_view sv) : str_(sv) { normalize_to_fcc(str_); }
+    inline text::text(string_view sv) : str_(sv)
+    {
+        normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+    }
 
     inline text::text(repeated_string_view rsv) : str_(rsv)
     {
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     template<typename CharRange>
@@ -545,6 +550,7 @@ namespace boost { namespace text {
         str_(r)
     {
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     template<typename CharIter>
@@ -555,6 +561,7 @@ namespace boost { namespace text {
         str_(first, last)
     {
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     template<typename GraphemeRange>
@@ -564,12 +571,14 @@ namespace boost { namespace text {
         str_(r)
     {
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     inline text & text::operator=(char const * c_str)
     {
         str_ = string_view(c_str);
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -578,18 +587,22 @@ namespace boost { namespace text {
     {
         str_ = string_view(c_str, N - 1);
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
     inline text & text::operator=(string s)
     {
         str_ = std::move(s);
+        normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
     inline text & text::operator=(text_view tv)
     {
         str_ = string_view(tv.begin().base().base(), tv.storage_bytes());
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -597,6 +610,7 @@ namespace boost { namespace text {
     {
         str_ = sv;
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -604,6 +618,7 @@ namespace boost { namespace text {
     {
         str_ = rsv;
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -613,6 +628,7 @@ namespace boost { namespace text {
     {
         str_ = r;
         normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -621,7 +637,7 @@ namespace boost { namespace text {
         -> detail::graph_rng_alg_ret_t<text &, GraphemeRange>
     {
         str_ = r;
-        normalize_to_fcc(str_);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -655,6 +671,7 @@ namespace boost { namespace text {
             string_view(t.begin().base().base(), t.storage_bytes()));
         normalize_subrange(lo, lo);
         normalize_subrange(hi, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -664,16 +681,16 @@ namespace boost { namespace text {
         int const hi = lo + rsv.size();
         str_.insert(at.base().base() - str_.begin(), rsv);
         normalize_subrange(lo, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
     inline text & text::erase(text_view tv) noexcept
     {
-        assert(self_reference(tv));
-
         int const at = tv.begin().base().base() - str_.begin();
-        str_.erase(string_view(tv.begin().base().base(), tv.storage_bytes()));
+        str_.erase(string_view(tv));
         normalize_subrange(at, at);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -681,56 +698,43 @@ namespace boost { namespace text {
     auto text::replace(text_view old_substr, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        assert(self_reference(old_substr));
-
         int const lo = old_substr.begin().base().base() - str_.begin();
         int const old_size = storage_bytes();
         int const old_substr_size = old_substr.storage_bytes();
-        str_.replace(
-            string_view(
-                old_substr.begin().base().base(), old_substr.storage_bytes()),
-            r);
+        str_.replace(string_view(old_substr), r);
         int const new_size = storage_bytes();
         int const hi = lo + old_substr_size + (new_size - old_size);
 
         normalize_subrange(lo, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
 
         return *this;
     }
 
     inline text & text::replace(text_view old_substr, text_view new_substr)
     {
-        assert(self_reference(old_substr));
-
         int const lo = old_substr.begin().base().base() - str_.begin();
         int const hi =
             lo + old_substr.storage_bytes() +
             (new_substr.storage_bytes() - old_substr.storage_bytes());
-        str_.replace(
-            string_view(
-                old_substr.begin().base().base(), old_substr.storage_bytes()),
-            string_view(
-                new_substr.begin().base().base(), new_substr.storage_bytes()));
+        str_.replace(string_view(old_substr), string_view(new_substr));
 
         normalize_subrange(lo, lo);
         normalize_subrange(hi, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
 
         return *this;
     }
 
     inline text & text::replace(text_view old_substr, string_view new_substr)
     {
-        assert(self_reference(old_substr));
-
         int const lo = old_substr.begin().base().base() - str_.begin();
         int const hi = lo + old_substr.storage_bytes() +
                        (new_substr.size() - old_substr.storage_bytes());
-        str_.replace(
-            string_view(
-                old_substr.begin().base().base(), old_substr.storage_bytes()),
-            new_substr);
+        str_.replace(string_view(old_substr), new_substr);
 
         normalize_subrange(lo, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
 
         return *this;
     }
@@ -738,17 +742,13 @@ namespace boost { namespace text {
     inline text &
     text::replace(text_view old_substr, repeated_string_view new_substr)
     {
-        assert(self_reference(old_substr));
-
         int const lo = old_substr.begin().base().base() - str_.begin();
         int const hi = lo + old_substr.storage_bytes() +
                        (new_substr.size() - old_substr.storage_bytes());
-        str_.replace(
-            string_view(
-                old_substr.begin().base().base(), old_substr.storage_bytes()),
-            new_substr);
+        str_.replace(string_view(old_substr), new_substr);
 
         normalize_subrange(lo, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
 
         return *this;
     }
@@ -757,20 +757,15 @@ namespace boost { namespace text {
     auto text::replace(text_view old_substr, CharIter first, CharIter last)
         -> detail::char_iter_ret_t<text &, CharIter>
     {
-        assert(self_reference(old_substr));
-
         int const lo = old_substr.begin().base().base() - str_.begin();
         int const old_size = storage_bytes();
         int const old_substr_size = old_substr.storage_bytes();
-        str_.replace(
-            string_view(
-                old_substr.begin().base().base(), old_substr.storage_bytes()),
-            first,
-            last);
+        str_.replace(string_view(old_substr), first, last);
         int const new_size = storage_bytes();
         int const hi = lo + old_substr_size + (new_size - old_size);
 
         normalize_subrange(lo, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
 
         return *this;
     }
@@ -786,6 +781,7 @@ namespace boost { namespace text {
         int const hi = lo + sv.size();
         str_ += sv;
         normalize_subrange(lo, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -795,6 +791,7 @@ namespace boost { namespace text {
         int const hi = lo + rsv.size();
         str_ += rsv;
         normalize_subrange(lo, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -806,20 +803,8 @@ namespace boost { namespace text {
         str_.insert(str_.end(), r);
         int const hi = storage_bytes();
         normalize_subrange(lo, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
-    }
-
-    inline bool text::self_reference(string_view sv) const noexcept
-    {
-        using less_t = std::less<char const *>;
-        less_t less;
-        return !less(sv.begin(), str_.begin()) && !less(str_.end(), sv.end());
-    }
-
-    inline bool text::self_reference(text_view tv) const noexcept
-    {
-        return self_reference(
-            string_view(tv.begin().base().base(), tv.storage_bytes()));
     }
 
     inline text::mutable_utf32_iter

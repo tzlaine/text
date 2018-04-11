@@ -714,6 +714,50 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
+    inline bool operator==(text const & lhs, rope_view rhs) noexcept
+    {
+        return algorithm::equal(
+            lhs.begin().base().base(),
+            lhs.end().base().base(),
+            rhs.begin().base().base(),
+            rhs.end().base().base());
+    }
+    inline bool operator==(rope_view lhs, text const & rhs) noexcept
+    {
+        return rhs == lhs;
+    }
+
+    inline bool operator!=(text const & lhs, rope_view rhs) noexcept
+    {
+        return !(lhs == rhs);
+    }
+    inline bool operator!=(rope_view lhs, text const & rhs) noexcept
+    {
+        return !(lhs == rhs);
+    }
+
+    inline bool operator==(text const & lhs, rope rhs) noexcept
+    {
+        return algorithm::equal(
+            lhs.begin().base().base(),
+            lhs.end().base().base(),
+            rhs.begin().base().base(),
+            rhs.end().base().base());
+    }
+    inline bool operator==(rope lhs, text const & rhs) noexcept
+    {
+        return rhs == lhs;
+    }
+
+    inline bool operator!=(text const & lhs, rope rhs) noexcept
+    {
+        return !(lhs == rhs);
+    }
+    inline bool operator!=(rope lhs, text const & rhs) noexcept
+    {
+        return !(lhs == rhs);
+    }
+
     inline bool operator==(rope const & lhs, rope_view rhs) noexcept
     {
         return algorithm::equal(

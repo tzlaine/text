@@ -25,6 +25,10 @@ namespace boost { namespace text {
         using reverse_iterator = std::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
 
+        using text_iterator =
+            grapheme_iterator<utf8::to_utf32_iterator<char *, char *>>;
+        using const_text_iterator = const_iterator;
+
         /** Default ctor. */
         text_view() noexcept : first_(), last_() {}
 
@@ -34,8 +38,16 @@ namespace boost { namespace text {
         /** Disallow construction from a temporary text. */
         text_view(text && t) noexcept = delete;
 
-        /** Constructs a text_view from a pair of text iterators. */
-        text_view(const_iterator first, const_iterator last) noexcept :
+        /** Constructs a text_view from a pair of text_iterators. */
+        text_view(text_iterator first, text_iterator last) noexcept :
+            first_(make_iter(
+                first.base().base(), first.base().base(), last.base().base())),
+            last_(make_iter(
+                first.base().base(), last.base().base(), last.base().base()))
+        {}
+
+        /** Constructs a text_view from a pair of const_text_iterators. */
+        text_view(const_text_iterator first, const_text_iterator last) noexcept :
             first_(first),
             last_(last)
         {}
@@ -96,6 +108,16 @@ namespace boost { namespace text {
         }
 
     private:
+        static iterator make_iter(char * first, char * it, char * last) noexcept
+        {
+            return iterator{utf8::to_utf32_iterator<char const *, char const *>{
+                                first, first, last},
+                            utf8::to_utf32_iterator<char const *, char const *>{
+                                first, it, last},
+                            utf8::to_utf32_iterator<char const *, char const *>{
+                                first, last, last}};
+        }
+
         iterator first_;
         iterator last_;
     };

@@ -899,7 +899,7 @@ namespace boost { namespace text {
         /** Creates a string from a char string literal. */
         inline string operator"" _s(char const * str, std::size_t len)
         {
-            assert(len < INT_MAX);
+            assert(len < INT_MAX / 2);
             return string(string_view(str, len));
         }
     }

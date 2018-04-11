@@ -85,20 +85,6 @@ namespace boost { namespace text {
             return retval;
         }
 
-        friend bool operator==(
-            grapheme_iterator<CPIter, Sentinel> lhs,
-            grapheme_iterator<CPIter, Sentinel> rhs) noexcept
-        {
-            return lhs.grapheme_ == lhs.grapheme_;
-        }
-
-        friend bool operator!=(
-            grapheme_iterator<CPIter, Sentinel> lhs,
-            grapheme_iterator<CPIter, Sentinel> rhs) noexcept
-        {
-            return !(lhs == rhs);
-        }
-
         friend bool
         operator==(grapheme_iterator<CPIter, Sentinel> it, Sentinel s)
         {
@@ -116,6 +102,32 @@ namespace boost { namespace text {
         CPIter first_;
         Sentinel last_;
     };
+
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    auto operator==(
+        grapheme_iterator<CPIter1, Sentinel1> lhs,
+        grapheme_iterator<CPIter2, Sentinel2> rhs) noexcept
+        -> decltype(lhs.base() == rhs.base())
+    {
+        return lhs.base() == rhs.base();
+    }
+
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    auto operator!=(
+        grapheme_iterator<CPIter1, Sentinel1> lhs,
+        grapheme_iterator<CPIter2, Sentinel2> rhs) noexcept
+        -> decltype(!(lhs == rhs))
+    {
+        return !(lhs == rhs);
+    }
 
 }}
 

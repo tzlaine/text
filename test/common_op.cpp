@@ -1273,6 +1273,7 @@ TEST(common_operations, operator_plus)
         // OK rv + rv;
     }
 }
+#endif
 
 TEST(common_operations, stream_inserters)
 {
@@ -1372,7 +1373,6 @@ TEST(common_operations, stream_inserters)
         EXPECT_EQ(ss.str(), "r***");
     }
 }
-#endif
 
 TEST(common_operations, begin_end_variants)
 {

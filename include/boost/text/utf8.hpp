@@ -563,25 +563,18 @@ namespace boost { namespace text { namespace utf8 {
             return retval;
         }
 
-        /** This function is constexpr in C++14 and later. */
-        friend BOOST_TEXT_CXX14_CONSTEXPR bool operator==(
-            from_utf32_iterator<Iter> lhs,
-            from_utf32_iterator<Iter> rhs) noexcept
-        {
-            if (lhs.it_ != rhs.it_)
-                return false;
-            return lhs.index_ == rhs.index_ ||
-                   ((lhs.index_ == 0 || lhs.index_ == 4) &&
-                    (rhs.index_ == 0 || rhs.index_ == 4));
-        }
-
-        /** This function is constexpr in C++14 and later. */
-        friend BOOST_TEXT_CXX14_CONSTEXPR bool operator!=(
-            from_utf32_iterator<Iter> lhs,
-            from_utf32_iterator<Iter> rhs) noexcept
-        {
-            return !(lhs.it_ == rhs.it_);
-        }
+        template<
+            typename Iter1,
+            typename ErrorHandler1,
+            typename Iter2,
+            typename ErrorHandler2>
+        friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+            from_utf32_iterator<Iter1, ErrorHandler1> lhs,
+            from_utf32_iterator<Iter2, ErrorHandler2> rhs) noexcept
+            -> decltype(
+                lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
+                ((lhs.index_ == 0 || lhs.index_ == 4) &&
+                 (rhs.index_ == 0 || rhs.index_ == 4)));
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
@@ -636,6 +629,41 @@ namespace boost { namespace text { namespace utf8 {
     from_utf32_iterator<Iter> make_from_utf32_iterator(Iter it)
     {
         return from_utf32_iterator<Iter>(it);
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    template<
+        typename Iter1,
+        typename ErrorHandler1,
+        typename Iter2,
+        typename ErrorHandler2>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+        from_utf32_iterator<Iter1, ErrorHandler1> lhs,
+        from_utf32_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        -> decltype(
+            lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
+            ((lhs.index_ == 0 || lhs.index_ == 4) &&
+             (rhs.index_ == 0 || rhs.index_ == 4)))
+    {
+        if (lhs.it_ != rhs.it_)
+            return false;
+        return lhs.index_ == rhs.index_ ||
+               ((lhs.index_ == 0 || lhs.index_ == 4) &&
+                (rhs.index_ == 0 || rhs.index_ == 4));
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    template<
+        typename Iter1,
+        typename ErrorHandler1,
+        typename Iter2,
+        typename ErrorHandler2>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+        from_utf32_iterator<Iter1, ErrorHandler1> lhs,
+        from_utf32_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        -> decltype(!(lhs == rhs))
+    {
+        return !(lhs == rhs);
     }
 
 
@@ -711,20 +739,6 @@ namespace boost { namespace text { namespace utf8 {
             to_utf32_iterator retval = *this;
             --*this;
             return retval;
-        }
-
-        /** This function is constexpr in C++14 and later. */
-        friend BOOST_TEXT_CXX14_CONSTEXPR bool
-        operator==(to_utf32_iterator lhs, to_utf32_iterator rhs) noexcept
-        {
-            return lhs.it_ == rhs.it_;
-        }
-
-        /** This function is constexpr in C++14 and later. */
-        friend BOOST_TEXT_CXX14_CONSTEXPR bool
-        operator!=(to_utf32_iterator lhs, to_utf32_iterator rhs) noexcept
-        {
-            return lhs.it_ != rhs.it_;
         }
 
         /** This function is constexpr in C++14 and later. */
@@ -1012,6 +1026,34 @@ namespace boost { namespace text { namespace utf8 {
         return to_utf32_iterator<Iter, Sentinel>(it);
     }
 
+    /** This function is constexpr in C++14 and later. */
+    template<
+        typename Iter1,
+        typename ErrorHandler1,
+        typename Iter2,
+        typename ErrorHandler2>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+        to_utf32_iterator<Iter1, ErrorHandler1> lhs,
+        to_utf32_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        -> decltype(lhs.base() == rhs.base())
+    {
+        return lhs.base() == rhs.base();
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    template<
+        typename Iter1,
+        typename ErrorHandler1,
+        typename Iter2,
+        typename ErrorHandler2>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+        to_utf32_iterator<Iter1, ErrorHandler1> lhs,
+        to_utf32_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        -> decltype(!(lhs == rhs))
+    {
+        return !(lhs == rhs);
+    }
+
 
     /** A UTF-16 to UTF-8 converting iterator.  Set the ErrorHandler template
         parameter to control error handling.  The default ErrorHandler is
@@ -1134,25 +1176,18 @@ namespace boost { namespace text { namespace utf8 {
             return retval;
         }
 
-        /** This function is constexpr in C++14 and later. */
-        friend BOOST_TEXT_CXX14_CONSTEXPR bool operator==(
-            from_utf16_iterator<Iter> lhs,
-            from_utf16_iterator<Iter> rhs) noexcept
-        {
-            if (lhs.it_ != rhs.it_)
-                return false;
-            return lhs.index_ == rhs.index_ ||
-                   ((lhs.index_ == 0 || lhs.index_ == 4) &&
-                    (rhs.index_ == 0 || rhs.index_ == 4));
-        }
-
-        /** This function is constexpr in C++14 and later. */
-        friend BOOST_TEXT_CXX14_CONSTEXPR bool operator!=(
-            from_utf16_iterator<Iter> lhs,
-            from_utf16_iterator<Iter> rhs) noexcept
-        {
-            return !(lhs.it_ == rhs.it_);
-        }
+        template<
+            typename Iter1,
+            typename ErrorHandler1,
+            typename Iter2,
+            typename ErrorHandler2>
+        friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+            from_utf16_iterator<Iter1, ErrorHandler1> lhs,
+            from_utf16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+            -> decltype(
+                lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
+                ((lhs.index_ == 0 || lhs.index_ == 4) &&
+                 (rhs.index_ == 0 || rhs.index_ == 4)));
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
@@ -1272,6 +1307,41 @@ namespace boost { namespace text { namespace utf8 {
         return from_utf16_iterator<Iter>(it);
     }
 
+    /** This function is constexpr in C++14 and later. */
+    template<
+        typename Iter1,
+        typename ErrorHandler1,
+        typename Iter2,
+        typename ErrorHandler2>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+        from_utf16_iterator<Iter1, ErrorHandler1> lhs,
+        from_utf16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        -> decltype(
+            lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
+            ((lhs.index_ == 0 || lhs.index_ == 4) &&
+             (rhs.index_ == 0 || rhs.index_ == 4)))
+    {
+        if (lhs.it_ != rhs.it_)
+            return false;
+        return lhs.index_ == rhs.index_ ||
+               ((lhs.index_ == 0 || lhs.index_ == 4) &&
+                (rhs.index_ == 0 || rhs.index_ == 4));
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    template<
+        typename Iter1,
+        typename ErrorHandler1,
+        typename Iter2,
+        typename ErrorHandler2>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+        from_utf16_iterator<Iter1, ErrorHandler1> lhs,
+        from_utf16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        -> decltype(!(lhs == rhs))
+    {
+        return !(lhs == rhs);
+    }
+
 
     /** A UTF-8 to UTF-16 converting iterator.  Set the ErrorHandler template
         parameter to control error handling.  The default ErrorHandler is
@@ -1382,22 +1452,17 @@ namespace boost { namespace text { namespace utf8 {
             return retval;
         }
 
-        /** This function is constexpr in C++14 and later. */
-        friend BOOST_TEXT_CXX14_CONSTEXPR bool
-        operator==(to_utf16_iterator lhs, to_utf16_iterator rhs) noexcept
-        {
-            if (lhs.it_ != rhs.it_)
-                return false;
-            return lhs.index_ == rhs.index_ ||
-                   (lhs.index_ != 1 && rhs.index_ != 1);
-        }
-
-        /** This function is constexpr in C++14 and later. */
-        friend BOOST_TEXT_CXX14_CONSTEXPR bool
-        operator!=(to_utf16_iterator lhs, to_utf16_iterator rhs) noexcept
-        {
-            return !(lhs.it_ == rhs.it_);
-        }
+        template<
+            typename Iter1,
+            typename ErrorHandler1,
+            typename Iter2,
+            typename ErrorHandler2>
+        friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+            to_utf16_iterator<Iter1, ErrorHandler1> lhs,
+            to_utf16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+            -> decltype(
+                lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
+                (lhs.index_ != 1 && rhs.index_ != 1));
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
@@ -1609,6 +1674,39 @@ namespace boost { namespace text { namespace utf8 {
     {
         return to_utf16_iterator<Iter>(it);
     }
+
+    /** This function is constexpr in C++14 and later. */
+    template<
+        typename Iter1,
+        typename ErrorHandler1,
+        typename Iter2,
+        typename ErrorHandler2>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
+        to_utf16_iterator<Iter1, ErrorHandler1> lhs,
+        to_utf16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        -> decltype(
+            lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
+            (lhs.index_ != 1 && rhs.index_ != 1))
+    {
+        if (lhs.it_ != rhs.it_)
+            return false;
+        return lhs.index_ == rhs.index_ || (lhs.index_ != 1 && rhs.index_ != 1);
+    }
+
+    /** This function is constexpr in C++14 and later. */
+    template<
+        typename Iter1,
+        typename ErrorHandler1,
+        typename Iter2,
+        typename ErrorHandler2>
+    BOOST_TEXT_CXX14_CONSTEXPR auto operator!=(
+        to_utf16_iterator<Iter1, ErrorHandler1> lhs,
+        to_utf16_iterator<Iter2, ErrorHandler2> rhs) noexcept
+        -> decltype(!(lhs == rhs))
+    {
+        return !(lhs == rhs);
+    }
+
 
     /** An insert-iterator analogous to std::insert_iterator, that also
         converts UTF-32 to UTF-8.*/
