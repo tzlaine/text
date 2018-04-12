@@ -266,11 +266,7 @@ namespace boost { namespace text {
 
         template<typename CharIter>
         auto insert(iterator at, CharIter first, CharIter last)
-            -> detail::char_iter_ret_t<text &, CharIter>
-        {
-            str_.insert(at.base().base(), first, last);
-            return *this;
-        }
+            -> detail::char_iter_ret_t<text &, CharIter>;
 
 #endif
 
@@ -509,20 +505,17 @@ namespace boost { namespace text {
     inline text::text(char const * c_str) : str_(c_str)
     {
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     template<int N>
     text::text(char (&c_str)[N]) : str_(string_view(c_str, N - 1))
     {
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     inline text::text(string s) : str_(std::move(s))
     {
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     inline text::text(text_view tv) : str_()
@@ -536,13 +529,11 @@ namespace boost { namespace text {
     inline text::text(string_view sv) : str_(sv)
     {
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     inline text::text(repeated_string_view rsv) : str_(rsv)
     {
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     template<typename CharRange>
@@ -550,7 +541,6 @@ namespace boost { namespace text {
         str_(r)
     {
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     template<typename CharIter>
@@ -561,7 +551,6 @@ namespace boost { namespace text {
         str_(first, last)
     {
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     template<typename GraphemeRange>
@@ -571,14 +560,12 @@ namespace boost { namespace text {
         str_(r)
     {
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
     inline text & text::operator=(char const * c_str)
     {
         str_ = string_view(c_str);
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -587,7 +574,6 @@ namespace boost { namespace text {
     {
         str_ = string_view(c_str, N - 1);
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -595,7 +581,6 @@ namespace boost { namespace text {
     {
         str_ = std::move(s);
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -610,7 +595,6 @@ namespace boost { namespace text {
     {
         str_ = sv;
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -618,7 +602,6 @@ namespace boost { namespace text {
     {
         str_ = rsv;
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -628,7 +611,6 @@ namespace boost { namespace text {
     {
         str_ = r;
         normalize_to_fcc(str_);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
 
@@ -641,7 +623,6 @@ namespace boost { namespace text {
         return *this;
     }
 
-
     template<typename CharRange>
     auto text::insert(iterator at, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
@@ -649,6 +630,18 @@ namespace boost { namespace text {
         using std::begin;
         using std::end;
         return insert(at, begin(r), end(r));
+    }
+
+    template<typename CharIter>
+    auto text::insert(iterator at, CharIter first, CharIter last)
+        -> detail::char_iter_ret_t<text &, CharIter>
+    {
+        int const lo = at.base().base() - str_.begin();
+        auto const insertion_it = str_.insert(at.base().base(), first, last);
+        int const hi = lo + (insertion_it - str_.begin());
+        normalize_subrange(lo, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+        return *this;
     }
 
     inline text & text::insert(iterator at, char const * c_str)
