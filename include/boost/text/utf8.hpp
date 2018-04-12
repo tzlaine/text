@@ -465,7 +465,7 @@ namespace boost { namespace text { namespace utf8 {
         using iterator_category = std::bidirectional_iterator_tag;
 
         static bool const throw_on_error =
-            noexcept(std::declval<ErrorHandler>()(0));
+            !noexcept(std::declval<ErrorHandler>()(0));
 
         static_assert(
             std::is_same<
@@ -687,7 +687,7 @@ namespace boost { namespace text { namespace utf8 {
         using iterator_category = std::bidirectional_iterator_tag;
 
         static bool const throw_on_error =
-            noexcept(std::declval<ErrorHandler>()(0));
+            !noexcept(std::declval<ErrorHandler>()(0));
 
         constexpr to_utf32_iterator() noexcept : first_(), it_(), last_() {}
         explicit constexpr to_utf32_iterator(
@@ -1072,7 +1072,7 @@ namespace boost { namespace text { namespace utf8 {
         using iterator_category = std::bidirectional_iterator_tag;
 
         static bool const throw_on_error =
-            noexcept(std::declval<ErrorHandler>()(0));
+            !noexcept(std::declval<ErrorHandler>()(0));
 
         static_assert(
             std::is_same<
@@ -1360,7 +1360,7 @@ namespace boost { namespace text { namespace utf8 {
         using iterator_category = std::bidirectional_iterator_tag;
 
         static bool const throw_on_error =
-            noexcept(std::declval<ErrorHandler>()(0));
+            !noexcept(std::declval<ErrorHandler>()(0));
 
         constexpr to_utf16_iterator() noexcept :
             it_(),
