@@ -730,6 +730,10 @@ namespace boost { namespace text {
 
     inline text & text::insert(iterator at, repeated_string_view rsv)
     {
+        bool const rsv_null_terminated =
+            !rsv.view().empty() && rsv.view().end()[-1] == '\0';
+        if (rsv_null_terminated)
+            rsv = repeat(rsv.view()(0, -1), rsv.count());
         return insert_impl(at, rsv.begin(), rsv.end(), false);
     }
 
@@ -771,6 +775,10 @@ namespace boost { namespace text {
     inline text &
     text::replace(text_view old_substr, repeated_string_view new_substr)
     {
+        bool const new_substr_null_terminated =
+            !new_substr.view().empty() && new_substr.view().end()[-1] == '\0';
+        if (new_substr_null_terminated)
+            new_substr = repeat(new_substr.view()(0, -1), new_substr.count());
         return replace_impl(
             old_substr, new_substr.begin(), new_substr.end(), false);
     }
@@ -796,36 +804,20 @@ namespace boost { namespace text {
         return operator+=(string_view(c_str));
     }
 
-    inline text & text::operator+=(string_view sv)
-    {
-        int const lo = storage_bytes();
-        int const hi = lo + sv.size();
-        str_ += sv;
-        normalize_subrange(lo, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
-    }
+    inline text & text::operator+=(string_view sv) { return insert(end(), sv); }
 
     inline text & text::operator+=(repeated_string_view rsv)
     {
-        int const lo = storage_bytes();
-        int const hi = lo + rsv.size();
-        str_ += rsv;
-        normalize_subrange(lo, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+        return insert(end(), rsv);
     }
 
     template<typename CharRange>
     auto text::operator+=(CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        int const lo = storage_bytes();
-        str_.insert(str_.end(), r);
-        int const hi = storage_bytes();
-        normalize_subrange(lo, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+        using std::begin;
+        using std::end;
+        return insert(this->end(), begin(r), end(r));
     }
 
     inline text::mutable_utf32_iter
@@ -859,6 +851,9 @@ namespace boost { namespace text {
         first = prev_stable_cp(first);
         last = next_stable_cp(last);
 
+        if (first == last)
+            return;
+
         container::small_vector<char, 1024> buf;
         normalize_to_fcc(
             first, last, utf8::from_utf32_inserter(buf, buf.end()));
@@ -876,8 +871,10 @@ namespace boost { namespace text {
         auto const insertion_it = str_.insert(at.base().base(), first, last);
         int const hi = insertion_it - str_.begin();
         if (first_last_normalized) {
-            normalize_subrange(lo, lo);
-            normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
+            if (hi < str_.size())
+                normalize_subrange(hi, hi);
         } else {
             normalize_subrange(lo, hi);
         }
@@ -889,11 +886,13 @@ namespace boost { namespace text {
     text::insert_impl(iterator at, string_view sv, bool sv_normalized)
     {
         int const lo = at.base().base() - str_.begin();
-        int const hi = lo + sv.size();
-        str_.insert(at.base().base(), sv);
+        auto const insertion_it = str_.insert(at.base().base(), sv);
+        int const hi = insertion_it - str_.begin();
         if (sv_normalized) {
-            normalize_subrange(lo, lo);
-            normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
+            if (hi < str_.size())
+                normalize_subrange(hi, hi);
         } else {
             normalize_subrange(lo, hi);
         }
@@ -912,12 +911,13 @@ namespace boost { namespace text {
         int const new_size = storage_bytes();
         int const hi = lo + old_substr_size + (new_size - old_size);
         if (first_last_normalized) {
-            normalize_subrange(lo, lo);
-            normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
+            if (hi < str_.size())
+                normalize_subrange(hi, hi);
         } else {
             normalize_subrange(lo, hi);
         }
-        normalize_subrange(lo, hi);
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
@@ -927,13 +927,20 @@ namespace boost { namespace text {
         string_view new_substr,
         bool new_substr_normalized)
     {
+        bool const new_substr_null_terminated =
+            !new_substr.empty() && new_substr.end()[-1] == '\0';
+        if (new_substr_null_terminated)
+            new_substr = new_substr(0, -1);
+
         int const lo = old_substr.begin().base().base() - str_.begin();
         int const hi = lo + old_substr.storage_bytes() +
                        (new_substr.size() - old_substr.storage_bytes());
         str_.replace(string_view(old_substr), new_substr);
         if (new_substr_normalized) {
-            normalize_subrange(lo, lo);
-            normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
+            if (hi < str_.size())
+                normalize_subrange(hi, hi);
         } else {
             normalize_subrange(lo, hi);
         }

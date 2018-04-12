@@ -88,7 +88,7 @@ namespace boost { namespace text {
             using std::begin;
             using std::end;
             if (begin(r) == end(r)) {
-                data_ = nullptr;
+                data_ = &*begin(r);
                 size_ = 0;
             } else {
                 *this = string_view(&*begin(r), end(r) - begin(r));
@@ -103,7 +103,7 @@ namespace boost { namespace text {
             using std::begin;
             using std::end;
             if (begin(r) == end(r)) {
-                data_ = nullptr;
+                data_ = &*begin(r).base().base();
                 size_ = 0;
             } else {
                 *this = string_view(

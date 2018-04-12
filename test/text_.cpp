@@ -8,9 +8,6 @@
 #include <list>
 
 
-// TODO: Use strings that test auto-renormalization (e.g. texts that when
-// concatenated require normalization around the point of concatenation).
-
 using namespace boost;
 
 TEST(text_tests, test_empty)
@@ -281,13 +278,13 @@ TEST(text_tests, test_insert)
         text::string_view const sv(str, 1); // explicitly null-terminated
         text::repeated_string_view const rsv(sv, 3);
 
-        if (0) { // TODO: Fails!
+        {
             text::text t("text");
             t.insert(std::next(t.begin(), 2), sv);
             EXPECT_EQ(t, "text"_t); // no null in the middle
         }
 
-        if (0) { // TODO: Makes ASan scream.
+        {
             text::text t("text");
             t.insert(std::next(t.begin(), 2), rsv);
             EXPECT_EQ(t, "text"_t); // no nulls in the middle
@@ -295,7 +292,6 @@ TEST(text_tests, test_insert)
     }
 }
 
-#if 0
 TEST(text_tests, test_erase)
 {
     text::text const ct("string");
@@ -321,95 +317,99 @@ TEST(text_tests, test_erase)
 
 TEST(text_tests, test_replace)
 {
-    text::string_view const replacement("REP");
+    using namespace text::literals;
+
+    text::text const ct0("REP");
+    text::text_view const replacement(ct0);
     // Explicitly null-terminated.
-    text::string_view const replacement_with_null(
-        replacement.begin(), replacement.size() + 1);
+    char const * rep = "REP";
+    text::string_view const replacement_with_null(rep, 4);
 
     {
-        text::string t("string");
-        text::string_view const ctv(
-            t.begin(), t.size() + 1); // Explicitly null-terminated.
-        t.replace(ctv, replacement_with_null);
-        EXPECT_EQ(t, "REP");
-        EXPECT_EQ(t[t.size()], '\0');
+        text::text t("string");
+        t.replace(t, replacement_with_null);
+        EXPECT_EQ(t, "REP"_t);
     }
 
     {
-        text::string t("string");
-        text::string_view const ctv(
-            t.begin(), t.size() + 1); // Explicitly null-terminated.
-        t.replace(ctv, replacement);
-        EXPECT_EQ(t, "REP");
-        EXPECT_EQ(t[t.size()], '\0');
-    }
-
-    {
-        text::string t("string");
+        text::text t("string");
         t.replace(t, replacement);
-        EXPECT_EQ(t, "REP");
-        EXPECT_EQ(t[t.size()], '\0');
+        EXPECT_EQ(t, "REP"_t);
     }
 
     {
-        text::string t("string");
-        t.replace(t(0, 3), t(2, 6));
-        EXPECT_EQ(t, "ringing");
-        EXPECT_EQ(t[t.size()], '\0');
+        text::text t("string");
+        t.replace(t, replacement);
+        EXPECT_EQ(t, "REP"_t);
     }
 
     {
-        text::string t("string");
-        t.replace(t(3, 6), t(0, 3));
-        EXPECT_EQ(t, "strstr");
-        EXPECT_EQ(t[t.size()], '\0');
+        text::text t("string");
+        text::text_view const old_substr(
+            std::next(t.begin(), 0), std::next(t.begin(), 3));
+        text::text_view const new_substr(
+            std::next(t.begin(), 2), std::next(t.begin(), 6));
+        t.replace(old_substr, new_substr);
+        EXPECT_EQ(t, "ringing"_t);
     }
 
-    text::string const ct("string");
+    {
+        text::text t("string");
+        text::text_view const old_substr(
+            std::next(t.begin(), 3), std::next(t.begin(), 6));
+        text::text_view const new_substr(
+            std::next(t.begin(), 0), std::next(t.begin(), 3));
+        t.replace(old_substr, new_substr);
+        EXPECT_EQ(t, "strstr"_t);
+    }
 
-    for (int j = 0; j <= ct.size(); ++j) {
+    text::text const ct("string");
+
+    for (int j = 0, end = ct.distance(); j <= end; ++j) {
         for (int i = 0; i <= j; ++i) {
-            text::string t = ct;
-            text::string_view const before = t(0, i);
-            text::string_view const substr = t(i, j);
-            text::string_view const after = t(j, t.size());
+            text::text t = ct;
+            text::text_view const before(t.begin(), std::next(t.begin(), i));
+            text::text_view const substr(
+                std::next(t.begin(), i), std::next(t.begin(), j));
+            text::text const substr_copy(substr);
+            text::text_view const after(std::next(ct.begin(), j), ct.end());
 
-            text::string expected(before);
+            text::text expected(before);
             expected += replacement;
             expected += after;
 
             t.replace(substr, replacement);
-            EXPECT_EQ(t[t.size()], '\0')
-                << "i=" << i << " j=" << j << " erasing '" << substr << "'";
-            EXPECT_EQ(t, expected)
-                << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
+                                   << substr_copy << "'";
         }
     }
 
     text::repeated_string_view const really_long_replacement(replacement, 10);
 
-    for (int j = 0; j <= ct.size(); ++j) {
+    for (int j = 0, end = ct.distance(); j <= end; ++j) {
         for (int i = 0; i <= j; ++i) {
-            text::string t = ct;
-            text::string_view const before = t(0, i);
-            text::string_view const substr = t(i, j);
-            text::string_view const after = t(j, t.size());
+            text::text t = ct;
+            text::text_view const before(t.begin(), std::next(t.begin(), i));
+            text::text_view const substr(
+                std::next(t.begin(), i), std::next(t.begin(), j));
+            text::text const substr_copy(substr);
+            text::text_view const after(std::next(ct.begin(), j), ct.end());
 
-            text::string expected(before);
+            text::text expected(before);
             expected += really_long_replacement;
             expected += after;
 
             t.replace(substr, really_long_replacement);
-            EXPECT_EQ(t[t.size()], '\0')
-                << "i=" << i << " j=" << j << " erasing '" << substr << "'";
-            EXPECT_EQ(t, expected)
-                << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+            EXPECT_EQ(t, expected) << "i=" << i << " j=" << j << " erasing '"
+                                   << substr_copy << "'";
         }
     }
 }
 
 TEST(text_tests, test_replace_iter)
 {
+    using namespace text::literals;
+
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
     auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
@@ -418,69 +418,70 @@ TEST(text_tests, test_replace_iter)
     auto const last =
         text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
 
-    text::string const ct_string("string");
-    text::string const ct_text("text");
+    text::text const ct_string("string");
+    text::text const ct_text("text");
 
     {
-        text::string t = ct_string;
+        text::text t = ct_string;
         t.replace(t, final_cp, last);
-        EXPECT_EQ(t, "\xf0\x90\x8c\x82");
-        EXPECT_EQ(t[t.size()], '\0');
+        EXPECT_EQ(t, "\xf0\x90\x8c\x82"_t);
     }
 
     {
-        text::string t = ct_text;
+        text::text t = ct_text;
         t.replace(t, final_cp, last);
-        EXPECT_EQ(t, "\xf0\x90\x8c\x82");
-        EXPECT_EQ(t[t.size()], '\0');
+        EXPECT_EQ(t, "\xf0\x90\x8c\x82"_t);
     }
 
     {
-        text::string t = ct_string;
+        text::text t = ct_string;
         t.replace(t, first, last);
-        EXPECT_EQ(t, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82");
-        EXPECT_EQ(t[t.size()], '\0');
+        EXPECT_EQ(t, "\x4d\xd0\xb0\xe4\xba\x8c\xf0\x90\x8c\x82"_t);
     }
 
-    for (int j = 0; j <= ct_string.size(); ++j) {
+    for (int j = 0, end = ct_string.distance(); j <= end; ++j) {
         for (int i = 0; i <= j; ++i) {
             {
-                text::string t = ct_string;
-                text::string_view const before = t(0, i);
-                text::string_view const substr = t(i, j);
-                text::string_view const after = t(j, t.size());
+                text::text t = ct_string;
+                text::text_view const before(
+                    t.begin(), std::next(t.begin(), i));
+                text::text_view const substr(
+                    std::next(t.begin(), i), std::next(t.begin(), j));
+                text::text const substr_copy(substr);
+                text::text_view const after(std::next(t.begin(), j), t.end());
 
-                text::string expected(before);
-                expected.insert(expected.size(), final_cp, last);
+                text::text expected(before);
+                expected.insert(expected.end(), final_cp, last);
                 expected += after;
 
                 t.replace(substr, final_cp, last);
-                EXPECT_EQ(t[t.size()], '\0')
-                    << "i=" << i << " j=" << j << " erasing '" << substr << "'";
                 EXPECT_EQ(t, expected)
-                    << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+                    << "i=" << i << " j=" << j << " erasing '" << substr_copy << "'";
             }
 
             {
-                text::string t = ct_string;
-                text::string_view const before = t(0, i);
-                text::string_view const substr = t(i, j);
-                text::string_view const after = t(j, t.size());
+                text::text t = ct_string;
+                text::text_view const before(
+                    t.begin(), std::next(t.begin(), i));
+                text::text_view const substr(
+                    std::next(t.begin(), i), std::next(t.begin(), j));
+                text::text const substr_copy(substr);
+                text::text_view const after(std::next(t.begin(), j), t.end());
 
-                text::string expected(before);
-                expected.insert(expected.size(), first, last);
+                text::text expected(before);
+                expected.insert(expected.end(), first, last);
                 expected += after;
 
                 t.replace(substr, first, last);
-                EXPECT_EQ(t[t.size()], '\0')
-                    << "i=" << i << " j=" << j << " erasing '" << substr << "'";
                 EXPECT_EQ(t, expected)
-                    << "i=" << i << " j=" << j << " erasing '" << substr << "'";
+                    << "i=" << i << " j=" << j << " erasing '" << substr_copy << "'";
             }
         }
     }
 }
 
+#if 0 // TODO: Crashes inside normalization code.  Seems to be some kind of
+      // buffer overflow.
 TEST(text_tests, test_replace_iter_large_insertions)
 {
     // Unicode 9, 3.9/D90
@@ -498,17 +499,21 @@ TEST(text_tests, test_replace_iter_large_insertions)
             utf32_repeated.end());
 
     {
-        text::string t("string");
+        text::text t("string");
         t.replace(t, first, last);
-        text::string const expected(first, last);
+        text::text const expected(first, last);
         EXPECT_EQ(t, expected);
     }
 
     {
-        text::string t;
+        text::text t;
         t.replace(t, first, last);
-        text::string const expected(first, last);
+        text::text const expected(first, last);
         EXPECT_EQ(t, expected);
     }
 }
 #endif
+
+// TODO: Use strings that test auto-renormalization (e.g. texts that when
+// concatenated require normalization around the point of concatenation).
+
