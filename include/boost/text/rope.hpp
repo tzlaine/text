@@ -914,9 +914,19 @@ namespace boost { namespace text {
     inline rope operator+(rope r, text const & t) { return r += t; }
 
 
-    text & text::insert(iterator at, rope_view rv)
+    inline text & text::insert(iterator at, rope_view rv)
     {
-        return insert(at, rv.begin().base().base(), rv.end().base().base());
+        return insert_impl(
+            at, rv.begin().base().base(), rv.end().base().base(), true);
+    }
+
+    inline text & text::replace(text_view old_substr, rope_view new_substr)
+    {
+        return replace_impl(
+            old_substr,
+            new_substr.begin().base().base(),
+            new_substr.end().base().base(),
+            true);
     }
 
 }}

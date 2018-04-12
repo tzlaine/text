@@ -233,6 +233,14 @@ namespace boost { namespace text {
             position at. */
         text & insert(iterator at, text const & t);
 
+        /** Inserts the sequence of char from tv into *this starting at
+            position at. */
+        text & insert(iterator at, text_view tv);
+
+        /** Inserts the sequence of char from sv into *this starting at
+            position at. */
+        text & insert(iterator at, string_view sv);
+
         /** Inserts the sequence of char from rsv into *this starting at
             position at. */
         text & insert(iterator at, repeated_string_view rsv);
@@ -282,6 +290,31 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
+        text & replace(text_view old_substr, char const * new_substr);
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from new_substr.
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
+        template<int N>
+        text & replace(text_view old_substr, char (&new_substr)[N]);
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from new_substr.
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
+        text & replace(text_view old_substr, text const & new_substr);
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from new_substr.
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
         text & replace(text_view old_substr, text_view new_substr);
 
         /** Replaves the  portion of *this delimited by old_substr with the
@@ -299,6 +332,14 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
         text & replace(text_view old_substr, repeated_string_view new_substr);
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from new_substr.
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
+        text & replace(text_view old_substr, rope_view new_substr);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -437,6 +478,25 @@ namespace boost { namespace text {
 
         // https://www.unicode.org/reports/tr15/#Concatenation
         void normalize_subrange(int from_near_offset, int to_near_offset);
+
+        template<typename CharIter>
+        text & insert_impl(
+            iterator at,
+            CharIter first,
+            CharIter last,
+            bool first_last_normalized);
+        text & insert_impl(iterator at, string_view sv, bool sv_normalized);
+
+        template<typename CharIter>
+        text & replace_impl(
+            text_view old_substr,
+            CharIter first,
+            CharIter last,
+            bool first_last_normalized);
+        text & replace_impl(
+            text_view old_substr,
+            string_view new_substr,
+            bool new_substr_normalized);
 
         string str_;
 
@@ -636,46 +696,41 @@ namespace boost { namespace text {
     auto text::insert(iterator at, CharIter first, CharIter last)
         -> detail::char_iter_ret_t<text &, CharIter>
     {
-        int const lo = at.base().base() - str_.begin();
-        auto const insertion_it = str_.insert(at.base().base(), first, last);
-        int const hi = lo + (insertion_it - str_.begin());
-        normalize_subrange(lo, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+        return insert_impl(at, first, last, false);
     }
 
     inline text & text::insert(iterator at, char const * c_str)
     {
-        return insert(at, c_str, c_str + std::strlen(c_str));
+        return insert(at, string_view(c_str));
     }
+
+    // TODO: N-1 is not always correct.  Check in these overloads that the
+    // array is null-terminated before substracting 1.
 
     template<int N>
     text & text::insert(iterator at, char (&c_str)[N])
     {
-        return insert(at, c_str, c_str + N - 1);
+        return insert(at, string_view(c_str, N - 1));
     }
 
     inline text & text::insert(iterator at, text const & t)
     {
-        int const lo = at.base().base() - str_.begin();
-        int const hi = lo + t.storage_bytes();
-        str_.insert(
-            at.base().base(),
-            string_view(t.begin().base().base(), t.storage_bytes()));
-        normalize_subrange(lo, lo);
-        normalize_subrange(hi, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+        return insert_impl(at, string_view(t), true);
+    }
+
+    inline text & text::insert(iterator at, text_view tv)
+    {
+        return insert_impl(at, string_view(tv), true);
+    }
+
+    inline text & text::insert(iterator at, string_view sv)
+    {
+        return insert_impl(at, sv, false);
     }
 
     inline text & text::insert(iterator at, repeated_string_view rsv)
     {
-        int const lo = at.base().base() - str_.begin();
-        int const hi = lo + rsv.size();
-        str_.insert(at.base().base() - str_.begin(), rsv);
-        normalize_subrange(lo, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+        return insert_impl(at, rsv.begin(), rsv.end(), false);
     }
 
     inline text & text::erase(text_view tv) noexcept
@@ -687,80 +742,53 @@ namespace boost { namespace text {
         return *this;
     }
 
-    template<typename CharRange>
-    auto text::replace(text_view old_substr, CharRange const & r)
-        -> detail::rng_alg_ret_t<text &, CharRange>
+    inline text & text::replace(text_view old_substr, char const * new_substr)
     {
-        int const lo = old_substr.begin().base().base() - str_.begin();
-        int const old_size = storage_bytes();
-        int const old_substr_size = old_substr.storage_bytes();
-        str_.replace(string_view(old_substr), r);
-        int const new_size = storage_bytes();
-        int const hi = lo + old_substr_size + (new_size - old_size);
+        return replace_impl(old_substr, string_view(new_substr), false);
+    }
 
-        normalize_subrange(lo, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+    template<int N>
+    text & text::replace(text_view old_substr, char (&new_substr)[N])
+    {
+        return replace_impl(old_substr, string_view(new_substr, N - 1), false);
+    }
 
-        return *this;
+    inline text & text::replace(text_view old_substr, text const & new_substr)
+    {
+        return replace_impl(old_substr, string_view(new_substr), true);
     }
 
     inline text & text::replace(text_view old_substr, text_view new_substr)
     {
-        int const lo = old_substr.begin().base().base() - str_.begin();
-        int const hi =
-            lo + old_substr.storage_bytes() +
-            (new_substr.storage_bytes() - old_substr.storage_bytes());
-        str_.replace(string_view(old_substr), string_view(new_substr));
-
-        normalize_subrange(lo, lo);
-        normalize_subrange(hi, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-
-        return *this;
+        return replace_impl(old_substr, string_view(new_substr), true);
     }
 
     inline text & text::replace(text_view old_substr, string_view new_substr)
     {
-        int const lo = old_substr.begin().base().base() - str_.begin();
-        int const hi = lo + old_substr.storage_bytes() +
-                       (new_substr.size() - old_substr.storage_bytes());
-        str_.replace(string_view(old_substr), new_substr);
-
-        normalize_subrange(lo, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-
-        return *this;
+        return replace_impl(old_substr, new_substr, false);
     }
 
     inline text &
     text::replace(text_view old_substr, repeated_string_view new_substr)
     {
-        int const lo = old_substr.begin().base().base() - str_.begin();
-        int const hi = lo + old_substr.storage_bytes() +
-                       (new_substr.size() - old_substr.storage_bytes());
-        str_.replace(string_view(old_substr), new_substr);
+        return replace_impl(
+            old_substr, new_substr.begin(), new_substr.end(), false);
+    }
 
-        normalize_subrange(lo, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-
-        return *this;
+    template<typename CharRange>
+    auto text::replace(text_view old_substr, CharRange const & r)
+        -> detail::rng_alg_ret_t<text &, CharRange>
+    {
+        using std::begin;
+        using std::end;
+        return replace(old_substr, begin(r), end(r));
     }
 
     template<typename CharIter>
     auto text::replace(text_view old_substr, CharIter first, CharIter last)
         -> detail::char_iter_ret_t<text &, CharIter>
     {
-        int const lo = old_substr.begin().base().base() - str_.begin();
-        int const old_size = storage_bytes();
-        int const old_substr_size = old_substr.storage_bytes();
-        str_.replace(string_view(old_substr), first, last);
-        int const new_size = storage_bytes();
-        int const hi = lo + old_substr_size + (new_size - old_size);
-
-        normalize_subrange(lo, hi);
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-
-        return *this;
+        return replace_impl(old_substr, first, last, false);
     }
 
     inline text & text::operator+=(char const * c_str)
@@ -838,6 +866,79 @@ namespace boost { namespace text {
         str_.replace(
             string_view(first.base(), last.base() - first.base()),
             string_view(&buf[0], buf.size()));
+    }
+
+    template<typename CharIter>
+    text & text::insert_impl(
+        iterator at, CharIter first, CharIter last, bool first_last_normalized)
+    {
+        int const lo = at.base().base() - str_.begin();
+        auto const insertion_it = str_.insert(at.base().base(), first, last);
+        int const hi = insertion_it - str_.begin();
+        if (first_last_normalized) {
+            normalize_subrange(lo, lo);
+            normalize_subrange(hi, hi);
+        } else {
+            normalize_subrange(lo, hi);
+        }
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+        return *this;
+    }
+
+    inline text &
+    text::insert_impl(iterator at, string_view sv, bool sv_normalized)
+    {
+        int const lo = at.base().base() - str_.begin();
+        int const hi = lo + sv.size();
+        str_.insert(at.base().base(), sv);
+        if (sv_normalized) {
+            normalize_subrange(lo, lo);
+            normalize_subrange(hi, hi);
+        } else {
+            normalize_subrange(lo, hi);
+        }
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+        return *this;
+    }
+
+    template<typename CharIter>
+    text & text::replace_impl(
+        text_view old_substr, CharIter first, CharIter last, bool first_last_normalized)
+    {
+        int const lo = old_substr.begin().base().base() - str_.begin();
+        int const old_size = storage_bytes();
+        int const old_substr_size = old_substr.storage_bytes();
+        str_.replace(string_view(old_substr), first, last);
+        int const new_size = storage_bytes();
+        int const hi = lo + old_substr_size + (new_size - old_size);
+        if (first_last_normalized) {
+            normalize_subrange(lo, lo);
+            normalize_subrange(hi, hi);
+        } else {
+            normalize_subrange(lo, hi);
+        }
+        normalize_subrange(lo, hi);
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+        return *this;
+    }
+
+    inline text & text::replace_impl(
+        text_view old_substr,
+        string_view new_substr,
+        bool new_substr_normalized)
+    {
+        int const lo = old_substr.begin().base().base() - str_.begin();
+        int const hi = lo + old_substr.storage_bytes() +
+                       (new_substr.size() - old_substr.storage_bytes());
+        str_.replace(string_view(old_substr), new_substr);
+        if (new_substr_normalized) {
+            normalize_subrange(lo, lo);
+            normalize_subrange(hi, hi);
+        } else {
+            normalize_subrange(lo, hi);
+        }
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+        return *this;
     }
 
 #endif // Doxygen
