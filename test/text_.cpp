@@ -538,6 +538,8 @@ TEST(text_tests, normalization)
     EXPECT_EQ(t_a_with_circumflex, "\xc3\xa2"_t/*â*/);
     EXPECT_EQ(t_a_with_circumflex_2, "\xc3\xa2"_t/*â*/);
 
+    // insert()
+
     {
         text::text t = "aa";
         t.insert(std::next(t.begin(), 0), "\xcc\x82"/*◌̂*/);
@@ -620,5 +622,92 @@ TEST(text_tests, normalization)
         EXPECT_EQ(t.distance(), 2);
     }
 
-    // TODO: Test replace() overloads.
+    // replace()
+
+    auto first = [](text::text & t) {
+        return text::text_view(t.begin(), std::next(t.begin(), 1));
+    };
+    auto second = [](text::text & t) {
+        return text::text_view(
+            std::next(t.begin(), 1), std::next(t.begin(), 2));
+    };
+    auto third = [](text::text & t) {
+        return text::text_view(std::next(t.begin(), 2), t.end());
+    };
+
+    {
+        text::text t = "aaa";
+        t.replace(first(t), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        EXPECT_EQ(t.distance(), 3);
+    }
+    {
+        text::text t = "aaa";
+        t.replace(second(t), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("\xc3\xa2""a")/*âa*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+    {
+        text::text t = "aaa";
+        t.replace(third(t), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("a\xc3\xa2")/*aâ*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+
+    {
+        text::text t = "\xc3\xa2""aa";
+        t.replace(first(t), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        EXPECT_EQ(t.distance(), 3);
+    }
+    {
+        text::text t = "\xc3\xa2""aa";
+        t.replace(second(t), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("\xc3\xa2\xcc\x82""a")/*â◌̂a*/);
+        EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
+    }
+    {
+        text::text t = "\xc3\xa2""aa";
+        t.replace(third(t), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2")/*ââ*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+
+    {
+        text::text t = "aaa";
+        t.replace(first(t), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        EXPECT_EQ(t.distance(), 3);
+    }
+    {
+        text::text t = "aaa";
+        t.replace(second(t), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("\xc3\xa2""a")/*âa*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+    {
+        text::text t = "aaa";
+        t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("a\xc3\xa2")/*aâ*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+
+    {
+        text::text t = "\xc3\xa2""aa";
+        t.replace(first(t), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        EXPECT_EQ(t.distance(), 3);
+    }
+    {
+        text::text t = "\xc3\xa2""aa";
+        t.replace(second(t), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("\xc3\xa2\xcc\x82""a")/*â◌̂a*/);
+        EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
+    }
+    {
+        text::text t = "\xc3\xa2""aa";
+        t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2")/*ââ*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
 }
