@@ -514,6 +514,111 @@ TEST(text_tests, test_replace_iter_large_insertions)
 }
 #endif
 
-// TODO: Use strings that test auto-renormalization (e.g. texts that when
-// concatenated require normalization around the point of concatenation).
+TEST(text_tests, normalization)
+{
+    using namespace text::literals;
 
+    uint32_t const circumflex_utf32[] = {0x302}; // ◌̂
+    uint32_t const a_with_circumflex_utf32[] = {0xe2}; // â
+
+    text::string const s_circumflex =
+        text::to_string(circumflex_utf32, circumflex_utf32 + 1);
+    text::string const s_a_with_circumflex =
+        text::to_string(a_with_circumflex_utf32, a_with_circumflex_utf32 + 1);
+
+    text::text const t_circumflex(s_circumflex);
+    text::text const t_a_with_circumflex(s_a_with_circumflex);
+    text::text const t_a_with_circumflex_2("a\xcc\x82"/*a◌̂*/);
+
+    EXPECT_EQ(t_circumflex.distance(), 1);
+    EXPECT_EQ(t_a_with_circumflex.distance(), 1);
+    EXPECT_EQ(t_a_with_circumflex_2.distance(), 1);
+
+    EXPECT_EQ(t_circumflex, "\xcc\x82"_t/*◌̂*/);
+    EXPECT_EQ(t_a_with_circumflex, "\xc3\xa2"_t/*â*/);
+    EXPECT_EQ(t_a_with_circumflex_2, "\xc3\xa2"_t/*â*/);
+
+    {
+        text::text t = "aa";
+        t.insert(std::next(t.begin(), 0), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        EXPECT_EQ(t.distance(), 3);
+    }
+    {
+        text::text t = "aa";
+        t.insert(std::next(t.begin(), 1), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("\xc3\xa2""a")/*âa*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+    {
+        text::text t = "aa";
+        t.insert(std::next(t.begin(), 2), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("a\xc3\xa2")/*aâ*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+
+    {
+        text::text t = "\xc3\xa2""a";
+        t.insert(std::next(t.begin(), 0), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("\xcc\x82\xc3\xa2""a")/*◌̂âa*/);
+        EXPECT_EQ(t.distance(), 3);
+    }
+    {
+        text::text t = "\xc3\xa2""a";
+        t.insert(std::next(t.begin(), 1), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("\xc3\xa2\xcc\x82""a")/*â◌̂a*/);
+        EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
+    }
+    {
+        text::text t = "\xc3\xa2""a";
+        t.insert(std::next(t.begin(), 2), "\xcc\x82"/*◌̂*/);
+        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2")/*ââ*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+
+    {
+        text::text t = "aa";
+        t.insert(
+            std::next(t.begin(), 0), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("\xcc\x82""aa")/*◌̂aa*/);
+        EXPECT_EQ(t.distance(), 3);
+    }
+    {
+        text::text t = "aa";
+        t.insert(
+            std::next(t.begin(), 1), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("\xc3\xa2""a")/*âa*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+    {
+        text::text t = "aa";
+        t.insert(
+            std::next(t.begin(), 2), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("a\xc3\xa2")/*aâ*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+
+    {
+        text::text t = "\xc3\xa2""a";
+        t.insert(
+            std::next(t.begin(), 0), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("\xcc\x82\xc3\xa2""a")/*◌̂âa*/);
+        EXPECT_EQ(t.distance(), 3);
+    }
+    {
+        text::text t = "\xc3\xa2""a";
+        t.insert(
+            std::next(t.begin(), 1), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("\xc3\xa2\xcc\x82""a")/*â◌̂a*/);
+        EXPECT_EQ(t.distance(), 2); // not 3 because â◌̂ is a single grapheme
+    }
+    {
+        text::text t = "\xc3\xa2""a";
+        t.insert(
+            std::next(t.begin(), 2), s_circumflex.begin(), s_circumflex.end());
+        EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2")/*ââ*/);
+        EXPECT_EQ(t.distance(), 2);
+    }
+
+    // TODO: Test replace() overloads.
+}
