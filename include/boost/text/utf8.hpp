@@ -1377,7 +1377,6 @@ namespace boost { namespace text { namespace utf8 {
             partial_decrement_(false)
         {}
 
-        // TODO: This needs to change; this is a thread-unsafe const member!
         // Same for the other iterators....
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR reference operator*() const

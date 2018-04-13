@@ -31,7 +31,6 @@ namespace boost { namespace text {
             last_(f, l, l)
         {}
         utf32_range(iterator f, iterator l) : first_(f), last_(l) {}
-        /** TODO: This is the discontiguous CharRange. */
         template<typename CharRange>
         utf32_range(CharRange const & r) :
             first_(std::begin(r), std::begin(r), std::end(r)),
