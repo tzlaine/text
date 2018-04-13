@@ -57,10 +57,6 @@ namespace boost { namespace text {
         /** Constructs a string from a null-terminated string. */
         string(char const * c_str);
 
-        /** Constructs a string from a null-terminated string. */
-        template<int N>
-        string(char (&c_str)[N]);
-
         /** Constructs a string from a string_view. */
         explicit string(string_view sv);
 
@@ -135,9 +131,6 @@ namespace boost { namespace text {
         }
 
         string & operator=(char const * c_str);
-
-        template<int N>
-        string & operator=(char (&c_str)[N]);
 
         string & operator=(string const & s);
 
@@ -919,12 +912,6 @@ namespace boost { namespace text {
         insert(0, string_view(c_str));
     }
 
-    template<int N>
-    string::string(char (&c_str)[N]) : storage_(), size_(0), heap_(false)
-    {
-        insert(0, string_view(c_str, N - 1));
-    }
-
     inline string::string(string_view sv) : storage_(), size_(0), heap_(false)
     {
         insert(0, sv);
@@ -941,12 +928,6 @@ namespace boost { namespace text {
     inline string & string::operator=(char const * c_str)
     {
         return *this = string_view(c_str);
-    }
-
-    template<int N>
-    string & string::operator=(char (&c_str)[N])
-    {
-        return *this = string_view(c_str, N - 1);
     }
 
     inline string & string::operator=(string const & s)
@@ -1507,20 +1488,6 @@ namespace boost { namespace text {
 
     /** Creates a new string object that is the concatenation of s and c. */
     inline string operator+(string s, char c) { return s += c; }
-
-    /** Creates a new string object that is the concatenation of s and c_str. */
-    template<int N>
-    inline string operator+(string s, char const (&c_str)[N])
-    {
-        return s += string_view(c_str, N - 1);
-    }
-
-    /** Creates a new string object that is the concatenation of c_str and s. */
-    template<int N>
-    inline string operator+(char const (&c_str)[N], string s)
-    {
-        return s.insert(0, string_view(c_str, N - 1));
-    }
 
     /** Creates a new string object that is the concatenation of s and c_str. */
     inline string operator+(string s, char const * c_str)

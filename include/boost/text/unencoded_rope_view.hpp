@@ -82,15 +82,6 @@ namespace boost { namespace text {
             which_(which::tv)
         {}
 
-        /** Constructs an unencoded_rope_view from a null-terminated C string.
-
-            \pre strlen(c_str) <= max_size() */
-        template<int N>
-        unencoded_rope_view(char (&c_str)[N]) noexcept :
-            ref_(string_view(c_str, N - 1)),
-            which_(which::tv)
-        {}
-
         /** Constructs an unencoded_rope_view covering the entire given
             string_view. */
         unencoded_rope_view(string_view sv) noexcept :
@@ -245,15 +236,6 @@ namespace boost { namespace text {
         unencoded_rope_view & operator=(char const * c_str) noexcept
         {
             return *this = unencoded_rope_view(c_str);
-        }
-
-        /** Assignment from a null-terminated C string.
-
-            \pre strlen(c_str) <= max_size() */
-        template<int N>
-        unencoded_rope_view & operator=(char (&c_str)[N]) noexcept
-        {
-            return *this = unencoded_rope_view(string_view(c_str, N - 1));
         }
 
         /** Assignment from a string_view. */

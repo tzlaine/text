@@ -35,10 +35,6 @@ namespace boost { namespace text {
         /** Constructs a rope from a null-terminated string. */
         rope(char const * c_str);
 
-        /** Constructs a rope from a null-terminated string. */
-        template<int N>
-        rope(char (&c_str)[N]);
-
         /** Constructs a rope from a string_view. */
         explicit rope(string_view sv);
 
@@ -83,10 +79,6 @@ namespace boost { namespace text {
 
         /** Assignment from a null-terminated string. */
         rope & operator=(char const * c_str);
-
-        /** Assignment from a null-terminated string. */
-        template<int N>
-        rope & operator=(char (&c_str)[N]);
 
         /** Assignment from a rope_view. */
         rope & operator=(rope_view rv);
@@ -165,11 +157,6 @@ namespace boost { namespace text {
         /** Inserts the sequence of char from c_str into *this starting at
             position at. */
         rope & insert(iterator at, char const * c_str);
-
-        /** Inserts the sequence of char from c_str into *this starting at
-            position at. */
-        template<int N>
-        rope & insert(iterator at, char (&c_str)[N]);
 
         /** Inserts the sequence of char from rv into *this starting at position
             at. */
@@ -412,11 +399,6 @@ namespace boost { namespace text {
 
     inline rope::rope(char const * c_str) : rope_(text(c_str).extract()) {}
 
-    template<int N>
-    rope::rope(char (&c_str)[N]) :
-        rope_(text(string_view(c_str, N - 1)).extract())
-    {}
-
     inline rope::rope(rope_view rv) :
         rope_(rv.begin().base().base(), rv.end().base().base())
     {}
@@ -455,14 +437,6 @@ namespace boost { namespace text {
     inline rope & rope::operator=(char const * c_str)
     {
         rope temp(c_str);
-        swap(temp);
-        return *this;
-    }
-
-    template<int N>
-    rope & rope::operator=(char (&c_str)[N])
-    {
-        rope temp(string_view(c_str, N - 1));
         swap(temp);
         return *this;
     }
@@ -565,12 +539,6 @@ namespace boost { namespace text {
     inline rope & rope::insert(iterator at, char const * c_str)
     {
         return insert(at, string_view(c_str));
-    }
-
-    template<int N>
-    rope & rope::insert(iterator at, char (&c_str)[N])
-    {
-        return insert(at, string_view(c_str, N - 1));
     }
 
     inline rope & rope::insert(iterator at, rope_view rv)
@@ -811,20 +779,6 @@ namespace boost { namespace text {
     inline rope operator+(char const * c_str, rope const & r)
     {
         return rope(c_str) += r;
-    }
-
-    /** Creates a new rope object that is the concatenation of r and c_str. */
-    template<int N>
-    rope operator+(rope t, char (&c_str)[N])
-    {
-        return t += string_view(c_str, N - 1);
-    }
-
-    /** Creates a new rope object that is the concatenation of c_str and r. */
-    template<int N>
-    rope operator+(char (&c_str)[N], rope const & r)
-    {
-        return rope(string_view(c_str, N - 1)) += r;
     }
 
     /** Creates a new rope object that is the concatenation of r and r2. */

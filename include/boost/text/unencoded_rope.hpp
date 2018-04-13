@@ -41,10 +41,6 @@ namespace boost { namespace text {
         /** Constructs an unencoded_rope from a null-terminated string. */
         unencoded_rope(char const * c_str);
 
-        /** Constructs an unencoded_rope from a null-terminated string. */
-        template<int N>
-        unencoded_rope(char (&c_str)[N]);
-
         /** Constructs an unencoded_rope from an unencoded_rope_view. */
         explicit unencoded_rope(unencoded_rope_view rv);
 
@@ -125,10 +121,6 @@ namespace boost { namespace text {
 
         /** Assignment from a null-terminated string. */
         unencoded_rope & operator=(char const * c_str);
-
-        /** Assignment from a null-terminated string. */
-        template<int N>
-        unencoded_rope & operator=(char (&c_str)[N]);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -468,10 +460,6 @@ namespace boost { namespace text {
         /** Appends c_str to *this. */
         unencoded_rope & operator+=(char const * c_str);
 
-        /** Appends c_str to *this. */
-        template<int N>
-        unencoded_rope & operator+=(char (&c_str)[N]);
-
         /** Appends rv to *this. */
         unencoded_rope & operator+=(unencoded_rope_view rv);
 
@@ -635,12 +623,6 @@ namespace boost { namespace text {
         insert(0, unencoded_rope_view(c_str));
     }
 
-    template<int N>
-    inline unencoded_rope::unencoded_rope(char (&c_str)[N])
-    {
-        insert(0, string_view(c_str, N - 1));
-    }
-
     inline unencoded_rope::unencoded_rope(unencoded_rope_view rv) :
         ptr_(nullptr)
     {
@@ -666,14 +648,6 @@ namespace boost { namespace text {
     inline unencoded_rope & unencoded_rope::operator=(char const * c_str)
     {
         unencoded_rope temp(c_str);
-        swap(temp);
-        return *this;
-    }
-
-    template<int N>
-    unencoded_rope & unencoded_rope::operator=(char (&c_str)[N])
-    {
-        unencoded_rope temp(string_view(c_str, N - 1));
         swap(temp);
         return *this;
     }
@@ -996,12 +970,6 @@ namespace boost { namespace text {
     inline unencoded_rope & unencoded_rope::operator+=(char const * c_str)
     {
         return insert(size(), unencoded_rope_view(c_str));
-    }
-
-    template<int N>
-    unencoded_rope & unencoded_rope::operator+=(char (&c_str)[N])
-    {
-        return insert(size(), unencoded_rope_view(c_str, N - 1));
     }
 
     inline unencoded_rope & unencoded_rope::operator+=(unencoded_rope_view rv)
@@ -1349,22 +1317,6 @@ namespace boost { namespace text {
     inline unencoded_rope operator+(char const * c_str, unencoded_rope r)
     {
         return r.insert(0, c_str);
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of r
-        and c_str. */
-    template<int N>
-    unencoded_rope operator+(unencoded_rope r, char (&c_str)[N])
-    {
-        return r += string_view(c_str, N - 1);
-    }
-
-    /** Creates a new unencoded_rope object that is the concatenation of c_str
-        and r. */
-    template<int N>
-    unencoded_rope operator+(char (&c_str)[N], unencoded_rope r)
-    {
-        return r.insert(0, string_view(c_str, N - 1));
     }
 
     /** Creates a new unencoded_rope object that is the concatenation of r

@@ -53,10 +53,6 @@ namespace boost { namespace text {
         /** Constructs a text from a null-terminated string. */
         text(char const * c_str);
 
-        /** Constructs a text from a null-terminated string. */
-        template<int N>
-        text(char (&c_str)[N]);
-
         /** Constructs a text from a string. */
         explicit text(string s);
 
@@ -113,10 +109,6 @@ namespace boost { namespace text {
 #endif
         /** Assignment from a null-terminated string. */
         text & operator=(char const * c_str);
-
-        /** Assignment from a null-terminated string. */
-        template<int N>
-        text & operator=(char (&c_str)[N]);
 
         /** Assignment from a string. */
         text & operator=(string s);
@@ -224,11 +216,6 @@ namespace boost { namespace text {
             position at. */
         text & insert(iterator at, char const * c_str);
 
-        /** Inserts the sequence of char from c_str into *this starting at
-            position at. */
-        template<int N>
-        text & insert(iterator at, char (&c_str)[N]);
-
         /** Inserts the sequence of char from t into *this starting at
             position at. */
         text & insert(iterator at, text const & t);
@@ -296,15 +283,6 @@ namespace boost { namespace text {
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
         text & replace(text_view old_substr, char const * new_substr);
-
-        /** Replaces the portion of *this delimited by old_substr with the
-            sequence of char from new_substr.
-
-            \pre !std::less(old_substr.begin().base().base(),
-            begin().base().base()) && !std::less(end().base().base(),
-            old_substr.end().base().base()) */
-        template<int N>
-        text & replace(text_view old_substr, char (&new_substr)[N]);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -572,12 +550,6 @@ namespace boost { namespace text {
         normalize_to_fcc(str_);
     }
 
-    template<int N>
-    text::text(char (&c_str)[N]) : str_(string_view(c_str, N - 1))
-    {
-        normalize_to_fcc(str_);
-    }
-
     inline text::text(string s) : str_(std::move(s))
     {
         normalize_to_fcc(str_);
@@ -628,14 +600,6 @@ namespace boost { namespace text {
     inline text & text::operator=(char const * c_str)
     {
         str_ = string_view(c_str);
-        normalize_to_fcc(str_);
-        return *this;
-    }
-
-    template<int N>
-    text & text::operator=(char (&c_str)[N])
-    {
-        str_ = string_view(c_str, N - 1);
         normalize_to_fcc(str_);
         return *this;
     }
@@ -707,15 +671,6 @@ namespace boost { namespace text {
         return insert(at, string_view(c_str));
     }
 
-    // TODO: N-1 is not always correct.  Check in these overloads that the
-    // array is null-terminated before substracting 1.
-
-    template<int N>
-    text & text::insert(iterator at, char (&c_str)[N])
-    {
-        return insert(at, string_view(c_str, N - 1));
-    }
-
     inline text & text::insert(iterator at, text const & t)
     {
         return insert_impl(at, string_view(t), true);
@@ -757,12 +712,6 @@ namespace boost { namespace text {
     inline text & text::replace(text_view old_substr, char const * new_substr)
     {
         return replace_impl(old_substr, string_view(new_substr), false);
-    }
-
-    template<int N>
-    text & text::replace(text_view old_substr, char (&new_substr)[N])
-    {
-        return replace_impl(old_substr, string_view(new_substr, N - 1), false);
     }
 
     inline text & text::replace(text_view old_substr, text const & new_substr)
@@ -1013,20 +962,6 @@ namespace boost { namespace text {
     inline text operator+(char const * c_str, text const & t)
     {
         return text(c_str) + t;
-    }
-
-    /** Creates a new text object that is the concatenation of t and c_str. */
-    template<int N>
-    inline text operator+(text t, char (&c_str)[N])
-    {
-        return t += string_view(c_str, N - 1);
-    }
-
-    /** Creates a new text object that is the concatenation of c_str and t. */
-    template<int N>
-    inline text operator+(char (&c_str)[N], text const & t)
-    {
-        return text(string_view(c_str, N - 1)) + t;
     }
 
     /** Creates a new text object that is the concatenation of t and tv. */
