@@ -34,7 +34,6 @@ using namespace boost;
     rope_view rv
 */
 
-// TODO: finish writing these.
 /*  For each text-defined T above, covered operations must be:
     T x = "str"; // Init from string literal.
     std::vector<T> v = {"str"};  // Init from string literal in initializer_list.
@@ -42,7 +41,6 @@ using namespace boost;
     T (U const &)
     T (U &&)
     T::operator=(U const &)
-    T::operator=(U &&)
     operator==(T const &, U const &)
     operator+(T const &, U const &)
     operator<<(std::ostream&, T const &)
@@ -841,12 +839,6 @@ TEST(common_operations, assignment_operators)
     }
 }
 
-// T::operator=(U &&)
-TEST(common_operations, move_assignment_operators)
-{
-    // TODO
-}
-
 // operator==(T const &, U const &)
 TEST(common_operations, equality_comparisons)
 {
@@ -1063,7 +1055,6 @@ TEST(common_operations, equality_comparisons)
     }
 }
 
-#if 0 // TODO
 // operator+(T const &, U const &)
 TEST(common_operations, operator_plus)
 {
@@ -1084,8 +1075,10 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(rsv + t, text::text("rsvrsvt"));
         EXPECT_EQ(t + rsv, text::text("trsvrsv"));
         // OK rsv + tv;
+#if 0 // TODO
         EXPECT_EQ(rsv + r, text::rope("rsvrsvr"));
         EXPECT_EQ(r + rsv, text::rope("rrsvrsv"));
+#endif
         // OK rsv + rv;
     }
 
@@ -1104,8 +1097,10 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(sv + t, text::text("svt"));
         EXPECT_EQ(t + sv, text::text("tsv"));
         // OK sv + tv;
+#if 0 // TODO
         EXPECT_EQ(sv + r, text::rope("svr"));
         EXPECT_EQ(r + sv, text::rope("rsv"));
+#endif
         // OK sv + rv;
     }
 
@@ -1130,8 +1125,10 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(s + t, text::text("st"));
         EXPECT_EQ(t + s, text::text("ts"));
         // OK s + tv;
+#if 0 // TODO
         EXPECT_EQ(s + r, text::rope("sr"));
         EXPECT_EQ(r + s, text::rope("rs"));
+#endif
         // OK s + rv;
     }
 
@@ -1156,8 +1153,10 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(ur + t, text::text("urt"));
         EXPECT_EQ(t + ur, text::text("tur"));
         // OK ur + tv;
-        EXPECT_EQ(ur + r, text::text("urr"));
-        EXPECT_EQ(r + ur, text::text("rur"));
+#if 0 // TODO
+        EXPECT_EQ(ur + r, text::rope("urr"));
+        EXPECT_EQ(r + ur, text::rope("rur"));
+#endif
         // OK ur + rv;
     }
 
@@ -1176,8 +1175,10 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(urv + t, text::text("urt"));
         EXPECT_EQ(t + urv, text::text("tur"));
         // OK urv + tv;
+#if 0 // TODO
         EXPECT_EQ(urv + r, text::rope("urr"));
         EXPECT_EQ(r + urv, text::rope("rur"));
+#endif
         // OK urv + rv;
     }
 
@@ -1194,8 +1195,10 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(tv + t, text::text("tt"));
         EXPECT_EQ(t + tv, text::text("tt"));
         // OK tv + tv;
+#if 0 // TODO
         EXPECT_EQ(tv + r, text::rope("tr"));
         EXPECT_EQ(r + tv, text::rope("rt"));
+#endif
         // OK tv + rv;
     }
 
@@ -1207,8 +1210,8 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(c_str + t, text::text("c_strt"));
         EXPECT_EQ(t + str, text::text("tstr"));
         EXPECT_EQ(str + t, text::text("strt"));
-        EXPECT_EQ(t + rsv, text::text("trsv"));
-        EXPECT_EQ(rsv + t, text::text("rsvt"));
+        EXPECT_EQ(t + rsv, text::text("trsvrsv"));
+        EXPECT_EQ(rsv + t, text::text("rsvrsvt"));
         EXPECT_EQ(t + sv, text::text("tsv"));
         EXPECT_EQ(sv + t, text::text("svt"));
         EXPECT_EQ(t + s, text::text("ts"));
@@ -1221,12 +1224,15 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(t + t, text::text("tt"));
         EXPECT_EQ(t + tv, text::text("tt"));
         EXPECT_EQ(tv + t, text::text("tt"));
+#if 0 // TODO
         EXPECT_EQ(t + r, text::rope("tr"));
         EXPECT_EQ(r + t, text::rope("rt"));
         EXPECT_EQ(t + rv, text::rope("tr"));
         EXPECT_EQ(rv + t, text::rope("rt"));
+#endif
     }
 
+#if 0 // TODO
     // text::rope
     {
         EXPECT_EQ(r + "literal", text::rope("rliteral"));
@@ -1265,15 +1271,15 @@ TEST(common_operations, operator_plus)
         // OK rv + s;
         // OK rv + ur;
         // OK rv + urv;
-        EXPECT_EQ(rv + t, text::text("rt"));
-        EXPECT_EQ(t + rv, text::text("tr"));
+        EXPECT_EQ(rv + t, text::rope("rt"));
+        EXPECT_EQ(t + rv, text::rope("tr"));
         // OK rv + tv;
         EXPECT_EQ(rv + r, text::rope("rr"));
         EXPECT_EQ(r + rv, text::rope("rr"));
         // OK rv + rv;
     }
-}
 #endif
+}
 
 TEST(common_operations, stream_inserters)
 {
@@ -1910,6 +1916,238 @@ TEST(common_operations, insert)
         r_ = r;
         r_.insert(r_.end(), rv);
         EXPECT_EQ(r_, text::rope("rr"));
+    }
+#endif
+
+    // text::rope_view
+}
+
+// erase()
+TEST(common_operations, erase)
+{
+    ONE_OF_EACH();
+
+    // text::repeated_string_view
+    // text::string_view
+
+    // text::string
+    {
+        text::string s_;
+
+        s_ = s;
+        s_.erase(s_(0, 1));
+        EXPECT_EQ(s_, "");
+        s_ = s;
+        s_.erase(s_.begin(), s_.end());
+        EXPECT_EQ(s_, "");
+    }
+
+    // text::unencoded_rope
+    {
+        text::unencoded_rope ur_;
+
+        ur_ = ur;
+        ur_.erase(ur_(0, 1));
+        EXPECT_EQ(ur_, "r");
+        ur_ = ur;
+        ur_.erase(ur_.begin(), ur_.end());
+        EXPECT_EQ(ur_, "");
+    }
+
+    // text::unencoded_rope_view
+    // text::text_view
+
+    // text::text
+    {
+        text::text t_;
+
+        t_ = t;
+        t_.erase(text::text_view(t_.begin(), t_.end()));
+        EXPECT_EQ(t_, text::text(""));
+        t_ = t;
+        t_.erase(t_.begin(), t_.end());
+        EXPECT_EQ(t_, text::text(""));
+    }
+
+#if 0 // TODO
+    // text::rope
+    {
+        text::rope r_;
+
+        r_ = r;
+        r_.erase(text::rope_view(r_.begin(), r_.end()));
+        EXPECT_EQ(r_, text::rope(""));
+        r_ = r;
+        r_.erase(r_.begin(), r_.end());
+        EXPECT_EQ(r_, text::rope(""));
+    }
+#endif
+
+    // text::rope_view
+}
+
+// replace()
+TEST(common_operations, replace)
+{
+    ONE_OF_EACH();
+
+    // text::repeated_string_view
+    // text::string_view
+
+    // text::string
+    {
+        text::string s_;
+
+        s_ = s;
+        s_.replace(s_(1, 1), "literal");
+        EXPECT_EQ(s_, "sliteral");
+        s_ = s;
+        s_.replace(s_(0, 1), c_str);
+        EXPECT_EQ(s_, "c_str");
+        s_ = s;
+        s_.replace(s_(1, 1), str);
+        EXPECT_EQ(s_, "sstr");
+        s_ = s;
+        s_.replace(s_(0, 1), rsv);
+        EXPECT_EQ(s_, "rsvrsv");
+        s_ = s;
+        s_.replace(s_(1, 1), sv);
+        EXPECT_EQ(s_, "ssv");
+        s_ = s;
+        s_.replace(s_(0, 1), s);
+        EXPECT_EQ(s_, "s");
+        s_ = s;
+        s_.replace(s_(1, 1), urv);
+        EXPECT_EQ(s_, "sur");
+        // OK s_.replace(s_(0, 1), t);
+        // OK s_.replace(s_(1, 1), tv);
+        // OK s_.replace(s_(0, 1), r);
+        // OK s_.replace(s_(1, 1), rv);
+    }
+
+    // text::unencoded_rope
+    {
+        text::unencoded_rope ur_;
+
+        ur_ = s;
+        ur_.replace(ur_(1, 1), "literal");
+        EXPECT_EQ(ur_, "sliteral");
+        ur_ = s;
+        ur_.replace(ur_(0, 1), c_str);
+        EXPECT_EQ(ur_, "c_str");
+        ur_ = s;
+        ur_.replace(ur_(1, 1), str);
+        EXPECT_EQ(ur_, "sstr");
+        ur_ = s;
+        ur_.replace(ur_(0, 1), rsv);
+        EXPECT_EQ(ur_, "rsvrsv");
+        ur_ = s;
+        ur_.replace(ur_(1, 1), sv);
+        EXPECT_EQ(ur_, "ssv");
+        ur_ = s;
+        ur_.replace(ur_(0, 1), s);
+        EXPECT_EQ(ur_, "s");
+        ur_ = s;
+        ur_.replace(ur_(1, 1), urv);
+        EXPECT_EQ(ur_, "sur");
+        // OK ur_.replace(ur_(0, 1), t);
+        // OK ur_.replace(ur_(1, 1), tv);
+        // OK ur_.replace(ur_(0, 1), r);
+        // OK ur_.replace(ur_(1, 1), rv);
+    }
+
+    // text::unencoded_rope_view
+    // text::text_view
+
+    // text::text
+    {
+        text::text t_;
+
+        auto end = [&t_]() { return text::text_view(t_.end(), t_.end()); };
+        auto all = [&t_]() { return text::text_view(t_.begin(), t_.end()); };
+
+        t_ = t;
+        t_.replace(end(), "literal");
+        EXPECT_EQ(t_, text::text("tliteral"));
+        t_ = t;
+        t_.replace(all(), c_str);
+        EXPECT_EQ(t_, text::text("c_str"));
+        t_ = t;
+        t_.replace(end(), str);
+        EXPECT_EQ(t_, text::text("tstr"));
+        t_ = t;
+        t_.replace(all(), rsv);
+        EXPECT_EQ(t_, text::text("rsvrsv"));
+        t_ = t;
+        t_.replace(end(), sv);
+        EXPECT_EQ(t_, text::text("tsv"));
+        t_ = t;
+        t_.replace(all(), s);
+        EXPECT_EQ(t_, text::text("s"));
+        t_ = t;
+        t_.replace(end(), ur);
+        EXPECT_EQ(t_, text::text("tur"));
+        t_ = t;
+        t_.replace(all(), urv);
+        EXPECT_EQ(t_, text::text("ur"));
+        t_ = t;
+        t_.replace(end(), t);
+        EXPECT_EQ(t_, text::text("tt"));
+        t_ = t;
+        t_.replace(all(), tv);
+        EXPECT_EQ(t_, text::text("t"));
+        t_ = t;
+        t_.replace(end(), r);
+        EXPECT_EQ(t_, text::rope("tr"));
+        t_ = t;
+        t_.replace(all(), rv);
+        EXPECT_EQ(t_, text::rope("r"));
+    }
+
+#if 0 // TODO
+    // text::rope
+    {
+        text::rope r_;
+
+        auto end = [&r_]() { return text::rope_view(r_.end(), r_.end()); };
+        auto all = [&r_]() { return text::rope_view(r_.begin(), r_.end()); };
+
+        r_ = r;
+        r_.replace(end(), "literal");
+        EXPECT_EQ(r_, text::rope("rliteral"));
+        r_ = r;
+        r_.replace(all(), c_str);
+        EXPECT_EQ(r_, text::rope("c_str"));
+        r_ = r;
+        r_.replace(end(), str);
+        EXPECT_EQ(r_, text::rope("rstr"));
+        r_ = r;
+        r_.replace(all(), rsv);
+        EXPECT_EQ(r_, text::rope("rsv"));
+        r_ = r;
+        r_.replace(end(), sv);
+        EXPECT_EQ(r_, text::rope("rsv"));
+        r_ = r;
+        r_.replace(all(), s);
+        EXPECT_EQ(r_, text::rope("s"));
+        r_ = r;
+        r_.replace(end(), ur);
+        EXPECT_EQ(r_, text::rope("rur"));
+        r_ = r;
+        r_.replace(all(), urv);
+        EXPECT_EQ(r_, text::rope("ur"));
+        r_ = r;
+        r_.replace(end(), t);
+        EXPECT_EQ(r_, text::rope("rt"));
+        r_ = r;
+        r_.replace(all(), tv);
+        EXPECT_EQ(r_, text::rope("t"));
+        r_ = r;
+        r_.replace(end(), r);
+        EXPECT_EQ(r_, text::rope("rr"));
+        r_ = r;
+        r_.replace(all(), rv);
+        EXPECT_EQ(r_, text::rope("r"));
     }
 #endif
 

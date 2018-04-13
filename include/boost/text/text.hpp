@@ -284,6 +284,11 @@ namespace boost { namespace text {
             !std::less(end().base().base(), tv.end().base().base()) */
         text & erase(text_view tv) noexcept;
 
+        /** Erases the portion of *this delimited by [first, last).
+
+            \pre first <= last */
+        text & erase(iterator first, iterator last) noexcept;
+
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
 
@@ -742,6 +747,11 @@ namespace boost { namespace text {
         normalize_subrange(at, at);
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
+    }
+
+    inline text & text::erase(iterator first, iterator last) noexcept
+    {
+        return erase(text_view(first, last));
     }
 
     inline text & text::replace(text_view old_substr, char const * new_substr)

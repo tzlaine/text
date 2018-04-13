@@ -221,6 +221,11 @@ namespace boost { namespace text {
             !std::less(end().base().base(), rv.end().base().base()) */
         rope & erase(rope_view rv);
 
+        /** Erases the portion of *this delimited by [first, last).
+
+            \pre first <= last */
+        rope & erase(iterator first, iterator last);
+
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
 
@@ -612,6 +617,11 @@ namespace boost { namespace text {
     {
         // TODO
         return *this;
+    }
+
+    inline rope & rope::erase(iterator first, iterator last)
+    {
+        return erase(rope_view(first, last));
     }
 
     inline rope & rope::replace(rope_view old_substr, rope_view new_substr)

@@ -381,6 +381,13 @@ namespace boost { namespace text {
         unencoded_rope & erase(const_iterator first, const_iterator last);
 
         /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from c_str.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        unencoded_rope &
+        replace(unencoded_rope_view old_substr, char const * c_str);
+
+        /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from rv.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
@@ -394,6 +401,16 @@ namespace boost { namespace text {
         unencoded_rope & replace(unencoded_rope_view old_substr, string && s);
 
 #ifdef BOOST_TEXT_DOXYGEN
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            char sequence r.
+
+            This function only participates in overload resolution if CharRange
+            models the CharRange concept.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename CharRange>
+        auto replace(unencoded_rope_view old_substr, CharRange const & r);
 
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence [first, last).
@@ -421,6 +438,14 @@ namespace boost { namespace text {
             CharIter new_last);
 
 #else
+
+        template<typename CharRange>
+        auto replace(unencoded_rope_view old_substr, CharRange const & r)
+            -> detail::rng_alg_ret_t<
+                unencoded_rope &,
+                CharRange,
+                string_view,
+                repeated_string_view>;
 
         template<typename CharIter>
         auto
@@ -900,6 +925,12 @@ namespace boost { namespace text {
         return *this;
     }
 
+    inline unencoded_rope &
+    unencoded_rope::replace(unencoded_rope_view old_substr, char const * c_str)
+    {
+        return replace(old_substr, unencoded_rope_view(c_str));
+    }
+
     inline unencoded_rope & unencoded_rope::replace(
         unencoded_rope_view old_substr, unencoded_rope_view rv)
     {
@@ -921,6 +952,20 @@ namespace boost { namespace text {
     unencoded_rope::replace(unencoded_rope_view old_substr, string && s)
     {
         return erase(old_substr).insert(old_substr.ref_.r_.lo_, std::move(s));
+    }
+
+    template<typename CharRange>
+    auto
+    unencoded_rope::replace(unencoded_rope_view old_substr, CharRange const & r)
+        -> detail::rng_alg_ret_t<
+            unencoded_rope &,
+            CharRange,
+            string_view,
+            repeated_string_view>
+    {
+        using std::begin;
+        using std::end;
+        return replace(old_substr, begin(r), end(r));
     }
 
     template<typename CharIter>

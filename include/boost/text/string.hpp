@@ -1193,13 +1193,6 @@ namespace boost { namespace text {
         return erase(first, first + sv.size());
     }
 
-    template<typename CharRange>
-    auto string::replace(string_view old_substr, CharRange const & r)
-        -> detail::rng_alg_ret_t<string &, CharRange>
-    {
-        return replace(old_substr, string_view(r));
-    }
-
     inline string &
     string::replace(string_view old_substr, string_view new_substr)
     {
@@ -1304,6 +1297,15 @@ namespace boost { namespace text {
         ptr()[size_] = '\0';
 
         return *this;
+    }
+
+    template<typename CharRange>
+    auto string::replace(string_view old_substr, CharRange const & r)
+        -> detail::rng_alg_ret_t<string &, CharRange>
+    {
+        using std::begin;
+        using std::end;
+        return replace(old_substr, begin(r), end(r));
     }
 
     template<typename CharIter>
