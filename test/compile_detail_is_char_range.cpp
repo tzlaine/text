@@ -11,8 +11,6 @@
 
 #include <boost/range/iterator_range_core.hpp>
 
-#include <boost/mpl/assert.hpp> // TODO
-
 #include <array>
 #include <list>
 #include <string>
