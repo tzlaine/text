@@ -580,9 +580,7 @@ namespace boost { namespace text {
 
     inline text::text(text_view tv) : str_()
     {
-        str_.insert(
-            str_.begin(),
-            string_view(tv.begin().base().base(), tv.storage_bytes()));
+        str_.insert(str_.begin(), string_view(tv));
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
@@ -646,7 +644,7 @@ namespace boost { namespace text {
 
     inline text & text::operator=(text_view tv)
     {
-        str_ = string_view(tv.begin().base().base(), tv.storage_bytes());
+        str_ = string_view(tv);
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
         return *this;
     }
@@ -855,8 +853,7 @@ namespace boost { namespace text {
             return;
 
         container::small_vector<char, 1024> buf;
-        normalize_to_fcc(
-            first, last, utf8::from_utf32_inserter(buf, buf.end()));
+        normalize_to_fcc(first, last, utf8::from_utf32_back_inserter(buf));
 
         str_.replace(
             string_view(first.base(), last.base() - first.base()),

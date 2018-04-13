@@ -480,8 +480,6 @@ TEST(text_tests, test_replace_iter)
     }
 }
 
-#if 0 // TODO: Crashes inside normalization code.  Seems to be some kind of
-      // buffer overflow.
 TEST(text_tests, test_replace_iter_large_insertions)
 {
     // Unicode 9, 3.9/D90
@@ -512,7 +510,6 @@ TEST(text_tests, test_replace_iter_large_insertions)
         EXPECT_EQ(t, expected);
     }
 }
-#endif
 
 TEST(text_tests, normalization)
 {

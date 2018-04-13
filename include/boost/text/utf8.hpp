@@ -1733,8 +1733,10 @@ namespace boost { namespace text { namespace utf8 {
                 from_utf32_iterator<uint32_t const *>(cps),
                 from_utf32_iterator<uint32_t const *>(cps + 1),
                 chars);
-            c_->insert(it_, chars, chars_end);
-            it_ += chars_end - chars;
+            for (char * char_it = chars; char_it != chars_end; ++char_it) {
+                it_ = c_->insert(it_, *char_it);
+                ++it_;
+            }
             return *this;
         }
 
@@ -1754,6 +1756,50 @@ namespace boost { namespace text { namespace utf8 {
     from_utf32_inserter(Container & c, typename Container::iterator it)
     {
         return from_utf32_insert_iterator<Container>(c, it);
+    }
+
+    /** An insert-iterator analogous to std::back_insert_iterator, that also
+        converts UTF-32 to UTF-8.*/
+    template<typename Container>
+    struct from_utf32_back_insert_iterator
+    {
+        using value_type = void;
+        using difference_type = void;
+        using pointer = void;
+        using reference = void;
+        using iterator_category = std::output_iterator_tag;
+
+        from_utf32_back_insert_iterator(Container & c) : c_(&c) {}
+
+        from_utf32_back_insert_iterator & operator=(uint32_t cp)
+        {
+            uint32_t cps[1] = {cp};
+            char chars[4];
+            auto const chars_end = std::copy(
+                from_utf32_iterator<uint32_t const *>(cps),
+                from_utf32_iterator<uint32_t const *>(cps + 1),
+                chars);
+            for (char * it = chars; it < chars_end; ++it) {
+                c_->push_back(*it);
+            }
+            return *this;
+        }
+
+        from_utf32_back_insert_iterator & operator*() { return *this; }
+        from_utf32_back_insert_iterator & operator++() { return *this; }
+        from_utf32_back_insert_iterator operator++(int) { return *this; }
+
+    private:
+        Container * c_;
+    };
+
+    /** Returns a from_utf32_insert_iterator<Container> constructed from the
+        given container and iterator. */
+    template<typename Container>
+    from_utf32_back_insert_iterator<Container>
+    from_utf32_back_inserter(Container & c)
+    {
+        return from_utf32_back_insert_iterator<Container>(c);
     }
 
 }}}
