@@ -12,8 +12,8 @@ namespace boost { namespace text {
     string to_string(CPIter first, CPIter last)
     {
         return string(
-            utf8::from_utf32_iterator<CPIter>(first),
-            utf8::from_utf32_iterator<CPIter>(last));
+            utf8::from_utf32_iterator<CPIter>(first, first, last),
+            utf8::from_utf32_iterator<CPIter>(first, last, last));
     }
 
     /** A range that adapts a sequence of <code>char const *</code> to a

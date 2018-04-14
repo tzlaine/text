@@ -25,6 +25,33 @@ namespace boost { namespace text { namespace utf8 {
             detecting an invalid Unicode encoding. */
         struct throw_on_encoding_error
         {};
+
+        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf(uint32_t cp, char buf[5])
+        {
+            if (cp < 0x80) {
+                buf[0] = static_cast<char>(cp);
+                buf[1] = '\0';
+                return 0;
+            } else if (cp < 0x800) {
+                buf[0] = static_cast<char>(0xC0 + (cp >> 6));
+                buf[1] = static_cast<char>(0x80 + (cp & 0x3f));
+                buf[2] = '\0';
+                return 1;
+            } else if (cp < 0x10000) {
+                buf[0] = static_cast<char>(0xe0 + (cp >> 12));
+                buf[1] = static_cast<char>(0x80 + ((cp >> 6) & 0x3f));
+                buf[2] = static_cast<char>(0x80 + (cp & 0x3f));
+                buf[3] = '\0';
+                return 2;
+            } else {
+                buf[0] = static_cast<char>(0xf0 + (cp >> 18));
+                buf[1] = static_cast<char>(0x80 + ((cp >> 12) & 0x3f));
+                buf[2] = static_cast<char>(0x80 + ((cp >> 6) & 0x3f));
+                buf[3] = static_cast<char>(0x80 + (cp & 0x3f));
+                buf[4] = '\0';
+                return 3;
+            }
+        }
     }
 
     /** The replacement character used to mark invalid portions of a Unicode
@@ -448,6 +475,20 @@ namespace boost { namespace text { namespace utf8 {
     }
 
 
+    /** A UTF-8 to UTF-16 converting iterator.  Set the ErrorHandler template
+        parameter to control error handling.  The default ErrorHandler is
+        use_replacement_character, which simply produces a replacement
+        character.
+
+        Iter must be a bidirectional iterator with a 1-byte char
+        value_type. */
+    template<
+        typename Iter,
+        typename Sentinel = Iter,
+        typename ErrorHandler = use_replacement_character>
+    struct to_utf16_iterator;
+
+
     /** A UTF-32 to UTF-8 converting iterator.  Set the ErrorHandler template
         parameter to control error handling.  The default ErrorHandler is
         use_replacement_character, which simply produces a replacement
@@ -455,7 +496,10 @@ namespace boost { namespace text { namespace utf8 {
 
         Iter must be a bidirectional iterator with a 4-byte integral
         value_type. */
-    template<typename Iter, typename ErrorHandler = use_replacement_character>
+    template<
+        typename Iter,
+        typename Sentinel = Iter,
+        typename ErrorHandler = use_replacement_character>
     struct from_utf32_iterator
     {
         using value_type = char;
@@ -482,28 +526,28 @@ namespace boost { namespace text { namespace utf8 {
             "4-byte value_type.");
 
         constexpr from_utf32_iterator() noexcept :
+            first_(),
             it_(),
+            last_(),
             index_(4),
-            buf_(),
-            partial_decrement_(false)
+            buf_()
         {}
-        explicit constexpr from_utf32_iterator(Iter it) noexcept :
+        explicit constexpr from_utf32_iterator(
+            Iter first, Iter it, Sentinel last) noexcept :
+            first_(first),
             it_(it),
-            index_(4),
-            buf_(),
-            partial_decrement_(false)
-        {}
+            last_(last),
+            index_(0),
+            buf_()
+        {
+            if (it_ != last_)
+                read_into_buf();
+        }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR reference operator*() const
             noexcept(!throw_on_error)
         {
-            if (buf_empty()) {
-                index_ = read_into_buf();
-                if (!partial_decrement_)
-                    index_ = 0;
-            }
-            partial_decrement_ = false;
             return buf_[index_];
         }
 
@@ -514,20 +558,13 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator &
         operator++() noexcept(!throw_on_error)
         {
-            if (partial_decrement_) {
+            ++index_;
+            if (at_buf_end()) {
                 ++it_;
-            } else {
-                if (buf_empty()) {
+                index_ = 0;
+                if (it_ != last_)
                     read_into_buf();
-                    index_ = 0;
-                }
-                ++index_;
-                if (at_buf_end()) {
-                    ++it_;
-                    index_ = 4;
-                }
             }
-            partial_decrement_ = false;
             return *this;
         }
 
@@ -544,12 +581,11 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR from_utf32_iterator &
         operator--() noexcept(!throw_on_error)
         {
-            if (index_ == 0 || buf_empty()) {
-                --it_;
-                index_ = 4;
-                partial_decrement_ = true;
-            } else {
+            if (0 < index_) {
                 --index_;
+            } else {
+                --it_;
+                index_ = read_into_buf();
             }
             return *this;
         }
@@ -571,10 +607,7 @@ namespace boost { namespace text { namespace utf8 {
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             from_utf32_iterator<Iter1, ErrorHandler1> lhs,
             from_utf32_iterator<Iter2, ErrorHandler2> rhs) noexcept
-            -> decltype(
-                lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
-                ((lhs.index_ == 0 || lhs.index_ == 4) &&
-                 (rhs.index_ == 0 || rhs.index_ == 4)));
+            -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_);
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
@@ -585,50 +618,29 @@ namespace boost { namespace text { namespace utf8 {
             return buf_[index_] == '\0';
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf() const
-            noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf() noexcept(!throw_on_error)
         {
-            uint32_t c = static_cast<uint32_t>(*it_);
-            if (!valid_code_point(c))
-                c = ErrorHandler{}("Invalid UTF-32 code point.");
+            uint32_t cp = static_cast<uint32_t>(*it_);
+            if (!valid_code_point(cp))
+                cp = ErrorHandler{}("Invalid UTF-32 code point.");
             index_ = 0;
-            if (c < 0x80) {
-                buf_[0] = static_cast<char>(c);
-                buf_[1] = '\0';
-                return 0;
-            } else if (c < 0x800) {
-                buf_[0] = static_cast<char>(0xC0 + (c >> 6));
-                buf_[1] = static_cast<char>(0x80 + (c & 0x3f));
-                buf_[2] = '\0';
-                return 1;
-            } else if (c < 0x10000) {
-                buf_[0] = static_cast<char>(0xe0 + (c >> 12));
-                buf_[1] = static_cast<char>(0x80 + ((c >> 6) & 0x3f));
-                buf_[2] = static_cast<char>(0x80 + (c & 0x3f));
-                buf_[3] = '\0';
-                return 2;
-            } else {
-                buf_[0] = static_cast<char>(0xf0 + (c >> 18));
-                buf_[1] = static_cast<char>(0x80 + ((c >> 12) & 0x3f));
-                buf_[2] = static_cast<char>(0x80 + ((c >> 6) & 0x3f));
-                buf_[3] = static_cast<char>(0x80 + (c & 0x3f));
-                buf_[4] = '\0';
-                return 3;
-            }
+            return detail::read_into_buf(cp, buf_);
         }
 
+        Iter first_;
         Iter it_;
-        mutable int index_;
-        mutable char buf_[5];
-        mutable bool partial_decrement_;
+        Sentinel last_;
+        int index_;
+        char buf_[5];
 #endif
     };
 
     /** Returns a from_utf32_iterator<Iter> constructed from an Iter. */
-    template<typename Iter>
-    from_utf32_iterator<Iter> make_from_utf32_iterator(Iter it)
+    template<typename Iter, typename Sentinel>
+    from_utf32_iterator<Iter, Sentinel>
+    make_from_utf32_iterator(Iter first, Iter it, Sentinel last)
     {
-        return from_utf32_iterator<Iter>(it);
+        return from_utf32_iterator<Iter, Sentinel>(first, it, last);
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -640,16 +652,9 @@ namespace boost { namespace text { namespace utf8 {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         from_utf32_iterator<Iter1, ErrorHandler1> lhs,
         from_utf32_iterator<Iter2, ErrorHandler2> rhs) noexcept
-        -> decltype(
-            lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
-            ((lhs.index_ == 0 || lhs.index_ == 4) &&
-             (rhs.index_ == 0 || rhs.index_ == 4)))
+        -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_)
     {
-        if (lhs.it_ != rhs.it_)
-            return false;
-        return lhs.index_ == rhs.index_ ||
-               ((lhs.index_ == 0 || lhs.index_ == 4) &&
-                (rhs.index_ == 0 || rhs.index_ == 4));
+        return lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_;
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -676,7 +681,7 @@ namespace boost { namespace text { namespace utf8 {
         value_type. */
     template<
         typename Iter,
-        typename Sentinel,
+        typename Sentinel = Iter,
         typename ErrorHandler = use_replacement_character>
     struct to_utf32_iterator
     {
@@ -802,8 +807,8 @@ namespace boost { namespace text { namespace utf8 {
         {
             if (it == last_) {
                 ErrorHandler{}(
-                    "Invalid UTF-8 sequence; another code point before the end "
-                    "of string.");
+                    "Invalid UTF-8 sequence; expected another code unit "
+                    "before the end of string.");
                 return true;
             } else {
                 return false;
@@ -1017,6 +1022,10 @@ namespace boost { namespace text { namespace utf8 {
         Iter first_;
         Iter it_;
         Sentinel last_;
+
+        template<typename Iter2, typename Sentinel2, typename ErrorHandler2>
+        friend struct to_utf16_iterator;
+
 #endif
     };
 
@@ -1025,7 +1034,7 @@ namespace boost { namespace text { namespace utf8 {
     to_utf32_iterator<Iter, Sentinel>
     make_to_utf32_iterator(Iter first, Iter it, Sentinel last)
     {
-        return to_utf32_iterator<Iter, Sentinel>(it);
+        return to_utf32_iterator<Iter, Sentinel>(first, it, last);
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -1064,7 +1073,10 @@ namespace boost { namespace text { namespace utf8 {
 
         Iter must be a bidirectional iterator with a 2-byte integral
         value_type. */
-    template<typename Iter, typename ErrorHandler = use_replacement_character>
+    template<
+        typename Iter,
+        typename Sentinel = Iter,
+        typename ErrorHandler = use_replacement_character>
     struct from_utf16_iterator
     {
         using value_type = char;
@@ -1091,31 +1103,28 @@ namespace boost { namespace text { namespace utf8 {
             "2-byte value_type.");
 
         constexpr from_utf16_iterator() noexcept :
+            first_(),
             it_(),
-            next_(),
+            last_(),
             index_(4),
-            buf_(),
-            partial_decrement_(false)
+            buf_()
         {}
-        explicit constexpr from_utf16_iterator(Iter it) noexcept :
+        explicit constexpr from_utf16_iterator(
+            Iter first, Iter it, Sentinel last) noexcept :
+            first_(first),
             it_(it),
-            next_(it),
-            index_(4),
-            buf_(),
-            partial_decrement_(false)
-        {}
+            last_(last),
+            index_(0),
+            buf_()
+        {
+            if (it_ != last_)
+                read_into_buf();
+        }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR reference operator*() const
             noexcept(!throw_on_error)
         {
-            if (buf_empty()) {
-                if (partial_decrement_)
-                    index_ = decr_read_into_buf();
-                else
-                    index_ = incr_read_into_buf();
-            }
-            partial_decrement_ = false;
             return buf_[index_];
         }
 
@@ -1126,20 +1135,13 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator &
         operator++() noexcept(!throw_on_error)
         {
-            if (partial_decrement_) {
-                ++it_;
-            } else {
-                if (buf_empty())
-                    index_ = incr_read_into_buf();
-                ++index_;
-                if (at_buf_end()) {
-                    if (it_ == next_)
-                        incr_read_into_buf();
-                    it_ = next_;
-                    index_ = 4;
-                }
+            ++index_;
+            if (at_buf_end()) {
+                increment();
+                index_ = 0;
+                if (it_ != last_)
+                    read_into_buf();
             }
-            partial_decrement_ = false;
             return *this;
         }
 
@@ -1156,16 +1158,12 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR from_utf16_iterator &
         operator--() noexcept(!throw_on_error)
         {
-            if (partial_decrement_)
-                index_ = decr_read_into_buf();
-            if (index_ == 0 || buf_empty()) {
-                --it_;
-                index_ = 4;
-                partial_decrement_ = true;
-            } else {
+            if (0 < index_) {
                 --index_;
+            } else {
+                decrement();
+                index_ = read_into_buf();
             }
-            next_ = it_;
             return *this;
         }
 
@@ -1186,14 +1184,49 @@ namespace boost { namespace text { namespace utf8 {
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             from_utf16_iterator<Iter1, ErrorHandler1> lhs,
             from_utf16_iterator<Iter2, ErrorHandler2> rhs) noexcept
-            -> decltype(
-                lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
-                ((lhs.index_ == 0 || lhs.index_ == 4) &&
-                 (rhs.index_ == 0 || rhs.index_ == 4)));
+            -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_);
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator==(from_utf16_iterator lhs, null_sentinel rhs) noexcept
+        {
+            return !*lhs.it_;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator==(null_sentinel lhs, from_utf16_iterator rhs) noexcept
+        {
+            return rhs == lhs;
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator!=(from_utf16_iterator lhs, null_sentinel rhs) noexcept
+        {
+            return !(lhs == rhs);
+        }
+
+        /** This function is constexpr in C++14 and later. */
+        friend BOOST_TEXT_CXX14_CONSTEXPR bool
+        operator!=(null_sentinel lhs, from_utf16_iterator rhs) noexcept
+        {
+            return !(rhs == lhs);
+        }
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
-        constexpr bool buf_empty() const noexcept { return index_ == 4; }
+        BOOST_TEXT_CXX14_CONSTEXPR bool at_end() const noexcept(!throw_on_error)
+        {
+            if (it_ == last_) {
+                ErrorHandler{}(
+                    "Invalid UTF-16 sequence; expected another code unit "
+                    "before the end of string.");
+                return true;
+            } else {
+                return false;
+            }
+        }
 
         constexpr bool at_buf_end() const noexcept
         {
@@ -1210,84 +1243,65 @@ namespace boost { namespace text { namespace utf8 {
             return low_surrogate_min <= c && c <= low_surrogate_max;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR int
-        read_into_buf(uint32_t first, uint32_t second) const
-            noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf() noexcept(!throw_on_error)
         {
-            uint32_t c = first;
+            Iter next = it_;
 
+            uint32_t first = static_cast<uint32_t>(*next);
+            uint32_t second = 0;
+            uint32_t cp = first;
             if (high_surrogate(first)) {
-                assert(low_surrogate(second));
-                c = (c << 10) + second + surrogate_offset;
+                if (at_end())
+                    cp = replacement_character();
+                else {
+                    second = static_cast<uint32_t>(*++next);
+                    if (!low_surrogate(second)) {
+                        ErrorHandler{}(
+                            "Invalid UTF-16 sequence; expected low surrogate "
+                            "after high surrogate.");
+                        cp = replacement_character();
+                    } else {
+                        cp = (first << 10) + second + surrogate_offset;
+                    }
+                }
+            } else if (surrogate(first)) {
+                ErrorHandler{}("Invalid initial UTF-16 character.");
+                cp = replacement_character();
             }
 
-            if (!valid_code_point(c)) {
-                c = ErrorHandler{}(
+            if (!valid_code_point(cp)) {
+                cp = ErrorHandler{}(
                     "UTF-16 sequence results in invalid UTF-32 code "
                     "point.");
             }
 
-            if (c < 0x80) {
-                buf_[0] = static_cast<char>(c);
-                buf_[1] = '\0';
-                return 0;
-            } else if (c < 0x800) {
-                buf_[0] = static_cast<char>(0xC0 + (c >> 6));
-                buf_[1] = static_cast<char>(0x80 + (c & 0x3f));
-                buf_[2] = '\0';
-                return 1;
-            } else if (c < 0x10000) {
-                buf_[0] = static_cast<char>(0xe0 + (c >> 12));
-                buf_[1] = static_cast<char>(0x80 + ((c >> 6) & 0x3f));
-                buf_[2] = static_cast<char>(0x80 + (c & 0x3f));
-                buf_[3] = '\0';
-                return 2;
+            return detail::read_into_buf(cp, buf_);
+        }
+
+        BOOST_TEXT_CXX14_CONSTEXPR void increment() noexcept
+        {
+            if (high_surrogate(*it_)) {
+                ++it_;
+                if (it_ != last_ && low_surrogate(*it_))
+                    ++it_;
             } else {
-                buf_[0] = static_cast<char>(0xf0 + (c >> 18));
-                buf_[1] = static_cast<char>(0x80 + ((c >> 12) & 0x3f));
-                buf_[2] = static_cast<char>(0x80 + ((c >> 6) & 0x3f));
-                buf_[3] = static_cast<char>(0x80 + (c & 0x3f));
-                buf_[4] = '\0';
-                return 3;
+                ++it_;
             }
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR int incr_read_into_buf() const
-            noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR void decrement() noexcept
         {
-            uint32_t first = static_cast<uint32_t>(*it_);
-            uint32_t second = 0;
-            next_ = it_;
-            ++next_;
-            if (high_surrogate(first)) {
-                second = static_cast<uint32_t>(*next_);
-                ++next_;
-            } else if (surrogate(first)) {
-                first = ErrorHandler{}("Invalid initial UTF-16 character.");
+            if (low_surrogate(*--it_)) {
+                if (it_ != first_)
+                    --it_;
             }
-            read_into_buf(first, second);
-            return 0;
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR int decr_read_into_buf() const
-            noexcept(!throw_on_error)
-        {
-            uint32_t first = static_cast<uint32_t>(*it_);
-            uint32_t second = 0;
-            if (low_surrogate(first)) {
-                second = first;
-                first = static_cast<uint32_t>(*--const_cast<Iter &>(it_));
-            } else if (surrogate(first)) {
-                first = ErrorHandler{}("Invalid folliwng UTF-16 sequence.");
-            }
-            return read_into_buf(first, second);
-        }
-
+        Iter first_;
         Iter it_;
-        mutable Iter next_;
-        mutable int index_;
-        mutable char buf_[5];
-        mutable bool partial_decrement_;
+        Sentinel last_;
+        int index_;
+        char buf_[5];
 
         // Unicode 9, 3.8/D71-D74
 
@@ -1303,10 +1317,11 @@ namespace boost { namespace text { namespace utf8 {
     };
 
     /** Returns a from_utf16_iterator<Iter> constructed from an Iter. */
-    template<typename Iter>
-    from_utf16_iterator<Iter> make_from_utf16_iterator(Iter it)
+    template<typename Iter, typename Sentinel>
+    from_utf16_iterator<Iter, Sentinel>
+    make_from_utf16_iterator(Iter first, Iter it, Sentinel last)
     {
-        return from_utf16_iterator<Iter>(it);
+        return from_utf16_iterator<Iter, Sentinel>(first, it, last);
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -1318,16 +1333,9 @@ namespace boost { namespace text { namespace utf8 {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         from_utf16_iterator<Iter1, ErrorHandler1> lhs,
         from_utf16_iterator<Iter2, ErrorHandler2> rhs) noexcept
-        -> decltype(
-            lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
-            ((lhs.index_ == 0 || lhs.index_ == 4) &&
-             (rhs.index_ == 0 || rhs.index_ == 4)))
+        -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_)
     {
-        if (lhs.it_ != rhs.it_)
-            return false;
-        return lhs.index_ == rhs.index_ ||
-               ((lhs.index_ == 0 || lhs.index_ == 4) &&
-                (rhs.index_ == 0 || rhs.index_ == 4));
+        return lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_;
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -1345,14 +1353,7 @@ namespace boost { namespace text { namespace utf8 {
     }
 
 
-    /** A UTF-8 to UTF-16 converting iterator.  Set the ErrorHandler template
-        parameter to control error handling.  The default ErrorHandler is
-        use_replacement_character, which simply produces a replacement
-        character.
-
-        Iter must be a bidirectional iterator with a 1-byte char
-        value_type. */
-    template<typename Iter, typename ErrorHandler = use_replacement_character>
+    template<typename Iter, typename Sentinel, typename ErrorHandler>
     struct to_utf16_iterator
     {
         using value_type = uint16_t;
@@ -1364,58 +1365,41 @@ namespace boost { namespace text { namespace utf8 {
         static bool const throw_on_error =
             !noexcept(std::declval<ErrorHandler>()(0));
 
-        constexpr to_utf16_iterator() noexcept :
-            it_(),
-            next_(),
-            index_(2),
-            buf_(),
-            partial_decrement_(false)
-        {}
-        explicit constexpr to_utf16_iterator(Iter it) noexcept :
-            it_(it),
-            next_(it),
-            index_(2),
-            buf_(),
-            partial_decrement_(false)
-        {}
+        constexpr to_utf16_iterator() noexcept : it_(), index_(2), buf_() {}
+        explicit constexpr to_utf16_iterator(
+            Iter first, Iter it, Sentinel last) noexcept :
+            it_(first, it, last),
+            index_(0),
+            buf_()
+        {
+            if (it_.it_ != it_.last_)
+                read_into_buf();
+        }
 
-        // Same for the other iterators....
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR reference operator*() const
             noexcept(!throw_on_error)
         {
-            if (buf_empty()) {
-                if (partial_decrement_)
-                    const_cast<Iter &>(it_) = detail::decrement(it_ + 1);
-                index_ = read_into_buf();
-                if (!partial_decrement_)
-                    index_ = 0;
-            }
-            partial_decrement_ = false;
             return buf_[index_];
         }
 
         /** This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept { return it_; }
+        BOOST_TEXT_CXX14_CONSTEXPR Iter base() const noexcept
+        {
+            return it_.base();
+        }
 
         /** This function is constexpr in C++14 and later. */
         BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator &
         operator++() noexcept(!throw_on_error)
         {
-            if (partial_decrement_) {
+            ++index_;
+            if (at_buf_end()) {
                 ++it_;
-            } else {
-                if (buf_empty()) {
+                index_ = 0;
+                if (it_.it_ != it_.last_)
                     read_into_buf();
-                    index_ = 0;
-                }
-                ++index_;
-                if (at_buf_end()) {
-                    it_ = next_;
-                    index_ = 2;
-                }
             }
-            partial_decrement_ = false;
             return *this;
         }
 
@@ -1432,14 +1416,11 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR to_utf16_iterator &
         operator--() noexcept(!throw_on_error)
         {
-            if (partial_decrement_)
-                it_ = detail::decrement(it_ + 1);
-            if (index_ == 0 || buf_empty()) {
-                --it_;
-                index_ = 2;
-                partial_decrement_ = true;
-            } else {
+            if (0 < index_) {
                 --index_;
+            } else {
+                --it_;
+                index_ = read_into_buf();
             }
             return *this;
         }
@@ -1461,9 +1442,7 @@ namespace boost { namespace text { namespace utf8 {
         friend BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
             to_utf16_iterator<Iter1, ErrorHandler1> lhs,
             to_utf16_iterator<Iter2, ErrorHandler2> rhs) noexcept
-            -> decltype(
-                lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
-                (lhs.index_ != 1 && rhs.index_ != 1));
+            -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_);
 
         /** This function is constexpr in C++14 and later. */
         friend BOOST_TEXT_CXX14_CONSTEXPR bool
@@ -1495,154 +1474,11 @@ namespace boost { namespace text { namespace utf8 {
 
 #ifndef BOOST_TEXT_DOXYGEN
     private:
-        constexpr bool buf_empty() const noexcept { return index_ == 2; }
-
         constexpr bool at_buf_end() const noexcept { return buf_[index_] == 0; }
 
-        BOOST_TEXT_CXX14_CONSTEXPR bool check_continuation(
-            unsigned char c,
-            unsigned char lo = 0x80,
-            unsigned char hi = 0xbf) const noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf() noexcept(!throw_on_error)
         {
-            if (continuation(c, lo, hi)) {
-                return true;
-            } else {
-                buf_[0] = ErrorHandler{}(
-                    "Invalid UTF-8 sequence; an expected continuation "
-                    "character is missing.");
-                buf_[1] = 0;
-                return false;
-            }
-        }
-
-        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf() const
-            noexcept(!throw_on_error)
-        {
-            uint32_t value = 0;
-
-            next_ = it_;
-            unsigned char curr_c = *next_;
-
-            using detail::in;
-
-            // One-byte
-            if (curr_c <= 0x7f) {
-                value = curr_c;
-                ++next_;
-                // Two-byte
-            } else if (in(0xc2, curr_c, 0xdf)) {
-                value = curr_c & 0b00011111;
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next_;
-                // Three-byte
-            } else if (curr_c == 0xe0) {
-                value = curr_c & 0b00001111;
-                curr_c = *++next_;
-                if (!check_continuation(curr_c, 0xa0, 0xbf))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next_;
-            } else if (in(0xe1, curr_c, 0xec)) {
-                value = curr_c & 0b00001111;
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next_;
-            } else if (curr_c == 0xed) {
-                value = curr_c & 0b00001111;
-                curr_c = *++next_;
-                if (!check_continuation(curr_c, 0x80, 0x9f))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next_;
-            } else if (in(0xed, curr_c, 0xef)) {
-                value = curr_c & 0b00001111;
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next_;
-                // Four-byte
-            } else if (curr_c == 0xf0) {
-                value = curr_c & 0b00000111;
-                curr_c = *++next_;
-                if (!check_continuation(curr_c, 0x90, 0xbf))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next_;
-            } else if (in(0xf1, curr_c, 0xf3)) {
-                value = curr_c & 0b00000111;
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next_;
-            } else if (curr_c == 0xf4) {
-                value = curr_c & 0b00000111;
-                curr_c = *++next_;
-                if (!check_continuation(curr_c, 0x80, 0x8f))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                curr_c = *++next_;
-                if (!check_continuation(curr_c))
-                    return 0;
-                value = (value << 6) + (curr_c & 0b00111111);
-                ++next_;
-            } else {
-                buf_[0] = ErrorHandler{}("Invalid initial UTF-8 character.");
-                buf_[1] = 0;
-                ++next_;
-                return 0;
-            }
-
-            if (!valid_code_point(value)) {
-                buf_[0] = ErrorHandler{}(
-                    "UTF-8 sequence results in invalid UTF-32 code point.");
-                buf_[1] = 0;
-                return 0;
-            }
-
-            index_ = 0;
+            uint32_t const value = *it_;
 
             if (value < 0x10000) {
                 buf_[0] = static_cast<uint16_t>(value);
@@ -1658,11 +1494,9 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        Iter it_;
-        mutable Iter next_;
-        mutable int index_;
-        mutable uint16_t buf_[3];
-        mutable bool partial_decrement_;
+        to_utf32_iterator<Iter, Sentinel> it_;
+        int index_;
+        uint16_t buf_[3];
 
         static uint16_t const high_surrogate_base = 0xd7c0;
         static uint16_t const low_surrogate_base = 0xdc00;
@@ -1670,10 +1504,11 @@ namespace boost { namespace text { namespace utf8 {
     };
 
     /** Returns a to_utf16_iterator<Iter> constructed from an Iter. */
-    template<typename Iter>
-    to_utf16_iterator<Iter> make_to_utf16_iterator(Iter it)
+    template<typename Iter, typename Sentinel>
+    to_utf16_iterator<Iter, Sentinel>
+    make_to_utf16_iterator(Iter first, Iter it, Sentinel last)
     {
-        return to_utf16_iterator<Iter>(it);
+        return to_utf16_iterator<Iter, Sentinel>(first, it, last);
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -1685,13 +1520,9 @@ namespace boost { namespace text { namespace utf8 {
     BOOST_TEXT_CXX14_CONSTEXPR auto operator==(
         to_utf16_iterator<Iter1, ErrorHandler1> lhs,
         to_utf16_iterator<Iter2, ErrorHandler2> rhs) noexcept
-        -> decltype(
-            lhs.it_ == rhs.it_ || lhs.index_ == rhs.index_ ||
-            (lhs.index_ != 1 && rhs.index_ != 1))
+        -> decltype(lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_)
     {
-        if (lhs.it_ != rhs.it_)
-            return false;
-        return lhs.index_ == rhs.index_ || (lhs.index_ != 1 && rhs.index_ != 1);
+        return lhs.it_ == rhs.it_ && lhs.index_ == rhs.index_;
     }
 
     /** This function is constexpr in C++14 and later. */
@@ -1731,8 +1562,8 @@ namespace boost { namespace text { namespace utf8 {
             uint32_t cps[1] = {cp};
             char chars[4];
             auto const chars_end = std::copy(
-                from_utf32_iterator<uint32_t const *>(cps),
-                from_utf32_iterator<uint32_t const *>(cps + 1),
+                from_utf32_iterator<uint32_t const *>(cps, cps, cps + 1),
+                from_utf32_iterator<uint32_t const *>(cps, cps + 1, cps + 1),
                 chars);
             for (char * char_it = chars; char_it != chars_end; ++char_it) {
                 it_ = c_->insert(it_, *char_it);
@@ -1777,8 +1608,8 @@ namespace boost { namespace text { namespace utf8 {
             uint32_t cps[1] = {cp};
             char chars[4];
             auto const chars_end = std::copy(
-                from_utf32_iterator<uint32_t const *>(cps),
-                from_utf32_iterator<uint32_t const *>(cps + 1),
+                from_utf32_iterator<uint32_t const *>(cps, cps, cps + 1),
+                from_utf32_iterator<uint32_t const *>(cps, cps + 1, cps + 1),
                 chars);
             for (char * it = chars; it < chars_end; ++it) {
                 c_->push_back(*it);

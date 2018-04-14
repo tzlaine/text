@@ -532,10 +532,10 @@ TEST(unencoded_rope, test_insert)
 
     {
         text::unencoded_rope const ct("string");
-        auto const first =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
-        auto const last =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(
+            utf32, utf32, utf32 + 4);
+        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(
+            utf32, utf32 + 4, utf32 + 4);
 
         text::unencoded_rope t0 = ct;
         t0.insert(0, first, last);
@@ -738,11 +738,12 @@ TEST(unencoded_rope, test_replace_iter)
 {
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
-    auto const final_cp =
-        text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-    auto const last =
-        text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+    auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(
+        utf32, utf32, utf32 + 4);
+    auto const final_cp = text::utf8::from_utf32_iterator<uint32_t const *>(
+        utf32, utf32 + 3, utf32 + 4);
+    auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(
+        utf32, utf32 + 4, utf32 + 4);
 
     text::unencoded_rope const ct_string("string");
     text::unencoded_rope const ct_text("text");
@@ -811,10 +812,12 @@ TEST(unencoded_rope, test_replace_iter_large_insertions)
     }
     auto const first =
         text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
-            utf32_repeated.begin());
+            utf32_repeated.begin(),
+            utf32_repeated.begin(),
+            utf32_repeated.end());
     auto const last =
         text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
-            utf32_repeated.end());
+            utf32_repeated.begin(), utf32_repeated.end(), utf32_repeated.end());
 
     {
         text::unencoded_rope t("string");

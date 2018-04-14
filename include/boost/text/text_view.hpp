@@ -16,17 +16,16 @@ namespace boost { namespace text {
         storage is a string that is UTF-8-encoded and FCC-normalized. */
     struct text_view
     {
-        using value_type =
-            cp_range<utf8::to_utf32_iterator<char const *, char const *>>;
+        using value_type = cp_range<utf8::to_utf32_iterator<char const *>>;
         using size_type = int;
-        using iterator = grapheme_iterator<
-            utf8::to_utf32_iterator<char const *, char const *>>;
+        using iterator =
+            grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
         using const_iterator = iterator;
         using reverse_iterator = std::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
 
         using text_iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<char *, char *>>;
+            grapheme_iterator<utf8::to_utf32_iterator<char *>>;
         using const_text_iterator = const_iterator;
 
         /** Default ctor. */
@@ -110,12 +109,10 @@ namespace boost { namespace text {
     private:
         static iterator make_iter(char * first, char * it, char * last) noexcept
         {
-            return iterator{utf8::to_utf32_iterator<char const *, char const *>{
-                                first, first, last},
-                            utf8::to_utf32_iterator<char const *, char const *>{
-                                first, it, last},
-                            utf8::to_utf32_iterator<char const *, char const *>{
-                                first, last, last}};
+            return iterator{
+                utf8::to_utf32_iterator<char const *>{first, first, last},
+                utf8::to_utf32_iterator<char const *>{first, it, last},
+                utf8::to_utf32_iterator<char const *>{first, last, last}};
         }
 
         iterator first_;

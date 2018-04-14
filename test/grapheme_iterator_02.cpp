@@ -156,8 +156,8 @@ TEST(grapheme, iterator_02_0_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -425,8 +425,8 @@ TEST(grapheme, iterator_02_1_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -985,8 +985,8 @@ TEST(grapheme, iterator_02_4_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -1254,8 +1254,8 @@ TEST(grapheme, iterator_02_5_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -1449,8 +1449,8 @@ TEST(grapheme, iterator_02_6_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -1718,8 +1718,8 @@ TEST(grapheme, iterator_02_7_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -1913,8 +1913,8 @@ TEST(grapheme, iterator_02_8_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -2182,8 +2182,8 @@ TEST(grapheme, iterator_02_9_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -2377,8 +2377,8 @@ TEST(grapheme, iterator_02_10_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -2646,8 +2646,8 @@ TEST(grapheme, iterator_02_11_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -2841,8 +2841,8 @@ TEST(grapheme, iterator_02_12_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -3027,8 +3027,8 @@ TEST(grapheme, iterator_02_13_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -3213,8 +3213,8 @@ TEST(grapheme, iterator_02_14_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -3482,8 +3482,8 @@ TEST(grapheme, iterator_02_15_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -3677,8 +3677,8 @@ TEST(grapheme, iterator_02_16_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -3863,8 +3863,8 @@ TEST(grapheme, iterator_02_17_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -4049,8 +4049,8 @@ TEST(grapheme, iterator_02_18_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -4318,8 +4318,8 @@ TEST(grapheme, iterator_02_19_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -4513,8 +4513,8 @@ TEST(grapheme, iterator_02_20_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -4782,8 +4782,8 @@ TEST(grapheme, iterator_02_21_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -4977,8 +4977,8 @@ TEST(grapheme, iterator_02_22_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -5246,8 +5246,8 @@ TEST(grapheme, iterator_02_23_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -5441,8 +5441,8 @@ TEST(grapheme, iterator_02_24_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -5710,8 +5710,8 @@ TEST(grapheme, iterator_02_25_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -5905,8 +5905,8 @@ TEST(grapheme, iterator_02_26_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -6174,8 +6174,8 @@ TEST(grapheme, iterator_02_27_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -6369,8 +6369,8 @@ TEST(grapheme, iterator_02_28_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -6638,8 +6638,8 @@ TEST(grapheme, iterator_02_29_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -6833,8 +6833,8 @@ TEST(grapheme, iterator_02_30_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -7102,8 +7102,8 @@ TEST(grapheme, iterator_02_31_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -7297,8 +7297,8 @@ TEST(grapheme, iterator_02_32_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -7566,8 +7566,8 @@ TEST(grapheme, iterator_02_33_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -7761,8 +7761,8 @@ TEST(grapheme, iterator_02_34_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -7947,8 +7947,8 @@ TEST(grapheme, iterator_02_35_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -8133,8 +8133,8 @@ TEST(grapheme, iterator_02_36_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -8402,8 +8402,8 @@ TEST(grapheme, iterator_02_37_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -8597,8 +8597,8 @@ TEST(grapheme, iterator_02_38_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -8866,8 +8866,8 @@ TEST(grapheme, iterator_02_39_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -9061,8 +9061,8 @@ TEST(grapheme, iterator_02_40_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -9330,8 +9330,8 @@ TEST(grapheme, iterator_02_41_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -9890,8 +9890,8 @@ TEST(grapheme, iterator_02_44_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -10159,8 +10159,8 @@ TEST(grapheme, iterator_02_45_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -10354,8 +10354,8 @@ TEST(grapheme, iterator_02_46_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -10623,8 +10623,8 @@ TEST(grapheme, iterator_02_47_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -10818,8 +10818,8 @@ TEST(grapheme, iterator_02_48_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;
@@ -11087,8 +11087,8 @@ TEST(grapheme, iterator_02_49_utf8)
         int cp_indices[1024] = { 0 };
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;

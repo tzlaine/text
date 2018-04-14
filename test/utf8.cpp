@@ -29,6 +29,10 @@ TEST(utf_8, test_consecutive)
             to_utf32_iterator<char const *, text::utf8::null_sentinel>(
                 utf8, utf8, text::utf8::null_sentinel{});
 
+        auto const end = text::utf8::
+            to_utf32_iterator<char const *, text::utf8::null_sentinel>(
+                utf8, utf8 + 10, text::utf8::null_sentinel{});
+
         auto const zero = it;
         EXPECT_EQ(*it, utf32[0]);
         ++it;
@@ -43,6 +47,8 @@ TEST(utf_8, test_consecutive)
         ++it;
         auto const four = it;
 
+        EXPECT_EQ(it, end);
+
         --it;
         EXPECT_EQ(it, three);
         EXPECT_EQ(*it, utf32[3]);
@@ -56,9 +62,7 @@ TEST(utf_8, test_consecutive)
         EXPECT_EQ(it, zero);
         EXPECT_EQ(*it, utf32[0]);
 
-        it = text::utf8::
-            to_utf32_iterator<char const *, text::utf8::null_sentinel>(
-                utf8, utf8 + 10, text::utf8::null_sentinel{});
+        it = end;
 
         EXPECT_EQ(it, four);
 
@@ -91,135 +95,342 @@ TEST(utf_8, test_consecutive)
 
     // UTF-32 -> UTF-8
     {
-        auto it = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
+        auto it = text::utf8::from_utf32_iterator<uint32_t const *>(
+            utf32, utf32, utf32 + 4);
 
-        EXPECT_EQ(*it++, utf8[0]);
-        EXPECT_EQ(*it++, utf8[1]);
-        EXPECT_EQ(*it++, utf8[2]);
-        EXPECT_EQ(*it++, utf8[3]);
-        EXPECT_EQ(*it++, utf8[4]);
-        EXPECT_EQ(*it++, utf8[5]);
-        EXPECT_EQ(*it++, utf8[6]);
-        EXPECT_EQ(*it++, utf8[7]);
-        EXPECT_EQ(*it++, utf8[8]);
-        EXPECT_EQ(*it++, utf8[9]);
+        auto const end = text::utf8::from_utf32_iterator<uint32_t const *>(
+            utf32, utf32 + 4, utf32 + 4);
 
-        EXPECT_EQ(*--it, utf8[9]);
-        EXPECT_EQ(*--it, utf8[8]);
-        EXPECT_EQ(*--it, utf8[7]);
-        EXPECT_EQ(*--it, utf8[6]);
-        EXPECT_EQ(*--it, utf8[5]);
-        EXPECT_EQ(*--it, utf8[4]);
-        EXPECT_EQ(*--it, utf8[3]);
-        EXPECT_EQ(*--it, utf8[2]);
-        EXPECT_EQ(*--it, utf8[1]);
-        EXPECT_EQ(*--it, utf8[0]);
+        auto const zero = it;
+        EXPECT_EQ(*it, utf8[0]);
+        it++;
+        auto const one = it;
+        EXPECT_EQ(*it, utf8[1]);
+        it++;
+        auto const two = it;
+        EXPECT_EQ(*it, utf8[2]);
+        it++;
+        auto const three = it;
+        EXPECT_EQ(*it, utf8[3]);
+        it++;
+        auto const four = it;
+        EXPECT_EQ(*it, utf8[4]);
+        it++;
+        auto const five = it;
+        EXPECT_EQ(*it, utf8[5]);
+        it++;
+        auto const six = it;
+        EXPECT_EQ(*it, utf8[6]);
+        it++;
+        auto const seven = it;
+        EXPECT_EQ(*it, utf8[7]);
+        it++;
+        auto const eight = it;
+        EXPECT_EQ(*it, utf8[8]);
+        it++;
+        auto const nine = it;
+        EXPECT_EQ(*it, utf8[9]);
+        it++;
+        auto const ten = it;
 
-        it = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        EXPECT_EQ(ten, end);
 
-        EXPECT_EQ(*--it, utf8[9]);
-        EXPECT_EQ(*--it, utf8[8]);
-        EXPECT_EQ(*--it, utf8[7]);
-        EXPECT_EQ(*--it, utf8[6]);
-        EXPECT_EQ(*--it, utf8[5]);
-        EXPECT_EQ(*--it, utf8[4]);
-        EXPECT_EQ(*--it, utf8[3]);
-        EXPECT_EQ(*--it, utf8[2]);
-        EXPECT_EQ(*--it, utf8[1]);
-        EXPECT_EQ(*--it, utf8[0]);
+        --it;
+        EXPECT_EQ(it, nine);
+        EXPECT_EQ(*it, utf8[9]);
+        --it;
+        EXPECT_EQ(it, eight);
+        EXPECT_EQ(*it, utf8[8]);
+        --it;
+        EXPECT_EQ(it, seven);
+        EXPECT_EQ(*it, utf8[7]);
+        --it;
+        EXPECT_EQ(it, six);
+        EXPECT_EQ(*it, utf8[6]);
+        --it;
+        EXPECT_EQ(it, five);
+        EXPECT_EQ(*it, utf8[5]);
+        --it;
+        EXPECT_EQ(it, four);
+        EXPECT_EQ(*it, utf8[4]);
+        --it;
+        EXPECT_EQ(it, three);
+        EXPECT_EQ(*it, utf8[3]);
+        --it;
+        EXPECT_EQ(it, two);
+        EXPECT_EQ(*it, utf8[2]);
+        --it;
+        EXPECT_EQ(it, one);
+        EXPECT_EQ(*it, utf8[1]);
+        --it;
+        EXPECT_EQ(it, zero);
+        EXPECT_EQ(*it, utf8[0]);
 
-        EXPECT_EQ(*it++, utf8[0]);
-        EXPECT_EQ(*it++, utf8[1]);
-        EXPECT_EQ(*it++, utf8[2]);
-        EXPECT_EQ(*it++, utf8[3]);
-        EXPECT_EQ(*it++, utf8[4]);
-        EXPECT_EQ(*it++, utf8[5]);
-        EXPECT_EQ(*it++, utf8[6]);
-        EXPECT_EQ(*it++, utf8[7]);
-        EXPECT_EQ(*it++, utf8[8]);
-        EXPECT_EQ(*it++, utf8[9]);
+        it = end;
+
+        EXPECT_EQ(it, end);
+
+        --it;
+        EXPECT_EQ(it, nine);
+        EXPECT_EQ(*it, utf8[9]);
+        --it;
+        EXPECT_EQ(it, eight);
+        EXPECT_EQ(*it, utf8[8]);
+        --it;
+        EXPECT_EQ(it, seven);
+        EXPECT_EQ(*it, utf8[7]);
+        --it;
+        EXPECT_EQ(it, six);
+        EXPECT_EQ(*it, utf8[6]);
+        --it;
+        EXPECT_EQ(it, five);
+        EXPECT_EQ(*it, utf8[5]);
+        --it;
+        EXPECT_EQ(it, four);
+        EXPECT_EQ(*it, utf8[4]);
+        --it;
+        EXPECT_EQ(it, three);
+        EXPECT_EQ(*it, utf8[3]);
+        --it;
+        EXPECT_EQ(it, two);
+        EXPECT_EQ(*it, utf8[2]);
+        --it;
+        EXPECT_EQ(it, one);
+        EXPECT_EQ(*it, utf8[1]);
+        --it;
+        EXPECT_EQ(it, zero);
+        EXPECT_EQ(*it, utf8[0]);
+
+        EXPECT_EQ(*it, utf8[0]);
+        ++it;
+        EXPECT_EQ(*it, utf8[1]);
+        ++it;
+        EXPECT_EQ(*it, utf8[2]);
+        ++it;
+        EXPECT_EQ(*it, utf8[3]);
+        ++it;
+        EXPECT_EQ(*it, utf8[4]);
+        ++it;
+        EXPECT_EQ(*it, utf8[5]);
+        ++it;
+        EXPECT_EQ(*it, utf8[6]);
+        ++it;
+        EXPECT_EQ(*it, utf8[7]);
+        ++it;
+        EXPECT_EQ(*it, utf8[8]);
+        ++it;
+        EXPECT_EQ(*it, utf8[9]);
+        ++it;
     }
 
     // UTF-8 -> UTF-16
     {
-        auto it = text::utf8::to_utf16_iterator<char const *>(utf8);
+        auto it = text::utf8::to_utf16_iterator<char const *>(
+            utf8, utf8, utf8 + sizeof(utf8));
 
-        EXPECT_EQ(*it++, utf16[0]);
-        EXPECT_EQ(*it++, utf16[1]);
-        EXPECT_EQ(*it++, utf16[2]);
-        EXPECT_EQ(*it++, utf16[3]);
-        EXPECT_EQ(*it++, utf16[4]);
+        auto const end = text::utf8::to_utf16_iterator<char const *>(
+            utf8, utf8 + 10, utf8 + sizeof(utf8));
 
-        EXPECT_EQ(*--it, utf16[4]);
-        EXPECT_EQ(*--it, utf16[3]);
-        EXPECT_EQ(*--it, utf16[2]);
-        EXPECT_EQ(*--it, utf16[1]);
-        EXPECT_EQ(*--it, utf16[0]);
+        auto const zero = it;
+        EXPECT_EQ(*it, utf16[0]);
+        ++it;
+        auto const one = it;
+        EXPECT_EQ(*it, utf16[1]);
+        ++it;
+        auto const two = it;
+        EXPECT_EQ(*it, utf16[2]);
+        ++it;
+        auto const three = it;
+        EXPECT_EQ(*it, utf16[3]);
+        ++it;
+        auto const four = it;
+        EXPECT_EQ(*it, utf16[4]);
+        ++it;
+        auto const five = it;
 
-        it = text::utf8::to_utf16_iterator<char const *>(utf8 + 10);
+        EXPECT_EQ(five, end);
 
-        EXPECT_EQ(*--it, utf16[4]);
-        EXPECT_EQ(*--it, utf16[3]);
-        EXPECT_EQ(*--it, utf16[2]);
-        EXPECT_EQ(*--it, utf16[1]);
-        EXPECT_EQ(*--it, utf16[0]);
+        --it;
+        EXPECT_EQ(it, four);
+        EXPECT_EQ(*it, utf16[4]);
+        --it;
+        EXPECT_EQ(it, three);
+        EXPECT_EQ(*it, utf16[3]);
+        --it;
+        EXPECT_EQ(it, two);
+        EXPECT_EQ(*it, utf16[2]);
+        --it;
+        EXPECT_EQ(it, one);
+        EXPECT_EQ(*it, utf16[1]);
+        --it;
+        EXPECT_EQ(it, zero);
+        EXPECT_EQ(*it, utf16[0]);
 
-        EXPECT_EQ(*it++, utf16[0]);
-        EXPECT_EQ(*it++, utf16[1]);
-        EXPECT_EQ(*it++, utf16[2]);
-        EXPECT_EQ(*it++, utf16[3]);
-        EXPECT_EQ(*it++, utf16[4]);
+        it = end;
+
+        EXPECT_EQ(it, five);
+
+        --it;
+        EXPECT_EQ(it, four);
+        EXPECT_EQ(*it, utf16[4]);
+        --it;
+        EXPECT_EQ(it, three);
+        EXPECT_EQ(*it, utf16[3]);
+        --it;
+        EXPECT_EQ(it, two);
+        EXPECT_EQ(*it, utf16[2]);
+        --it;
+        EXPECT_EQ(it, one);
+        EXPECT_EQ(*it, utf16[1]);
+        --it;
+        EXPECT_EQ(it, zero);
+        EXPECT_EQ(*it, utf16[0]);
+
+        EXPECT_EQ(*it, utf16[0]);
+        ++it;
+        EXPECT_EQ(it, one);
+        EXPECT_EQ(*it, utf16[1]);
+        ++it;
+        EXPECT_EQ(it, two);
+        EXPECT_EQ(*it, utf16[2]);
+        ++it;
+        EXPECT_EQ(it, three);
+        EXPECT_EQ(*it, utf16[3]);
+        ++it;
+        EXPECT_EQ(it, four);
+        EXPECT_EQ(*it, utf16[4]);
+        ++it;
+        EXPECT_EQ(it, five);
     }
 
     // UTF-16 -> UTF-8
     {
-        auto it = text::utf8::from_utf16_iterator<uint16_t const *>(utf16);
+        auto it = text::utf8::from_utf16_iterator<uint16_t const *>(
+            utf16, utf16, utf16 + 5);
 
-        EXPECT_EQ(*it++, utf8[0]);
-        EXPECT_EQ(*it++, utf8[1]);
-        EXPECT_EQ(*it++, utf8[2]);
-        EXPECT_EQ(*it++, utf8[3]);
-        EXPECT_EQ(*it++, utf8[4]);
-        EXPECT_EQ(*it++, utf8[5]);
-        EXPECT_EQ(*it++, utf8[6]);
-        EXPECT_EQ(*it++, utf8[7]);
-        EXPECT_EQ(*it++, utf8[8]);
-        EXPECT_EQ(*it++, utf8[9]);
+        auto const end = text::utf8::from_utf16_iterator<uint16_t const *>(
+            utf16, utf16 + 5, utf16 + 5);
 
-        EXPECT_EQ(*--it, utf8[9]);
-        EXPECT_EQ(*--it, utf8[8]);
-        EXPECT_EQ(*--it, utf8[7]);
-        EXPECT_EQ(*--it, utf8[6]);
-        EXPECT_EQ(*--it, utf8[5]);
-        EXPECT_EQ(*--it, utf8[4]);
-        EXPECT_EQ(*--it, utf8[3]);
-        EXPECT_EQ(*--it, utf8[2]);
-        EXPECT_EQ(*--it, utf8[1]);
-        EXPECT_EQ(*--it, utf8[0]);
+        auto const zero = it;
+        EXPECT_EQ(*it, utf8[0]);
+        ++it;
+        auto const one = it;
+        EXPECT_EQ(*it, utf8[1]);
+        ++it;
+        auto const two = it;
+        EXPECT_EQ(*it, utf8[2]);
+        ++it;
+        auto const three = it;
+        EXPECT_EQ(*it, utf8[3]);
+        ++it;
+        auto const four = it;
+        EXPECT_EQ(*it, utf8[4]);
+        ++it;
+        auto const five = it;
+        EXPECT_EQ(*it, utf8[5]);
+        ++it;
+        auto const six = it;
+        EXPECT_EQ(*it, utf8[6]);
+        ++it;
+        auto const seven = it;
+        EXPECT_EQ(*it, utf8[7]);
+        ++it;
+        auto const eight = it;
+        EXPECT_EQ(*it, utf8[8]);
+        ++it;
+        auto const nine = it;
+        EXPECT_EQ(*it, utf8[9]);
+        ++it;
+        auto const ten = it;
 
-        it = text::utf8::from_utf16_iterator<uint16_t const *>(utf16 + 5);
+        EXPECT_EQ(ten, end);
 
-        EXPECT_EQ(*--it, utf8[9]);
-        EXPECT_EQ(*--it, utf8[8]);
-        EXPECT_EQ(*--it, utf8[7]);
-        EXPECT_EQ(*--it, utf8[6]);
-        EXPECT_EQ(*--it, utf8[5]);
-        EXPECT_EQ(*--it, utf8[4]);
-        EXPECT_EQ(*--it, utf8[3]);
-        EXPECT_EQ(*--it, utf8[2]);
-        EXPECT_EQ(*--it, utf8[1]);
-        EXPECT_EQ(*--it, utf8[0]);
+        --it;
+        EXPECT_EQ(it, nine);
+        EXPECT_EQ(*it, utf8[9]);
+        --it;
+        EXPECT_EQ(it, eight);
+        EXPECT_EQ(*it, utf8[8]);
+        --it;
+        EXPECT_EQ(it, seven);
+        EXPECT_EQ(*it, utf8[7]);
+        --it;
+        EXPECT_EQ(it, six);
+        EXPECT_EQ(*it, utf8[6]);
+        --it;
+        EXPECT_EQ(it, five);
+        EXPECT_EQ(*it, utf8[5]);
+        --it;
+        EXPECT_EQ(it, four);
+        EXPECT_EQ(*it, utf8[4]);
+        --it;
+        EXPECT_EQ(it, three);
+        EXPECT_EQ(*it, utf8[3]);
+        --it;
+        EXPECT_EQ(it, two);
+        EXPECT_EQ(*it, utf8[2]);
+        --it;
+        EXPECT_EQ(it, one);
+        EXPECT_EQ(*it, utf8[1]);
+        --it;
+        EXPECT_EQ(it, zero);
+        EXPECT_EQ(*it, utf8[0]);
 
-        EXPECT_EQ(*it++, utf8[0]);
-        EXPECT_EQ(*it++, utf8[1]);
-        EXPECT_EQ(*it++, utf8[2]);
-        EXPECT_EQ(*it++, utf8[3]);
-        EXPECT_EQ(*it++, utf8[4]);
-        EXPECT_EQ(*it++, utf8[5]);
-        EXPECT_EQ(*it++, utf8[6]);
-        EXPECT_EQ(*it++, utf8[7]);
-        EXPECT_EQ(*it++, utf8[8]);
-        EXPECT_EQ(*it++, utf8[9]);
+        it = end;
+
+        EXPECT_EQ(it, end);
+
+        --it;
+        EXPECT_EQ(it, nine);
+        EXPECT_EQ(*it, utf8[9]);
+        --it;
+        EXPECT_EQ(it, eight);
+        EXPECT_EQ(*it, utf8[8]);
+        --it;
+        EXPECT_EQ(it, seven);
+        EXPECT_EQ(*it, utf8[7]);
+        --it;
+        EXPECT_EQ(it, six);
+        EXPECT_EQ(*it, utf8[6]);
+        --it;
+        EXPECT_EQ(it, five);
+        EXPECT_EQ(*it, utf8[5]);
+        --it;
+        EXPECT_EQ(it, four);
+        EXPECT_EQ(*it, utf8[4]);
+        --it;
+        EXPECT_EQ(it, three);
+        EXPECT_EQ(*it, utf8[3]);
+        --it;
+        EXPECT_EQ(it, two);
+        EXPECT_EQ(*it, utf8[2]);
+        --it;
+        EXPECT_EQ(it, one);
+        EXPECT_EQ(*it, utf8[1]);
+        --it;
+        EXPECT_EQ(it, zero);
+        EXPECT_EQ(*it, utf8[0]);
+
+        EXPECT_EQ(*it, utf8[0]);
+        ++it;
+        EXPECT_EQ(*it, utf8[1]);
+        ++it;
+        EXPECT_EQ(*it, utf8[2]);
+        ++it;
+        EXPECT_EQ(*it, utf8[3]);
+        ++it;
+        EXPECT_EQ(*it, utf8[4]);
+        ++it;
+        EXPECT_EQ(*it, utf8[5]);
+        ++it;
+        EXPECT_EQ(*it, utf8[6]);
+        ++it;
+        EXPECT_EQ(*it, utf8[7]);
+        ++it;
+        EXPECT_EQ(*it, utf8[8]);
+        ++it;
+        EXPECT_EQ(*it, utf8[9]);
+        ++it;
     }
 }
 
@@ -273,7 +484,8 @@ TEST(utf_8, test_back_and_forth)
 
     // UTF-32 -> UTF-8
     for (int iterations = 1; iterations <= 10; ++iterations) {
-        auto it = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
+        auto it = text::utf8::from_utf32_iterator<uint32_t const *>(
+            utf32, utf32, utf32 + 4);
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf8[i])
                 << "iterations=" << iterations << " i=" << i;
@@ -285,7 +497,8 @@ TEST(utf_8, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 10; ++iterations) {
-        auto it = text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        auto it = text::utf8::from_utf32_iterator<uint32_t const *>(
+            utf32, utf32 + 4, utf32 + 4);
         int i = 10;
         for (; i-- > iterations;) {
             EXPECT_EQ(*--it, utf8[i])
@@ -300,7 +513,8 @@ TEST(utf_8, test_back_and_forth)
 
     // UTF-8 -> UTF-16
     for (int iterations = 1; iterations <= 5; ++iterations) {
-        auto it = text::utf8::to_utf16_iterator<char const *>(utf8);
+        auto it = text::utf8::to_utf16_iterator<char const *>(
+            utf8, utf8, utf8 + sizeof(utf8));
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf16[i])
                 << "iterations=" << iterations << " i=" << i;
@@ -312,7 +526,8 @@ TEST(utf_8, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 5; ++iterations) {
-        auto it = text::utf8::to_utf16_iterator<char const *>(utf8 + 10);
+        auto it = text::utf8::to_utf16_iterator<char const *>(
+            utf8, utf8 + 10, utf8 + sizeof(utf8));
         int i = 5;
         for (; i-- > iterations;) {
             EXPECT_EQ(*--it, utf16[i])
@@ -327,7 +542,8 @@ TEST(utf_8, test_back_and_forth)
 
     // UTF-16 -> UTF-8
     for (int iterations = 1; iterations <= 10; ++iterations) {
-        auto it = text::utf8::from_utf16_iterator<uint16_t const *>(utf16);
+        auto it = text::utf8::from_utf16_iterator<uint16_t const *>(
+            utf16, utf16, utf16 + 5);
         for (int i = 0; i < iterations; ++i) {
             EXPECT_EQ(*it++, utf8[i])
                 << "iterations=" << iterations << " i=" << i;
@@ -339,7 +555,8 @@ TEST(utf_8, test_back_and_forth)
     }
 
     for (int iterations = 0; iterations < 10; ++iterations) {
-        auto it = text::utf8::from_utf16_iterator<uint16_t const *>(utf16 + 5);
+        auto it = text::utf8::from_utf16_iterator<uint16_t const *>(
+            utf16, utf16 + 5, utf16 + 5);
         int i = 10;
         for (; i-- > iterations;) {
             EXPECT_EQ(*--it, utf8[i])

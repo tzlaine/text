@@ -38,12 +38,11 @@ namespace boost { namespace text {
         FCC-normalized. */
     struct text
     {
-        using value_type = cp_range<utf8::to_utf32_iterator<char *, char *>>;
+        using value_type = cp_range<utf8::to_utf32_iterator<char *>>;
         using size_type = int;
-        using iterator =
-            grapheme_iterator<utf8::to_utf32_iterator<char *, char *>>;
-        using const_iterator = grapheme_iterator<
-            utf8::to_utf32_iterator<char const *, char const *>>;
+        using iterator = grapheme_iterator<utf8::to_utf32_iterator<char *>>;
+        using const_iterator =
+            grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
         using reverse_iterator = std::reverse_iterator<iterator>;
         using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
@@ -430,22 +429,18 @@ namespace boost { namespace text {
     private:
         static iterator make_iter(char * first, char * it, char * last) noexcept
         {
-            return iterator{
-                utf8::to_utf32_iterator<char *, char *>{first, first, last},
-                utf8::to_utf32_iterator<char *, char *>{first, it, last},
-                utf8::to_utf32_iterator<char *, char *>{first, last, last}};
+            return iterator{utf8::to_utf32_iterator<char *>{first, first, last},
+                            utf8::to_utf32_iterator<char *>{first, it, last},
+                            utf8::to_utf32_iterator<char *>{first, last, last}};
         }
 
         static const_iterator make_iter(
             char const * first, char const * it, char const * last) noexcept
         {
             return const_iterator{
-                utf8::to_utf32_iterator<char const *, char const *>{
-                    first, first, last},
-                utf8::to_utf32_iterator<char const *, char const *>{
-                    first, it, last},
-                utf8::to_utf32_iterator<char const *, char const *>{
-                    first, last, last}};
+                utf8::to_utf32_iterator<char const *>{first, first, last},
+                utf8::to_utf32_iterator<char const *>{first, it, last},
+                utf8::to_utf32_iterator<char const *>{first, last, last}};
         }
 
         template<typename Iter>
@@ -454,7 +449,7 @@ namespace boost { namespace text {
             return std::reverse_iterator<Iter>{it};
         }
 
-        using mutable_utf32_iter = utf8::to_utf32_iterator<char *, char *>;
+        using mutable_utf32_iter = utf8::to_utf32_iterator<char *>;
 
         mutable_utf32_iter prev_stable_cp(mutable_utf32_iter last) noexcept;
         mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;

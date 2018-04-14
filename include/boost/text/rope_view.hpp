@@ -21,23 +21,19 @@ namespace boost { namespace text {
     /** TODO. */
     struct rope_view
     {
-        using value_type = cp_range<utf8::to_utf32_iterator<
-            detail::const_rope_view_iterator,
-            detail::const_rope_view_iterator>>;
+        using value_type =
+            cp_range<utf8::to_utf32_iterator<detail::const_rope_view_iterator>>;
         using size_type = std::ptrdiff_t;
-        using iterator = grapheme_iterator<utf8::to_utf32_iterator<
-            detail::const_rope_view_iterator,
-            detail::const_rope_view_iterator>>;
+        using iterator = grapheme_iterator<
+            utf8::to_utf32_iterator<detail::const_rope_view_iterator>>;
         using const_iterator = iterator;
         using reverse_iterator = std::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
-        using rope_iterator = grapheme_iterator<utf8::to_utf32_iterator<
-            detail::rope_iterator,
-            detail::rope_iterator>>;
-        using const_rope_iterator = grapheme_iterator<utf8::to_utf32_iterator<
-            detail::const_rope_iterator,
-            detail::const_rope_iterator>>;
+        using rope_iterator =
+            grapheme_iterator<utf8::to_utf32_iterator<detail::rope_iterator>>;
+        using const_rope_iterator = grapheme_iterator<
+            utf8::to_utf32_iterator<detail::const_rope_iterator>>;
 
         /** Default ctor. */
         rope_view() noexcept {}
@@ -246,15 +242,12 @@ namespace boost { namespace text {
         detail::const_rope_view_iterator last) noexcept
     {
         return iterator{
-            utf8::to_utf32_iterator<
-                detail::const_rope_view_iterator,
-                detail::const_rope_view_iterator>{first, first, last},
-            utf8::to_utf32_iterator<
-                detail::const_rope_view_iterator,
-                detail::const_rope_view_iterator>{first, it, last},
-            utf8::to_utf32_iterator<
-                detail::const_rope_view_iterator,
-                detail::const_rope_view_iterator>{first, last, last}};
+            utf8::to_utf32_iterator<detail::const_rope_view_iterator>{
+                first, first, last},
+            utf8::to_utf32_iterator<detail::const_rope_view_iterator>{
+                first, it, last},
+            utf8::to_utf32_iterator<detail::const_rope_view_iterator>{
+                first, last, last}};
     }
 
 }}

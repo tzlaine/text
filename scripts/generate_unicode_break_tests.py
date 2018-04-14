@@ -334,8 +334,8 @@ TEST({1}, iterator_{3:02}_{4}_utf8)
         int cp_indices[1024] = {{ 0 }};
 
         std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps + {2}),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + {2}),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + {2}, cps + {2}),
             cus);
 
         boost::text::utf8::null_sentinel sentinel;

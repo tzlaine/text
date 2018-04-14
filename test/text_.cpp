@@ -239,10 +239,10 @@ TEST(text_tests, test_insert)
 
     {
         text::text const ct("string");
-        auto const first =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
-        auto const last =
-            text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+        auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(
+            utf32, utf32, utf32 + 4);
+        auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(
+            utf32, utf32 + 4, utf32 + 4);
 
         text::text t0 = ct;
         t0.insert(std::next(t0.begin(), 0), first, last);
@@ -412,11 +412,12 @@ TEST(text_tests, test_replace_iter)
 
     // Unicode 9, 3.9/D90
     uint32_t const utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
-    auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(utf32);
-    auto const final_cp =
-        text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 3);
-    auto const last =
-        text::utf8::from_utf32_iterator<uint32_t const *>(utf32 + 4);
+    auto const first = text::utf8::from_utf32_iterator<uint32_t const *>(
+        utf32, utf32, utf32 + 4);
+    auto const final_cp = text::utf8::from_utf32_iterator<uint32_t const *>(
+        utf32, utf32 + 3, utf32 + 4);
+    auto const last = text::utf8::from_utf32_iterator<uint32_t const *>(
+        utf32, utf32 + 4, utf32 + 4);
 
     text::text const ct_string("string");
     text::text const ct_text("text");
@@ -491,10 +492,12 @@ TEST(text_tests, test_replace_iter_large_insertions)
     }
     auto const first =
         text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
-            utf32_repeated.begin());
+            utf32_repeated.begin(),
+            utf32_repeated.begin(),
+            utf32_repeated.end());
     auto const last =
         text::utf8::from_utf32_iterator<std::vector<uint32_t>::iterator>(
-            utf32_repeated.end());
+            utf32_repeated.begin(), utf32_repeated.end(), utf32_repeated.end());
 
     {
         text::text t("string");
