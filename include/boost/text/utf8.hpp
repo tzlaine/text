@@ -701,7 +701,12 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR reference operator*() const
             noexcept(!throw_on_error)
         {
-            return get_value().value_;
+            if (at_end(it_))
+                return replacement_character();
+            unsigned char curr_c = *it_;
+            if (curr_c < 0x80)
+                return curr_c;
+            return get_value(curr_c).value_;
         }
 
         /** This function is constexpr in C++14 and later. */
@@ -805,8 +810,8 @@ namespace boost { namespace text { namespace utf8 {
             }
         }
 
-        BOOST_TEXT_CXX14_CONSTEXPR get_value_result get_value() const
-            noexcept(!throw_on_error)
+        BOOST_TEXT_CXX14_CONSTEXPR get_value_result
+        get_value(unsigned char curr_c) const noexcept(!throw_on_error)
         {
             /*
                 Unicode 9, 3.9/D92
@@ -828,20 +833,12 @@ namespace boost { namespace text { namespace utf8 {
             uint32_t value = 0;
             Iter next = it_;
 
-            if (at_end(next))
-                return get_value_result{replacement_character(), next};
-
-            unsigned char curr_c = *next;
-
             using detail::in;
 
+            // One-byte case handled by caller
 
-            // One-byte
-            if (curr_c <= 0x7f) {
-                value = curr_c;
-                ++next;
-                // Two-byte
-            } else if (in(0xc2, curr_c, 0xdf)) {
+            // Two-byte
+            if (in(0xc2, curr_c, 0xdf)) {
                 value = curr_c & 0b00011111;
                 ++next;
                 if (at_end(next))
@@ -1009,7 +1006,12 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR Iter increment() const
             noexcept(!throw_on_error)
         {
-            return get_value().it_;
+            if (at_end(it_))
+                return it_;
+            unsigned char curr_c = *it_;
+            if (curr_c < 0x80)
+                return std::next(it_);
+            return get_value(curr_c).it_;
         }
 
         Iter first_;
