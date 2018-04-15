@@ -530,19 +530,19 @@ TEST(break_apis, line_break)
     std::array<uint32_t, 3> cps = {{0x200b, 0x20, 0x30}};
 
     {
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
     // Range API
     {
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps, cps.begin() + 0).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps).iter - cps.begin(), 2);
     }
 
     {
@@ -625,19 +625,19 @@ TEST(break_apis, line_break_sentinel)
     auto const end = cp_range.end();
 
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, begin, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(begin, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, one, end)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(begin, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, two, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(two, end)), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, three, end)), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(two, end)), 3);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, begin, end).iter), 0);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(begin, end).iter), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, one, end).iter), 0);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(begin, end).iter), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, two, end).iter), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(two, end).iter), 3);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, three, end).iter), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(two, end).iter), 3);
     }
     // Range API
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(cp_range)), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(cp_range, begin).iter), 0);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(cp_range).iter), 2);
     }
 
     {

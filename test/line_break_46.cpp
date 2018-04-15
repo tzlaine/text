@@ -12,12 +12,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [13.01] EXCLAMATION MARK (EX) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x21 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -25,14 +25,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) × [13.01] EXCLAMATION MARK (EX) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x21 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -40,14 +40,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.01] EXCLAMATION MARK (EX) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x21 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -55,16 +55,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [13.01] EXCLAMATION MARK (EX) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x21 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -72,12 +72,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [12.1] NO-BREAK SPACE (GL) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0xa0 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -85,14 +85,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] NO-BREAK SPACE (GL) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0xa0 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -100,14 +100,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [12.2] NO-BREAK SPACE (GL) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0xa0 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -115,16 +115,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] NO-BREAK SPACE (GL) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0xa0 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -132,12 +132,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [27.03] HANGUL SYLLABLE GA (H2) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0xac00 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -145,14 +145,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE GA (H2) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0xac00 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -160,14 +160,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [27.03] HANGUL SYLLABLE GA (H2) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0xac00 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -175,16 +175,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE GA (H2) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0xac00 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -192,12 +192,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [27.03] HANGUL SYLLABLE GAG (H3) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0xac01 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -205,14 +205,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE GAG (H3) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0xac01 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -220,14 +220,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [27.03] HANGUL SYLLABLE GAG (H3) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0xac01 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -235,16 +235,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HANGUL SYLLABLE GAG (H3) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0xac01 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -252,12 +252,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [24.02] HEBREW LETTER ALEF (HL) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x5d0 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -265,14 +265,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] HEBREW LETTER ALEF (HL) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x5d0 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -280,14 +280,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [24.02] HEBREW LETTER ALEF (HL) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x5d0 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -295,16 +295,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HEBREW LETTER ALEF (HL) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x5d0 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -312,12 +312,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [21.02] HYPHEN-MINUS (HY) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x2d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -325,14 +325,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] HYPHEN-MINUS (HY) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x2d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -340,14 +340,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [21.02] HYPHEN-MINUS (HY) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x2d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -355,16 +355,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HYPHEN-MINUS (HY) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x2d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -372,12 +372,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [23.12] WATCH (ID) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x231a }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -385,14 +385,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] WATCH (ID) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x231a }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -400,14 +400,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [23.12] WATCH (ID) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x231a }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -415,16 +415,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] WATCH (ID) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x231a }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -432,12 +432,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) ÷ [999.0] ONE DOT LEADER (IN) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x2024 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -445,14 +445,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] ONE DOT LEADER (IN) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x2024 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -460,14 +460,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] ONE DOT LEADER (IN) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x2024 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -475,16 +475,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] ONE DOT LEADER (IN) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x2024 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -492,12 +492,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [13.02] COMMA (IS) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x2c }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -505,14 +505,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) × [13.02] COMMA (IS) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x2c }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -520,14 +520,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] COMMA (IS) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x2c }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -535,16 +535,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [13.02] COMMA (IS) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x2c }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -552,12 +552,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [27.03] HANGUL CHOSEONG KIYEOK (JL) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x1100 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -565,14 +565,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] HANGUL CHOSEONG KIYEOK (JL) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x1100 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -580,14 +580,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [27.03] HANGUL CHOSEONG KIYEOK (JL) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x1100 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -595,16 +595,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HANGUL CHOSEONG KIYEOK (JL) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x1100 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -612,12 +612,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [27.03] HANGUL JONGSEONG KIYEOK (JT) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x11a8 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -625,14 +625,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] HANGUL JONGSEONG KIYEOK (JT) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x11a8 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -640,14 +640,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [27.03] HANGUL JONGSEONG KIYEOK (JT) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x11a8 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -655,16 +655,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HANGUL JONGSEONG KIYEOK (JT) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x11a8 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -672,12 +672,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [27.03] HANGUL JUNGSEONG FILLER (JV) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x1160 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -685,14 +685,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] HANGUL JUNGSEONG FILLER (JV) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x1160 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -700,14 +700,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [27.03] HANGUL JUNGSEONG FILLER (JV) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x1160 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -715,16 +715,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HANGUL JUNGSEONG FILLER (JV) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x1160 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -732,12 +732,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [6.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0xa }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -745,14 +745,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) × [6.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0xa }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -760,14 +760,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [6.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0xa }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -775,16 +775,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [6.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0xa }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -792,12 +792,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [6.0] <NEXT LINE (NEL)> (NL) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x85 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -805,14 +805,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) × [6.0] <NEXT LINE (NEL)> (NL) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x85 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -820,14 +820,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [6.0] <NEXT LINE (NEL)> (NL) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x85 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -835,16 +835,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [6.0] <NEXT LINE (NEL)> (NL) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x85 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -852,12 +852,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [21.03] KHMER SIGN CAMNUC PII KUUH (NS) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x17d6 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -865,14 +865,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] KHMER SIGN CAMNUC PII KUUH (NS) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x17d6 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -880,14 +880,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [21.03] KHMER SIGN CAMNUC PII KUUH (NS) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x17d6 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -895,16 +895,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] KHMER SIGN CAMNUC PII KUUH (NS) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x17d6 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -912,12 +912,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [25.01] DIGIT ZERO (NU) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x30 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -925,14 +925,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] DIGIT ZERO (NU) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x30 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -940,14 +940,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [25.01] DIGIT ZERO (NU) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x30 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -955,16 +955,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] DIGIT ZERO (NU) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x30 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -972,16 +972,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) ÷ [999.0] LEFT PARENTHESIS (OP) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x28 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
 #if 0 // LB25 explicitly has a rule "PR × OP".
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
 #endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
 #if 0 // LB25 explicitly has a rule "PR × OP".
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
 #endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -989,14 +989,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] LEFT PARENTHESIS (OP) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x28 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1004,20 +1004,20 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] LEFT PARENTHESIS (OP) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x28 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
 #if 0 // LB25 explicitly has a rule "PR × OP".
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
 #endif
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
 #if 0 // LB25 explicitly has a rule "PR × OP".
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
 #endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
 #if 0 // LB25 explicitly has a rule "PR × OP".
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
 #endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1025,16 +1025,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] LEFT PARENTHESIS (OP) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x28 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -1042,12 +1042,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) ÷ [999.0] PERCENT SIGN (PO) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x25 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -1055,14 +1055,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] PERCENT SIGN (PO) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x25 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1070,14 +1070,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] PERCENT SIGN (PO) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x25 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1085,16 +1085,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] PERCENT SIGN (PO) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x25 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -1102,12 +1102,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) ÷ [999.0] DOLLAR SIGN (PR) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x24 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -1115,14 +1115,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] DOLLAR SIGN (PR) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x24 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1130,14 +1130,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] DOLLAR SIGN (PR) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x24 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1145,16 +1145,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] DOLLAR SIGN (PR) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x24 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -1162,12 +1162,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [19.01] QUOTATION MARK (QU) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x22 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -1175,14 +1175,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] QUOTATION MARK (QU) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x22 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1190,14 +1190,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [19.01] QUOTATION MARK (QU) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x22 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1205,16 +1205,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] QUOTATION MARK (QU) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x22 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -1222,12 +1222,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x20 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -1235,14 +1235,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) × [7.01] SPACE (SP) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x20 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1250,14 +1250,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x20 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1265,16 +1265,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [7.01] SPACE (SP) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x20 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -1282,12 +1282,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [13.02] SOLIDUS (SY) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x2f }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -1295,14 +1295,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) × [13.02] SOLIDUS (SY) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x2f }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1310,14 +1310,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] SOLIDUS (SY) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x2f }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1325,16 +1325,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [13.02] SOLIDUS (SY) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x2f }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -1342,12 +1342,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [11.01] WORD JOINER (WJ) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x2060 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -1355,14 +1355,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) × [11.01] WORD JOINER (WJ) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x2060 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1370,14 +1370,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [11.01] WORD JOINER (WJ) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x2060 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1385,16 +1385,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [11.01] WORD JOINER (WJ) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x2060 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -1402,12 +1402,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.02] ZERO WIDTH SPACE (ZW) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x200b }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -1415,14 +1415,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) × [7.02] ZERO WIDTH SPACE (ZW) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x200b }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1430,14 +1430,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.02] ZERO WIDTH SPACE (ZW) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x200b }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1445,16 +1445,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [7.02] ZERO WIDTH SPACE (ZW) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x200b }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -1462,12 +1462,12 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x1f1e6 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -1475,14 +1475,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [7.01] SPACE (SP) ÷ [18.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x20, 0x1f1e6 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1490,14 +1490,14 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x24, 0x308, 0x1f1e6 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
 
 
@@ -1505,16 +1505,16 @@ TEST(line, breaks_46)
     // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x24, 0x308, 0x20, 0x1f1e6 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
