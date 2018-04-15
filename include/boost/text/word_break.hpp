@@ -37,8 +37,43 @@ namespace boost { namespace text {
         ZWJ
     };
 
+    namespace detail {
+        struct word_prop_interval
+        {
+            uint32_t lo_;
+            uint32_t hi_;
+            word_property prop_;
+        };
+
+        inline bool
+        operator<(word_prop_interval lhs, word_prop_interval rhs) noexcept
+        {
+            return lhs.hi_ <= rhs.lo_;
+        }
+
+        std::array<word_prop_interval, 21> const & make_word_prop_intervals();
+        std::unordered_map<uint32_t, word_property> const &
+        make_word_prop_map();
+    }
+
     /** Returns the word property associated with code point \a cp. */
-    word_property word_prop(uint32_t cp) noexcept;
+    inline word_property word_prop(uint32_t cp) noexcept
+    {
+        static auto const map = detail::make_word_prop_map();
+        static auto const intervals = detail::make_word_prop_intervals();
+
+        auto const it = map.find(cp);
+        if (it == map.end()) {
+            auto const it2 = std::lower_bound(
+                intervals.begin(),
+                intervals.end(),
+                detail::word_prop_interval{cp, cp + 1});
+            if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+                return word_property::Other;
+            return it2->prop_;
+        }
+        return it->second;
+    }
 
     namespace detail {
         inline bool skippable(word_property prop) noexcept

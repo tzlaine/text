@@ -31,8 +31,44 @@ namespace boost { namespace text {
         Extend
     };
 
+    namespace detail {
+        struct sentence_prop_interval
+        {
+            uint32_t lo_;
+            uint32_t hi_;
+            sentence_property prop_;
+        };
+
+        inline bool operator<(
+            sentence_prop_interval lhs, sentence_prop_interval rhs) noexcept
+        {
+            return lhs.hi_ <= rhs.lo_;
+        }
+
+        std::array<sentence_prop_interval, 28> const &
+        make_sentence_prop_intervals();
+        std::unordered_map<uint32_t, sentence_property> const &
+        make_sentence_prop_map();
+    }
+
     /** Returns the sentence property associated with code point \a cp. */
-    sentence_property sentence_prop(uint32_t cp) noexcept;
+    inline sentence_property sentence_prop(uint32_t cp) noexcept
+    {
+        static auto const map = detail::make_sentence_prop_map();
+        static auto const intervals = detail::make_sentence_prop_intervals();
+
+        auto const it = map.find(cp);
+        if (it == map.end()) {
+            auto const it2 = std::lower_bound(
+                intervals.begin(),
+                intervals.end(),
+                detail::sentence_prop_interval{cp, cp + 1});
+            if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+                return sentence_property::Other;
+            return it2->prop_;
+        }
+        return it->second;
+    }
 
     namespace detail {
         inline bool skippable(sentence_property prop) noexcept

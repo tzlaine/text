@@ -954,19 +954,14 @@ namespace boost { namespace text { namespace detail {
     { key(0x115b9, 0x115af), 0x115bb },
 
         }};
-        std::unordered_map<uint64_t, uint32_t> make_map()
-        {
-            std::unordered_map<uint64_t, uint32_t> retval;
-            for (auto datum : g_data) {
-                retval[datum.key_] = datum.value_;
-            }
-            return retval;
-        }
     }
 
-    std::unordered_map<uint64_t, uint32_t> const & composition_map()
+    std::unordered_map<uint64_t, uint32_t> make_composition_map()
     {
-        static std::unordered_map<uint64_t, uint32_t> const retval = make_map();
+        std::unordered_map<uint64_t, uint32_t> retval;
+        for (auto datum : g_data) {
+            retval[datum.key_] = datum.value_;
+        }
         return retval;
     }
 

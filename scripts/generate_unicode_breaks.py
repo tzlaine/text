@@ -9,21 +9,9 @@ cpp_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{
+namespace boost {{ namespace text {{ namespace detail {{
 
-namespace detail {{
-
-struct {0}_interval
-{{
-    uint32_t lo_;
-    uint32_t hi_;
-    {0}erty prop_;
-}};
-
-bool operator<({0}_interval lhs, {0}_interval rhs) noexcept
-{{ return lhs.hi_ <= rhs.lo_; }}
-
-std::array<{0}_interval, {1}> const & {0}_intervals()
+std::array<{0}_interval, {1}> const & make_{0}_intervals()
 {{
 static std::array<{0}_interval, {1}> retval = {{{{
 {2}
@@ -31,7 +19,7 @@ static std::array<{0}_interval, {1}> retval = {{{{
 return retval;
 }}
 
-std::unordered_map<uint32_t, {0}erty> const & {0}_map()
+std::unordered_map<uint32_t, {0}erty> const & make_{0}_map()
 {{
 static std::unordered_map<uint32_t, {0}erty> retval = {{
 {4}
@@ -39,25 +27,7 @@ static std::unordered_map<uint32_t, {0}erty> retval = {{
 return retval;
 }}
 
-}}
-
-{0}erty {0}(uint32_t cp) noexcept
-{{
-    auto const & map = detail::{0}_map();
-    auto const it = map.find(cp);
-    if (it == map.end()) {{
-        auto const & intervals = detail::{0}_intervals();
-        auto const it2 = std::lower_bound(intervals.begin(),
-                                          intervals.end(),
-                                          detail::{0}_interval{{cp, cp + 1}});
-        if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
-            return {0}erty::{5};
-        return it2->prop_;
-    }}
-    return it->second;
-}}
-
-}}}}
+}}}}}}
 '''
 
 bidi_header_form = decls = '''\
@@ -302,27 +272,27 @@ def extract_bidi_mirroring_properties(filename):
 (grapheme_break_intervals, num_grapheme_intervals, grapheme_break_intervals_map) = \
     extract_break_properties('GraphemeBreakProperty.txt', 'grapheme_prop')
 cpp_file = open('grapheme_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, grapheme_break_intervals, 'grapheme_break', grapheme_break_intervals_map, 'Other'))
+cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, grapheme_break_intervals, 'grapheme_break', grapheme_break_intervals_map))
 
 (word_break_intervals, num_word_intervals, word_break_intervals_map) = \
     extract_break_properties('WordBreakProperty.txt', 'word_prop')
 cpp_file = open('word_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break', word_break_intervals_map, 'Other'))
+cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break', word_break_intervals_map))
 
 (sentence_break_intervals, num_sentence_intervals, sentence_break_intervals_map) = \
     extract_break_properties('SentenceBreakProperty.txt', 'sentence_prop')
 cpp_file = open('sentence_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('sentence_prop', num_sentence_intervals, sentence_break_intervals, 'sentence_break', sentence_break_intervals_map, 'Other'))
+cpp_file.write(cpp_file_form.format('sentence_prop', num_sentence_intervals, sentence_break_intervals, 'sentence_break', sentence_break_intervals_map))
 
 (line_break_intervals, num_line_intervals, line_break_intervals_map) = \
     extract_line_break_properties('LineBreak.txt', 'line_prop')
 cpp_file = open('line_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('line_prop', num_line_intervals, line_break_intervals, 'line_break', line_break_intervals_map, 'AL')) # AL in place of XX, due to Rule LB1
+cpp_file.write(cpp_file_form.format('line_prop', num_line_intervals, line_break_intervals, 'line_break', line_break_intervals_map))
 
 (bidi_intervals, num_bidi_intervals, bidi_intervals_map) = \
     extract_break_properties('DerivedBidiClass.txt', 'bidi_prop')
 cpp_file = open('bidi.cpp', 'w')
-cpp_file.write(cpp_file_form.format('bidi_prop', num_bidi_intervals, bidi_intervals, 'bidirectional', bidi_intervals_map, 'L'))
+cpp_file.write(cpp_file_form.format('bidi_prop', num_bidi_intervals, bidi_intervals, 'bidirectional', bidi_intervals_map))
 
 bidi_bracket_properties = extract_bidi_bracket_properties('BidiBrackets.txt')
 bidi_bracket_properties_lines = '        ' + '\n        '.join(bidi_bracket_properties)

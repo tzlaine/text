@@ -6,21 +6,9 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { namespace detail {
 
-namespace detail {
-
-struct line_prop_interval
-{
-    uint32_t lo_;
-    uint32_t hi_;
-    line_property prop_;
-};
-
-bool operator<(line_prop_interval lhs, line_prop_interval rhs) noexcept
-{ return lhs.hi_ <= rhs.lo_; }
-
-std::array<line_prop_interval, 49> const & line_prop_intervals()
+std::array<line_prop_interval, 49> const & make_line_prop_intervals()
 {
 static std::array<line_prop_interval, 49> retval = {{
     line_prop_interval{0x1c4, 0x250, line_property::AL},
@@ -77,7 +65,7 @@ static std::array<line_prop_interval, 49> retval = {{
 return retval;
 }
 
-std::unordered_map<uint32_t, line_property> const & line_prop_map()
+std::unordered_map<uint32_t, line_property> const & make_line_prop_map()
 {
 static std::unordered_map<uint32_t, line_property> retval = {
     { 0x0, line_property::CM },
@@ -32030,22 +32018,4 @@ static std::unordered_map<uint32_t, line_property> retval = {
 return retval;
 }
 
-}
-
-line_property line_prop(uint32_t cp) noexcept
-{
-    auto const & map = detail::line_prop_map();
-    auto const it = map.find(cp);
-    if (it == map.end()) {
-        auto const & intervals = detail::line_prop_intervals();
-        auto const it2 = std::lower_bound(intervals.begin(),
-                                          intervals.end(),
-                                          detail::line_prop_interval{cp, cp + 1});
-        if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
-            return line_property::AL;
-        return it2->prop_;
-    }
-    return it->second;
-}
-
-}}
+}}}

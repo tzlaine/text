@@ -65,7 +65,14 @@ namespace boost { namespace text { namespace detail {
     extern uint32_t const * g_all_canonical_decompositions;
     extern uint32_t const * g_all_compatible_decompositions;
 
-    std::unordered_map<uint64_t, uint32_t> const & composition_map();
+    std::unordered_map<uint64_t, uint32_t> make_composition_map();
+
+    inline std::unordered_map<uint64_t, uint32_t> const & composition_map()
+    {
+        static std::unordered_map<uint64_t, uint32_t> const retval =
+            make_composition_map();
+        return retval;
+    }
 
     struct cp_props
     {
@@ -80,7 +87,14 @@ namespace boost { namespace text { namespace detail {
 
     static_assert(sizeof(cp_props) == 12, "");
 
-    std::unordered_map<uint32_t, cp_props> const & cp_props_map();
+    std::unordered_map<uint32_t, cp_props> make_cp_props_map();
+
+    inline std::unordered_map<uint32_t, cp_props> const & cp_props_map()
+    {
+        static std::unordered_map<uint32_t, cp_props> const retval =
+            make_cp_props_map();
+        return retval;
+    }
 
     inline constexpr bool hangul_syllable(uint32_t cp) noexcept
     {

@@ -59,8 +59,43 @@ namespace boost { namespace text {
         CJ
     };
 
+    namespace detail {
+        struct line_prop_interval
+        {
+            uint32_t lo_;
+            uint32_t hi_;
+            line_property prop_;
+        };
+
+        inline bool
+        operator<(line_prop_interval lhs, line_prop_interval rhs) noexcept
+        {
+            return lhs.hi_ <= rhs.lo_;
+        }
+
+        std::array<line_prop_interval, 49> const & make_line_prop_intervals();
+        std::unordered_map<uint32_t, line_property> const &
+        make_line_prop_map();
+    }
+
     /** Returns the line property associated with code point \a cp. */
-    line_property line_prop(uint32_t cp) noexcept;
+    inline line_property line_prop(uint32_t cp) noexcept
+    {
+        static auto const map = detail::make_line_prop_map();
+        static auto const intervals = detail::make_line_prop_intervals();
+
+        auto const it = map.find(cp);
+        if (it == map.end()) {
+            auto const it2 = std::lower_bound(
+                intervals.begin(),
+                intervals.end(),
+                detail::line_prop_interval{cp, cp + 1});
+            if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+                return line_property::AL; // AL in place of XX, due to Rule LB1
+            return it2->prop_;
+        }
+        return it->second;
+    }
 
     /** The result type for line break algorithms that return an iterator, and
         which may return an iterator to either a hard or possible line break.

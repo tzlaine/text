@@ -17,9 +17,45 @@
 
 namespace boost { namespace text {
 
+
+    namespace detail {
+        struct bidi_prop_interval
+        {
+            uint32_t lo_;
+            uint32_t hi_;
+            bidi_property prop_;
+        };
+
+        inline bool
+        operator<(bidi_prop_interval lhs, bidi_prop_interval rhs) noexcept
+        {
+            return lhs.hi_ <= rhs.lo_;
+        }
+
+        std::array<bidi_prop_interval, 53> const & make_bidi_prop_intervals();
+        std::unordered_map<uint32_t, bidi_property> const &
+        make_bidi_prop_map();
+    }
+
     /** Returns the bidirectional algorithm character property associated with
         code point \a cp. */
-    bidi_property bidi_prop(uint32_t cp) noexcept;
+    inline bidi_property bidi_prop(uint32_t cp) noexcept
+    {
+        static auto const map = detail::make_bidi_prop_map();
+        static auto const intervals = detail::make_bidi_prop_intervals();
+
+        auto const it = map.find(cp);
+        if (it == map.end()) {
+            auto const it2 = std::lower_bound(
+                intervals.begin(),
+                intervals.end(),
+                detail::bidi_prop_interval{cp, cp + 1});
+            if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+                return bidi_property::L;
+            return it2->prop_;
+        }
+        return it->second;
+    }
 
     namespace detail {
         inline bool isolate_initiator(bidi_property prop) noexcept

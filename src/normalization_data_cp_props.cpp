@@ -30192,19 +30192,14 @@ namespace boost { namespace text { namespace detail {
         { 0x2fa1d, { {3403, 3404}, {8973, 8974}, 0, (uint8_t)quick_check::no, (uint8_t)quick_check::no, (uint8_t)quick_check::no, (uint8_t)quick_check::no } },
 
         }};
-        std::unordered_map<uint32_t, cp_props> make_map()
-        {
-            std::unordered_map<uint32_t, cp_props> retval;
-            for (auto datum : g_data) {
-                retval[datum.key_] = datum.value_;
-            }
-            return retval;
-        }
     }
 
-    std::unordered_map<uint32_t, cp_props> const & cp_props_map()
+    std::unordered_map<uint32_t, cp_props> make_cp_props_map()
     {
-        static std::unordered_map<uint32_t, cp_props> const retval = make_map();
+        std::unordered_map<uint32_t, cp_props> retval;
+        for (auto datum : g_data) {
+            retval[datum.key_] = datum.value_;
+        }
         return retval;
     }
 

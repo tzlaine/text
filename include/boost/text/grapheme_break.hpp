@@ -35,8 +35,44 @@ namespace boost { namespace text {
         E_Base_GAZ
     };
 
+    namespace detail {
+        struct grapheme_prop_interval
+        {
+            uint32_t lo_;
+            uint32_t hi_;
+            grapheme_property prop_;
+        };
+
+        inline bool operator<(
+            grapheme_prop_interval lhs, grapheme_prop_interval rhs) noexcept
+        {
+            return lhs.hi_ <= rhs.lo_;
+        }
+
+        std::array<grapheme_prop_interval, 3> const &
+        make_grapheme_prop_intervals();
+        std::unordered_map<uint32_t, grapheme_property> const &
+        make_grapheme_prop_map();
+    }
+
     /** Returns the grapheme property associated with code point \a cp. */
-    grapheme_property grapheme_prop(uint32_t cp) noexcept;
+    inline grapheme_property grapheme_prop(uint32_t cp) noexcept
+    {
+        static auto const map = detail::make_grapheme_prop_map();
+        static auto const intervals = detail::make_grapheme_prop_intervals();
+
+        auto const it = map.find(cp);
+        if (it == map.end()) {
+            auto const it2 = std::lower_bound(
+                intervals.begin(),
+                intervals.end(),
+                detail::grapheme_prop_interval{cp, cp + 1});
+            if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+                return grapheme_property::Other;
+            return it2->prop_;
+        }
+        return it->second;
+    }
 
     namespace detail {
         inline bool skippable(grapheme_property prop) noexcept

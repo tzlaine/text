@@ -6,21 +6,9 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { namespace detail {
 
-namespace detail {
-
-struct word_prop_interval
-{
-    uint32_t lo_;
-    uint32_t hi_;
-    word_property prop_;
-};
-
-bool operator<(word_prop_interval lhs, word_prop_interval rhs) noexcept
-{ return lhs.hi_ <= rhs.lo_; }
-
-std::array<word_prop_interval, 21> const & word_prop_intervals()
+std::array<word_prop_interval, 21> const & make_word_prop_intervals()
 {
 static std::array<word_prop_interval, 21> retval = {{
     word_prop_interval{0xf8, 0x1bb, word_property::ALetter},
@@ -49,7 +37,7 @@ static std::array<word_prop_interval, 21> retval = {{
 return retval;
 }
 
-std::unordered_map<uint32_t, word_property> const & word_prop_map()
+std::unordered_map<uint32_t, word_property> const & make_word_prop_map()
 {
 static std::unordered_map<uint32_t, word_property> retval = {
     { 0xa, word_property::LF },
@@ -12287,22 +12275,4 @@ static std::unordered_map<uint32_t, word_property> retval = {
 return retval;
 }
 
-}
-
-word_property word_prop(uint32_t cp) noexcept
-{
-    auto const & map = detail::word_prop_map();
-    auto const it = map.find(cp);
-    if (it == map.end()) {
-        auto const & intervals = detail::word_prop_intervals();
-        auto const it2 = std::lower_bound(intervals.begin(),
-                                          intervals.end(),
-                                          detail::word_prop_interval{cp, cp + 1});
-        if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
-            return word_property::Other;
-        return it2->prop_;
-    }
-    return it->second;
-}
-
-}}
+}}}

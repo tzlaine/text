@@ -30,19 +30,14 @@ namespace boost {{ namespace text {{ namespace detail {{
         static constexpr std::array<data_t, {5}> g_data = {{{{
 {4}
         }}}};
-        std::unordered_map<uint32_t, cp_props> make_map()
-        {{
-            std::unordered_map<uint32_t, cp_props> retval;
-            for (auto datum : g_data) {{
-                retval[datum.key_] = datum.value_;
-            }}
-            return retval;
-        }}
     }}
 
-    std::unordered_map<uint32_t, cp_props> const & cp_props_map()
+    std::unordered_map<uint32_t, cp_props> make_cp_props_map()
     {{
-        static std::unordered_map<uint32_t, cp_props> const retval = make_map();
+        std::unordered_map<uint32_t, cp_props> retval;
+        for (auto datum : g_data) {{
+            retval[datum.key_] = datum.value_;
+        }}
         return retval;
     }}
 
@@ -66,19 +61,14 @@ namespace boost {{ namespace text {{ namespace detail {{
         static constexpr std::array<data_t, {1}> g_data = {{{{
 {0}
         }}}};
-        std::unordered_map<uint64_t, uint32_t> make_map()
-        {{
-            std::unordered_map<uint64_t, uint32_t> retval;
-            for (auto datum : g_data) {{
-                retval[datum.key_] = datum.value_;
-            }}
-            return retval;
-        }}
     }}
 
-    std::unordered_map<uint64_t, uint32_t> const & composition_map()
+    std::unordered_map<uint64_t, uint32_t> make_composition_map()
     {{
-        static std::unordered_map<uint64_t, uint32_t> const retval = make_map();
+        std::unordered_map<uint64_t, uint32_t> retval;
+        for (auto datum : g_data) {{
+            retval[datum.key_] = datum.value_;
+        }}
         return retval;
     }}
 
