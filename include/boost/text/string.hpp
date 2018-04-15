@@ -24,12 +24,6 @@ namespace boost { namespace text {
     struct unencoded_rope;
     struct unencoded_rope_view;
 
-    // TODO: Document that string is not quite a SequenceContainer.  Missing:
-    // {const_,}reference; {difference,size}_type; X(n, t) (constructing a
-    // sequence of n copies of t); a.insert(p,n,t) (insert n copies of t at
-    // p); a.insert(p, il) (insert initializer_list); assign() (because we
-    // have range-based assignemnt).
-
     /** A mutable contiguous null-terminated sequence of char.  Strongly
         exception safe. */
     struct string
@@ -226,7 +220,6 @@ namespace boost { namespace text {
             null-terminated empty string. */
         int capacity() const noexcept { return cap() - 1; }
 
-        // TODO: Document this in the top-level docs.
         /** Returns the char (not a reference) of *this at index i, or the
             char at index -i when i < 0.
 

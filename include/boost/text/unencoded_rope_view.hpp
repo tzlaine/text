@@ -158,9 +158,10 @@ namespace boost { namespace text {
         bool empty() const noexcept;
         size_type size() const noexcept;
 
-        /** Returns the i-th char of *this (not a reference).
+        /** Returns the char (not a reference) of *this at index i, or the
+            char at index -i when i < 0.
 
-            \pre i < size() */
+            \pre 0 <= i && i <= size() || 0 <= -i && -i <= size()  */
         char operator[](size_type i) const noexcept;
 
         /** Returns a substring of *this, taken from the range of chars at

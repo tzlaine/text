@@ -177,15 +177,18 @@ namespace boost { namespace text {
 
         size_type size() const noexcept { return detail::size(ptr_.get()); }
 
-        /** Returns the i-th char of *this (not a reference).
+        /** Returns the char (not a reference) of *this at index i, or the
+            char at index -i when i < 0.
 
-            \pre 0 <= i && i < size() */
-        char operator[](size_type n) const noexcept
+            \pre 0 <= i && i <= size() || 0 <= -i && -i <= size()  */
+        char operator[](size_type i) const noexcept
         {
             assert(ptr_);
-            assert(n < size());
+            if (i < 0)
+                i += size();
+            assert(0 <= i && i < size());
             detail::found_char found;
-            find_char(ptr_, n, found);
+            find_char(ptr_, i, found);
             return found.c_;
         }
 
@@ -1529,7 +1532,9 @@ namespace boost { namespace text {
 
     inline char unencoded_rope_view::operator[](size_type i) const noexcept
     {
-        assert(1 < size());
+        if (i < 0)
+            i += size();
+        assert(0 <= i && i < size());
         return begin()[i];
     }
 
