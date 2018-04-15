@@ -482,8 +482,6 @@ namespace boost { namespace text {
         auto replace(string_view old_substr, CharIter first, CharIter last)
             -> detail::char_iter_ret_t<string &, CharIter>;
 
-        // TODO: Perf test replace(CharIter) against insert(CharIter), and
-        // replace the insert(CharIter) implementation if that is warranted.
         template<typename CharIter>
         auto replace(
             iterator old_first,
