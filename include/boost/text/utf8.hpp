@@ -26,7 +26,8 @@ namespace boost { namespace text { namespace utf8 {
         struct throw_on_encoding_error
         {};
 
-        BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf(uint32_t cp, char buf[5])
+        inline BOOST_TEXT_CXX14_CONSTEXPR int
+        read_into_buf(uint32_t cp, char buf[5])
         {
             if (cp < 0x80) {
                 buf[0] = static_cast<char>(cp);
