@@ -154,22 +154,22 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from c_str into *this starting at
             position at. */
-        iterator insert(iterator at, char const * c_str);
+        const_iterator insert(const_iterator at, char const * c_str);
 
         /** Inserts the sequence of char from rv into *this starting at position
             at. */
-        iterator insert(iterator at, rope_view rv);
+        const_iterator insert(const_iterator at, rope_view rv);
 
         /** Inserts s into *this starting at position at. */
-        iterator insert(iterator at, string && s);
+        const_iterator insert(const_iterator at, string && s);
 
         /** Inserts the sequence of char from sv into *this starting at position
             at. */
-        iterator insert(iterator at, string_view sv);
+        const_iterator insert(const_iterator at, string_view sv);
 
         /** Inserts the sequence of char from rsv into *this starting at
             position at. */
-        iterator insert(iterator at, repeated_string_view rsv);
+        const_iterator insert(const_iterator at, repeated_string_view rsv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -178,7 +178,7 @@ namespace boost { namespace text {
             This function only participates in overload resolution if
             CharRange models the CharRange concept. */
         template<typename CharRange>
-        iterator insert(iterator at, CharRange const & r);
+        const_iterator insert(const_iterator at, CharRange const & r);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
@@ -186,17 +186,17 @@ namespace boost { namespace text {
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
         template<typename CharIter>
-        iterator insert(iterator at, CharIter first, CharIter last);
+        const_iterator insert(const_iterator at, CharIter first, CharIter last);
 
 #else
 
         template<typename CharRange>
-        auto insert(iterator at, CharRange const & r)
-            -> detail::rng_alg_ret_t<iterator, CharRange>;
+        auto insert(const_iterator at, CharRange const & r)
+            -> detail::rng_alg_ret_t<const_iterator, CharRange>;
 
         template<typename CharIter>
-        auto insert(iterator at, CharIter first, CharIter last)
-            -> detail::char_iter_ret_t<iterator, CharIter>;
+        auto insert(const_iterator at, CharIter first, CharIter last)
+            -> detail::char_iter_ret_t<const_iterator, CharIter>;
 
 #endif
 
@@ -209,7 +209,7 @@ namespace boost { namespace text {
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
-        iterator erase(iterator first, iterator last);
+        const_iterator erase(const_iterator first, const_iterator last);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -330,7 +330,7 @@ namespace boost { namespace text {
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
-        static iterator make_iter(
+        static const_iterator make_iter(
             detail::const_rope_iterator first,
             detail::const_rope_iterator it,
             detail::const_rope_iterator last) noexcept;
@@ -352,33 +352,24 @@ namespace boost { namespace text {
 #endif // Doxygen
     };
 
-    inline rope::const_iterator begin(rope const & t) noexcept
-    {
-        return t.begin();
-    }
-    inline rope::const_iterator end(rope const & t) noexcept { return t.end(); }
-    inline rope::const_iterator cbegin(rope const & t) noexcept
-    {
-        return t.cbegin();
-    }
-    inline rope::const_iterator cend(rope const & t) noexcept
-    {
-        return t.cend();
-    }
+    inline rope::iterator begin(rope const & t) noexcept { return t.begin(); }
+    inline rope::iterator end(rope const & t) noexcept { return t.end(); }
+    inline rope::iterator cbegin(rope const & t) noexcept { return t.cbegin(); }
+    inline rope::iterator cend(rope const & t) noexcept { return t.cend(); }
 
-    inline rope::const_reverse_iterator rbegin(rope const & t) noexcept
+    inline rope::reverse_iterator rbegin(rope const & t) noexcept
     {
         return t.rbegin();
     }
-    inline rope::const_reverse_iterator rend(rope const & t) noexcept
+    inline rope::reverse_iterator rend(rope const & t) noexcept
     {
         return t.rend();
     }
-    inline rope::const_reverse_iterator crbegin(rope const & t) noexcept
+    inline rope::reverse_iterator crbegin(rope const & t) noexcept
     {
         return t.crbegin();
     }
-    inline rope::const_reverse_iterator crend(rope const & t) noexcept
+    inline rope::reverse_iterator crend(rope const & t) noexcept
     {
         return t.crend();
     }
@@ -533,46 +524,48 @@ namespace boost { namespace text {
 
     inline void rope::clear() noexcept { rope_.clear(); }
 
-    inline rope::iterator rope::insert(iterator at, char const * c_str)
+    inline rope::const_iterator
+    rope::insert(const_iterator at, char const * c_str)
     {
         return insert(at, string_view(c_str));
     }
 
-    inline rope::iterator rope::insert(iterator at, rope_view rv)
+    inline rope::const_iterator rope::insert(const_iterator at, rope_view rv)
     {
         // TODO
         return at;
     }
 
-    inline rope::iterator rope::insert(iterator at, string && s)
+    inline rope::const_iterator rope::insert(const_iterator at, string && s)
     {
         // TODO
         return at;
     }
 
-    inline rope::iterator rope::insert(iterator at, string_view sv)
+    inline rope::const_iterator rope::insert(const_iterator at, string_view sv)
     {
         // TODO
         return at;
     }
 
-    inline rope::iterator rope::insert(iterator at, repeated_string_view rsv)
+    inline rope::const_iterator
+    rope::insert(const_iterator at, repeated_string_view rsv)
     {
         // TODO
         return at;
     }
 
     template<typename CharRange>
-    auto rope::insert(iterator at, CharRange const & r)
-        -> detail::rng_alg_ret_t<rope::iterator, CharRange>
+    auto rope::insert(const_iterator at, CharRange const & r)
+        -> detail::rng_alg_ret_t<rope::const_iterator, CharRange>
     {
         // TODO
         return at;
     }
 
     template<typename CharIter>
-    auto rope::insert(iterator at, CharIter first, CharIter last)
-        -> detail::char_iter_ret_t<rope::iterator, CharIter>
+    auto rope::insert(const_iterator at, CharIter first, CharIter last)
+        -> detail::char_iter_ret_t<rope::const_iterator, CharIter>
     {
         // TODO
         return at;
@@ -584,7 +577,8 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline rope::iterator rope::erase(iterator first, iterator last)
+    inline rope::const_iterator
+    rope::erase(const_iterator first, const_iterator last)
     {
         int const offset = first.base().base() - rope_.begin();
         erase(rope_view(first, last));
@@ -669,17 +663,18 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline rope::iterator rope::make_iter(
+    inline rope::const_iterator rope::make_iter(
         detail::const_rope_iterator first,
         detail::const_rope_iterator it,
         detail::const_rope_iterator last) noexcept
     {
-        return iterator{utf8::to_utf32_iterator<detail::const_rope_iterator>{
-                            first, first, last},
-                        utf8::to_utf32_iterator<detail::const_rope_iterator>{
-                            first, it, last},
-                        utf8::to_utf32_iterator<detail::const_rope_iterator>{
-                            first, last, last}};
+        return const_iterator{
+            utf8::to_utf32_iterator<detail::const_rope_iterator>{
+                first, first, last},
+            utf8::to_utf32_iterator<detail::const_rope_iterator>{
+                first, it, last},
+            utf8::to_utf32_iterator<detail::const_rope_iterator>{
+                first, last, last}};
     }
 
 }}
