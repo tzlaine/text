@@ -23,7 +23,10 @@
     </h4>
 <p>
       A <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>
-      is a contiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
+      is a possibly-discontiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
+    </p>
+<p>
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>.
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>.
@@ -138,6 +141,80 @@
 <tr>
 <td>
               <p>
+                <code class="computeroutput"><span class="special">*</span><span class="identifier">it</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="keyword">char</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                It must be possible to access the <code class="computeroutput"><span class="keyword">char</span></code>
+                sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>.
+              </p>
+            </td>
+<td>
+            </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><h4>
+<a name="boost_text__proposed_.concepts.h1"></a>
+      <span class="phrase"><a name="boost_text__proposed_.concepts.contigcharrange"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.contigcharrange">ContigCharRange</a>
+    </h4>
+<p>
+      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.contigcharrange">ContigCharRange</a>
+      is a contiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
+    </p>
+<p>
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>.
+    </p>
+<p>
+      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.contigcharrange">ContigCharRange</a>.
+      All the requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.charrange">CharRange</a>
+      apply, in addition to the following table. In the table, <code class="computeroutput"><span class="identifier">R</span></code>
+      is a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.contigcharrange">ContigCharRange</a>;
+      <code class="computeroutput"><span class="identifier">r</span></code> is an object of type <code class="computeroutput"><span class="identifier">R</span></code>; <code class="computeroutput"><span class="identifier">Iter</span></code>
+      is an iterator type; and <code class="computeroutput"><span class="identifier">it</span></code>
+      is an object of type <code class="computeroutput"><span class="identifier">Iter</span></code>.
+    </p>
+<div class="table">
+<a name="boost_text__proposed_.concepts.t1"></a><p class="title"><b>Table&#160;1.3.&#160;Expression Requirements</b></p>
+<div class="table-contents"><table class="table" summary="Expression Requirements">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                Expression
+              </p>
+            </th>
+<th>
+              <p>
+                Type
+              </p>
+            </th>
+<th>
+              <p>
+                Description
+              </p>
+            </th>
+<th>
+              <p>
+                Notes
+              </p>
+            </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
                 <code class="computeroutput"><span class="special">&amp;*</span><span class="identifier">it</span></code>
               </p>
             </td>
@@ -159,8 +236,7 @@
                 if <code class="computeroutput"><span class="identifier">Iter</span></code> is a <code class="computeroutput"><span class="identifier">const_iterator</span></code>.
               </p>
             </td>
-</tr>
-</tbody>
+</tr></tbody>
 </table></div>
 </div>
 <br class="table-break"><p>
@@ -168,12 +244,244 @@
       a contiguous iterator.
     </p>
 <h4>
-<a name="boost_text__proposed_.concepts.h1"></a>
+<a name="boost_text__proposed_.concepts.h2"></a>
+      <span class="phrase"><a name="boost_text__proposed_.concepts.graphemerange"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
+    </h4>
+<p>
+      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
+      is a sequence of graphemes over an underlying possibly-discontiguous sequence
+      of <code class="computeroutput"><span class="keyword">char</span></code>.
+    </p>
+<p>
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>.
+    </p>
+<p>
+      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>.
+      In the table below, <code class="computeroutput"><span class="identifier">R</span></code> is a
+      type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>;
+      <code class="computeroutput"><span class="identifier">r</span></code> is an object of type <code class="computeroutput"><span class="identifier">R</span></code>; <code class="computeroutput"><span class="identifier">Iter</span></code>
+      is an iterator type; and <code class="computeroutput"><span class="identifier">it</span></code>
+      is an object of type <code class="computeroutput"><span class="identifier">Iter</span></code>.
+    </p>
+<div class="table">
+<a name="boost_text__proposed_.concepts.t2"></a><p class="title"><b>Table&#160;1.4.&#160;Expression Requirements</b></p>
+<div class="table-contents"><table class="table" summary="Expression Requirements">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                Expression
+              </p>
+            </th>
+<th>
+              <p>
+                Type
+              </p>
+            </th>
+<th>
+              <p>
+                Description
+              </p>
+            </th>
+<th>
+              <p>
+                Notes
+              </p>
+            </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
+                or <code class="computeroutput"><span class="identifier">r</span><span class="special">.</span><span class="identifier">begin</span><span class="special">().</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
+                or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Iter
+              </p>
+            </td>
+<td>
+              <p>
+                The begin-iterator for the underlying sequence of <code class="computeroutput"><span class="keyword">char</span></code>
+                delimited by <code class="computeroutput"><span class="identifier">r</span></code>.
+              </p>
+            </td>
+<td>
+              <p>
+                If multiple <code class="computeroutput"><span class="identifier">begin</span><span class="special">()</span></code> overloads exist, they are prefered
+                in the order listed.
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">end</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
+                or <code class="computeroutput"><span class="identifier">r</span><span class="special">.</span><span class="identifier">end</span><span class="special">().</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
+                or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">r</span><span class="special">).</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Iter
+              </p>
+            </td>
+<td>
+              <p>
+                The end-iterator for the underlying sequence of <code class="computeroutput"><span class="keyword">char</span></code>
+                delimited by <code class="computeroutput"><span class="identifier">r</span></code>.
+              </p>
+            </td>
+<td>
+              <p>
+                If multiple <code class="computeroutput"><span class="identifier">end</span><span class="special">()</span></code>
+                overloads exist, they are prefered in the order listed.
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span><span class="special">&lt;</span><span class="identifier">Iter</span><span class="special">&gt;::</span><span class="identifier">iterator_category</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                std::random_access_iterator_tag
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">Iter</span></code> must be a random
+                access iterator.
+              </p>
+            </td>
+<td>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">*</span><span class="identifier">it</span><span class="special">-&gt;</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="keyword">char</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                It must be possible to access the <code class="computeroutput"><span class="keyword">char</span></code>
+                sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>.
+              </p>
+            </td>
+<td>
+            </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><h4>
+<a name="boost_text__proposed_.concepts.h3"></a>
+      <span class="phrase"><a name="boost_text__proposed_.concepts.contiggraphemerange"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>
+    </h4>
+<p>
+      A <a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>
+      is a sequence of graphemes over an underlying contiguous sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
+    </p>
+<p>
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>.
+    </p>
+<p>
+      Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>.
+      All the requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
+      apply, in addition to the following table. In the table, <code class="computeroutput"><span class="identifier">R</span></code>
+      is a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.contiggraphemerange">ContigGraphemeRange</a>;
+      <code class="computeroutput"><span class="identifier">r</span></code> is an object of type <code class="computeroutput"><span class="identifier">R</span></code>; <code class="computeroutput"><span class="identifier">Iter</span></code>
+      is an iterator type; and <code class="computeroutput"><span class="identifier">it</span></code>
+      is an object of type <code class="computeroutput"><span class="identifier">Iter</span></code>.
+    </p>
+<div class="table">
+<a name="boost_text__proposed_.concepts.t3"></a><p class="title"><b>Table&#160;1.5.&#160;Expression Requirements</b></p>
+<div class="table-contents"><table class="table" summary="Expression Requirements">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                Expression
+              </p>
+            </th>
+<th>
+              <p>
+                Type
+              </p>
+            </th>
+<th>
+              <p>
+                Description
+              </p>
+            </th>
+<th>
+              <p>
+                Notes
+              </p>
+            </th>
+</tr></thead>
+<tbody><tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="special">&amp;*</span><span class="identifier">it</span><span class="special">-&gt;</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="keyword">char</span> <span class="special">*</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                It must be possible to access the <code class="computeroutput"><span class="keyword">char</span></code>
+                sequence underlying <code class="computeroutput"><span class="identifier">r</span></code>
+                as an array.
+              </p>
+            </td>
+<td>
+              <p>
+                The result will be <code class="computeroutput"><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span></code>
+                if <code class="computeroutput"><span class="identifier">Iter</span></code> is a <code class="computeroutput"><span class="identifier">const_iterator</span></code>.
+              </p>
+            </td>
+</tr></tbody>
+</table></div>
+</div>
+<br class="table-break"><p>
+      Additionally, <code class="computeroutput"><span class="identifier">Iter</span></code> must be
+      a contiguous iterator.
+    </p>
+<h4>
+<a name="boost_text__proposed_.concepts.h4"></a>
       <span class="phrase"><a name="boost_text__proposed_.concepts.chariter"></a></span><a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a>
     </h4>
 <p>
       A <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a> is
-      an iterator over a sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
+      a bidirectional iterator over a sequence of <code class="computeroutput"><span class="keyword">char</span></code>.
+    </p>
+<p>
+      Example: <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code><code class="computeroutput"><span class="special">::</span><span class="identifier">iterator</span></code>.
     </p>
 <p>
       Requirements on <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a>.
@@ -181,7 +489,7 @@
       a type that models <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a>.
     </p>
 <div class="table">
-<a name="boost_text__proposed_.concepts.t1"></a><p class="title"><b>Table&#160;1.3.&#160;Expression Requirements</b></p>
+<a name="boost_text__proposed_.concepts.t4"></a><p class="title"><b>Table&#160;1.6.&#160;Expression Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Expression Requirements">
 <colgroup>
 <col>
@@ -233,8 +541,7 @@
 </div>
 <br class="table-break"><p>
       <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a> does
-      not need to be a contiguous iterator, and <a class="link" href="concepts.html#boost_text__proposed_.concepts.chariter">CharIter</a>
-      does not need to have a particular iterator category.
+      not need to be a contiguous iterator.
     </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
