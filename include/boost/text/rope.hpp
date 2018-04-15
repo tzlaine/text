@@ -154,22 +154,22 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from c_str into *this starting at
             position at. */
-        rope & insert(iterator at, char const * c_str);
+        iterator insert(iterator at, char const * c_str);
 
         /** Inserts the sequence of char from rv into *this starting at position
             at. */
-        rope & insert(iterator at, rope_view rv);
+        iterator insert(iterator at, rope_view rv);
 
         /** Inserts s into *this starting at position at. */
-        rope & insert(iterator at, string && s);
+        iterator insert(iterator at, string && s);
 
         /** Inserts the sequence of char from sv into *this starting at position
             at. */
-        rope & insert(iterator at, string_view sv);
+        iterator insert(iterator at, string_view sv);
 
         /** Inserts the sequence of char from rsv into *this starting at
             position at. */
-        rope & insert(iterator at, repeated_string_view rsv);
+        iterator insert(iterator at, repeated_string_view rsv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -178,7 +178,7 @@ namespace boost { namespace text {
             This function only participates in overload resolution if
             CharRange models the CharRange concept. */
         template<typename CharRange>
-        rope & insert(iterator at, CharRange const & r);
+        iterator insert(iterator at, CharRange const & r);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
@@ -186,17 +186,17 @@ namespace boost { namespace text {
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
         template<typename CharIter>
-        rope & insert(iterator at, CharIter first, CharIter last);
+        iterator insert(iterator at, CharIter first, CharIter last);
 
 #else
 
         template<typename CharRange>
         auto insert(iterator at, CharRange const & r)
-            -> detail::rng_alg_ret_t<rope &, CharRange>;
+            -> detail::rng_alg_ret_t<iterator, CharRange>;
 
         template<typename CharIter>
         auto insert(iterator at, CharIter first, CharIter last)
-            -> detail::char_iter_ret_t<rope &, CharIter>;
+            -> detail::char_iter_ret_t<iterator, CharIter>;
 
 #endif
 
@@ -209,7 +209,7 @@ namespace boost { namespace text {
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
-        rope & erase(iterator first, iterator last);
+        iterator erase(iterator first, iterator last);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -533,49 +533,49 @@ namespace boost { namespace text {
 
     inline void rope::clear() noexcept { rope_.clear(); }
 
-    inline rope & rope::insert(iterator at, char const * c_str)
+    inline rope::iterator rope::insert(iterator at, char const * c_str)
     {
         return insert(at, string_view(c_str));
     }
 
-    inline rope & rope::insert(iterator at, rope_view rv)
+    inline rope::iterator rope::insert(iterator at, rope_view rv)
     {
         // TODO
-        return *this;
+        return at;
     }
 
-    inline rope & rope::insert(iterator at, string && s)
+    inline rope::iterator rope::insert(iterator at, string && s)
     {
         // TODO
-        return *this;
+        return at;
     }
 
-    inline rope & rope::insert(iterator at, string_view sv)
+    inline rope::iterator rope::insert(iterator at, string_view sv)
     {
         // TODO
-        return *this;
+        return at;
     }
 
-    inline rope & rope::insert(iterator at, repeated_string_view rsv)
+    inline rope::iterator rope::insert(iterator at, repeated_string_view rsv)
     {
         // TODO
-        return *this;
+        return at;
     }
 
     template<typename CharRange>
     auto rope::insert(iterator at, CharRange const & r)
-        -> detail::rng_alg_ret_t<rope &, CharRange>
+        -> detail::rng_alg_ret_t<rope::iterator, CharRange>
     {
         // TODO
-        return *this;
+        return at;
     }
 
     template<typename CharIter>
     auto rope::insert(iterator at, CharIter first, CharIter last)
-        -> detail::char_iter_ret_t<rope &, CharIter>
+        -> detail::char_iter_ret_t<rope::iterator, CharIter>
     {
         // TODO
-        return *this;
+        return at;
     }
 
     inline rope & rope::erase(rope_view rv)
@@ -584,9 +584,11 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline rope & rope::erase(iterator first, iterator last)
+    inline rope::iterator rope::erase(iterator first, iterator last)
     {
-        return erase(rope_view(first, last));
+        int const offset = first.base().base() - rope_.begin();
+        erase(rope_view(first, last));
+        return make_iter(rope_.begin(), rope_.begin() + offset, rope_.end());
     }
 
     inline rope & rope::replace(rope_view old_substr, rope_view new_substr)
@@ -839,8 +841,8 @@ namespace boost { namespace text {
     /** Creates a new rope object that is the concatenation of t and rv. */
     inline text & operator+=(text & t, rope_view rv)
     {
-        return t.insert(
-            t.end(), rv.begin().base().base(), rv.end().base().base());
+        t.insert(t.end(), rv.begin().base().base(), rv.end().base().base());
+        return t;
     }
 
     /** Creates a new rope object that is the concatenation of t and rv. */
@@ -858,8 +860,8 @@ namespace boost { namespace text {
     /** Creates a new rope object that is the concatenation of t and r. */
     inline text & operator+=(text & t, rope const & r)
     {
-        return t.insert(
-            t.end(), r.begin().base().base(), r.end().base().base());
+        t.insert(t.end(), r.begin().base().base(), r.end().base().base());
+        return t;
     }
 
     /** Creates a new rope object that is the concatenation of t and r. */
@@ -872,7 +874,7 @@ namespace boost { namespace text {
     inline rope operator+(rope r, text const & t) { return r += t; }
 
 
-    inline text & text::insert(iterator at, rope_view rv)
+    inline text::iterator text::insert(iterator at, rope_view rv)
     {
         return insert_impl(
             at, rv.begin().base().base(), rv.end().base().base(), true);

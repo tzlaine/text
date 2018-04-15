@@ -284,7 +284,7 @@ namespace boost { namespace text {
 
         /** Inserts the null-terminated string into *this starting at position
             at. */
-        unencoded_rope & insert(const_iterator at, char const * c_str);
+        const_iterator insert(const_iterator at, char const * c_str);
 
         /** Inserts the sequence of char from rv into *this starting at offset
             at. */
@@ -292,7 +292,7 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from rv into *this starting at
             position at. */
-        unencoded_rope & insert(const_iterator at, unencoded_rope_view rv);
+        const_iterator insert(const_iterator at, unencoded_rope_view rv);
 
         /** Inserts the sequence of char from t into *this starting at offset
             at, by moving the contents of t. */
@@ -303,7 +303,7 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from t into *this starting at
             position at, by moving the contents of t. */
-        unencoded_rope & insert(const_iterator at, string && s);
+        const_iterator insert(const_iterator at, string && s);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -350,7 +350,7 @@ namespace boost { namespace text {
         template<typename CharRange>
         auto insert(const_iterator at, CharRange const & r)
             -> detail::rng_alg_ret_t<
-                unencoded_rope &,
+                const_iterator,
                 CharRange,
                 string_view,
                 repeated_string_view>;
@@ -361,7 +361,7 @@ namespace boost { namespace text {
 
         template<typename CharIter>
         auto insert(const_iterator at, CharIter first, CharIter last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>;
+            -> detail::char_iter_ret_t<const_iterator, CharIter>;
 
 #endif
 
@@ -373,7 +373,7 @@ namespace boost { namespace text {
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
-        unencoded_rope & erase(const_iterator first, const_iterator last);
+        const_iterator erase(const_iterator first, const_iterator last);
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from c_str.
@@ -661,10 +661,12 @@ namespace boost { namespace text {
         return insert(at, unencoded_rope_view(c_str));
     }
 
-    inline unencoded_rope &
+    inline unencoded_rope::const_iterator
     unencoded_rope::insert(const_iterator at, char const * c_str)
     {
-        return insert(at - begin(), unencoded_rope_view(c_str));
+        auto const offset = at - begin();
+        insert(at - begin(), unencoded_rope_view(c_str));
+        return begin() + offset;
     }
 
     inline unencoded_rope &
@@ -777,16 +779,20 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline unencoded_rope &
+    inline unencoded_rope::const_iterator
     unencoded_rope::insert(const_iterator at, unencoded_rope_view rv)
     {
-        return insert(at - begin(), rv);
+        auto const offset = at - begin();
+        insert(at - begin(), rv);
+        return begin() + offset;
     }
 
-    inline unencoded_rope &
+    inline unencoded_rope::const_iterator
     unencoded_rope::insert(const_iterator at, string && s)
     {
-        return insert_impl(at - begin(), std::move(s), would_not_allocate);
+        auto const offset = at - begin();
+        insert_impl(at - begin(), std::move(s), would_not_allocate);
+        return begin() + offset;
     }
 
     template<typename CharRange>
@@ -806,15 +812,16 @@ namespace boost { namespace text {
     template<typename CharRange>
     auto unencoded_rope::insert(const_iterator at, CharRange const & r)
         -> detail::rng_alg_ret_t<
-            unencoded_rope &,
+            const_iterator,
             CharRange,
             string_view,
             repeated_string_view>
     {
         using std::begin;
         using std::end;
+        auto const offset = at - this->begin();
         insert(at, begin(r), end(r));
-        return *this;
+        return this->begin() + offset;
     }
 
     template<typename CharIter>
@@ -835,17 +842,17 @@ namespace boost { namespace text {
     template<typename CharIter>
     auto
     unencoded_rope::insert(const_iterator at, CharIter first, CharIter last)
-        -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
+        -> detail::char_iter_ret_t<const_iterator, CharIter>
     {
         assert(begin() <= at && at <= end());
 
         if (first == last)
-            return *this;
+            return at;
 
+        auto const offset = at - begin();
         ptr_ = detail::btree_insert(
             ptr_, at - begin(), detail::make_node(string(first, last)));
-
-        return *this;
+        return begin() + offset;
     }
 
     inline unencoded_rope & unencoded_rope::erase(unencoded_rope_view rv)
@@ -878,14 +885,16 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline unencoded_rope &
+    inline unencoded_rope::const_iterator
     unencoded_rope::erase(const_iterator first, const_iterator last)
     {
         assert(first <= last);
         assert(begin() <= first && last <= end());
 
         if (first == last)
-            return *this;
+            return first;
+
+        auto const offset = first - begin();
 
         auto const lo = first - begin();
         auto const hi = last - begin();
@@ -899,7 +908,7 @@ namespace boost { namespace text {
             ptr_ = btree_erase(ptr_, lo, hi);
         }
 
-        return *this;
+        return begin() + offset;
     }
 
     inline unencoded_rope &
@@ -966,8 +975,9 @@ namespace boost { namespace text {
     {
         assert(old_first <= old_last);
         assert(begin() <= old_first && old_last <= end());
-        return erase(old_first, old_last)
-            .insert(old_first, new_first, new_last);
+        auto const it = erase(old_first, old_last);
+        insert(it, new_first, new_last);
+        return *this;
     }
 
     inline unencoded_rope & unencoded_rope::operator+=(char const * c_str)

@@ -407,16 +407,17 @@ namespace boost { namespace text {
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
-        string & erase(iterator first, iterator last) noexcept
+        iterator erase(iterator first, iterator last) noexcept
         {
             assert(first <= last);
             assert(begin() <= first && last <= end());
 
+            auto const offset = first - begin();
             std::copy(last, end(), first);
             size_ -= last - first;
             ptr()[size_] = '\0';
 
-            return *this;
+            return begin() + offset;
         }
 
         /** Replaces the portion of *this delimited by old_substr with the
@@ -1162,7 +1163,8 @@ namespace boost { namespace text {
         assert(self_reference(sv));
 
         char * first = const_cast<char *>(sv.begin());
-        return erase(first, first + sv.size());
+        erase(first, first + sv.size());
+        return *this;
     }
 
     inline string &

@@ -213,27 +213,27 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from c_str into *this starting at
             position at. */
-        text & insert(iterator at, char const * c_str);
+        iterator insert(iterator at, char const * c_str);
 
         /** Inserts the sequence of char from t into *this starting at
             position at. */
-        text & insert(iterator at, text const & t);
+        iterator insert(iterator at, text const & t);
 
         /** Inserts the sequence of char from tv into *this starting at
             position at. */
-        text & insert(iterator at, text_view tv);
+        iterator insert(iterator at, text_view tv);
 
         /** Inserts the sequence of char from sv into *this starting at
             position at. */
-        text & insert(iterator at, string_view sv);
+        iterator insert(iterator at, string_view sv);
 
         /** Inserts the sequence of char from rsv into *this starting at
             position at. */
-        text & insert(iterator at, repeated_string_view rsv);
+        iterator insert(iterator at, repeated_string_view rsv);
 
         /** Inserts the sequence of char from rv into *this starting at
             position at. */
-        text & insert(iterator at, rope_view rv);
+        iterator insert(iterator at, rope_view rv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -242,7 +242,7 @@ namespace boost { namespace text {
             This function only participates in overload resolution if
             CharRange models the CharRange concept. */
         template<typename CharRange>
-        text & insert(iterator at, CharRange const & r);
+        iterator insert(iterator at, CharRange const & r);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
@@ -250,17 +250,17 @@ namespace boost { namespace text {
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
         template<typename CharIter>
-        text & insert(iterator at, CharIter first, CharIter last);
+        iterator insert(iterator at, CharIter first, CharIter last);
 
 #else
 
         template<typename CharRange>
         auto insert(iterator at, CharRange const & r)
-            -> detail::rng_alg_ret_t<text &, CharRange>;
+            -> detail::rng_alg_ret_t<iterator, CharRange>;
 
         template<typename CharIter>
         auto insert(iterator at, CharIter first, CharIter last)
-            -> detail::char_iter_ret_t<text &, CharIter>;
+            -> detail::char_iter_ret_t<iterator, CharIter>;
 
 #endif
 
@@ -273,7 +273,7 @@ namespace boost { namespace text {
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
-        text & erase(iterator first, iterator last) noexcept;
+        iterator erase(iterator first, iterator last) noexcept;
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -458,12 +458,12 @@ namespace boost { namespace text {
         void normalize_subrange(int from_near_offset, int to_near_offset);
 
         template<typename CharIter>
-        text & insert_impl(
+        iterator insert_impl(
             iterator at,
             CharIter first,
             CharIter last,
             bool first_last_normalized);
-        text & insert_impl(iterator at, string_view sv, bool sv_normalized);
+        iterator insert_impl(iterator at, string_view sv, bool sv_normalized);
 
         template<typename CharIter>
         text & replace_impl(
@@ -647,7 +647,7 @@ namespace boost { namespace text {
 
     template<typename CharRange>
     auto text::insert(iterator at, CharRange const & r)
-        -> detail::rng_alg_ret_t<text &, CharRange>
+        -> detail::rng_alg_ret_t<iterator, CharRange>
     {
         using std::begin;
         using std::end;
@@ -656,32 +656,32 @@ namespace boost { namespace text {
 
     template<typename CharIter>
     auto text::insert(iterator at, CharIter first, CharIter last)
-        -> detail::char_iter_ret_t<text &, CharIter>
+        -> detail::char_iter_ret_t<iterator, CharIter>
     {
         return insert_impl(at, first, last, false);
     }
 
-    inline text & text::insert(iterator at, char const * c_str)
+    inline text::iterator text::insert(iterator at, char const * c_str)
     {
         return insert(at, string_view(c_str));
     }
 
-    inline text & text::insert(iterator at, text const & t)
+    inline text::iterator text::insert(iterator at, text const & t)
     {
         return insert_impl(at, string_view(t), true);
     }
 
-    inline text & text::insert(iterator at, text_view tv)
+    inline text::iterator text::insert(iterator at, text_view tv)
     {
         return insert_impl(at, string_view(tv), true);
     }
 
-    inline text & text::insert(iterator at, string_view sv)
+    inline text::iterator text::insert(iterator at, string_view sv)
     {
         return insert_impl(at, sv, false);
     }
 
-    inline text & text::insert(iterator at, repeated_string_view rsv)
+    inline text::iterator text::insert(iterator at, repeated_string_view rsv)
     {
         bool const rsv_null_terminated =
             !rsv.view().empty() && rsv.view().end()[-1] == '\0';
@@ -699,9 +699,11 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::erase(iterator first, iterator last) noexcept
+    inline text::iterator text::erase(iterator first, iterator last) noexcept
     {
-        return erase(text_view(first, last));
+        int const offset = first.base().base() - str_.begin();
+        erase(text_view(first, last));
+        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
     }
 
     inline text & text::replace(text_view old_substr, char const * new_substr)
@@ -756,11 +758,16 @@ namespace boost { namespace text {
         return operator+=(string_view(c_str));
     }
 
-    inline text & text::operator+=(string_view sv) { return insert(end(), sv); }
+    inline text & text::operator+=(string_view sv)
+    {
+        insert(end(), sv);
+        return *this;
+    }
 
     inline text & text::operator+=(repeated_string_view rsv)
     {
-        return insert(end(), rsv);
+        insert(end(), rsv);
+        return *this;
     }
 
     template<typename CharRange>
@@ -769,7 +776,8 @@ namespace boost { namespace text {
     {
         using std::begin;
         using std::end;
-        return insert(this->end(), begin(r), end(r));
+        insert(this->end(), begin(r), end(r));
+        return *this;
     }
 
     inline text::mutable_utf32_iter
@@ -815,9 +823,11 @@ namespace boost { namespace text {
     }
 
     template<typename CharIter>
-    text & text::insert_impl(
+    text::iterator text::insert_impl(
         iterator at, CharIter first, CharIter last, bool first_last_normalized)
     {
+        int const offset = at.base().base() - str_.begin();
+
         int const lo = at.base().base() - str_.begin();
         auto const insertion_it = str_.insert(at.base().base(), first, last);
         int const hi = insertion_it - str_.begin();
@@ -830,12 +840,15 @@ namespace boost { namespace text {
             normalize_subrange(lo, hi);
         }
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+
+        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
     }
 
-    inline text &
+    inline text::iterator
     text::insert_impl(iterator at, string_view sv, bool sv_normalized)
     {
+        int const offset = at.base().base() - str_.begin();
+
         int const lo = at.base().base() - str_.begin();
         auto const insertion_it = str_.insert(at.base().base(), sv);
         int const hi = insertion_it - str_.begin();
@@ -848,7 +861,8 @@ namespace boost { namespace text {
             normalize_subrange(lo, hi);
         }
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+
+        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
     }
 
     template<typename CharIter>

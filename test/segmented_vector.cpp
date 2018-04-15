@@ -83,8 +83,8 @@ TEST(segmented_vector, test_insert)
 
     {
         text::segmented_vector<int> t({0, 1, 2, 3, 4, 5});
-        t = t.erase(t.begin(), t.end());
-        t = t.insert(t.begin() + 0, _789.begin(), _789.end());
+        t.erase(t.begin(), t.end());
+        t.insert(t.begin() + 0, _789.begin(), _789.end());
         std::vector<int> const vec{7, 8, 9};
         EXPECT_TRUE(
             algorithm::equal(t.begin(), t.end(), vec.begin(), vec.end()));
