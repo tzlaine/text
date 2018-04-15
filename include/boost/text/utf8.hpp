@@ -532,8 +532,8 @@ namespace boost { namespace text { namespace utf8 {
             index_(4),
             buf_()
         {}
-        explicit constexpr from_utf32_iterator(
-            Iter first, Iter it, Sentinel last) noexcept :
+        explicit BOOST_TEXT_CXX14_CONSTEXPR
+        from_utf32_iterator(Iter first, Iter it, Sentinel last) noexcept :
             first_(first),
             it_(it),
             last_(last),
@@ -1109,8 +1109,8 @@ namespace boost { namespace text { namespace utf8 {
             index_(4),
             buf_()
         {}
-        explicit constexpr from_utf16_iterator(
-            Iter first, Iter it, Sentinel last) noexcept :
+        explicit BOOST_TEXT_CXX14_CONSTEXPR
+        from_utf16_iterator(Iter first, Iter it, Sentinel last) noexcept :
             first_(first),
             it_(it),
             last_(last),
@@ -1366,8 +1366,8 @@ namespace boost { namespace text { namespace utf8 {
             !noexcept(std::declval<ErrorHandler>()(0));
 
         constexpr to_utf16_iterator() noexcept : it_(), index_(2), buf_() {}
-        explicit constexpr to_utf16_iterator(
-            Iter first, Iter it, Sentinel last) noexcept :
+        explicit BOOST_TEXT_CXX14_CONSTEXPR
+        to_utf16_iterator(Iter first, Iter it, Sentinel last) noexcept :
             it_(first, it, last),
             index_(0),
             buf_()
