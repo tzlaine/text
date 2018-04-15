@@ -1103,7 +1103,6 @@ namespace boost { namespace text {
     };
 
     /** TODO
-        TODO: Document that CPIter must be bidirectional.
         TODO: Document that NextLineBreakFunc must be polymorphic, taking and
         iterator whose value_type is uint32_t
         TODO: Accept an optional paragraph_embedding_level (or make an

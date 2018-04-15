@@ -583,9 +583,6 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-    // TODO: Docuement a CPIter iterator concept.  Must be bidi at least.
-    // TODO: Document CPRange.
-
     // TODO: Document how the normalized_*() functions should be used.
     // TODO: Document the assumption of safe stream format.
 

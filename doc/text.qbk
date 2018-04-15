@@ -46,6 +46,8 @@
 [def _GrRng_               [link boost_text__proposed_.concepts.graphemerange GraphemeRange]]
 [def _ContGrRng_           [link boost_text__proposed_.concepts.contiggraphemerange ContigGraphemeRange]]
 [def _CharIter_            [link boost_text__proposed_.concepts.chariter CharIter]]
+[def _CPRng_               [link boost_text__proposed_.concepts.cprange CPRange]]
+[def _CPIter_              [link boost_text__proposed_.concepts.cpiter CPIter]]
 
 [def _s_                   [classref boost::text::string `string`]]
 [def _ss_                  [classref boost::text::string `string`s]]
@@ -66,6 +68,8 @@
 [def _rs_                  [classref boost::text::rope `rope`s]]
 [def _rv_                  [classref boost::text::rope_view `rope_view`]]
 [def _rvs_                 [classref boost::text::rope_view `rope_view`s]]
+
+[def _cpr_                 [classref boost::text::cp_range `cp_range`]]
 
 [def _segv_                [classref boost::text::segmented_vector `segmented_vector`]]
 [def _trie_                [classref boost::trie::trie `trie`]]
