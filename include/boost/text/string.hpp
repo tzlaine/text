@@ -7,6 +7,8 @@
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/utility.hpp>
 
+#include <boost/algorithm/cxx14/equal.hpp>
+
 #include <algorithm>
 #include <array>
 #include <list>
@@ -22,17 +24,12 @@ namespace boost { namespace text {
     struct unencoded_rope;
     struct unencoded_rope_view;
 
-    // TODO: Document that string is not quite a SequenceContainer.  Missing:
-    // {const_,}reference; {difference,size}_type; X(n, t) (constructing a
-    // sequence of n copies of t); a.insert(p,n,t) (insert n copies of t at
-    // p); a.insert(p, il) (insert initializer_list); assign() (because we
-    // have range-based assignemnt).
-
     /** A mutable contiguous null-terminated sequence of char.  Strongly
         exception safe. */
     struct string
     {
         using value_type = char;
+        using size_type = int;
         using iterator = char *;
         using const_iterator = char const *;
         using reverse_iterator = detail::reverse_char_iterator;
@@ -76,6 +73,14 @@ namespace boost { namespace text {
         template<typename CharIter>
         string(CharIter first, CharIter last);
 
+        /** Constructs a string from a range of graphemes over an underlying
+            range of char.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        explicit string(GraphemeRange const & r);
+
 #else
 
         template<typename CharRange>
@@ -100,6 +105,17 @@ namespace boost { namespace text {
             insert(0, first, last);
         }
 
+        template<typename GraphemeRange>
+        explicit string(
+            GraphemeRange const & r,
+            detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0) :
+            storage_(),
+            size_(0),
+            heap_(false)
+        {
+            insert(0, r);
+        }
+
 #endif
 
         ~string()
@@ -107,6 +123,8 @@ namespace boost { namespace text {
             if (heap_)
                 storage_.heap_.~heap_t();
         }
+
+        string & operator=(char const * c_str);
 
         string & operator=(string const & s);
 
@@ -118,7 +136,6 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
-        // TODO: Loosen this to allow discontiguous ranges.
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
@@ -126,13 +143,28 @@ namespace boost { namespace text {
         template<typename CharRange>
         string & operator=(CharRange const & r);
 
+        /** Assignment from a range of graphemes over an underlying range of
+            char.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        string & operator=(GraphemeRange const & r);
+
 #else
 
         template<typename CharRange>
         auto operator=(CharRange const & r)
             -> detail::rng_alg_ret_t<string &, CharRange>;
 
+        template<typename GraphemeRange>
+        auto operator=(GraphemeRange const & r)
+            -> detail::graph_rng_alg_ret_t<string &, GraphemeRange>;
+
 #endif
+
+        /** Assignment from a string_view. */
+        string & operator=(string_view sv);
 
         /** Assignment from a repeated_string_view. */
         string & operator=(repeated_string_view rsv);
@@ -188,7 +220,6 @@ namespace boost { namespace text {
             null-terminated empty string. */
         int capacity() const noexcept { return cap() - 1; }
 
-        // TODO: Document this in the top-level docs.
         /** Returns the char (not a reference) of *this at index i, or the
             char at index -i when i < 0.
 
@@ -229,13 +260,6 @@ namespace boost { namespace text {
             lexicographically less than rhs, 0 if *this == rhs, and a value >
             0 if *this is lexicographically greater than rhs. */
         int compare(string_view rhs) const noexcept;
-
-        bool operator==(string_view rhs) const noexcept;
-        bool operator!=(string_view rhs) const noexcept;
-        bool operator<(string_view rhs) const noexcept;
-        bool operator<=(string_view rhs) const noexcept;
-        bool operator>(string_view rhs) const noexcept;
-        bool operator>=(string_view rhs) const noexcept;
 
         /** Clear.
 
@@ -312,6 +336,22 @@ namespace boost { namespace text {
         template<typename CharIter>
         iterator insert(iterator at, CharIter first, CharIter last);
 
+        /** Inserts the underlying range of char from the given range of
+            graphemes into *this starting at offset at.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        string & insert(int at, GraphemeRange const & r);
+
+        /** Inserts the underlying range of char from the given range of
+            graphemes into *this starting at position at.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        iterator insert(iterator at, GraphemeRange const & r);
+
 #else
 
         template<typename CharRange>
@@ -347,6 +387,14 @@ namespace boost { namespace text {
 
             return insert_iter_impl(at - begin(), first, last);
         }
+
+        template<typename GraphemeRange>
+        auto insert(int at, GraphemeRange const & r)
+            -> detail::graph_rng_alg_ret_t<string &, GraphemeRange>;
+
+        template<typename GraphemeRange>
+        auto insert(iterator at, GraphemeRange const & r)
+            -> detail::graph_rng_alg_ret_t<iterator, GraphemeRange>;
 
 #endif
 
@@ -837,7 +885,7 @@ namespace boost { namespace text {
         /** Creates a string from a char string literal. */
         inline string operator"" _s(char const * str, std::size_t len)
         {
-            assert(len < INT_MAX);
+            assert(len < INT_MAX / 2);
             return string(string_view(str, len));
         }
     }
@@ -870,6 +918,11 @@ namespace boost { namespace text {
         insert(0, rsv);
     }
 
+    inline string & string::operator=(char const * c_str)
+    {
+        return *this = string_view(c_str);
+    }
+
     inline string & string::operator=(string const & s)
     {
         if (s.size() <= size()) {
@@ -882,20 +935,52 @@ namespace boost { namespace text {
         return *this;
     }
 
+    inline string & string::operator=(string_view sv)
+    {
+        bool const self_ref = self_reference(sv);
+        if (self_ref) {
+            erase(string_view(sv.end(), end() - sv.end()));
+            erase(string_view(begin(), sv.begin() - begin()));
+        } else if (sv.size() <= size()) {
+            clear();
+            insert(0, sv);
+        } else {
+            string tmp(sv);
+            swap(tmp);
+        }
+        return *this;
+    }
+
     template<typename CharRange>
     auto string::operator=(CharRange const & r)
         -> detail::rng_alg_ret_t<string &, CharRange>
     {
-        auto tv = string_view(r);
-        bool const self_ref = self_reference(tv);
-        if (self_ref) {
-            erase(string_view(tv.end(), end() - tv.end()));
-            erase(string_view(begin(), tv.begin() - begin()));
-        } else if (tv.size() <= size()) {
+        using std::begin;
+        using std::end;
+        if (std::distance(begin(r), end(r)) <= size()) {
             clear();
-            insert(0, tv);
+            insert(0, r);
         } else {
-            string tmp(tv);
+            string tmp(r);
+            swap(tmp);
+        }
+        return *this;
+    }
+
+
+    template<typename GraphemeRange>
+    auto string::operator=(GraphemeRange const & r)
+        -> detail::graph_rng_alg_ret_t<string &, GraphemeRange>
+    {
+        using std::begin;
+        using std::end;
+        auto const first = begin(r).base().base();
+        auto const last = end(r).base().base();
+        if (std::distance(first, last) <= size()) {
+            clear();
+            insert(0, r);
+        } else {
+            string tmp(r);
             swap(tmp);
         }
         return *this;
@@ -930,36 +1015,6 @@ namespace boost { namespace text {
         return detail::compare_impl(begin(), end(), rhs.begin(), rhs.end());
     }
 
-    inline bool string::operator==(string_view rhs) const noexcept
-    {
-        return compare(rhs) == 0;
-    }
-
-    inline bool string::operator!=(string_view rhs) const noexcept
-    {
-        return compare(rhs) != 0;
-    }
-
-    inline bool string::operator<(string_view rhs) const noexcept
-    {
-        return compare(rhs) < 0;
-    }
-
-    inline bool string::operator<=(string_view rhs) const noexcept
-    {
-        return compare(rhs) <= 0;
-    }
-
-    inline bool string::operator>(string_view rhs) const noexcept
-    {
-        return compare(rhs) > 0;
-    }
-
-    inline bool string::operator>=(string_view rhs) const noexcept
-    {
-        return compare(rhs) >= 0;
-    }
-
     inline string & string::insert(int at, char c)
     {
         char chars[2] = {c, 0};
@@ -976,14 +1031,18 @@ namespace boost { namespace text {
     auto string::insert(int at, CharRange const & r)
         -> detail::rng_alg_ret_t<string &, CharRange>
     {
-        return insert(at, string_view(r));
+        using std::begin;
+        using std::end;
+        return insert(at, begin(r), end(r));
     }
 
     template<typename CharRange>
     auto string::insert(iterator at, CharRange const & r)
         -> detail::rng_alg_ret_t<iterator, CharRange>
     {
-        return insert(at, string_view(r));
+        using std::begin;
+        using std::end;
+        return insert(at, begin(r), end(r));
     }
 
     inline string & string::insert(int at, string_view sv)
@@ -1076,6 +1135,24 @@ namespace boost { namespace text {
         return begin() + offset;
     }
 
+    template<typename GraphemeRange>
+    auto string::insert(int at, GraphemeRange const & r)
+        -> detail::graph_rng_alg_ret_t<string &, GraphemeRange>
+    {
+        using std::begin;
+        using std::end;
+        return insert(at, begin(r).base().base(), end(r).base().base());
+    }
+
+    template<typename GraphemeRange>
+    auto string::insert(iterator at, GraphemeRange const & r)
+        -> detail::graph_rng_alg_ret_t<iterator, GraphemeRange>
+    {
+        using std::begin;
+        using std::end;
+        return insert(at, begin(r).base().base(), end(r).base().base());
+    }
+
     inline string & string::erase(string_view sv) noexcept
     {
         assert(0 <= sv.size());
@@ -1088,13 +1165,6 @@ namespace boost { namespace text {
 
         char * first = const_cast<char *>(sv.begin());
         return erase(first, first + sv.size());
-    }
-
-    template<typename CharRange>
-    auto string::replace(string_view old_substr, CharRange const & r)
-        -> detail::rng_alg_ret_t<string &, CharRange>
-    {
-        return replace(old_substr, string_view(r));
     }
 
     inline string &
@@ -1201,6 +1271,15 @@ namespace boost { namespace text {
         ptr()[size_] = '\0';
 
         return *this;
+    }
+
+    template<typename CharRange>
+    auto string::replace(string_view old_substr, CharRange const & r)
+        -> detail::rng_alg_ret_t<string &, CharRange>
+    {
+        using std::begin;
+        using std::end;
+        return replace(old_substr, begin(r), end(r));
     }
 
     template<typename CharIter>
@@ -1312,23 +1391,96 @@ namespace boost { namespace text {
         return lhs.compare(string_view(rhs)) >= 0;
     }
 
+    template<typename CharRange>
+    auto operator==(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        using std::begin;
+        using std::end;
+        return algorithm::equal(begin(lhs), end(lhs), rhs.begin(), rhs.end());
+    }
+    template<typename CharRange>
+    auto operator==(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        using std::begin;
+        using std::end;
+        return algorithm::equal(lhs.begin(), lhs.end(), begin(rhs), end(rhs));
+    }
+
+    template<typename CharRange>
+    auto operator!=(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return !(lhs == rhs);
+    }
+    template<typename CharRange>
+    auto operator!=(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return rhs != lhs;
+    }
+
+    template<typename CharRange>
+    auto operator<(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        using std::begin;
+        using std::end;
+        return detail::generalized_compare(
+                   begin(lhs), end(lhs), rhs.begin(), rhs.end()) < 0;
+    }
+    template<typename CharRange>
+    auto operator<(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        using std::begin;
+        using std::end;
+        return detail::generalized_compare(
+                   lhs.begin(), lhs.end(), begin(rhs), end(rhs)) < 0;
+    }
+
+    template<typename CharRange>
+    auto operator<=(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return lhs < rhs || lhs == rhs;
+    }
+    template<typename CharRange>
+    auto operator<=(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return lhs < rhs || lhs == rhs;
+    }
+
+    template<typename CharRange>
+    auto operator>(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return rhs < lhs;
+    }
+    template<typename CharRange>
+    auto operator>(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return rhs < lhs;
+    }
+
+    template<typename CharRange>
+    auto operator>=(CharRange const & lhs, string const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return rhs <= lhs;
+    }
+    template<typename CharRange>
+    auto operator>=(string const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return rhs <= lhs;
+    }
 
     /** Creates a new string object that is the concatenation of s and c. */
     inline string operator+(string s, char c) { return s += c; }
-
-    /** Creates a new string object that is the concatenation of s and c_str. */
-    template<int N>
-    inline string operator+(string s, char const (&c_str)[N])
-    {
-        return s += string_view(c_str, N);
-    }
-
-    /** Creates a new string object that is the concatenation of c_str and s. */
-    template<int N>
-    inline string operator+(char const (&c_str)[N], string s)
-    {
-        return s.insert(0, string_view(c_str, N));
-    }
 
     /** Creates a new string object that is the concatenation of s and c_str. */
     inline string operator+(string s, char const * c_str)
@@ -1355,14 +1507,18 @@ namespace boost { namespace text {
     /** Creates a new string object that is the concatenation of s and s2. */
     inline string operator+(string const & s, string const & s2)
     {
-        return string(s) += s2;
+        return string(s) += string_view(s2);
     }
 
     /** Creates a new string object that is the concatenation of s and s2.
      */
-    inline string operator+(string && s, string const & s2) { return s += s2; }
+    inline string operator+(string && s, string const & s2)
+    {
+        return s += string_view(s2);
+    }
 
-    /** Creates a new string object that is the concatenation of s and s2. */
+    /** Creates a new string object that is the concatenation of s and s2.
+     */
     inline string operator+(string const & s, string && s2)
     {
         return s2.insert(0, s);
@@ -1370,7 +1526,10 @@ namespace boost { namespace text {
 
     /** Creates a new string object that is the concatenation of s and s2.
      */
-    inline string operator+(string && s, string && s2) { return s += s2; }
+    inline string operator+(string && s, string && s2)
+    {
+        return s += string_view(s2);
+    }
 
     /** Creates a new string object that is the concatenation of s and rsv.
      */
@@ -1389,13 +1548,13 @@ namespace boost { namespace text {
     /** Creates a new string object that is the concatenation of sv and s. */
     inline string operator+(string_view sv, string const & s)
     {
-        return (string() += sv) += s;
+        return (string() += sv) += string_view(s);
     }
 
     /** Creates a new string object that is the concatenation of rsv and s. */
     inline string operator+(repeated_string_view rsv, string const & s)
     {
-        return (string() += rsv) += s;
+        return (string() += rsv) += string_view(s);
     }
 
 #ifdef BOOST_TEXT_DOXYGEN

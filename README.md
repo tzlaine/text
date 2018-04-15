@@ -1,6 +1,12 @@
 # text
 
-A family UTF-8 encoded string types and UTF-8 converting iterators, targetting submission to Boost and eventual standardization.
+This library includes three layers:
+
+- The string layer, a set of types that constitute "a better std::string"
+- The Unicode layer, consisting of the Unicode algorithms and data
+- The text layer, a set of types like the string layer types, but providing transparent Unicode support
+
+This library targets submission to Boost and eventual standardization.
 
 It's more interesting than it sounds.
 

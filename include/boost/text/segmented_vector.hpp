@@ -216,8 +216,7 @@ namespace boost { namespace text {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     at - begin(),
-                    detail::make_node(std::vector<T>(1, std::move(t))),
-                    0);
+                    detail::make_node(std::vector<T>(1, std::move(t))));
             }
 
             return *this;
@@ -243,8 +242,7 @@ namespace boost { namespace text {
             ptr_ = detail::btree_insert(
                 ptr_,
                 at - begin(),
-                detail::make_node(std::vector<T>(first, last)),
-                0);
+                detail::make_node(std::vector<T>(first, last)));
 
             return *this;
         }
@@ -263,7 +261,7 @@ namespace boost { namespace text {
                 insertion.vec_->erase(
                     insertion.vec_->begin() + insertion.found_.offset_);
             } else {
-                ptr_ = btree_erase(ptr_, lo, lo + 1, 0);
+                ptr_ = btree_erase(ptr_, lo, lo + 1);
             }
 
             return *this;
@@ -290,7 +288,7 @@ namespace boost { namespace text {
                     insertion.vec_->begin() + insertion.found_.offset_,
                     insertion.vec_->begin() + insertion.found_.offset_ + size);
             } else {
-                ptr_ = btree_erase(ptr_, lo, hi, 0);
+                ptr_ = btree_erase(ptr_, lo, hi);
             }
 
             return *this;
@@ -312,8 +310,7 @@ namespace boost { namespace text {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     offset,
-                    detail::make_node(std::vector<T>(1, std::move(t))),
-                    0);
+                    detail::make_node(std::vector<T>(1, std::move(t))));
             }
 
             return *this;
@@ -414,8 +411,7 @@ namespace boost { namespace text {
                 ptr_ = detail::btree_insert(
                     ptr_,
                     at - begin(),
-                    detail::make_node(static_cast<U &&>(u)),
-                    0);
+                    detail::make_node(static_cast<U &&>(u)));
             }
 
             return *this;

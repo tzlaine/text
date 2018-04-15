@@ -40,6 +40,10 @@ and a negative one creates a suffix substring of length `-x`.
 
 [unary_slice_examples]
 
+In keeping with the slicing operations, the index operator (`operator[]`)
+takes negative indices.  Negative indices are counted from the end of the
+sequence.
+
 Of course, there is a user-defined literal for _sv_:
 
 [string_view_literal]

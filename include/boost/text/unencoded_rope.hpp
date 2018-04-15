@@ -3,6 +3,8 @@
 
 #include <boost/text/detail/rope.hpp>
 
+#include <boost/algorithm/cxx14/equal.hpp>
+
 #ifdef BOOST_TEXT_TESTING
 #include <iostream>
 #endif
@@ -11,26 +13,22 @@
 namespace boost { namespace text {
 
     struct unencoded_rope_view;
-    struct unencoded_rope;
 
     namespace detail {
         struct const_rope_iterator;
         struct const_reverse_rope_iterator;
     }
 
-    // TODO: Add CharRange interface as in string.
-
     /** A mutable sequence of char with copy-on-write semantics.  An
         unencoded_rope is non-contiguous and is not null-terminated. */
     struct unencoded_rope
     {
+        using value_type = char;
+        using size_type = std::ptrdiff_t;
         using iterator = detail::const_rope_iterator;
         using const_iterator = detail::const_rope_iterator;
         using reverse_iterator = detail::const_reverse_rope_iterator;
         using const_reverse_iterator = detail::const_reverse_rope_iterator;
-        using value_type = char;
-
-        using size_type = std::ptrdiff_t;
 
         /** Default ctor.
 
@@ -41,7 +39,7 @@ namespace boost { namespace text {
         unencoded_rope(unencoded_rope && rhs) noexcept = default;
 
         /** Constructs an unencoded_rope from a null-terminated string. */
-        explicit unencoded_rope(char const * c_str);
+        unencoded_rope(char const * c_str);
 
         /** Constructs an unencoded_rope from an unencoded_rope_view. */
         explicit unencoded_rope(unencoded_rope_view rv);
@@ -53,6 +51,13 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_DOXYGEN
 
+        /** Constructs a unencoded_rope from a range of char.
+
+            This function only participates in overload resolution if
+            CharRange models the CharRange concept. */
+        template<typename CharRange>
+        explicit unencoded_rope(CharRange const & r);
+
         /** Constructs an unencoded_rope from a sequence of char.
 
             This function only participates in overload resolution if CharIter
@@ -60,7 +65,23 @@ namespace boost { namespace text {
         template<typename CharIter>
         unencoded_rope(CharIter first, CharIter last);
 
+        /** Constructs a unencoded_rope from a range of graphemes over an
+            underlying range of char.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        explicit unencoded_rope(GraphemeRange const & r);
+
 #else
+
+        template<typename CharRange>
+        explicit unencoded_rope(
+            CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0) :
+            ptr_()
+        {
+            insert(0, r);
+        }
 
         template<typename CharIter>
         unencoded_rope(
@@ -70,6 +91,16 @@ namespace boost { namespace text {
             ptr_()
         {
             insert(0, first, last);
+        }
+
+        template<typename GraphemeRange>
+        explicit unencoded_rope(
+            GraphemeRange const & r,
+            detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0)
+        {
+            using std::begin;
+            using std::end;
+            insert(0, begin(r).base().base(), end(r).base().base());
         }
 
 #endif
@@ -88,25 +119,76 @@ namespace boost { namespace text {
             return *this;
         }
 
+        /** Assignment from a null-terminated string. */
+        unencoded_rope & operator=(char const * c_str);
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Assignment from a range of char.
+
+            This function only participates in overload resolution if
+            CharRange models the CharRange concept. */
+        template<typename CharRange>
+        unencoded_rope & operator=(CharRange const & r);
+
+        /** Assignment from a range of graphemes over an underlying range of
+            char.
+
+            This function only participates in overload resolution if
+            GraphemeRange models the GraphemeRange concept. */
+        template<typename GraphemeRange>
+        unencoded_rope & operator=(GraphemeRange const & r);
+
+#else
+
+        template<typename CharRange>
+        auto operator=(CharRange const & r)
+            -> detail::rng_alg_ret_t<unencoded_rope &, CharRange>
+        {
+            unencoded_rope temp(r);
+            swap(temp);
+            return *this;
+        }
+
+        template<typename GraphemeRange>
+        auto operator=(GraphemeRange const & r)
+            -> detail::graph_rng_alg_ret_t<unencoded_rope &, GraphemeRange>
+        {
+            unencoded_rope temp(r);
+            swap(temp);
+            return *this;
+        }
+
+#endif
+
         const_iterator begin() const noexcept;
         const_iterator end() const noexcept;
 
+        const_iterator cbegin() const noexcept;
+        const_iterator cend() const noexcept;
+
         const_reverse_iterator rbegin() const noexcept;
         const_reverse_iterator rend() const noexcept;
+
+        const_reverse_iterator crbegin() const noexcept;
+        const_reverse_iterator crend() const noexcept;
 
         bool empty() const noexcept { return size() == 0; }
 
         size_type size() const noexcept { return detail::size(ptr_.get()); }
 
-        /** Returns the i-th char of *this (not a reference).
+        /** Returns the char (not a reference) of *this at index i, or the
+            char at index -i when i < 0.
 
-            \pre 0 <= i && i < size() */
-        char operator[](size_type n) const noexcept
+            \pre 0 <= i && i <= size() || 0 <= -i && -i <= size()  */
+        char operator[](size_type i) const noexcept
         {
             assert(ptr_);
-            assert(n < size());
+            if (i < 0)
+                i += size();
+            assert(0 <= i && i < size());
             detail::found_char found;
-            find_char(ptr_, n, found);
+            find_char(ptr_, i, found);
             return found.c_;
         }
 
@@ -121,14 +203,14 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        unencoded_rope_view operator()(int lo, int hi) const;
+        unencoded_rope_view operator()(size_type lo, size_type hi) const;
 
         /** Returns a substring of *this as an unencoded_rope_view, taken from
             the first cut chars when cut => 0, or the last -cut chars when cut <
             0.
 
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        unencoded_rope_view operator()(int cut) const;
+        unencoded_rope_view operator()(size_type cut) const;
 
         /** Returns the maximum size an unencoded_rope can have. */
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
@@ -185,36 +267,6 @@ namespace boost { namespace text {
             0 if *this is lexicographically greater than rhs. */
         int compare(unencoded_rope rhs) const noexcept;
 
-        bool operator==(unencoded_rope rhs) const noexcept
-        {
-            return compare(rhs) == 0;
-        }
-
-        bool operator!=(unencoded_rope rhs) const noexcept
-        {
-            return compare(rhs) != 0;
-        }
-
-        bool operator<(unencoded_rope rhs) const noexcept
-        {
-            return compare(rhs) < 0;
-        }
-
-        bool operator<=(unencoded_rope rhs) const noexcept
-        {
-            return compare(rhs) <= 0;
-        }
-
-        bool operator>(unencoded_rope rhs) const noexcept
-        {
-            return compare(rhs) > 0;
-        }
-
-        bool operator>=(unencoded_rope rhs) const noexcept
-        {
-            return compare(rhs) >= 0;
-        }
-
         /** Returns true if *this and rhs contain the same root node pointer.
             This is useful when you want to check for equality between two
             unencoded_ropes that are likely to have originated from the same
@@ -230,9 +282,17 @@ namespace boost { namespace text {
             at. */
         unencoded_rope & insert(size_type at, char const * c_str);
 
+        /** Inserts the null-terminated string into *this starting at position
+            at. */
+        unencoded_rope & insert(const_iterator at, char const * c_str);
+
         /** Inserts the sequence of char from rv into *this starting at offset
             at. */
         unencoded_rope & insert(size_type at, unencoded_rope_view rv);
+
+        /** Inserts the sequence of char from rv into *this starting at
+            position at. */
+        unencoded_rope & insert(const_iterator at, unencoded_rope_view rv);
 
         /** Inserts the sequence of char from t into *this starting at offset
             at, by moving the contents of t. */
@@ -241,7 +301,25 @@ namespace boost { namespace text {
             return insert_impl(at, std::move(s), would_not_allocate);
         }
 
+        /** Inserts the sequence of char from t into *this starting at
+            position at, by moving the contents of t. */
+        unencoded_rope & insert(const_iterator at, string && s);
+
 #ifdef BOOST_TEXT_DOXYGEN
+
+        /** Inserts the char sequence r into *this starting at offset at.
+
+            This function only participates in overload resolution if
+            CharRange models the CharRange concept. */
+        template<typename CharRange>
+        auto insert(size_type at, CharRange const & r);
+
+        /** Inserts the char sequence r into *this starting at position at.
+
+            This function only participates in overload resolution if
+            CharRange models the CharRange concept. */
+        template<typename CharRange>
+        auto insert(const_iterator at, CharRange const & r);
 
         /** Inserts the char sequence [first, last) into *this starting at
             offset at.
@@ -261,6 +339,21 @@ namespace boost { namespace text {
         insert(const_iterator at, CharIter first, CharIter last);
 
 #else
+
+        template<typename CharRange>
+        auto insert(size_type at, CharRange const & r) -> detail::rng_alg_ret_t<
+            unencoded_rope &,
+            CharRange,
+            string_view,
+            repeated_string_view>;
+
+        template<typename CharRange>
+        auto insert(const_iterator at, CharRange const & r)
+            -> detail::rng_alg_ret_t<
+                unencoded_rope &,
+                CharRange,
+                string_view,
+                repeated_string_view>;
 
         template<typename CharIter>
         auto insert(size_type at, CharIter first, CharIter last)
@@ -283,6 +376,13 @@ namespace boost { namespace text {
         unencoded_rope & erase(const_iterator first, const_iterator last);
 
         /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from c_str.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        unencoded_rope &
+        replace(unencoded_rope_view old_substr, char const * c_str);
+
+        /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from rv.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
@@ -296,6 +396,16 @@ namespace boost { namespace text {
         unencoded_rope & replace(unencoded_rope_view old_substr, string && s);
 
 #ifdef BOOST_TEXT_DOXYGEN
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            char sequence r.
+
+            This function only participates in overload resolution if CharRange
+            models the CharRange concept.
+
+            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
+        template<typename CharRange>
+        auto replace(unencoded_rope_view old_substr, CharRange const & r);
 
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence [first, last).
@@ -324,6 +434,14 @@ namespace boost { namespace text {
 
 #else
 
+        template<typename CharRange>
+        auto replace(unencoded_rope_view old_substr, CharRange const & r)
+            -> detail::rng_alg_ret_t<
+                unencoded_rope &,
+                CharRange,
+                string_view,
+                repeated_string_view>;
+
         template<typename CharIter>
         auto
         replace(unencoded_rope_view old_substr, CharIter first, CharIter last)
@@ -341,6 +459,9 @@ namespace boost { namespace text {
 
         /** Swaps *this with rhs. */
         void swap(unencoded_rope & rhs) { ptr_.swap(rhs.ptr_); }
+
+        /** Appends c_str to *this. */
+        unencoded_rope & operator+=(char const * c_str);
 
         /** Appends rv to *this. */
         unencoded_rope & operator+=(unencoded_rope_view rv);
@@ -361,6 +482,29 @@ namespace boost { namespace text {
 
         /** Appends t to *this, by moving its contents into *this. */
         unencoded_rope & operator+=(string && s);
+
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Append r to *this.
+
+            This function only participates in overload resolution if CharRange
+            models the CharRange concept. */
+        template<typename CharRange>
+        unencoded_rope & operator+=(CharRange const & r);
+
+#else
+
+        template<typename CharRange>
+        auto operator+=(CharRange const & r)
+            -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
+        {
+            using std::begin;
+            using std::end;
+            return insert(size(), begin(r), end(r));
+        }
+
+#endif
 
         /** Stream inserter; performs unformatted output. */
         friend std::ostream & operator<<(std::ostream & os, unencoded_rope r)
@@ -454,10 +598,7 @@ namespace boost { namespace text {
                 insertion.string_->insert(insertion.found_.offset_, t);
             } else {
                 ptr_ = detail::btree_insert(
-                    ptr_,
-                    at,
-                    detail::make_node(std::forward<T>(t)),
-                    detail::encoding_breakage_ok);
+                    ptr_, at, detail::make_node(std::forward<T>(t)));
             }
 
             return *this;
@@ -476,816 +617,1138 @@ namespace boost { namespace text {
 #include <boost/text/detail/rope_iterator.hpp>
 #include <boost/text/unencoded_rope_view.hpp>
 
-namespace boost {
-    namespace text {
-
 #ifndef BOOST_TEXT_DOXYGEN
 
-        inline unencoded_rope::unencoded_rope(char const * c_str) :
-            ptr_(nullptr)
-        {
-            insert(0, unencoded_rope_view(c_str));
-        }
+namespace boost { namespace text {
 
-        inline unencoded_rope::unencoded_rope(unencoded_rope_view rv) :
-            ptr_(nullptr)
-        {
-            insert(0, rv);
-        }
+    inline unencoded_rope::unencoded_rope(char const * c_str) : ptr_(nullptr)
+    {
+        insert(0, unencoded_rope_view(c_str));
+    }
 
-        inline unencoded_rope & unencoded_rope::
-        operator=(unencoded_rope_view rv)
-        {
-            detail::node_ptr<detail::rope_tag> extra_ref;
-            if (self_reference(rv))
-                extra_ref = ptr_;
+    inline unencoded_rope::unencoded_rope(unencoded_rope_view rv) :
+        ptr_(nullptr)
+    {
+        insert(0, rv);
+    }
 
-            unencoded_rope temp(rv);
-            swap(temp);
+    inline int unencoded_rope::compare(unencoded_rope rhs) const noexcept
+    {
+        return unencoded_rope_view(*this).compare(rhs);
+    }
+
+    inline unencoded_rope & unencoded_rope::operator=(unencoded_rope_view rv)
+    {
+        detail::node_ptr<detail::rope_tag> extra_ref;
+        if (self_reference(rv))
+            extra_ref = ptr_;
+
+        unencoded_rope temp(rv);
+        swap(temp);
+        return *this;
+    }
+
+    inline unencoded_rope & unencoded_rope::operator=(char const * c_str)
+    {
+        unencoded_rope temp(c_str);
+        swap(temp);
+        return *this;
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::insert(size_type at, char const * c_str)
+    {
+        return insert(at, unencoded_rope_view(c_str));
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::insert(const_iterator at, char const * c_str)
+    {
+        return insert(at - begin(), unencoded_rope_view(c_str));
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::insert(size_type at, unencoded_rope_view rv)
+    {
+        assert(0 <= at && at <= size());
+
+        if (rv.empty())
             return *this;
+
+        detail::node_ptr<detail::rope_tag> extra_ref;
+        if (self_reference(rv))
+            extra_ref = ptr_;
+
+        if (rv.which_ == unencoded_rope_view::which::tv) {
+            string_view tv = rv.ref_.tv_;
+            bool const tv_null_terminated = !tv.empty() && tv.end()[-1] == '\0';
+            if (tv_null_terminated)
+                tv = tv(0, -1);
+            return insert_impl(at, tv, would_allocate);
         }
 
-        inline int unencoded_rope::compare(unencoded_rope rhs) const noexcept
-        {
-            return unencoded_rope_view(*this).compare(rhs);
-        }
-
-        inline unencoded_rope &
-        unencoded_rope::insert(size_type at, char const * c_str)
-        {
-            return insert(at, unencoded_rope_view(c_str));
-        }
-
-        inline unencoded_rope &
-        unencoded_rope::insert(size_type at, unencoded_rope_view rv)
-        {
-            assert(0 <= at && at <= size());
-
-            if (rv.empty())
-                return *this;
-
-            detail::node_ptr<detail::rope_tag> extra_ref;
-            if (self_reference(rv))
-                extra_ref = ptr_;
-
-            if (rv.which_ == unencoded_rope_view::which::tv) {
-                string_view tv = rv.ref_.tv_;
-                bool const tv_null_terminated =
-                    !tv.empty() && tv.end()[-1] == '\0';
-                if (tv_null_terminated)
-                    tv = tv(0, -1);
-                return insert_impl(at, tv, would_allocate);
+        if (rv.which_ == unencoded_rope_view::which::rtv) {
+            if (rv.ref_.rtv_.lo_ == 0 &&
+                rv.ref_.rtv_.hi_ == rv.ref_.rtv_.rtv_.size()) {
+                repeated_string_view rtv = rv.ref_.rtv_.rtv_;
+                bool const rtv_null_terminated =
+                    !rtv.view().empty() && rtv.view().end()[-1] == '\0';
+                if (rtv_null_terminated)
+                    rtv = repeat(rtv.view()(0, -1), rtv.count());
+                return insert_impl(at, rtv, would_not_allocate);
             }
-
-            if (rv.which_ == unencoded_rope_view::which::rtv) {
-                if (rv.ref_.rtv_.lo_ == 0 &&
-                    rv.ref_.rtv_.hi_ == rv.ref_.rtv_.rtv_.size()) {
-                    repeated_string_view rtv = rv.ref_.rtv_.rtv_;
-                    bool const rtv_null_terminated =
-                        !rtv.view().empty() && rtv.view().end()[-1] == '\0';
-                    if (rtv_null_terminated)
-                        rtv = repeat(rtv.view()(0, -1), rtv.count());
-                    return insert_impl(at, rtv, would_not_allocate);
-                }
-                return insert(at, string(rv.begin(), rv.end()));
-            }
-
-            bool const rv_null_terminated = !rv.empty() && rv.end()[-1] == '\0';
-            if (rv_null_terminated)
-                rv = rv(0, -1);
-
-            unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
-
-            detail::found_leaf<detail::rope_tag> found_lo;
-            find_leaf(rope_ref.r_->ptr_, rope_ref.lo_, found_lo);
-            detail::leaf_node_t<detail::rope_tag> const * const leaf_lo =
-                found_lo.leaf_->as_leaf();
-
-            // If the entire unencoded_rope_view lies within a single segment,
-            // slice off the appropriate part of that segment.
-            if (found_lo.offset_ + rv.size() <= detail::size(leaf_lo)) {
-                ptr_ = detail::btree_insert(
-                    ptr_,
-                    at,
-                    slice_leaf(
-                        *found_lo.leaf_,
-                        found_lo.offset_,
-                        found_lo.offset_ + rv.size(),
-                        true,
-                        detail::encoding_breakage_ok),
-                    detail::encoding_breakage_ok);
-                return *this;
-            }
-
-            detail::found_leaf<detail::rope_tag> found_hi;
-            find_leaf(rope_ref.r_->ptr_, rope_ref.hi_, found_hi);
-
-            bool before_lo = true;
-            detail::foreach_leaf(
-                rope_ref.r_->ptr_,
-                [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
-                    if (leaf == found_lo.leaf_->as_leaf()) {
-                        detail::node_ptr<detail::rope_tag> node;
-                        if (found_lo.offset_ != 0) {
-                            node = slice_leaf(
-                                *found_lo.leaf_,
-                                found_lo.offset_,
-                                detail::size(leaf),
-                                true,
-                                detail::encoding_breakage_ok);
-                        } else {
-                            node = detail::node_ptr<detail::rope_tag>(leaf);
-                        }
-                        auto const node_size = detail::size(node.get());
-                        ptr_ = detail::btree_insert(
-                            ptr_,
-                            at,
-                            std::move(node),
-                            detail::encoding_breakage_ok);
-                        at += node_size;
-                        before_lo = false;
-                        return true; // continue
-                    }
-
-                    if (before_lo)
-                        return true; // continue
-
-                    if (leaf == found_hi.leaf_->as_leaf()) {
-                        if (found_hi.offset_ != 0) {
-                            ptr_ = detail::btree_insert(
-                                ptr_,
-                                at,
-                                slice_leaf(
-                                    *found_hi.leaf_,
-                                    0,
-                                    found_hi.offset_,
-                                    true,
-                                    detail::encoding_breakage_ok),
-                                detail::encoding_breakage_ok);
-
-                            at += found_hi.offset_;
-                        }
-
-                        return false; // break
-                    }
-
-                    ptr_ = detail::btree_insert(
-                        ptr_,
-                        at,
-                        detail::node_ptr<detail::rope_tag>(leaf),
-                        detail::encoding_breakage_ok);
-                    at += detail::size(leaf);
-
-                    return true;
-                });
-
-            return *this;
+            return insert(at, string(rv.begin(), rv.end()));
         }
 
-        template<typename CharIter>
-        auto unencoded_rope::insert(size_type at, CharIter first, CharIter last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-        {
-            assert(0 <= at && at <= size());
+        bool const rv_null_terminated = !rv.empty() && rv.end()[-1] == '\0';
+        if (rv_null_terminated)
+            rv = rv(0, -1);
 
-            if (first == last)
-                return *this;
+        unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
 
+        detail::found_leaf<detail::rope_tag> found_lo;
+        find_leaf(rope_ref.r_->ptr_, rope_ref.lo_, found_lo);
+        detail::leaf_node_t<detail::rope_tag> const * const leaf_lo =
+            found_lo.leaf_->as_leaf();
+
+        // If the entire unencoded_rope_view lies within a single segment,
+        // slice off the appropriate part of that segment.
+        if (found_lo.offset_ + rv.size() <= detail::size(leaf_lo)) {
             ptr_ = detail::btree_insert(
                 ptr_,
                 at,
-                detail::make_node(string(first, last)),
-                detail::encoding_breakage_ok);
-
-            return *this;
-        }
-
-        template<typename CharIter>
-        auto
-        unencoded_rope::insert(const_iterator at, CharIter first, CharIter last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-        {
-            assert(begin() <= at && at <= end());
-
-            if (first == last)
-                return *this;
-
-            ptr_ = detail::btree_insert(
-                ptr_,
-                at - begin(),
-                detail::make_node(string(first, last)),
-                detail::encoding_breakage_ok);
-
-            return *this;
-        }
-
-        inline unencoded_rope & unencoded_rope::erase(unencoded_rope_view rv)
-        {
-            assert(self_reference(rv));
-
-            unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
-
-            assert(0 <= rope_ref.lo_ && rope_ref.lo_ <= size());
-            assert(0 <= rope_ref.hi_ && rope_ref.hi_ <= size());
-            assert(rope_ref.lo_ <= rope_ref.hi_);
-
-            if (rope_ref.lo_ == rope_ref.hi_)
-                return *this;
-
-            bool const rv_null_terminated = !rv.empty() && rv.end()[-1] == '\0';
-            if (rv_null_terminated)
-                rv = rv(0, -1);
-
-            if (string_insertion insertion = mutable_insertion_leaf(
-                    rope_ref.lo_, -rv.size(), would_not_allocate)) {
-                auto const rv_size = rv.size();
-                bump_along_path_to_leaf(ptr_, rope_ref.lo_, -rv_size);
-                insertion.string_->erase((*insertion.string_)(
-                    insertion.found_.offset_,
-                    insertion.found_.offset_ + rv_size));
-            } else {
-                ptr_ = btree_erase(
-                    ptr_,
-                    rope_ref.lo_,
-                    rope_ref.hi_,
-                    detail::encoding_breakage_ok);
-            }
-
-            return *this;
-        }
-
-        inline unencoded_rope &
-        unencoded_rope::erase(const_iterator first, const_iterator last)
-        {
-            assert(first <= last);
-            assert(begin() <= first && last <= end());
-
-            if (first == last)
-                return *this;
-
-            auto const lo = first - begin();
-            auto const hi = last - begin();
-            if (string_insertion insertion = mutable_insertion_leaf(
-                    lo, -(hi - lo), would_not_allocate)) {
-                auto const size = hi - lo;
-                bump_along_path_to_leaf(ptr_, lo, -size);
-                insertion.string_->erase((*insertion.string_)(
-                    insertion.found_.offset_, insertion.found_.offset_ + size));
-            } else {
-                ptr_ = btree_erase(ptr_, lo, hi, detail::encoding_breakage_ok);
-            }
-
-            return *this;
-        }
-
-        inline unencoded_rope & unencoded_rope::replace(
-            unencoded_rope_view old_substr, unencoded_rope_view rv)
-        {
-            assert(self_reference(old_substr));
-
-            detail::node_ptr<detail::rope_tag> extra_ref;
-            unencoded_rope extra_rope;
-            if (self_reference(rv)) {
-                extra_ref = ptr_;
-                extra_rope = unencoded_rope(extra_ref);
-                unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
-                rv =
-                    unencoded_rope_view(extra_rope, rope_ref.lo_, rope_ref.hi_);
-            }
-
-            return erase(old_substr).insert(old_substr.ref_.r_.lo_, rv);
-        }
-
-        inline unencoded_rope &
-        unencoded_rope::replace(unencoded_rope_view old_substr, string && s)
-        {
-            return erase(old_substr)
-                .insert(old_substr.ref_.r_.lo_, std::move(s));
-        }
-
-        template<typename CharIter>
-        auto unencoded_rope::replace(
-            unencoded_rope_view old_substr, CharIter first, CharIter last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-        {
-            assert(self_reference(old_substr));
-            assert(0 <= old_substr.size());
-            const_iterator const old_first = old_substr.begin().as_rope_iter();
-            return replace(
-                old_first, old_first + old_substr.size(), first, last);
-        }
-
-        template<typename CharIter>
-        auto unencoded_rope::replace(
-            const_iterator old_first,
-            const_iterator old_last,
-            CharIter new_first,
-            CharIter new_last)
-            -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
-        {
-            assert(old_first <= old_last);
-            assert(begin() <= old_first && old_last <= end());
-            return erase(old_first, old_last)
-                .insert(old_first, new_first, new_last);
-        }
-
-        inline unencoded_rope & unencoded_rope::
-        operator+=(unencoded_rope_view rv)
-        {
-            return insert(size(), rv);
-        }
-
-        inline unencoded_rope & unencoded_rope::operator+=(string && s)
-        {
-            return insert(size(), std::move(s));
-        }
-
-        inline unencoded_rope::const_iterator unencoded_rope::begin() const
-            noexcept
-        {
-            return const_iterator(*this, 0);
-        }
-        inline unencoded_rope::const_iterator unencoded_rope::end() const
-            noexcept
-        {
-            return const_iterator(*this, size());
-        }
-
-        inline unencoded_rope::const_reverse_iterator
-        unencoded_rope::rbegin() const noexcept
-        {
-            return const_reverse_iterator(const_iterator(*this, size() - 1));
-        }
-        inline unencoded_rope::const_reverse_iterator
-        unencoded_rope::rend() const noexcept
-        {
-            return const_reverse_iterator(const_iterator(*this, -1));
-        }
-
-        inline unencoded_rope_view unencoded_rope::
-        operator()(int lo, int hi) const
-        {
-            if (lo < 0)
-                lo += size();
-            if (hi < 0)
-                hi += size();
-            assert(0 <= lo && lo <= size());
-            assert(0 <= hi && hi <= size());
-            assert(lo <= hi);
-            return unencoded_rope_view(*this, lo, hi);
-        }
-
-        inline unencoded_rope_view unencoded_rope::operator()(int cut) const
-        {
-            int lo = 0;
-            int hi = cut;
-            if (cut < 0) {
-                lo = cut + size();
-                hi = size();
-            }
-            assert(0 <= lo && lo <= size());
-            assert(0 <= hi && hi <= size());
-            return unencoded_rope_view(*this, lo, hi);
-        }
-
-        inline unencoded_rope
-        unencoded_rope::substr(size_type lo, size_type hi) const
-        {
-            if (lo < 0)
-                lo += size();
-            if (hi < 0)
-                hi += size();
-            assert(0 <= lo && lo <= size());
-            assert(0 <= hi && hi <= size());
-            assert(lo <= hi);
-
-            if (lo == hi)
-                return unencoded_rope();
-
-            // If the entire substring falls within a single segment, slice
-            // off the appropriate part of that segment.
-            detail::found_leaf<detail::rope_tag> found;
-            detail::find_leaf(ptr_, lo, found);
-            if (found.offset_ + hi - lo <= detail::size(found.leaf_->get())) {
-                return unencoded_rope(slice_leaf(
-                    *found.leaf_,
-                    found.offset_,
-                    found.offset_ + hi - lo,
-                    true,
-                    detail::encoding_breakage_ok));
-            }
-
-            // Take an extra ref to the root, which will force all a clone of
-            // all the interior nodes.
-            detail::node_ptr<detail::rope_tag> new_root = ptr_;
-
-            if (hi != size())
-                new_root = detail::btree_erase(
-                    new_root, hi, size(), detail::encoding_breakage_ok);
-            if (lo != 0)
-                new_root = detail::btree_erase(
-                    new_root, 0, lo, detail::encoding_breakage_ok);
-
-            return unencoded_rope(new_root);
-        }
-
-        inline unencoded_rope unencoded_rope::substr(size_type cut) const
-        {
-            int lo = 0;
-            int hi = cut;
-            if (cut < 0) {
-                lo = cut + size();
-                hi = size();
-            }
-            assert(0 <= lo && lo <= size());
-            assert(0 <= hi && hi <= size());
-            return substr(lo, hi);
-        }
-
-        inline unencoded_rope::const_iterator
-        begin(unencoded_rope const & r) noexcept
-        {
-            return r.begin();
-        }
-        inline unencoded_rope::const_iterator
-        end(unencoded_rope const & r) noexcept
-        {
-            return r.end();
-        }
-
-        inline unencoded_rope::const_reverse_iterator
-        rbegin(unencoded_rope const & r) noexcept
-        {
-            return r.rbegin();
-        }
-        inline unencoded_rope::const_reverse_iterator
-        rend(unencoded_rope const & r) noexcept
-        {
-            return r.rend();
-        }
-
-        inline bool unencoded_rope::self_reference(unencoded_rope_view rv) const
-        {
-            return rv.which_ == unencoded_rope_view::which::r &&
-                   rv.ref_.r_.r_ == this;
-        }
-
-#endif
-
-        /** Creates a new unencoded_rope object that is the concatenation of r
-           and r2. */
-        inline unencoded_rope operator+(unencoded_rope r, unencoded_rope r2)
-        {
-            return r.insert(r.size(), std::move(r2));
-        }
-
-        /** Creates a new unencoded_rope object that is the concatenation of r
-           and rv. */
-        inline unencoded_rope
-        operator+(unencoded_rope r, unencoded_rope_view rv)
-        {
-            return r.insert(r.size(), rv);
-        }
-
-        /** Creates a new unencoded_rope object that is the concatenation of rv
-           and r. */
-        inline unencoded_rope
-        operator+(unencoded_rope_view rv, unencoded_rope r)
-        {
-            return r.insert(0, rv);
-        }
-
-        /** Creates a new unencoded_rope object that is the concatenation of r
-           and t, by moving the contents of t into the result. */
-        inline unencoded_rope operator+(unencoded_rope r, string && s)
-        {
-            return r.insert(r.size(), std::move(s));
-        }
-
-        /** Creates a new unencoded_rope object that is the concatenation of t
-           and r, by moving the contents of t into the result. */
-        inline unencoded_rope operator+(string && s, unencoded_rope r)
-        {
-            return r.insert(0, std::move(s));
-        }
-
-
-        inline unencoded_rope_view::unencoded_rope_view(
-            unencoded_rope const & r) noexcept :
-            ref_(rope_ref(&r, 0, r.size())),
-            which_(which::r)
-        {}
-
-        inline unencoded_rope_view::unencoded_rope_view(
-            unencoded_rope const & r, int lo, int hi) :
-            ref_(rope_ref(&r, lo, hi)),
-            which_(which::r)
-        {}
-
-        inline unencoded_rope_view::unencoded_rope_view(
-            string const & s) noexcept :
-            ref_(string_view(s.begin(), s.size())),
-            which_(which::tv)
-        {}
-
-        inline unencoded_rope_view::unencoded_rope_view(
-            string const & s, int lo, int hi) :
-            ref_(s(lo, hi)),
-            which_(which::tv)
-        {}
-
-        inline unencoded_rope_view::unencoded_rope_view(
-            repeated_string_view rsv, int lo, int hi) :
-            ref_(repeated_ref(rsv, lo, hi)),
-            which_(which::rtv)
-        {}
-
-        inline unencoded_rope_view::const_iterator
-        unencoded_rope_view::begin() const noexcept
-        {
-            switch (which_) {
-            case which::r:
-                return const_iterator(
-                    detail::const_rope_iterator(ref_.r_.r_, ref_.r_.lo_));
-            case which::tv: return const_iterator(ref_.tv_.begin());
-            case which::rtv:
-                return const_iterator(ref_.rtv_.rtv_.begin() + ref_.rtv_.lo_);
-            }
-            return const_iterator(); // This should never execute.
-        }
-
-        inline unencoded_rope_view::const_iterator
-        unencoded_rope_view::end() const noexcept
-        {
-            switch (which_) {
-            case which::r:
-                return const_iterator(
-                    detail::const_rope_iterator(ref_.r_.r_, ref_.r_.hi_));
-            case which::tv: return const_iterator(ref_.tv_.end());
-            case which::rtv:
-                return const_iterator(ref_.rtv_.rtv_.begin() + ref_.rtv_.hi_);
-            }
-            return const_iterator(); // This should never execute.
-        }
-
-        inline unencoded_rope_view::const_reverse_iterator
-        unencoded_rope_view::rbegin() const noexcept
-        {
-            return const_reverse_iterator(end() - 1);
-        }
-        inline unencoded_rope_view::const_reverse_iterator
-        unencoded_rope_view::rend() const noexcept
-        {
-            return const_reverse_iterator(begin() - 1);
-        }
-
-        inline bool unencoded_rope_view::empty() const noexcept
-        {
-            return begin() == end();
-        }
-
-        inline unencoded_rope_view::size_type unencoded_rope_view::size() const
-            noexcept
-        {
-            return end() - begin();
-        }
-
-        inline char unencoded_rope_view::operator[](int i) const noexcept
-        {
-            assert(1 < size());
-            return begin()[i];
-        }
-
-        inline unencoded_rope_view unencoded_rope_view::
-        operator()(int lo, int hi) const
-        {
-            if (lo < 0)
-                lo += size();
-            if (hi < 0)
-                hi += size();
-            assert(0 <= lo && lo <= size());
-            assert(0 <= hi && hi <= size());
-            assert(lo <= hi);
-            switch (which_) {
-            case which::r:
-                return unencoded_rope_view(
-                    ref_.r_.r_, ref_.r_.lo_ + lo, ref_.r_.lo_ + hi);
-            case which::tv: return unencoded_rope_view(ref_.tv_(lo, hi));
-            case which::rtv:
-                return unencoded_rope_view(
-                    ref_.rtv_.rtv_, ref_.rtv_.lo_ + lo, ref_.rtv_.lo_ + hi);
-            }
-            return *this; // This should never execute.
-        }
-
-        namespace detail {
-
-            template<typename Fn>
-            void apply_to_segment(
-                detail::leaf_node_t<detail::rope_tag> const * leaf,
-                std::ptrdiff_t lo,
-                std::ptrdiff_t hi,
-                Fn const & f)
-            {
-                switch (leaf->which_) {
-                case detail::which::t: f(leaf->as_string()(lo, hi)); break;
-                case detail::which::rtv:
-                    f(detail::repeated_range{
-                        leaf->as_repeated_string_view().begin() + lo,
-                        leaf->as_repeated_string_view().begin() + hi});
-                    break;
-                case detail::which::ref:
-                    f(leaf->as_reference().ref_(lo, hi));
-                    break;
-                default: assert(!"unhandled rope node case"); break;
-                }
-            }
-        }
-
-        template<typename Fn>
-        void unencoded_rope_view::foreach_segment(Fn && f) const
-        {
-            if (which_ == which::tv) {
-                f(ref_.tv_);
-                return;
-            }
-
-            if (which_ == which::rtv) {
-                f(detail::repeated_range{ref_.rtv_.rtv_.begin() + ref_.rtv_.lo_,
-                                         ref_.rtv_.rtv_.begin() +
-                                             ref_.rtv_.hi_});
-                return;
-            }
-
-            rope_ref r_ref = ref_.r_;
-
-            if (!r_ref.r_)
-                return;
-
-            detail::found_leaf<detail::rope_tag> found_lo;
-            detail::find_leaf(r_ref.r_->ptr_, r_ref.lo_, found_lo);
-
-            detail::found_leaf<detail::rope_tag> found_hi;
-            detail::find_leaf(r_ref.r_->ptr_, r_ref.hi_, found_hi);
-
-            if (found_lo.leaf_->as_leaf() == found_hi.leaf_->as_leaf()) {
-                detail::apply_to_segment(
-                    found_lo.leaf_->as_leaf(),
+                slice_leaf(
+                    *found_lo.leaf_,
                     found_lo.offset_,
-                    found_hi.offset_,
-                    f);
-                return;
-            }
-
-            bool before_lo = true;
-            detail::foreach_leaf(
-                r_ref.r_->ptr_,
-                [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
-                    if (before_lo) {
-                        if (leaf == found_lo.leaf_->as_leaf()) {
-                            auto const leaf_size = detail::size(leaf);
-                            detail::apply_to_segment(
-                                leaf, found_lo.offset_, leaf_size, f);
-                            before_lo = false;
-                        }
-                        return true; // continue
-                    }
-
-                    if (leaf == found_hi.leaf_->as_leaf()) {
-                        if (found_hi.offset_ != 0)
-                            detail::apply_to_segment(
-                                leaf, 0, found_hi.offset_, f);
-                        return false; // break
-                    }
-
-                    auto const leaf_size = detail::size(leaf);
-                    detail::apply_to_segment(leaf, 0, leaf_size, f);
-
-                    return true;
-                });
+                    found_lo.offset_ + rv.size(),
+                    true));
+            return *this;
         }
 
-        namespace detail {
+        detail::found_leaf<detail::rope_tag> found_hi;
+        find_leaf(rope_ref.r_->ptr_, rope_ref.hi_, found_hi);
 
-            template<typename CharIter>
-            int mismatch_compare(
-                unencoded_rope_view rv, CharIter rhs_first, CharIter rhs_last)
-            {
-                if (rv.empty())
-                    return rhs_first == rhs_last ? 0 : -1;
-
-                auto const iters = algorithm::mismatch(
-                    rv.begin(), rv.end(), rhs_first, rhs_last);
-                if (iters.first == rv.end()) {
-                    if (iters.second == rhs_last)
-                        return 0;
-                    else
-                        return -1;
-                } else if (iters.second == rhs_last) {
-                    return 1;
-                } else if (*iters.first < *iters.second) {
-                    return -1;
-                } else {
-                    return 1;
+        bool before_lo = true;
+        detail::foreach_leaf(
+            rope_ref.r_->ptr_,
+            [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
+                if (leaf == found_lo.leaf_->as_leaf()) {
+                    detail::node_ptr<detail::rope_tag> node;
+                    if (found_lo.offset_ != 0) {
+                        node = slice_leaf(
+                            *found_lo.leaf_,
+                            found_lo.offset_,
+                            detail::size(leaf),
+                            true);
+                    } else {
+                        node = detail::node_ptr<detail::rope_tag>(leaf);
+                    }
+                    auto const node_size = detail::size(node.get());
+                    ptr_ = detail::btree_insert(ptr_, at, std::move(node));
+                    at += node_size;
+                    before_lo = false;
+                    return true; // continue
                 }
-            }
-        }
 
-        inline int unencoded_rope_view::compare(unencoded_rope_view rhs) const
-            noexcept
-        {
-            if (which_ == which::tv && rhs.which_ == which::tv)
-                return ref_.tv_.compare(rhs.ref_.tv_);
+                if (before_lo)
+                    return true; // continue
 
-            if (empty())
-                return rhs.empty() ? 0 : -1;
+                if (leaf == found_hi.leaf_->as_leaf()) {
+                    if (found_hi.offset_ != 0) {
+                        ptr_ = detail::btree_insert(
+                            ptr_,
+                            at,
+                            slice_leaf(
+                                *found_hi.leaf_, 0, found_hi.offset_, true));
 
-            auto const iters =
-                algorithm::mismatch(begin(), end(), rhs.begin(), rhs.end());
-            if (iters.first == end()) {
-                if (iters.second == rhs.end())
-                    return 0;
-                else
-                    return -1;
-            } else if (iters.second == rhs.end()) {
-                return 1;
-            } else if (*iters.first < *iters.second) {
-                return -1;
-            } else {
-                return 1;
-            }
-        }
-
-        inline unencoded_rope_view::iterator
-        begin(unencoded_rope_view rv) noexcept
-        {
-            return rv.begin();
-        }
-        inline unencoded_rope_view::iterator
-        end(unencoded_rope_view rv) noexcept
-        {
-            return rv.end();
-        }
-
-        inline unencoded_rope_view::reverse_iterator
-        rbegin(unencoded_rope_view rv) noexcept
-        {
-            return rv.rbegin();
-        }
-        inline unencoded_rope_view::reverse_iterator
-        rend(unencoded_rope_view rv) noexcept
-        {
-            return rv.rend();
-        }
-
-
-        /** Stream inserter; performs unformatted output. */
-        inline std::ostream &
-        operator<<(std::ostream & os, unencoded_rope_view rv)
-        {
-            rv.foreach_segment(detail::segment_inserter{os});
-            return os;
-        }
-
-        inline unencoded_rope
-        operator+(unencoded_rope_view lhs, unencoded_rope_view rhs)
-        {
-            unencoded_rope retval(lhs);
-            return retval += rhs;
-        }
-
-        inline string & string::operator+=(unencoded_rope r)
-        {
-            return insert(size(), r.begin(), r.end());
-        }
-
-        inline string & string::operator+=(unencoded_rope_view rv)
-        {
-            return insert(size(), rv.begin(), rv.end());
-        }
-
-        namespace detail {
-
-#ifdef BOOST_TEXT_TESTING
-            template<typename T>
-            inline void dump_tree(node_ptr<T> const & root, int key, int indent)
-            {
-                std::cout << repeated_string_view("    ", indent)
-                          << (root->leaf_ ? "LEAF" : "INTR") << " @0x"
-                          << std::hex << root.get();
-                if (key != -1)
-                    std::cout << " < " << std::dec << key;
-                std::cout << " (" << root->refs_ << " refs)\n";
-                if (!root->leaf_) {
-                    int i = 0;
-                    for (auto const & child : children(root)) {
-                        dump_tree(child, keys(root)[i++], indent + 1);
+                        at += found_hi.offset_;
                     }
+
+                    return false; // break
                 }
-            }
+
+                ptr_ = detail::btree_insert(
+                    ptr_, at, detail::node_ptr<detail::rope_tag>(leaf));
+                at += detail::size(leaf);
+
+                return true;
+            });
+
+        return *this;
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::insert(const_iterator at, unencoded_rope_view rv)
+    {
+        return insert(at - begin(), rv);
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::insert(const_iterator at, string && s)
+    {
+        return insert_impl(at - begin(), std::move(s), would_not_allocate);
+    }
+
+    template<typename CharRange>
+    auto unencoded_rope::insert(size_type at, CharRange const & r)
+        -> detail::rng_alg_ret_t<
+            unencoded_rope &,
+            CharRange,
+            string_view,
+            repeated_string_view>
+    {
+        using std::begin;
+        using std::end;
+        insert(at, begin(r), end(r));
+        return *this;
+    }
+
+    template<typename CharRange>
+    auto unencoded_rope::insert(const_iterator at, CharRange const & r)
+        -> detail::rng_alg_ret_t<
+            unencoded_rope &,
+            CharRange,
+            string_view,
+            repeated_string_view>
+    {
+        using std::begin;
+        using std::end;
+        insert(at, begin(r), end(r));
+        return *this;
+    }
+
+    template<typename CharIter>
+    auto unencoded_rope::insert(size_type at, CharIter first, CharIter last)
+        -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
+    {
+        assert(0 <= at && at <= size());
+
+        if (first == last)
+            return *this;
+
+        ptr_ = detail::btree_insert(
+            ptr_, at, detail::make_node(string(first, last)));
+
+        return *this;
+    }
+
+    template<typename CharIter>
+    auto
+    unencoded_rope::insert(const_iterator at, CharIter first, CharIter last)
+        -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
+    {
+        assert(begin() <= at && at <= end());
+
+        if (first == last)
+            return *this;
+
+        ptr_ = detail::btree_insert(
+            ptr_, at - begin(), detail::make_node(string(first, last)));
+
+        return *this;
+    }
+
+    inline unencoded_rope & unencoded_rope::erase(unencoded_rope_view rv)
+    {
+        assert(self_reference(rv));
+
+        unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
+
+        assert(0 <= rope_ref.lo_ && rope_ref.lo_ <= size());
+        assert(0 <= rope_ref.hi_ && rope_ref.hi_ <= size());
+        assert(rope_ref.lo_ <= rope_ref.hi_);
+
+        if (rope_ref.lo_ == rope_ref.hi_)
+            return *this;
+
+        bool const rv_null_terminated = !rv.empty() && rv.end()[-1] == '\0';
+        if (rv_null_terminated)
+            rv = rv(0, -1);
+
+        if (string_insertion insertion = mutable_insertion_leaf(
+                rope_ref.lo_, -rv.size(), would_not_allocate)) {
+            auto const rv_size = rv.size();
+            bump_along_path_to_leaf(ptr_, rope_ref.lo_, -rv_size);
+            insertion.string_->erase((*insertion.string_)(
+                insertion.found_.offset_, insertion.found_.offset_ + rv_size));
+        } else {
+            ptr_ = btree_erase(ptr_, rope_ref.lo_, rope_ref.hi_);
+        }
+
+        return *this;
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::erase(const_iterator first, const_iterator last)
+    {
+        assert(first <= last);
+        assert(begin() <= first && last <= end());
+
+        if (first == last)
+            return *this;
+
+        auto const lo = first - begin();
+        auto const hi = last - begin();
+        if (string_insertion insertion =
+                mutable_insertion_leaf(lo, -(hi - lo), would_not_allocate)) {
+            auto const size = hi - lo;
+            bump_along_path_to_leaf(ptr_, lo, -size);
+            insertion.string_->erase((*insertion.string_)(
+                insertion.found_.offset_, insertion.found_.offset_ + size));
+        } else {
+            ptr_ = btree_erase(ptr_, lo, hi);
+        }
+
+        return *this;
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::replace(unencoded_rope_view old_substr, char const * c_str)
+    {
+        return replace(old_substr, unencoded_rope_view(c_str));
+    }
+
+    inline unencoded_rope & unencoded_rope::replace(
+        unencoded_rope_view old_substr, unencoded_rope_view rv)
+    {
+        assert(self_reference(old_substr));
+
+        detail::node_ptr<detail::rope_tag> extra_ref;
+        unencoded_rope extra_rope;
+        if (self_reference(rv)) {
+            extra_ref = ptr_;
+            extra_rope = unencoded_rope(extra_ref);
+            unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
+            rv = unencoded_rope_view(extra_rope, rope_ref.lo_, rope_ref.hi_);
+        }
+
+        return erase(old_substr).insert(old_substr.ref_.r_.lo_, rv);
+    }
+
+    inline unencoded_rope &
+    unencoded_rope::replace(unencoded_rope_view old_substr, string && s)
+    {
+        return erase(old_substr).insert(old_substr.ref_.r_.lo_, std::move(s));
+    }
+
+    template<typename CharRange>
+    auto
+    unencoded_rope::replace(unencoded_rope_view old_substr, CharRange const & r)
+        -> detail::rng_alg_ret_t<
+            unencoded_rope &,
+            CharRange,
+            string_view,
+            repeated_string_view>
+    {
+        using std::begin;
+        using std::end;
+        return replace(old_substr, begin(r), end(r));
+    }
+
+    template<typename CharIter>
+    auto unencoded_rope::replace(
+        unencoded_rope_view old_substr, CharIter first, CharIter last)
+        -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
+    {
+        assert(self_reference(old_substr));
+        assert(0 <= old_substr.size());
+        const_iterator const old_first = old_substr.begin().as_rope_iter();
+        return replace(old_first, old_first + old_substr.size(), first, last);
+    }
+
+    template<typename CharIter>
+    auto unencoded_rope::replace(
+        const_iterator old_first,
+        const_iterator old_last,
+        CharIter new_first,
+        CharIter new_last)
+        -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
+    {
+        assert(old_first <= old_last);
+        assert(begin() <= old_first && old_last <= end());
+        return erase(old_first, old_last)
+            .insert(old_first, new_first, new_last);
+    }
+
+    inline unencoded_rope & unencoded_rope::operator+=(char const * c_str)
+    {
+        return insert(size(), unencoded_rope_view(c_str));
+    }
+
+    inline unencoded_rope & unencoded_rope::operator+=(unencoded_rope_view rv)
+    {
+        return insert(size(), rv);
+    }
+
+    inline unencoded_rope & unencoded_rope::operator+=(string && s)
+    {
+        return insert(size(), std::move(s));
+    }
+
+    inline unencoded_rope::const_iterator unencoded_rope::begin() const noexcept
+    {
+        return const_iterator(*this, 0);
+    }
+    inline unencoded_rope::const_iterator unencoded_rope::end() const noexcept
+    {
+        return const_iterator(*this, size());
+    }
+
+    inline unencoded_rope::const_iterator unencoded_rope::cbegin() const
+        noexcept
+    {
+        return begin();
+    }
+    inline unencoded_rope::const_iterator unencoded_rope::cend() const noexcept
+    {
+        return end();
+    }
+
+    inline unencoded_rope::const_reverse_iterator unencoded_rope::rbegin() const
+        noexcept
+    {
+        return const_reverse_iterator(const_iterator(*this, size() - 1));
+    }
+    inline unencoded_rope::const_reverse_iterator unencoded_rope::rend() const
+        noexcept
+    {
+        return const_reverse_iterator(const_iterator(*this, -1));
+    }
+
+    inline unencoded_rope::const_reverse_iterator
+    unencoded_rope::crbegin() const noexcept
+    {
+        return rbegin();
+    }
+    inline unencoded_rope::const_reverse_iterator unencoded_rope::crend() const
+        noexcept
+    {
+        return rend();
+    }
+
+    inline unencoded_rope_view unencoded_rope::
+    operator()(size_type lo, size_type hi) const
+    {
+        if (lo < 0)
+            lo += size();
+        if (hi < 0)
+            hi += size();
+        assert(0 <= lo && lo <= size());
+        assert(0 <= hi && hi <= size());
+        assert(lo <= hi);
+        return unencoded_rope_view(*this, lo, hi);
+    }
+
+    inline unencoded_rope_view unencoded_rope::operator()(size_type cut) const
+    {
+        size_type lo = 0;
+        size_type hi = cut;
+        if (cut < 0) {
+            lo = cut + size();
+            hi = size();
+        }
+        assert(0 <= lo && lo <= size());
+        assert(0 <= hi && hi <= size());
+        return unencoded_rope_view(*this, lo, hi);
+    }
+
+    inline unencoded_rope
+    unencoded_rope::substr(size_type lo, size_type hi) const
+    {
+        if (lo < 0)
+            lo += size();
+        if (hi < 0)
+            hi += size();
+        assert(0 <= lo && lo <= size());
+        assert(0 <= hi && hi <= size());
+        assert(lo <= hi);
+
+        if (lo == hi)
+            return unencoded_rope();
+
+        // If the entire substring falls within a single segment, slice
+        // off the appropriate part of that segment.
+        detail::found_leaf<detail::rope_tag> found;
+        detail::find_leaf(ptr_, lo, found);
+        if (found.offset_ + hi - lo <= detail::size(found.leaf_->get())) {
+            return unencoded_rope(slice_leaf(
+                *found.leaf_, found.offset_, found.offset_ + hi - lo, true));
+        }
+
+        // Take an extra ref to the root, which will force all a clone of
+        // all the interior nodes.
+        detail::node_ptr<detail::rope_tag> new_root = ptr_;
+
+        if (hi != size())
+            new_root = detail::btree_erase(new_root, hi, size());
+        if (lo != 0)
+            new_root = detail::btree_erase(new_root, 0, lo);
+
+        return unencoded_rope(new_root);
+    }
+
+    inline unencoded_rope unencoded_rope::substr(size_type cut) const
+    {
+        size_type lo = 0;
+        size_type hi = cut;
+        if (cut < 0) {
+            lo = cut + size();
+            hi = size();
+        }
+        assert(0 <= lo && lo <= size());
+        assert(0 <= hi && hi <= size());
+        return substr(lo, hi);
+    }
+
+    inline unencoded_rope::const_iterator
+    begin(unencoded_rope const & r) noexcept
+    {
+        return r.begin();
+    }
+    inline unencoded_rope::const_iterator end(unencoded_rope const & r) noexcept
+    {
+        return r.end();
+    }
+
+    inline unencoded_rope::const_iterator
+    cbegin(unencoded_rope const & r) noexcept
+    {
+        return r.cbegin();
+    }
+    inline unencoded_rope::const_iterator
+    cend(unencoded_rope const & r) noexcept
+    {
+        return r.cend();
+    }
+
+    inline unencoded_rope::const_reverse_iterator
+    rbegin(unencoded_rope const & r) noexcept
+    {
+        return r.rbegin();
+    }
+    inline unencoded_rope::const_reverse_iterator
+    rend(unencoded_rope const & r) noexcept
+    {
+        return r.rend();
+    }
+
+    inline unencoded_rope::const_reverse_iterator
+    crbegin(unencoded_rope const & r) noexcept
+    {
+        return r.crbegin();
+    }
+    inline unencoded_rope::const_reverse_iterator
+    crend(unencoded_rope const & r) noexcept
+    {
+        return r.crend();
+    }
+
+    inline bool unencoded_rope::self_reference(unencoded_rope_view rv) const
+    {
+        return rv.which_ == unencoded_rope_view::which::r &&
+               rv.ref_.r_.r_ == this;
+    }
+
+}}
+
 #endif
+
+namespace boost { namespace text {
+
+    inline bool
+    operator==(char const * lhs, unencoded_rope const & rhs) noexcept
+    {
+        return algorithm::equal(
+            lhs, lhs + std::strlen(lhs), rhs.begin(), rhs.end());
+    }
+    inline bool
+    operator==(unencoded_rope const & lhs, char const * rhs) noexcept
+    {
+        return rhs == lhs;
+    }
+
+    inline bool
+    operator!=(char const * lhs, unencoded_rope const & rhs) noexcept
+    {
+        return !(lhs == rhs);
+    }
+    inline bool
+    operator!=(unencoded_rope const & lhs, char const * rhs) noexcept
+    {
+        return rhs != lhs;
+    }
+
+    inline bool operator<(char const * lhs, unencoded_rope const & rhs) noexcept
+    {
+        return detail::generalized_compare(
+                   lhs, lhs + std::strlen(lhs), rhs.begin(), rhs.end()) < 0;
+    }
+    inline bool operator<(unencoded_rope const & lhs, char const * rhs) noexcept
+    {
+        return detail::generalized_compare(
+                   lhs.begin(), lhs.end(), rhs, rhs + std::strlen(rhs)) < 0;
+    }
+
+    inline bool
+    operator<=(char const * lhs, unencoded_rope const & rhs) noexcept
+    {
+        return lhs < rhs || lhs == rhs;
+    }
+    inline bool
+    operator<=(unencoded_rope const & lhs, char const * rhs) noexcept
+    {
+        return lhs < rhs || lhs == rhs;
+    }
+
+    inline bool operator>(char const * lhs, unencoded_rope const & rhs) noexcept
+    {
+        return rhs < lhs;
+    }
+    inline bool operator>(unencoded_rope const & lhs, char const * rhs) noexcept
+    {
+        return rhs < lhs;
+    }
+
+    inline bool
+    operator>=(char const * lhs, unencoded_rope const & rhs) noexcept
+    {
+        return rhs <= lhs;
+    }
+    inline bool
+    operator>=(unencoded_rope const & lhs, char const * rhs) noexcept
+    {
+        return rhs <= lhs;
+    }
+
+    template<typename CharRange>
+    auto operator==(CharRange const & lhs, unencoded_rope const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        using std::begin;
+        using std::end;
+        return algorithm::equal(begin(lhs), end(lhs), rhs.begin(), rhs.end());
+    }
+    template<typename CharRange>
+    auto operator==(unencoded_rope const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        using std::begin;
+        using std::end;
+        return algorithm::equal(lhs.begin(), lhs.end(), begin(rhs), end(rhs));
+    }
+
+    template<typename CharRange>
+    auto operator!=(CharRange const & lhs, unencoded_rope const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return !(lhs == rhs);
+    }
+    template<typename CharRange>
+    auto operator!=(unencoded_rope const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return rhs != lhs;
+    }
+
+    template<typename CharRange>
+    auto operator<(CharRange const & lhs, unencoded_rope const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        using std::begin;
+        using std::end;
+        return detail::generalized_compare(
+                   begin(lhs), end(lhs), rhs.begin(), rhs.end()) < 0;
+    }
+    template<typename CharRange>
+    auto operator<(unencoded_rope const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        using std::begin;
+        using std::end;
+        return detail::generalized_compare(
+                   lhs.begin(), lhs.end(), begin(rhs), end(rhs)) < 0;
+    }
+
+    template<typename CharRange>
+    auto operator<=(CharRange const & lhs, unencoded_rope const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return lhs < rhs || lhs == rhs;
+    }
+    template<typename CharRange>
+    auto operator<=(unencoded_rope const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return lhs < rhs || lhs == rhs;
+    }
+
+    template<typename CharRange>
+    auto operator>(CharRange const & lhs, unencoded_rope const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return rhs < lhs;
+    }
+    template<typename CharRange>
+    auto operator>(unencoded_rope const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return rhs < lhs;
+    }
+
+    template<typename CharRange>
+    auto operator>=(CharRange const & lhs, unencoded_rope const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, string>
+    {
+        return rhs <= lhs;
+    }
+    template<typename CharRange>
+    auto operator>=(unencoded_rope const & lhs, CharRange const & rhs) noexcept
+        -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
+    {
+        return rhs <= lhs;
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of r
+        and c_str. */
+    inline unencoded_rope operator+(unencoded_rope r, char const * c_str)
+    {
+        return r += string_view(c_str);
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of c_str
+        and r. */
+    inline unencoded_rope operator+(char const * c_str, unencoded_rope r)
+    {
+        return r.insert(0, c_str);
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of r
+        and r2. */
+    inline unencoded_rope operator+(unencoded_rope r, unencoded_rope r2)
+    {
+        return r += r2;
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of r
+       and rv. */
+    inline unencoded_rope operator+(unencoded_rope r, unencoded_rope_view rv)
+    {
+        return r += rv;
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of rv
+       and r. */
+    inline unencoded_rope operator+(unencoded_rope_view rv, unencoded_rope r)
+    {
+        return r.insert(0, rv);
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of r
+        and t, by moving the contents of t into the result. */
+    inline unencoded_rope operator+(unencoded_rope r, string && s)
+    {
+        return r += std::move(s);
+    }
+
+    /** Creates a new unencoded_rope object that is the concatenation of t
+        and r, by moving the contents of t into the result. */
+    inline unencoded_rope operator+(string && s, unencoded_rope r)
+    {
+        return r.insert(0, std::move(s));
+    }
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+    /** Creates a new unencoded_rope object that is the concatenation of ur
+        and r.
+
+        This function only participates in overload resolution if CharRange
+        models the CharRange concept. */
+    template<typename CharRange>
+    unencoded_rope & operator+(unencoded_rope ur, CharRange const & r);
+
+    /** Creates a new unencoded_rope object that is the concatenation of r
+        and ur.
+
+        This function only participates in overload resolution if CharRange
+        models the CharRange concept. */
+    template<typename CharRange>
+    unencoded_rope & operator+(CharRange const & r, unencoded_rope const & ur);
+
+#else
+
+    template<typename CharRange>
+    auto operator+(unencoded_rope ur, CharRange const & r)
+        -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
+    {
+        return ur += r;
+    }
+
+    template<typename CharRange>
+    auto operator+(CharRange const & r, unencoded_rope ur)
+        -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
+    {
+        using std::begin;
+        using std::end;
+        return ur.insert(0, begin(r), end(r));
+    }
+
+#endif
+
+
+    inline unencoded_rope_view::unencoded_rope_view(
+        unencoded_rope const & r) noexcept :
+        ref_(rope_ref(&r, 0, r.size())),
+        which_(which::r)
+    {}
+
+    inline unencoded_rope_view::unencoded_rope_view(
+        unencoded_rope const & r, size_type lo, size_type hi) :
+        ref_(rope_ref(&r, lo, hi)),
+        which_(which::r)
+    {}
+
+    inline unencoded_rope_view::unencoded_rope_view(string const & s) noexcept :
+        ref_(string_view(s.begin(), s.size())),
+        which_(which::tv)
+    {}
+
+    inline unencoded_rope_view::unencoded_rope_view(
+        string const & s, int lo, int hi) :
+        ref_(s(lo, hi)),
+        which_(which::tv)
+    {}
+
+    inline unencoded_rope_view::unencoded_rope_view(
+        repeated_string_view rsv, size_type lo, size_type hi) :
+        ref_(repeated_ref(rsv, lo, hi)),
+        which_(which::rtv)
+    {}
+
+    template<typename ContigCharRange>
+    unencoded_rope_view::unencoded_rope_view(
+        ContigCharRange const & r,
+        detail::contig_rng_alg_ret_t<int *, ContigCharRange>) :
+        ref_(rope_ref())
+    {
+        using std::begin;
+        using std::end;
+        if (begin(r) == end(r)) {
+            *this = unencoded_rope_view();
+        } else {
+            *this =
+                unencoded_rope_view(string_view(&*begin(r), end(r) - begin(r)));
         }
     }
-}
+
+    template<typename ContigGraphemeRange>
+    unencoded_rope_view::unencoded_rope_view(
+        ContigGraphemeRange const & r,
+        detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange>) :
+        ref_(rope_ref())
+    {
+        using std::begin;
+        using std::end;
+        if (begin(r) == end(r)) {
+            *this = unencoded_rope_view();
+        } else {
+            *this = unencoded_rope_view(string_view(
+                &*begin(r).base().base(),
+                end(r).base().base() - begin(r).base().base()));
+        }
+    }
+
+    inline unencoded_rope_view::const_iterator
+    unencoded_rope_view::begin() const noexcept
+    {
+        switch (which_) {
+        case which::r:
+            return const_iterator(
+                detail::const_rope_iterator(ref_.r_.r_, ref_.r_.lo_));
+        case which::tv: return const_iterator(ref_.tv_.begin());
+        case which::rtv:
+            return const_iterator(ref_.rtv_.rtv_.begin() + ref_.rtv_.lo_);
+        }
+        return const_iterator(); // This should never execute.
+    }
+
+    inline unencoded_rope_view::const_iterator unencoded_rope_view::end() const
+        noexcept
+    {
+        switch (which_) {
+        case which::r:
+            return const_iterator(
+                detail::const_rope_iterator(ref_.r_.r_, ref_.r_.hi_));
+        case which::tv: return const_iterator(ref_.tv_.end());
+        case which::rtv:
+            return const_iterator(ref_.rtv_.rtv_.begin() + ref_.rtv_.hi_);
+        }
+        return const_iterator(); // This should never execute.
+    }
+
+    inline unencoded_rope_view::const_iterator
+    unencoded_rope_view::cbegin() const noexcept
+    {
+        return begin();
+    }
+    inline unencoded_rope_view::const_iterator unencoded_rope_view::cend() const
+        noexcept
+    {
+        return end();
+    }
+
+    inline unencoded_rope_view::const_reverse_iterator
+    unencoded_rope_view::rbegin() const noexcept
+    {
+        return const_reverse_iterator(end() - 1);
+    }
+    inline unencoded_rope_view::const_reverse_iterator
+    unencoded_rope_view::rend() const noexcept
+    {
+        return const_reverse_iterator(begin() - 1);
+    }
+
+    inline unencoded_rope_view::const_reverse_iterator
+    unencoded_rope_view::crbegin() const noexcept
+    {
+        return rbegin();
+    }
+    inline unencoded_rope_view::const_reverse_iterator
+    unencoded_rope_view::crend() const noexcept
+    {
+        return rend();
+    }
+
+    inline bool unencoded_rope_view::empty() const noexcept
+    {
+        return begin() == end();
+    }
+
+    inline unencoded_rope_view::size_type unencoded_rope_view::size() const
+        noexcept
+    {
+        return end() - begin();
+    }
+
+    inline char unencoded_rope_view::operator[](size_type i) const noexcept
+    {
+        if (i < 0)
+            i += size();
+        assert(0 <= i && i < size());
+        return begin()[i];
+    }
+
+    inline unencoded_rope_view unencoded_rope_view::
+    operator()(size_type lo, size_type hi) const
+    {
+        if (lo < 0)
+            lo += size();
+        if (hi < 0)
+            hi += size();
+        assert(0 <= lo && lo <= size());
+        assert(0 <= hi && hi <= size());
+        assert(lo <= hi);
+        switch (which_) {
+        case which::r:
+            return unencoded_rope_view(
+                ref_.r_.r_, ref_.r_.lo_ + lo, ref_.r_.lo_ + hi);
+        case which::tv: return unencoded_rope_view(ref_.tv_(lo, hi));
+        case which::rtv:
+            return unencoded_rope_view(
+                ref_.rtv_.rtv_, ref_.rtv_.lo_ + lo, ref_.rtv_.lo_ + hi);
+        }
+        return *this; // This should never execute.
+    }
+
+    namespace detail {
+
+        template<typename Fn>
+        void apply_to_segment(
+            detail::leaf_node_t<detail::rope_tag> const * leaf,
+            std::ptrdiff_t lo,
+            std::ptrdiff_t hi,
+            Fn const & f)
+        {
+            switch (leaf->which_) {
+            case detail::which::t: f(leaf->as_string()(lo, hi)); break;
+            case detail::which::rtv:
+                f(detail::repeated_range{
+                    leaf->as_repeated_string_view().begin() + lo,
+                    leaf->as_repeated_string_view().begin() + hi});
+                break;
+            case detail::which::ref:
+                f(leaf->as_reference().ref_(lo, hi));
+                break;
+            default: assert(!"unhandled rope node case"); break;
+            }
+        }
+    }
+
+    template<typename Fn>
+    void unencoded_rope_view::foreach_segment(Fn && f) const
+    {
+        if (which_ == which::tv) {
+            f(ref_.tv_);
+            return;
+        }
+
+        if (which_ == which::rtv) {
+            f(detail::repeated_range{ref_.rtv_.rtv_.begin() + ref_.rtv_.lo_,
+                                     ref_.rtv_.rtv_.begin() + ref_.rtv_.hi_});
+            return;
+        }
+
+        rope_ref r_ref = ref_.r_;
+
+        if (!r_ref.r_)
+            return;
+
+        detail::found_leaf<detail::rope_tag> found_lo;
+        detail::find_leaf(r_ref.r_->ptr_, r_ref.lo_, found_lo);
+
+        detail::found_leaf<detail::rope_tag> found_hi;
+        detail::find_leaf(r_ref.r_->ptr_, r_ref.hi_, found_hi);
+
+        if (found_lo.leaf_->as_leaf() == found_hi.leaf_->as_leaf()) {
+            detail::apply_to_segment(
+                found_lo.leaf_->as_leaf(),
+                found_lo.offset_,
+                found_hi.offset_,
+                f);
+            return;
+        }
+
+        bool before_lo = true;
+        detail::foreach_leaf(
+            r_ref.r_->ptr_,
+            [&](detail::leaf_node_t<detail::rope_tag> const * leaf) {
+                if (before_lo) {
+                    if (leaf == found_lo.leaf_->as_leaf()) {
+                        auto const leaf_size = detail::size(leaf);
+                        detail::apply_to_segment(
+                            leaf, found_lo.offset_, leaf_size, f);
+                        before_lo = false;
+                    }
+                    return true; // continue
+                }
+
+                if (leaf == found_hi.leaf_->as_leaf()) {
+                    if (found_hi.offset_ != 0)
+                        detail::apply_to_segment(leaf, 0, found_hi.offset_, f);
+                    return false; // break
+                }
+
+                auto const leaf_size = detail::size(leaf);
+                detail::apply_to_segment(leaf, 0, leaf_size, f);
+
+                return true;
+            });
+    }
+
+    inline unencoded_rope_view::iterator begin(unencoded_rope_view rv) noexcept
+    {
+        return rv.begin();
+    }
+    inline unencoded_rope_view::iterator end(unencoded_rope_view rv) noexcept
+    {
+        return rv.end();
+    }
+
+    inline unencoded_rope_view::iterator cbegin(unencoded_rope_view rv) noexcept
+    {
+        return rv.cbegin();
+    }
+    inline unencoded_rope_view::iterator cend(unencoded_rope_view rv) noexcept
+    {
+        return rv.cend();
+    }
+
+    inline unencoded_rope_view::reverse_iterator
+    rbegin(unencoded_rope_view rv) noexcept
+    {
+        return rv.rbegin();
+    }
+    inline unencoded_rope_view::reverse_iterator
+    rend(unencoded_rope_view rv) noexcept
+    {
+        return rv.rend();
+    }
+
+    inline unencoded_rope_view::reverse_iterator
+    crbegin(unencoded_rope_view rv) noexcept
+    {
+        return rv.crbegin();
+    }
+    inline unencoded_rope_view::reverse_iterator
+    crend(unencoded_rope_view rv) noexcept
+    {
+        return rv.crend();
+    }
+
+    inline int unencoded_rope_view::compare(unencoded_rope_view rhs) const
+        noexcept
+    {
+        if (which_ == which::tv && rhs.which_ == which::tv)
+            return ref_.tv_.compare(rhs.ref_.tv_);
+
+        if (empty())
+            return rhs.empty() ? 0 : -1;
+
+        auto const iters =
+            algorithm::mismatch(begin(), end(), rhs.begin(), rhs.end());
+        if (iters.first == end()) {
+            if (iters.second == rhs.end())
+                return 0;
+            else
+                return -1;
+        } else if (iters.second == rhs.end()) {
+            return 1;
+        } else if (*iters.first < *iters.second) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+
+    /** Stream inserter; performs unformatted output. */
+    inline std::ostream & operator<<(std::ostream & os, unencoded_rope_view rv)
+    {
+        rv.foreach_segment(detail::segment_inserter{os});
+        return os;
+    }
+
+    inline string & string::operator+=(unencoded_rope r)
+    {
+        return insert(size(), r.begin(), r.end());
+    }
+
+    inline string & string::operator+=(unencoded_rope_view rv)
+    {
+        return insert(size(), rv.begin(), rv.end());
+    }
+
+    namespace detail {
+
+#ifdef BOOST_TEXT_TESTING
+        template<typename T>
+        inline void dump_tree(node_ptr<T> const & root, int key, int indent)
+        {
+            std::cout << repeated_string_view("    ", indent)
+                      << (root->leaf_ ? "LEAF" : "INTR") << " @0x" << std::hex
+                      << root.get();
+            if (key != -1)
+                std::cout << " < " << std::dec << key;
+            std::cout << " (" << root->refs_ << " refs)\n";
+            if (!root->leaf_) {
+                int i = 0;
+                for (auto const & child : children(root)) {
+                    dump_tree(child, keys(root)[i++], indent + 1);
+                }
+            }
+        }
+#endif
+    }
+}}
 
 #endif

@@ -16,11 +16,17 @@ namespace boost { namespace text {
         storage is a string that is UTF-8-encoded and FCC-normalized. */
     struct text_view
     {
-        using iterator = grapheme_iterator<
-            utf8::to_utf32_iterator<char const *, char const *>>;
+        using value_type = cp_range<utf8::to_utf32_iterator<char const *>>;
+        using size_type = int;
+        using iterator =
+            grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
         using const_iterator = iterator;
         using reverse_iterator = std::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
+
+        using text_iterator =
+            grapheme_iterator<utf8::to_utf32_iterator<char *>>;
+        using const_text_iterator = const_iterator;
 
         /** Default ctor. */
         text_view() noexcept : first_(), last_() {}
@@ -28,14 +34,28 @@ namespace boost { namespace text {
         /** Constructs a text_view from a text. */
         text_view(text const & t) noexcept;
 
-        /** Constructs a text_view from a pair of text iterators. */
-        text_view(const_iterator first, const_iterator last) noexcept :
+        /** Disallow construction from a temporary text. */
+        text_view(text && t) noexcept = delete;
+
+        /** Constructs a text_view from a pair of text_iterators. */
+        text_view(text_iterator first, text_iterator last) noexcept :
+            first_(make_iter(
+                first.base().base(), first.base().base(), last.base().base())),
+            last_(make_iter(
+                first.base().base(), last.base().base(), last.base().base()))
+        {}
+
+        /** Constructs a text_view from a pair of const_text_iterators. */
+        text_view(const_text_iterator first, const_text_iterator last) noexcept :
             first_(first),
             last_(last)
         {}
 
         const_iterator begin() const noexcept { return first_; }
         const_iterator end() const noexcept { return last_; }
+
+        const_iterator cbegin() const noexcept { return begin(); }
+        const_iterator cend() const noexcept { return end(); }
 
         const_reverse_iterator rbegin() const noexcept
         {
@@ -45,6 +65,9 @@ namespace boost { namespace text {
         {
             return reverse_iterator(begin());
         }
+
+        const_reverse_iterator crbegin() const noexcept { return rbegin(); }
+        const_reverse_iterator crend() const noexcept { return rend(); }
 
         bool empty() const noexcept { return first_ == last_; }
 
@@ -84,6 +107,14 @@ namespace boost { namespace text {
         }
 
     private:
+        static iterator make_iter(char * first, char * it, char * last) noexcept
+        {
+            return iterator{
+                utf8::to_utf32_iterator<char const *>{first, first, last},
+                utf8::to_utf32_iterator<char const *>{first, it, last},
+                utf8::to_utf32_iterator<char const *>{first, last, last}};
+        }
+
         iterator first_;
         iterator last_;
     };
@@ -104,6 +135,12 @@ namespace boost { namespace text {
     }
     inline text_view::iterator end(text_view tv) noexcept { return tv.end(); }
 
+    inline text_view::iterator cbegin(text_view tv) noexcept
+    {
+        return tv.begin();
+    }
+    inline text_view::iterator cend(text_view tv) noexcept { return tv.end(); }
+
     inline text_view::reverse_iterator rbegin(text_view tv) noexcept
     {
         return tv.rbegin();
@@ -112,6 +149,17 @@ namespace boost { namespace text {
     {
         return tv.rend();
     }
+
+    inline text_view::reverse_iterator crbegin(text_view tv) noexcept
+    {
+        return tv.rbegin();
+    }
+    inline text_view::reverse_iterator crend(text_view tv) noexcept
+    {
+        return tv.rend();
+    }
+
+    inline int operator+(text_view const & t, char const * c_str) = delete;
 
 }}
 

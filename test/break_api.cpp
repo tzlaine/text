@@ -96,8 +96,10 @@ TEST(break_apis, grapheme_break_sentinel)
         // 4,2,3 code units, respectively.
         std::array<uint32_t, 3> cps = {{0x1f3fb, 0x308, 0x1100}};
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(cps.begin()),
-            boost::text::utf8::make_from_utf32_iterator(cps.end()));
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.begin(), cps.end()),
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.end(), cps.end()));
         assert(s.size() == 9);
         assert(boost::algorithm::equal(
             cps.begin(),
@@ -267,8 +269,10 @@ TEST(break_apis, word_break_sentinel)
     {
         std::array<uint32_t, 6> cps = {{0x61, 0x5f, 0x61, 0x2e, 0x3a, 0x61}};
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(cps.begin()),
-            boost::text::utf8::make_from_utf32_iterator(cps.end()));
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.begin(), cps.end()),
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
             cps.end(),
@@ -436,8 +440,10 @@ TEST(break_apis, sentence_break_sentinel)
     {
         std::array<uint32_t, 3> cps = {{0x5b57, 0x3002, 0x5b83}};
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(cps.begin()),
-            boost::text::utf8::make_from_utf32_iterator(cps.end()));
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.begin(), cps.end()),
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
             cps.end(),
@@ -596,8 +602,10 @@ TEST(break_apis, line_break_sentinel)
     {
         std::array<uint32_t, 3> cps = {{0x200b, 0x20, 0x30}};
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(cps.begin()),
-            boost::text::utf8::make_from_utf32_iterator(cps.end()));
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.begin(), cps.end()),
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
             cps.end(),
@@ -760,8 +768,10 @@ TEST(break_apis, paragraph_break_sentinel)
     {
         std::array<uint32_t, 6> cps = {{0x61, 0xd, 0xa, 0x2e, 0xa, 0x61}};
         s = boost::text::string(
-            boost::text::utf8::make_from_utf32_iterator(cps.begin()),
-            boost::text::utf8::make_from_utf32_iterator(cps.end()));
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.begin(), cps.end()),
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.end(), cps.end()));
         assert(boost::algorithm::equal(
             cps.begin(),
             cps.end(),

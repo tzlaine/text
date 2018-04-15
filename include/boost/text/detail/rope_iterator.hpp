@@ -4,6 +4,13 @@
 #include <iterator>
 
 
+namespace boost { namespace text {
+
+    struct unencoded_rope_view;
+    struct rope_view;
+
+}}
+
 namespace boost { namespace text { namespace detail {
 
     struct const_rope_iterator
@@ -185,6 +192,7 @@ namespace boost { namespace text { namespace detail {
         mutable difference_type leaf_start_;
 
         friend struct ::boost::text::unencoded_rope_view;
+        friend struct ::boost::text::rope_view;
     };
 
     struct const_reverse_rope_iterator

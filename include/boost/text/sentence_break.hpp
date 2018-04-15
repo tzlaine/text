@@ -13,7 +13,7 @@
 namespace boost { namespace text {
 
     /** The sentence properties outlined in Unicode 10. */
-    enum class sentence_prop_t {
+    enum class sentence_property {
         Other,
         CR,
         LF,
@@ -32,32 +32,33 @@ namespace boost { namespace text {
     };
 
     /** Returns the sentence property associated with code point \a cp. */
-    sentence_prop_t sentence_prop(uint32_t cp) noexcept;
+    sentence_property sentence_prop(uint32_t cp) noexcept;
 
     namespace detail {
-        inline bool skippable(sentence_prop_t prop) noexcept
+        inline bool skippable(sentence_property prop) noexcept
         {
-            return prop == sentence_prop_t::Extend ||
-                   prop == sentence_prop_t::Format;
+            return prop == sentence_property::Extend ||
+                   prop == sentence_property::Format;
         }
 
-        inline bool para_sep(sentence_prop_t prop) noexcept
+        inline bool para_sep(sentence_property prop) noexcept
         {
-            return prop == sentence_prop_t::Sep ||
-                   prop == sentence_prop_t::CR || prop == sentence_prop_t::LF;
+            return prop == sentence_property::Sep ||
+                   prop == sentence_property::CR ||
+                   prop == sentence_property::LF;
         }
 
-        inline bool sa_term(sentence_prop_t prop) noexcept
+        inline bool sa_term(sentence_property prop) noexcept
         {
-            return prop == sentence_prop_t::STerm ||
-                   prop == sentence_prop_t::ATerm;
+            return prop == sentence_property::STerm ||
+                   prop == sentence_property::ATerm;
         }
 
-        inline bool sb8_not(sentence_prop_t prop) noexcept
+        inline bool sb8_not(sentence_property prop) noexcept
         {
-            return prop != sentence_prop_t::OLetter &&
-                   prop != sentence_prop_t::Upper &&
-                   prop != sentence_prop_t::Lower && !para_sep(prop) &&
+            return prop != sentence_property::OLetter &&
+                   prop != sentence_property::Upper &&
+                   prop != sentence_property::Lower && !para_sep(prop) &&
                    !sa_term(prop);
         }
 
@@ -71,13 +72,14 @@ namespace boost { namespace text {
             });
             if (skip_sps) {
                 while (it != last &&
-                       sentence_prop(*it) == sentence_prop_t::Sp) {
+                       sentence_prop(*it) == sentence_property::Sp) {
                     it = std::find_if_not(std::next(it), last, [](uint32_t cp) {
                         return skippable(sentence_prop(cp));
                     });
                 }
             }
-            while (it != last && sentence_prop(*it) == sentence_prop_t::Close) {
+            while (it != last &&
+                   sentence_prop(*it) == sentence_property::Close) {
                 it = std::find_if_not(std::next(it), last, [](uint32_t cp) {
                     return skippable(sentence_prop(cp));
                 });
@@ -91,11 +93,11 @@ namespace boost { namespace text {
             CPIter it;
             bool it_points_to_prev = false;
 
-            sentence_prop_t prev_prev_prop;
-            sentence_prop_t prev_prop;
-            sentence_prop_t prop;
-            sentence_prop_t next_prop;
-            sentence_prop_t next_next_prop;
+            sentence_property prev_prev_prop;
+            sentence_property prev_prop;
+            sentence_property prop;
+            sentence_property next_prop;
+            sentence_property next_next_prop;
         };
 
         template<typename CPIter>
@@ -129,8 +131,8 @@ namespace boost { namespace text {
         {
             if (state.it != first && !skippable(state.prev_prop) &&
                 skippable(state.prop)) {
-                auto temp_it = find_if_not(
-                    std::next(state.it), last, [](uint32_t cp) {
+                auto temp_it =
+                    find_if_not(std::next(state.it), last, [](uint32_t cp) {
                         return skippable(sentence_prop(cp));
                     });
                 if (temp_it == last) {
@@ -139,8 +141,8 @@ namespace boost { namespace text {
                     auto const temp_prop = sentence_prop(*temp_it);
                     state.it = temp_it;
                     state.prop = temp_prop;
-                    state.next_prop = sentence_prop_t::Other;
-                    state.next_next_prop = sentence_prop_t::Other;
+                    state.next_prop = sentence_property::Other;
+                    state.next_next_prop = sentence_property::Other;
                     if (std::next(state.it) != last) {
                         state.next_prop = sentence_prop(*std::next(state.it));
                         if (std::next(state.it, 2) != last) {
@@ -153,8 +155,8 @@ namespace boost { namespace text {
             return state;
         }
 
-        inline bool
-        table_sentence_break(sentence_prop_t lhs, sentence_prop_t rhs) noexcept
+        inline bool table_sentence_break(
+            sentence_property lhs, sentence_property rhs) noexcept
         {
             // clang-format off
 // See chart at http://www.unicode.org/Public/10.0.0/ucd/auxiliary/SentenceBreakTest.html
@@ -193,8 +195,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         (even if <code>it</code> is already at the first code point of a
         sentence). */
     template<typename CPIter, typename Sentinel>
-    inline CPIter
-    prev_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept
+    CPIter prev_sentence_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
         if (it == first)
             return it;
@@ -227,12 +228,12 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 return first;
         }
 
-        state.prev_prev_prop = sentence_prop_t::Other;
+        state.prev_prev_prop = sentence_property::Other;
         if (std::prev(state.it) != first)
             state.prev_prev_prop = sentence_prop(*std::prev(state.it, 2));
         state.prev_prop = sentence_prop(*std::prev(state.it));
-        state.next_prop = sentence_prop_t::Other;
-        state.next_next_prop = sentence_prop_t::Other;
+        state.next_prop = sentence_property::Other;
+        state.next_next_prop = sentence_property::Other;
         if (std::next(state.it) != last) {
             state.next_prop = sentence_prop(*std::next(state.it));
             if (std::next(state.it, 2) != last)
@@ -248,8 +249,8 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 temp_state = next(temp_state);
                 temp_state = detail::skip_forward(temp_state, first, last);
                 if (temp_state.it == last) {
-                    state.next_prop = sentence_prop_t::Other;
-                    state.next_next_prop = sentence_prop_t::Other;
+                    state.next_prop = sentence_property::Other;
+                    state.next_next_prop = sentence_property::Other;
                 } else {
                     state.next_prop = temp_state.prop;
                     if (std::next(temp_state.it) != last) {
@@ -257,7 +258,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                         temp_state =
                             detail::skip_forward(temp_state, first, last);
                         if (temp_state.it == last)
-                            state.next_next_prop = sentence_prop_t::Other;
+                            state.next_next_prop = sentence_property::Other;
                         else
                             state.next_next_prop = temp_state.prop;
                     }
@@ -282,7 +283,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                     state.it_points_to_prev = true;
                     state.prev_prop = temp_prev_prop;
                     if (temp_it == first)
-                        state.prev_prev_prop = sentence_prop_t::Other;
+                        state.prev_prev_prop = sentence_property::Other;
                     else
                         state.prev_prev_prop =
                             sentence_prop(*std::prev(temp_it));
@@ -295,11 +296,11 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             if (std::prev(state.it) != first)
                 state.prev_prev_prop = sentence_prop(*std::prev(state.it, 2));
             else
-                state.prev_prev_prop = sentence_prop_t::Other;
+                state.prev_prev_prop = sentence_property::Other;
 
             // SB3
-            if (state.prev_prop == sentence_prop_t::CR &&
-                state.prop == sentence_prop_t::LF) {
+            if (state.prev_prop == sentence_property::CR &&
+                state.prop == sentence_property::LF) {
                 continue;
             }
 
@@ -316,40 +317,39 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 return state.it;
 
             // SB6
-            if (state.prev_prop == sentence_prop_t::ATerm &&
-                state.prop == sentence_prop_t::Numeric) {
+            if (state.prev_prop == sentence_property::ATerm &&
+                state.prop == sentence_property::Numeric) {
                 continue;
             }
 
             // SB7
-            if (state.prev_prop == sentence_prop_t::ATerm &&
-                state.prop == sentence_prop_t::Upper) {
+            if (state.prev_prop == sentence_property::ATerm &&
+                state.prop == sentence_property::Upper) {
                 auto const temp_state = skip(prev(state), first);
-                if (temp_state.prev_prop == sentence_prop_t::Upper ||
-                    temp_state.prev_prop == sentence_prop_t::Lower)
+                if (temp_state.prev_prop == sentence_property::Upper ||
+                    temp_state.prev_prop == sentence_property::Lower)
                     continue;
             }
 
             // SB8
-            if ((state.prev_prop == sentence_prop_t::ATerm ||
-                 state.prev_prop == sentence_prop_t::Close ||
-                 state.prev_prop == sentence_prop_t::Sp) &&
+            if ((state.prev_prop == sentence_property::ATerm ||
+                 state.prev_prop == sentence_property::Close ||
+                 state.prev_prop == sentence_property::Sp) &&
                 (detail::sb8_not(state.prop) ||
-                 state.prop == sentence_prop_t::Lower)) {
+                 state.prop == sentence_property::Lower)) {
                 bool const aterm = detail::before_close_sp(
-                    after_skip_it, first, true, [](sentence_prop_t prop) {
-                        return prop == sentence_prop_t::ATerm;
+                    after_skip_it, first, true, [](sentence_property prop) {
+                        return prop == sentence_property::ATerm;
                     });
                 if (aterm) {
                     auto it = after_skip_it;
                     while (it != last && detail::sb8_not(sentence_prop(*it))) {
-                        it = find_if_not(
-                            std::next(it), last, [](uint32_t cp) {
-                                return detail::skippable(sentence_prop(cp));
-                            });
+                        it = find_if_not(std::next(it), last, [](uint32_t cp) {
+                            return detail::skippable(sentence_prop(cp));
+                        });
                     }
                     if (it != last &&
-                        sentence_prop(*it) == sentence_prop_t::Lower) {
+                        sentence_prop(*it) == sentence_property::Lower) {
                         continue;
                     }
                 }
@@ -357,12 +357,12 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
             // SB8a
             if ((detail::sa_term(state.prev_prop) ||
-                 state.prev_prop == sentence_prop_t::Close ||
-                 state.prev_prop == sentence_prop_t::Sp) &&
-                (state.prop == sentence_prop_t::SContinue ||
+                 state.prev_prop == sentence_property::Close ||
+                 state.prev_prop == sentence_property::Sp) &&
+                (state.prop == sentence_property::SContinue ||
                  detail::sa_term(state.prop))) {
                 if (detail::before_close_sp(
-                        after_skip_it, first, true, [](sentence_prop_t prop) {
+                        after_skip_it, first, true, [](sentence_property prop) {
                             return detail::sa_term(prop);
                         })) {
                     continue;
@@ -371,12 +371,15 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
             // SB9
             if ((detail::sa_term(state.prev_prop) ||
-                 state.prev_prop == sentence_prop_t::Close) &&
-                (state.prop == sentence_prop_t::Close ||
-                 state.prop == sentence_prop_t::Sp ||
+                 state.prev_prop == sentence_property::Close) &&
+                (state.prop == sentence_property::Close ||
+                 state.prop == sentence_property::Sp ||
                  detail::para_sep(state.prop))) {
                 if (detail::before_close_sp(
-                        after_skip_it, first, false, [](sentence_prop_t prop) {
+                        after_skip_it,
+                        first,
+                        false,
+                        [](sentence_property prop) {
                             return detail::sa_term(prop);
                         })) {
                     continue;
@@ -385,12 +388,12 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
             // SB10
             if ((detail::sa_term(state.prev_prop) ||
-                 state.prev_prop == sentence_prop_t::Close ||
-                 state.prev_prop == sentence_prop_t::Sp) &&
-                (state.prop == sentence_prop_t::Sp ||
+                 state.prev_prop == sentence_property::Close ||
+                 state.prev_prop == sentence_property::Sp) &&
+                (state.prop == sentence_property::Sp ||
                  detail::para_sep(state.prop))) {
                 if (detail::before_close_sp(
-                        after_skip_it, first, true, [](sentence_prop_t prop) {
+                        after_skip_it, first, true, [](sentence_property prop) {
                             return detail::sa_term(prop);
                         })) {
                     continue;
@@ -399,8 +402,8 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
             // SB11
             if ((detail::sa_term(state.prev_prop) ||
-                 state.prev_prop == sentence_prop_t::Close ||
-                 state.prev_prop == sentence_prop_t::Sp ||
+                 state.prev_prop == sentence_property::Close ||
+                 state.prev_prop == sentence_property::Sp ||
                  detail::para_sep(state.prev_prop)) &&
                 !detail::skippable(state.prop)) {
                 auto it = after_skip_it;
@@ -408,7 +411,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                     --it;
                 if (it != first &&
                     detail::before_close_sp(
-                        it, first, true, [](sentence_prop_t prop) {
+                        it, first, true, [](sentence_property prop) {
                             return detail::sa_term(prop);
                         })) {
                     return after_skip_it;
@@ -425,7 +428,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         \pre <code>first</code> is at the beginning of a sentence. */
     template<typename CPIter, typename Sentinel>
-    inline CPIter next_sentence_break(CPIter first, Sentinel last) noexcept
+    CPIter next_sentence_break(CPIter first, Sentinel last) noexcept
     {
         if (first == last)
             return first;
@@ -436,11 +439,11 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         if (++state.it == last)
             return state.it;
 
-        state.prev_prev_prop = sentence_prop_t::Other;
+        state.prev_prev_prop = sentence_property::Other;
         state.prev_prop = sentence_prop(*first);
         state.prop = sentence_prop(*state.it);
-        state.next_prop = sentence_prop_t::Other;
-        state.next_next_prop = sentence_prop_t::Other;
+        state.next_prop = sentence_property::Other;
+        state.next_next_prop = sentence_property::Other;
         if (std::next(state.it) != last) {
             state.next_prop = sentence_prop(*std::next(state.it));
             if (std::next(state.it, 2) != last)
@@ -451,11 +454,11 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             if (std::next(state.it) != last && std::next(state.it, 2) != last)
                 state.next_next_prop = sentence_prop(*std::next(state.it, 2));
             else
-                state.next_next_prop = sentence_prop_t::Other;
+                state.next_next_prop = sentence_property::Other;
 
             // SB3
-            if (state.prev_prop == sentence_prop_t::CR &&
-                state.prop == sentence_prop_t::LF) {
+            if (state.prev_prop == sentence_property::CR &&
+                state.prop == sentence_property::LF) {
                 continue;
             }
 
@@ -471,39 +474,38 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 return state.it;
 
             // SB6
-            if (state.prev_prop == sentence_prop_t::ATerm &&
-                state.prop == sentence_prop_t::Numeric) {
+            if (state.prev_prop == sentence_property::ATerm &&
+                state.prop == sentence_property::Numeric) {
                 continue;
             }
 
             // SB7
-            if ((state.prev_prev_prop == sentence_prop_t::Upper ||
-                 state.prev_prev_prop == sentence_prop_t::Lower) &&
-                state.prev_prop == sentence_prop_t::ATerm &&
-                state.prop == sentence_prop_t::Upper) {
+            if ((state.prev_prev_prop == sentence_property::Upper ||
+                 state.prev_prev_prop == sentence_property::Lower) &&
+                state.prev_prop == sentence_property::ATerm &&
+                state.prop == sentence_property::Upper) {
                 continue;
             }
 
             // SB8
-            if ((state.prev_prop == sentence_prop_t::ATerm ||
-                 state.prev_prop == sentence_prop_t::Close ||
-                 state.prev_prop == sentence_prop_t::Sp) &&
+            if ((state.prev_prop == sentence_property::ATerm ||
+                 state.prev_prop == sentence_property::Close ||
+                 state.prev_prop == sentence_property::Sp) &&
                 (detail::sb8_not(state.prop) ||
-                 state.prop == sentence_prop_t::Lower)) {
+                 state.prop == sentence_property::Lower)) {
                 bool const aterm = detail::before_close_sp(
-                    state.it, first, true, [](sentence_prop_t prop) {
-                        return prop == sentence_prop_t::ATerm;
+                    state.it, first, true, [](sentence_property prop) {
+                        return prop == sentence_property::ATerm;
                     });
                 if (aterm) {
                     auto it = state.it;
                     while (it != last && detail::sb8_not(sentence_prop(*it))) {
-                        it = find_if_not(
-                            std::next(it), last, [](uint32_t cp) {
-                                return detail::skippable(sentence_prop(cp));
-                            });
+                        it = find_if_not(std::next(it), last, [](uint32_t cp) {
+                            return detail::skippable(sentence_prop(cp));
+                        });
                     }
                     if (it != last &&
-                        sentence_prop(*it) == sentence_prop_t::Lower) {
+                        sentence_prop(*it) == sentence_property::Lower) {
                         continue;
                     }
                 }
@@ -511,12 +513,12 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
             // SB8a
             if ((detail::sa_term(state.prev_prop) ||
-                 state.prev_prop == sentence_prop_t::Close ||
-                 state.prev_prop == sentence_prop_t::Sp) &&
-                (state.prop == sentence_prop_t::SContinue ||
+                 state.prev_prop == sentence_property::Close ||
+                 state.prev_prop == sentence_property::Sp) &&
+                (state.prop == sentence_property::SContinue ||
                  detail::sa_term(state.prop))) {
                 if (detail::before_close_sp(
-                        state.it, first, true, [](sentence_prop_t prop) {
+                        state.it, first, true, [](sentence_property prop) {
                             return detail::sa_term(prop);
                         })) {
                     continue;
@@ -525,12 +527,12 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
             // SB9
             if ((detail::sa_term(state.prev_prop) ||
-                 state.prev_prop == sentence_prop_t::Close) &&
-                (state.prop == sentence_prop_t::Close ||
-                 state.prop == sentence_prop_t::Sp ||
+                 state.prev_prop == sentence_property::Close) &&
+                (state.prop == sentence_property::Close ||
+                 state.prop == sentence_property::Sp ||
                  detail::para_sep(state.prop))) {
                 if (detail::before_close_sp(
-                        state.it, first, false, [](sentence_prop_t prop) {
+                        state.it, first, false, [](sentence_property prop) {
                             return detail::sa_term(prop);
                         })) {
                     continue;
@@ -539,12 +541,12 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
             // SB10
             if ((detail::sa_term(state.prev_prop) ||
-                 state.prev_prop == sentence_prop_t::Close ||
-                 state.prev_prop == sentence_prop_t::Sp) &&
-                (state.prop == sentence_prop_t::Sp ||
+                 state.prev_prop == sentence_property::Close ||
+                 state.prev_prop == sentence_property::Sp) &&
+                (state.prop == sentence_property::Sp ||
                  detail::para_sep(state.prop))) {
                 if (detail::before_close_sp(
-                        state.it, first, true, [](sentence_prop_t prop) {
+                        state.it, first, true, [](sentence_property prop) {
                             return detail::sa_term(prop);
                         })) {
                     continue;
@@ -553,8 +555,8 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
             // SB11
             if ((detail::sa_term(state.prev_prop) ||
-                 state.prev_prop == sentence_prop_t::Close ||
-                 state.prev_prop == sentence_prop_t::Sp ||
+                 state.prev_prop == sentence_property::Close ||
+                 state.prev_prop == sentence_property::Sp ||
                  detail::para_sep(state.prev_prop)) &&
                 !detail::skippable(state.prop)) {
                 auto it = state.it;
@@ -562,7 +564,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                     --it;
                 if (it != first &&
                     detail::before_close_sp(
-                        it, first, true, [](sentence_prop_t prop) {
+                        it, first, true, [](sentence_property prop) {
                             return detail::sa_term(prop);
                         })) {
                     return state.it;
@@ -578,10 +580,12 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         returned (even if <code>it</code> is already at the first code point
         of a sentence). */
     template<typename CPRange, typename CPIter>
-    inline auto prev_sentence_break(CPRange & range, CPIter it) noexcept
+    auto prev_sentence_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return prev_sentence_break(range.begin(), it, range.end());
+        using std::begin;
+        using std::end;
+        return prev_sentence_break(begin(range), it, end(range));
     }
 
     /** Finds the next sentence break after <code>range.begin()</code>.  This
@@ -590,10 +594,12 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
 
         \pre <code>range.begin()</code> is at the beginning of a sentence. */
     template<typename CPRange>
-    inline auto next_sentence_break(CPRange & range) noexcept
+    auto next_sentence_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return next_sentence_break(range.begin(), range.end());
+        using std::begin;
+        using std::end;
+        return next_sentence_break(begin(range), end(range));
     }
 
     namespace detail {
@@ -610,8 +616,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     /** Returns the bounds of the sentence that <code>it</code> lies
         within. */
     template<typename CPIter, typename Sentinel>
-    inline cp_range<CPIter>
-    sentence(CPIter first, CPIter it, Sentinel last) noexcept
+    cp_range<CPIter> sentence(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_sentence_break(first, it, last);
         return cp_range<CPIter>{first, next_sentence_break(first, last)};
@@ -620,11 +625,13 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     /** Returns the bounds of the sentence that <code>it</code> lies
         within. */
     template<typename CPRange, typename CPIter>
-    inline auto sentence(CPRange & range, CPIter it) noexcept
+    auto sentence(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        auto first = prev_sentence_break(range.begin(), it, range.end());
-        return cp_range<CPIter>{first, next_sentence_break(first, range.end())};
+        using std::begin;
+        using std::end;
+        auto first = prev_sentence_break(begin(range), it, end(range));
+        return cp_range<CPIter>{first, next_sentence_break(first, end(range))};
     }
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
@@ -649,7 +656,9 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        return {{range.begin(), range.end()}, {range.end()}};
+        using std::begin;
+        using std::end;
+        return {{begin(range), end(range)}, {end(range)}};
     }
 
 }}

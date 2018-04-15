@@ -31,8 +31,8 @@ TEST(tailoring, am_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " am::standard_collation_tailoring() "
@@ -60,8 +60,8 @@ TEST(tailoring, ar_compat_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ar::compat_collation_tailoring() "
@@ -89,8 +89,8 @@ TEST(tailoring, ar_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ar::standard_collation_tailoring() "
@@ -118,8 +118,8 @@ TEST(tailoring, as_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " as::standard_collation_tailoring() "
@@ -147,8 +147,8 @@ TEST(tailoring, az_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " az::standard_collation_tailoring() "
@@ -176,8 +176,8 @@ TEST(tailoring, be_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " be::standard_collation_tailoring() "
@@ -205,8 +205,8 @@ TEST(tailoring, bg_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " bg::standard_collation_tailoring() "
@@ -234,8 +234,8 @@ TEST(tailoring, bn_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " bn::standard_collation_tailoring() "
@@ -263,8 +263,8 @@ TEST(tailoring, bn_traditional_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " bn::traditional_collation_tailoring() "
@@ -292,8 +292,8 @@ TEST(tailoring, bs_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " bs::standard_collation_tailoring() "
@@ -321,8 +321,8 @@ TEST(tailoring, bs_Cyrl_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " bs_Cyrl::standard_collation_tailoring() "
@@ -350,8 +350,8 @@ TEST(tailoring, chr_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " chr::standard_collation_tailoring() "
@@ -379,8 +379,8 @@ TEST(tailoring, el_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " el::standard_collation_tailoring() "
@@ -408,8 +408,8 @@ TEST(tailoring, fa_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " fa::standard_collation_tailoring() "
@@ -437,8 +437,8 @@ TEST(tailoring, fa_AF_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " fa_AF::standard_collation_tailoring() "
@@ -466,8 +466,8 @@ TEST(tailoring, gu_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " gu::standard_collation_tailoring() "
@@ -495,8 +495,8 @@ TEST(tailoring, he_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " he::standard_collation_tailoring() "
@@ -524,8 +524,8 @@ TEST(tailoring, hi_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " hi::standard_collation_tailoring() "
@@ -553,8 +553,8 @@ TEST(tailoring, hr_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " hr::standard_collation_tailoring() "
@@ -582,8 +582,8 @@ TEST(tailoring, hy_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " hy::standard_collation_tailoring() "
@@ -611,8 +611,8 @@ TEST(tailoring, ja_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ja::standard_collation_tailoring() "
@@ -640,8 +640,8 @@ TEST(tailoring, ja_unihan_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ja::unihan_collation_tailoring() "
@@ -669,8 +669,8 @@ TEST(tailoring, ka_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ka::standard_collation_tailoring() "
@@ -698,8 +698,8 @@ TEST(tailoring, kk_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " kk::standard_collation_tailoring() "
@@ -727,8 +727,8 @@ TEST(tailoring, km_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " km::standard_collation_tailoring() "
@@ -756,8 +756,8 @@ TEST(tailoring, kn_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " kn::standard_collation_tailoring() "
@@ -785,8 +785,8 @@ TEST(tailoring, kn_traditional_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " kn::traditional_collation_tailoring() "
@@ -799,11 +799,10 @@ TEST(tailoring, ko_standard_reorders)
     constexpr std::array<uint32_t, 116> cps = {{
         /* Hang */ 0x1100, 0x3131, 0xd7a3, 0xd7fa, 0xd7fb, /* Hani */ 0x2f00, 0x3280, 0x2f88f, 0x2fa1d, /* implicit */ 0x2a700, 0x2b740, 0x2b820, 0x2ebe0, /* Latn */ 0x61, 0xff41, 0x2ac, 0x2ad, /* Grek */ 0x3b1, 0x1d6c2, 0x3f8, 0x3f7, /* Cyrl */ 0x430, 0x2df6, 0x4cf, 0x4c0, /* Geor */ 0x10d0, 0x2d00, 0x10fe, 0x10ff, /* Armn */ 0x561, 0x531, 0x556, 0x559, /* Hebr */ 0x5d0, 0x2135, 0xfb28, 0xfb4a, /* Arab */ 0x621, 0x77a, 0x77b, /* Ethi */ 0x1200, 0x1201, 0x2ddd, 0x2dde, /* Deva */ 0x950, 0xa8fd, 0x94c, 0x94d, /* Beng */ 0x980, 0x985, 0x9d7, 0x9fc, /* Guru */ 0xa74, 0xa73, 0xa4b, 0xa4c, /* Gujr */ 0xad0, 0xa85, 0xacc, 0xacd, /* Orya */ 0xb05, 0xb06, 0xb56, 0xb57, /* Taml */ 0xbd0, 0xb85, 0xbcd, 0xbd7, /* Telu */ 0xc05, 0xc06, 0xc55, 0xc56, /* Knda */ 0xc85, 0xc86, 0xcd5, 0xcd6, /* Mlym */ 0xd05, 0xd06, 0xd3b, 0xd3c, /* Sinh */ 0xd85, 0xd86, 0xdde, 0xdca, /* Thai */ 0xe01, 0xe02, 0xe43, 0xe44, /* Laoo */ 0xede, 0xe81, 0xec3, 0xec4, /* Mymr */ 0x1000, 0x1075, 0xaa75, 0xaa76, /* Khmr */ 0x1780, 0x1781, 0x17c5, 0x17d2, /* Mong */ 0x1880, 0x1881, 0x18aa, 0x18a9, /* Cher */ 0xab70, 0x13a0, 0x13fd, 0x13f5, /* Kana */ 0x3041, 0x3042, 0x1b11d, 0x1b11e, /* Bopo */ 0x3105, 0x31a0, 0x3129, 0x312d, 
     }};
-    text::collation_table const table =
-        text::tailored_collation_table(
-            text::data::ko::standard_collation_tailoring(),
-            "ko::standard_collation_tailoring()",
-            error, warning);
+    auto const ko_tailoring_str =
+        text::data::ko::standard_collation_tailoring();
+    text::collation_table const table = text::tailored_collation_table(
+        ko_tailoring_str, "ko::standard_collation_tailoring()", error, warning);
 
     for (int i = 0, end = (int)cps.size() - 1; i != end; ++i) {
         EXPECT_LE(
@@ -814,8 +813,8 @@ TEST(tailoring, ko_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ko::standard_collation_tailoring() "
@@ -843,8 +842,8 @@ TEST(tailoring, ko_unihan_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ko::unihan_collation_tailoring() "
@@ -872,8 +871,8 @@ TEST(tailoring, kok_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " kok::standard_collation_tailoring() "
@@ -901,8 +900,8 @@ TEST(tailoring, ky_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ky::standard_collation_tailoring() "
@@ -930,8 +929,8 @@ TEST(tailoring, lo_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " lo::standard_collation_tailoring() "
@@ -959,8 +958,8 @@ TEST(tailoring, mk_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " mk::standard_collation_tailoring() "
@@ -988,8 +987,8 @@ TEST(tailoring, ml_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ml::standard_collation_tailoring() "
@@ -1017,8 +1016,8 @@ TEST(tailoring, mn_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " mn::standard_collation_tailoring() "
@@ -1046,8 +1045,8 @@ TEST(tailoring, mr_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " mr::standard_collation_tailoring() "
@@ -1075,8 +1074,8 @@ TEST(tailoring, my_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " my::standard_collation_tailoring() "
@@ -1104,8 +1103,8 @@ TEST(tailoring, ne_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ne::standard_collation_tailoring() "
@@ -1133,8 +1132,8 @@ TEST(tailoring, or__standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " or_::standard_collation_tailoring() "
@@ -1162,8 +1161,8 @@ TEST(tailoring, pa_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " pa::standard_collation_tailoring() "
@@ -1191,8 +1190,8 @@ TEST(tailoring, ps_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ps::standard_collation_tailoring() "
@@ -1220,8 +1219,8 @@ TEST(tailoring, ru_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ru::standard_collation_tailoring() "
@@ -1249,8 +1248,8 @@ TEST(tailoring, si_dictionary_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " si::dictionary_collation_tailoring() "
@@ -1278,8 +1277,8 @@ TEST(tailoring, si_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " si::standard_collation_tailoring() "
@@ -1307,8 +1306,8 @@ TEST(tailoring, sr_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " sr::standard_collation_tailoring() "
@@ -1336,8 +1335,8 @@ TEST(tailoring, sr_Latn_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " sr_Latn::standard_collation_tailoring() "
@@ -1365,8 +1364,8 @@ TEST(tailoring, ta_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ta::standard_collation_tailoring() "
@@ -1394,8 +1393,8 @@ TEST(tailoring, te_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " te::standard_collation_tailoring() "
@@ -1423,8 +1422,8 @@ TEST(tailoring, th_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " th::standard_collation_tailoring() "
@@ -1452,8 +1451,8 @@ TEST(tailoring, ug_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ug::standard_collation_tailoring() "
@@ -1481,8 +1480,8 @@ TEST(tailoring, uk_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " uk::standard_collation_tailoring() "
@@ -1510,8 +1509,8 @@ TEST(tailoring, ur_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " ur::standard_collation_tailoring() "
@@ -1539,8 +1538,8 @@ TEST(tailoring, yi_standard_reorders)
                 cps.begin() + i + 2,
                 table,
                 text::collation_strength::primary,
-                text::case_first_t::off,
-                text::case_level_t::off,
+                text::case_first::off,
+                text::case_level::off,
                 text::variable_weighting::non_ignorable),
             0)
             << "CASE " << i << " yi::standard_collation_tailoring() "

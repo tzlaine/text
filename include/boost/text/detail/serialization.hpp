@@ -120,9 +120,9 @@ namespace boost { namespace text { namespace detail {
         if (header.have_l2_order_.value())
             table.l2_order_ = l2_weight_order(header.l2_order_.value());
         if (header.have_case_level_.value())
-            table.case_level_ = case_level_t(header.case_level_.value());
+            table.case_level_ = case_level(header.case_level_.value());
         if (header.have_case_first_.value())
-            table.case_first_ = case_first_t(header.case_first_.value());
+            table.case_first_ = case_first(header.case_first_.value());
     }
 
     struct iterator_tag_t

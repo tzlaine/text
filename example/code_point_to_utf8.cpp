@@ -36,9 +36,9 @@ int main(int argc, char * argv[])
     }
 
     boost::text::utf8::from_utf32_iterator<uint32_t const *> const cp_first(
-        code_point);
+        code_point, code_point, code_point + 1);
     boost::text::utf8::from_utf32_iterator<uint32_t const *> const cp_last(
-        code_point + 1);
+        code_point, code_point + 1, code_point + 1);
     unsigned char code_units[4];
     auto code_units_end = std::copy(cp_first, cp_last, code_units);
 

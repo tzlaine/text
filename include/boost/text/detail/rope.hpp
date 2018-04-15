@@ -227,8 +227,6 @@ namespace boost { namespace text { namespace detail {
         assert(string_node.as_leaf()->which_ == which::t);
     }
 
-    enum encoding_note_t { check_encoding_breakage, encoding_breakage_ok };
-
     inline node_ptr<rope_tag> make_node(string const & t)
     {
         return node_ptr<rope_tag>(new leaf_node_t<rope_tag>(t));
@@ -255,15 +253,9 @@ namespace boost { namespace text { namespace detail {
     }
 
     inline node_ptr<rope_tag> make_ref(
-        leaf_node_t<rope_tag> const * t,
-        std::ptrdiff_t lo,
-        std::ptrdiff_t hi,
-        encoding_note_t encoding_note = check_encoding_breakage)
+        leaf_node_t<rope_tag> const * t, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         assert(t->which_ == which::t);
-        if (encoding_note == check_encoding_breakage) {
-            // TODO: Check (lo, hi)
-        }
         string_view const tv =
             string_view(t->as_string().begin() + lo, hi - lo);
 
@@ -279,15 +271,12 @@ namespace boost { namespace text { namespace detail {
     }
 
     inline node_ptr<rope_tag> make_ref(
-        reference<rope_tag> const & t,
-        std::ptrdiff_t lo,
-        std::ptrdiff_t hi,
-        encoding_note_t encoding_note = check_encoding_breakage)
+        reference<rope_tag> const & t, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         auto const offset =
             t.ref_.begin() - t.string_.as_leaf()->as_string().begin();
-        node_ptr<rope_tag> retval = make_ref(
-            t.string_.as_leaf(), lo + offset, hi + offset, encoding_note);
+        node_ptr<rope_tag> retval =
+            make_ref(t.string_.as_leaf(), lo + offset, hi + offset);
         return retval;
     }
 
@@ -295,8 +284,7 @@ namespace boost { namespace text { namespace detail {
         node_ptr<rope_tag> const & node,
         std::ptrdiff_t lo,
         std::ptrdiff_t hi,
-        bool immutable,
-        encoding_note_t encoding_note)
+        bool immutable)
     {
         assert(node);
         assert(0 <= lo && lo <= size(node.get()));
@@ -307,14 +295,13 @@ namespace boost { namespace text { namespace detail {
 
         switch (node.as_leaf()->which_) {
         case which::t:
+            assert(lo < INT_MAX);
+            assert(hi < INT_MAX);
             if (!leaf_mutable)
-                return make_ref(node.as_leaf(), lo, hi, encoding_note);
+                return make_ref(node.as_leaf(), lo, hi);
             {
                 auto mut_node = node.write();
                 string & t = mut_node.as_leaf()->as_string();
-                if (encoding_note == check_encoding_breakage) {
-                    // TODO: Check (lo, hi)
-                }
                 t = string_view(t.begin() + lo, hi - lo);
             }
             return node;
@@ -324,13 +311,6 @@ namespace boost { namespace text { namespace detail {
             int const mod_lo = lo % crtv.view().size();
             int const mod_hi = hi % crtv.view().size();
             if (mod_lo != 0 || mod_hi != 0) {
-                if (encoding_note == check_encoding_breakage) {
-                    // TODO
-                    // string_view const tv = crtv.view()(
-                    //    (std::min)(mod_lo, mod_hi), (std::max)(mod_lo,
-                    //    mod_hi));
-                    //(void)tv;
-                }
                 return make_node(string(crtv.begin() + lo, crtv.begin() + hi));
             } else {
                 auto const count = (hi - lo) / crtv.view().size();
@@ -344,15 +324,13 @@ namespace boost { namespace text { namespace detail {
             return node;
         }
         case which::ref: {
+            assert(lo < INT_MAX);
+            assert(hi < INT_MAX);
             if (!leaf_mutable)
-                return make_ref(
-                    node.as_leaf()->as_reference(), lo, hi, encoding_note);
+                return make_ref(node.as_leaf()->as_reference(), lo, hi);
             {
                 auto mut_node = node.write();
                 reference<rope_tag> & ref = mut_node.as_leaf()->as_reference();
-                if (encoding_note == check_encoding_breakage) {
-                    // TODO: Check ref.ref_(lo, hi);
-                }
                 ref.ref_ = string_view(ref.ref_.begin() + lo, hi - lo);
             }
             return node;
@@ -362,11 +340,8 @@ namespace boost { namespace text { namespace detail {
         return node_ptr<rope_tag>(); // This should never execute.
     }
 
-    inline leaf_slices<rope_tag> erase_leaf(
-        node_ptr<rope_tag> & node,
-        std::ptrdiff_t lo,
-        std::ptrdiff_t hi,
-        encoding_note_t encoding_note)
+    inline leaf_slices<rope_tag>
+    erase_leaf(node_ptr<rope_tag> & node, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         assert(node);
         assert(0 <= lo && lo <= size(node.get()));
@@ -385,9 +360,6 @@ namespace boost { namespace text { namespace detail {
             {
                 auto mut_node = node.write();
                 string & t = mut_node.as_leaf()->as_string();
-                if (encoding_note == check_encoding_breakage) {
-                    // TODO: Check t(lo, hi)
-                }
                 t.erase(string_view(t.begin() + lo, hi - lo));
             }
             retval.slice = node;
@@ -395,10 +367,9 @@ namespace boost { namespace text { namespace detail {
         }
 
         if (hi != leaf_size)
-            retval.other_slice =
-                slice_leaf(node, hi, leaf_size, true, encoding_note);
+            retval.other_slice = slice_leaf(node, hi, leaf_size, true);
         if (lo != 0)
-            retval.slice = slice_leaf(node, 0, lo, false, encoding_note);
+            retval.slice = slice_leaf(node, 0, lo, false);
 
         if (!retval.slice)
             retval.slice.swap(retval.other_slice);

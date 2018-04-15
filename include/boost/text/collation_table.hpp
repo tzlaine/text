@@ -144,8 +144,8 @@ namespace boost { namespace text {
             optional<collation_strength> strength_;
             optional<variable_weighting> weighting_;
             optional<l2_weight_order> l2_order_;
-            optional<case_level_t> case_level_;
-            optional<case_first_t> case_first_;
+            optional<case_level> case_level_;
+            optional<case_first> case_first_;
         };
 
         inline bool operator==(
@@ -219,8 +219,8 @@ namespace boost { namespace text {
         /** Returns a comparison object. */
         collation_compare compare(
             collation_strength strength = collation_strength::tertiary,
-            case_first_t case_first = case_first_t::off,
-            case_level_t case_level = case_level_t::off,
+            case_first case_1st = case_first::off,
+            case_level case_lvl = case_level::off,
             variable_weighting weighting = variable_weighting::non_ignorable,
             l2_weight_order l2_order = l2_weight_order::forward) const;
 
@@ -230,8 +230,8 @@ namespace boost { namespace text {
             Iter first,
             Iter last,
             collation_strength strength = collation_strength::tertiary,
-            case_first_t case_first = case_first_t::off,
-            case_level_t case_level = case_level_t::off,
+            case_first case_1st = case_first::off,
+            case_level case_lvl = case_level::off,
             variable_weighting weighting =
                 variable_weighting::non_ignorable) const;
 
@@ -240,15 +240,15 @@ namespace boost { namespace text {
         collation_elements(
             CPRange & r,
             collation_strength strength = collation_strength::tertiary,
-            case_first_t case_first = case_first_t::off,
-            case_level_t case_level = case_level_t::off,
+            case_first case_1st = case_first::off,
+            case_level case_lvl = case_level::off,
             variable_weighting weighting =
                 variable_weighting::non_ignorable) const
         {
             using std::begin;
             using std::end;
             return collation_elements(
-                begin(r), end(r), strength, case_first, case_level, weighting);
+                begin(r), end(r), strength, case_1st, case_lvl, weighting);
         }
 
         optional<l2_weight_order> l2_order() const noexcept
@@ -256,12 +256,12 @@ namespace boost { namespace text {
             return data_->l2_order_;
         }
 
-        optional<case_first_t> case_first() const noexcept
+        optional<case_first> case_1st() const noexcept
         {
             return data_->case_first_;
         }
 
-        optional<case_level_t> case_level() const noexcept
+        optional<case_level> case_lvl() const noexcept
         {
             return data_->case_level_;
         }
@@ -324,14 +324,14 @@ namespace boost { namespace text {
         collation_compare(
             collation_table table,
             collation_strength strength,
-            case_first_t case_first = case_first_t::off,
-            case_level_t case_level = case_level_t::off,
+            case_first case_1st = case_first::off,
+            case_level case_lvl = case_level::off,
             variable_weighting weighting = variable_weighting::non_ignorable,
             l2_weight_order l2_order = l2_weight_order::forward) :
             table_(std::move(table)),
             strength_(strength),
-            case_first_(case_first),
-            case_level_(case_level),
+            case_first_(case_1st),
+            case_level_(case_lvl),
             weighting_(weighting),
             l2_order_(l2_order)
         {}
@@ -342,8 +342,8 @@ namespace boost { namespace text {
     private:
         collation_table table_;
         collation_strength strength_;
-        case_first_t case_first_;
-        case_level_t case_level_;
+        case_first case_first_;
+        case_level case_level_;
         variable_weighting weighting_;
         l2_weight_order l2_order_;
     };
@@ -1239,13 +1239,13 @@ namespace boost { namespace text {
 
     inline collation_compare collation_table::compare(
         collation_strength strength,
-        case_first_t case_first,
-        case_level_t case_level,
+        case_first case_1st,
+        case_level case_lvl,
         variable_weighting weighting,
         l2_weight_order l2_order) const
     {
         return collation_compare(
-            *this, strength, case_first, case_level, weighting, l2_order);
+            *this, strength, case_1st, case_lvl, weighting, l2_order);
     }
 
     template<typename Iter>
@@ -1254,18 +1254,18 @@ namespace boost { namespace text {
         Iter first,
         Iter last,
         collation_strength strength,
-        case_first_t case_first,
-        case_level_t case_level,
+        case_first case_1st,
+        case_level case_lvl,
         variable_weighting weighting) const
     {
         if (data_->weighting_)
             weighting = *data_->weighting_;
         if (data_->case_first_)
-            case_first = *data_->case_first_;
+            case_1st = *data_->case_first_;
         if (data_->case_level_)
-            case_level = *data_->case_level_;
+            case_lvl = *data_->case_level_;
         auto const retain_case_bits =
-            case_first != case_first_t::off || case_level != case_level_t::off
+            case_1st != case_first::off || case_lvl != case_level::off
                 ? detail::retain_case_bits_t::yes
                 : detail::retain_case_bits_t::no;
         container::small_vector<detail::collation_element, 1024> retval;
@@ -1409,8 +1409,8 @@ namespace boost { namespace text {
             [&](l2_weight_order l2_order) {
                 table.data_->l2_order_ = l2_order;
             },
-            [&](case_level_t cl) { table.data_->case_level_ = cl; },
-            [&](case_first_t cf) { table.data_->case_first_ = cf; },
+            [&](case_level cl) { table.data_->case_level_ = cl; },
+            [&](case_first cf) { table.data_->case_first_ = cf; },
             [&](detail::cp_seq_t const & suppressions_) {
                 for (auto cp : suppressions_) {
                     detail::suppress(*table.data_, cp);
@@ -1550,8 +1550,8 @@ namespace boost { namespace text {
                lhs.end(),
                lhs.size(),
                collation_strength::quaternary,
-               case_first_t::off,
-               case_level_t::off,
+               case_first::off,
+               case_level::off,
                l2_weight_order::forward,
                cps,
                cps,
@@ -1561,8 +1561,8 @@ namespace boost { namespace text {
                rhs.end(),
                rhs.size(),
                collation_strength::quaternary,
-               case_first_t::off,
-               case_level_t::off,
+               case_first::off,
+               case_level::off,
                l2_weight_order::forward,
                cps,
                cps,

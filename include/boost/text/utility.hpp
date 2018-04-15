@@ -8,12 +8,12 @@
 namespace boost { namespace text {
 
     /** Returns a string constructed from [first, last). */
-    template<typename Iter>
-    string to_string(Iter first, Iter last)
+    template<typename CPIter>
+    string to_string(CPIter first, CPIter last)
     {
         return string(
-            utf8::from_utf32_iterator<Iter>(first),
-            utf8::from_utf32_iterator<Iter>(last));
+            utf8::from_utf32_iterator<CPIter>(first, first, last),
+            utf8::from_utf32_iterator<CPIter>(first, last, last));
     }
 
     /** A range that adapts a sequence of <code>char const *</code> to a
@@ -31,7 +31,6 @@ namespace boost { namespace text {
             last_(f, l, l)
         {}
         utf32_range(iterator f, iterator l) : first_(f), last_(l) {}
-        /** TODO: This is the discontiguous CharRange. */
         template<typename CharRange>
         utf32_range(CharRange const & r) :
             first_(std::begin(r), std::begin(r), std::end(r)),

@@ -17,6 +17,8 @@ namespace boost { namespace text {
     /** A reference to a constant contiguous sequence of char. */
     struct string_view
     {
+        using value_type = char;
+        using size_type = int;
         using iterator = char const *;
         using const_iterator = char const *;
         using reverse_iterator = detail::const_reverse_char_iterator;
@@ -56,23 +58,61 @@ namespace boost { namespace text {
             \post data() == a.begin() && size() == a.size() */
         string_view(string const & a) noexcept;
 
+        /** Forbid construction from a temporary string. */
+        string_view(string && a) noexcept = delete;
+
+#ifdef BOOST_TEXT_DOXYGEN
+
         /** Constructs a string_view from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
-        template<typename CharRange>
+            ContigCharRange models the ContigCharRange concept. */
+        template<typename ContigCharRange>
+        explicit string_view(ContigCharRange const & r);
+
+        /** Constructs a string_view from a range of graphemes over an
+            underlying range of char.
+
+            This function only participates in overload resolution if
+            ContigGraphemeRange models the ContigGraphemeRange concept. */
+        template<typename ContigGraphemeRange>
+        explicit string_view(ContigGraphemeRange const & r);
+
+#else
+
+        template<typename ContigCharRange>
         explicit string_view(
-            CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0)
+            ContigCharRange const & r,
+            detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0)
         {
             using std::begin;
             using std::end;
             if (begin(r) == end(r)) {
-                data_ = nullptr;
+                data_ = &*begin(r);
                 size_ = 0;
             } else {
                 *this = string_view(&*begin(r), end(r) - begin(r));
             }
         }
+
+        template<typename ContigGraphemeRange>
+        explicit string_view(
+            ContigGraphemeRange const & r,
+            detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> = 0)
+        {
+            using std::begin;
+            using std::end;
+            if (begin(r) == end(r)) {
+                data_ = &*begin(r).base().base();
+                size_ = 0;
+            } else {
+                *this = string_view(
+                    &*begin(r).base().base(),
+                    end(r).base().base() - begin(r).base().base());
+            }
+        }
+
+#endif
 
         constexpr string_view(string_view const & rhs) noexcept :
             data_(rhs.data_),
@@ -90,14 +130,65 @@ namespace boost { namespace text {
             return *this;
         }
 
+#ifdef BOOST_TEXT_DOXYGEN
+
+        /** Assignment from a range of char.
+
+            This function only participates in overload resolution if
+            ContigCharRange models the ContigCharRange concept. */
+        template<typename ContigCharRange>
+        string_view & operator=(ContigCharRange const & r);
+
+        /** Assignment from a range of graphemes over an underlying range of
+            char.
+
+            This function only participates in overload resolution if
+            ContigGraphemeRange models the ContigGraphemeRange concept. */
+        template<typename ContigGraphemeRange>
+        string_view & operator=(ContigGraphemeRange const & r);
+
+#else
+
+        template<typename ContigCharRange>
+        auto operator=(ContigCharRange const & r)
+            -> detail::contig_rng_alg_ret_t<string_view &, ContigCharRange>
+        {
+            string_view temp(r);
+            swap(temp);
+            return *this;
+        }
+
+        template<typename ContigGraphemeRange>
+        auto operator=(ContigGraphemeRange const & r) -> detail::
+            contig_graph_rng_alg_ret_t<string_view &, ContigGraphemeRange>
+        {
+            string_view temp(r);
+            swap(temp);
+            return *this;
+        }
+
+#endif
+
         constexpr const_iterator begin() const noexcept { return data_; }
         constexpr const_iterator end() const noexcept { return data_ + size_; }
+
+        constexpr const_iterator cbegin() const noexcept { return data_; }
+        constexpr const_iterator cend() const noexcept { return data_ + size_; }
 
         constexpr const_reverse_iterator rbegin() const noexcept
         {
             return reverse_iterator(end());
         }
         constexpr const_reverse_iterator rend() const noexcept
+        {
+            return reverse_iterator(begin());
+        }
+
+        constexpr const_reverse_iterator crbegin() const noexcept
+        {
+            return reverse_iterator(end());
+        }
+        constexpr const_reverse_iterator crend() const noexcept
         {
             return reverse_iterator(begin());
         }
@@ -353,6 +444,15 @@ namespace boost { namespace text {
         return sv.end();
     }
 
+    inline constexpr string_view::iterator cbegin(string_view sv) noexcept
+    {
+        return sv.begin();
+    }
+    inline constexpr string_view::iterator cend(string_view sv) noexcept
+    {
+        return sv.end();
+    }
+
     inline constexpr string_view::reverse_iterator
     rbegin(string_view sv) noexcept
     {
@@ -362,6 +462,20 @@ namespace boost { namespace text {
     {
         return sv.rend();
     }
+
+    inline constexpr string_view::reverse_iterator
+    crbegin(string_view sv) noexcept
+    {
+        return sv.rbegin();
+    }
+    inline constexpr string_view::reverse_iterator
+    crend(string_view sv) noexcept
+    {
+        return sv.rend();
+    }
+
+    inline int operator+(string_view lhs, char const * rhs) noexcept = delete;
+    inline int operator+(char const * lhs, string_view rhs) noexcept = delete;
 
 }}
 

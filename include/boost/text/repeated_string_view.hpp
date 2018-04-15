@@ -13,6 +13,8 @@ namespace boost { namespace text {
         repeated many times, without allocating storage. */
     struct repeated_string_view
     {
+        using value_type = char;
+        using size_type = std::ptrdiff_t;
         using iterator = detail::const_repeated_chars_iterator;
         using const_iterator = detail::const_repeated_chars_iterator;
         using reverse_iterator = detail::const_reverse_repeated_chars_iterator;
@@ -32,11 +34,45 @@ namespace boost { namespace text {
 
             \post view() == sv && count() == count */
         BOOST_TEXT_CXX14_CONSTEXPR
-        repeated_string_view(string_view sv, std::ptrdiff_t count) noexcept :
+        repeated_string_view(string_view sv, size_type count) noexcept :
             view_(sv),
             count_(count)
         {
             assert(0 <= sv.size());
+            assert(0 <= count);
+        }
+
+        /** Constructs a repeated_string_view from a range of char.
+
+            This function only participates in overload resolution if
+            ContigCharRange models the ContigCharRange concept. */
+        template<typename ContigCharRange>
+        explicit repeated_string_view(
+            ContigCharRange const & r,
+            size_type count,
+            detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0) :
+            view_(string_view(r)),
+            count_(count)
+        {
+            assert(0 <= view_.size());
+            assert(0 <= count);
+        }
+
+        /** Constructs a repeated_string_view from a range of graphemes over
+            an underlying range of char.
+
+            This function only participates in overload resolution if
+            ContigGraphemeRange models the ContigGraphemeRange concept. */
+        template<typename ContigGraphemeRange>
+        explicit repeated_string_view(
+            ContigGraphemeRange const & r,
+            size_type count,
+            detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> =
+                0) :
+            view_(string_view(r)),
+            count_(count)
+        {
+            assert(0 <= view_.size());
             assert(0 <= count);
         }
 
@@ -49,6 +85,9 @@ namespace boost { namespace text {
             return const_iterator(view_.begin(), view_.size(), size());
         }
 
+        constexpr const_iterator cbegin() const noexcept { return begin(); }
+        constexpr const_iterator cend() const noexcept { return end(); }
+
         constexpr const_reverse_iterator rbegin() const noexcept
         {
             return const_reverse_iterator(end());
@@ -58,20 +97,30 @@ namespace boost { namespace text {
             return const_reverse_iterator(begin());
         }
 
+        constexpr const_reverse_iterator crbegin() const noexcept
+        {
+            return rbegin();
+        }
+        constexpr const_reverse_iterator crend() const noexcept
+        {
+            return rend();
+        }
+
         /** Returns the repeated view. */
         constexpr string_view view() const noexcept { return view_; }
 
         /** Returns the number of times the view is repeated. */
-        constexpr std::ptrdiff_t count() const noexcept { return count_; }
+        constexpr size_type count() const noexcept { return count_; }
 
-        /** Returns the i-th char of *this (not a reference).
+        /** Returns the char (not a reference) of *this at index i, or the
+            char at index -i when i < 0.
 
-            This function is constexpr in C++14 and later.
-
-            \pre i < size() */
-        BOOST_TEXT_CXX14_CONSTEXPR char operator[](int i) const noexcept
+            \pre 0 <= i && i <= size() || 0 <= -i && -i <= size()  */
+        BOOST_TEXT_CXX14_CONSTEXPR char operator[](size_type i) const noexcept
         {
-            assert(i < size());
+            if (i < 0)
+                i += size();
+            assert(0 <= i && i < size());
             return begin()[i];
         }
 
@@ -88,7 +137,7 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= size()
             \pre 0 <= hi && lhi <= size()
             \pre lo <= hi */
-        unencoded_rope_view operator()(int lo, int hi) const;
+        unencoded_rope_view operator()(size_type lo, size_type hi) const;
 
         /** Returns a substring of *this, taken from the first cut chars when
             cut => 0, or the last -cut chars when cut < 0.
@@ -96,65 +145,15 @@ namespace boost { namespace text {
             This function is constexpr in C++14 and later.
 
             \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        unencoded_rope_view operator()(int cut) const;
+        unencoded_rope_view operator()(size_type cut) const;
 
         constexpr bool empty() const noexcept { return view_.empty(); }
 
-        constexpr std::ptrdiff_t size() const noexcept
+        constexpr size_type size() const noexcept
         {
             return count_ * view_.size();
         }
 
-
-        /** Lexicographical compare.  Returns a value < 0 when *this is
-            lexicographically less than rhs, 0 if *this == rhs, and a value >
-            0 if *this is lexicographically greater than rhs.
-
-            This function is constexpr in C++14 and later. */
-        BOOST_TEXT_CXX14_CONSTEXPR
-        int compare(repeated_string_view rhs) const noexcept
-        {
-            if (view_ == rhs.view_) {
-                if (count_ < rhs.count_)
-                    return -1;
-                else if (count_ == rhs.count_)
-                    return 0;
-                else
-                    return 1;
-            } else {
-                repeated_string_view shorter =
-                    view().size() < rhs.view().size() ? *this : rhs;
-                repeated_string_view longer =
-                    view().size() < rhs.view().size() ? rhs : *this;
-                if (shorter.view() == longer.view()(shorter.view().size())) {
-                    // If one is a prefix of the other, the prefix might be
-                    // repeated within the other an arbitrary number of times,
-                    // so we need to do this the hard way...
-                    const_iterator lhs_first = begin();
-                    const_iterator const lhs_last = end();
-                    const_iterator rhs_first = rhs.begin();
-                    const_iterator const rhs_last = rhs.end();
-                    while (lhs_first != lhs_last && rhs_first != rhs_last) {
-                        if (*lhs_first < *rhs_first)
-                            return -1;
-                        else if (*lhs_first > *rhs_first)
-                            return 1;
-                        ++lhs_first;
-                        ++rhs_first;
-                    }
-                    if (lhs_first == lhs_last) {
-                        if (rhs_first == rhs_last)
-                            return 0;
-                        else
-                            return -1;
-                    } else {
-                        return 1;
-                    }
-                } else {
-                    return view_.compare(rhs.view_);
-                }
-            }
-        }
 
         /** Swaps *this with rhs.
 
@@ -168,7 +167,7 @@ namespace boost { namespace text {
                 rhs.view_ = tmp;
             }
             {
-                std::ptrdiff_t tmp = count_;
+                size_type tmp = count_;
                 count_ = rhs.count_;
                 rhs.count_ = tmp;
             }
@@ -178,7 +177,7 @@ namespace boost { namespace text {
         friend std::ostream &
         operator<<(std::ostream & os, repeated_string_view rsv)
         {
-            for (std::ptrdiff_t i = 0; i < rsv.count(); ++i) {
+            for (size_type i = 0; i < rsv.count(); ++i) {
                 os.write(rsv.view().begin(), rsv.view().size());
             }
             return os;
@@ -186,7 +185,7 @@ namespace boost { namespace text {
 
     private:
         string_view view_;
-        std::ptrdiff_t count_;
+        size_type count_;
     };
 
     /** Creates a repeated_string_view from a string_view and a count.
@@ -201,46 +200,16 @@ namespace boost { namespace text {
         return repeated_string_view(sv, count);
     }
 
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    inline bool
     operator==(repeated_string_view lhs, repeated_string_view rhs) noexcept
     {
-        return lhs.compare(rhs) == 0;
+        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
 
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
+    inline bool
     operator!=(repeated_string_view lhs, repeated_string_view rhs) noexcept
     {
-        return lhs.compare(rhs) != 0;
-    }
-
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator<(repeated_string_view lhs, repeated_string_view rhs) noexcept
-    {
-        return lhs.compare(rhs) < 0;
-    }
-
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator<=(repeated_string_view lhs, repeated_string_view rhs) noexcept
-    {
-        return lhs.compare(rhs) <= 0;
-    }
-
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator>(repeated_string_view lhs, repeated_string_view rhs) noexcept
-    {
-        return lhs.compare(rhs) > 0;
-    }
-
-    /** This function is constexpr in C++14 and later. */
-    inline BOOST_TEXT_CXX14_CONSTEXPR bool
-    operator>=(repeated_string_view lhs, repeated_string_view rhs) noexcept
-    {
-        return lhs.compare(rhs) >= 0;
+        return !(lhs == rhs);
     }
 
     inline constexpr repeated_string_view::iterator
@@ -254,6 +223,17 @@ namespace boost { namespace text {
         return rsv.end();
     }
 
+    inline constexpr repeated_string_view::iterator
+    cbegin(repeated_string_view rsv) noexcept
+    {
+        return rsv.cbegin();
+    }
+    inline constexpr repeated_string_view::iterator
+    cend(repeated_string_view rsv) noexcept
+    {
+        return rsv.cend();
+    }
+
     inline constexpr repeated_string_view::reverse_iterator
     rbegin(repeated_string_view rsv) noexcept
     {
@@ -264,6 +244,26 @@ namespace boost { namespace text {
     {
         return rsv.rend();
     }
+
+    inline constexpr repeated_string_view::reverse_iterator
+    crbegin(repeated_string_view rsv) noexcept
+    {
+        return rsv.crbegin();
+    }
+    inline constexpr repeated_string_view::reverse_iterator
+    crend(repeated_string_view rsv) noexcept
+    {
+        return rsv.crend();
+    }
+
+    inline int operator+(
+        repeated_string_view lhs, repeated_string_view rhs) noexcept = delete;
+
+    inline int
+    operator+(string_view lhs, repeated_string_view rhs) noexcept = delete;
+
+    inline int
+    operator+(repeated_string_view lhs, string_view rhs) noexcept = delete;
 
 }}
 

@@ -64,10 +64,12 @@ namespace boost { namespace text {
         returned (even if <code>it</code> is already at the first code point
         of a paragraph). */
     template<typename CPRange, typename CPIter>
-    inline auto prev_paragraph_break(CPRange & range, CPIter it) noexcept
+    auto prev_paragraph_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return prev_paragraph_break(range.begin(), it, range.end());
+        using std::begin;
+        using std::end;
+        return prev_paragraph_break(begin(range), it, end(range));
     }
 
     /** Finds the next paragraph break after <code>range.begin()</code>.  This
@@ -76,10 +78,12 @@ namespace boost { namespace text {
 
         \pre <code>range.begin()</code> is at the beginning of a paragraph. */
     template<typename CPRange>
-    inline auto next_paragraph_break(CPRange & range) noexcept
+    auto next_paragraph_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return next_paragraph_break(range.begin(), range.end());
+        using std::begin;
+        using std::end;
+        return next_paragraph_break(begin(range), end(range));
     }
 
     namespace detail {
@@ -96,12 +100,14 @@ namespace boost { namespace text {
     /** Returns the bounds of the paragraph that <code>it</code> lies
         within. */
     template<typename CPRange, typename CPIter>
-    inline auto paragraph(CPRange & range, CPIter it) noexcept
+    auto paragraph(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        auto first = prev_paragraph_break(range.begin(), it, range.end());
+        using std::begin;
+        using std::end;
+        auto first = prev_paragraph_break(begin(range), it, end(range));
         return cp_range<CPIter>{first,
-                                next_paragraph_break(first, range.end())};
+                                next_paragraph_break(first, end(range))};
     }
 
     /** Returns the bounds of the paragraph that <code>it</code> lies
@@ -135,7 +141,9 @@ namespace boost { namespace text {
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        return {{range.begin(), range.end()}, {range.end()}};
+        using std::begin;
+        using std::end;
+        return {{begin(range), end(range)}, {end(range)}};
     }
 
 }}

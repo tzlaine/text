@@ -937,6 +937,19 @@ namespace boost { namespace text {
         return first;
     }
 
+    /** A range-friendly compliment to std::find(); returns an iterator to the
+        first element not equal to \a x. */
+    template<typename BidiIter, typename Sentinel, typename T>
+    BidiIter find_not(BidiIter first, Sentinel last, T const & x)
+    {
+        while (first != last) {
+            if (*first != x)
+                return first;
+            ++first;
+        }
+        return first;
+    }
+
     /** Range-friendly version of std::find_if(), taking an iterator and a
         sentinel. */
     template<typename BidiIter, typename Sentinel, typename Pred>
@@ -963,13 +976,24 @@ namespace boost { namespace text {
         return first;
     }
 
+    /** Analogue of std::find() that finds the last value in [first, last)
+        equal to \a x. */
+    template<typename BidiIter, typename T>
+    BidiIter find_backward(BidiIter first, BidiIter last, T const & x)
+    {
+        auto it = last;
+        while (it != first) {
+            if (*--it == x)
+                return it;
+        }
+        return last;
+    }
+
     /** Analogue of std::find() that finds the last value in [first, last) not
         equal to \a x. */
     template<typename BidiIter, typename T>
     BidiIter find_not_backward(BidiIter first, BidiIter last, T const & x)
     {
-        if (first == last)
-            return last;
         auto it = last;
         while (it != first) {
             if (*--it != x)
@@ -983,8 +1007,6 @@ namespace boost { namespace text {
     template<typename BidiIter, typename Pred>
     BidiIter find_if_backward(BidiIter first, BidiIter last, Pred p)
     {
-        if (first == last)
-            return last;
         auto it = last;
         while (it != first) {
             if (p(*--it))
@@ -998,8 +1020,6 @@ namespace boost { namespace text {
     template<typename BidiIter, typename Pred>
     BidiIter find_if_not_backward(BidiIter first, BidiIter last, Pred p)
     {
-        if (first == last)
-            return last;
         auto it = last;
         while (it != first) {
             if (!p(*--it))

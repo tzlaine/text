@@ -19,25 +19,25 @@ namespace boost { namespace text {
 
     /** Returns the bidirectional algorithm character property associated with
         code point \a cp. */
-    bidi_prop_t bidi_prop(uint32_t cp) noexcept;
+    bidi_property bidi_prop(uint32_t cp) noexcept;
 
     namespace detail {
-        inline bool isolate_initiator(bidi_prop_t prop) noexcept
+        inline bool isolate_initiator(bidi_property prop) noexcept
         {
-            return prop == bidi_prop_t::LRI || prop == bidi_prop_t::RLI ||
-                   prop == bidi_prop_t::FSI;
+            return prop == bidi_property::LRI || prop == bidi_property::RLI ||
+                   prop == bidi_property::FSI;
         }
 
         struct prop_and_embedding_t
         {
             uint32_t cp_;
             int embedding_;
-            bidi_prop_t prop_;
+            bidi_property prop_;
             bool unmatched_pdi_;
             bool originally_nsm_;
         };
 
-        inline bidi_prop_t bidi_prop(prop_and_embedding_t pae) noexcept
+        inline bidi_property bidi_prop(prop_and_embedding_t pae) noexcept
         {
             return pae.prop_;
         }
@@ -56,7 +56,7 @@ namespace boost { namespace text {
                 auto const prop = bidi_prop(*it);
                 if (isolate_initiator(prop)) {
                     ++iis;
-                } else if (prop == bidi_prop_t::PDI) {
+                } else if (prop == bidi_property::PDI) {
                     --iis;
                     if (!iis)
                         break;
@@ -66,10 +66,10 @@ namespace boost { namespace text {
             return it;
         }
 
-        inline bool embedding_initiator(bidi_prop_t prop) noexcept
+        inline bool embedding_initiator(bidi_property prop) noexcept
         {
-            return prop == bidi_prop_t::LRE || prop == bidi_prop_t::RLE ||
-                   prop == bidi_prop_t::LRO || prop == bidi_prop_t::RLO;
+            return prop == bidi_property::LRE || prop == bidi_property::RLE ||
+                   prop == bidi_property::LRO || prop == bidi_property::RLO;
         }
 
         enum class directional_override_t {
@@ -103,8 +103,8 @@ namespace boost { namespace text {
                             break;
                         ++it;
                     } else if (
-                        prop == bidi_prop_t::L || prop == bidi_prop_t::AL ||
-                        prop == bidi_prop_t::R) {
+                        prop == bidi_property::L || prop == bidi_property::AL ||
+                        prop == bidi_property::R) {
                         // https://unicode.org/reports/tr9/#P3
                         retval = 1;
                     }
@@ -193,10 +193,12 @@ namespace boost { namespace text {
             if (first == last)
                 return level_run{last, last, false};
 
-            auto skippable = [](bidi_prop_t prop) {
-                return prop == bidi_prop_t::RLE || prop == bidi_prop_t::LRE ||
-                       prop == bidi_prop_t::RLO || prop == bidi_prop_t::LRO ||
-                       prop == bidi_prop_t::PDF || prop == bidi_prop_t::BN;
+            auto skippable = [](bidi_property prop) {
+                return prop == bidi_property::RLE ||
+                       prop == bidi_property::LRE ||
+                       prop == bidi_property::RLO ||
+                       prop == bidi_property::LRO ||
+                       prop == bidi_property::PDF || prop == bidi_property::BN;
             };
 
             auto const initial_level = first->embedding_;
@@ -282,8 +284,8 @@ namespace boost { namespace text {
 
             run_seq_runs_t runs_;
             int embedding_;
-            bidi_prop_t sos_; // L or R
-            bidi_prop_t eos_; // L or R
+            bidi_property sos_; // L or R
+            bidi_property eos_; // L or R
         };
 
         using all_runs_t = container::small_vector<level_run, 1024>;
@@ -316,7 +318,7 @@ namespace boost { namespace text {
 
             auto const end = pae.end();
             for (auto & run : all_runs) {
-                if (!run.used_ && (run.first_->prop_ != bidi_prop_t::PDI ||
+                if (!run.used_ && (run.first_->prop_ != bidi_property::PDI ||
                                    run.first_->unmatched_pdi_)) {
                     retval.resize(retval.size() + 1);
                     run_sequence_t & sequence = retval.back();
@@ -363,11 +365,13 @@ namespace boost { namespace text {
                                       : run_sequences[1].embedding_;
             for (int i = 0, end = (int)run_sequences.size(); i != end; ++i) {
                 run_sequences[i].sos_ =
-                    odd((std::max)(prev_embedding, embedding)) ? bidi_prop_t::R
-                                                               : bidi_prop_t::L;
+                    odd((std::max)(prev_embedding, embedding))
+                        ? bidi_property::R
+                        : bidi_property::L;
                 run_sequences[i].eos_ =
-                    odd((std::max)(embedding, next_embedding)) ? bidi_prop_t::R
-                                                               : bidi_prop_t::L;
+                    odd((std::max)(embedding, next_embedding))
+                        ? bidi_property::R
+                        : bidi_property::L;
                 prev_embedding = embedding;
                 embedding = next_embedding;
                 if (i < (int)run_sequences.size() - 1)
@@ -382,12 +386,12 @@ namespace boost { namespace text {
             for (auto & elem : seq) {
                 auto prop = elem.prop_;
                 // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
-                if (prop == bidi_prop_t::BN)
+                if (prop == bidi_property::BN)
                     continue;
-                if (prop == bidi_prop_t::NSM) {
-                    elem.prop_ = prev_prop == bidi_prop_t::PDI ||
+                if (prop == bidi_property::NSM) {
+                    elem.prop_ = prev_prop == bidi_property::PDI ||
                                          isolate_initiator(prev_prop)
-                                     ? bidi_prop_t::ON
+                                     ? bidi_property::ON
                                      : prev_prop;
                     elem.originally_nsm_ = true;
                     prop = elem.prop_;
@@ -396,24 +400,24 @@ namespace boost { namespace text {
             }
         }
 
-        inline bool strong(bidi_prop_t prop) noexcept
+        inline bool strong(bidi_property prop) noexcept
         {
-            return prop == bidi_prop_t::R || prop == bidi_prop_t::L ||
-                   prop == bidi_prop_t::AL;
+            return prop == bidi_property::R || prop == bidi_property::L ||
+                   prop == bidi_property::AL;
         }
 
         // This works for W7 because all ALs are removed in W3.
         inline void w2_w7_impl(
             run_sequence_t & seq,
-            bidi_prop_t trigger,
-            bidi_prop_t replacement) noexcept
+            bidi_property trigger,
+            bidi_property replacement) noexcept
         {
             auto curr_strong_prop = seq.sos_;
             for (auto & elem : seq) {
                 if (strong(elem.prop_)) {
                     curr_strong_prop = elem.prop_;
                 } else if (
-                    elem.prop_ == bidi_prop_t::EN &&
+                    elem.prop_ == bidi_property::EN &&
                     curr_strong_prop == trigger) {
                     elem.prop_ = replacement;
                 }
@@ -423,21 +427,21 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#W2
         inline void w2(run_sequence_t & seq) noexcept
         {
-            w2_w7_impl(seq, bidi_prop_t::AL, bidi_prop_t::AN);
+            w2_w7_impl(seq, bidi_property::AL, bidi_property::AN);
         }
 
         // https://unicode.org/reports/tr9/#W3
         inline void w3(run_sequence_t & seq) noexcept
         {
             for (auto & elem : seq) {
-                if (elem.prop_ == bidi_prop_t::AL)
-                    elem.prop_ = bidi_prop_t::R;
+                if (elem.prop_ == bidi_property::AL)
+                    elem.prop_ = bidi_property::R;
             }
         }
 
         inline bool not_bn(prop_and_embedding_t pae) noexcept
         {
-            return pae.prop_ != bidi_prop_t::BN;
+            return pae.prop_ != bidi_property::BN;
         }
 
         // https://unicode.org/reports/tr9/#W4
@@ -458,15 +462,15 @@ namespace boost { namespace text {
                  prev_it = it,
                  it = next_it,
                  next_it = std::find_if(std::next(next_it), end, not_bn)) {
-                if (prev_it->prop_ == bidi_prop_t::EN &&
-                    it->prop_ == bidi_prop_t::ES &&
-                    next_it->prop_ == bidi_prop_t::EN) {
-                    it->prop_ = bidi_prop_t::EN;
+                if (prev_it->prop_ == bidi_property::EN &&
+                    it->prop_ == bidi_property::ES &&
+                    next_it->prop_ == bidi_property::EN) {
+                    it->prop_ = bidi_property::EN;
                 } else if (
-                    it->prop_ == bidi_prop_t::CS &&
+                    it->prop_ == bidi_property::CS &&
                     prev_it->prop_ == next_it->prop_ &&
-                    (prev_it->prop_ == bidi_prop_t::EN ||
-                     prev_it->prop_ == bidi_prop_t::AN)) {
+                    (prev_it->prop_ == bidi_property::EN ||
+                     prev_it->prop_ == bidi_property::AN)) {
                     it->prop_ = prev_it->prop_;
                 }
             }
@@ -486,7 +490,7 @@ namespace boost { namespace text {
         {
             auto changeable = [changeable_prop](prop_and_embedding_t pae) {
                 // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
-                return changeable_prop(pae) || pae.prop_ == bidi_prop_t::BN;
+                return changeable_prop(pae) || pae.prop_ == bidi_property::BN;
             };
 
             auto it = seq.begin();
@@ -522,10 +526,10 @@ namespace boost { namespace text {
                 pae.prop_ = prop_;
                 return pae;
             }
-            bidi_prop_t prop_;
+            bidi_property prop_;
         };
 
-        inline set_prop_func_t set_prop(bidi_prop_t prop) noexcept
+        inline set_prop_func_t set_prop(bidi_property prop) noexcept
         {
             return set_prop_func_t{prop};
         }
@@ -534,12 +538,12 @@ namespace boost { namespace text {
         inline void w5(run_sequence_t & seq) noexcept
         {
             auto et = [](prop_and_embedding_t pae) {
-                return pae.prop_ == bidi_prop_t::ET;
+                return pae.prop_ == bidi_property::ET;
             };
             auto en = [](prop_and_embedding_t pae) {
-                return pae.prop_ == bidi_prop_t::EN;
+                return pae.prop_ == bidi_property::EN;
             };
-            replace_adjacents_with(seq, et, en, set_prop(bidi_prop_t::EN));
+            replace_adjacents_with(seq, et, en, set_prop(bidi_property::EN));
         }
 
         // https://unicode.org/reports/tr9/#W6
@@ -550,22 +554,22 @@ namespace boost { namespace text {
                 return false; // BN is covered in replace_adjacents_with().
             };
             auto et_es_cs = [](prop_and_embedding_t pae) {
-                return pae.prop_ == bidi_prop_t::ET ||
-                       pae.prop_ == bidi_prop_t::ES ||
-                       pae.prop_ == bidi_prop_t::CS;
+                return pae.prop_ == bidi_property::ET ||
+                       pae.prop_ == bidi_property::ES ||
+                       pae.prop_ == bidi_property::CS;
             };
             replace_adjacents_with(
-                seq, bn, et_es_cs, set_prop(bidi_prop_t::ON));
+                seq, bn, et_es_cs, set_prop(bidi_property::ON));
 
             std::transform(
                 seq.begin(),
                 seq.end(),
                 seq.begin(),
                 [](prop_and_embedding_t pae) {
-                    if (pae.prop_ == bidi_prop_t::ES ||
-                        pae.prop_ == bidi_prop_t::CS ||
-                        pae.prop_ == bidi_prop_t::ET) {
-                        pae.prop_ = bidi_prop_t::ON;
+                    if (pae.prop_ == bidi_property::ES ||
+                        pae.prop_ == bidi_property::CS ||
+                        pae.prop_ == bidi_property::ET) {
+                        pae.prop_ = bidi_property::ON;
                     }
                     return pae;
                 });
@@ -574,7 +578,7 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#W7
         inline void w7(run_sequence_t & seq) noexcept
         {
-            w2_w7_impl(seq, bidi_prop_t::L, bidi_prop_t::L);
+            w2_w7_impl(seq, bidi_property::L, bidi_property::L);
         }
 
         struct bracket_pair
@@ -613,7 +617,7 @@ namespace boost { namespace text {
             stack_t stack;
 
             for (auto it = seq.begin(), end = seq.end(); it != end; ++it) {
-                if (it->prop_ != bidi_prop_t::ON)
+                if (it->prop_ != bidi_property::ON)
                     continue;
                 auto const bracket = bidi_bracket(it->cp_);
                 if (bracket && bracket.type_ == bidi_bracket_type::open) {
@@ -650,7 +654,7 @@ namespace boost { namespace text {
         {
             auto set_props = [](bracket_pair pair,
                                 run_sequence_t::iterator end,
-                                bidi_prop_t prop) {
+                                bidi_property prop) {
                 pair.first_->prop_ = prop;
                 auto transform_end = std::find_if(
                     std::next(pair.last_), end, [](prop_and_embedding_t pae) {
@@ -679,10 +683,10 @@ namespace boost { namespace text {
                                 return false;
                             strong_found = true;
                             assert(
-                                pae.prop_ == bidi_prop_t::L ||
-                                pae.prop_ == bidi_prop_t::R);
+                                pae.prop_ == bidi_property::L ||
+                                pae.prop_ == bidi_property::R);
                             auto const strong_embedding =
-                                pae.prop_ == bidi_prop_t::L ? 0 : 1;
+                                pae.prop_ == bidi_property::L ? 0 : 1;
                             return even(seq.embedding_ + strong_embedding);
                         });
                     if (same_direction_strong_it != pair.last_) {
@@ -690,13 +694,13 @@ namespace boost { namespace text {
                             pair, seq.end(), same_direction_strong_it->prop_);
                     } else if (strong_found) {
                         auto const prev_strong_embedding =
-                            prev_strong_prop == bidi_prop_t::L ? 0 : 1;
+                            prev_strong_prop == bidi_property::L ? 0 : 1;
                         if (odd(seq.embedding_ + prev_strong_embedding)) {
                             set_props(pair, seq.end(), prev_strong_prop);
                         } else {
                             auto const seq_embedding_prop =
-                                even(seq.embedding_) ? bidi_prop_t::L
-                                                     : bidi_prop_t::R;
+                                even(seq.embedding_) ? bidi_property::L
+                                                     : bidi_property::R;
                             set_props(pair, seq.end(), seq_embedding_prop);
                         }
                     }
@@ -707,23 +711,24 @@ namespace boost { namespace text {
         inline bool neutral_or_isolate(prop_and_embedding_t pae) noexcept
         {
             // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
-            return pae.prop_ == bidi_prop_t::BN ||
-                   pae.prop_ == bidi_prop_t::B || pae.prop_ == bidi_prop_t::S ||
-                   pae.prop_ == bidi_prop_t::WS ||
-                   pae.prop_ == bidi_prop_t::ON ||
-                   pae.prop_ == bidi_prop_t::FSI ||
-                   pae.prop_ == bidi_prop_t::LRI ||
-                   pae.prop_ == bidi_prop_t::RLI ||
-                   pae.prop_ == bidi_prop_t::PDI;
+            return pae.prop_ == bidi_property::BN ||
+                   pae.prop_ == bidi_property::B ||
+                   pae.prop_ == bidi_property::S ||
+                   pae.prop_ == bidi_property::WS ||
+                   pae.prop_ == bidi_property::ON ||
+                   pae.prop_ == bidi_property::FSI ||
+                   pae.prop_ == bidi_property::LRI ||
+                   pae.prop_ == bidi_property::RLI ||
+                   pae.prop_ == bidi_property::PDI;
         }
 
         // https://unicode.org/reports/tr9/#N1
         inline void n1(run_sequence_t & seq) noexcept
         {
             auto num_to_r = [](prop_and_embedding_t pae) {
-                if (pae.prop_ == bidi_prop_t::EN ||
-                    pae.prop_ == bidi_prop_t::AN)
-                    return bidi_prop_t::R;
+                if (pae.prop_ == bidi_property::EN ||
+                    pae.prop_ == bidi_property::AN)
+                    return bidi_property::R;
                 return pae.prop_;
             };
 
@@ -735,7 +740,7 @@ namespace boost { namespace text {
                 bool only_bns = true;
                 auto next_next_it = std::find_if(
                     next_it, end, [&only_bns](prop_and_embedding_t pae) {
-                        if (pae.prop_ != bidi_prop_t::BN)
+                        if (pae.prop_ != bidi_property::BN)
                             only_bns = false;
                         return !neutral_or_isolate(pae);
                     });
@@ -751,21 +756,21 @@ namespace boost { namespace text {
                 if (next_next_it != end)
                     next_prop = num_to_r(*next_next_it);
 
-                if (prev_prop == bidi_prop_t::L &&
-                    next_prop == bidi_prop_t::L) {
+                if (prev_prop == bidi_property::L &&
+                    next_prop == bidi_property::L) {
                     std::transform(
                         next_it,
                         next_next_it,
                         next_it,
-                        set_prop(bidi_prop_t::L));
+                        set_prop(bidi_property::L));
                 } else if (
-                    prev_prop == bidi_prop_t::R &&
-                    next_prop == bidi_prop_t::R) {
+                    prev_prop == bidi_property::R &&
+                    next_prop == bidi_property::R) {
                     std::transform(
                         next_it,
                         next_next_it,
                         next_it,
-                        set_prop(bidi_prop_t::R));
+                        set_prop(bidi_property::R));
                 }
 
                 it = next_next_it;
@@ -776,7 +781,7 @@ namespace boost { namespace text {
         inline void n2(run_sequence_t & seq) noexcept
         {
             auto const seq_embedding_prop =
-                even(seq.embedding_) ? bidi_prop_t::L : bidi_prop_t::R;
+                even(seq.embedding_) ? bidi_property::L : bidi_property::R;
             std::transform(
                 seq.begin(),
                 seq.end(),
@@ -795,17 +800,17 @@ namespace boost { namespace text {
             bool const even_ = even(seq.embedding_);
             for (auto & elem : seq) {
                 if (even_) {
-                    if (elem.prop_ == bidi_prop_t::R) {
+                    if (elem.prop_ == bidi_property::R) {
                         elem.embedding_ += 1;
                     } else if (
-                        elem.prop_ == bidi_prop_t::EN ||
-                        elem.prop_ == bidi_prop_t::AN) {
+                        elem.prop_ == bidi_property::EN ||
+                        elem.prop_ == bidi_property::AN) {
                         elem.embedding_ += 2;
                     }
                 } else if (
-                    elem.prop_ == bidi_prop_t::L ||
-                    elem.prop_ == bidi_prop_t::EN ||
-                    elem.prop_ == bidi_prop_t::AN) {
+                    elem.prop_ == bidi_property::L ||
+                    elem.prop_ == bidi_property::EN ||
+                    elem.prop_ == bidi_property::AN) {
                     elem.embedding_ += 1;
                 }
             }
@@ -825,8 +830,8 @@ namespace boost { namespace text {
             auto first_contiguous_ws_or_isolate_it = end;
             for (auto it = line.begin().it_; it != end; ++it) {
                 auto const original_prop = boost::text::bidi_prop(it->cp_);
-                if (original_prop == bidi_prop_t::B ||
-                    original_prop == bidi_prop_t::S) {
+                if (original_prop == bidi_property::B ||
+                    original_prop == bidi_property::S) {
                     it->embedding_ = paragraph_embedding_level;
                     if (first_contiguous_ws_or_isolate_it != end) {
                         std::transform(
@@ -837,9 +842,9 @@ namespace boost { namespace text {
                         first_contiguous_ws_or_isolate_it = end;
                     }
                 } else if (
-                    original_prop == bidi_prop_t::WS ||
+                    original_prop == bidi_property::WS ||
                     isolate_initiator(original_prop) ||
-                    original_prop == bidi_prop_t::PDI) {
+                    original_prop == bidi_property::PDI) {
                     if (first_contiguous_ws_or_isolate_it == end)
                         first_contiguous_ws_or_isolate_it = it;
                 } else {
@@ -853,7 +858,7 @@ namespace boost { namespace text {
                     first_contiguous_ws_or_isolate_it,
                     set_paragraph_embedding);
             }
-         }
+        }
 
         struct reordered_run
         {
@@ -1147,11 +1152,11 @@ namespace boost { namespace text {
                                 props_and_embeddings_t & props_and_embeddings) {
             if (stack.top().directional_override_ ==
                 detail::directional_override_t::left_to_right) {
-                props_and_embeddings.back().prop_ = bidi_prop_t::L;
+                props_and_embeddings.back().prop_ = bidi_property::L;
             } else if (
                 stack.top().directional_override_ ==
                 detail::directional_override_t::right_to_left) {
-                props_and_embeddings.back().prop_ = bidi_prop_t::R;
+                props_and_embeddings.back().prop_ = bidi_property::R;
             }
         };
 
@@ -1225,7 +1230,7 @@ namespace boost { namespace text {
 
                 // https://unicode.org/reports/tr9/#X2
                 switch (prop) {
-                case bidi_prop_t::RLE: {
+                case bidi_property::RLE: {
                     // https://unicode.org/reports/tr9/#X2
                     auto const next_odd_embedding_level = next_odd(stack);
                     if (next_odd_embedding_level <= detail::bidi_max_depth &&
@@ -1240,7 +1245,7 @@ namespace boost { namespace text {
                     break;
                 }
 
-                case bidi_prop_t::LRE: {
+                case bidi_property::LRE: {
                     // https://unicode.org/reports/tr9/#X3
                     auto const next_even_embedding_level = next_even(stack);
                     if (next_even_embedding_level <= detail::bidi_max_depth &&
@@ -1255,7 +1260,7 @@ namespace boost { namespace text {
                     break;
                 }
 
-                case bidi_prop_t::RLO: {
+                case bidi_property::RLO: {
                     // https://unicode.org/reports/tr9/#X4
                     auto const next_odd_embedding_level = next_odd(stack);
                     if (next_odd_embedding_level <= detail::bidi_max_depth &&
@@ -1270,7 +1275,7 @@ namespace boost { namespace text {
                     break;
                 }
 
-                case bidi_prop_t::LRO: {
+                case bidi_property::LRO: {
                     // https://unicode.org/reports/tr9/#X5
                     auto const next_even_embedding_level = next_even(stack);
                     if (next_even_embedding_level <= detail::bidi_max_depth &&
@@ -1285,7 +1290,7 @@ namespace boost { namespace text {
                     break;
                 }
 
-                case bidi_prop_t::RLI:
+                case bidi_property::RLI:
                     // https://unicode.org/reports/tr9/#X5a
                     x5a(stack,
                         props_and_embeddings,
@@ -1293,7 +1298,7 @@ namespace boost { namespace text {
                         overflow_embedding,
                         valid_isolates);
                     break;
-                case bidi_prop_t::LRI:
+                case bidi_property::LRI:
                     // https://unicode.org/reports/tr9/#X5b
                     x5b(stack,
                         props_and_embeddings,
@@ -1301,7 +1306,7 @@ namespace boost { namespace text {
                         overflow_embedding,
                         valid_isolates);
                     break;
-                case bidi_prop_t::FSI:
+                case bidi_property::FSI:
                     // https://unicode.org/reports/tr9/#X5c
                     if (detail::p2_p3(it, para_it) == 1) {
                         x5a(stack,
@@ -1323,7 +1328,7 @@ namespace boost { namespace text {
                     prop_from_top(stack, props_and_embeddings);
                     break;
 
-                case bidi_prop_t::PDI:
+                case bidi_property::PDI:
                     // https://unicode.org/reports/tr9/#X6a
                     if (0 < overflow_isolates) {
                         --overflow_isolates;
@@ -1341,15 +1346,15 @@ namespace boost { namespace text {
                         stack.top().embedding_;
                     if (stack.top().directional_override_ ==
                         detail::directional_override_t::left_to_right) {
-                        props_and_embeddings.back().prop_ = bidi_prop_t::L;
+                        props_and_embeddings.back().prop_ = bidi_property::L;
                     } else if (
                         stack.top().directional_override_ ==
                         detail::directional_override_t::right_to_left) {
-                        props_and_embeddings.back().prop_ = bidi_prop_t::R;
+                        props_and_embeddings.back().prop_ = bidi_property::R;
                     }
                     break;
 
-                case bidi_prop_t::PDF:
+                case bidi_property::PDF:
                     // https://unicode.org/reports/tr9/#X7
                     if (!overflow_isolates) {
                         if (0 < overflow_embedding) {
@@ -1365,11 +1370,11 @@ namespace boost { namespace text {
                         stack.top().embedding_;
                     break;
 
-                case bidi_prop_t::B:
+                case bidi_property::B:
                     break;
 
                     // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
-                    // case bidi_prop_t::BN: break;
+                    // case bidi_property::BN: break;
                 }
 
                 // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
@@ -1379,12 +1384,12 @@ namespace boost { namespace text {
                     props_and_embeddings.end(),
                     props_and_embeddings.begin(),
                     [](prop_and_embedding_t pae) {
-                        if (pae.prop_ == bidi_prop_t::RLE ||
-                            pae.prop_ == bidi_prop_t::LRE ||
-                            pae.prop_ == bidi_prop_t::RLO ||
-                            pae.prop_ == bidi_prop_t::LRO ||
-                            pae.prop_ == bidi_prop_t::PDF) {
-                            pae.prop_ = bidi_prop_t::BN;
+                        if (pae.prop_ == bidi_property::RLE ||
+                            pae.prop_ == bidi_property::LRE ||
+                            pae.prop_ == bidi_property::RLO ||
+                            pae.prop_ == bidi_property::LRO ||
+                            pae.prop_ == bidi_property::PDF) {
+                            pae.prop_ = bidi_property::BN;
                         }
                         return pae;
                     });

@@ -40,8 +40,8 @@ TEST(parser, exceptions)
         [](text::collation_strength strength) {},
         [](text::variable_weighting weighting) {},
         [](text::l2_weight_order order) {},
-        [](text::case_level_t case_level) {},
-        [](text::case_first_t case_first) {},
+        [](text::case_level) {},
+        [](text::case_first) {},
         [](text::detail::cp_seq_t const & suppressions) {},
         [](std::vector<text::detail::reorder_group> const & reorder_groups) {},
         [](text::string const & s) { std::cout << s; },
@@ -604,8 +604,8 @@ TEST(parser, options)
             [](text::collation_strength strength) {},
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
-            [](text::case_level_t case_level) {},
-            [](text::case_first_t case_first) {},
+            [](text::case_level) {},
+            [](text::case_first) {},
             [&result](text::detail::cp_seq_t const & suppressions) {
                 result = suppressions;
             },
@@ -628,8 +628,8 @@ TEST(parser, options)
             [&result](text::collation_strength strength) { result = strength; },
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
-            [](text::case_level_t case_level) {},
-            [](text::case_first_t case_first) {},
+            [](text::case_level) {},
+            [](text::case_first) {},
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
@@ -674,8 +674,8 @@ TEST(parser, options)
                 result = weighting;
             },
             [](text::l2_weight_order order) {},
-            [](text::case_level_t case_level) {},
-            [](text::case_first_t case_first) {},
+            [](text::case_level) {},
+            [](text::case_first) {},
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
@@ -703,8 +703,8 @@ TEST(parser, options)
             [](text::collation_strength strength) {},
             [](text::variable_weighting weighting) {},
             [&result](text::l2_weight_order order) { result = order; },
-            [](text::case_level_t case_level) {},
-            [](text::case_first_t case_first) {},
+            [](text::case_level) {},
+            [](text::case_first) {},
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
@@ -720,15 +720,15 @@ TEST(parser, options)
     }
 
     {
-        text::case_level_t result = text::case_level_t::off;
+        text::case_level result = text::case_level::off;
         text::detail::collation_tailoring_interface callbacks = {
             [](text::detail::cp_seq_t const & reset_, bool before_) {},
             [](text::detail::relation_t const & rel) {},
             [](text::collation_strength strength) {},
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
-            [&result](text::case_level_t case_level) { result = case_level; },
-            [](text::case_first_t case_first) {},
+            [&result](text::case_level case_lvl) { result = case_lvl; },
+            [](text::case_first) {},
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
@@ -740,24 +740,24 @@ TEST(parser, options)
         sv = "[caseLevel on]";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
-        EXPECT_EQ(result, text::case_level_t::on);
+        EXPECT_EQ(result, text::case_level::on);
 
         sv = "[caseLevel off]";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
-        EXPECT_EQ(result, text::case_level_t::off);
+        EXPECT_EQ(result, text::case_level::off);
     }
 
     {
-        text::case_first_t result = text::case_first_t::off;
+        text::case_first result = text::case_first::off;
         text::detail::collation_tailoring_interface callbacks = {
             [](text::detail::cp_seq_t const & reset_, bool before_) {},
             [](text::detail::relation_t const & rel) {},
             [](text::collation_strength strength) {},
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
-            [](text::case_level_t case_level) {},
-            [&result](text::case_first_t case_first) { result = case_first; },
+            [](text::case_level) {},
+            [&result](text::case_first case_1st) { result = case_1st; },
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const &
                    reorder_groups) {},
@@ -769,17 +769,17 @@ TEST(parser, options)
         sv = "[caseFirst upper]";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
-        EXPECT_EQ(result, text::case_first_t::upper);
+        EXPECT_EQ(result, text::case_first::upper);
 
         sv = "[caseFirst lower]";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
-        EXPECT_EQ(result, text::case_first_t::lower);
+        EXPECT_EQ(result, text::case_first::lower);
 
         sv = "[caseFirst off]";
         EXPECT_NO_THROW(text::detail::parse(
             sv.begin(), sv.end(), callbacks, "<test-string>"));
-        EXPECT_EQ(result, text::case_first_t::off);
+        EXPECT_EQ(result, text::case_first::off);
     }
 
     {
@@ -1492,8 +1492,8 @@ TEST(parser, options)
             [](text::collation_strength strength) {},
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
-            [](text::case_level_t case_level) {},
-            [](text::case_first_t case_first) {},
+            [](text::case_level) {},
+            [](text::case_first) {},
             [](text::detail::cp_seq_t const & suppressions) {},
             [&result](std::vector<text::detail::reorder_group> const &
                           reorder_groups) { result = reorder_groups; },
@@ -2216,8 +2216,8 @@ TEST(parser, options)
             [](text::collation_strength strength) {},
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
-            [](text::case_level_t case_level) {},
-            [](text::case_first_t case_first) {},
+            [](text::case_level) {},
+            [](text::case_first) {},
             [](text::detail::cp_seq_t const & suppressions) {},
             [&result](std::vector<text::detail::reorder_group> const &
                           reorder_groups) { result = reorder_groups; },
@@ -2237,8 +2237,8 @@ TEST(parser, options)
             [](text::collation_strength strength) {},
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
-            [](text::case_level_t case_level) {},
-            [](text::case_first_t case_first) {},
+            [](text::case_level) {},
+            [](text::case_first) {},
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const & reorder_groups) {},
             [](text::string const & s) { std::cout << s; },
@@ -2273,8 +2273,8 @@ TEST(parser, rules)
             [](text::collation_strength strength) {},
             [](text::variable_weighting weighting) {},
             [](text::l2_weight_order order) {},
-            [](text::case_level_t case_level) {},
-            [](text::case_first_t case_first) {},
+            [](text::case_level) {},
+            [](text::case_first) {},
             [](text::detail::cp_seq_t const & suppressions) {},
             [](std::vector<text::detail::reorder_group> const & reorder_groups) {},
             [](text::string const & s) { std::cout << s; },

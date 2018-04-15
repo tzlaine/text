@@ -42,6 +42,9 @@
 
 [def _Text_                Boost.Text]
 [def _CharRng_             [link boost_text__proposed_.concepts.charrange CharRange]]
+[def _ContCharRng_         [link boost_text__proposed_.concepts.contigcharrange ContigCharRange]]
+[def _GrRng_               [link boost_text__proposed_.concepts.graphemerange GraphemeRange]]
+[def _ContGrRng_           [link boost_text__proposed_.concepts.contiggraphemerange ContigGraphemeRange]]
 [def _CharIter_            [link boost_text__proposed_.concepts.chariter CharIter]]
 
 [def _s_                   [classref boost::text::string `string`]]
@@ -85,6 +88,7 @@
 [include string_layer.qbk]
 [include unicode_layer.qbk]
 [include text_layer.qbk]
+[include trie.qbk]
 [include examples.qbk]
 [include configuration.qbk]
 [include concepts.qbk]
