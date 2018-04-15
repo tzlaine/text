@@ -62,10 +62,11 @@ namespace boost { namespace text { namespace detail {
         uint16_t last_;
     };
 
-    extern uint32_t const * g_all_canonical_decompositions;
-    extern uint32_t const * g_all_compatible_decompositions;
+    BOOST_TEXT_DECL extern uint32_t const * g_all_canonical_decompositions;
+    BOOST_TEXT_DECL extern uint32_t const * g_all_compatible_decompositions;
 
-    std::unordered_map<uint64_t, uint32_t> make_composition_map();
+    BOOST_TEXT_DECL std::unordered_map<uint64_t, uint32_t>
+    make_composition_map();
 
     inline std::unordered_map<uint64_t, uint32_t> const & composition_map()
     {
@@ -87,7 +88,7 @@ namespace boost { namespace text { namespace detail {
 
     static_assert(sizeof(cp_props) == 12, "");
 
-    std::unordered_map<uint32_t, cp_props> make_cp_props_map();
+    BOOST_TEXT_DECL std::unordered_map<uint32_t, cp_props> make_cp_props_map();
 
     inline std::unordered_map<uint32_t, cp_props> const & cp_props_map()
     {

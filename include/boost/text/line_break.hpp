@@ -73,8 +73,9 @@ namespace boost { namespace text {
             return lhs.hi_ <= rhs.lo_;
         }
 
-        std::array<line_prop_interval, 49> const & make_line_prop_intervals();
-        std::unordered_map<uint32_t, line_property> const &
+        BOOST_TEXT_DECL std::array<line_prop_interval, 49> const &
+        make_line_prop_intervals();
+        BOOST_TEXT_DECL std::unordered_map<uint32_t, line_property> const &
         make_line_prop_map();
     }
 

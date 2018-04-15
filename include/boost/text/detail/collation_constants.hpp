@@ -2,6 +2,8 @@
 #ifndef BOOST_TEXT_DETAIL_COLLATION_CONSTANTS_HPP
 #define BOOST_TEXT_DETAIL_COLLATION_CONSTANTS_HPP
 
+#include <boost/text/config.hpp>
+
 #include <array>
 
 #include <cstdint>
@@ -70,8 +72,8 @@ namespace boost { namespace text { namespace detail {
         uint32_t primary_offset_;
     };
 
-    extern std::array<implicit_weights_segment, 10>
-        const g_implicit_weights_segments;
+    BOOST_TEXT_DECL extern std::array<implicit_weights_segment, 10> const
+        g_implicit_weights_segments;
 
 }}}
 

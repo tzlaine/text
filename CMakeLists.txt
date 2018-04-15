@@ -70,6 +70,7 @@ add_library(text
 target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(text PUBLIC boost)
 set_property(TARGET text PROPERTY CXX_STANDARD ${CXX_STD})
+target_compile_options(text PRIVATE -DBOOST_TEXT_SOURCE)
 if (link_flags)
     target_link_libraries(text PUBLIC ${link_flags})
     target_compile_options(text PUBLIC ${compile_flags})

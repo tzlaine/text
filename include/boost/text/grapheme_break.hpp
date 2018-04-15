@@ -49,9 +49,9 @@ namespace boost { namespace text {
             return lhs.hi_ <= rhs.lo_;
         }
 
-        std::array<grapheme_prop_interval, 3> const &
+        BOOST_TEXT_DECL std::array<grapheme_prop_interval, 3> const &
         make_grapheme_prop_intervals();
-        std::unordered_map<uint32_t, grapheme_property> const &
+        BOOST_TEXT_DECL std::unordered_map<uint32_t, grapheme_property> const &
         make_grapheme_prop_map();
     }
 

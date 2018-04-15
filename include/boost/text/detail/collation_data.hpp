@@ -97,8 +97,8 @@ namespace boost { namespace text { namespace detail {
         return collation_strength::identical;
     }
 
-    extern int const g_num_collation_elements;
-    extern collation_element const * g_collation_elements_first;
+    BOOST_TEXT_DECL extern int const g_num_collation_elements;
+    BOOST_TEXT_DECL extern collation_element const * g_collation_elements_first;
 
     struct collation_elements
     {
@@ -194,10 +194,10 @@ namespace boost { namespace text { namespace detail {
     using trie_iterator_t = collation_trie_t::iterator;
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 
-    extern int const g_num_trie_elements;
-    extern collation_trie_key<3> const * g_trie_keys_first;
-    extern collation_elements const * g_trie_values_first;
-    extern int const * g_trie_element_original_order_first;
+    BOOST_TEXT_DECL extern int const g_num_trie_elements;
+    BOOST_TEXT_DECL extern collation_trie_key<3> const * g_trie_keys_first;
+    BOOST_TEXT_DECL extern collation_elements const * g_trie_values_first;
+    BOOST_TEXT_DECL extern int const * g_trie_element_original_order_first;
 
     struct reorder_group
     {
@@ -215,7 +215,7 @@ namespace boost { namespace text { namespace detail {
                lhs.compressible_ == rhs.compressible_;
     }
 
-    extern std::array<reorder_group, 140> const g_reorder_groups;
+    BOOST_TEXT_DECL extern std::array<reorder_group, 140> const g_reorder_groups;
 
     inline optional<reorder_group> find_reorder_group(string_view name) noexcept
     {
