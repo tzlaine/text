@@ -92,6 +92,7 @@
 [include string_layer.qbk]
 [include unicode_layer.qbk]
 [include text_layer.qbk]
+[include segmented_vector.qbk]
 [include trie.qbk]
 [include examples.qbk]
 [include configuration.qbk]
