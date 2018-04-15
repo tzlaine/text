@@ -8,6 +8,8 @@
 
 namespace boost { namespace text {
 
+namespace detail {
+
 struct word_prop_interval
 {
     uint32_t lo_;
@@ -18,7 +20,9 @@ struct word_prop_interval
 bool operator<(word_prop_interval lhs, word_prop_interval rhs) noexcept
 { return lhs.hi_ <= rhs.lo_; }
 
-static constexpr std::array<word_prop_interval, 21> g_word_prop_intervals = {{
+std::array<word_prop_interval, 21> const & word_prop_intervals()
+{
+static std::array<word_prop_interval, 21> retval = {{
     word_prop_interval{0xf8, 0x1bb, word_property::ALetter},
     word_prop_interval{0x1c4, 0x294, word_property::ALetter},
     word_prop_interval{0x3f7, 0x482, word_property::ALetter},
@@ -42,8 +46,12 @@ static constexpr std::array<word_prop_interval, 21> g_word_prop_intervals = {{
     word_prop_interval{0xe0100, 0xe01f0, word_property::Extend},
 
 }};
+return retval;
+}
 
-static const std::unordered_map<uint32_t, word_property> g_word_prop_map = {
+std::unordered_map<uint32_t, word_property> const & word_prop_map()
+{
+static std::unordered_map<uint32_t, word_property> retval = {
     { 0xa, word_property::LF },
     { 0xb, word_property::Newline },
     { 0xc, word_property::Newline },
@@ -12276,15 +12284,21 @@ static const std::unordered_map<uint32_t, word_property> g_word_prop_map = {
     { 0xe007f, word_property::Extend },
 
 };
+return retval;
+}
+
+}
 
 word_property word_prop(uint32_t cp) noexcept
 {
-    auto const it = g_word_prop_map.find(cp);
-    if (it == g_word_prop_map.end()) {
-        auto const it2 = std::lower_bound(g_word_prop_intervals.begin(),
-                                          g_word_prop_intervals.end(),
-                                          word_prop_interval{cp, cp + 1});
-        if (it2 == g_word_prop_intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+    auto const & map = detail::word_prop_map();
+    auto const it = map.find(cp);
+    if (it == map.end()) {
+        auto const & intervals = detail::word_prop_intervals();
+        auto const it2 = std::lower_bound(intervals.begin(),
+                                          intervals.end(),
+                                          detail::word_prop_interval{cp, cp + 1});
+        if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
             return word_property::Other;
         return it2->prop_;
     }

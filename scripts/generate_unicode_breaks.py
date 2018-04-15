@@ -11,6 +11,8 @@ cpp_file_form = decls = '''\
 
 namespace boost {{ namespace text {{
 
+namespace detail {{
+
 struct {0}_interval
 {{
     uint32_t lo_;
@@ -21,22 +23,34 @@ struct {0}_interval
 bool operator<({0}_interval lhs, {0}_interval rhs) noexcept
 {{ return lhs.hi_ <= rhs.lo_; }}
 
-static constexpr std::array<{0}_interval, {1}> g_{0}_intervals = {{{{
+std::array<{0}_interval, {1}> const & {0}_intervals()
+{{
+static std::array<{0}_interval, {1}> retval = {{{{
 {2}
 }}}};
+return retval;
+}}
 
-static const std::unordered_map<uint32_t, {0}erty> g_{0}_map = {{
+std::unordered_map<uint32_t, {0}erty> const & {0}_map()
+{{
+static std::unordered_map<uint32_t, {0}erty> retval = {{
 {4}
 }};
+return retval;
+}}
+
+}}
 
 {0}erty {0}(uint32_t cp) noexcept
 {{
-    auto const it = g_{0}_map.find(cp);
-    if (it == g_{0}_map.end()) {{
-        auto const it2 = std::lower_bound(g_{0}_intervals.begin(),
-                                          g_{0}_intervals.end(),
-                                          {0}_interval{{cp, cp + 1}});
-        if (it2 == g_{0}_intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+    auto const & map = detail::{0}_map();
+    auto const it = map.find(cp);
+    if (it == map.end()) {{
+        auto const & intervals = detail::{0}_intervals();
+        auto const it2 = std::lower_bound(intervals.begin(),
+                                          intervals.end(),
+                                          detail::{0}_interval{{cp, cp + 1}});
+        if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
             return {0}erty::{5};
         return it2->prop_;
     }}
@@ -77,7 +91,7 @@ struct bidi_bracket_data
 
 inline bidi_bracket_data bidi_bracket(uint32_t cp) noexcept
 {{
-    constexpr std::array<bidi_bracket_data, {1}> brackets = {{{{
+    static std::array<bidi_bracket_data, {1}> const brackets = {{{{
 {0}
     }}}};
 
@@ -99,7 +113,7 @@ struct bidi_mirroring_data
 
 inline int bidi_mirroring(uint32_t cp) noexcept
 {{
-    constexpr std::array<bidi_mirroring_data, {3}> mirrorings = {{{{
+    static std::array<bidi_mirroring_data, {3}> const mirrorings = {{{{
 {2}
     }}}};
 

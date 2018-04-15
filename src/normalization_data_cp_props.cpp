@@ -30202,6 +30202,10 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
-    std::unordered_map<uint32_t, cp_props> const g_cp_props_map = make_map();
+    std::unordered_map<uint32_t, cp_props> const & cp_props_map()
+    {
+        static std::unordered_map<uint32_t, cp_props> const retval = make_map();
+        return retval;
+    }
 
 }}}

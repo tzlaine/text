@@ -8,6 +8,8 @@
 
 namespace boost { namespace text {
 
+namespace detail {
+
 struct bidi_prop_interval
 {
     uint32_t lo_;
@@ -18,7 +20,9 @@ struct bidi_prop_interval
 bool operator<(bidi_prop_interval lhs, bidi_prop_interval rhs) noexcept
 { return lhs.hi_ <= rhs.lo_; }
 
-static constexpr std::array<bidi_prop_interval, 53> g_bidi_prop_intervals = {{
+std::array<bidi_prop_interval, 53> const & bidi_prop_intervals()
+{
+static std::array<bidi_prop_interval, 53> retval = {{
     bidi_prop_interval{0xf8, 0x1bb, bidi_property::L},
     bidi_prop_interval{0x1c4, 0x294, bidi_property::L},
     bidi_prop_interval{0x3f7, 0x482, bidi_property::L},
@@ -74,8 +78,12 @@ static constexpr std::array<bidi_prop_interval, 53> g_bidi_prop_intervals = {{
     bidi_prop_interval{0x100000, 0x10fffe, bidi_property::L},
 
 }};
+return retval;
+}
 
-static const std::unordered_map<uint32_t, bidi_property> g_bidi_prop_map = {
+std::unordered_map<uint32_t, bidi_property> const & bidi_prop_map()
+{
+static std::unordered_map<uint32_t, bidi_property> retval = {
     { 0x0, bidi_property::BN },
     { 0x1, bidi_property::BN },
     { 0x2, bidi_property::BN },
@@ -18854,15 +18862,21 @@ static const std::unordered_map<uint32_t, bidi_property> g_bidi_prop_map = {
     { 0x10ffff, bidi_property::BN },
 
 };
+return retval;
+}
+
+}
 
 bidi_property bidi_prop(uint32_t cp) noexcept
 {
-    auto const it = g_bidi_prop_map.find(cp);
-    if (it == g_bidi_prop_map.end()) {
-        auto const it2 = std::lower_bound(g_bidi_prop_intervals.begin(),
-                                          g_bidi_prop_intervals.end(),
-                                          bidi_prop_interval{cp, cp + 1});
-        if (it2 == g_bidi_prop_intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+    auto const & map = detail::bidi_prop_map();
+    auto const it = map.find(cp);
+    if (it == map.end()) {
+        auto const & intervals = detail::bidi_prop_intervals();
+        auto const it2 = std::lower_bound(intervals.begin(),
+                                          intervals.end(),
+                                          detail::bidi_prop_interval{cp, cp + 1});
+        if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
             return bidi_property::L;
         return it2->prop_;
     }

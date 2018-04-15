@@ -28,7 +28,7 @@ struct bidi_bracket_data
 
 inline bidi_bracket_data bidi_bracket(uint32_t cp) noexcept
 {
-    constexpr std::array<bidi_bracket_data, 120> brackets = {{
+    static std::array<bidi_bracket_data, 120> const brackets = {{
         {0x0028, 0x0029, bidi_bracket_type::open},
         {0x0029, 0x0028, bidi_bracket_type::close},
         {0x005B, 0x005D, bidi_bracket_type::open},
@@ -169,7 +169,7 @@ struct bidi_mirroring_data
 
 inline int bidi_mirroring(uint32_t cp) noexcept
 {
-    constexpr std::array<bidi_mirroring_data, 364> mirrorings = {{
+    static std::array<bidi_mirroring_data, 364> const mirrorings = {{
         {0x0028, 1},
         {0x0029, 0},
         {0x003C, 3},

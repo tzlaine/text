@@ -8,6 +8,8 @@
 
 namespace boost { namespace text {
 
+namespace detail {
+
 struct grapheme_prop_interval
 {
     uint32_t lo_;
@@ -18,14 +20,20 @@ struct grapheme_prop_interval
 bool operator<(grapheme_prop_interval lhs, grapheme_prop_interval rhs) noexcept
 { return lhs.hi_ <= rhs.lo_; }
 
-static constexpr std::array<grapheme_prop_interval, 3> g_grapheme_prop_intervals = {{
+std::array<grapheme_prop_interval, 3> const & grapheme_prop_intervals()
+{
+static std::array<grapheme_prop_interval, 3> retval = {{
     grapheme_prop_interval{0xd800, 0xe000, grapheme_property::Control},
     grapheme_prop_interval{0xe0100, 0xe01f0, grapheme_property::Extend},
     grapheme_prop_interval{0xe01f0, 0xe1000, grapheme_property::Control},
 
 }};
+return retval;
+}
 
-static const std::unordered_map<uint32_t, grapheme_property> g_grapheme_prop_map = {
+std::unordered_map<uint32_t, grapheme_property> const & grapheme_prop_map()
+{
+static std::unordered_map<uint32_t, grapheme_property> retval = {
     { 0x0, grapheme_property::Control },
     { 0x1, grapheme_property::Control },
     { 0x2, grapheme_property::Control },
@@ -14020,15 +14028,21 @@ static const std::unordered_map<uint32_t, grapheme_property> g_grapheme_prop_map
     { 0xe00ff, grapheme_property::Control },
 
 };
+return retval;
+}
+
+}
 
 grapheme_property grapheme_prop(uint32_t cp) noexcept
 {
-    auto const it = g_grapheme_prop_map.find(cp);
-    if (it == g_grapheme_prop_map.end()) {
-        auto const it2 = std::lower_bound(g_grapheme_prop_intervals.begin(),
-                                          g_grapheme_prop_intervals.end(),
-                                          grapheme_prop_interval{cp, cp + 1});
-        if (it2 == g_grapheme_prop_intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+    auto const & map = detail::grapheme_prop_map();
+    auto const it = map.find(cp);
+    if (it == map.end()) {
+        auto const & intervals = detail::grapheme_prop_intervals();
+        auto const it2 = std::lower_bound(intervals.begin(),
+                                          intervals.end(),
+                                          detail::grapheme_prop_interval{cp, cp + 1});
+        if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
             return grapheme_property::Other;
         return it2->prop_;
     }

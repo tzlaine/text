@@ -8,6 +8,8 @@
 
 namespace boost { namespace text {
 
+namespace detail {
+
 struct line_prop_interval
 {
     uint32_t lo_;
@@ -18,7 +20,9 @@ struct line_prop_interval
 bool operator<(line_prop_interval lhs, line_prop_interval rhs) noexcept
 { return lhs.hi_ <= rhs.lo_; }
 
-static constexpr std::array<line_prop_interval, 49> g_line_prop_intervals = {{
+std::array<line_prop_interval, 49> const & line_prop_intervals()
+{
+static std::array<line_prop_interval, 49> retval = {{
     line_prop_interval{0x1c4, 0x250, line_property::AL},
     line_prop_interval{0x400, 0x482, line_property::AL},
     line_prop_interval{0x1401, 0x166d, line_property::AL},
@@ -70,8 +74,12 @@ static constexpr std::array<line_prop_interval, 49> g_line_prop_intervals = {{
     line_prop_interval{0x100000, 0x10fffe, line_property::AL},
 
 }};
+return retval;
+}
 
-static const std::unordered_map<uint32_t, line_property> g_line_prop_map = {
+std::unordered_map<uint32_t, line_property> const & line_prop_map()
+{
+static std::unordered_map<uint32_t, line_property> retval = {
     { 0x0, line_property::CM },
     { 0x1, line_property::CM },
     { 0x2, line_property::CM },
@@ -32019,15 +32027,21 @@ static const std::unordered_map<uint32_t, line_property> g_line_prop_map = {
     { 0xe007f, line_property::CM },
 
 };
+return retval;
+}
+
+}
 
 line_property line_prop(uint32_t cp) noexcept
 {
-    auto const it = g_line_prop_map.find(cp);
-    if (it == g_line_prop_map.end()) {
-        auto const it2 = std::lower_bound(g_line_prop_intervals.begin(),
-                                          g_line_prop_intervals.end(),
-                                          line_prop_interval{cp, cp + 1});
-        if (it2 == g_line_prop_intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+    auto const & map = detail::line_prop_map();
+    auto const it = map.find(cp);
+    if (it == map.end()) {
+        auto const & intervals = detail::line_prop_intervals();
+        auto const it2 = std::lower_bound(intervals.begin(),
+                                          intervals.end(),
+                                          detail::line_prop_interval{cp, cp + 1});
+        if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
             return line_property::AL;
         return it2->prop_;
     }

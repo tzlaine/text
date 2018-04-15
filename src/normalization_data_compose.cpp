@@ -964,7 +964,10 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
-    std::unordered_map<uint64_t, uint32_t> const g_composition_map =
-        make_map();
+    std::unordered_map<uint64_t, uint32_t> const & composition_map()
+    {
+        static std::unordered_map<uint64_t, uint32_t> const retval = make_map();
+        return retval;
+    }
 
 }}}
