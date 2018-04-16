@@ -196,6 +196,18 @@ set(compile_sources
     compile_include_unencoded_rope_1.cpp
     compile_include_unencoded_rope_2.cpp
     compile_include_unencoded_rope_3.cpp
+    compile_include_text_view_1.cpp
+    compile_include_text_view_2.cpp
+    compile_include_text_view_3.cpp
+    compile_include_text_1.cpp
+    compile_include_text_2.cpp
+    compile_include_text_3.cpp
+    compile_include_rope_view_1.cpp
+    compile_include_rope_view_2.cpp
+    compile_include_rope_view_3.cpp
+    compile_include_rope_1.cpp
+    compile_include_rope_2.cpp
+    compile_include_rope_3.cpp
     compile_include_vector_1.cpp
     compile_include_vector_2.cpp
     compile_include_algorithm_1.cpp

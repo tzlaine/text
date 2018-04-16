@@ -960,19 +960,29 @@ namespace boost { namespace text {
     }
 
     /** Creates a new text object that is the concatenation of t and t2. */
-    inline text operator+(text t, text const & t2) { return t += t2; }
+    inline text operator+(text t, text const & t2)
+    {
+        t.insert(t.end(), t2);
+        return t;
+    }
 
-    /** Creates a new text object that is the concatenation of t and c_str. */
+    /** Creates a new text object that is the concatenation of t and c_str.
+     */
     inline text operator+(text t, char const * c_str) { return t += c_str; }
 
-    /** Creates a new text object that is the concatenation of c_str and t. */
+    /** Creates a new text object that is the concatenation of c_str and t.
+     */
     inline text operator+(char const * c_str, text const & t)
     {
         return text(c_str) + t;
     }
 
     /** Creates a new text object that is the concatenation of t and tv. */
-    inline text operator+(text t, text_view tv) { return t += tv; }
+    inline text operator+(text t, text_view tv)
+    {
+        t.insert(t.end(), tv);
+        return t;
+    }
 
     /** Creates a new text object that is the concatenation of tv and t. */
     inline text operator+(text_view tv, text const & t) { return text(tv) + t; }

@@ -28,6 +28,7 @@ namespace boost { namespace text {
         struct const_rope_iterator;
     }
 
+    struct text;
     struct rope_view;
 
     /** A mutable sequence of graphemes with copy-on-write semantics.  A rope
@@ -742,7 +743,7 @@ namespace boost { namespace text {
         return make_iter(rope_.begin(), rope_.begin() + offset, rope_.end());
     }
 
-    rope &
+    inline rope &
     rope::replace_impl(rope_view old_substr, string str, bool str_normalized)
     {
         rope_view const this_rv(*this);
