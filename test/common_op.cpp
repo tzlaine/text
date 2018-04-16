@@ -1075,10 +1075,8 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(rsv + t, text::text("rsvrsvt"));
         EXPECT_EQ(t + rsv, text::text("trsvrsv"));
         // OK rsv + tv;
-#if 0 // TODO
         EXPECT_EQ(rsv + r, text::rope("rsvrsvr"));
         EXPECT_EQ(r + rsv, text::rope("rrsvrsv"));
-#endif
         // OK rsv + rv;
     }
 
@@ -1097,10 +1095,8 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(sv + t, text::text("svt"));
         EXPECT_EQ(t + sv, text::text("tsv"));
         // OK sv + tv;
-#if 0 // TODO
         EXPECT_EQ(sv + r, text::rope("svr"));
         EXPECT_EQ(r + sv, text::rope("rsv"));
-#endif
         // OK sv + rv;
     }
 
@@ -1125,10 +1121,8 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(s + t, text::text("st"));
         EXPECT_EQ(t + s, text::text("ts"));
         // OK s + tv;
-#if 0 // TODO
         EXPECT_EQ(s + r, text::rope("sr"));
         EXPECT_EQ(r + s, text::rope("rs"));
-#endif
         // OK s + rv;
     }
 
@@ -1153,10 +1147,8 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(ur + t, text::text("urt"));
         EXPECT_EQ(t + ur, text::text("tur"));
         // OK ur + tv;
-#if 0 // TODO
         EXPECT_EQ(ur + r, text::rope("urr"));
         EXPECT_EQ(r + ur, text::rope("rur"));
-#endif
         // OK ur + rv;
     }
 
@@ -1175,10 +1167,8 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(urv + t, text::text("urt"));
         EXPECT_EQ(t + urv, text::text("tur"));
         // OK urv + tv;
-#if 0 // TODO
         EXPECT_EQ(urv + r, text::rope("urr"));
         EXPECT_EQ(r + urv, text::rope("rur"));
-#endif
         // OK urv + rv;
     }
 
@@ -1195,10 +1185,8 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(tv + t, text::text("tt"));
         EXPECT_EQ(t + tv, text::text("tt"));
         // OK tv + tv;
-#if 0 // TODO
         EXPECT_EQ(tv + r, text::rope("tr"));
         EXPECT_EQ(r + tv, text::rope("rt"));
-#endif
         // OK tv + rv;
     }
 
@@ -1224,15 +1212,12 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(t + t, text::text("tt"));
         EXPECT_EQ(t + tv, text::text("tt"));
         EXPECT_EQ(tv + t, text::text("tt"));
-#if 0 // TODO
         EXPECT_EQ(t + r, text::rope("tr"));
         EXPECT_EQ(r + t, text::rope("rt"));
         EXPECT_EQ(t + rv, text::rope("tr"));
         EXPECT_EQ(rv + t, text::rope("rt"));
-#endif
     }
 
-#if 0 // TODO
     // text::rope
     {
         EXPECT_EQ(r + "literal", text::rope("rliteral"));
@@ -1241,8 +1226,8 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(c_str + r, text::rope("c_strr"));
         EXPECT_EQ(r + str, text::rope("rstr"));
         EXPECT_EQ(str + r, text::rope("strr"));
-        EXPECT_EQ(r + rsv, text::rope("rrsv"));
-        EXPECT_EQ(rsv + r, text::rope("rsvr"));
+        EXPECT_EQ(r + rsv, text::rope("rrsvrsv"));
+        EXPECT_EQ(rsv + r, text::rope("rsvrsvr"));
         EXPECT_EQ(r + sv, text::rope("rsv"));
         EXPECT_EQ(sv + r, text::rope("svr"));
         EXPECT_EQ(r + s, text::rope("rs"));
@@ -1278,7 +1263,6 @@ TEST(common_operations, operator_plus)
         EXPECT_EQ(r + rv, text::rope("rr"));
         // OK rv + rv;
     }
-#endif
 }
 
 TEST(common_operations, stream_inserters)
@@ -1557,7 +1541,6 @@ TEST(common_operations, operator_plus_equal)
         EXPECT_EQ(t_ += rv, text::rope("tr"));
     }
 
-#if 0 // TODO
     // text::rope
     {
         text::rope r_;
@@ -1569,7 +1552,7 @@ TEST(common_operations, operator_plus_equal)
         r_ = r;
         EXPECT_EQ(r_ += str, text::rope("rstr"));
         r_ = r;
-        EXPECT_EQ(r_ += rsv, text::rope("rrsv"));
+        EXPECT_EQ(r_ += rsv, text::rope("rrsvrsv"));
         r_ = r;
         EXPECT_EQ(r_ += sv, text::rope("rsv"));
         r_ = r;
@@ -1587,7 +1570,6 @@ TEST(common_operations, operator_plus_equal)
         r_ = r;
         EXPECT_EQ(r_ += rv, text::rope("rr"));
     }
-#endif
 
     // text::rope_view
 }
@@ -1683,7 +1665,6 @@ TEST(common_operations, operator_plus_equal_move)
         EXPECT_EQ(t_ += std::move(rv), text::rope("tr"));
     }
 
-#if 0 // TODO
     // text::rope
     {
         text::rope r_;
@@ -1695,7 +1676,7 @@ TEST(common_operations, operator_plus_equal_move)
         r_ = r;
         EXPECT_EQ(r_ += std::move(str), text::rope("rstr"));
         r_ = r;
-        EXPECT_EQ(r_ += std::move(rsv), text::rope("rrsv"));
+        EXPECT_EQ(r_ += std::move(rsv), text::rope("rrsvrsv"));
         r_ = r;
         EXPECT_EQ(r_ += std::move(sv), text::rope("rsv"));
         r_ = r;
@@ -1713,7 +1694,6 @@ TEST(common_operations, operator_plus_equal_move)
         r_ = r;
         EXPECT_EQ(r_ += std::move(rv), text::rope("rr"));
     }
-#endif
 
     // text::rope_view
 }
@@ -1875,7 +1855,6 @@ TEST(common_operations, insert)
         EXPECT_EQ(t_, text::rope("tr"));
     }
 
-#if 0 // TODO
     // text::rope
     {
         text::rope r_;
@@ -1891,7 +1870,7 @@ TEST(common_operations, insert)
         EXPECT_EQ(r_, text::rope("rstr"));
         r_ = r;
         r_.insert(r_.end(), rsv);
-        EXPECT_EQ(r_, text::rope("rrsv"));
+        EXPECT_EQ(r_, text::rope("rrsvrsv"));
         r_ = r;
         r_.insert(r_.end(), sv);
         EXPECT_EQ(r_, text::rope("rsv"));
@@ -1917,7 +1896,6 @@ TEST(common_operations, insert)
         r_.insert(r_.end(), rv);
         EXPECT_EQ(r_, text::rope("rr"));
     }
-#endif
 
     // text::rope_view
 }
@@ -1969,7 +1947,6 @@ TEST(common_operations, erase)
         EXPECT_EQ(t_, text::text(""));
     }
 
-#if 0 // TODO
     // text::rope
     {
         text::rope r_;
@@ -1981,7 +1958,6 @@ TEST(common_operations, erase)
         r_.erase(r_.begin(), r_.end());
         EXPECT_EQ(r_, text::rope(""));
     }
-#endif
 
     // text::rope_view
 }
@@ -2104,7 +2080,6 @@ TEST(common_operations, replace)
         EXPECT_EQ(t_, text::rope("r"));
     }
 
-#if 0 // TODO
     // text::rope
     {
         text::rope r_;
@@ -2123,7 +2098,7 @@ TEST(common_operations, replace)
         EXPECT_EQ(r_, text::rope("rstr"));
         r_ = r;
         r_.replace(all(), rsv);
-        EXPECT_EQ(r_, text::rope("rsv"));
+        EXPECT_EQ(r_, text::rope("rsvrsv"));
         r_ = r;
         r_.replace(end(), sv);
         EXPECT_EQ(r_, text::rope("rsv"));
@@ -2149,7 +2124,6 @@ TEST(common_operations, replace)
         r_.replace(all(), rv);
         EXPECT_EQ(r_, text::rope("r"));
     }
-#endif
 
     // text::rope_view
 }

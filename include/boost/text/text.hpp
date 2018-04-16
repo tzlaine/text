@@ -588,9 +588,7 @@ namespace boost { namespace text {
         GraphemeRange const & r,
         detail::graph_rng_alg_ret_t<int *, GraphemeRange>) :
         str_(r)
-    {
-        normalize_to_fcc(str_);
-    }
+    {}
 
     inline text & text::operator=(char const * c_str)
     {

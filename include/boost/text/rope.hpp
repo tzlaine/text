@@ -409,36 +409,24 @@ namespace boost { namespace text {
         rope_(rv.begin().base().base(), rv.end().base().base())
     {}
 
-    inline rope::rope(string_view sv)
-    {
-        text t(sv);
-        insert(begin(), std::move(t).extract());
-    }
+    inline rope::rope(string_view sv) : rope_(text(sv).extract()) {}
 
-    inline rope::rope(string s)
-    {
-        normalize_to_fcc(s);
-        insert(begin(), std::move(s));
-    }
+    inline rope::rope(string s) : rope_(text(std::move(s)).extract()) {}
 
     inline rope::rope(text t) : rope_(std::move(t).extract()) {}
 
     template<typename CharRange>
-    rope::rope(CharRange const & r, detail::rng_alg_ret_t<int *, CharRange>)
-    {
-        text t(r);
-        insert(begin(), std::move(t).extract());
-    }
+    rope::rope(CharRange const & r, detail::rng_alg_ret_t<int *, CharRange>) :
+        rope_(text(r).extract())
+    {}
 
     template<typename CharIter>
     rope::rope(
         CharIter first,
         CharIter last,
-        detail::char_iter_ret_t<void *, CharIter>)
-    {
-        text t(first, last);
-        insert(begin(), std::move(t).extract());
-    }
+        detail::char_iter_ret_t<void *, CharIter>) :
+        rope_(text(first, last).extract())
+    {}
 
     inline rope & rope::operator=(char const * c_str)
     {
@@ -588,22 +576,36 @@ namespace boost { namespace text {
 
     inline rope & rope::erase(rope_view rv)
     {
-#if 0
-        auto const rope_first = rv.begin().base().base();
-        auto const rope_last = rv.end().base().base();
+        rope_view const this_rv(*this);
+        auto const this_rv_first = this_rv.begin().base().base();
+        auto const this_rv_last = this_rv.end().base().base();
 
-        mutable_utf32_iter first(rope_.begin(), rope_first, rope_.end());
-        first = prev_stable_cp(first);
-        mutable_utf32_iter last(rope_.begin(), rope_last, rope_.end());
-        last = next_stable_cp(last);
+        auto const rv_first = rv.begin().base().base();
+        auto const rv_last = rv.end().base().base();
 
-        string str(first.base(), rope_first);
-        str.insert(str.end(), rope_last, last.base());
+        using mutable_utf32_view_iter =
+            utf8::to_utf32_iterator<detail::const_rope_view_iterator>;
+
+        mutable_utf32_view_iter first(this_rv_first, rv_first, this_rv_last);
+        first = find_if_backward(
+            mutable_utf32_view_iter(this_rv_first, this_rv_first, this_rv_last),
+            first,
+            detail::stable_fcc_code_point);
+        mutable_utf32_view_iter last(this_rv_first, rv_last, this_rv_last);
+
+        last = find_if(
+            last,
+            mutable_utf32_view_iter(this_rv_last, this_rv_last, this_rv_last),
+            detail::stable_fcc_code_point);
+
+        string str(first.base(), rv_first);
+        str.insert(str.end(), rv_last, last.base());
 
         rope_.replace(
-            rope_(first.base() - rope_.begin(), last.base() - rope_.begin()),
+            rope_(first.base() - this_rv_first, last.base() - this_rv_first),
             std::move(str));
-#endif
+
+        BOOST_TEXT_CHECK_ROPE_NORMALIZATION();
 
         return *this;
     }
