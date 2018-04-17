@@ -48,6 +48,9 @@ namespace boost { namespace text {
         /** Default ctor. */
         rope() {}
 
+        /** Constructs a text from a pair of iterators. */
+        rope(const_iterator first, const_iterator last);
+
         /** Constructs a rope from a null-terminated string. */
         rope(char const * c_str);
 
@@ -404,6 +407,10 @@ namespace boost { namespace text {
 
 namespace boost { namespace text {
 
+    inline rope::rope(const_iterator first, const_iterator last) :
+        rope(rope_view(first, last))
+    {}
+
     inline rope::rope(char const * c_str) : rope_(text(c_str).extract()) {}
 
     inline rope::rope(rope_view rv) :
@@ -558,6 +565,10 @@ namespace boost { namespace text {
     inline rope::const_iterator
     rope::insert(const_iterator at, repeated_string_view rsv)
     {
+        bool const rsv_null_terminated =
+            !rsv.view().empty() && rsv.view().end()[-1] == '\0';
+        if (rsv_null_terminated)
+            rsv = repeat(rsv.view()(0, -1), rsv.count());
         return insert_impl(at, string(rsv.begin(), rsv.end()), false);
     }
 
@@ -763,8 +774,6 @@ namespace boost { namespace text {
         str.insert(str.end(), rope_last, last.base());
 
         if (str_normalized) {
-            normalize_to_fcc(str);
-        } else {
             if (first.base() != rope_first) {
                 auto const prefix = str(rope_first - first.base());
                 container::small_vector<char, 128> buf;
@@ -784,6 +793,8 @@ namespace boost { namespace text {
                     utf8::from_utf32_back_inserter(buf));
                 str.replace(suffix, string_view(buf));
             }
+        } else {
+            normalize_to_fcc(str);
         }
 
         rope_.replace(

@@ -49,6 +49,12 @@ namespace boost { namespace text {
         /** Default ctor. */
         text() {}
 
+        /** Constructs a text from a pair of iterators. */
+        text(iterator first, iterator last);
+
+        /** Constructs a text from a pair of iterators. */
+        text(const_iterator first, const_iterator last);
+
         /** Constructs a text from a null-terminated string. */
         text(char const * c_str);
 
@@ -539,6 +545,14 @@ namespace boost { namespace text {
     }
 
 #ifndef BOOST_TEXT_DOXYGEN
+
+    inline text::text(iterator first, iterator last) :
+        text(text_view(first, last))
+    {}
+
+    inline text::text(const_iterator first, const_iterator last) :
+        text(text_view(first, last))
+    {}
 
     inline text::text(char const * c_str) : str_(c_str)
     {

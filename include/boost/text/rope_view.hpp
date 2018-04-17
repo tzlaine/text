@@ -53,11 +53,6 @@ namespace boost { namespace text {
         /** Disable construction from a temporary rope. */
         rope_view(rope && r) noexcept = delete;
 
-#if 0 // TODO
-        /** Constructs a rope_view from a pair of rope_iterators. */
-        rope_view(rope_iterator first, rope_iterator last) noexcept;
-#endif
-
         /** Constructs a rope_view from a pair of const_rope_iterators. */
         rope_view(const_rope_iterator first, const_rope_iterator last) noexcept;
 
@@ -190,17 +185,6 @@ namespace boost { namespace text {
     {}
 
     inline rope_view::rope_view(rope const & r) noexcept : view_(r.rope_) {}
-
-#if 0 // TODO
-    inline rope_view::rope_view(
-        rope_iterator first, rope_iterator last) noexcept
-    {
-        auto const lo =
-            first.base().base() - first.base().base().rope_->begin();
-        auto const hi = last.base().base() - last.base().base().rope_->begin();
-        view_ = unencoded_rope_view(*first.base().base().rope_, lo, hi);
-    }
-#endif
 
     inline rope_view::rope_view(
         const_rope_iterator first, const_rope_iterator last) noexcept
