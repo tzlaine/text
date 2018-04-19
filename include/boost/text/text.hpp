@@ -844,10 +844,10 @@ namespace boost { namespace text {
         auto const insertion_it = str_.insert(at.base().base(), first, last);
         int const hi = insertion_it - str_.begin();
         if (first_last_normalized) {
-            if (lo)
-                normalize_subrange(lo, lo);
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
         } else {
             normalize_subrange(lo, hi);
         }
@@ -865,10 +865,10 @@ namespace boost { namespace text {
         auto const insertion_it = str_.insert(at.base().base(), sv);
         int const hi = insertion_it - str_.begin();
         if (sv_normalized) {
-            if (lo)
-                normalize_subrange(lo, lo);
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
         } else {
             normalize_subrange(lo, hi);
         }
@@ -888,10 +888,10 @@ namespace boost { namespace text {
         int const new_size = storage_bytes();
         int const hi = lo + old_substr_size + (new_size - old_size);
         if (first_last_normalized) {
-            if (lo)
-                normalize_subrange(lo, lo);
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
         } else {
             normalize_subrange(lo, hi);
         }
@@ -914,10 +914,10 @@ namespace boost { namespace text {
                        (new_substr.size() - old_substr.storage_bytes());
         str_.replace(string_view(old_substr), new_substr);
         if (new_substr_normalized) {
-            if (lo)
-                normalize_subrange(lo, lo);
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
         } else {
             normalize_subrange(lo, hi);
         }

@@ -771,27 +771,43 @@ namespace boost { namespace text {
         last = next_stable_cp(last);
 
         str.insert(str.begin(), first.base(), rope_first);
+        auto const initial_str_end_offset = str.size();
         str.insert(str.end(), rope_last, last.base());
 
         if (str_normalized) {
-            if (first.base() != rope_first) {
-                auto const prefix = str(rope_first - first.base());
-                container::small_vector<char, 128> buf;
-                normalize_to_fcc(
-                    prefix.begin(),
-                    prefix.end(),
-                    utf8::from_utf32_back_inserter(buf));
-                str.replace(prefix, string_view(buf));
-            }
+            using utf32_string_iter = utf8::to_utf32_iterator<char const *>;
+
             if (last.base() != rope_last) {
-                auto const suffix =
-                    str(last.base() - rope_last); // negative index
+                auto const str_first = str.begin() + initial_str_end_offset;
+                auto const str_last =
+                    find_if_backward(
+                        utf32_string_iter(str.begin(), str.begin(), str.end()),
+                        utf32_string_iter(str.begin(), str_first, str.end()),
+                        detail::stable_fcc_code_point)
+                        .base();
+                auto const suffix = str(str_last - str.end()); // negative index
                 container::small_vector<char, 128> buf;
                 normalize_to_fcc(
-                    suffix.begin(),
-                    suffix.end(),
+                    utf32_range(suffix.begin(), suffix.end()),
                     utf8::from_utf32_back_inserter(buf));
                 str.replace(suffix, string_view(buf));
+            }
+
+            if (first.base() != rope_first) {
+                auto const str_first =
+                    str.begin() + (rope_first - first.base());
+                auto const str_last =
+                    find_if(
+                        utf32_string_iter(str.begin(), str_first, str.end()),
+                        utf32_string_iter(str.begin(), str.end(), str.end()),
+                        detail::stable_fcc_code_point)
+                        .base();
+                auto const prefix = str(str_last - str.begin());
+                container::small_vector<char, 128> buf;
+                normalize_to_fcc(
+                    utf32_range(prefix.begin(), prefix.end()),
+                    utf8::from_utf32_back_inserter(buf));
+                str.replace(prefix, string_view(buf));
             }
         } else {
             normalize_to_fcc(str);

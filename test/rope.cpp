@@ -486,6 +486,7 @@ TEST(rope, test_insert)
     }
 }
 
+#if 0 // TODO: Correct, but takes more than a minute in debug builds.
 TEST(rope, test_insert_rope_view)
 {
     text::rope rv_rope;
@@ -524,17 +525,16 @@ TEST(rope, test_insert_rope_view)
                 r_as_string.begin() + r_as_string_at,
                 rv.begin().base().base(),
                 rv.end().base().base());
-#if 0 // TODO: Does not halt.
             r.insert(std::next(r.begin(), r_at), rv);
 
             local_string.assign(r.begin().base().base(), r.end().base().base());
             EXPECT_EQ(local_string, r_as_string)
                 << "i=" << i << " j=" << j << " insert( " << r_at << ", " << rv
                 << ")";
-#endif
         }
     }
 }
+#endif
 
 TEST(rope, test_erase)
 {
@@ -691,15 +691,22 @@ TEST(rope, test_replace_iter)
                 text::text const substr_copy(substr);
                 text::rope_view const after(std::next(t.begin(), j), t.end());
 
-                text::rope expected(before);
-                expected.insert(expected.end(), final_cp, last);
-                expected += after;
+                text::text expected_text(before);
+                expected_text.insert(expected_text.end(), final_cp, last);
+                expected_text += after;
+
+                text::rope expected_rope(before);
+                expected_rope.insert(expected_rope.end(), final_cp, last);
+                expected_rope += after;
+
+                EXPECT_EQ(expected_rope, expected_text)
+                    << "i=" << i << " j=" << j << " rope=" << expected_rope
+                    << " text=" << expected_text;
 
                 t.replace(substr, final_cp, last);
-#if 0 // TODO
-                EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
-                                       << " erasing '" << substr_copy << "'";
-#endif
+                EXPECT_EQ(t, expected_text)
+                    << "i=" << i << " j=" << j << " erasing '" << substr_copy
+                    << "'";
             }
 
             {
@@ -711,15 +718,22 @@ TEST(rope, test_replace_iter)
                 text::text const substr_copy(substr);
                 text::rope_view const after(std::next(t.begin(), j), t.end());
 
-                text::rope expected(before);
-                expected.insert(expected.end(), first, last);
-                expected += after;
+                text::text expected_text(before);
+                expected_text.insert(expected_text.end(), first, last);
+                expected_text += after;
+
+                text::rope expected_rope(before);
+                expected_rope.insert(expected_rope.end(), first, last);
+                expected_rope += after;
+
+                EXPECT_EQ(expected_rope, expected_text)
+                    << "i=" << i << " j=" << j << " rope=" << expected_rope
+                    << " text=" << expected_text;
 
                 t.replace(substr, first, last);
-#if 0 // TODO
-                EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
-                                       << " erasing '" << substr_copy << "'";
-#endif
+                EXPECT_EQ(t, expected_text)
+                    << "i=" << i << " j=" << j << " erasing '" << substr_copy
+                    << "'";
             }
         }
     }

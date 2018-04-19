@@ -458,8 +458,8 @@ TEST(text_tests, test_replace_iter)
                 expected += after;
 
                 t.replace(substr, final_cp, last);
-                EXPECT_EQ(t, expected)
-                    << "i=" << i << " j=" << j << " erasing '" << substr_copy << "'";
+                EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
+                                       << " erasing '" << substr_copy << "'";
             }
 
             {
@@ -476,8 +476,8 @@ TEST(text_tests, test_replace_iter)
                 expected += after;
 
                 t.replace(substr, first, last);
-                EXPECT_EQ(t, expected)
-                    << "i=" << i << " j=" << j << " erasing '" << substr_copy << "'";
+                EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
+                                       << " erasing '" << substr_copy << "'";
             }
         }
     }
