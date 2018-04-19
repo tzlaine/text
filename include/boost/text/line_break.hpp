@@ -1106,7 +1106,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         line).  A hard line break follows any code points with the property
         BK, CR (not followed by LF), LF, or NL. */
     template<typename CPIter, typename Sentinel>
-    CPIter prev_hard_line_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto prev_hard_line_break(CPIter first, CPIter it, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::prev_line_break_impl(first, it, last, true).iter;
     }
@@ -1130,7 +1131,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         \pre <code>first</code> is at the beginning of a line. */
     template<typename CPIter, typename Sentinel>
-    CPIter next_hard_line_break(CPIter first, Sentinel last) noexcept
+    auto next_hard_line_break(CPIter first, Sentinel last) noexcept
+        ->detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::next_line_break_impl(first, last, true).iter;
     }
@@ -1208,7 +1210,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         template<typename CPIter, typename Sentinel>
         struct next_hard_line_break_callable
         {
-            CPIter operator()(CPIter it, Sentinel last) noexcept
+            auto operator()(CPIter it, Sentinel last) noexcept
+                -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
                 return next_hard_line_break(it, last);
             }

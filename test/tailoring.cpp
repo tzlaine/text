@@ -1345,10 +1345,12 @@ TEST(tailoring, th)
                 [](text::string const & s) { std::cout << s; },
                 [](text::string const & s) { std::cout << s; });
 
+        text::string const a("\u0e41ab");
+        text::string const b("\u0e41c");
         EXPECT_EQ(
             text::collate(
-                text::string("\u0e41ab"),
-                text::string("\u0e41c"),
+                text::utf32_range(a),
+                text::utf32_range(b),
                 custom_table,
                 text::collation_strength::tertiary,
                 text::case_first::off,

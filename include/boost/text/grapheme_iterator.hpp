@@ -25,6 +25,9 @@ namespace boost { namespace text {
         using iterator_category = std::bidirectional_iterator_tag;
 
         static_assert(
+            detail::is_cp_iter<CPIter>::value,
+            "CPIter must be a code point iterator");
+        static_assert(
             std::is_same<
                 typename std::iterator_traits<CPIter>::iterator_category,
                 std::bidirectional_iterator_tag>::value ||
@@ -33,11 +36,6 @@ namespace boost { namespace text {
                     std::random_access_iterator_tag>::value,
             "grapheme_iterator requires its CPIter parameter to be at least "
             "bidirectional.");
-        static_assert(
-            sizeof(typename std::iterator_traits<CPIter>::value_type) == 4,
-            "grapheme_iterator requires its CPIter parameter to produce a "
-            "4-byte "
-            "value_type.");
 
         grapheme_iterator() noexcept : grapheme_{} {}
 

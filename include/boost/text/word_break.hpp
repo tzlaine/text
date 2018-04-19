@@ -234,7 +234,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         point of the word that <code>it</code> is within is returned (even if
         <code>it</code> is already at the first code point of a word). */
     template<typename CPIter, typename Sentinel>
-    CPIter prev_word_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto prev_word_break(CPIter first, CPIter it, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         if (it == first)
             return it;
@@ -488,7 +489,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
         \pre <code>first</code> is at the beginning of a word. */
     template<typename CPIter, typename Sentinel>
-    CPIter next_word_break(CPIter first, Sentinel last) noexcept
+    auto next_word_break(CPIter first, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         if (first == last)
             return first;
@@ -661,7 +663,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         template<typename CPIter, typename Sentinel>
         struct next_word_callable
         {
-            CPIter operator()(CPIter it, Sentinel last) noexcept
+            auto operator()(CPIter it, Sentinel last) noexcept
+                -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
                 return next_word_break(it, last);
             }

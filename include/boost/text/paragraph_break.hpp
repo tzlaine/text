@@ -26,7 +26,8 @@ namespace boost { namespace text {
         (even if <code>it</code> is already at the first code point of a
         paragraph). */
     template<typename CPIter, typename Sentinel>
-    CPIter prev_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto prev_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         if (it != first && it != last && *std::prev(it) == 0xd && *it == 0xa)
             --it;
@@ -43,7 +44,8 @@ namespace boost { namespace text {
 
         \pre <code>first</code> is at the beginning of a paragraph. */
     template<typename CPIter, typename Sentinel>
-    CPIter next_paragraph_break(CPIter first, Sentinel last) noexcept
+    auto next_paragraph_break(CPIter first, Sentinel last) noexcept
+        ->detail::cp_iter_ret_t<CPIter, CPIter>
     {
         if (first == last)
             return first;
@@ -90,7 +92,8 @@ namespace boost { namespace text {
         template<typename CPIter, typename Sentinel>
         struct next_paragraph_callable
         {
-            CPIter operator()(CPIter it, Sentinel last) noexcept
+            auto operator()(CPIter it, Sentinel last) noexcept
+                -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
                 return next_paragraph_break(it, last);
             }

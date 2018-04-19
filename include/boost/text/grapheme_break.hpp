@@ -187,7 +187,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         (even if <code>it</code> is already at the first code point of a
         grapheme). */
     template<typename CPIter, typename Sentinel>
-    CPIter prev_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
+    auto prev_grapheme_break(CPIter first, CPIter it, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         if (it == first)
             return it;
@@ -289,7 +290,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 
         \pre <code>first</code> is at the beginning of a word. */
     template<typename CPIter, typename Sentinel>
-    CPIter next_grapheme_break(CPIter first, Sentinel last) noexcept
+    auto next_grapheme_break(CPIter first, Sentinel last) noexcept
+        ->detail::cp_iter_ret_t<CPIter, CPIter>
     {
         if (first == last)
             return first;

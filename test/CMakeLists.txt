@@ -215,6 +215,7 @@ set(compile_sources
     compile_include_algorithm_2.cpp
     compile_detail_is_char_iter.cpp
     compile_detail_is_char_range.cpp
+    compile_detail_is_cp_iter.cpp
 )
 
 # Set to true to compile the headers with BOOST_TEXT_DOXYGEN defined

@@ -392,7 +392,8 @@ namespace boost { namespace text {
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
         form NFD to \a out. */
     template<typename CPIter, typename OutIter>
-    inline OutIter normalize_to_nfd(CPIter first, CPIter last, OutIter out)
+    inline auto normalize_to_nfd(CPIter first, CPIter last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
@@ -439,7 +440,8 @@ namespace boost { namespace text {
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
         form NFKD to \a out. */
     template<typename CPIter, typename OutIter>
-    inline OutIter normalize_to_nfkd(CPIter first, CPIter last, OutIter out)
+    inline auto normalize_to_nfkd(CPIter first, CPIter last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
@@ -486,7 +488,8 @@ namespace boost { namespace text {
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
         form NFC to \a out. */
     template<typename CPIter, typename OutIter>
-    inline OutIter normalize_to_nfc(CPIter first, CPIter last, OutIter out)
+    inline auto normalize_to_nfc(CPIter first, CPIter last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_composed<false>(
             first,
@@ -535,7 +538,8 @@ namespace boost { namespace text {
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
         form NFKC to \a out. */
     template<typename CPIter, typename OutIter>
-    inline OutIter normalize_to_nfkc(CPIter first, CPIter last, OutIter out)
+    inline auto normalize_to_nfkc(CPIter first, CPIter last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_composed<false>(
             first,
@@ -589,7 +593,8 @@ namespace boost { namespace text {
     /** Returns true iff the given sequence of code points is normalized
         NFD. */
     template<typename CPIter>
-    bool normalized_nfd(CPIter first, CPIter last) noexcept
+    auto normalized_nfd(CPIter first, CPIter last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_decomposed(
             first,
@@ -611,7 +616,8 @@ namespace boost { namespace text {
     /** Returns true iff the given sequence of code points is normalized
         NFKD. */
     template<typename CPIter>
-    bool normalized_nfkd(CPIter first, CPIter last) noexcept
+    auto normalized_nfkd(CPIter first, CPIter last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_decomposed(
             first,
@@ -635,7 +641,8 @@ namespace boost { namespace text {
     /** Returns true iff the given sequence of code points is normalized
         NFC. */
     template<typename CPIter>
-    bool normalized_nfc(CPIter first, CPIter last) noexcept
+    auto normalized_nfc(CPIter first, CPIter last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_composed(
             first,
@@ -657,7 +664,8 @@ namespace boost { namespace text {
     /** Returns true iff the given sequence of code points is normalized
         NFKC. */
     template<typename CPIter>
-    bool normalized_nfkc(CPIter first, CPIter last) noexcept
+    auto normalized_nfkc(CPIter first, CPIter last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_composed(
             first,
@@ -681,7 +689,8 @@ namespace boost { namespace text {
     /** Returns true iff the given sequence of code points is in an FCD
         form. */
     template<typename CPIter>
-    bool fcd_form(CPIter first, CPIter last) noexcept
+    auto fcd_form(CPIter first, CPIter last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
     {
         // http://www.unicode.org/notes/tn5/#FCD_Test
         int prev_ccc = 0;
@@ -713,7 +722,8 @@ namespace boost { namespace text {
         \see https://unicode.org/notes/tn5
     */
     template<typename CPIter, typename OutIter>
-    inline OutIter normalize_to_fcc(CPIter first, CPIter last, OutIter out)
+    inline auto normalize_to_fcc(CPIter first, CPIter last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_composed<true>(
             first,

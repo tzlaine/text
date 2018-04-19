@@ -303,6 +303,37 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
+    using is_code_point = std::integral_constant<
+        bool,
+        (std::is_unsigned<T>::value && std::is_integral<T>::value &&
+         sizeof(T) == 4)>;
+
+    template<typename T>
+    using is_cp_iter = std::integral_constant<
+        bool,
+        ((std::is_pointer<T>::value &&
+          is_code_point<typename std::remove_cv<
+              typename std::remove_pointer<T>::type>::type>::value) ||
+         (is_code_point<typename std::remove_cv<
+              detected_t<value_type_, T>>::type>::value))>;
+
+    template<typename T, typename R1, bool R1IsCPRange = is_cp_iter<R1>::value>
+    struct cp_iter_ret
+    {
+    };
+
+    template<typename T, typename R1>
+    struct cp_iter_ret<T, R1, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1>
+    using cp_iter_ret_t = typename cp_iter_ret<T, R1>::type;
+
+
+
+    template<typename T>
     using is_grapheme_char_range = std::integral_constant<
         bool,
         is_char_iter<remove_cv_ref_t<decltype(

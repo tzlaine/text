@@ -9,7 +9,8 @@ namespace boost { namespace text {
 
     /** Returns a string constructed from [first, last). */
     template<typename CPIter>
-    string to_string(CPIter first, CPIter last)
+    auto to_string(CPIter first, CPIter last)
+        -> detail::cp_iter_ret_t<string, CPIter>
     {
         return string(
             utf8::from_utf32_iterator<CPIter>(first, first, last),
@@ -20,7 +21,7 @@ namespace boost { namespace text {
         sequence of code points. */
     struct utf32_range
     {
-        using iterator = utf8::to_utf32_iterator<char const *, char const *>;
+        using iterator = utf8::to_utf32_iterator<char const *>;
 
         utf32_range() :
             first_(nullptr, nullptr, nullptr),
@@ -62,6 +63,10 @@ namespace boost { namespace text {
     {
         using iterator = CPIter;
         using sentinel = Sentinel;
+
+        static_assert(
+            detail::is_cp_iter<CPIter>::value,
+            "CPIter must be a code point iterator");
 
         cp_range() {}
         cp_range(iterator first, sentinel last) : first_(first), last_(last) {}

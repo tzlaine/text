@@ -1112,7 +1112,8 @@ namespace boost { namespace text {
     struct next_hard_line_break_callable
     {
         template<typename CPIter>
-        CPIter operator()(CPIter first, CPIter last) noexcept
+        auto operator()(CPIter first, CPIter last) noexcept
+            -> detail::cp_iter_ret_t<CPIter, CPIter>
         {
             return next_hard_line_break(first, last);
         }
@@ -1123,6 +1124,10 @@ namespace boost { namespace text {
     struct bidirectional_subrange
     {
         using iterator = detail::fwd_rev_cp_iter<CPIter>;
+
+        static_assert(
+            detail::is_cp_iter<CPIter>::value,
+            "CPIter must be a code point iterator");
 
         bidirectional_subrange() noexcept {}
         bidirectional_subrange(iterator first, iterator last) noexcept :
@@ -1150,11 +1155,12 @@ namespace boost { namespace text {
         typename CPIter,
         typename OutIter,
         typename NextLineBreakFunc = next_hard_line_break_callable>
-    OutIter bidirectional_order(
+    auto bidirectional_order(
         CPIter first,
         CPIter last,
         OutIter out,
         NextLineBreakFunc && next_line_break = NextLineBreakFunc{})
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         static_assert(
             std::is_same<

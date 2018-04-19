@@ -309,7 +309,7 @@ namespace boost { namespace text {
         }
 
         template<typename CPIter, typename LeadByteFunc>
-        void
+        auto
         s2(CPIter first,
            CPIter last,
            container::small_vector<collation_element, 1024> & ces,
@@ -319,6 +319,7 @@ namespace boost { namespace text {
            collation_strength strength,
            variable_weighting weighting,
            retain_case_bits_t retain_case_bits)
+            -> detail::cp_iter_ret_t<void, CPIter>
         {
             bool after_variable = false;
             while (first != last) {
@@ -447,7 +448,7 @@ namespace boost { namespace text {
         }
 
         template<typename CEIter, typename CPIter, typename Container>
-        void
+        auto
         s3(CEIter ces_first,
            CEIter ces_last,
            int ces_size,
@@ -458,7 +459,7 @@ namespace boost { namespace text {
            CPIter cps_first,
            CPIter cps_last,
            int cps_size,
-           Container & bytes)
+           Container & bytes) -> detail::cp_iter_ret_t<void, CPIter>
         {
             container::small_vector<uint32_t, 256> l1;
             container::small_vector<uint32_t, 256> l2;
@@ -569,7 +570,7 @@ namespace boost { namespace text {
         }
 
         template<typename CPIter>
-        text_sort_key collation_sort_key(
+        auto collation_sort_key(
             CPIter first,
             CPIter last,
             collation_strength strength,
@@ -577,10 +578,11 @@ namespace boost { namespace text {
             case_level case_lvl,
             variable_weighting weighting,
             l2_weight_order l2_order,
-            collation_table const & table);
+            collation_table const & table)
+            -> detail::cp_iter_ret_t<text_sort_key, CPIter>;
 
         template<typename CPIter1, typename CPIter2>
-        int collate(
+        auto collate(
             CPIter1 lhs_first,
             CPIter1 lhs_last,
             CPIter2 rhs_first,
@@ -591,6 +593,7 @@ namespace boost { namespace text {
             variable_weighting weighting,
             l2_weight_order l2_order,
             collation_table const & table)
+            -> detail::cp_iter_ret_t<int, CPIter1>
         {
             text_sort_key const lhs_sk = collation_sort_key(
                 lhs_first,
@@ -621,7 +624,7 @@ namespace boost { namespace text {
         such as case_first will be honored, so long as they do not conlfict
         with the settings on the given table. */
     template<typename CPIter>
-    text_sort_key collation_sort_key(
+    auto collation_sort_key(
         CPIter first,
         CPIter last,
         collation_table const & table,
@@ -630,6 +633,7 @@ namespace boost { namespace text {
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
+        -> detail::cp_iter_ret_t<text_sort_key, CPIter>
     {
         return detail::collation_sort_key(
             first,
@@ -676,7 +680,7 @@ namespace boost { namespace text {
         settings such as case_first will be honored, so long as they do not
         conlfict with the settings on the given table. */
     template<typename CPIter1, typename CPIter2>
-    int collate(
+    auto collate(
         CPIter1 lhs_first,
         CPIter1 lhs_last,
         CPIter2 rhs_first,
@@ -687,6 +691,7 @@ namespace boost { namespace text {
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
+        -> detail::cp_iter_ret_t<int, CPIter1>
     {
         return detail::collate(
             lhs_first,
@@ -738,7 +743,7 @@ namespace boost { namespace text {
 namespace boost { namespace text { namespace detail {
 
     template<typename CPIter>
-    text_sort_key collation_sort_key(
+    auto collation_sort_key(
         CPIter first,
         CPIter last,
         collation_strength strength,
@@ -747,6 +752,7 @@ namespace boost { namespace text { namespace detail {
         variable_weighting weighting,
         l2_weight_order l2_order,
         collation_table const & table)
+        -> detail::cp_iter_ret_t<text_sort_key, CPIter>
     {
         auto const initial_first = first;
 
