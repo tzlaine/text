@@ -79,8 +79,8 @@ namespace boost { namespace text {
             return pae.prop_;
         }
 
-        template<typename CPIter>
-        CPIter matching_pdi(CPIter it, CPIter last) noexcept
+        template<typename CPIter, typename Sentinel>
+        CPIter matching_pdi(CPIter it, Sentinel last) noexcept
         {
             if (it == last)
                 return last;
@@ -124,8 +124,8 @@ namespace boost { namespace text {
 
         int const bidi_max_depth = 125;
 
-        template<typename CPIter>
-        int p2_p3(CPIter para_it, CPIter para_last) noexcept
+        template<typename CPIter, typename Sentinel>
+        int p2_p3(CPIter para_it, Sentinel para_last) noexcept
         {
             // https://unicode.org/reports/tr9/#P2
             auto retval = 0;
@@ -1111,8 +1111,8 @@ namespace boost { namespace text {
     /** TODO */
     struct next_hard_line_break_callable
     {
-        template<typename CPIter>
-        auto operator()(CPIter first, CPIter last) noexcept
+        template<typename CPIter, typename Sentinel>
+        auto operator()(CPIter first, Sentinel last) noexcept
             -> detail::cp_iter_ret_t<CPIter, CPIter>
         {
             return next_hard_line_break(first, last);
@@ -1153,11 +1153,12 @@ namespace boost { namespace text {
     */
     template<
         typename CPIter,
+        typename Sentinel,
         typename OutIter,
         typename NextLineBreakFunc = next_hard_line_break_callable>
     auto bidirectional_order(
         CPIter first,
-        CPIter last,
+        Sentinel last,
         OutIter out,
         NextLineBreakFunc && next_line_break = NextLineBreakFunc{})
         -> detail::cp_iter_ret_t<OutIter, CPIter>

@@ -4,7 +4,7 @@
 #include <boost/text/utility.hpp>
 
 #include <array>
-#include <list>
+#include <deque>
 #include <string>
 #include <vector>
 
@@ -23,11 +23,11 @@ static_assert(
 static_assert(
     text::detail::is_cp_iter<std::array<uint32_t, 10>::const_reverse_iterator>{}, "");
 
-static_assert(text::detail::is_cp_iter<std::list<uint32_t const>::iterator>{}, "");
-static_assert(text::detail::is_cp_iter<std::list<uint32_t const>::const_iterator>{}, "");
-static_assert(text::detail::is_cp_iter<std::list<uint32_t const>::reverse_iterator>{}, "");
+static_assert(text::detail::is_cp_iter<std::list<uint32_t>::iterator>{}, "");
+static_assert(text::detail::is_cp_iter<std::list<uint32_t>::const_iterator>{}, "");
+static_assert(text::detail::is_cp_iter<std::list<uint32_t>::reverse_iterator>{}, "");
 static_assert(
-    text::detail::is_cp_iter<std::list<uint32_t const>::const_reverse_iterator>{}, "");
+    text::detail::is_cp_iter<std::list<uint32_t>::const_reverse_iterator>{}, "");
 
 static_assert(text::detail::is_cp_iter<text::utf8::to_utf32_iterator<char const *>>{}, "");
 static_assert(text::detail::is_cp_iter<text::utf32_range::iterator>{}, "");
