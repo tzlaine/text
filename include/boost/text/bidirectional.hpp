@@ -1558,7 +1558,6 @@ namespace boost { namespace text {
                            pae_cp_iterator{props_and_embeddings.end()}},
                           {pae_cp_iterator{props_and_embeddings.end()},
                            pae_cp_iterator{props_and_embeddings.end()}}};
-                auto cp_line_start = paragraph.begin();
                 for (auto line : lines) {
                     l1(line, paragraph_embedding_level);
 
@@ -1571,19 +1570,14 @@ namespace boost { namespace text {
 
                     // Output the reordered subranges.
                     for (auto run : reordered_runs) {
-                        // TODO: Use forthcoming direct iterator value it_ in
-                        // prop_and_embedding_t.
-                        auto out_first = cp_line_start;
-                        auto out_last = cp_line_start;
-                        std::advance(
-                            out_last, line.end().it_ - line.begin().it_);
-                        cp_line_start = out_last;
-
-                        auto out_value =
-                            bidirectional_subrange<CPIter>{out_first, out_last};
-
                         if (run.reversed()) {
                             // https://unicode.org/reports/tr9/#L4
+
+                            auto out_value = bidirectional_subrange<CPIter>{
+                                std::make_reverse_iterator(run.end()->it_),
+                                std::make_reverse_iterator(run.begin()->it_)};
+                            auto out_first = out_value.begin();
+                            auto out_last = out_value.end();
 
                             // If this run's directionality is R (aka odd, aka
                             // reversed), produce 1-code-point ranges for the
@@ -1591,42 +1585,53 @@ namespace boost { namespace text {
                             while (out_first != out_last) {
                                 int mirror_index = -1;
                                 auto it = std::find_if(
-                                    out_value.begin(),
-                                    out_value.end(),
+                                    out_first,
+                                    out_last,
                                     [&mirror_index](uint32_t cp) {
                                         mirror_index =
                                             detail::bidi_mirroring(cp);
                                         return mirror_index != -1;
                                     });
-                                if (it != out_value.end()) {
-                                    if (it != out_value.begin()) {
-                                        auto prev_subrange =
-                                            bidirectional_subrange<CPIter>{
-                                                out_value.begin(), it};
-                                        *out = prev_subrange;
-                                        ++out;
-                                    }
-                                    *out = bidirectional_subrange<CPIter>{
-                                        detail::fwd_rev_cp_iter<CPIter>{
-                                            detail::bidi_mirroreds().begin() +
-                                                mirror_index,
-                                            detail::fwd_rev_cp_iter_kind::
-                                                mirror_array_it},
-                                        detail::fwd_rev_cp_iter<CPIter>{
-                                            detail::bidi_mirroreds().begin() +
-                                                mirror_index + 1,
-                                            detail::fwd_rev_cp_iter_kind::
-                                                mirror_array_it}};
+                                if (it == out_last)
+                                    break;
+
+                                // If we found a reversible CP, emit any
+                                // preceding CPs first.
+                                if (it != out_first) {
+                                    auto prev_subrange =
+                                        bidirectional_subrange<CPIter>{
+                                            out_first, it};
+                                    *out = prev_subrange;
                                     ++out;
-                                    out_value = bidirectional_subrange<CPIter>{
-                                        ++it, out_last};
                                 }
+
+                                // Emit the reversed CP.
+                                *out = bidirectional_subrange<CPIter>{
+                                    detail::fwd_rev_cp_iter<CPIter>{
+                                        detail::bidi_mirroreds().begin() +
+                                            mirror_index,
+                                        detail::fwd_rev_cp_iter_kind::
+                                            mirror_array_it},
+                                    detail::fwd_rev_cp_iter<CPIter>{
+                                        detail::bidi_mirroreds().begin() +
+                                            mirror_index + 1,
+                                        detail::fwd_rev_cp_iter_kind::
+                                            mirror_array_it}};
+                                ++out;
+
+                                // Increment for the next iteration.
+                                out_value = bidirectional_subrange<CPIter>{
+                                    ++it, out_last};
+                                out_first = out_value.begin();
                             }
+
                             if (!out_value.empty()) {
                                 *out = out_value;
                                 ++out;
                             }
                         } else {
+                            auto out_value = bidirectional_subrange<CPIter>{
+                                run.begin()->it_, run.end()->it_};
                             *out = out_value;
                             ++out;
                         }
