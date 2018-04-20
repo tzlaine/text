@@ -1565,6 +1565,9 @@ namespace boost { namespace text {
                     detail::i1_i2(run_sequence);
                 }
 
+                // TODO: Cut this function here in order to allow it to be
+                // tested as levels+final order, as in the Unicode test files.
+
                 using pae_cp_iterator =
                     detail::props_and_embeddings_cp_iterator<CPIter>;
 
