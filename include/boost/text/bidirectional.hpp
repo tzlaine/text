@@ -1187,6 +1187,8 @@ namespace boost { namespace text {
             };
             fwd_rev_cp_iter_kind kind_;
         };
+
+        enum class bidi_line_break_kind { none, hard, possible };
     }
 
     /** TODO */
@@ -1210,12 +1212,32 @@ namespace boost { namespace text {
             detail::is_cp_iter<CPIter>::value,
             "CPIter must be a code point iterator");
 
-        bidirectional_subrange() noexcept {}
+        bidirectional_subrange() noexcept :
+            break_(detail::bidi_line_break_kind::none)
+        {}
         bidirectional_subrange(iterator first, iterator last) noexcept :
             first_(first),
-            last_(last)
+            last_(last),
+            break_(detail::bidi_line_break_kind::none)
         {}
+#ifndef BOOST_TEXT_DOXYGEN
+        bidirectional_subrange(detail::bidi_line_break_kind kind) noexcept :
+            break_(kind)
+        {}
+#endif
 
+        bool line_break() const noexcept
+        {
+            return hard_line_break() || posible_line_break();
+        }
+        bool hard_line_break() const noexcept
+        {
+            return break_ == detail::bidi_line_break_kind::hard;
+        }
+        bool posible_line_break() const noexcept
+        {
+            return break_ == detail::bidi_line_break_kind::possible;
+        }
         bool empty() const noexcept { return first_ == last_; }
         iterator begin() const noexcept { return first_; }
         iterator end() const noexcept { return last_; }
@@ -1223,6 +1245,7 @@ namespace boost { namespace text {
     private:
         iterator first_;
         iterator last_;
+        detail::bidi_line_break_kind break_;
     };
 
     /** TODO
@@ -1542,23 +1565,12 @@ namespace boost { namespace text {
                     detail::i1_i2(run_sequence);
                 }
 
-                // TODO: Need a way to indicate the positions of soft line
-                // breaks (but probably not hard ones) interleaved with the
-                // subranges produced below.  Probably the way to do this is to
-                // output an empty range that indicates a line break.
-
                 using pae_cp_iterator =
                     detail::props_and_embeddings_cp_iterator<CPIter>;
 
-                lazy_segment_range<
-                    pae_cp_iterator,
-                    pae_cp_iterator,
-                    NextLineBreakFunc>
-                    lines{{pae_cp_iterator{props_and_embeddings.begin()},
-                           pae_cp_iterator{props_and_embeddings.end()}},
-                          {pae_cp_iterator{props_and_embeddings.end()},
-                           pae_cp_iterator{props_and_embeddings.end()}}};
-                for (auto line : lines) {
+                for (auto line : possible_lines(
+                         pae_cp_iterator{props_and_embeddings.begin()},
+                         pae_cp_iterator{props_and_embeddings.end()})) {
                     l1(line, paragraph_embedding_level);
 
                     // https://unicode.org/reports/tr9/#L2
@@ -1636,6 +1648,13 @@ namespace boost { namespace text {
                             ++out;
                         }
                     }
+
+                    bidirectional_subrange<CPIter> const line_break_range{
+                        line.hard_break()
+                            ? detail::bidi_line_break_kind::hard
+                            : detail::bidi_line_break_kind::possible};
+                    *out = line_break_range;
+                    ++out;
                 }
             }
         }
