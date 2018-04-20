@@ -332,7 +332,7 @@ namespace boost { namespace text {
             props_and_embeddings_t::iterator first,
             props_and_embeddings_t::iterator last)
         {
-            container::small_vector<level_run, 1024> retval;
+            all_runs_t retval;
             {
                 while (first != last) {
                     auto run = next_level_run(first, last);
@@ -900,20 +900,27 @@ namespace boost { namespace text {
         struct reordered_run
         {
             using iterator = props_and_embeddings_t::iterator;
+            using reverse_iterator =
+                std::reverse_iterator<props_and_embeddings_t::iterator>;
 
-            bool reversed() const noexcept { return last_ < first_; }
-            int embedding() const noexcept
-            {
-                return reversed() ? last_->embedding_ : first_->embedding_;
-            }
+            bool reversed() const noexcept { return reversed_; }
+            int embedding() const noexcept { return first_->embedding_; }
+            void reverse() noexcept { reversed_ = !reversed_; }
 
             iterator begin() const noexcept { return first_; }
             iterator end() const noexcept { return last_; }
-
-            void reverse() noexcept { std::swap(first_, last_); }
+            reverse_iterator rbegin() const noexcept
+            {
+                return std::make_reverse_iterator(last_);
+            }
+            reverse_iterator rend() const noexcept
+            {
+                return std::make_reverse_iterator(first_);
+            }
 
             iterator first_;
             iterator last_;
+            bool reversed_;
         };
 
         using reordered_runs_t = container::small_vector<reordered_run, 1024>;
@@ -926,7 +933,7 @@ namespace boost { namespace text {
                 all_runs.end(),
                 std::back_inserter(retval),
                 [](level_run run) {
-                    return reordered_run{run.first_, run.last_};
+                    return reordered_run{run.first_, run.last_, false};
                 });
             auto min_max_it = std::minmax_element(
                 retval.begin(),

@@ -1939,9 +1939,19 @@ TEST(detail_bidi, l2_)
         reordered_runs_t reordered_runs = l2(runs);
 
         string result;
+        uint32_t cps[1] = {0};
         for (auto run : reordered_runs) {
-            for (auto pae : run) {
-                result += (char)pae.cp_;
+            if (run.reversed()) {
+                for (auto it = run.rbegin(), end = run.rend(); it != end;
+                     ++it) {
+                    cps[0] = it->cp_;
+                    result += to_string(cps, cps + 1);
+                }
+            } else {
+                for (auto pae : run) {
+                    cps[0] = pae.cp_;
+                    result += to_string(cps, cps + 1);
+                }
             }
         }
 
@@ -1971,9 +1981,19 @@ TEST(detail_bidi, l2_)
         reordered_runs_t reordered_runs = l2(runs);
 
         string result;
+        uint32_t cps[1] = {0};
         for (auto run : reordered_runs) {
-            for (auto pae : run) {
-                result += (char)pae.cp_;
+            if (run.reversed()) {
+                for (auto it = run.rbegin(), end = run.rend(); it != end;
+                     ++it) {
+                    cps[0] = it->cp_;
+                    result += to_string(cps, cps + 1);
+                }
+            } else {
+                for (auto pae : run) {
+                    cps[0] = pae.cp_;
+                    result += to_string(cps, cps + 1);
+                }
             }
         }
 
@@ -1989,7 +2009,7 @@ TEST(detail_bidi, l2_)
             {'i', 0, bidi_property::L, false},
             {'d', 0, bidi_property::L, false},
             {' ', 0, bidi_property::WS, false},
-            {'"', 0, bidi_property::ON, false},
+            {0x201c, 0, bidi_property::ON, false}, // ” U+201C Left Double Quotation
             {'<', 0, bidi_property::RLI, false},
             {'c', 2, bidi_property::L, false},
             {'a', 2, bidi_property::L, false},
@@ -2006,9 +2026,9 @@ TEST(detail_bidi, l2_)
             {'R', 1, bidi_property::R, false},
             {'=', 0, bidi_property::PDI, false},
             {'.', 0, bidi_property::CS, false},
-            {'"', 0, bidi_property::ON, false},
+            {0x201d, 0, bidi_property::ON, false}, // ” U+201D Right Double Quotation
             {' ', 0, bidi_property::WS, false},
-            {'"', 0, bidi_property::ON, false},
+            {0x201c, 0, bidi_property::ON, false},
             {'<', 0, bidi_property::RLI, false},
             {'I', 1, bidi_property::R, false},
             {'T', 1, bidi_property::R, false},
@@ -2019,7 +2039,7 @@ TEST(detail_bidi, l2_)
             {'S', 1, bidi_property::R, false},
             {'=', 0, bidi_property::PDI, false},
             {',', 0, bidi_property::CS, false},
-            {'"', 0, bidi_property::ON, false},
+            {0x201d, 0, bidi_property::ON, false},
             {' ', 0, bidi_property::WS, false},
             {'s', 0, bidi_property::L, false},
             {'h', 0, bidi_property::L, false},
@@ -2038,13 +2058,23 @@ TEST(detail_bidi, l2_)
         reordered_runs_t reordered_runs = l2(runs);
 
         string result;
+        uint32_t cps[1] = {0};
         for (auto run : reordered_runs) {
-            for (auto pae : run) {
-                result += (char)pae.cp_;
+            if (run.reversed()) {
+                for (auto it = run.rbegin(), end = run.rend(); it != end;
+                     ++it) {
+                    cps[0] = it->cp_;
+                    result += to_string(cps, cps + 1);
+                }
+            } else {
+                for (auto pae : run) {
+                    cps[0] = pae.cp_;
+                    result += to_string(cps, cps + 1);
+                }
             }
         }
 
-        EXPECT_EQ(result, R"(he said “<RAC SNAEM car=.” “<SEOD TI=,” she agreed.)");
+        EXPECT_EQ(result, string("he said \u201c<RAC SNAEM car=.\u201d \u201c<SEOD TI=,\u201d she agreed."));
     }
     {
         props_and_embeddings_t paes = {
@@ -2060,7 +2090,7 @@ TEST(detail_bidi, l2_)
             {'A', 1, bidi_property::R, false},
             {'Y', 1, bidi_property::R, false},
             {' ', 1, bidi_property::WS, false},
-            {'\'', 1, bidi_property::ON, false},
+            {0x2019, 1, bidi_property::ON, false}, // U+2018 Single Left Quotation
             {'>', 1, bidi_property::LRI, false},
             {'h', 2, bidi_property::L, false},
             {'e', 2, bidi_property::L, false},
@@ -2070,7 +2100,7 @@ TEST(detail_bidi, l2_)
             {'i', 2, bidi_property::L, false},
             {'d', 2, bidi_property::L, false},
             {' ', 2, bidi_property::WS, false},
-            {'"', 2, bidi_property::ON, false},
+            {0x201c, 2, bidi_property::ON, false},
             {'<', 2, bidi_property::RLI, false},
             {'c', 4, bidi_property::L, false},
             {'a', 4, bidi_property::L, false},
@@ -2086,9 +2116,9 @@ TEST(detail_bidi, l2_)
             {'A', 3, bidi_property::R, false},
             {'R', 3, bidi_property::R, false},
             {'=', 2, bidi_property::PDI, false},
-            {'"', 2, bidi_property::ON, false},
+            {0x201d, 2, bidi_property::ON, false},
             {'=', 1, bidi_property::PDI, false},
-            {'\'', 1, bidi_property::ON, false},
+            {0x2018, 1, bidi_property::ON, false}, // U+2019 Single Right Quotation
             {'?', 1, bidi_property::ON, false},
         };
 
@@ -2096,13 +2126,23 @@ TEST(detail_bidi, l2_)
         reordered_runs_t reordered_runs = l2(runs);
 
         string result;
+        uint32_t cps[1] = {0};
         for (auto run : reordered_runs) {
-            for (auto pae : run) {
-                result += (char)pae.cp_;
+            if (run.reversed()) {
+                for (auto it = run.rbegin(), end = run.rend(); it != end;
+                     ++it) {
+                    cps[0] = it->cp_;
+                    result += to_string(cps, cps + 1);
+                }
+            } else {
+                for (auto pae : run) {
+                    cps[0] = pae.cp_;
+                    result += to_string(cps, cps + 1);
+                }
             }
         }
 
-        EXPECT_EQ(result, R"(?‘=he said “<RAC SNAEM car=”>’ YAS UOY DID)");
+        EXPECT_EQ(result, string("?\u2018=he said \u201c<RAC SNAEM car=\u201d>\u2019 YAS UOY DID"));
     }
 }
 
