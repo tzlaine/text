@@ -65,16 +65,22 @@ namespace boost { namespace text {
                    prop == bidi_property::FSI;
         }
 
+        template<typename CPIter>
         struct prop_and_embedding_t
         {
-            uint32_t cp_;
+            uint32_t const & cp() const { return *it_; }
+            uint32_t & cp() { return *it_; }
+
+            CPIter it_;
             int embedding_;
             bidi_property prop_;
             bool unmatched_pdi_;
             bool originally_nsm_;
         };
 
-        inline bidi_property bidi_prop(prop_and_embedding_t pae) noexcept
+        template<typename CPIter>
+        inline bidi_property
+        bidi_prop(prop_and_embedding_t<CPIter> pae) noexcept
         {
             return pae.prop_;
         }
@@ -150,9 +156,11 @@ namespace boost { namespace text {
             return retval;
         }
 
+        template<typename CPIter>
         using props_and_embeddings_t =
-            container::small_vector<prop_and_embedding_t, 1024>;
+            container::small_vector<prop_and_embedding_t<CPIter>, 1024>;
 
+        template<typename CPIter>
         struct props_and_embeddings_cp_iterator
         {
             using value_type = uint32_t;
@@ -161,7 +169,7 @@ namespace boost { namespace text {
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::bidirectional_iterator_tag;
 
-            reference operator*() const noexcept { return it_->cp_; }
+            reference operator*() const noexcept { return it_->cp(); }
             pointer operator->() const noexcept { return &**this; }
 
             props_and_embeddings_cp_iterator & operator++() noexcept
@@ -200,13 +208,15 @@ namespace boost { namespace text {
                 return lhs.it_ != rhs.it_;
             }
 
-            props_and_embeddings_t::iterator it_;
+            typename props_and_embeddings_t<CPIter>::iterator it_;
         };
 
+        template<typename CPIter>
         struct level_run
         {
-            using iterator = props_and_embeddings_t::iterator;
-            using const_iterator = props_and_embeddings_t::const_iterator;
+            using iterator = typename props_and_embeddings_t<CPIter>::iterator;
+            using const_iterator =
+                typename props_and_embeddings_t<CPIter>::const_iterator;
 
             bool empty() const noexcept { return first_ == last_; }
 
@@ -223,12 +233,13 @@ namespace boost { namespace text {
             bool used_;
         };
 
-        inline level_run next_level_run(
-            props_and_embeddings_t::iterator first,
-            props_and_embeddings_t::iterator last) noexcept
+        template<typename CPIter>
+        inline level_run<CPIter> next_level_run(
+            typename props_and_embeddings_t<CPIter>::iterator first,
+            typename props_and_embeddings_t<CPIter>::iterator last) noexcept
         {
             if (first == last)
-                return level_run{last, last, false};
+                return level_run<CPIter>{last, last, false};
 
             auto skippable = [](bidi_property prop) {
                 return prop == bidi_property::RLE ||
@@ -239,25 +250,28 @@ namespace boost { namespace text {
             };
 
             auto const initial_level = first->embedding_;
-            return level_run{
-                first,
-                std::find_if(
-                    first,
-                    last,
-                    [initial_level, skippable](prop_and_embedding_t pae) {
-                        return !skippable(pae.prop_) &&
-                               pae.embedding_ != initial_level;
-                    }),
-                false};
+            return level_run<CPIter>{first,
+                                     std::find_if(
+                                         first,
+                                         last,
+                                         [initial_level, skippable](
+                                             prop_and_embedding_t<CPIter> pae) {
+                                             return !skippable(pae.prop_) &&
+                                                    pae.embedding_ !=
+                                                        initial_level;
+                                         }),
+                                     false};
         }
 
-        using run_seq_runs_t = container::small_vector<level_run, 32>;
+        template<typename CPIter>
+        using run_seq_runs_t = container::small_vector<level_run<CPIter>, 32>;
 
+        template<typename CPIter>
         struct run_seq_iter
         {
-            using value_type = prop_and_embedding_t;
-            using pointer = prop_and_embedding_t *;
-            using reference = prop_and_embedding_t &;
+            using value_type = prop_and_embedding_t<CPIter>;
+            using pointer = prop_and_embedding_t<CPIter> *;
+            using reference = prop_and_embedding_t<CPIter> &;
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::bidirectional_iterator_tag;
 
@@ -288,7 +302,7 @@ namespace boost { namespace text {
             reference operator*() noexcept { return *it_; }
             pointer operator->() noexcept { return std::addressof(*it_); }
 
-            level_run::iterator base() const { return it_; }
+            typename level_run<CPIter>::iterator base() const { return it_; }
 
             friend bool operator==(run_seq_iter lhs, run_seq_iter rhs)
             {
@@ -299,43 +313,49 @@ namespace boost { namespace text {
                 return lhs.it_ != rhs.it_;
             }
 
-            level_run::iterator it_;
-            run_seq_runs_t::iterator runs_it_;
-            run_seq_runs_t::iterator runs_end_;
+            typename level_run<CPIter>::iterator it_;
+            typename run_seq_runs_t<CPIter>::iterator runs_it_;
+            typename run_seq_runs_t<CPIter>::iterator runs_end_;
         };
 
+        template<typename CPIter>
         struct run_sequence_t
         {
-            using iterator = run_seq_iter;
+            using iterator = run_seq_iter<CPIter>;
 
             iterator begin() noexcept
             {
-                return run_seq_iter{
+                return run_seq_iter<CPIter>{
                     runs_.begin()->first_, runs_.begin(), runs_.end()};
             }
             iterator end() noexcept
             {
-                return run_seq_iter{
+                return run_seq_iter<CPIter>{
                     std::prev(runs_.end())->last_, runs_.begin(), runs_.end()};
             }
 
-            run_seq_runs_t runs_;
+            run_seq_runs_t<CPIter> runs_;
             int embedding_;
             bidi_property sos_; // L or R
             bidi_property eos_; // L or R
         };
 
-        using all_runs_t = container::small_vector<level_run, 1024>;
-        using run_sequences_t = container::small_vector<run_sequence_t, 32>;
+        template<typename CPIter>
+        using all_runs_t = container::small_vector<level_run<CPIter>, 1024>;
 
-        inline all_runs_t find_all_runs(
-            props_and_embeddings_t::iterator first,
-            props_and_embeddings_t::iterator last)
+        template<typename CPIter>
+        using run_sequences_t =
+            container::small_vector<run_sequence_t<CPIter>, 32>;
+
+        template<typename CPIter>
+        inline all_runs_t<CPIter> find_all_runs(
+            typename props_and_embeddings_t<CPIter>::iterator first,
+            typename props_and_embeddings_t<CPIter>::iterator last)
         {
-            all_runs_t retval;
+            all_runs_t<CPIter> retval;
             {
                 while (first != last) {
-                    auto run = next_level_run(first, last);
+                    auto run = next_level_run<CPIter>(first, last);
                     if (run.empty())
                         break;
                     retval.push_back(run);
@@ -346,10 +366,11 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#BD13
-        inline run_sequences_t
-        find_run_sequences(props_and_embeddings_t & pae, all_runs_t & all_runs)
+        template<typename CPIter>
+        inline run_sequences_t<CPIter> find_run_sequences(
+            props_and_embeddings_t<CPIter> & pae, all_runs_t<CPIter> & all_runs)
         {
-            run_sequences_t retval;
+            run_sequences_t<CPIter> retval;
             if (pae.empty())
                 return retval;
 
@@ -358,7 +379,7 @@ namespace boost { namespace text {
                 if (!run.used_ && (run.first_->prop_ != bidi_property::PDI ||
                                    run.first_->unmatched_pdi_)) {
                     retval.resize(retval.size() + 1);
-                    run_sequence_t & sequence = retval.back();
+                    run_sequence_t<CPIter> & sequence = retval.back();
                     sequence.runs_.push_back(run);
                     sequence.embedding_ = run.first_->embedding_;
                     run.used_ = true;
@@ -371,7 +392,9 @@ namespace boost { namespace text {
                                 &all_runs[0] + all_runs.size();
                             // TODO: lower_bound instead?
                             auto const run_it = std::find_if(
-                                &run, all_runs_end, [pdi_it](level_run r) {
+                                &run,
+                                all_runs_end,
+                                [pdi_it](level_run<CPIter> r) {
                                     return pdi_it < r.last_;
                                 });
                             if (run_it != all_runs_end &&
@@ -392,8 +415,10 @@ namespace boost { namespace text {
         inline bool odd(int x) { return x & 0x1; }
         inline bool even(int x) { return !odd(x); }
 
+        template<typename CPIter>
         inline void find_sos_eos(
-            run_sequences_t & run_sequences, int paragraph_embedding_level)
+            run_sequences_t<CPIter> & run_sequences,
+            int paragraph_embedding_level)
         {
             auto prev_embedding = paragraph_embedding_level;
             auto embedding = run_sequences[0].embedding_;
@@ -417,7 +442,8 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#W1
-        inline void w1(run_sequence_t & seq) noexcept
+        template<typename CPIter>
+        inline void w1(run_sequence_t<CPIter> & seq) noexcept
         {
             auto prev_prop = seq.sos_;
             for (auto & elem : seq) {
@@ -444,8 +470,9 @@ namespace boost { namespace text {
         }
 
         // This works for W7 because all ALs are removed in W3.
+        template<typename CPIter>
         inline void w2_w7_impl(
-            run_sequence_t & seq,
+            run_sequence_t<CPIter> & seq,
             bidi_property trigger,
             bidi_property replacement) noexcept
         {
@@ -462,13 +489,15 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#W2
-        inline void w2(run_sequence_t & seq) noexcept
+        template<typename CPIter>
+        inline void w2(run_sequence_t<CPIter> & seq) noexcept
         {
             w2_w7_impl(seq, bidi_property::AL, bidi_property::AN);
         }
 
         // https://unicode.org/reports/tr9/#W3
-        inline void w3(run_sequence_t & seq) noexcept
+        template<typename CPIter>
+        inline void w3(run_sequence_t<CPIter> & seq) noexcept
         {
             for (auto & elem : seq) {
                 if (elem.prop_ == bidi_property::AL)
@@ -476,29 +505,32 @@ namespace boost { namespace text {
             }
         }
 
-        inline bool not_bn(prop_and_embedding_t pae) noexcept
+        template<typename CPIter>
+        inline bool not_bn(prop_and_embedding_t<CPIter> pae) noexcept
         {
             return pae.prop_ != bidi_property::BN;
         }
 
         // https://unicode.org/reports/tr9/#W4
-        inline void w4(run_sequence_t & seq) noexcept
+        template<typename CPIter>
+        inline void w4(run_sequence_t<CPIter> & seq) noexcept
         {
             auto const end = seq.end();
 
             // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
-            auto prev_it = std::find_if(seq.begin(), end, not_bn);
+            auto prev_it = std::find_if(seq.begin(), end, not_bn<CPIter>);
             if (prev_it == seq.end())
                 return;
-            auto it = std::find_if(std::next(prev_it), end, not_bn);
+            auto it = std::find_if(std::next(prev_it), end, not_bn<CPIter>);
             if (it == seq.end())
                 return;
-            auto next_it = std::find_if(std::next(it), end, not_bn);
+            auto next_it = std::find_if(std::next(it), end, not_bn<CPIter>);
 
             for (; next_it != end;
                  prev_it = it,
                  it = next_it,
-                 next_it = std::find_if(std::next(next_it), end, not_bn)) {
+                 next_it =
+                     std::find_if(std::next(next_it), end, not_bn<CPIter>)) {
                 if (prev_it->prop_ == bidi_property::EN &&
                     it->prop_ == bidi_property::ES &&
                     next_it->prop_ == bidi_property::EN) {
@@ -516,16 +548,18 @@ namespace boost { namespace text {
         // Find props matching \a changeable_prop that are adjacent to props
         // matching \a adjacent_prop, and replace them using \a replace.
         template<
+            typename CPIter,
             typename ChangeablePropPred,
             typename AdjacentPropPred,
             typename ReplaceFn>
         void replace_adjacents_with(
-            run_sequence_t & seq,
+            run_sequence_t<CPIter> & seq,
             ChangeablePropPred changeable_prop,
             AdjacentPropPred adjacent_prop,
             ReplaceFn replace) noexcept
         {
-            auto changeable = [changeable_prop](prop_and_embedding_t pae) {
+            auto changeable = [changeable_prop](
+                                  prop_and_embedding_t<CPIter> pae) {
                 // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
                 return changeable_prop(pae) || pae.prop_ == bidi_property::BN;
             };
@@ -536,7 +570,8 @@ namespace boost { namespace text {
                 it = std::find_if(
                     it,
                     end,
-                    [changeable, adjacent_prop](prop_and_embedding_t pae) {
+                    [changeable,
+                     adjacent_prop](prop_and_embedding_t<CPIter> pae) {
                         return changeable(pae) || adjacent_prop(pae);
                     });
                 if (it == end)
@@ -556,9 +591,11 @@ namespace boost { namespace text {
             }
         }
 
+        template<typename CPIter>
         struct set_prop_func_t
         {
-            prop_and_embedding_t operator()(prop_and_embedding_t pae) noexcept
+            prop_and_embedding_t<CPIter>
+            operator()(prop_and_embedding_t<CPIter> pae) noexcept
             {
                 pae.prop_ = prop_;
                 return pae;
@@ -566,43 +603,47 @@ namespace boost { namespace text {
             bidi_property prop_;
         };
 
-        inline set_prop_func_t set_prop(bidi_property prop) noexcept
+        template<typename CPIter>
+        inline set_prop_func_t<CPIter> set_prop(bidi_property prop) noexcept
         {
-            return set_prop_func_t{prop};
+            return set_prop_func_t<CPIter>{prop};
         }
 
         // https://unicode.org/reports/tr9/#W5
-        inline void w5(run_sequence_t & seq) noexcept
+        template<typename CPIter>
+        inline void w5(run_sequence_t<CPIter> & seq) noexcept
         {
-            auto et = [](prop_and_embedding_t pae) {
+            auto et = [](prop_and_embedding_t<CPIter> pae) {
                 return pae.prop_ == bidi_property::ET;
             };
-            auto en = [](prop_and_embedding_t pae) {
+            auto en = [](prop_and_embedding_t<CPIter> pae) {
                 return pae.prop_ == bidi_property::EN;
             };
-            replace_adjacents_with(seq, et, en, set_prop(bidi_property::EN));
+            replace_adjacents_with(
+                seq, et, en, set_prop<CPIter>(bidi_property::EN));
         }
 
         // https://unicode.org/reports/tr9/#W6
-        inline void w6(run_sequence_t & seq) noexcept
+        template<typename CPIter>
+        inline void w6(run_sequence_t<CPIter> & seq) noexcept
         {
             // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
-            auto bn = [](prop_and_embedding_t pae) {
+            auto bn = [](prop_and_embedding_t<CPIter> pae) {
                 return false; // BN is covered in replace_adjacents_with().
             };
-            auto et_es_cs = [](prop_and_embedding_t pae) {
+            auto et_es_cs = [](prop_and_embedding_t<CPIter> pae) {
                 return pae.prop_ == bidi_property::ET ||
                        pae.prop_ == bidi_property::ES ||
                        pae.prop_ == bidi_property::CS;
             };
             replace_adjacents_with(
-                seq, bn, et_es_cs, set_prop(bidi_property::ON));
+                seq, bn, et_es_cs, set_prop<CPIter>(bidi_property::ON));
 
             std::transform(
                 seq.begin(),
                 seq.end(),
                 seq.begin(),
-                [](prop_and_embedding_t pae) {
+                [](prop_and_embedding_t<CPIter> pae) {
                     if (pae.prop_ == bidi_property::ES ||
                         pae.prop_ == bidi_property::CS ||
                         pae.prop_ == bidi_property::ET) {
@@ -613,14 +654,16 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#W7
-        inline void w7(run_sequence_t & seq) noexcept
+        template<typename CPIter>
+        inline void w7(run_sequence_t<CPIter> & seq) noexcept
         {
             w2_w7_impl(seq, bidi_property::L, bidi_property::L);
         }
 
+        template<typename CPIter>
         struct bracket_pair
         {
-            using iterator = run_sequence_t::iterator;
+            using iterator = typename run_sequence_t<CPIter>::iterator;
 
             iterator begin() const noexcept { return first_; }
             iterator end() const noexcept { return last_; }
@@ -637,31 +680,37 @@ namespace boost { namespace text {
             iterator last_;
         };
 
-        using bracket_pairs_t = container::small_vector<bracket_pair, 64>;
+        template<typename CPIter>
+        using bracket_pairs_t =
+            container::small_vector<bracket_pair<CPIter>, 64>;
+
+        template<typename CPIter>
         struct bracket_stack_element_t
         {
-            run_sequence_t::iterator it_;
+            typename run_sequence_t<CPIter>::iterator it_;
             uint32_t paired_bracket_;
         };
 
         // https://unicode.org/reports/tr9/#BD16
-        inline bracket_pairs_t find_bracket_pairs(run_sequence_t & seq)
+        template<typename CPIter>
+        inline bracket_pairs_t<CPIter>
+        find_bracket_pairs(run_sequence_t<CPIter> & seq)
         {
-            bracket_pairs_t retval;
+            bracket_pairs_t<CPIter> retval;
 
             using stack_t =
-                container::static_vector<bracket_stack_element_t, 63>;
+                container::static_vector<bracket_stack_element_t<CPIter>, 63>;
             stack_t stack;
 
             for (auto it = seq.begin(), end = seq.end(); it != end; ++it) {
                 if (it->prop_ != bidi_property::ON)
                     continue;
-                auto const bracket = bidi_bracket(it->cp_);
+                auto const bracket = bidi_bracket(it->cp());
                 if (bracket && bracket.type_ == bidi_bracket_type::open) {
                     if (stack.size() == stack.capacity())
                         break;
-                    stack.push_back(
-                        bracket_stack_element_t{it, bracket.paired_bracket_});
+                    stack.push_back(bracket_stack_element_t<CPIter>{
+                        it, bracket.paired_bracket_});
                 } else if (
                     bracket && bracket.type_ == bidi_bracket_type::close) {
                     if (stack.empty())
@@ -670,12 +719,13 @@ namespace boost { namespace text {
                     auto match_rit = std::find_if(
                         stack.rbegin(),
                         stack.rend(),
-                        [&it](bracket_stack_element_t elem) {
-                            return it->cp_ == elem.paired_bracket_;
+                        [&it](bracket_stack_element_t<CPIter> elem) {
+                            return it->cp() == elem.paired_bracket_;
                         });
                     if (match_rit != stack.rend()) {
                         auto const match_it = --match_rit.base();
-                        retval.push_back(bracket_pair{match_it->it_, it});
+                        retval.push_back(
+                            bracket_pair<CPIter>{match_it->it_, it});
                         stack.erase(match_it, stack.end());
                     }
                 }
@@ -686,19 +736,26 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#N0
+        template<typename CPIter>
         inline void
-        n0(run_sequence_t & seq, bracket_pairs_t const & bracket_pairs) noexcept
+        n0(run_sequence_t<CPIter> & seq,
+           bracket_pairs_t<CPIter> const & bracket_pairs) noexcept
         {
-            auto set_props = [](bracket_pair pair,
-                                run_sequence_t::iterator end,
+            auto set_props = [](bracket_pair<CPIter> pair,
+                                typename run_sequence_t<CPIter>::iterator end,
                                 bidi_property prop) {
                 pair.first_->prop_ = prop;
                 auto transform_end = std::find_if(
-                    std::next(pair.last_), end, [](prop_and_embedding_t pae) {
+                    std::next(pair.last_),
+                    end,
+                    [](prop_and_embedding_t<CPIter> pae) {
                         return !pae.originally_nsm_;
                     });
                 std::transform(
-                    pair.last_, transform_end, pair.last_, set_prop(prop));
+                    pair.last_,
+                    transform_end,
+                    pair.last_,
+                    set_prop<CPIter>(prop));
             };
 
             auto bracket_it = bracket_pairs.begin();
@@ -714,7 +771,8 @@ namespace boost { namespace text {
                     auto same_direction_strong_it = std::find_if(
                         std::next(pair.first_),
                         pair.last_,
-                        [&seq, &strong_found](prop_and_embedding_t pae) {
+                        [&seq,
+                         &strong_found](prop_and_embedding_t<CPIter> pae) {
                             bool const strong_ = strong(pae.prop_);
                             if (!strong_)
                                 return false;
@@ -745,7 +803,9 @@ namespace boost { namespace text {
             }
         }
 
-        inline bool neutral_or_isolate(prop_and_embedding_t pae) noexcept
+        template<typename CPIter>
+        inline bool
+        neutral_or_isolate(prop_and_embedding_t<CPIter> pae) noexcept
         {
             // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
             return pae.prop_ == bidi_property::BN ||
@@ -760,9 +820,10 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#N1
-        inline void n1(run_sequence_t & seq) noexcept
+        template<typename CPIter>
+        inline void n1(run_sequence_t<CPIter> & seq) noexcept
         {
-            auto num_to_r = [](prop_and_embedding_t pae) {
+            auto num_to_r = [](prop_and_embedding_t<CPIter> pae) {
                 if (pae.prop_ == bidi_property::EN ||
                     pae.prop_ == bidi_property::AN)
                     return bidi_property::R;
@@ -773,10 +834,13 @@ namespace boost { namespace text {
             auto const end = seq.end();
             auto it = begin;
             while (it != end) {
-                auto next_it = std::find_if(it, end, neutral_or_isolate);
+                auto next_it =
+                    std::find_if(it, end, neutral_or_isolate<CPIter>);
                 bool only_bns = true;
                 auto next_next_it = std::find_if(
-                    next_it, end, [&only_bns](prop_and_embedding_t pae) {
+                    next_it,
+                    end,
+                    [&only_bns](prop_and_embedding_t<CPIter> pae) {
                         if (pae.prop_ != bidi_property::BN)
                             only_bns = false;
                         return !neutral_or_isolate(pae);
@@ -799,7 +863,7 @@ namespace boost { namespace text {
                         next_it,
                         next_next_it,
                         next_it,
-                        set_prop(bidi_property::L));
+                        set_prop<CPIter>(bidi_property::L));
                 } else if (
                     prev_prop == bidi_property::R &&
                     next_prop == bidi_property::R) {
@@ -807,7 +871,7 @@ namespace boost { namespace text {
                         next_it,
                         next_next_it,
                         next_it,
-                        set_prop(bidi_property::R));
+                        set_prop<CPIter>(bidi_property::R));
                 }
 
                 it = next_next_it;
@@ -815,7 +879,8 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#N2
-        inline void n2(run_sequence_t & seq) noexcept
+        template<typename CPIter>
+        inline void n2(run_sequence_t<CPIter> & seq) noexcept
         {
             auto const seq_embedding_prop =
                 even(seq.embedding_) ? bidi_property::L : bidi_property::R;
@@ -823,7 +888,7 @@ namespace boost { namespace text {
                 seq.begin(),
                 seq.end(),
                 seq.begin(),
-                [seq_embedding_prop](prop_and_embedding_t pae) {
+                [seq_embedding_prop](prop_and_embedding_t<CPIter> pae) {
                     if (neutral_or_isolate(pae))
                         pae.prop_ = seq_embedding_prop;
                     return pae;
@@ -832,7 +897,8 @@ namespace boost { namespace text {
 
         // https://unicode.org/reports/tr9/#I1
         // https://unicode.org/reports/tr9/#I2
-        inline void i1_i2(run_sequence_t & seq) noexcept
+        template<typename CPIter>
+        inline void i1_i2(run_sequence_t<CPIter> & seq) noexcept
         {
             bool const even_ = even(seq.embedding_);
             for (auto & elem : seq) {
@@ -854,19 +920,20 @@ namespace boost { namespace text {
         }
 
         // https://unicode.org/reports/tr9/#L1
+        template<typename CPIter>
         inline void
-        l1(cp_range<props_and_embeddings_cp_iterator> line,
+        l1(cp_range<props_and_embeddings_cp_iterator<CPIter>> line,
            int paragraph_embedding_level)
         {
             auto set_paragraph_embedding =
-                [paragraph_embedding_level](prop_and_embedding_t pae) {
+                [paragraph_embedding_level](prop_and_embedding_t<CPIter> pae) {
                     pae.embedding_ = paragraph_embedding_level;
                     return pae;
                 };
             auto const end = line.end().it_;
             auto first_contiguous_ws_or_isolate_it = end;
             for (auto it = line.begin().it_; it != end; ++it) {
-                auto const original_prop = boost::text::bidi_prop(it->cp_);
+                auto const original_prop = boost::text::bidi_prop(it->cp());
                 if (original_prop == bidi_property::B ||
                     original_prop == bidi_property::S) {
                     it->embedding_ = paragraph_embedding_level;
@@ -897,11 +964,12 @@ namespace boost { namespace text {
             }
         }
 
+        template<typename CPIter>
         struct reordered_run
         {
-            using iterator = props_and_embeddings_t::iterator;
-            using reverse_iterator =
-                std::reverse_iterator<props_and_embeddings_t::iterator>;
+            using iterator = typename props_and_embeddings_t<CPIter>::iterator;
+            using reverse_iterator = std::reverse_iterator<
+                typename props_and_embeddings_t<CPIter>::iterator>;
 
             bool reversed() const noexcept { return reversed_; }
             int embedding() const noexcept { return first_->embedding_; }
@@ -923,22 +991,25 @@ namespace boost { namespace text {
             bool reversed_;
         };
 
-        using reordered_runs_t = container::small_vector<reordered_run, 1024>;
+        template<typename CPIter>
+        using reordered_runs_t =
+            container::small_vector<reordered_run<CPIter>, 1024>;
 
-        inline reordered_runs_t l2(all_runs_t const & all_runs)
+        template<typename CPIter>
+        inline reordered_runs_t<CPIter> l2(all_runs_t<CPIter> const & all_runs)
         {
-            reordered_runs_t retval;
+            reordered_runs_t<CPIter> retval;
             std::transform(
                 all_runs.begin(),
                 all_runs.end(),
                 std::back_inserter(retval),
-                [](level_run run) {
-                    return reordered_run{run.first_, run.last_, false};
+                [](level_run<CPIter> run) {
+                    return reordered_run<CPIter>{run.first_, run.last_, false};
                 });
             auto min_max_it = std::minmax_element(
                 retval.begin(),
                 retval.end(),
-                [](reordered_run lhs, reordered_run rhs) {
+                [](reordered_run<CPIter> lhs, reordered_run<CPIter> rhs) {
                     return lhs.embedding() < rhs.embedding();
                 });
             auto lo = min_max_it.first->embedding();
@@ -949,8 +1020,11 @@ namespace boost { namespace text {
                 foreach_subrange_if(
                     retval.begin(),
                     retval.end(),
-                    [i](reordered_run run) { return i <= run.embedding(); },
-                    [](foreach_subrange_range<reordered_runs_t::iterator> r) {
+                    [i](reordered_run<CPIter> run) {
+                        return i <= run.embedding();
+                    },
+                    [](foreach_subrange_range<
+                        typename reordered_runs_t<CPIter>::iterator> r) {
                         std::reverse(r.begin(), r.end());
                         for (auto & elem : r) {
                             elem.reverse();
@@ -1178,8 +1252,8 @@ namespace boost { namespace text {
 
         // https://unicode.org/reports/tr9/#Basic_Display_Algorithm
 
-        using prop_and_embedding_t = detail::prop_and_embedding_t;
-        using props_and_embeddings_t = detail::props_and_embeddings_t;
+        using prop_and_embedding_t = detail::prop_and_embedding_t<CPIter>;
+        using props_and_embeddings_t = detail::props_and_embeddings_t<CPIter>;
 
         using vec_t = container::
             static_vector<detail::bidi_state_t, detail::bidi_max_depth + 2>;
@@ -1276,7 +1350,7 @@ namespace boost { namespace text {
                 // indicates that the embedding level should always be
                 // whatever the top of stack's embedding level is.
                 props_and_embeddings.push_back(prop_and_embedding_t{
-                    *it, stack.top().embedding_, prop, false, false});
+                    it, stack.top().embedding_, prop, false, false});
 
                 // https://unicode.org/reports/tr9/#X2
                 switch (prop) {
@@ -1445,7 +1519,7 @@ namespace boost { namespace text {
                     });
 
                 // https://unicode.org/reports/tr9/#X10
-                auto all_runs = detail::find_all_runs(
+                auto all_runs = detail::find_all_runs<CPIter>(
                     props_and_embeddings.begin(), props_and_embeddings.end());
                 auto run_sequences =
                     detail::find_run_sequences(props_and_embeddings, all_runs);
@@ -1473,31 +1547,32 @@ namespace boost { namespace text {
                 // subranges produced below.  Probably the way to do this is to
                 // output an empty range that indicates a line break.
 
+                using pae_cp_iterator =
+                    detail::props_and_embeddings_cp_iterator<CPIter>;
+
                 lazy_segment_range<
-                    detail::props_and_embeddings_cp_iterator,
-                    detail::props_and_embeddings_cp_iterator,
+                    pae_cp_iterator,
+                    pae_cp_iterator,
                     NextLineBreakFunc>
-                    lines{{detail::props_and_embeddings_cp_iterator{
-                               props_and_embeddings.begin()},
-                           detail::props_and_embeddings_cp_iterator{
-                               props_and_embeddings.end()}},
-                          {detail::props_and_embeddings_cp_iterator{
-                               props_and_embeddings.end()},
-                           detail::props_and_embeddings_cp_iterator{
-                               props_and_embeddings.end()}}};
+                    lines{{pae_cp_iterator{props_and_embeddings.begin()},
+                           pae_cp_iterator{props_and_embeddings.end()}},
+                          {pae_cp_iterator{props_and_embeddings.end()},
+                           pae_cp_iterator{props_and_embeddings.end()}}};
                 auto cp_line_start = paragraph.begin();
                 for (auto line : lines) {
                     l1(line, paragraph_embedding_level);
 
                     // https://unicode.org/reports/tr9/#L2
-                    all_runs =
-                        detail::find_all_runs(line.begin().it_, line.end().it_);
+                    all_runs = detail::find_all_runs<CPIter>(
+                        line.begin().it_, line.end().it_);
                     auto reordered_runs = l2(all_runs);
 
                     // TODO: Document that L3 is the caller's responsibility.
 
                     // Output the reordered subranges.
                     for (auto run : reordered_runs) {
+                        // TODO: Use forthcoming direct iterator value it_ in
+                        // prop_and_embedding_t.
                         auto out_first = cp_line_start;
                         auto out_last = cp_line_start;
                         std::advance(

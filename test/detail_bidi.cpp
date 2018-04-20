@@ -10,12 +10,12 @@ using namespace boost::text::detail;
 // https://unicode.org/reports/tr9/#BD13
 TEST(detail_bidi, find_run_sequences_)
 {
-    auto run_used = [](level_run r) { return r.used_; };
+    auto run_used = [](level_run<uint32_t *> r) { return r.used_; };
 
     // Using bidi_property::L for all portions of the examples called "text".
 
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             // text1
             {0, 0, bidi_property::L, false},
             {0, 0, bidi_property::L, false},
@@ -45,7 +45,7 @@ TEST(detail_bidi, find_run_sequences_)
             {0, 0, bidi_property::L, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
 
         EXPECT_EQ(runs.size(), 3u);
         EXPECT_TRUE(std::none_of(runs.begin(), runs.end(), run_used));
@@ -68,7 +68,7 @@ TEST(detail_bidi, find_run_sequences_)
     }
 
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             // text1
             {0, 0, bidi_property::L, false},
             {0, 0, bidi_property::L, false},
@@ -98,7 +98,7 @@ TEST(detail_bidi, find_run_sequences_)
             {0, 0, bidi_property::L, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
 
         EXPECT_EQ(runs.size(), 5u);
         EXPECT_TRUE(std::none_of(runs.begin(), runs.end(), run_used));
@@ -129,7 +129,7 @@ TEST(detail_bidi, find_run_sequences_)
     }
 
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             // text1
             {0, 0, bidi_property::L, false},
             {0, 0, bidi_property::L, false},
@@ -178,7 +178,7 @@ TEST(detail_bidi, find_run_sequences_)
             {0, 0, bidi_property::L, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
 
         EXPECT_EQ(runs.size(), 7u);
         EXPECT_TRUE(std::none_of(runs.begin(), runs.end(), run_used));
@@ -221,13 +221,13 @@ TEST(detail_bidi, steps_W1_through_W7)
 {
     // W1
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::AL, false},
             {0, 0, bidi_property::NSM, false},
             {0, 0, bidi_property::NSM, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -244,11 +244,11 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::AL);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::NSM, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -261,12 +261,12 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::R);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::LRI, false},
             {0, 0, bidi_property::NSM, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -281,12 +281,12 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::ON);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::PDI, true},
             {0, 0, bidi_property::NSM, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -301,7 +301,7 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::ON);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::AL, false},
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::NSM, false},
@@ -309,7 +309,7 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_property::NSM, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -330,12 +330,12 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::AL);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::NSM, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -352,12 +352,12 @@ TEST(detail_bidi, steps_W1_through_W7)
 
     // W2
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::AL, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -372,13 +372,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::AL, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -395,12 +395,12 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -415,13 +415,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::L, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -438,13 +438,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::R, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -463,13 +463,13 @@ TEST(detail_bidi, steps_W1_through_W7)
 
     // W4
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::ES, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -486,13 +486,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::CS, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -509,13 +509,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::AN, false},
             {0, 0, bidi_property::CS, false},
             {0, 0, bidi_property::AN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -532,7 +532,7 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::BN, false},
@@ -543,7 +543,7 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_property::BN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -570,7 +570,7 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::BN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::BN, false},
@@ -580,7 +580,7 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_property::BN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -605,7 +605,7 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::BN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::AN, false},
@@ -616,7 +616,7 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_property::BN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -645,13 +645,13 @@ TEST(detail_bidi, steps_W1_through_W7)
 
     // W5
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::ET, false},
             {0, 0, bidi_property::ET, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -668,13 +668,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::ET, false},
             {0, 0, bidi_property::ET, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -691,13 +691,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::AN, false},
             {0, 0, bidi_property::ET, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -714,13 +714,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::ET, false},
             {0, 0, bidi_property::AN, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -737,13 +737,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::AN, false},
             {0, 0, bidi_property::ET, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -760,13 +760,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::ET);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::ET, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -783,7 +783,7 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::ET, false},
             {0, 0, bidi_property::ET, false},
@@ -791,7 +791,7 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -812,7 +812,7 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::BN, false},
@@ -821,7 +821,7 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_property::BN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -846,12 +846,12 @@ TEST(detail_bidi, steps_W1_through_W7)
 
     // W6
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::AN, false},
             {0, 0, bidi_property::ET, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -866,13 +866,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::ON);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::L, false},
             {0, 0, bidi_property::ES, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -889,13 +889,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::CS, false},
             {0, 0, bidi_property::AN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -912,12 +912,12 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::ET, false},
             {0, 0, bidi_property::AN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -933,14 +933,14 @@ TEST(detail_bidi, steps_W1_through_W7)
     }
 
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::AN, false},
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::ET, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -959,7 +959,7 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::ON);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::L, false},
             {0, 0, bidi_property::ES, false},
             {0, 0, bidi_property::BN, false},
@@ -967,7 +967,7 @@ TEST(detail_bidi, steps_W1_through_W7)
             {0, 0, bidi_property::BN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -988,14 +988,14 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::BN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::CS, false},
             {0, 0, bidi_property::AN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1014,13 +1014,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::ET, false},
             {0, 0, bidi_property::AN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1037,14 +1037,14 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::ET, false},
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::AN, false},
             {0, 0, bidi_property::BN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1065,13 +1065,13 @@ TEST(detail_bidi, steps_W1_through_W7)
 
     // W7
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::L, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1088,13 +1088,13 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::L);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::R, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1111,14 +1111,14 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::L, false},
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1137,14 +1137,14 @@ TEST(detail_bidi, steps_W1_through_W7)
         EXPECT_EQ(it->prop_, bidi_property::L);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::R, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::BN, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1167,15 +1167,17 @@ TEST(detail_bidi, steps_W1_through_W7)
 TEST(detail_bidi, find_bracket_pairs_)
 {
     {
-        props_and_embeddings_t paes = {
-            {'a', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
-            {'b', 0, bidi_property::ON, false},
-            {'(', 0, bidi_property::ON, false},
-            {'c', 0, bidi_property::ON, false},
+        uint32_t cps[] = {'a', ')', 'b', '(', 'c'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 0, bidi_property::ON, false},
+            {cps + 1, 0, bidi_property::ON, false},
+            {cps + 2, 0, bidi_property::ON, false},
+            {cps + 3, 0, bidi_property::ON, false},
+            {cps + 4, 0, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1184,15 +1186,17 @@ TEST(detail_bidi, find_bracket_pairs_)
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 0);
     }
     {
-        props_and_embeddings_t paes = {
-            {'a', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
-            {'b', 0, bidi_property::ON, false},
-            {']', 0, bidi_property::ON, false},
-            {'c', 0, bidi_property::ON, false},
+        uint32_t cps[] = {'a', ')', 'b', ']', 'c'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 0, bidi_property::ON, false},
+            {cps + 1, 0, bidi_property::ON, false},
+            {cps + 2, 0, bidi_property::ON, false},
+            {cps + 3, 0, bidi_property::ON, false},
+            {cps + 4, 0, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1201,15 +1205,17 @@ TEST(detail_bidi, find_bracket_pairs_)
         EXPECT_EQ(std::distance(bracket_pairs.begin(), bracket_pairs.end()), 0);
     }
     {
-        props_and_embeddings_t paes = {
-            {'a', 0, bidi_property::ON, false},
-            {'(', 0, bidi_property::ON, false},
-            {'b', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
-            {'c', 0, bidi_property::ON, false},
+        uint32_t cps[] = {'a', '(', 'b', ')', 'c'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 0, bidi_property::ON, false},
+            {cps + 1, 0, bidi_property::ON, false},
+            {cps + 2, 0, bidi_property::ON, false},
+            {cps + 3, 0, bidi_property::ON, false},
+            {cps + 4, 0, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1221,18 +1227,20 @@ TEST(detail_bidi, find_bracket_pairs_)
         EXPECT_EQ(it->last_.base() - paes.begin(), 3);
     }
     {
-        props_and_embeddings_t paes = {
-            {'a', 0, bidi_property::ON, false},
-            {'(', 0, bidi_property::ON, false},
-            {'b', 0, bidi_property::ON, false},
-            {'[', 0, bidi_property::ON, false},
-            {'c', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
-            {'d', 0, bidi_property::ON, false},
-            {']', 0, bidi_property::ON, false},
+        uint32_t cps[] = {'a', '(', 'b', '[', 'c', ')', 'd', ']'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 0, bidi_property::ON, false},
+            {cps + 1, 0, bidi_property::ON, false},
+            {cps + 2, 0, bidi_property::ON, false},
+            {cps + 3, 0, bidi_property::ON, false},
+            {cps + 4, 0, bidi_property::ON, false},
+            {cps + 5, 0, bidi_property::ON, false},
+            {cps + 6, 0, bidi_property::ON, false},
+            {cps + 7, 0, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1244,17 +1252,19 @@ TEST(detail_bidi, find_bracket_pairs_)
         EXPECT_EQ(it->last_.base() - paes.begin(), 5);
     }
     {
-        props_and_embeddings_t paes = {
-            {'a', 0, bidi_property::ON, false},
-            {'(', 0, bidi_property::ON, false},
-            {'b', 0, bidi_property::ON, false},
-            {']', 0, bidi_property::ON, false},
-            {'c', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
-            {'d', 0, bidi_property::ON, false},
+        uint32_t cps[] = {'a', '(', 'b', ']', 'c', ')', 'd'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 0, bidi_property::ON, false},
+            {cps + 1, 0, bidi_property::ON, false},
+            {cps + 2, 0, bidi_property::ON, false},
+            {cps + 3, 0, bidi_property::ON, false},
+            {cps + 4, 0, bidi_property::ON, false},
+            {cps + 5, 0, bidi_property::ON, false},
+            {cps + 6, 0, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1266,17 +1276,19 @@ TEST(detail_bidi, find_bracket_pairs_)
         EXPECT_EQ(it->last_.base() - paes.begin(), 5);
     }
     {
-        props_and_embeddings_t paes = {
-            {'a', 0, bidi_property::ON, false},
-            {'(', 0, bidi_property::ON, false},
-            {'b', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
-            {'c', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
-            {'d', 0, bidi_property::ON, false},
+        uint32_t cps[] = {'a', '(', 'b', ')', 'c', ')', 'd'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 0, bidi_property::ON, false},
+            {cps + 1, 0, bidi_property::ON, false},
+            {cps + 2, 0, bidi_property::ON, false},
+            {cps + 3, 0, bidi_property::ON, false},
+            {cps + 4, 0, bidi_property::ON, false},
+            {cps + 5, 0, bidi_property::ON, false},
+            {cps + 6, 0, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1288,17 +1300,19 @@ TEST(detail_bidi, find_bracket_pairs_)
         EXPECT_EQ(it->last_.base() - paes.begin(), 3);
     }
     {
-        props_and_embeddings_t paes = {
-            {'a', 0, bidi_property::ON, false},
-            {'(', 0, bidi_property::ON, false},
-            {'b', 0, bidi_property::ON, false},
-            {'(', 0, bidi_property::ON, false},
-            {'c', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
-            {'d', 0, bidi_property::ON, false},
+        uint32_t cps[] = {'a', '(', 'b', '(', 'c', ')', 'd'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 0, bidi_property::ON, false},
+            {cps + 1, 0, bidi_property::ON, false},
+            {cps + 2, 0, bidi_property::ON, false},
+            {cps + 3, 0, bidi_property::ON, false},
+            {cps + 4, 0, bidi_property::ON, false},
+            {cps + 5, 0, bidi_property::ON, false},
+            {cps + 6, 0, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1310,18 +1324,20 @@ TEST(detail_bidi, find_bracket_pairs_)
         EXPECT_EQ(it->last_.base() - paes.begin(), 5);
     }
     {
-        props_and_embeddings_t paes = {
-            {'a', 0, bidi_property::ON, false},
-            {'(', 0, bidi_property::ON, false},
-            {'b', 0, bidi_property::ON, false},
-            {'(', 0, bidi_property::ON, false},
-            {'c', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
-            {'d', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
+        uint32_t cps[] = {'a', '(', 'b', '(', 'c', ')', 'd', ')'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 0, bidi_property::ON, false},
+            {cps + 1, 0, bidi_property::ON, false},
+            {cps + 2, 0, bidi_property::ON, false},
+            {cps + 3, 0, bidi_property::ON, false},
+            {cps + 4, 0, bidi_property::ON, false},
+            {cps + 5, 0, bidi_property::ON, false},
+            {cps + 6, 0, bidi_property::ON, false},
+            {cps + 7, 0, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1336,18 +1352,20 @@ TEST(detail_bidi, find_bracket_pairs_)
         EXPECT_EQ(it->last_.base() - paes.begin(), 5);
     }
     {
-        props_and_embeddings_t paes = {
-            {'a', 0, bidi_property::ON, false},
-            {'(', 0, bidi_property::ON, false},
-            {'b', 0, bidi_property::ON, false},
-            {'{', 0, bidi_property::ON, false},
-            {'c', 0, bidi_property::ON, false},
-            {'}', 0, bidi_property::ON, false},
-            {'d', 0, bidi_property::ON, false},
-            {')', 0, bidi_property::ON, false},
+        uint32_t cps[] = {'a', '(', 'b', '{', 'c', '}', 'd', ')'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 0, bidi_property::ON, false},
+            {cps + 1, 0, bidi_property::ON, false},
+            {cps + 2, 0, bidi_property::ON, false},
+            {cps + 3, 0, bidi_property::ON, false},
+            {cps + 4, 0, bidi_property::ON, false},
+            {cps + 5, 0, bidi_property::ON, false},
+            {cps + 6, 0, bidi_property::ON, false},
+            {cps + 7, 0, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1366,24 +1384,26 @@ TEST(detail_bidi, find_bracket_pairs_)
 TEST(detail_bidi, n0_)
 {
     {
-        props_and_embeddings_t paes = {
-            {'A', 1, bidi_property::R, false},
-            {'B', 1, bidi_property::R, false},
-            {'(', 1, bidi_property::ON, false},
-            {'C', 1, bidi_property::R, false},
-            {'D', 1, bidi_property::R, false},
-            {'[', 1, bidi_property::ON, false},
-            {'&', 1, bidi_property::ON, false},
-            {'e', 1, bidi_property::L, false},
-            {'f', 1, bidi_property::L, false},
-            {']', 1, bidi_property::ON, false},
-            {'!', 1, bidi_property::ON, false},
-            {')', 1, bidi_property::ON, false},
-            {'g', 1, bidi_property::L, false},
-            {'h', 1, bidi_property::L, false},
+        uint32_t cps[] = {'A', 'B', '(', 'C', 'D', '[', '&', 'e', 'f', ']', '!', ')', 'g', 'h'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 1, bidi_property::R, false},
+            {cps + 1, 1, bidi_property::R, false},
+            {cps + 2, 1, bidi_property::ON, false},
+            {cps + 3, 1, bidi_property::R, false},
+            {cps + 4, 1, bidi_property::R, false},
+            {cps + 5, 1, bidi_property::ON, false},
+            {cps + 6, 1, bidi_property::ON, false},
+            {cps + 7, 1, bidi_property::L, false},
+            {cps + 8, 1, bidi_property::L, false},
+            {cps + 9, 1, bidi_property::ON, false},
+            {cps + 10, 1, bidi_property::ON, false},
+            {cps + 11, 1, bidi_property::ON, false},
+            {cps + 12, 1, bidi_property::L, false},
+            {cps + 13, 1, bidi_property::L, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1423,40 +1443,42 @@ TEST(detail_bidi, n0_)
         EXPECT_EQ(it->prop_, bidi_property::L);
     }
     {
-        props_and_embeddings_t paes = {
-            {'s', 1, bidi_property::L, false},
-            {'m', 1, bidi_property::L, false},
-            {'i', 1, bidi_property::L, false},
-            {'t', 1, bidi_property::L, false},
-            {'h', 1, bidi_property::L, false},
-            {' ', 1, bidi_property::WS, false},
-            {'(', 1, bidi_property::ON, false},
-            {'f', 1, bidi_property::L, false},
-            {'a', 1, bidi_property::L, false},
-            {'b', 1, bidi_property::L, false},
-            {'r', 1, bidi_property::L, false},
-            {'i', 1, bidi_property::L, false},
-            {'k', 1, bidi_property::L, false},
-            {'a', 1, bidi_property::L, false},
-            {'m', 1, bidi_property::L, false},
-            {' ', 1, bidi_property::WS, false},
-            {'A', 1, bidi_property::R, false},
-            {'R', 1, bidi_property::R, false},
-            {'A', 1, bidi_property::R, false},
-            {'B', 1, bidi_property::R, false},
-            {'I', 1, bidi_property::R, false},
-            {'C', 1, bidi_property::R, false},
-            {')', 1, bidi_property::ON, false},
-            {' ', 1, bidi_property::WS, false},
-            {'H', 1, bidi_property::R, false},
-            {'E', 1, bidi_property::R, false},
-            {'B', 1, bidi_property::R, false},
-            {'R', 1, bidi_property::R, false},
-            {'E', 1, bidi_property::R, false},
-            {'W', 1, bidi_property::R, false},
+        uint32_t cps[] = {'s', 'm', 'i', 't', 'h', ' ', '(', 'f', 'a', 'b', 'r', 'i', 'k', 'a', 'm', ' ', 'A', 'R', 'A', 'B', 'I', 'C', ')', ' ', 'H', 'E', 'B', 'R', 'E', 'W'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 1, bidi_property::L, false},
+            {cps + 1, 1, bidi_property::L, false},
+            {cps + 2, 1, bidi_property::L, false},
+            {cps + 3, 1, bidi_property::L, false},
+            {cps + 4, 1, bidi_property::L, false},
+            {cps + 5, 1, bidi_property::WS, false},
+            {cps + 6, 1, bidi_property::ON, false},
+            {cps + 7, 1, bidi_property::L, false},
+            {cps + 8, 1, bidi_property::L, false},
+            {cps + 9, 1, bidi_property::L, false},
+            {cps + 10, 1, bidi_property::L, false},
+            {cps + 11, 1, bidi_property::L, false},
+            {cps + 12, 1, bidi_property::L, false},
+            {cps + 13, 1, bidi_property::L, false},
+            {cps + 14, 1, bidi_property::L, false},
+            {cps + 15, 1, bidi_property::WS, false},
+            {cps + 16, 1, bidi_property::R, false},
+            {cps + 17, 1, bidi_property::R, false},
+            {cps + 18, 1, bidi_property::R, false},
+            {cps + 19, 1, bidi_property::R, false},
+            {cps + 20, 1, bidi_property::R, false},
+            {cps + 21, 1, bidi_property::R, false},
+            {cps + 22, 1, bidi_property::ON, false},
+            {cps + 23, 1, bidi_property::WS, false},
+            {cps + 24, 1, bidi_property::R, false},
+            {cps + 25, 1, bidi_property::R, false},
+            {cps + 26, 1, bidi_property::R, false},
+            {cps + 27, 1, bidi_property::R, false},
+            {cps + 28, 1, bidi_property::R, false},
+            {cps + 29, 1, bidi_property::R, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1528,40 +1550,42 @@ TEST(detail_bidi, n0_)
         EXPECT_EQ(it->prop_, bidi_property::R);
     }
     {
-        props_and_embeddings_t paes = {
-            {'s', 1, bidi_property::L, false},
-            {'m', 1, bidi_property::L, false},
-            {'i', 1, bidi_property::L, false},
-            {'t', 1, bidi_property::L, false},
-            {'h', 1, bidi_property::L, false},
-            {' ', 1, bidi_property::WS, false},
-            {'(', 1, bidi_property::ON, false},
-            {'A', 1, bidi_property::R, false},
-            {'R', 1, bidi_property::R, false},
-            {'A', 1, bidi_property::R, false},
-            {'B', 1, bidi_property::R, false},
-            {'I', 1, bidi_property::R, false},
-            {'C', 1, bidi_property::R, false},
-            {' ', 1, bidi_property::WS, false},
-            {'f', 1, bidi_property::L, false},
-            {'a', 1, bidi_property::L, false},
-            {'b', 1, bidi_property::L, false},
-            {'r', 1, bidi_property::L, false},
-            {'i', 1, bidi_property::L, false},
-            {'k', 1, bidi_property::L, false},
-            {'a', 1, bidi_property::L, false},
-            {'m', 1, bidi_property::L, false},
-            {')', 1, bidi_property::ON, false},
-            {' ', 1, bidi_property::WS, false},
-            {'H', 1, bidi_property::R, false},
-            {'E', 1, bidi_property::R, false},
-            {'B', 1, bidi_property::R, false},
-            {'R', 1, bidi_property::R, false},
-            {'E', 1, bidi_property::R, false},
-            {'W', 1, bidi_property::R, false},
+        uint32_t cps[] = {'s', 'm', 'i', 't', 'h', ' ', '(', 'A', 'R', 'A', 'B', 'I', 'C', ' ', 'f', 'a', 'b', 'r', 'i', 'k', 'a', 'm', ')', ' ', 'H', 'E', 'B', 'R', 'E', 'W'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 1, bidi_property::L, false},
+            {cps + 1, 1, bidi_property::L, false},
+            {cps + 2, 1, bidi_property::L, false},
+            {cps + 3, 1, bidi_property::L, false},
+            {cps + 4, 1, bidi_property::L, false},
+            {cps + 5, 1, bidi_property::WS, false},
+            {cps + 6, 1, bidi_property::ON, false},
+            {cps + 7, 1, bidi_property::R, false},
+            {cps + 8, 1, bidi_property::R, false},
+            {cps + 9, 1, bidi_property::R, false},
+            {cps + 10, 1, bidi_property::R, false},
+            {cps + 11, 1, bidi_property::R, false},
+            {cps + 12, 1, bidi_property::R, false},
+            {cps + 13, 1, bidi_property::WS, false},
+            {cps + 14, 1, bidi_property::L, false},
+            {cps + 15, 1, bidi_property::L, false},
+            {cps + 16, 1, bidi_property::L, false},
+            {cps + 17, 1, bidi_property::L, false},
+            {cps + 18, 1, bidi_property::L, false},
+            {cps + 19, 1, bidi_property::L, false},
+            {cps + 20, 1, bidi_property::L, false},
+            {cps + 21, 1, bidi_property::L, false},
+            {cps + 22, 1, bidi_property::ON, false},
+            {cps + 23, 1, bidi_property::WS, false},
+            {cps + 24, 1, bidi_property::R, false},
+            {cps + 25, 1, bidi_property::R, false},
+            {cps + 26, 1, bidi_property::R, false},
+            {cps + 27, 1, bidi_property::R, false},
+            {cps + 28, 1, bidi_property::R, false},
+            {cps + 29, 1, bidi_property::R, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1633,24 +1657,26 @@ TEST(detail_bidi, n0_)
         EXPECT_EQ(it->prop_, bidi_property::R);
     }
     {
-        props_and_embeddings_t paes = {
-            {'A', 1, bidi_property::R, false},
-            {'R', 1, bidi_property::R, false},
-            {'A', 1, bidi_property::R, false},
-            {'B', 1, bidi_property::R, false},
-            {'I', 1, bidi_property::R, false},
-            {'C', 1, bidi_property::R, false},
-            {' ', 1, bidi_property::WS, false},
-            {'b', 1, bidi_property::L, false},
-            {'o', 1, bidi_property::L, false},
-            {'o', 1, bidi_property::L, false},
-            {'k', 1, bidi_property::L, false},
-            {'(', 1, bidi_property::ON, false},
-            {'s', 1, bidi_property::L, false},
-            {')', 1, bidi_property::ON, false},
+        uint32_t cps[] = {'A', 'R', 'A', 'B', 'I', 'C', ' ', 'b', 'o', 'o', 'k', '(', 's', ')'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps + 0, 1, bidi_property::R, false},
+            {cps + 1, 1, bidi_property::R, false},
+            {cps + 2, 1, bidi_property::R, false},
+            {cps + 3, 1, bidi_property::R, false},
+            {cps + 4, 1, bidi_property::R, false},
+            {cps + 5, 1, bidi_property::R, false},
+            {cps + 6, 1, bidi_property::WS, false},
+            {cps + 7, 1, bidi_property::L, false},
+            {cps + 8, 1, bidi_property::L, false},
+            {cps + 9, 1, bidi_property::L, false},
+            {cps + 10, 1, bidi_property::L, false},
+            {cps + 11, 1, bidi_property::ON, false},
+            {cps + 12, 1, bidi_property::L, false},
+            {cps + 13, 1, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1694,13 +1720,13 @@ TEST(detail_bidi, n0_)
 TEST(detail_bidi, n1_)
 {
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::L, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::L, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1716,13 +1742,13 @@ TEST(detail_bidi, n1_)
         EXPECT_EQ(it->prop_, bidi_property::L);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::R, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::R, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1738,13 +1764,13 @@ TEST(detail_bidi, n1_)
         EXPECT_EQ(it->prop_, bidi_property::R);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::R, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::AN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1760,13 +1786,13 @@ TEST(detail_bidi, n1_)
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::R, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1782,13 +1808,13 @@ TEST(detail_bidi, n1_)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::AN, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::R, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1804,13 +1830,13 @@ TEST(detail_bidi, n1_)
         EXPECT_EQ(it->prop_, bidi_property::R);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::AN, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::AN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1826,13 +1852,13 @@ TEST(detail_bidi, n1_)
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::AN, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1848,13 +1874,13 @@ TEST(detail_bidi, n1_)
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::R, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1870,13 +1896,13 @@ TEST(detail_bidi, n1_)
         EXPECT_EQ(it->prop_, bidi_property::R);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::AN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1892,13 +1918,13 @@ TEST(detail_bidi, n1_)
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
     {
-        props_and_embeddings_t paes = {
+        props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::EN, false},
             {0, 0, bidi_property::B, false},
             {0, 0, bidi_property::EN, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
@@ -1918,25 +1944,27 @@ TEST(detail_bidi, n1_)
 TEST(detail_bidi, l2_)
 {
     {
-        props_and_embeddings_t paes = {
-            {'c', 0, bidi_property::L, false},
-            {'a', 0, bidi_property::L, false},
-            {'r', 0, bidi_property::L, false},
-            {' ', 0, bidi_property::WS, false},
-            {'m', 0, bidi_property::L, false},
-            {'e', 0, bidi_property::L, false},
-            {'a', 0, bidi_property::L, false},
-            {'n', 0, bidi_property::L, false},
-            {'s', 0, bidi_property::L, false},
-            {' ', 0, bidi_property::WS, false},
-            {'C', 1, bidi_property::R, false},
-            {'A', 1, bidi_property::R, false},
-            {'R', 1, bidi_property::R, false},
-            {'.', 0, bidi_property::CS, false},
+        uint32_t cps_[] = {'c', 'a', 'r', ' ', 'm', 'e', 'a', 'n', 's', ' ', 'C', 'A', 'R', '.'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps_ + 0, 0, bidi_property::L, false},
+            {cps_ + 1, 0, bidi_property::L, false},
+            {cps_ + 2, 0, bidi_property::L, false},
+            {cps_ + 3, 0, bidi_property::WS, false},
+            {cps_ + 4, 0, bidi_property::L, false},
+            {cps_ + 5, 0, bidi_property::L, false},
+            {cps_ + 6, 0, bidi_property::L, false},
+            {cps_ + 7, 0, bidi_property::L, false},
+            {cps_ + 8, 0, bidi_property::L, false},
+            {cps_ + 9, 0, bidi_property::WS, false},
+            {cps_ + 10, 1, bidi_property::R, false},
+            {cps_ + 11, 1, bidi_property::R, false},
+            {cps_ + 12, 1, bidi_property::R, false},
+            {cps_ + 13, 0, bidi_property::CS, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
-        reordered_runs_t reordered_runs = l2(runs);
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
+        auto reordered_runs = l2(runs);
 
         string result;
         uint32_t cps[1] = {0};
@@ -1944,12 +1972,12 @@ TEST(detail_bidi, l2_)
             if (run.reversed()) {
                 for (auto it = run.rbegin(), end = run.rend(); it != end;
                      ++it) {
-                    cps[0] = it->cp_;
+                    cps[0] = it->cp();
                     result += to_string(cps, cps + 1);
                 }
             } else {
                 for (auto pae : run) {
-                    cps[0] = pae.cp_;
+                    cps[0] = pae.cp();
                     result += to_string(cps, cps + 1);
                 }
             }
@@ -1958,27 +1986,29 @@ TEST(detail_bidi, l2_)
         EXPECT_EQ(result, "car means RAC.");
     }
     {
-        props_and_embeddings_t paes = {
-            {'<', 0, bidi_property::RLI, false},
-            {'c', 2, bidi_property::L, false},
-            {'a', 2, bidi_property::L, false},
-            {'r', 2, bidi_property::L, false},
-            {' ', 1, bidi_property::WS, false},
-            {'M', 1, bidi_property::R, false},
-            {'E', 1, bidi_property::R, false},
-            {'A', 1, bidi_property::R, false},
-            {'N', 1, bidi_property::R, false},
-            {'S', 1, bidi_property::R, false},
-            {' ', 1, bidi_property::WS, false},
-            {'C', 1, bidi_property::R, false},
-            {'A', 1, bidi_property::R, false},
-            {'R', 1, bidi_property::R, false},
-            {'.', 1, bidi_property::CS, false},
-            {'=', 0, bidi_property::PDI, false},
+        uint32_t cps_[] = {'<', 'c', 'a', 'r', ' ', 'M', 'E', 'A', 'N', 'S', ' ', 'C', 'A', 'R', '.', '='};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps_ + 0, 0, bidi_property::RLI, false},
+            {cps_ + 1, 2, bidi_property::L, false},
+            {cps_ + 2, 2, bidi_property::L, false},
+            {cps_ + 3, 2, bidi_property::L, false},
+            {cps_ + 4, 1, bidi_property::WS, false},
+            {cps_ + 5, 1, bidi_property::R, false},
+            {cps_ + 6, 1, bidi_property::R, false},
+            {cps_ + 7, 1, bidi_property::R, false},
+            {cps_ + 8, 1, bidi_property::R, false},
+            {cps_ + 9, 1, bidi_property::R, false},
+            {cps_ + 10, 1, bidi_property::WS, false},
+            {cps_ + 11, 1, bidi_property::R, false},
+            {cps_ + 12, 1, bidi_property::R, false},
+            {cps_ + 13, 1, bidi_property::R, false},
+            {cps_ + 14, 1, bidi_property::CS, false},
+            {cps_ + 15, 0, bidi_property::PDI, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
-        reordered_runs_t reordered_runs = l2(runs);
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
+        auto reordered_runs = l2(runs);
 
         string result;
         uint32_t cps[1] = {0};
@@ -1986,12 +2016,12 @@ TEST(detail_bidi, l2_)
             if (run.reversed()) {
                 for (auto it = run.rbegin(), end = run.rend(); it != end;
                      ++it) {
-                    cps[0] = it->cp_;
+                    cps[0] = it->cp();
                     result += to_string(cps, cps + 1);
                 }
             } else {
                 for (auto pae : run) {
-                    cps[0] = pae.cp_;
+                    cps[0] = pae.cp();
                     result += to_string(cps, cps + 1);
                 }
             }
@@ -2000,62 +2030,64 @@ TEST(detail_bidi, l2_)
         EXPECT_EQ(result, "<.RAC SNAEM car=");
     }
     {
-        props_and_embeddings_t paes = {
-            {'h', 0, bidi_property::L, false},
-            {'e', 0, bidi_property::L, false},
-            {' ', 0, bidi_property::WS, false},
-            {'s', 0, bidi_property::L, false},
-            {'a', 0, bidi_property::L, false},
-            {'i', 0, bidi_property::L, false},
-            {'d', 0, bidi_property::L, false},
-            {' ', 0, bidi_property::WS, false},
-            {0x201c, 0, bidi_property::ON, false}, // ” U+201C Left Double Quotation
-            {'<', 0, bidi_property::RLI, false},
-            {'c', 2, bidi_property::L, false},
-            {'a', 2, bidi_property::L, false},
-            {'r', 2, bidi_property::L, false},
-            {' ', 1, bidi_property::WS, false},
-            {'M', 1, bidi_property::R, false},
-            {'E', 1, bidi_property::R, false},
-            {'A', 1, bidi_property::R, false},
-            {'N', 1, bidi_property::R, false},
-            {'S', 1, bidi_property::R, false},
-            {' ', 1, bidi_property::WS, false},
-            {'C', 1, bidi_property::R, false},
-            {'A', 1, bidi_property::R, false},
-            {'R', 1, bidi_property::R, false},
-            {'=', 0, bidi_property::PDI, false},
-            {'.', 0, bidi_property::CS, false},
-            {0x201d, 0, bidi_property::ON, false}, // ” U+201D Right Double Quotation
-            {' ', 0, bidi_property::WS, false},
-            {0x201c, 0, bidi_property::ON, false},
-            {'<', 0, bidi_property::RLI, false},
-            {'I', 1, bidi_property::R, false},
-            {'T', 1, bidi_property::R, false},
-            {' ', 1, bidi_property::WS, false},
-            {'D', 1, bidi_property::R, false},
-            {'O', 1, bidi_property::R, false},
-            {'E', 1, bidi_property::R, false},
-            {'S', 1, bidi_property::R, false},
-            {'=', 0, bidi_property::PDI, false},
-            {',', 0, bidi_property::CS, false},
-            {0x201d, 0, bidi_property::ON, false},
-            {' ', 0, bidi_property::WS, false},
-            {'s', 0, bidi_property::L, false},
-            {'h', 0, bidi_property::L, false},
-            {'e', 0, bidi_property::L, false},
-            {' ', 0, bidi_property::WS, false},
-            {'a', 0, bidi_property::L, false},
-            {'g', 0, bidi_property::L, false},
-            {'r', 0, bidi_property::L, false},
-            {'e', 0, bidi_property::L, false},
-            {'e', 0, bidi_property::L, false},
-            {'d', 0, bidi_property::L, false},
-            {'.', 0, bidi_property::CS, false},
+        uint32_t cps_[] = {'h', 'e',  ' ',  's',  'a',  'i',  'd',  ' ',  0x201c, '<', 'c', 'a', 'r', ' ', 'M', 'E', 'A', 'N', 'S', ' ', 'C', 'A', 'R', '=', '.', 0x201d, ' ', 0x201c, '<', 'I', 'T', ' ', 'D', 'O', 'E', 'S', '=', ',', 0x201d, ' ', 's', 'h', 'e', ' ', 'a', 'g', 'r', 'e', 'e', 'd', '.'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps_ + 0, 0, bidi_property::L, false},
+            {cps_ + 1, 0, bidi_property::L, false},
+            {cps_ + 2, 0, bidi_property::WS, false},
+            {cps_ + 3, 0, bidi_property::L, false},
+            {cps_ + 4, 0, bidi_property::L, false},
+            {cps_ + 5, 0, bidi_property::L, false},
+            {cps_ + 6, 0, bidi_property::L, false},
+            {cps_ + 7, 0, bidi_property::WS, false},
+            {cps_ + 8, 0, bidi_property::ON, false}, // ” U+201C Left Double Quotation
+            {cps_ + 9, 0, bidi_property::RLI, false},
+            {cps_ + 10, 2, bidi_property::L, false},
+            {cps_ + 11, 2, bidi_property::L, false},
+            {cps_ + 12, 2, bidi_property::L, false},
+            {cps_ + 13, 1, bidi_property::WS, false},
+            {cps_ + 14, 1, bidi_property::R, false},
+            {cps_ + 15, 1, bidi_property::R, false},
+            {cps_ + 16, 1, bidi_property::R, false},
+            {cps_ + 17, 1, bidi_property::R, false},
+            {cps_ + 18, 1, bidi_property::R, false},
+            {cps_ + 19, 1, bidi_property::WS, false},
+            {cps_ + 20, 1, bidi_property::R, false},
+            {cps_ + 21, 1, bidi_property::R, false},
+            {cps_ + 22, 1, bidi_property::R, false},
+            {cps_ + 23, 0, bidi_property::PDI, false},
+            {cps_ + 24, 0, bidi_property::CS, false},
+            {cps_ + 25, 0, bidi_property::ON, false}, // ” U+201D Right Double Quotation
+            {cps_ + 26, 0, bidi_property::WS, false},
+            {cps_ + 27, 0, bidi_property::ON, false},
+            {cps_ + 28, 0, bidi_property::RLI, false},
+            {cps_ + 29, 1, bidi_property::R, false},
+            {cps_ + 30, 1, bidi_property::R, false},
+            {cps_ + 31, 1, bidi_property::WS, false},
+            {cps_ + 32, 1, bidi_property::R, false},
+            {cps_ + 33, 1, bidi_property::R, false},
+            {cps_ + 34, 1, bidi_property::R, false},
+            {cps_ + 35, 1, bidi_property::R, false},
+            {cps_ + 36, 0, bidi_property::PDI, false},
+            {cps_ + 37, 0, bidi_property::CS, false},
+            {cps_ + 38, 0, bidi_property::ON, false},
+            {cps_ + 39, 0, bidi_property::WS, false},
+            {cps_ + 40, 0, bidi_property::L, false},
+            {cps_ + 41, 0, bidi_property::L, false},
+            {cps_ + 42, 0, bidi_property::L, false},
+            {cps_ + 43, 0, bidi_property::WS, false},
+            {cps_ + 44, 0, bidi_property::L, false},
+            {cps_ + 45, 0, bidi_property::L, false},
+            {cps_ + 46, 0, bidi_property::L, false},
+            {cps_ + 47, 0, bidi_property::L, false},
+            {cps_ + 48, 0, bidi_property::L, false},
+            {cps_ + 49, 0, bidi_property::L, false},
+            {cps_ + 50, 0, bidi_property::CS, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
-        reordered_runs_t reordered_runs = l2(runs);
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
+        auto reordered_runs = l2(runs);
 
         string result;
         uint32_t cps[1] = {0};
@@ -2063,12 +2095,12 @@ TEST(detail_bidi, l2_)
             if (run.reversed()) {
                 for (auto it = run.rbegin(), end = run.rend(); it != end;
                      ++it) {
-                    cps[0] = it->cp_;
+                    cps[0] = it->cp();
                     result += to_string(cps, cps + 1);
                 }
             } else {
                 for (auto pae : run) {
-                    cps[0] = pae.cp_;
+                    cps[0] = pae.cp();
                     result += to_string(cps, cps + 1);
                 }
             }
@@ -2077,53 +2109,55 @@ TEST(detail_bidi, l2_)
         EXPECT_EQ(result, string("he said \u201c<RAC SNAEM car=.\u201d \u201c<SEOD TI=,\u201d she agreed."));
     }
     {
-        props_and_embeddings_t paes = {
-            {'D', 1, bidi_property::R, false},
-            {'I', 1, bidi_property::R, false},
-            {'D', 1, bidi_property::R, false},
-            {' ', 1, bidi_property::WS, false},
-            {'Y', 1, bidi_property::R, false},
-            {'O', 1, bidi_property::R, false},
-            {'U', 1, bidi_property::R, false},
-            {' ', 1, bidi_property::WS, false},
-            {'S', 1, bidi_property::R, false},
-            {'A', 1, bidi_property::R, false},
-            {'Y', 1, bidi_property::R, false},
-            {' ', 1, bidi_property::WS, false},
-            {0x2019, 1, bidi_property::ON, false}, // U+2018 Single Left Quotation
-            {'>', 1, bidi_property::LRI, false},
-            {'h', 2, bidi_property::L, false},
-            {'e', 2, bidi_property::L, false},
-            {' ', 2, bidi_property::WS, false},
-            {'s', 2, bidi_property::L, false},
-            {'a', 2, bidi_property::L, false},
-            {'i', 2, bidi_property::L, false},
-            {'d', 2, bidi_property::L, false},
-            {' ', 2, bidi_property::WS, false},
-            {0x201c, 2, bidi_property::ON, false},
-            {'<', 2, bidi_property::RLI, false},
-            {'c', 4, bidi_property::L, false},
-            {'a', 4, bidi_property::L, false},
-            {'r', 4, bidi_property::L, false},
-            {' ', 3, bidi_property::WS, false},
-            {'M', 3, bidi_property::R, false},
-            {'E', 3, bidi_property::R, false},
-            {'A', 3, bidi_property::R, false},
-            {'N', 3, bidi_property::R, false},
-            {'S', 3, bidi_property::R, false},
-            {' ', 3, bidi_property::WS, false},
-            {'C', 3, bidi_property::R, false},
-            {'A', 3, bidi_property::R, false},
-            {'R', 3, bidi_property::R, false},
-            {'=', 2, bidi_property::PDI, false},
-            {0x201d, 2, bidi_property::ON, false},
-            {'=', 1, bidi_property::PDI, false},
-            {0x2018, 1, bidi_property::ON, false}, // U+2019 Single Right Quotation
-            {'?', 1, bidi_property::ON, false},
+        uint32_t cps_[] = {'D', 'I', 'D', ' ', 'Y', 'O', 'U', ' ', 'S', 'A', 'Y', ' ', 0x2019, '>', 'h', 'e', ' ', 's', 'a', 'i', 'd', ' ', 0x201c, '<', 'c', 'a', 'r', ' ', 'M', 'E', 'A', 'N', 'S', ' ', 'C', 'A', 'R', '=', 0x201d, '=', 0x2018, '?'};
+
+        props_and_embeddings_t<uint32_t *> paes = {
+            {cps_ + 0, 1, bidi_property::R, false},
+            {cps_ + 1, 1, bidi_property::R, false},
+            {cps_ + 2, 1, bidi_property::R, false},
+            {cps_ + 3, 1, bidi_property::WS, false},
+            {cps_ + 4, 1, bidi_property::R, false},
+            {cps_ + 5, 1, bidi_property::R, false},
+            {cps_ + 6, 1, bidi_property::R, false},
+            {cps_ + 7, 1, bidi_property::WS, false},
+            {cps_ + 8, 1, bidi_property::R, false},
+            {cps_ + 9, 1, bidi_property::R, false},
+            {cps_ + 10, 1, bidi_property::R, false},
+            {cps_ + 11, 1, bidi_property::WS, false},
+            {cps_ + 12, 1, bidi_property::ON, false}, // U+2018 Single Left Quotation
+            {cps_ + 13, 1, bidi_property::LRI, false},
+            {cps_ + 14, 2, bidi_property::L, false},
+            {cps_ + 15, 2, bidi_property::L, false},
+            {cps_ + 16, 2, bidi_property::WS, false},
+            {cps_ + 17, 2, bidi_property::L, false},
+            {cps_ + 18, 2, bidi_property::L, false},
+            {cps_ + 19, 2, bidi_property::L, false},
+            {cps_ + 20, 2, bidi_property::L, false},
+            {cps_ + 21, 2, bidi_property::WS, false},
+            {cps_ + 22, 2, bidi_property::ON, false},
+            {cps_ + 23, 2, bidi_property::RLI, false},
+            {cps_ + 24, 4, bidi_property::L, false},
+            {cps_ + 25, 4, bidi_property::L, false},
+            {cps_ + 26, 4, bidi_property::L, false},
+            {cps_ + 27, 3, bidi_property::WS, false},
+            {cps_ + 28, 3, bidi_property::R, false},
+            {cps_ + 29, 3, bidi_property::R, false},
+            {cps_ + 30, 3, bidi_property::R, false},
+            {cps_ + 31, 3, bidi_property::R, false},
+            {cps_ + 32, 3, bidi_property::R, false},
+            {cps_ + 33, 3, bidi_property::WS, false},
+            {cps_ + 34, 3, bidi_property::R, false},
+            {cps_ + 35, 3, bidi_property::R, false},
+            {cps_ + 36, 3, bidi_property::R, false},
+            {cps_ + 37, 2, bidi_property::PDI, false},
+            {cps_ + 38, 2, bidi_property::ON, false},
+            {cps_ + 39, 1, bidi_property::PDI, false},
+            {cps_ + 40, 1, bidi_property::ON, false}, // U+2019 Single Right Quotation
+            {cps_ + 41, 1, bidi_property::ON, false},
         };
 
-        auto runs = find_all_runs(paes.begin(), paes.end());
-        reordered_runs_t reordered_runs = l2(runs);
+        auto runs = find_all_runs<uint32_t *>(paes.begin(), paes.end());
+        auto reordered_runs = l2(runs);
 
         string result;
         uint32_t cps[1] = {0};
@@ -2131,12 +2165,12 @@ TEST(detail_bidi, l2_)
             if (run.reversed()) {
                 for (auto it = run.rbegin(), end = run.rend(); it != end;
                      ++it) {
-                    cps[0] = it->cp_;
+                    cps[0] = it->cp();
                     result += to_string(cps, cps + 1);
                 }
             } else {
                 for (auto pae : run) {
-                    cps[0] = pae.cp_;
+                    cps[0] = pae.cp();
                     result += to_string(cps, cps + 1);
                 }
             }
