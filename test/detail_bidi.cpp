@@ -4,12 +4,13 @@
 
 
 using namespace boost::text;
-using namespace boost::text::detail;
 
 
 // https://unicode.org/reports/tr9/#BD13
 TEST(detail_bidi, find_run_sequences_)
 {
+    using namespace boost::text::detail;
+
     auto run_used = [](level_run<uint32_t *> r) { return r.used_; };
 
     // Using bidi_property::L for all portions of the examples called "text".
@@ -219,6 +220,8 @@ TEST(detail_bidi, find_run_sequences_)
 
 TEST(detail_bidi, steps_W1_through_W7)
 {
+    using namespace boost::text::detail;
+
     // W1
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1166,6 +1169,8 @@ TEST(detail_bidi, steps_W1_through_W7)
 
 TEST(detail_bidi, find_bracket_pairs_)
 {
+    using namespace boost::text::detail;
+
     {
         uint32_t cps[] = {'a', ')', 'b', '(', 'c'};
 
@@ -1383,6 +1388,8 @@ TEST(detail_bidi, find_bracket_pairs_)
 
 TEST(detail_bidi, n0_)
 {
+    using namespace boost::text::detail;
+
     {
         uint32_t cps[] = {'A', 'B', '(', 'C', 'D', '[', '&', 'e', 'f', ']', '!', ')', 'g', 'h'};
 
@@ -1719,6 +1726,8 @@ TEST(detail_bidi, n0_)
 
 TEST(detail_bidi, n1_)
 {
+    using namespace boost::text::detail;
+
     {
         props_and_embeddings_t<uint32_t *> paes = {
             {0, 0, bidi_property::L, false},
@@ -1943,6 +1952,8 @@ TEST(detail_bidi, n1_)
 
 TEST(detail_bidi, l2_)
 {
+    using namespace boost::text::detail;
+
     {
         uint32_t cps_[] = {'c', 'a', 'r', ' ', 'm', 'e', 'a', 'n', 's', ' ', 'C', 'A', 'R', '.'};
 
@@ -2188,4 +2199,22 @@ TEST(detail_bidi, bidirectional_order_instantiation)
     std::array<bidirectional_subrange<std::array<uint32_t, 1>::iterator>, 1024>
         subranges;
     bidirectional_order(str.begin(), str.end(), subranges.begin());
+
+    std::vector<int> embedding_levels;
+    detail::bidirectional_order_impl(
+        str.begin(),
+        str.end(),
+        std::back_inserter(embedding_levels),
+        next_possible_line_break_callable{},
+        [](detail::props_and_embeddings_t<std::array<uint32_t, 1>::iterator> &
+               props_and_embeddings,
+           int paragraph_embedding_level,
+           next_possible_line_break_callable & next_line_break,
+           std::back_insert_iterator<std::vector<int>> out) {
+            for (auto pae : props_and_embeddings) {
+                *out = pae.embedding_;
+                ++out;
+            }
+            return out;
+        });
 }
