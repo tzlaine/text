@@ -1190,16 +1190,15 @@ namespace boost { namespace text {
         enum class bidi_line_break_kind { none, hard, possible };
     }
 
-    /** A callable type that returns the next hard line break in [first,
+    /** A callable type that returns the next possible line break in [first,
         last).  This is the default line break callable type used with
         bidirectional_order(). */
-    struct next_hard_line_break_callable
+    struct next_possible_line_break_callable
     {
-        template<typename CPIter, typename Sentinel>
-        auto operator()(CPIter first, Sentinel last) noexcept
-            -> detail::cp_iter_ret_t<CPIter, CPIter>
+        template<typename BreakResult, typename Sentinel>
+        BreakResult operator()(BreakResult result, Sentinel last) noexcept
         {
-            return next_hard_line_break(first, last);
+            return next_possible_line_break(result.iter, last);
         }
     };
 
@@ -1253,6 +1252,20 @@ namespace boost { namespace text {
         detail::bidi_line_break_kind break_;
     };
 
+    namespace detail {
+        template<typename Impl, typename BreakResult, typename Sentinel>
+        struct next_line_break_t
+        {
+            BreakResult operator()(BreakResult result, Sentinel last) noexcept
+            {
+                return impl_.template operator()<BreakResult, Sentinel>(
+                    result, last);
+            }
+
+            Impl impl_;
+        };
+    }
+
     /** TODO
         TODO: Document that NextLineBreakFunc must be polymorphic, taking and
         iterator whose value_type is uint32_t
@@ -1264,7 +1277,7 @@ namespace boost { namespace text {
         typename CPIter,
         typename Sentinel,
         typename OutIter,
-        typename NextLineBreakFunc = next_hard_line_break_callable>
+        typename NextLineBreakFunc = next_possible_line_break_callable>
     auto bidirectional_order(
         CPIter first,
         Sentinel last,
@@ -1576,9 +1589,21 @@ namespace boost { namespace text {
                 using pae_cp_iterator =
                     detail::props_and_embeddings_cp_iterator<CPIter>;
 
-                for (auto line : possible_lines(
-                         pae_cp_iterator{props_and_embeddings.begin()},
-                         pae_cp_iterator{props_and_embeddings.end()})) {
+                lazy_segment_range<
+                    line_break_result<pae_cp_iterator>,
+                    pae_cp_iterator,
+                    detail::next_line_break_t<
+                        NextLineBreakFunc,
+                        line_break_result<pae_cp_iterator>,
+                        pae_cp_iterator>,
+                    line_break_cp_range<pae_cp_iterator>>
+                    lines{{line_break_result<pae_cp_iterator>{
+                               pae_cp_iterator{props_and_embeddings.begin()},
+                               false},
+                           pae_cp_iterator{props_and_embeddings.end()}},
+                          {pae_cp_iterator{props_and_embeddings.end()}}};
+
+                for (auto line : lines) {
                     l1(line, paragraph_embedding_level);
 
                     // https://unicode.org/reports/tr9/#L2
