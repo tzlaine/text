@@ -1190,7 +1190,9 @@ namespace boost { namespace text {
         enum class bidi_line_break_kind { none, hard, possible };
     }
 
-    /** TODO */
+    /** A callable type that returns the next hard line break in [first,
+        last).  This is the default line break callable type used with
+        bidirectional_order(). */
     struct next_hard_line_break_callable
     {
         template<typename CPIter, typename Sentinel>
@@ -1201,7 +1203,11 @@ namespace boost { namespace text {
         }
     };
 
-    /** TODO */
+    /** Represents either a subrange of code points ordered by the Unicode
+        bidirectional algorithm, or a line break; the line break may be a hard
+        line break, or a possible line break, according to the Unicode line
+        break algorithm.  This is the output type for
+        bidirectional_order(). */
     template<typename CPIter>
     struct bidirectional_subrange
     {
