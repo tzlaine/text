@@ -81,8 +81,9 @@ if (LIMIT_TESTING_FOR_TRAVIS)
     file(GLOB grapheme_break_tests grapheme_break_00.cpp)
     file(GLOB grapheme_iterator_tests grapheme_iterator_00.cpp)
     file(GLOB word_break_tests word_break_00.cpp)
-    file(GLOB line_break_tests line_break_00.cpp)
     file(GLOB sentence_break_tests sentence_break_00.cpp)
+    file(GLOB line_break_tests line_break_00.cpp)
+    file(GLOB bidi_tests bidi_test_000.cpp)
     file(GLOB normalize_to_nfd_tests normalize_to_nfd_000.cpp)
     file(GLOB normalize_to_nfkd_tests normalize_to_nfkd_000.cpp)
     file(GLOB normalize_to_nfc_tests normalize_to_nfc_000.cpp)
@@ -92,8 +93,9 @@ else()
     file(GLOB grapheme_break_tests grapheme_break_??.cpp)
     file(GLOB grapheme_iterator_tests grapheme_iterator_??.cpp)
     file(GLOB word_break_tests word_break_??.cpp)
-    file(GLOB line_break_tests line_break_??.cpp)
     file(GLOB sentence_break_tests sentence_break_??.cpp)
+    file(GLOB line_break_tests line_break_??.cpp)
+    file(GLOB bidi_tests bidi_test_???.cpp)
     file(GLOB normalize_to_nfd_tests normalize_to_nfd_???.cpp)
     file(GLOB normalize_to_nfkd_tests normalize_to_nfkd_???.cpp)
     file(GLOB normalize_to_nfc_tests normalize_to_nfc_???.cpp)
@@ -106,6 +108,7 @@ set(globbed_tests
     ${word_break_tests}
     ${sentence_break_tests}
     ${line_break_tests}
+    ${bidi_tests}
     ${normalize_to_nfd_tests}
     ${normalize_to_nfkd_tests}
     ${normalize_to_nfc_tests}
