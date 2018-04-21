@@ -67,8 +67,10 @@ namespace boost { namespace text {
         template<typename CPIter>
         struct prop_and_embedding_t
         {
-            uint32_t const & cp() const { return *it_; }
-            uint32_t & cp() { return *it_; }
+            using value_type =
+                typename std::iterator_traits<CPIter>::value_type;
+
+            value_type const & cp() const { return *it_; }
 
             CPIter it_;
             int embedding_;
@@ -162,7 +164,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         struct props_and_embeddings_cp_iterator
         {
-            using value_type = uint32_t;
+            using value_type = uint32_t const;
             using pointer = value_type *;
             using reference = value_type &;
             using difference_type = std::ptrdiff_t;

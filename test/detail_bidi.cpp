@@ -1,5 +1,7 @@
 #include <boost/text/bidirectional.hpp>
 
+#include "bidi_tests.hpp"
+
 #include <gtest/gtest.h>
 
 
@@ -2200,21 +2202,5 @@ TEST(detail_bidi, bidirectional_order_instantiation)
         subranges;
     bidirectional_order(str.begin(), str.end(), subranges.begin());
 
-    std::vector<int> embedding_levels;
-    detail::bidirectional_order_impl(
-        str.begin(),
-        str.end(),
-        std::back_inserter(embedding_levels),
-        next_possible_line_break_callable{},
-        [](detail::props_and_embeddings_t<std::array<uint32_t, 1>::iterator> &
-               props_and_embeddings,
-           int paragraph_embedding_level,
-           next_possible_line_break_callable & next_line_break,
-           std::back_insert_iterator<std::vector<int>> out) {
-            for (auto pae : props_and_embeddings) {
-                *out = pae.embedding_;
-                ++out;
-            }
-            return out;
-        });
+    std::vector<int> embedding_levels = bidi_levels(&*str.begin(), &*str.end());
 }
