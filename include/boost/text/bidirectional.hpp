@@ -1264,6 +1264,119 @@ namespace boost { namespace text {
 
             Impl impl_;
         };
+
+        template<typename CPIter, typename OutIter, typename NextLineBreakFunc>
+        void emit_bidi_subranges(
+            props_and_embeddings_t<CPIter> props_and_embeddings,
+            int paragraph_embedding_level,
+            NextLineBreakFunc & next_line_break,
+            OutIter out)
+        {
+            using pae_cp_iterator =
+                detail::props_and_embeddings_cp_iterator<CPIter>;
+
+            all_runs_t<CPIter> all_runs;
+
+            // TODO: Find a way to use the actual next_line_break object.
+            lazy_segment_range<
+                line_break_result<pae_cp_iterator>,
+                pae_cp_iterator,
+                detail::next_line_break_t<
+                    NextLineBreakFunc,
+                    line_break_result<pae_cp_iterator>,
+                    pae_cp_iterator>,
+                line_break_cp_range<pae_cp_iterator>>
+                lines{
+                    {line_break_result<pae_cp_iterator>{
+                         pae_cp_iterator{props_and_embeddings.begin()}, false},
+                     pae_cp_iterator{props_and_embeddings.end()}},
+                    {pae_cp_iterator{props_and_embeddings.end()}}};
+
+            for (auto line : lines) {
+                l1(line, paragraph_embedding_level);
+
+                // https://unicode.org/reports/tr9/#L2
+                all_runs = detail::find_all_runs<CPIter>(
+                    line.begin().it_, line.end().it_);
+                auto reordered_runs = l2(all_runs);
+
+                // TODO: Document that L3 is the caller's responsibility.
+
+                // Output the reordered subranges.
+                for (auto run : reordered_runs) {
+                    if (run.reversed()) {
+                        // https://unicode.org/reports/tr9/#L4
+
+                        auto out_value = bidirectional_subrange<CPIter>{
+                            detail::make_reverse_iterator(run.end()->it_),
+                            detail::make_reverse_iterator(run.begin()->it_)};
+                        auto out_first = out_value.begin();
+                        auto out_last = out_value.end();
+
+                        // If this run's directionality is R (aka odd, aka
+                        // reversed), produce 1-code-point ranges for the
+                        // mirrored characters in the run, if any.
+                        while (out_first != out_last) {
+                            int mirror_index = -1;
+                            auto it = std::find_if(
+                                out_first,
+                                out_last,
+                                [&mirror_index](uint32_t cp) {
+                                    mirror_index = detail::bidi_mirroring(cp);
+                                    return mirror_index != -1;
+                                });
+                            if (it == out_last)
+                                break;
+
+                            // If we found a reversible CP, emit any
+                            // preceding CPs first.
+                            if (it != out_first) {
+                                auto prev_subrange =
+                                    bidirectional_subrange<CPIter>{out_first,
+                                                                   it};
+                                *out = prev_subrange;
+                                ++out;
+                            }
+
+                            // Emit the reversed CP.
+                            *out = bidirectional_subrange<CPIter>{
+                                detail::fwd_rev_cp_iter<CPIter>{
+                                    detail::bidi_mirroreds().begin() +
+                                        mirror_index,
+                                    detail::fwd_rev_cp_iter_kind::
+                                        mirror_array_it},
+                                detail::fwd_rev_cp_iter<CPIter>{
+                                    detail::bidi_mirroreds().begin() +
+                                        mirror_index + 1,
+                                    detail::fwd_rev_cp_iter_kind::
+                                        mirror_array_it}};
+                            ++out;
+
+                            // Increment for the next iteration.
+                            out_value =
+                                bidirectional_subrange<CPIter>{++it, out_last};
+                            out_first = out_value.begin();
+                        }
+
+                        if (!out_value.empty()) {
+                            *out = out_value;
+                            ++out;
+                        }
+                    } else {
+                        auto out_value = bidirectional_subrange<CPIter>{
+                            run.begin()->it_, run.end()->it_};
+                        *out = out_value;
+                        ++out;
+                    }
+                }
+
+                bidirectional_subrange<CPIter> const line_break_range{
+                    line.hard_break() ? detail::bidi_line_break_kind::hard
+                                      : detail::bidi_line_break_kind::possible};
+                *out = line_break_range;
+                ++out;
+            }
+        }
     }
 
     /** TODO
@@ -1583,113 +1696,11 @@ namespace boost { namespace text {
                     detail::i1_i2(run_sequence);
                 }
 
-                // TODO: Cut this function here in order to allow it to be
-                // tested as levels+final order, as in the Unicode test files.
-
-                using pae_cp_iterator =
-                    detail::props_and_embeddings_cp_iterator<CPIter>;
-
-                lazy_segment_range<
-                    line_break_result<pae_cp_iterator>,
-                    pae_cp_iterator,
-                    detail::next_line_break_t<
-                        NextLineBreakFunc,
-                        line_break_result<pae_cp_iterator>,
-                        pae_cp_iterator>,
-                    line_break_cp_range<pae_cp_iterator>>
-                    lines{{line_break_result<pae_cp_iterator>{
-                               pae_cp_iterator{props_and_embeddings.begin()},
-                               false},
-                           pae_cp_iterator{props_and_embeddings.end()}},
-                          {pae_cp_iterator{props_and_embeddings.end()}}};
-
-                for (auto line : lines) {
-                    l1(line, paragraph_embedding_level);
-
-                    // https://unicode.org/reports/tr9/#L2
-                    all_runs = detail::find_all_runs<CPIter>(
-                        line.begin().it_, line.end().it_);
-                    auto reordered_runs = l2(all_runs);
-
-                    // TODO: Document that L3 is the caller's responsibility.
-
-                    // Output the reordered subranges.
-                    for (auto run : reordered_runs) {
-                        if (run.reversed()) {
-                            // https://unicode.org/reports/tr9/#L4
-
-                            auto out_value = bidirectional_subrange<CPIter>{
-                                detail::make_reverse_iterator(run.end()->it_),
-                                detail::make_reverse_iterator(
-                                    run.begin()->it_)};
-                            auto out_first = out_value.begin();
-                            auto out_last = out_value.end();
-
-                            // If this run's directionality is R (aka odd, aka
-                            // reversed), produce 1-code-point ranges for the
-                            // mirrored characters in the run, if any.
-                            while (out_first != out_last) {
-                                int mirror_index = -1;
-                                auto it = std::find_if(
-                                    out_first,
-                                    out_last,
-                                    [&mirror_index](uint32_t cp) {
-                                        mirror_index =
-                                            detail::bidi_mirroring(cp);
-                                        return mirror_index != -1;
-                                    });
-                                if (it == out_last)
-                                    break;
-
-                                // If we found a reversible CP, emit any
-                                // preceding CPs first.
-                                if (it != out_first) {
-                                    auto prev_subrange =
-                                        bidirectional_subrange<CPIter>{
-                                            out_first, it};
-                                    *out = prev_subrange;
-                                    ++out;
-                                }
-
-                                // Emit the reversed CP.
-                                *out = bidirectional_subrange<CPIter>{
-                                    detail::fwd_rev_cp_iter<CPIter>{
-                                        detail::bidi_mirroreds().begin() +
-                                            mirror_index,
-                                        detail::fwd_rev_cp_iter_kind::
-                                            mirror_array_it},
-                                    detail::fwd_rev_cp_iter<CPIter>{
-                                        detail::bidi_mirroreds().begin() +
-                                            mirror_index + 1,
-                                        detail::fwd_rev_cp_iter_kind::
-                                            mirror_array_it}};
-                                ++out;
-
-                                // Increment for the next iteration.
-                                out_value = bidirectional_subrange<CPIter>{
-                                    ++it, out_last};
-                                out_first = out_value.begin();
-                            }
-
-                            if (!out_value.empty()) {
-                                *out = out_value;
-                                ++out;
-                            }
-                        } else {
-                            auto out_value = bidirectional_subrange<CPIter>{
-                                run.begin()->it_, run.end()->it_};
-                            *out = out_value;
-                            ++out;
-                        }
-                    }
-
-                    bidirectional_subrange<CPIter> const line_break_range{
-                        line.hard_break()
-                            ? detail::bidi_line_break_kind::hard
-                            : detail::bidi_line_break_kind::possible};
-                    *out = line_break_range;
-                    ++out;
-                }
+                emit_bidi_subranges(
+                    props_and_embeddings,
+                    paragraph_embedding_level,
+                    next_line_break,
+                    out);
             }
         }
         return out;
