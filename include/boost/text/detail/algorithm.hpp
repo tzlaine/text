@@ -404,6 +404,12 @@ namespace boost { namespace text { namespace detail {
         return *(last - 1);
     }
 
+    template<typename Iter>
+    std::reverse_iterator<Iter> make_reverse_iterator(Iter it)
+    {
+        return std::reverse_iterator<Iter>(it);
+    }
+
 }}}
 
 #endif

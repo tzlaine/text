@@ -17,7 +17,6 @@
 
 namespace boost { namespace text {
 
-
     namespace detail {
         struct bidi_prop_interval
         {
@@ -979,11 +978,11 @@ namespace boost { namespace text {
             iterator end() const noexcept { return last_; }
             reverse_iterator rbegin() const noexcept
             {
-                return std::make_reverse_iterator(last_);
+                return make_reverse_iterator(last_);
             }
             reverse_iterator rend() const noexcept
             {
-                return std::make_reverse_iterator(first_);
+                return make_reverse_iterator(first_);
             }
 
             iterator first_;
@@ -1589,8 +1588,9 @@ namespace boost { namespace text {
                             // https://unicode.org/reports/tr9/#L4
 
                             auto out_value = bidirectional_subrange<CPIter>{
-                                std::make_reverse_iterator(run.end()->it_),
-                                std::make_reverse_iterator(run.begin()->it_)};
+                                detail::make_reverse_iterator(run.end()->it_),
+                                detail::make_reverse_iterator(
+                                    run.begin()->it_)};
                             auto out_first = out_value.begin();
                             auto out_last = out_value.end();
 
