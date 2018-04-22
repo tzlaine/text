@@ -1070,51 +1070,27 @@ namespace boost { namespace text {
                 new (&ait_) mirrors_array_t::const_iterator(ait);
             }
 
-            fwd_rev_cp_iter(fwd_rev_cp_iter const & other) noexcept :
-                kind_(other.kind_)
+            fwd_rev_cp_iter(fwd_rev_cp_iter const & other) noexcept
             {
-                if (kind_ == kind_t::user_it)
-                    new (&it_) CPIter(other.it_);
-                else if (kind_ == kind_t::rev_user_it)
-                    new (&rit_) std::reverse_iterator<CPIter>(other.rit_);
-                else
-                    new (&ait_) mirrors_array_t::const_iterator(other.ait_);
+                construct(other);
             }
-            fwd_rev_cp_iter(fwd_rev_cp_iter && other) noexcept :
-                kind_(other.kind_)
+            fwd_rev_cp_iter(fwd_rev_cp_iter && other) noexcept
             {
-                if (kind_ == kind_t::user_it) {
-                    new (&it_) CPIter(std::move(other.it_));
-                } else if (kind_ == kind_t::rev_user_it) {
-                    new (&rit_)
-                        std::reverse_iterator<CPIter>(std::move(other.rit_));
-                } else {
-                    new (&ait_) mirrors_array_t::const_iterator(other.ait_);
-                }
+                construct(std::move(other));
             }
             fwd_rev_cp_iter & operator=(fwd_rev_cp_iter const & other) noexcept
             {
-                fwd_rev_cp_iter tmp(other);
-                std::swap(*this, tmp);
+                destroy();
+                construct(other);
                 return *this;
             }
             fwd_rev_cp_iter & operator=(fwd_rev_cp_iter && other) noexcept
             {
-                fwd_rev_cp_iter tmp(std::move(other));
-                std::swap(*this, tmp);
+                destroy();
+                construct(std::move(other));
                 return *this;
             }
-            ~fwd_rev_cp_iter()
-            {
-                using reverse_iterator_t = std::reverse_iterator<CPIter>;
-                using array_iterator_t = mirrors_array_t::const_iterator;
-                if (kind_ == kind_t::user_it)
-                    it_.~CPIter();
-                else if (kind_ == kind_t::rev_user_it)
-                    rit_.~reverse_iterator_t();
-                else
-                    ait_.~array_iterator_t();
-            }
+            ~fwd_rev_cp_iter() { destroy(); }
 
             fwd_rev_cp_iter & operator++() noexcept
             {
@@ -1180,6 +1156,40 @@ namespace boost { namespace text {
             }
 
         private:
+            void construct(fwd_rev_cp_iter const & other)
+            {
+                kind_ = other.kind_;
+                if (kind_ == kind_t::user_it)
+                    new (&it_) CPIter(other.it_);
+                else if (kind_ == kind_t::rev_user_it)
+                    new (&rit_) std::reverse_iterator<CPIter>(other.rit_);
+                else
+                    new (&ait_) mirrors_array_t::const_iterator(other.ait_);
+            }
+            void construct(fwd_rev_cp_iter && other)
+            {
+                kind_ = other.kind_;
+                if (kind_ == kind_t::user_it) {
+                    new (&it_) CPIter(std::move(other.it_));
+                } else if (kind_ == kind_t::rev_user_it) {
+                    new (&rit_)
+                        std::reverse_iterator<CPIter>(std::move(other.rit_));
+                } else {
+                    new (&ait_) mirrors_array_t::const_iterator(other.ait_);
+                }
+            }
+            void destroy()
+            {
+                using reverse_iterator_t = std::reverse_iterator<CPIter>;
+                using array_iterator_t = mirrors_array_t::const_iterator;
+                if (kind_ == kind_t::user_it)
+                    it_.~CPIter();
+                else if (kind_ == kind_t::rev_user_it)
+                    rit_.~reverse_iterator_t();
+                else
+                    ait_.~array_iterator_t();
+            }
+
             union
             {
                 CPIter it_;
