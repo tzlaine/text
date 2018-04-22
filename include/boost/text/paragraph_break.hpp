@@ -7,15 +7,15 @@
 namespace boost { namespace text {
 
     namespace detail {
-        // All the CPs below are derived from the CR, LF, and Sep CPs in
-        // sentence_break.cpp.
+        // The logic below is derived from Bidi_Class=Paragraph_Separator in
+        // DerivedBidiClass.txt.
         inline bool paragraph_break(uint32_t cp)
         {
-            return cp == 0xa ||    // LF
-                   cp == 0xd ||    // CR
-                   cp == 0x85 ||   // Sep
-                   cp == 0x2028 || // Sep
-                   cp == 0x2029    // Sep
+            return cp == 0xa ||                  // LF
+                   cp == 0xd ||                  // CR
+                   (0x1c <= cp && cp <= 0x1e) || // INFORMATION SEPARATORs
+                   cp == 0x85 ||                 // NEXT LINE (NEL)
+                   cp == 0x2029                  // PARAGRAPH SEPARATOR
                 ;
         }
     }
@@ -29,13 +29,13 @@ namespace boost { namespace text {
     auto prev_paragraph_break(CPIter first, CPIter it, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
+        // CRLF special case.
         if (it != first && it != last && *std::prev(it) == 0xd && *it == 0xa)
             --it;
-        auto const initial_it = it;
-        it = find_if_backward(first, it, detail::paragraph_break);
-        if (it == initial_it)
+        auto prev_it = find_if_backward(first, it, detail::paragraph_break);
+        if (prev_it == it)
             return first;
-        return ++it;
+        return ++prev_it;
     }
 
     /** Finds the next paragraph break after <code>first</code>.  This will be
