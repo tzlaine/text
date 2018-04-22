@@ -23,7 +23,11 @@ namespace boost { namespace text {
             }
 
         private:
-            template<typename CPIter_, typename Sentinel_, typename NextFunc_>
+            template<
+                typename CPIter_,
+                typename Sentinel_,
+                typename NextFunc_,
+                typename CPRange>
             friend struct const_lazy_segment_iterator;
 
             segment_arrow_proxy(CPRange value) : value_(value)

@@ -1270,8 +1270,7 @@ namespace boost { namespace text {
         {
             BreakResult operator()(BreakResult result, Sentinel last) noexcept
             {
-                return impl_.template operator()<BreakResult, Sentinel>(
-                    result, last);
+                return impl_(result, last);
             }
 
             Impl impl_;
@@ -1319,8 +1318,8 @@ namespace boost { namespace text {
                         // https://unicode.org/reports/tr9/#L4
 
                         auto out_value = bidirectional_subrange<CPIter>{
-                            make_reverse_iterator(run.end()->it_),
-                            make_reverse_iterator(run.begin()->it_)};
+                            boost::text::detail::make_reverse_iterator(run.end()->it_),
+                            boost::text::detail::make_reverse_iterator(run.begin()->it_)};
                         auto out_first = out_value.begin();
                         auto out_last = out_value.end();
 

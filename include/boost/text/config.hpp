@@ -67,6 +67,7 @@ using atomics, #define this macro to a nonzero value. */
 #    define BOOST_TEXT_DECL
 #endif
 
+#if 0 // TODO: Disabled for now.
 //  enable automatic library variant selection
 
 #if !defined(BOOST_TEXT_SOURCE) && !defined(BOOST_ALL_NO_LIB) &&               \
@@ -87,5 +88,6 @@ using atomics, #define this macro to a nonzero value. */
 //
 #include <boost/config/auto_link.hpp>
 #endif  // auto-linking disabled
+#endif
 
 #endif
