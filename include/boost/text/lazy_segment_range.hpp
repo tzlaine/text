@@ -88,13 +88,13 @@ namespace boost { namespace text {
                 const_lazy_segment_iterator lhs,
                 const_lazy_segment_iterator rhs) noexcept
             {
-                return lhs.it_ == rhs.last_;
+                return lhs.prev_ == rhs.last_;
             }
             friend bool operator!=(
                 const_lazy_segment_iterator lhs,
                 const_lazy_segment_iterator rhs) noexcept
             {
-                return lhs.it_ != rhs.last_;
+                return !(lhs == rhs);
             }
         };
     }

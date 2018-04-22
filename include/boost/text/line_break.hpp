@@ -118,7 +118,21 @@ namespace boost { namespace text {
     }
 
     template<typename CPIter, typename Sentinel>
+    auto operator==(Sentinel s, line_break_result<CPIter> result) noexcept
+        -> decltype(result.iter == s)
+    {
+        return result.iter == s;
+    }
+
+    template<typename CPIter, typename Sentinel>
     auto operator!=(line_break_result<CPIter> result, Sentinel s) noexcept
+        -> decltype(result.iter != s)
+    {
+        return result.iter != s;
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto operator!=(Sentinel s, line_break_result<CPIter> result) noexcept
         -> decltype(result.iter != s)
     {
         return result.iter != s;

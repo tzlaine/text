@@ -65,6 +65,7 @@ TEST(break_apis, grapheme_break)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, grapheme_bounds.size());
     }
     // Range API
     {
@@ -81,6 +82,7 @@ TEST(break_apis, grapheme_break)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, grapheme_bounds.size());
     }
 }
 
@@ -150,7 +152,7 @@ TEST(break_apis, grapheme_break_sentinel)
     {
         auto const all_graphemes = boost::text::graphemes(begin, end);
 
-        std::array<std::pair<int, int>, 3> const grapheme_bounds = {
+        std::array<std::pair<int, int>, 2> const grapheme_bounds = {
             {{0, 2}, {2, 3}}};
 
         int i = 0;
@@ -163,12 +165,13 @@ TEST(break_apis, grapheme_break_sentinel)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, grapheme_bounds.size());
     }
     // Range API
     {
         auto const all_graphemes = boost::text::graphemes(cp_range);
 
-        std::array<std::pair<int, int>, 3> const grapheme_bounds = {
+        std::array<std::pair<int, int>, 2> const grapheme_bounds = {
             {{0, 2}, {2, 3}}};
 
         int i = 0;
@@ -181,6 +184,7 @@ TEST(break_apis, grapheme_break_sentinel)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, grapheme_bounds.size());
     }
 }
 
@@ -239,6 +243,7 @@ TEST(break_apis, word_break)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, word_bounds.size());
     }
     // Range API
     {
@@ -255,6 +260,7 @@ TEST(break_apis, word_break)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, word_bounds.size());
     }
 }
 
@@ -342,6 +348,7 @@ TEST(break_apis, word_break_sentinel)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, word_bounds.size());
     }
     // Range API
     {
@@ -358,6 +365,7 @@ TEST(break_apis, word_break_sentinel)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, word_bounds.size());
     }
 }
 
@@ -410,6 +418,7 @@ TEST(break_apis, sentence_break)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, sentence_bounds.size());
     }
     // Range API
     {
@@ -426,6 +435,7 @@ TEST(break_apis, sentence_break)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, sentence_bounds.size());
     }
 }
 
@@ -504,6 +514,7 @@ TEST(break_apis, sentence_break_sentinel)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, sentence_bounds.size());
     }
     // Range API
     {
@@ -520,6 +531,7 @@ TEST(break_apis, sentence_break_sentinel)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, sentence_bounds.size());
     }
 }
 
@@ -561,7 +573,7 @@ TEST(break_apis, line_break)
     {
         auto const all_lines = boost::text::possible_lines(cps.begin(), cps.end());
 
-        std::array<std::pair<int, int>, 4> const line_bounds = {
+        std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
 
         int i = 0;
@@ -572,12 +584,13 @@ TEST(break_apis, line_break)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, line_bounds.size());
     }
     // Range API
     {
         auto const all_lines = boost::text::possible_lines(cps);
 
-        std::array<std::pair<int, int>, 4> const line_bounds = {
+        std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
 
         int i = 0;
@@ -588,6 +601,7 @@ TEST(break_apis, line_break)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, line_bounds.size());
     }
 }
 
@@ -655,7 +669,7 @@ TEST(break_apis, line_break_sentinel)
     {
         auto const all_lines = boost::text::possible_lines(begin, end);
 
-        std::array<std::pair<int, int>, 4> const line_bounds = {
+        std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
 
         int i = 0;
@@ -666,12 +680,13 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, line_bounds.size());
     }
     // Range API
     {
         auto const all_lines = boost::text::possible_lines(cp_range);
 
-        std::array<std::pair<int, int>, 4> const line_bounds = {
+        std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
 
         int i = 0;
@@ -682,13 +697,14 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, line_bounds.size());
     }
 }
 
 TEST(break_apis, paragraph_break)
 {
     // ÷ 0061 × 000D × 000A ÷ 002E × 000A ÷ 0061 ÷
-    std::array<uint32_t, 6> cps = {{0x61, 0xd, 0xa, 0x2e, 0xa, 0x61}};
+    std::vector<uint32_t> const cps = {0x61, 0xd, 0xa, 0x2e, 0xa, 0x61};
 
     {
         EXPECT_EQ(boost::text::prev_paragraph_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -729,7 +745,7 @@ TEST(break_apis, paragraph_break)
         auto const all_paragraphs = boost::text::paragraphs(cps.begin(), cps.end());
 
         std::array<std::pair<int, int>, 3> const paragraph_bounds = {
-            {{0, 3}, {3, 5}, {5, 7}}};
+            {{0, 3}, {3, 5}, {5, 6}}};
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
@@ -739,13 +755,14 @@ TEST(break_apis, paragraph_break)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, paragraph_bounds.size());
     }
     // Range API
     {
         auto const all_paragraphs = boost::text::paragraphs(cps);
 
         std::array<std::pair<int, int>, 3> const paragraph_bounds = {
-            {{0, 3}, {3, 5}, {5, 7}}};
+            {{0, 3}, {3, 5}, {5, 6}}};
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
@@ -755,6 +772,7 @@ TEST(break_apis, paragraph_break)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, paragraph_bounds.size());
     }
 }
 
@@ -830,8 +848,8 @@ TEST(break_apis, paragraph_break_sentinel)
     {
         auto const all_paragraphs = boost::text::paragraphs(begin, end);
 
-        std::array<std::pair<int, int>, 4> const paragraph_bounds = {
-            {{0, 3}, {3, 5}, {5, 7}}};
+        std::array<std::pair<int, int>, 3> const paragraph_bounds = {
+            {{0, 3}, {3, 5}, {5, 6}}};
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
@@ -841,13 +859,14 @@ TEST(break_apis, paragraph_break_sentinel)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, paragraph_bounds.size());
     }
     // Range API
     {
         auto const all_paragraphs = boost::text::paragraphs(cp_range);
 
-        std::array<std::pair<int, int>, 4> const paragraph_bounds = {
-            {{0, 3}, {3, 5}, {5, 7}}};
+        std::array<std::pair<int, int>, 3> const paragraph_bounds = {
+            {{0, 3}, {3, 5}, {5, 6}}};
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
@@ -857,5 +876,6 @@ TEST(break_apis, paragraph_break_sentinel)
                 << "i=" << i;
             ++i;
         }
+        EXPECT_EQ(i, paragraph_bounds.size());
     }
 }
