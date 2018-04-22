@@ -87,8 +87,9 @@ TEST(bidi, bidi_{1:03}_000)
 bidi_test_form = '''
     {{
         // {0}
-        uint32_t const cps[] = {{ {1} }};
-        std::vector<int> const levels = bidi_levels(std::begin(cps), std::end(cps));
+        std::vector<uint32_t> const cps = {{ {1} }};
+        std::vector<int> const levels = bidi_levels(&*cps.begin(), &*cps.end());
+        EXPECT_EQ(levels.size(), cps.size());
         int i = 0;
         for (int l : expected_levels) {{
             if (0 <= l) {{
