@@ -132,28 +132,29 @@ namespace boost { namespace text {
         int const bidi_max_depth = 125;
 
         template<typename CPIter, typename Sentinel>
-        int p2_p3(CPIter para_it, Sentinel para_last) noexcept
+        int p2_p3(CPIter first, Sentinel last) noexcept
         {
             // https://unicode.org/reports/tr9/#P2
+            using ::boost::text::bidi_prop;
+
             auto retval = 0;
-            {
-                auto it = para_it;
-                while (it != para_last) {
-                    using ::boost::text::bidi_prop;
-                    auto const prop = bidi_prop(*it);
-                    if (isolate_initiator(prop)) {
-                        it = matching_pdi(it, para_last);
-                        if (it == para_last)
-                            break;
-                        ++it;
-                    } else if (
-                        prop == bidi_property::L || prop == bidi_property::AL ||
-                        prop == bidi_property::R) {
-                        // https://unicode.org/reports/tr9/#P3
-                        retval = 1;
-                    }
-                }
+
+            for (; first != last; ++first) {
+                auto const prop = bidi_prop(*first);
+                if (isolate_initiator(prop))
+                    first = matching_pdi(first, last);
             }
+
+            // https://unicode.org/reports/tr9/#P3
+            if (first == last)
+                return retval;
+
+            auto const prop = bidi_prop(*first);
+            if (prop == bidi_property::L || prop == bidi_property::AL ||
+                prop == bidi_property::R) {
+                retval = 1;
+            }
+
             return retval;
         }
 
