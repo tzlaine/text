@@ -27,7 +27,7 @@ namespace boost { namespace text {
                 typename CPIter_,
                 typename Sentinel_,
                 typename NextFunc_,
-                typename CPRange>
+                typename CPRange_>
             friend struct const_lazy_segment_iterator;
 
             segment_arrow_proxy(CPRange value) : value_(value)
