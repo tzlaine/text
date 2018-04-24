@@ -32,4 +32,17 @@ inline std::vector<int> bidi_levels(str_iter_t first, str_iter_t last)
     return retval;
 }
 
+namespace std {
+    ostream &
+    operator<<(ostream & os, vector<int> const & levels)
+    {
+        os << "[ ";
+        for (int l : levels) {
+            os << l << " ";
+        }
+        os << ']' << endl;
+        return os;
+    }
+}
+
 #endif

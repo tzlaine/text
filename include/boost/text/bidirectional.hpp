@@ -1733,6 +1733,8 @@ namespace boost { namespace text {
                         paragraph_embedding_level,
                         next_line_break,
                         out);
+
+                    props_and_embeddings.clear();
                 }
             }
 
