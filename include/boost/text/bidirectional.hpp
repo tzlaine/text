@@ -90,7 +90,7 @@ namespace boost { namespace text {
         CPIter matching_pdi(CPIter it, Sentinel last) noexcept
         {
             if (it == last)
-                return last;
+                return it;
 
             using ::boost::text::bidi_prop;
             assert(isolate_initiator(bidi_prop(*it)));
@@ -139,10 +139,12 @@ namespace boost { namespace text {
 
             auto retval = 0;
 
-            for (; first != last; ++first) {
+            while (first != last) {
                 auto const prop = bidi_prop(*first);
                 if (isolate_initiator(prop))
                     first = matching_pdi(first, last);
+                else
+                    ++first;
             }
 
             // https://unicode.org/reports/tr9/#P3
@@ -422,6 +424,9 @@ namespace boost { namespace text {
             run_sequences_t<CPIter> & run_sequences,
             int paragraph_embedding_level)
         {
+            if (run_sequences.empty())
+                return;
+
             auto prev_embedding = paragraph_embedding_level;
             auto embedding = run_sequences[0].embedding_;
             auto next_embedding = run_sequences.size() < 2
@@ -853,7 +858,7 @@ namespace boost { namespace text {
                 }
 
                 auto prev_prop = seq.sos_;
-                if (next_it != begin || next_it != end)
+                if (next_it != begin && next_it != end)
                     prev_prop = num_to_r(*std::prev(next_it));
                 auto next_prop = seq.eos_;
                 if (next_next_it != end)
@@ -1408,14 +1413,18 @@ namespace boost { namespace text {
                 container::static_vector<bidi_state_t, bidi_max_depth + 2>;
             using stack_t = std::stack<bidi_state_t, vec_t>;
 
-            auto next_odd = [](stack_t const & stack) {
-                auto retval = stack.top().embedding_ + 1;
+            auto next_odd = [](stack_t const & stack,
+                               int paragraph_embedding_level) {
+                auto retval = stack.empty() ? paragraph_embedding_level
+                                            : stack.top().embedding_ + 1;
                 if (even(retval))
                     ++retval;
                 return retval;
             };
-            auto next_even = [](stack_t const & stack) {
-                auto retval = stack.top().embedding_ + 1;
+            auto next_even = [](stack_t const & stack,
+                                int paragraph_embedding_level) {
+                auto retval = stack.empty() ? paragraph_embedding_level
+                                            : stack.top().embedding_ + 1;
                 if (odd(retval))
                     ++retval;
                 return retval;
@@ -1424,12 +1433,14 @@ namespace boost { namespace text {
             auto prop_from_top =
                 [](stack_t const & stack,
                    props_and_embeddings_t & props_and_embeddings) {
-                    if (stack.top().directional_override_ ==
-                        directional_override_t::left_to_right) {
+                    if (!stack.empty() &&
+                        stack.top().directional_override_ ==
+                            directional_override_t::left_to_right) {
                         props_and_embeddings.back().prop_ = bidi_property::L;
                     } else if (
+                        !stack.empty() &&
                         stack.top().directional_override_ ==
-                        directional_override_t::right_to_left) {
+                            directional_override_t::right_to_left) {
                         props_and_embeddings.back().prop_ = bidi_property::R;
                     }
                 };
@@ -1439,9 +1450,11 @@ namespace boost { namespace text {
                            props_and_embeddings_t & props_and_embeddings,
                            int & overflow_isolates,
                            int overflow_embedding,
-                           int & valid_isolates) {
+                           int & valid_isolates,
+                           int paragraph_embedding_level) {
                 prop_from_top(stack, props_and_embeddings);
-                auto const next_odd_embedding_level = next_odd(stack);
+                auto const next_odd_embedding_level =
+                    next_odd(stack, paragraph_embedding_level);
                 if (next_odd_embedding_level <= bidi_max_depth &&
                     !overflow_isolates && !overflow_embedding) {
                     ++valid_isolates;
@@ -1458,9 +1471,11 @@ namespace boost { namespace text {
                            props_and_embeddings_t & props_and_embeddings,
                            int & overflow_isolates,
                            int overflow_embedding,
-                           int & valid_isolates) {
+                           int & valid_isolates,
+                           int paragraph_embedding_level) {
                 prop_from_top(stack, props_and_embeddings);
-                auto const next_even_embedding_level = next_even(stack);
+                auto const next_even_embedding_level =
+                    next_even(stack, paragraph_embedding_level);
                 if (next_even_embedding_level <= bidi_max_depth &&
                     !overflow_isolates && !overflow_embedding) {
                     ++valid_isolates;
@@ -1497,13 +1512,19 @@ namespace boost { namespace text {
                     // indicates that the embedding level should always be
                     // whatever the top of stack's embedding level is.
                     props_and_embeddings.push_back(prop_and_embedding_t{
-                        it, stack.top().embedding_, prop, false, false});
+                        it,
+                        stack.empty() ? paragraph_embedding_level
+                                      : stack.top().embedding_,
+                        prop,
+                        false,
+                        false});
 
                     // https://unicode.org/reports/tr9/#X2
                     switch (prop) {
                     case bidi_property::RLE: {
                         // https://unicode.org/reports/tr9/#X2
-                        auto const next_odd_embedding_level = next_odd(stack);
+                        auto const next_odd_embedding_level =
+                            next_odd(stack, paragraph_embedding_level);
                         if (next_odd_embedding_level <= bidi_max_depth &&
                             !overflow_isolates && !overflow_embedding) {
                             stack.push(
@@ -1518,7 +1539,8 @@ namespace boost { namespace text {
 
                     case bidi_property::LRE: {
                         // https://unicode.org/reports/tr9/#X3
-                        auto const next_even_embedding_level = next_even(stack);
+                        auto const next_even_embedding_level =
+                            next_even(stack, paragraph_embedding_level);
                         if (next_even_embedding_level <= bidi_max_depth &&
                             !overflow_isolates && !overflow_embedding) {
                             stack.push(
@@ -1533,7 +1555,8 @@ namespace boost { namespace text {
 
                     case bidi_property::RLO: {
                         // https://unicode.org/reports/tr9/#X4
-                        auto const next_odd_embedding_level = next_odd(stack);
+                        auto const next_odd_embedding_level =
+                            next_odd(stack, paragraph_embedding_level);
                         if (next_odd_embedding_level <= bidi_max_depth &&
                             !overflow_isolates && !overflow_embedding) {
                             stack.push(bidi_state_t{
@@ -1548,7 +1571,8 @@ namespace boost { namespace text {
 
                     case bidi_property::LRO: {
                         // https://unicode.org/reports/tr9/#X5
-                        auto const next_even_embedding_level = next_even(stack);
+                        auto const next_even_embedding_level =
+                            next_even(stack, paragraph_embedding_level);
                         if (next_even_embedding_level <= bidi_max_depth &&
                             !overflow_isolates && !overflow_embedding) {
                             stack.push(bidi_state_t{
@@ -1567,7 +1591,8 @@ namespace boost { namespace text {
                             props_and_embeddings,
                             overflow_isolates,
                             overflow_embedding,
-                            valid_isolates);
+                            valid_isolates,
+                            paragraph_embedding_level);
                         break;
                     case bidi_property::LRI:
                         // https://unicode.org/reports/tr9/#X5b
@@ -1575,7 +1600,8 @@ namespace boost { namespace text {
                             props_and_embeddings,
                             overflow_isolates,
                             overflow_embedding,
-                            valid_isolates);
+                            valid_isolates,
+                            paragraph_embedding_level);
                         break;
                     case bidi_property::FSI:
                         // https://unicode.org/reports/tr9/#X5c
@@ -1584,13 +1610,15 @@ namespace boost { namespace text {
                                 props_and_embeddings,
                                 overflow_isolates,
                                 overflow_embedding,
-                                valid_isolates);
+                                valid_isolates,
+                                paragraph_embedding_level);
                         } else {
                             x5b(stack,
                                 props_and_embeddings,
                                 overflow_isolates,
                                 overflow_embedding,
-                                valid_isolates);
+                                valid_isolates,
+                                paragraph_embedding_level);
                         }
                         break;
 
@@ -1607,12 +1635,17 @@ namespace boost { namespace text {
                             props_and_embeddings.back().unmatched_pdi_ = true;
                         } else {
                             overflow_embedding = 0;
-                            while (!stack.top().directional_isolate_) {
+                            while (!stack.empty() &&
+                                   !stack.top().directional_isolate_) {
                                 stack.pop();
                             }
+                            if (stack.empty())
+                                break;
                             stack.pop();
                             --valid_isolates;
                         }
+                        if (stack.empty())
+                            break;
                         props_and_embeddings.back().embedding_ =
                             stack.top().embedding_;
                         if (stack.top().directional_override_ ==
@@ -1633,6 +1666,7 @@ namespace boost { namespace text {
                             if (0 < overflow_embedding) {
                                 --overflow_embedding;
                             } else if (
+                                !stack.empty() &&
                                 !stack.top().directional_isolate_ &&
                                 2u <= stack.size()) {
                                 stack.pop();
@@ -1640,7 +1674,8 @@ namespace boost { namespace text {
                         }
                         // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
                         props_and_embeddings.back().embedding_ =
-                            stack.top().embedding_;
+                            stack.empty() ? paragraph_embedding_level
+                                          : stack.top().embedding_;
                         break;
 
                     case bidi_property::B:
