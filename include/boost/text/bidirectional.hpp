@@ -77,6 +77,17 @@ namespace boost { namespace text {
             bidi_property prop_;
             bool unmatched_pdi_;
             bool originally_nsm_;
+
+#ifdef BOOST_TEXT_TESTING
+            friend std::ostream &
+            operator<<(std::ostream & os, prop_and_embedding_t pae)
+            {
+                os << '{' << std::hex << "0x" << pae.cp() << std::dec << " "
+                   << pae.embedding_ << " " << pae.prop_ << " "
+                   << pae.unmatched_pdi_ << " " << pae.originally_nsm_ << '}';
+                return os;
+            }
+#endif
         };
 
         template<typename CPIter>
@@ -1684,58 +1695,61 @@ namespace boost { namespace text {
                         // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
                         // case bidi_property::BN: break;
                     }
-
-                    // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
-                    // https://unicode.org/reports/tr9/#X9
-                    std::transform(
-                        props_and_embeddings.begin(),
-                        props_and_embeddings.end(),
-                        props_and_embeddings.begin(),
-                        [](prop_and_embedding_t pae) {
-                            if (pae.prop_ == bidi_property::RLE ||
-                                pae.prop_ == bidi_property::LRE ||
-                                pae.prop_ == bidi_property::RLO ||
-                                pae.prop_ == bidi_property::LRO ||
-                                pae.prop_ == bidi_property::PDF) {
-                                pae.prop_ = bidi_property::BN;
-                            }
-                            return pae;
-                        });
-
-                    // https://unicode.org/reports/tr9/#X10
-                    auto all_runs = find_all_runs<CPIter>(
-                        props_and_embeddings.begin(),
-                        props_and_embeddings.end());
-                    auto run_sequences =
-                        find_run_sequences(props_and_embeddings, all_runs);
-
-                    find_sos_eos(run_sequences, paragraph_embedding_level);
-                    for (auto & run_sequence : run_sequences) {
-                        w1(run_sequence);
-                        w2(run_sequence);
-                        w3(run_sequence);
-                        w4(run_sequence);
-                        w5(run_sequence);
-                        w6(run_sequence);
-                        w7(run_sequence);
-
-                        auto const bracket_pairs =
-                            find_bracket_pairs(run_sequence);
-                        n0(run_sequence, bracket_pairs);
-                        n1(run_sequence);
-                        n2(run_sequence);
-
-                        i1_i2(run_sequence);
-                    }
-
-                    out = emit(
-                        props_and_embeddings,
-                        paragraph_embedding_level,
-                        next_line_break,
-                        out);
-
-                    props_and_embeddings.clear();
                 }
+
+                // https://unicode.org/reports/tr9/#Retaining_Explicit_Formatting_Characters
+                // https://unicode.org/reports/tr9/#X9
+                std::transform(
+                    props_and_embeddings.begin(),
+                    props_and_embeddings.end(),
+                    props_and_embeddings.begin(),
+                    [](prop_and_embedding_t pae) {
+                        if (pae.prop_ == bidi_property::RLE ||
+                            pae.prop_ == bidi_property::LRE ||
+                            pae.prop_ == bidi_property::RLO ||
+                            pae.prop_ == bidi_property::LRO ||
+                            pae.prop_ == bidi_property::PDF) {
+                            pae.prop_ = bidi_property::BN;
+                        }
+                        return pae;
+                    });
+
+#if 0
+                for (auto pae : props_and_embeddings) {
+                    std::cout << pae << "\n";
+                }
+                std::cout << std::endl;
+#endif
+
+                // https://unicode.org/reports/tr9/#X10
+                auto all_runs = find_all_runs<CPIter>(
+                    props_and_embeddings.begin(), props_and_embeddings.end());
+                auto run_sequences =
+                    find_run_sequences(props_and_embeddings, all_runs);
+
+                find_sos_eos(run_sequences, paragraph_embedding_level);
+                for (auto & run_sequence : run_sequences) {
+                    w1(run_sequence);
+                    w2(run_sequence);
+                    w3(run_sequence);
+                    w4(run_sequence);
+                    w5(run_sequence);
+                    w6(run_sequence);
+                    w7(run_sequence);
+
+                    auto const bracket_pairs = find_bracket_pairs(run_sequence);
+                    n0(run_sequence, bracket_pairs);
+                    n1(run_sequence);
+                    n2(run_sequence);
+
+                    i1_i2(run_sequence);
+                }
+
+                out = emit(
+                    props_and_embeddings,
+                    paragraph_embedding_level,
+                    next_line_break,
+                    out);
             }
 
             return out;

@@ -32,6 +32,41 @@ namespace boost { namespace text {
         PDI
     };
 
+#ifdef BOOST_TEXT_TESTING
+    std::ostream & operator<<(std::ostream & os, bidi_property prop)
+    {
+#define CASE(x)                                                                \
+        case bidi_property::x: os << #x; break
+        switch (prop) {
+            CASE(L);
+            CASE(R);
+            CASE(EN);
+            CASE(ES);
+            CASE(ET);
+            CASE(AN);
+            CASE(CS);
+            CASE(B);
+            CASE(S);
+            CASE(WS);
+            CASE(ON);
+            CASE(BN);
+            CASE(NSM);
+            CASE(AL);
+            CASE(LRO);
+            CASE(RLO);
+            CASE(LRE);
+            CASE(RLE);
+            CASE(PDF);
+            CASE(LRI);
+            CASE(RLI);
+            CASE(FSI);
+            CASE(PDI);
+        }
+#undef CASE
+        return os;
+    }
+#endif
+
 }}
 
 #endif
