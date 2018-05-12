@@ -244,11 +244,11 @@ TEST(trie_map, iterators)
         auto const incremental_last = std::next(first, trie.size());
         EXPECT_EQ(last, incremental_last);
 
-        std::vector<trie::trie_map_element<std::string, int>> copied_elements(
+        std::vector<trie::trie_element<std::string, int>> copied_elements(
             trie.size());
         std::copy(trie.begin(), trie.end(), copied_elements.begin());
 
-        std::vector<trie::trie_map_element<std::string, int>>
+        std::vector<trie::trie_element<std::string, int>>
             reversed_copied_elements(trie.size());
         std::copy(
             trie.rbegin(), trie.rend(), reversed_copied_elements.rbegin());

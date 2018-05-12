@@ -108,7 +108,7 @@ set(globbed_tests
     ${word_break_tests}
     ${sentence_break_tests}
     ${line_break_tests}
-    ${bidi_tests}
+# TODO    ${bidi_tests}
     ${normalize_to_nfd_tests}
     ${normalize_to_nfkd_tests}
     ${normalize_to_nfc_tests}
