@@ -212,6 +212,12 @@ set(compile_sources
     compile_include_rope_1.cpp
     compile_include_rope_2.cpp
     compile_include_rope_3.cpp
+    compile_include_trie_1.cpp
+    compile_include_trie_2.cpp
+    compile_include_trie_map_1.cpp
+    compile_include_trie_map_2.cpp
+    compile_include_trie_set_1.cpp
+    compile_include_trie_set_2.cpp
     compile_include_vector_1.cpp
     compile_include_vector_2.cpp
     compile_include_algorithm_1.cpp
@@ -219,6 +225,7 @@ set(compile_sources
     compile_detail_is_char_iter.cpp
     compile_detail_is_char_range.cpp
     compile_detail_is_cp_iter.cpp
+    compile_trie_conversions.cpp
 )
 
 # Set to true to compile the headers with BOOST_TEXT_DOXYGEN defined

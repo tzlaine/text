@@ -18,56 +18,6 @@ namespace boost { namespace trie {
     template<typename Key, typename Value>
     struct const_reverse_trie_map_iterator;
 
-    /** A key/value pair found in a trie_map. */
-    template<typename Key, typename Value>
-    struct trie_map_element
-    {
-        trie_map_element() {}
-        trie_map_element(Key k, Value v) : key(k), value(v) {}
-
-        template<typename KeyT, typename ValueT>
-        trie_map_element(trie_map_element<KeyT, ValueT> const & rhs) :
-            key(rhs.key),
-            value(rhs.value)
-        {}
-
-        template<typename KeyT, typename ValueT>
-        trie_map_element(trie_map_element<KeyT, ValueT> && rhs) :
-            key(std::move(rhs.key)),
-            value(std::move(rhs.value))
-        {}
-
-        template<typename KeyT, typename ValueT>
-        trie_map_element & operator=(trie_map_element<KeyT, ValueT> const & rhs)
-        {
-            key = rhs.key;
-            value = rhs.value;
-            return *this;
-        }
-
-        template<typename KeyT, typename ValueT>
-        trie_map_element & operator=(trie_map_element<KeyT, ValueT> && rhs)
-        {
-            key = std::move(rhs.key);
-            value = std::move(rhs.value);
-            return *this;
-        }
-
-        Key key;
-        Value value;
-
-        friend bool
-        operator==(trie_map_element const & lhs, trie_map_element const & rhs)
-        {
-            return lhs.key == rhs.key && lhs.value == rhs.value;
-        }
-        friend bool
-        operator!=(trie_map_element const & lhs, trie_map_element const & rhs)
-        {
-            return !(lhs == rhs);
-        }
-    };
-
     /** A range type returned by certain operations on a trie_map or
         trie_set. */
     template<typename Iter>
@@ -257,7 +207,7 @@ namespace boost { namespace trie {
     public:
         using key_type = Key;
         using mapped_type = Value;
-        using value_type = trie_map_element<Key, Value>;
+        using value_type = trie_element<Key, Value>;
         using key_compare = Compare;
         using key_element_type = typename Key::value_type;
 
@@ -638,7 +588,7 @@ namespace boost { namespace trie {
                 std::move(value));
         }
 
-        /** Inserts the the key/value pair \a e into *this.  The \a inserted
+        /** Inserts the key/value pair \a e into *this.  The \a inserted
             field of the result will be true if the operation resulted in a
             new insertion, or false otherwise. */
         insert_result insert(value_type e)
@@ -648,7 +598,7 @@ namespace boost { namespace trie {
             return insert(begin(e.key), end(e.key), std::move(e.value));
         }
 
-        /** Inserts the the sequence of key/value pairs <code>[first,
+        /** Inserts the sequence of key/value pairs <code>[first,
             last)</code> into *this.  The \a inserted field of the result will
             be true if the operation resulted in a new insertion, or false
             otherwise. */
@@ -660,7 +610,7 @@ namespace boost { namespace trie {
             }
         }
 
-        /** Inserts the the sequence of key/value pairs \a r into *this.  The
+        /** Inserts the sequence of key/value pairs \a r into *this.  The
             \a inserted field of the result will be true if the operation
             resulted in a new insertion, or false otherwise. */
         template<typename Range>
@@ -671,7 +621,7 @@ namespace boost { namespace trie {
             return insert(begin(r), end(r));
         }
 
-        /** Inserts the the sequence of key/value pairs \a il into *this.  The
+        /** Inserts the sequence of key/value pairs \a il into *this.  The
             \a inserted field of the result will be true if the operation
             resulted in a new insertion, or false otherwise. */
         void insert(std::initializer_list<value_type> il)
@@ -932,7 +882,7 @@ namespace boost { namespace trie {
         template<typename Key, typename Value>
         struct arrow_proxy
         {
-            trie_map_element<Key, Value &> * operator->() const noexcept
+            trie_element<Key, Value &> * operator->() const noexcept
             {
                 return &value_;
             }
@@ -949,7 +899,7 @@ namespace boost { namespace trie {
                 value_{std::move(key), value}
             {}
 
-            mutable trie_map_element<Key, Value &> value_;
+            mutable trie_element<Key, Value &> value_;
         };
     }
 
@@ -961,9 +911,9 @@ namespace boost { namespace trie {
         state_t state_;
 
     public:
-        using value_type = trie_map_element<Key, Value>;
+        using value_type = trie_element<Key, Value>;
         using pointer = detail::arrow_proxy<Key, Value const>;
-        using reference = trie_map_element<Key, Value const &>;
+        using reference = trie_element<Key, Value const &>;
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
@@ -1106,9 +1056,9 @@ namespace boost { namespace trie {
         const_trie_map_iterator<Key, Value> it_;
 
     public:
-        using value_type = trie_map_element<Key, Value>;
+        using value_type = trie_element<Key, Value>;
         using pointer = detail::arrow_proxy<Key, Value>;
-        using reference = trie_map_element<Key, Value &>;
+        using reference = trie_element<Key, Value &>;
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
@@ -1189,9 +1139,9 @@ namespace boost { namespace trie {
         trie_map_iterator<Key, Value> it_;
 
     public:
-        using value_type = trie_map_element<Key, Value>;
+        using value_type = trie_element<Key, Value>;
         using pointer = detail::arrow_proxy<Key, Value>;
-        using reference = trie_map_element<Key, Value &>;
+        using reference = trie_element<Key, Value &>;
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::bidirectional_iterator_tag;
 
@@ -1258,9 +1208,9 @@ namespace boost { namespace trie {
         const_trie_map_iterator<Key, Value> it_;
 
     public:
-        using value_type = trie_map_element<Key, Value>;
+        using value_type = trie_element<Key, Value>;
         using pointer = detail::arrow_proxy<Key, Value const>;
-        using reference = trie_map_element<Key, Value const &>;
+        using reference = trie_element<Key, Value const &>;
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::bidirectional_iterator_tag;
 

@@ -58,7 +58,13 @@ namespace boost { namespace trie {
             return t_;
         }
 
-        operator T() const & noexcept
+        operator T const &() const & noexcept
+        {
+            assert(t_);
+            return *t_;
+        }
+
+        operator T const &() const && noexcept
         {
             assert(t_);
             return *t_;
@@ -76,10 +82,62 @@ namespace boost { namespace trie {
             return t_;
         }
 
-        operator T() && noexcept
+        operator T &() & noexcept
         {
             assert(t_);
-            return std::move(*t_);
+            return *t_;
+        }
+
+        operator T &() && noexcept
+        {
+            assert(t_);
+            return *t_;
+        }
+    };
+
+    template<>
+    struct optional_ref<bool>
+    {
+    private:
+        bool * t_;
+
+    public:
+        optional_ref() : t_(nullptr) {}
+        optional_ref(bool & t) : t_(&t) {}
+
+        template<typename U>
+        auto operator=(U && u)
+            -> decltype(*this->t_ = static_cast<U &&>(u), *this)
+        {
+            assert(t_);
+            *t_ = static_cast<U &&>(u);
+            return *this;
+        }
+
+        explicit operator bool() const & noexcept { return t_ != nullptr; }
+        explicit operator bool() && noexcept { return t_ != nullptr; }
+
+        bool const & operator*() const noexcept
+        {
+            assert(t_);
+            return *t_;
+        }
+        bool const * operator->() const noexcept
+        {
+            assert(t_);
+            return t_;
+        }
+
+        bool & operator*() noexcept
+        {
+            assert(t_);
+            return *t_;
+        }
+
+        bool * operator->() noexcept
+        {
+            assert(t_);
+            return t_;
         }
     };
 
@@ -131,6 +189,56 @@ namespace boost { namespace trie {
         struct void_
         {};
     }
+
+    /** A key/value pair found in a trie or trie_map. */
+    template<typename Key, typename Value>
+    struct trie_element
+    {
+        trie_element() {}
+        trie_element(Key k, Value v) : key(k), value(v) {}
+
+        template<typename KeyT, typename ValueT>
+        trie_element(trie_element<KeyT, ValueT> const & rhs) :
+            key(rhs.key),
+            value(rhs.value)
+        {}
+
+        template<typename KeyT, typename ValueT>
+        trie_element(trie_element<KeyT, ValueT> && rhs) :
+            key(std::move(rhs.key)),
+            value(std::move(rhs.value))
+        {}
+
+        template<typename KeyT, typename ValueT>
+        trie_element & operator=(trie_element<KeyT, ValueT> const & rhs)
+        {
+            key = rhs.key;
+            value = rhs.value;
+            return *this;
+        }
+
+        template<typename KeyT, typename ValueT>
+        trie_element & operator=(trie_element<KeyT, ValueT> && rhs)
+        {
+            key = std::move(rhs.key);
+            value = std::move(rhs.value);
+            return *this;
+        }
+
+        Key key;
+        Value value;
+
+        friend bool
+        operator==(trie_element const & lhs, trie_element const & rhs)
+        {
+            return lhs.key == rhs.key && lhs.value == rhs.value;
+        }
+        friend bool
+        operator!=(trie_element const & lhs, trie_element const & rhs)
+        {
+            return !(lhs == rhs);
+        }
+    };
 
     /** The result type for trie operations that produce a matching
         subsequence. */
@@ -208,6 +316,7 @@ namespace boost { namespace trie {
             detail::trie_node_t<detail::no_index_within_parent_t, Key, Value>;
 
     public:
+        using key_type = Key;
         using value_type = Value;
         using key_compare = Compare;
         using key_element_type = typename Key::value_type;
@@ -239,9 +348,14 @@ namespace boost { namespace trie {
             using std::end;
             insert(begin(r), end(r));
         }
-        trie(std::initializer_list<value_type> il) : size_(0) { insert(il); }
+        trie(std::initializer_list<trie_element<key_type, value_type>> il) :
+            size_(0)
+        {
+            insert(il);
+        }
 
-        trie & operator=(std::initializer_list<value_type> il)
+        trie &
+        operator=(std::initializer_list<trie_element<key_type, value_type>> il)
         {
             clear();
             for (auto const & x : il) {
@@ -444,7 +558,7 @@ namespace boost { namespace trie {
                 std::move(value));
         }
 
-        /** Inserts the the sequence of key/value pairs <code>[first,
+        /** Inserts the sequence of key/value pairs <code>[first,
             last)</code> into *this. */
         template<typename Iter>
         void insert(Iter first, Iter last)
@@ -454,7 +568,13 @@ namespace boost { namespace trie {
             }
         }
 
-        /** Inserts the the sequence of key/value pairs \a r into *this. */
+        /** Inserts the element e.key, e.value into *this. */
+        bool insert(trie_element<key_type, value_type> const & e)
+        {
+            return insert(e.key, e.value);
+        }
+
+        /** Inserts the sequence of key/value pairs \a r into *this. */
         template<typename Range>
         bool insert(Range const & r)
         {
@@ -463,8 +583,9 @@ namespace boost { namespace trie {
             return insert(begin(r), end(r));
         }
 
-        /** Inserts the the sequence of key/value pairs \a il into *this. */
-        void insert(std::initializer_list<value_type> il)
+        /** Inserts the sequence of key/value pairs \a il into *this. */
+        void
+        insert(std::initializer_list<trie_element<key_type, value_type>> il)
         {
             for (auto const & x : il) {
                 insert(x);
