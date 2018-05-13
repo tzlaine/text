@@ -215,25 +215,6 @@ namespace boost { namespace text {
         /** Returns the maximum size an unencoded_rope can have. */
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
 
-        /** Returns a substring of *this as a new unencoded_rope, taken from the
-            range of chars at offsets [lo, hi).  If either of lo or hi is a
-            negative value x, x is taken to be an offset from the end, and so x
-            + size() is used instead.
-
-            These preconditions apply to the values used after size() is added
-            to any negative arguments.
-
-            \pre 0 <= lo && lo <= size()
-            \pre 0 <= hi && lhi <= size()
-            \pre lo <= hi */
-        unencoded_rope substr(size_type lo, size_type hi) const;
-
-        /** Returns a substring of *this, taken from the first cut chars when
-            cut => 0, or the last -cut chars when cut < 0.
-
-            \pre 0 <= cut && cut <= size() || 0 <= -cut && -cut <= size() */
-        unencoded_rope substr(size_type cut) const;
-
         /** Visits each segment s of *this and calls f(s).  Each segment is a
             string_view or repeated_string_view.  Depending of the operation
             performed on each segment, this may be more efficient than
@@ -1060,54 +1041,6 @@ namespace boost { namespace text {
         assert(0 <= lo && lo <= size());
         assert(0 <= hi && hi <= size());
         return unencoded_rope_view(*this, lo, hi);
-    }
-
-    inline unencoded_rope
-    unencoded_rope::substr(size_type lo, size_type hi) const
-    {
-        if (lo < 0)
-            lo += size();
-        if (hi < 0)
-            hi += size();
-        assert(0 <= lo && lo <= size());
-        assert(0 <= hi && hi <= size());
-        assert(lo <= hi);
-
-        if (lo == hi)
-            return unencoded_rope();
-
-        // If the entire substring falls within a single segment, slice
-        // off the appropriate part of that segment.
-        detail::found_leaf<detail::rope_tag> found;
-        detail::find_leaf(ptr_, lo, found);
-        if (found.offset_ + hi - lo <= detail::size(found.leaf_->get())) {
-            return unencoded_rope(slice_leaf(
-                *found.leaf_, found.offset_, found.offset_ + hi - lo, true));
-        }
-
-        // Take an extra ref to the root, which will force all a clone of
-        // all the interior nodes.
-        detail::node_ptr<detail::rope_tag> new_root = ptr_;
-
-        if (hi != size())
-            new_root = detail::btree_erase(new_root, hi, size());
-        if (lo != 0)
-            new_root = detail::btree_erase(new_root, 0, lo);
-
-        return unencoded_rope(new_root);
-    }
-
-    inline unencoded_rope unencoded_rope::substr(size_type cut) const
-    {
-        size_type lo = 0;
-        size_type hi = cut;
-        if (cut < 0) {
-            lo = cut + size();
-            hi = size();
-        }
-        assert(0 <= lo && lo <= size());
-        assert(0 <= hi && hi <= size());
-        return substr(lo, hi);
     }
 
     inline unencoded_rope::const_iterator
