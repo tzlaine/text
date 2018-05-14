@@ -2,7 +2,7 @@
 #define BOOST_TEXT_TEST_COLLATION_TESTS_HPP
 
 #include <boost/text/collate.hpp>
-#include <boost/text/normalize.hpp>
+#include <boost/text/normalize_string.hpp>
 
 #include <iomanip>
 

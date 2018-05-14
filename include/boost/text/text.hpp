@@ -2,6 +2,7 @@
 #define BOOST_TEXT_TEXT_HPP
 
 #include <boost/text/grapheme_iterator.hpp>
+#include <boost/text/normalize_string.hpp>
 #include <boost/text/utf8.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
