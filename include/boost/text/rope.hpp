@@ -154,16 +154,6 @@ namespace boost { namespace text {
         /** Returns the maximum size a rope can have. */
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
 
-        /** Visits each segment s of *this and calls f(s).  Each segment is a
-            string_view or repeated_string_view.  Depending of the operation
-            performed on each segment, this may be more efficient than
-            iterating over [begin(), end()).
-
-            \pre Fn is an Invocable accepting a single argument of any of the
-            types listed above. */
-        template<typename Fn>
-        void foreach_segment(Fn && f) const;
-
         /** Returns true if *this and rhs contain the same root node pointer.
             This is useful when you want to check for equality between two
             unencoded_ropes that are likely to have originated from the same
@@ -523,12 +513,6 @@ namespace boost { namespace text {
     inline rope_view::size_type rope::distance() const noexcept
     {
         return std::distance(begin(), end());
-    }
-
-    template<typename Fn>
-    void rope::foreach_segment(Fn && f) const
-    {
-        rope_.foreach_segment(static_cast<Fn &&>(f));
     }
 
     inline bool rope::equal_root(rope rhs) const noexcept
