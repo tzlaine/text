@@ -13,7 +13,7 @@ constants_header_form = '''\
 namespace boost {{ namespace text {{ namespace detail {{
 
     enum class case_condition : uint8_t {{
-        {0}
+{0}
     }};
 
 }}}}}}
@@ -34,16 +34,28 @@ namespace boost {{ namespace text {{ namespace detail {{
         {0}
     }}}};
 
-    std::array<case_mapping, {3}> const g_to_lower = {{{{
+    std::array<uint32_t, {3}> const g_cased_cps = {{{{
         {2}
     }}}};
 
-    std::array<case_mapping, {5}> const g_to_title = {{{{
+    std::array<uint32_t, {5}> const g_case_ignorable_cps = {{{{
         {4}
     }}}};
 
-    std::array<case_mapping, {7}> const g_to_upper = {{{{
+    std::array<uint32_t, {7}> const g_soft_dotted_cps = {{{{
         {6}
+    }}}};
+
+    std::array<case_mapping, {9}> const g_to_lower = {{{{
+        {8}
+    }}}};
+
+    std::array<case_mapping, {11}> const g_to_title = {{{{
+        {10}
+    }}}};
+
+    std::array<case_mapping, {13}> const g_to_upper = {{{{
+        {12}
     }}}};
 
 
@@ -86,10 +98,26 @@ namespace boost {{ namespace text {{ namespace detail {{
         return retval;
     }}
 
+    std::vector<uint32_t> make_soft_dotted_cps()
+    {{
+        return std::vector<uint32_t>(g_soft_dotted_cps.begin(), g_soft_dotted_cps.end());
+    }}
+
+    std::unordered_set<uint32_t> make_cased_cps()
+    {{
+        return std::unordered_set<uint32_t>(g_cased_cps.begin(), g_cased_cps.end());
+    }}
+
+    std::unordered_set<uint32_t> make_case_ignorable_cps()
+    {{
+        return std::unordered_set<uint32_t>(
+            g_case_ignorable_cps.begin(), g_case_ignorable_cps.end());
+    }}
+
 }}}}}}
 '''
 
-def get_case_mappings(unicode_data, special_casing):
+def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_props):
     to_lower = {}
     to_title = {}
     to_upper = {}
@@ -225,13 +253,53 @@ def get_case_mappings(unicode_data, special_casing):
         to_upper.items()
     )
 
-    return to_lower, to_title, to_upper, cps, conditions
+    soft_dotteds = []
+    lines = open(prop_list, 'r').readlines()
+    for line in lines:
+        line = line[:-1]
+        if not line.startswith('#') and len(line) != 0:
+            fields = map(lambda x: x.strip(), line.split(';'))
+            if fields[1].startswith('Soft_Dotted'):
+                cps_ = fields[0].split('.')
+                soft_dotteds.append(cps_[0])
+                if 1 < len(cps_):
+                    for i in range(int(cps_[0], 16) + 1, int(cps_[2], 16) + 1):
+                         soft_dotteds.append(hex(i).upper()[2:])
 
-to_lower, to_title, to_upper, cps, conditions = \
-    get_case_mappings('UnicodeData.txt', 'SpecialCasing.txt')
+    cased_cps = []
+    cased_ignorable_cps = []
+    lines = open(derived_core_props, 'r').readlines()
+    for line in lines:
+        line = line[:-1]
+        if not line.startswith('#') and len(line) != 0:
+            fields = map(lambda x: x.strip(), line.split(';'))
+            if fields[1].startswith('Cased') or fields[1].startswith('Case_Ignorable'):
+                cps_ = fields[0].split('.')
+                if fields[1].startswith('Cased'):
+                    cased_cps.append(cps_[0])
+                else:
+                    cased_ignorable_cps.append(cps_[0])
+                if 1 < len(cps_):
+                    for i in range(int(cps_[0], 16) + 1, int(cps_[2], 16) + 1):
+                         if fields[1].startswith('Cased'):
+                             cased_cps.append(hex(i).upper()[2:])
+                         else:
+                             cased_ignorable_cps.append(hex(i).upper()[2:])
+
+    return to_lower, to_title, to_upper, cps, conditions, soft_dotteds, \
+        cased_cps, cased_ignorable_cps
+
+to_lower, to_title, to_upper, cps, conditions, soft_dotteds, \
+    cased_cps, cased_ignorable_cps = \
+    get_case_mappings('UnicodeData.txt', 'SpecialCasing.txt', \
+                      'PropList.txt', 'DerivedCoreProperties.txt')
 
 hpp_file = open('case_constants.hpp', 'w')
-hpp_file.write(constants_header_form.format(', '.join(conditions)))
+condition_enums = []
+for i in range(len(conditions)):
+    c = conditions[i]
+    condition_enums.append('        {} = {},'.format(c, i))
+hpp_file.write(constants_header_form.format('\n'.join(condition_enums)))
 
 def make_case_mapping(t):
     from_ = '{{{}, {}}}'.format(t[0][0], t[0][1])
@@ -242,6 +310,12 @@ cpp_file = open('case_mapping.cpp', 'w')
 cpp_file.write(case_impl_file_form.format(
     ',\n        '.join(map(lambda x: '0x' + x, cps)),
     len(cps),
+    ',\n        '.join(map(lambda x: '0x' + x, cased_cps)),
+    len(cased_cps),
+    ',\n        '.join(map(lambda x: '0x' + x, cased_ignorable_cps)),
+    len(cased_ignorable_cps),
+    ',\n        '.join(map(lambda x: '0x' + x, soft_dotteds)),
+    len(soft_dotteds),
     ',\n        '.join(map(lambda x: make_case_mapping(x), to_lower)),
     len(to_lower),
     ',\n        '.join(map(lambda x: make_case_mapping(x), to_title)),
