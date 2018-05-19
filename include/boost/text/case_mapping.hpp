@@ -50,82 +50,92 @@ namespace boost { namespace text {
             return ccc_ == 230 || ccc_ == 0;
         }
 
-        template<
-            typename CPIter,
-            typename Sentinel,
-            typename OutIter,
-            typename NextWordBreakFunc>
-        OutIter map_case(
+        template<typename OutIter>
+        struct map_case_state_t
+        {
+            bool final_sigma_before;
+            uint8_t after_soft_dotted;
+            uint8_t after_i;
+            OutIter out;
+        };
+
+        // Look backward as necessary to determine starting conditions.
+        template<typename CPIter, typename OutIter>
+        map_case_state_t<OutIter>
+        map_case_state(CPIter first, CPIter it, OutIter out)
+        {
+            map_case_state_t<OutIter> retval{false, 0, 0, out};
+
+            auto find_it = find_if_backward(first, it, [](uint32_t cp) {
+                return cased(cp) || !case_ignorable(cp);
+            });
+            if (find_it != first) {
+                --find_it;
+                if (cased(*find_it))
+                    retval.final_sigma_before = true;
+            }
+
+            find_it = find_if_backward(first, it, [](uint32_t cp) {
+                return soft_dotted(cp) || ccc_230_0(cp);
+            });
+            if (find_it != first) {
+                --find_it;
+                if (soft_dotted(*find_it)) {
+                    retval.after_soft_dotted =
+                        (uint8_t)case_condition::After_Soft_Dotted;
+                }
+            }
+
+            find_it = find_if_backward(first, it, [](uint32_t cp) {
+                return cp == 0x0049 || ccc_230_0(cp);
+            });
+            if (find_it != first) {
+                --find_it;
+                if (*find_it == 0x0049)
+                    retval.after_i = (uint8_t)case_condition::After_I;
+            }
+
+            return retval;
+        }
+
+        template<typename CPIter, typename Sentinel, typename OutIter>
+        map_case_state_t<OutIter> map_case(
             CPIter first,
             CPIter it,
             Sentinel last,
-            OutIter out,
+            map_case_state_t<OutIter> state,
             case_language lang,
-            NextWordBreakFunc & next_word_break,
-            case_trie_t const & trie) noexcept
+            case_trie_t const & trie,
+            bool title) noexcept
         {
             uint8_t const lang_conditions = lang_to_condition(lang);
 
-            bool final_sigma_before = false;
-            uint8_t after_soft_dotted = 0;
-            uint8_t after_i = 0;
-
             auto update_before_states = [&](uint32_t cp) {
-                if (cased(cp) || (final_sigma_before && case_ignorable(cp))) {
-                    final_sigma_before = true;
+                if (cased(cp) ||
+                    (state.final_sigma_before && case_ignorable(cp))) {
+                    state.final_sigma_before = true;
                 } else {
-                    final_sigma_before = false;
+                    state.final_sigma_before = false;
                 }
-                if (soft_dotted(cp) || (after_soft_dotted && !ccc_230_0(cp))) {
-                    after_soft_dotted =
+                if (soft_dotted(cp) ||
+                    (state.after_soft_dotted && !ccc_230_0(cp))) {
+                    state.after_soft_dotted =
                         (uint8_t)case_condition::After_Soft_Dotted;
                 } else {
-                    after_soft_dotted = 0;
+                    state.after_soft_dotted = 0;
                 }
-                if (cp == 0x0049 || (after_i && !ccc_230_0(cp))) {
-                    after_i = (uint8_t)case_condition::After_I;
+                if (cp == 0x0049 || (state.after_i && !ccc_230_0(cp))) {
+                    state.after_i = (uint8_t)case_condition::After_I;
                 } else {
-                    after_i = 0;
+                    state.after_i = 0;
                 }
             };
-
-            // Look backward as necessary to determine starting conditions.
-            {
-                auto find_it = find_if_backward(first, it, [](uint32_t cp) {
-                    return cased(cp) || !case_ignorable(cp);
-                });
-                if (find_it != first) {
-                    --find_it;
-                    if (cased(*find_it))
-                        final_sigma_before = true;
-                }
-
-                find_it = find_if_backward(first, it, [](uint32_t cp) {
-                    return soft_dotted(cp) || ccc_230_0(cp);
-                });
-                if (find_it != first) {
-                    --find_it;
-                    if (soft_dotted(*find_it)) {
-                        after_soft_dotted =
-                            (uint8_t)case_condition::After_Soft_Dotted;
-                    }
-                }
-
-                find_it = find_if_backward(first, it, [](uint32_t cp) {
-                    return cp == 0x0049 || ccc_230_0(cp);
-                });
-                if (find_it != first) {
-                    --find_it;
-                    if (*find_it == 0x0049)
-                        after_i = (uint8_t)case_condition::After_I;
-                }
-            }
 
             for (; it != last; ++it) {
                 case_trie_match_t const match = trie.longest_match(it, last);
 
                 uint8_t conditions =
-                    lang_conditions | after_soft_dotted | after_i;
+                    lang_conditions | state.after_soft_dotted | state.after_i;
 
                 bool used_match = false;
                 if (match.match) {
@@ -195,67 +205,46 @@ namespace boost { namespace text {
                              ++elem_it) {
                             update_before_states(*elem_it);
                         }
-                        out = std::copy(elem_first, elem_last, out);
+                        state.out = std::copy(elem_first, elem_last, state.out);
                     }
                 }
 
                 if (!used_match) {
                     auto const cp = *it;
                     update_before_states(cp);
-                    *out = *it;
-                    ++out;
+                    *state.out = *it;
+                    ++state.out;
                 }
             }
 
-            return out;
+            return state;
         }
     }
 
     /** TODO */
-    template<
-        typename CPIter,
-        typename Sentinel,
-        typename OutIter,
-        typename NextWordBreakFunc = next_word_break_callable>
+    template<typename CPIter, typename Sentinel, typename OutIter>
     OutIter to_lower(
         CPIter first,
         CPIter it,
         Sentinel last,
         OutIter out,
-        case_language lang = case_language::other,
-        NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
+        case_language lang = case_language::other) noexcept
     {
-        return map_case(
-            first,
-            it,
-            last,
-            out,
-            lang,
-            next_word_break,
-            detail::to_lower_trie());
+        auto state = detail::map_case_state(first, it, out);
+        state = map_case(first, it, last, state, lang, detail::to_lower_trie());
+        return state.out;
     }
 
     /** TODO */
-    template<
-        typename CPRange,
-        typename OutIter,
-        typename NextWordBreakFunc = next_word_break_callable>
+    template<typename CPRange, typename OutIter>
     OutIter to_lower(
         CPRange & range,
         OutIter out,
-        case_language lang = case_language::other,
-        NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
+        case_language lang = case_language::other) noexcept
     {
         using std::begin;
         using std::end;
-        return map_case(
-            begin(range),
-            begin(range),
-            end(range),
-            out,
-            lang,
-            next_word_break,
-            detail::to_lower_trie());
+        return to_lower(begin(range), begin(range), end(range), out, lang);
     }
 
     /** TODO */
@@ -272,14 +261,22 @@ namespace boost { namespace text {
         case_language lang = case_language::other,
         NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
     {
-        return map_case(
-            first,
-            it,
-            last,
-            out,
-            lang,
-            next_word_break,
-            detail::to_title_trie());
+        lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
+            {it, last}, {last}};
+
+        auto state = detail::map_case_state(first, it, out);
+        for (auto r : words) {
+            state = map_case(
+                first,
+                r.begin(),
+                r.end(),
+                state,
+                lang,
+                detail::to_title_trie(),
+                true);
+        }
+
+        return state.out;
     }
 
     /** TODO */
@@ -295,61 +292,39 @@ namespace boost { namespace text {
     {
         using std::begin;
         using std::end;
-        return map_case(
+        return to_title(
             begin(range),
             begin(range),
             end(range),
             out,
             lang,
-            next_word_break,
-            detail::to_title_trie());
+            static_cast<NextWordBreakFunc &&>(next_word_break));
     }
 
     /** TODO */
-    template<
-        typename CPIter,
-        typename Sentinel,
-        typename OutIter,
-        typename NextWordBreakFunc = next_word_break_callable>
+    template<typename CPIter, typename Sentinel, typename OutIter>
     OutIter to_upper(
         CPIter first,
         CPIter it,
         Sentinel last,
         OutIter out,
-        case_language lang = case_language::other,
-        NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
+        case_language lang = case_language::other) noexcept
     {
-        return map_case(
-            first,
-            it,
-            last,
-            out,
-            lang,
-            next_word_break,
-            detail::to_upper_trie());
+        auto state = detail::map_case_state(first, it, out);
+        state = map_case(first, it, last, state, lang, detail::to_upper_trie());
+        return state.out;
     }
 
     /** TODO */
-    template<
-        typename CPRange,
-        typename OutIter,
-        typename NextWordBreakFunc = next_word_break_callable>
+    template<typename CPRange, typename OutIter>
     OutIter to_upper(
         CPRange & range,
         OutIter out,
-        case_language lang = case_language::other,
-        NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
+        case_language lang = case_language::other) noexcept
     {
         using std::begin;
         using std::end;
-        return map_case(
-            begin(range),
-            begin(range),
-            end(range),
-            out,
-            lang,
-            next_word_break,
-            detail::to_upper_trie());
+        return to_upper(begin(range), begin(range), end(range), out, lang);
     }
 
 }}
