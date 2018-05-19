@@ -1240,10 +1240,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         };
     }
 
+    // TODO: CPIter last -> Sentinel last
+
     /** Returns the bounds of the line (using hard line breaks) that
         <code>it</code> lies within. */
     template<typename CPIter, typename Sentinel>
-    cp_range<CPIter> line(CPIter first, CPIter it, CPIter last) noexcept
+    cp_range<CPIter> line(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_hard_line_break(first, it, last);
         return cp_range<CPIter>{first, next_hard_line_break(first, last)};
