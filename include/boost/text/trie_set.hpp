@@ -68,8 +68,8 @@ namespace boost { namespace trie {
 
         trie_set(Compare const & comp) : trie_(comp) {}
 
-        template<typename Iter>
-        trie_set(Iter first, Iter last, Compare const & comp = Compare()) :
+        template<typename Iter, typename Sentinel>
+        trie_set(Iter first, Sentinel last, Compare const & comp = Compare()) :
             trie_(comp)
         {
             insert(first, last);
@@ -194,8 +194,8 @@ namespace boost { namespace trie {
 
         /** Returns the longeset subsequence of <code>[first, last)</code>
             found in *this, whether or not it is a match. */
-        template<typename KeyIter>
-        match_result longest_subsequence(KeyIter first, KeyIter last) const
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_subsequence(KeyIter first, Sentinel last) const
             noexcept
         {
             return trie_.longest_subsequence(first, last);
@@ -214,8 +214,8 @@ namespace boost { namespace trie {
 
         /** Returns the longeset matching subsequence of <code>[first,
             last)</code> found in *this. */
-        template<typename KeyIter>
-        match_result longest_match(KeyIter first, KeyIter last) const noexcept
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_match(KeyIter first, Sentinel last) const noexcept
         {
             return trie_.longest_match(first, last);
         }
@@ -241,10 +241,9 @@ namespace boost { namespace trie {
 
         /** Returns the result of extending \a prev by the longeset
             subsequence of <code>[first, last)</code> found in *this. */
-        template<typename KeyIter>
-        match_result
-        extend_subsequence(match_result prev, KeyIter first, KeyIter last) const
-            noexcept
+        template<typename KeyIter, typename Sentinel>
+        match_result extend_subsequence(
+            match_result prev, KeyIter first, Sentinel last) const noexcept
         {
             return trie_.extend_subsequence(prev, first, last);
         }
@@ -309,8 +308,8 @@ namespace boost { namespace trie {
         /** Inserts the key <code>[first, last)</code> into *this.  The \a
             inserted field of the result will be true if the operation
             resulted in a new insertion, or false otherwise. */
-        template<typename KeyIter>
-        auto insert(KeyIter first, KeyIter last) -> decltype(
+        template<typename KeyIter, typename Sentinel>
+        auto insert(KeyIter first, Sentinel last) -> decltype(
             translate_insert_result(trie_.insert(first, last, detail::void_{})))
         {
             auto const trie_result = trie_.insert(first, last, detail::void_{});
@@ -345,8 +344,8 @@ namespace boost { namespace trie {
         /** Inserts the the sequence of keys <code>[first, last)</code> into
             *this.  The \a inserted field of the result will be true if the
             operation resulted in a new insertion, or false otherwise. */
-        template<typename Iter>
-        auto insert(Iter first, Iter last)
+        template<typename Iter, typename Sentinel>
+        auto insert(Iter first, Sentinel last)
             -> decltype(trie_.insert(first, last))
         {
             trie_.insert(first, last);

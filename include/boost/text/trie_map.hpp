@@ -231,8 +231,8 @@ namespace boost { namespace trie {
 
         trie_map(Compare const & comp) : size_(0), comp_(comp) {}
 
-        template<typename Iter>
-        trie_map(Iter first, Iter last, Compare const & comp = Compare()) :
+        template<typename Iter, typename Sentinel>
+        trie_map(Iter first, Sentinel last, Compare const & comp = Compare()) :
             size_(0),
             comp_(comp)
         {
@@ -379,8 +379,8 @@ namespace boost { namespace trie {
 
         /** Returns the longeset subsequence of <code>[first, last)</code>
             found in *this, whether or not it is a match. */
-        template<typename KeyIter>
-        match_result longest_subsequence(KeyIter first, KeyIter last) const
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_subsequence(KeyIter first, Sentinel last) const
             noexcept
         {
             return longest_match_impl(first, last);
@@ -401,8 +401,8 @@ namespace boost { namespace trie {
 
         /** Returns the longeset matching subsequence of <code>[first,
             last)</code> found in *this. */
-        template<typename KeyIter>
-        match_result longest_match(KeyIter first, KeyIter last) const noexcept
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_match(KeyIter first, Sentinel last) const noexcept
         {
             auto retval = longest_match_impl(first, last);
             auto node = to_node_ptr(retval.node);
@@ -439,10 +439,9 @@ namespace boost { namespace trie {
 
         /** Returns the result of extending \a prev by the longeset
             subsequence of <code>[first, last)</code> found in *this. */
-        template<typename KeyIter>
-        match_result
-        extend_subsequence(match_result prev, KeyIter first, KeyIter last) const
-            noexcept
+        template<typename KeyIter, typename Sentinel>
+        match_result extend_subsequence(
+            match_result prev, KeyIter first, Sentinel last) const noexcept
         {
             return extend_subsequence_impl(prev, first, last);
         }
@@ -471,6 +470,16 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(
             optional_ref<mapped_type const>, operator[], const noexcept)
+
+        /** Returns an optional reference to the const value associated with
+            \a match in *this (if any). */
+        optional_ref<mapped_type const> operator[](match_result match) const
+            noexcept
+        {
+            if (!match.match)
+                return {};
+            return *to_node_ptr(match.node)->value();
+        }
 
         iterator begin() noexcept { return iterator(const_this()->begin()); }
         iterator end() noexcept { return iterator(const_this()->end()); }
@@ -541,11 +550,20 @@ namespace boost { namespace trie {
         BOOST_TRIE_MAP_C_STR_OVERLOAD(
             optional_ref<mapped_type>, operator[], noexcept)
 
+        /** Returns an optional reference to the value associated with \a
+            match in *this (if any). */
+        optional_ref<mapped_type> operator[](match_result match) noexcept
+        {
+            if (!match.match)
+                return {};
+            return *const_cast<node_t *>(to_node_ptr(match.node))->value();
+        }
+
         /** Inserts the key/value pair <code>[first, last)</code>, \a value
             into *this.  The \a inserted field of the result will be true if
             the operation resulted in a new insertion, or false otherwise. */
-        template<typename KeyIter>
-        insert_result insert(KeyIter first, KeyIter last, Value value)
+        template<typename KeyIter, typename Sentinel>
+        insert_result insert(KeyIter first, Sentinel last, Value value)
         {
             if (empty()) {
                 std::unique_ptr<node_t> new_node(new node_t(&header_));
@@ -602,8 +620,8 @@ namespace boost { namespace trie {
             last)</code> into *this.  The \a inserted field of the result will
             be true if the operation resulted in a new insertion, or false
             otherwise. */
-        template<typename Iter>
-        void insert(Iter first, Iter last)
+        template<typename Iter, typename Sentinel>
+        void insert(Iter first, Sentinel last)
         {
             for (; first != last; ++first) {
                 insert(first->key, first->value);
@@ -636,8 +654,9 @@ namespace boost { namespace trie {
             with <code>[first, last)</code>, if this key is already found in
             *this.  The \a inserted field of the result will be true if the
             operation resulted in a new insertion, or false otherwise. */
-        template<typename KeyIter>
-        insert_result insert_or_assign(KeyIter first, KeyIter last, Value value)
+        template<typename KeyIter, typename Sentinel>
+        insert_result
+        insert_or_assign(KeyIter first, Sentinel last, Value value)
         {
             auto it = first;
             auto match = longest_match_impl(it, last);
@@ -770,17 +789,17 @@ namespace boost { namespace trie {
             return static_cast<node_t const *>(ptr);
         }
 
-        template<typename KeyIter>
-        match_result longest_match_impl(KeyIter & first, KeyIter last) const
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_match_impl(KeyIter & first, Sentinel last) const
             noexcept
         {
             return extend_subsequence_impl(
                 match_result{&header_, 0, false, true}, first, last);
         }
 
-        template<typename KeyIter>
+        template<typename KeyIter, typename Sentinel>
         match_result extend_subsequence_impl(
-            match_result prev, KeyIter & first, KeyIter last) const noexcept
+            match_result prev, KeyIter & first, Sentinel last) const noexcept
         {
             if (to_node_ptr(prev.node) == &header_) {
                 if (header_.empty())
@@ -808,8 +827,8 @@ namespace boost { namespace trie {
             return match_result{node, size, !!node->value(), node->empty()};
         }
 
-        template<typename KeyIter>
-        node_t * create_children(node_t * node, KeyIter first, KeyIter last)
+        template<typename KeyIter, typename Sentinel>
+        node_t * create_children(node_t * node, KeyIter first, Sentinel last)
         {
             auto retval = node;
             for (; first != last; ++first) {
