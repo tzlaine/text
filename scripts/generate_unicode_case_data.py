@@ -58,6 +58,8 @@ namespace boost {{ namespace text {{ namespace detail {{
         {12}
     }}}};
 
+    uint32_t const * g_case_cps_first = &g_case_cps[0];
+
 
     case_trie_t make_to_lower_trie()
     {{
