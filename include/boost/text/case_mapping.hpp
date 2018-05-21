@@ -50,92 +50,22 @@ namespace boost { namespace text {
             return ccc_ == 230 || ccc_ == 0;
         }
 
-        template<typename OutIter>
-        struct map_case_state_t
-        {
-            bool final_sigma_before;
-            uint8_t after_soft_dotted;
-            uint8_t after_i;
-            OutIter out;
-        };
-
-        // Look backward as necessary to determine starting conditions.
-        template<typename CPIter, typename OutIter>
-        map_case_state_t<OutIter>
-        map_case_state(CPIter first, CPIter it, OutIter out)
-        {
-            map_case_state_t<OutIter> retval{false, 0, 0, out};
-
-            auto find_it = find_if_backward(first, it, [](uint32_t cp) {
-                return cased(cp) || !case_ignorable(cp);
-            });
-            if (find_it != first) {
-                --find_it;
-                if (cased(*find_it))
-                    retval.final_sigma_before = true;
-            }
-
-            find_it = find_if_backward(first, it, [](uint32_t cp) {
-                return soft_dotted(cp) || ccc_230_0(cp);
-            });
-            if (find_it != first) {
-                --find_it;
-                if (soft_dotted(*find_it)) {
-                    retval.after_soft_dotted =
-                        (uint8_t)case_condition::After_Soft_Dotted;
-                }
-            }
-
-            find_it = find_if_backward(first, it, [](uint32_t cp) {
-                return cp == 0x0049 || ccc_230_0(cp);
-            });
-            if (find_it != first) {
-                --find_it;
-                if (*find_it == 0x0049)
-                    retval.after_i = (uint8_t)case_condition::After_I;
-            }
-
-            return retval;
-        }
-
         template<typename CPIter, typename Sentinel, typename OutIter>
-        map_case_state_t<OutIter> map_case(
+        OutIter map_case(
             CPIter first,
             CPIter it,
             Sentinel last,
-            map_case_state_t<OutIter> state,
+            OutIter out,
             case_language lang,
             case_trie_t const & trie,
-            bool title) noexcept
+            bool title /* TODO */) noexcept
         {
             uint8_t const lang_conditions = lang_to_condition(lang);
 
-            auto update_before_states = [&](uint32_t cp) {
-                if (cased(cp) ||
-                    (state.final_sigma_before && case_ignorable(cp))) {
-                    state.final_sigma_before = true;
-                } else {
-                    state.final_sigma_before = false;
-                }
-                if (soft_dotted(cp) ||
-                    (state.after_soft_dotted && !ccc_230_0(cp))) {
-                    state.after_soft_dotted =
-                        (uint8_t)case_condition::After_Soft_Dotted;
-                } else {
-                    state.after_soft_dotted = 0;
-                }
-                if (cp == 0x0049 || (state.after_i && !ccc_230_0(cp))) {
-                    state.after_i = (uint8_t)case_condition::After_I;
-                } else {
-                    state.after_i = 0;
-                }
-            };
-
-            for (; it != last; ++it) {
+            while (it != last) {
                 case_trie_match_t const match = trie.longest_match(it, last);
 
-                uint8_t conditions =
-                    lang_conditions | state.after_soft_dotted | state.after_i;
+                uint8_t conditions = lang_conditions;
 
                 bool used_match = false;
                 if (match.match) {
@@ -147,20 +77,48 @@ namespace boost { namespace text {
 
                     if (elements.conditions_ &
                         (uint8_t)case_condition::Final_Sigma) {
-                        // TODO: Cache the found boundary for later, for this
-                        // and the other two after-conditions below.
-                        bool after = false;
+                        bool before = false;
                         auto find_it =
-                            find_if(condition_first, last, [](uint32_t cp) {
-                                return cased(cp) || case_ignorable(cp);
+                            find_if_backward(first, it, [](uint32_t cp) {
+                                return cased(cp) || !case_ignorable(cp);
                             });
-                        if (find_it != last) {
-                            ++find_it;
+                        if (find_it != first) {
+                            --find_it;
                             if (cased(*find_it))
-                                after = true;
+                                before = true;
                         }
-                        if (!after)
-                            conditions |= (uint8_t)case_condition::Final_Sigma;
+
+                        if (before) {
+                            bool after = false;
+                            auto find_it =
+                                find_if(condition_first, last, [](uint32_t cp) {
+                                    return cased(cp) || case_ignorable(cp);
+                                });
+                            if (find_it != last) {
+                                ++find_it;
+                                if (cased(*find_it))
+                                    after = true;
+                            }
+                            if (!after) {
+                                conditions |=
+                                    (uint8_t)case_condition::Final_Sigma;
+                            }
+                        }
+                    }
+
+                    if (elements.conditions_ &
+                        (uint8_t)case_condition::After_Soft_Dotted) {
+                        auto find_it =
+                            find_if_backward(first, it, [](uint32_t cp) {
+                                return soft_dotted(cp) || ccc_230_0(cp);
+                            });
+                        if (find_it != first) {
+                            --find_it;
+                            if (soft_dotted(*find_it)) {
+                                conditions |=
+                                    (uint8_t)case_condition::After_Soft_Dotted;
+                            }
+                        }
                     }
 
                     if (elements.conditions_ &
@@ -198,26 +156,35 @@ namespace boost { namespace text {
                         }
                     }
 
+                    if (elements.conditions_ &
+                        (uint8_t)case_condition::After_I) {
+                        auto find_it =
+                            find_if_backward(first, it, [](uint32_t cp) {
+                                return cp == 0x0049 || ccc_230_0(cp);
+                            });
+                        if (find_it != first) {
+                            --find_it;
+                            if (*find_it == 0x0049)
+                                conditions |= (uint8_t)case_condition::After_I;
+                        }
+                    }
+
                     if ((elements.conditions_ & conditions) ==
                         elements.conditions_) {
                         used_match = true;
-                        for (auto elem_it = elem_first; elem_it != elem_last;
-                             ++elem_it) {
-                            update_before_states(*elem_it);
-                        }
-                        state.out = std::copy(elem_first, elem_last, state.out);
+                        out = std::copy(elem_first, elem_last, out);
+                        it = condition_first;
                     }
                 }
 
                 if (!used_match) {
-                    auto const cp = *it;
-                    update_before_states(cp);
-                    *state.out = *it;
-                    ++state.out;
+                    *out = *it;
+                    ++out;
+                    ++it;
                 }
             }
 
-            return state;
+            return out;
         }
     }
 
@@ -230,9 +197,7 @@ namespace boost { namespace text {
         OutIter out,
         case_language lang = case_language::other) noexcept
     {
-        auto state = detail::map_case_state(first, it, out);
-        state = map_case(first, it, last, state, lang, detail::to_lower_trie());
-        return state.out;
+        return map_case(first, it, last, out, lang, detail::to_lower_trie());
     }
 
     /** TODO */
@@ -264,19 +229,18 @@ namespace boost { namespace text {
         lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
             {it, last}, {last}};
 
-        auto state = detail::map_case_state(first, it, out);
         for (auto r : words) {
-            state = map_case(
+            out = map_case(
                 first,
                 r.begin(),
                 r.end(),
-                state,
+                out,
                 lang,
                 detail::to_title_trie(),
                 true);
         }
 
-        return state.out;
+        return out;
     }
 
     /** TODO */
@@ -310,9 +274,7 @@ namespace boost { namespace text {
         OutIter out,
         case_language lang = case_language::other) noexcept
     {
-        auto state = detail::map_case_state(first, it, out);
-        state = map_case(first, it, last, state, lang, detail::to_upper_trie());
-        return state.out;
+        return map_case(first, it, last, out, lang, detail::to_upper_trie());
     }
 
     /** TODO */
