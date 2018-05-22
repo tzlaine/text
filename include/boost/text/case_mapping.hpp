@@ -58,7 +58,7 @@ namespace boost { namespace text {
             OutIter out,
             case_language lang,
             case_trie_t const & trie,
-            bool title /* TODO */) noexcept
+            bool title /* TODO: pass pointer to to-lower trie instead? */) noexcept
         {
             uint8_t const lang_conditions = lang_to_condition(lang);
 
@@ -67,13 +67,11 @@ namespace boost { namespace text {
 
                 uint8_t conditions = lang_conditions;
 
-                bool used_match = false;
                 if (match.match) {
                     case_elements const elements = trie[match];
                     auto const elem_first = elements.begin(g_case_cps_first);
                     auto const elem_last = elements.end(g_case_cps_first);
-                    auto const condition_first =
-                        std::next(it, elem_last - elem_first);
+                    auto const condition_first = std::next(it, match.size);
 
                     if (elements.conditions_ &
                         (uint8_t)case_condition::Final_Sigma) {
@@ -171,17 +169,15 @@ namespace boost { namespace text {
 
                     if ((elements.conditions_ & conditions) ==
                         elements.conditions_) {
-                        used_match = true;
                         out = std::copy(elem_first, elem_last, out);
                         it = condition_first;
+                        continue;
                     }
                 }
 
-                if (!used_match) {
-                    *out = *it;
-                    ++out;
-                    ++it;
-                }
+                *out = *it;
+                ++out;
+                ++it;
             }
 
             return out;
@@ -197,7 +193,8 @@ namespace boost { namespace text {
         OutIter out,
         case_language lang = case_language::other) noexcept
     {
-        return map_case(first, it, last, out, lang, detail::to_lower_trie());
+        return map_case(
+            first, it, last, out, lang, detail::to_lower_trie(), false);
     }
 
     /** TODO */
@@ -274,7 +271,8 @@ namespace boost { namespace text {
         OutIter out,
         case_language lang = case_language::other) noexcept
     {
-        return map_case(first, it, last, out, lang, detail::to_upper_trie());
+        return map_case(
+            first, it, last, out, lang, detail::to_upper_trie(), false);
     }
 
     /** TODO */
@@ -286,7 +284,11 @@ namespace boost { namespace text {
     {
         using std::begin;
         using std::end;
-        return to_upper(begin(range), begin(range), end(range), out, lang);
+        auto first = begin(range);
+        auto it = begin(range);
+        auto last = end(range);
+        return to_upper(first, it, last, out, lang);
+//        return to_upper(begin(range), begin(range), end(range), out, lang);
     }
 
 }}

@@ -205,6 +205,8 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
                     all_tuples.add(to_tuple_3(title))
                     all_tuples.add(to_tuple_3(lower))
                 if len(upper):
+                    if '0307' in upper or '0307' in lower:
+                        print lower,upper,conditions_
                     to_lower[to_tuple_3(upper)] = (lower, conditions_)
                     to_upper[to_tuple_3(lower)] = (upper, conditions_)
                     all_tuples.add(to_tuple_3(upper))
@@ -231,13 +233,7 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
         return tuple_offsets[all_tuples.index(from_tuple(t))]
 
     def to_cond_bitset(conds):
-        retval = ''
-        first = True
-        for c in conds:
-            if not first:
-                retval += ' | '
-            first = False
-            retval += '(uint8_t)case_condition::' + c
+        retval = ' | '.join(map(lambda x: '(uint8_t)case_condition::' + x, conds))
         if retval == '':
             retval = '0'
         return retval
@@ -300,7 +296,7 @@ hpp_file = open('case_constants.hpp', 'w')
 condition_enums = []
 for i in range(len(conditions)):
     c = conditions[i]
-    condition_enums.append('        {} = {},'.format(c, i))
+    condition_enums.append('        {} = {},'.format(c, 1 << i))
 hpp_file.write(constants_header_form.format('\n'.join(condition_enums)))
 
 def make_case_mapping(t):
@@ -324,3 +320,33 @@ cpp_file.write(case_impl_file_form.format(
     len(to_title),
     ',\n        '.join(map(lambda x: make_case_mapping(x), to_upper)),
     len(to_upper)))
+
+#cased_cps = set(map(lambda x: int(x, 16), cased_cps))
+#cased_ignorable_cps = set(map(lambda x: int(x, 16), cased_ignorable_cps))
+#soft_dotteds = set(map(lambda x: int(x, 16), soft_dotteds))
+
+#for cp in cased_cps:
+#    if cp in cased_ignorable_cps:
+#        print 'in both:', hex(cp)
+#
+#for cp in cased_ignorable_cps:
+#    if cp not in cased_cps:
+#        print 'ignorable only:', hex(cp)
+
+#from generate_unicode_normalization_data import cccs
+#cccs_dict = cccs('DerivedCombiningClass.txt')
+#def ccc(cp):
+#    if cp in cccs_dict:
+#        return cccs_dict[cp]
+#    return 0
+#
+#for cp in soft_dotteds:
+#    ccc_ = ccc(cp)
+#    if ccc_ == 0 or ccc_ == 230:
+#        print 'soft_dotted',hex(cp),'is',ccc_
+#    else:
+#        print 'soft_dotted',hex(cp),'is',ccc_
+#
+#for k,v in cccs_dict.items():
+#    if k == 0x0307:
+#        print hex(k),v

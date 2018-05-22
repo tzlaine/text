@@ -10,14 +10,14 @@
 namespace boost { namespace text { namespace detail {
 
     enum class case_condition : uint8_t {
-        After_I = 0,
-        After_Soft_Dotted = 1,
-        Final_Sigma = 2,
-        More_Above = 3,
-        Not_Before_Dot = 4,
-        az = 5,
-        lt = 6,
-        tr = 7,
+        After_I = 1,
+        After_Soft_Dotted = 2,
+        Final_Sigma = 4,
+        More_Above = 8,
+        Not_Before_Dot = 16,
+        az = 32,
+        lt = 64,
+        tr = 128,
     };
 
 }}}
