@@ -7,11 +7,13 @@
 #include <boost/text/detail/case_mapping_data.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
+#include <numeric>
+
 
 namespace boost { namespace text {
 
     /** TODO */
-    enum class case_language : uint8_t {
+    enum class case_language : uint16_t {
         other,
         azerbaijani,
         lithuanian,
@@ -30,15 +32,15 @@ namespace boost { namespace text {
     };
 
     namespace detail {
-        inline uint8_t lang_to_condition(case_language lang) noexcept
+        inline uint16_t lang_to_condition(case_language lang) noexcept
         {
             switch (lang) {
             case case_language::azerbaijani:
-                return (uint8_t)detail::case_condition::az;
+                return (uint16_t)detail::case_condition::az;
             case case_language::lithuanian:
-                return (uint8_t)detail::case_condition::lt;
+                return (uint16_t)detail::case_condition::lt;
             case case_language::turkish:
-                return (uint8_t)detail::case_condition::tr;
+                return (uint16_t)detail::case_condition::tr;
             default: return 0;
             }
             return 0;
@@ -60,21 +62,30 @@ namespace boost { namespace text {
             case_trie_t const & trie,
             bool title /* TODO: pass pointer to to-lower trie instead? */) noexcept
         {
-            uint8_t const lang_conditions = lang_to_condition(lang);
+            uint16_t const lang_conditions = lang_to_condition(lang);
 
             while (it != last) {
                 case_trie_match_t const match = trie.longest_match(it, last);
 
-                uint8_t conditions = lang_conditions;
+                uint16_t conditions = lang_conditions;
 
                 if (match.match) {
                     case_elements const elements = trie[match];
-                    auto const elem_first = elements.begin(g_case_cps_first);
-                    auto const elem_last = elements.end(g_case_cps_first);
+                    auto const elem_first = elements.begin(g_case_mapping_to_first);
+                    auto const elem_last = elements.end(g_case_mapping_to_first);
+
+                    auto const all_conditions = std::accumulate(
+                        elem_first,
+                        elem_last,
+                        uint16_t(0),
+                        [](uint16_t conds, case_mapping_to to) {
+                            return conds | to.conditions_;
+                        });
+
                     auto const condition_first = std::next(it, match.size);
 
-                    if (elements.conditions_ &
-                        (uint8_t)case_condition::Final_Sigma) {
+                    if (all_conditions &
+                        (uint16_t)case_condition::Final_Sigma) {
                         bool before = false;
                         auto find_it =
                             find_if_backward(first, it, [](uint32_t cp) {
@@ -99,13 +110,13 @@ namespace boost { namespace text {
                             }
                             if (!after) {
                                 conditions |=
-                                    (uint8_t)case_condition::Final_Sigma;
+                                    (uint16_t)case_condition::Final_Sigma;
                             }
                         }
                     }
 
-                    if (elements.conditions_ &
-                        (uint8_t)case_condition::After_Soft_Dotted) {
+                    if (all_conditions &
+                        (uint16_t)case_condition::After_Soft_Dotted) {
                         auto find_it =
                             find_if_backward(first, it, [](uint32_t cp) {
                                 return soft_dotted(cp) || ccc_230_0(cp);
@@ -114,16 +125,15 @@ namespace boost { namespace text {
                             --find_it;
                             if (soft_dotted(*find_it)) {
                                 conditions |=
-                                    (uint8_t)case_condition::After_Soft_Dotted;
+                                    (uint16_t)case_condition::After_Soft_Dotted;
                             }
                         }
                     }
 
-                    if (elements.conditions_ &
-                        (uint8_t)case_condition::More_Above) {
+                    if (all_conditions & (uint16_t)case_condition::More_Above) {
                         if (condition_first != last &&
                             ccc(*condition_first) == 230) {
-                            conditions |= (uint8_t)case_condition::More_Above;
+                            conditions |= (uint16_t)case_condition::More_Above;
                         } else {
                             auto find_it =
                                 find_if(condition_first, last, [](uint32_t cp) {
@@ -133,14 +143,14 @@ namespace boost { namespace text {
                                 ++find_it;
                                 if (ccc(*find_it) == 230) {
                                     conditions |=
-                                        (uint8_t)case_condition::More_Above;
+                                        (uint16_t)case_condition::More_Above;
                                 }
                             }
                         }
                     }
 
-                    if (elements.conditions_ &
-                        (uint8_t)case_condition::Not_Before_Dot) {
+                    if (all_conditions &
+                        (uint16_t)case_condition::Not_Before_Dot) {
                         auto find_it =
                             find_if(condition_first, last, [](uint32_t cp) {
                                 return cp == 0x0307 || ccc_230_0(cp);
@@ -149,13 +159,12 @@ namespace boost { namespace text {
                             ++find_it;
                             if (*find_it == 0x0307) {
                                 conditions |=
-                                    (uint8_t)case_condition::Not_Before_Dot;
+                                    (uint16_t)case_condition::Not_Before_Dot;
                             }
                         }
                     }
 
-                    if (elements.conditions_ &
-                        (uint8_t)case_condition::After_I) {
+                    if (all_conditions & (uint16_t)case_condition::After_I) {
                         auto find_it =
                             find_if_backward(first, it, [](uint32_t cp) {
                                 return cp == 0x0049 || ccc_230_0(cp);
@@ -163,16 +172,27 @@ namespace boost { namespace text {
                         if (find_it != first) {
                             --find_it;
                             if (*find_it == 0x0049)
-                                conditions |= (uint8_t)case_condition::After_I;
+                                conditions |= (uint16_t)case_condition::After_I;
                         }
                     }
 
-                    if ((elements.conditions_ & conditions) ==
-                        elements.conditions_) {
-                        out = std::copy(elem_first, elem_last, out);
-                        it = condition_first;
-                        continue;
+                    bool met_conditions = false;
+                    for (auto elem_it = elem_first; elem_it != elem_last;
+                         ++elem_it) {
+                        if ((elem_it->conditions_ & conditions) ==
+                            elem_it->conditions_) {
+                            auto const cp_first =
+                                g_case_cps_first + elem_it->cps_.first_;
+                            auto const cp_last =
+                                g_case_cps_first + elem_it->cps_.last_;
+                            out = std::copy(cp_first, cp_last, out);
+                            it = condition_first;
+                            met_conditions = true;
+                            break;
+                        }
                     }
+                    if (met_conditions)
+                        continue;
                 }
 
                 *out = *it;

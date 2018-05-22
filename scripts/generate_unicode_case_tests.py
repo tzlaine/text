@@ -181,8 +181,6 @@ def case_mapping_tests(special_casing):
             if len(title) and len(upper):
                 pass # TODO
 
-    print '\n'.join(tests)
-
     cpp_file = open('case_mapping.cpp', 'w')
     cpp_file.write(test_file_form.format('\n'.join(tests)))
 

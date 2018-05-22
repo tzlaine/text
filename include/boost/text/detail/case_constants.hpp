@@ -9,7 +9,7 @@
 
 namespace boost { namespace text { namespace detail {
 
-    enum class case_condition : uint8_t {
+    enum class case_condition : uint16_t {
         After_I = 1,
         After_Soft_Dotted = 2,
         Final_Sigma = 4,

@@ -11,28 +11,33 @@
 
 namespace boost { namespace text { namespace detail {
 
-    struct case_cp_indices
+    struct case_indices
     {
         uint16_t first_;
         uint16_t last_;
     };
 
+    struct case_mapping_to
+    {
+        case_indices cps_;
+        uint16_t conditions_;
+    };
+
     struct case_mapping
     {
-        case_cp_indices from_;
-        case_cp_indices to_;
-        uint8_t conditions_;
+        case_indices from_; // cp indices
+        case_indices to_;   // case_mapping_to indices
     };
 
     struct case_elements
     {
-        using iterator = uint32_t const *;
+        using iterator = case_mapping_to const *;
 
-        iterator begin(uint32_t const * elements) const noexcept
+        iterator begin(case_mapping_to const * elements) const noexcept
         {
             return elements + first_;
         }
-        iterator end(uint32_t const * elements) const noexcept
+        iterator end(case_mapping_to const * elements) const noexcept
         {
             return elements + last_;
         }
@@ -42,7 +47,6 @@ namespace boost { namespace text { namespace detail {
 
         uint16_t first_;
         uint16_t last_;
-        uint8_t conditions_;
     };
 
     inline bool operator==(case_elements lhs, case_elements rhs) noexcept
@@ -122,6 +126,7 @@ namespace boost { namespace text { namespace detail {
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_cased_cps();
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_case_ignorable_cps();
     BOOST_TEXT_DECL extern uint32_t const * g_case_cps_first;
+    BOOST_TEXT_DECL extern case_mapping_to const * g_case_mapping_to_first;
 
     inline case_trie_t const & to_lower_trie()
     {
