@@ -8,3187 +8,9811 @@ using namespace boost::text;
 
 TEST(case_mapping, 000)
 {
-    std::array<uint32_t, 1> const from = {0x00DF};
+    // 00DF; 00DF; 0053 0073; 0053 0053; # LATIN SMALL LETTER SHARP S
+    std::array<uint32_t, 1> const cp = {0x00DF};
+
     { // to_lower
         std::vector<uint32_t> lower({0x00DF});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x00DF});
         std::vector<uint32_t> title({0x0053, 0x0073});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x00DF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0053, 0x0073, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x00DF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0053, 0x0073, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x00DF});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0073});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x00DF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0073, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x00DF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0073, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x00DF});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x00DF});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x00DF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x00DF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x00DF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x00DF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0053, 0x0053});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 001)
 {
-    std::array<uint32_t, 1> const from = {0x0130};
+    // 0130; 0069 0307; 0130; 0130; # LATIN CAPITAL LETTER I WITH DOT ABOVE
+    std::array<uint32_t, 1> const cp = {0x0130};
+
     { // to_lower
         std::vector<uint32_t> lower({0x0069, 0x0307});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x0130});
         std::vector<uint32_t> title({0x0130});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0130, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0130, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0130, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0130, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0130});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0130});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0130, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0130, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0130, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0130, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0130});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0069, 0x0307});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0130, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0069, 0x0307, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0130, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0069, 0x0307, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0130});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 002)
 {
-    std::array<uint32_t, 1> const from = {0xFB00};
+    // FB00; FB00; 0046 0066; 0046 0046; # LATIN SMALL LIGATURE FF
+    std::array<uint32_t, 1> const cp = {0xFB00};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB00});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB00});
         std::vector<uint32_t> title({0x0046, 0x0066});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB00, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0046, 0x0066, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB00, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0046, 0x0066, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB00});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0066});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB00, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0066, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB00, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0066, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB00});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB00});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB00, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB00, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB00, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB00, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x0046});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 003)
 {
-    std::array<uint32_t, 1> const from = {0xFB01};
+    // FB01; FB01; 0046 0069; 0046 0049; # LATIN SMALL LIGATURE FI
+    std::array<uint32_t, 1> const cp = {0xFB01};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB01});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB01});
         std::vector<uint32_t> title({0x0046, 0x0069});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB01, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0046, 0x0069, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB01, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0046, 0x0069, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB01});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0069});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB01, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0069, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB01, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0069, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB01});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB01});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB01, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB01, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB01, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB01, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x0049});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 004)
 {
-    std::array<uint32_t, 1> const from = {0xFB02};
+    // FB02; FB02; 0046 006C; 0046 004C; # LATIN SMALL LIGATURE FL
+    std::array<uint32_t, 1> const cp = {0xFB02};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB02});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB02});
         std::vector<uint32_t> title({0x0046, 0x006C});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB02, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0046, 0x006C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB02, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0046, 0x006C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB02});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x006C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB02, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x006C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB02, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x006C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB02});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB02});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB02, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB02, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB02, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB02, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x004C});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 005)
 {
-    std::array<uint32_t, 1> const from = {0xFB03};
+    // FB03; FB03; 0046 0066 0069; 0046 0046 0049; # LATIN SMALL LIGATURE FFI
+    std::array<uint32_t, 1> const cp = {0xFB03};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB03});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB03});
         std::vector<uint32_t> title({0x0046, 0x0066, 0x0069});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB03, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0046, 0x0066, 0x0069, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB03, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0046, 0x0066, 0x0069, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB03});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0066, 0x0069});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB03, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0066, 0x0069, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB03, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0066, 0x0069, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB03});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB03});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB03, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB03, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB03, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB03, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x0046, 0x0049});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 006)
 {
-    std::array<uint32_t, 1> const from = {0xFB04};
+    // FB04; FB04; 0046 0066 006C; 0046 0046 004C; # LATIN SMALL LIGATURE FFL
+    std::array<uint32_t, 1> const cp = {0xFB04};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB04});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB04});
         std::vector<uint32_t> title({0x0046, 0x0066, 0x006C});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB04, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0046, 0x0066, 0x006C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB04, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0046, 0x0066, 0x006C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB04});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0066, 0x006C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB04, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0066, 0x006C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB04, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0046, 0x0066, 0x006C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB04});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB04});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB04, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB04, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB04, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB04, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x0046, 0x004C});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 007)
 {
-    std::array<uint32_t, 1> const from = {0xFB05};
+    // FB05; FB05; 0053 0074; 0053 0054; # LATIN SMALL LIGATURE LONG S T
+    std::array<uint32_t, 1> const cp = {0xFB05};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB05});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB05});
         std::vector<uint32_t> title({0x0053, 0x0074});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB05, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0053, 0x0074, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB05, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0053, 0x0074, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB05});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0074});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB05, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0074, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB05, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0074, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB05});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB05});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB05, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB05, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB05, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB05, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0053, 0x0054});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 008)
 {
-    std::array<uint32_t, 1> const from = {0xFB06};
+    // FB06; FB06; 0053 0074; 0053 0054; # LATIN SMALL LIGATURE ST
+    std::array<uint32_t, 1> const cp = {0xFB06};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB06});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB06});
         std::vector<uint32_t> title({0x0053, 0x0074});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB06, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0053, 0x0074, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB06, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0053, 0x0074, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB06});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0074});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB06, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0074, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB06, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0074, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB06});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB06});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB06, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB06, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB06, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB06, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0053, 0x0054});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 009)
 {
-    std::array<uint32_t, 1> const from = {0x0587};
+    // 0587; 0587; 0535 0582; 0535 0552; # ARMENIAN SMALL LIGATURE ECH YIWN
+    std::array<uint32_t, 1> const cp = {0x0587};
+
     { // to_lower
         std::vector<uint32_t> lower({0x0587});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x0587});
         std::vector<uint32_t> title({0x0535, 0x0582});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0587, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0535, 0x0582, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0587, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0535, 0x0582, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0587});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0535, 0x0582});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0587, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0535, 0x0582, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0587, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0535, 0x0582, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0587});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0587});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0587, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0587, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0587, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0587, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0535, 0x0552});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 010)
 {
-    std::array<uint32_t, 1> const from = {0xFB13};
+    // FB13; FB13; 0544 0576; 0544 0546; # ARMENIAN SMALL LIGATURE MEN NOW
+    std::array<uint32_t, 1> const cp = {0xFB13};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB13});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB13});
         std::vector<uint32_t> title({0x0544, 0x0576});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB13, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0544, 0x0576, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB13, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0544, 0x0576, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB13});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x0576});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB13, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x0576, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB13, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x0576, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB13});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB13});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB13, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB13, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB13, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB13, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x0546});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 011)
 {
-    std::array<uint32_t, 1> const from = {0xFB14};
+    // FB14; FB14; 0544 0565; 0544 0535; # ARMENIAN SMALL LIGATURE MEN ECH
+    std::array<uint32_t, 1> const cp = {0xFB14};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB14});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB14});
         std::vector<uint32_t> title({0x0544, 0x0565});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB14, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0544, 0x0565, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB14, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0544, 0x0565, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB14});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x0565});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB14, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x0565, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB14, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x0565, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB14});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB14});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB14, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB14, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB14, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB14, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x0535});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 012)
 {
-    std::array<uint32_t, 1> const from = {0xFB15};
+    // FB15; FB15; 0544 056B; 0544 053B; # ARMENIAN SMALL LIGATURE MEN INI
+    std::array<uint32_t, 1> const cp = {0xFB15};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB15});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB15});
         std::vector<uint32_t> title({0x0544, 0x056B});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB15, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0544, 0x056B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB15, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0544, 0x056B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB15});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x056B});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB15, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x056B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB15, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x056B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB15});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB15});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB15, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB15, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB15, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB15, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x053B});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 013)
 {
-    std::array<uint32_t, 1> const from = {0xFB16};
+    // FB16; FB16; 054E 0576; 054E 0546; # ARMENIAN SMALL LIGATURE VEW NOW
+    std::array<uint32_t, 1> const cp = {0xFB16};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB16});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB16});
         std::vector<uint32_t> title({0x054E, 0x0576});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB16, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x054E, 0x0576, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB16, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x054E, 0x0576, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB16});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x054E, 0x0576});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB16, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x054E, 0x0576, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB16, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x054E, 0x0576, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB16});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB16});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB16, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB16, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB16, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB16, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x054E, 0x0546});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 014)
 {
-    std::array<uint32_t, 1> const from = {0xFB17};
+    // FB17; FB17; 0544 056D; 0544 053D; # ARMENIAN SMALL LIGATURE MEN XEH
+    std::array<uint32_t, 1> const cp = {0xFB17};
+
     { // to_lower
         std::vector<uint32_t> lower({0xFB17});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0xFB17});
         std::vector<uint32_t> title({0x0544, 0x056D});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB17, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0544, 0x056D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0xFB17, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0544, 0x056D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB17});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x056D});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB17, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x056D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0xFB17, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0544, 0x056D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB17});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB17});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB17, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB17, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0xFB17, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0xFB17, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x053D});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 015)
 {
-    std::array<uint32_t, 1> const from = {0x0149};
+    // 0149; 0149; 02BC 004E; 02BC 004E; # LATIN SMALL LETTER N PRECEDED BY APOSTROPHE
+    std::array<uint32_t, 1> const cp = {0x0149};
+
     { // to_lower
         std::vector<uint32_t> lower({0x0149});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x0149});
         std::vector<uint32_t> title({0x02BC, 0x004E});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0149, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x02BC, 0x004E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0149, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x02BC, 0x004E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0149});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x02BC, 0x004E});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0149, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x02BC, 0x004E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0149, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x02BC, 0x004E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0149});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0149});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0149, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0149, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0149, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0149, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x02BC, 0x004E});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 016)
 {
-    std::array<uint32_t, 1> const from = {0x0390};
+    // 0390; 0390; 0399 0308 0301; 0399 0308 0301; # GREEK SMALL LETTER IOTA WITH DIALYTIKA AND TONOS
+    std::array<uint32_t, 1> const cp = {0x0390};
+
     { // to_lower
         std::vector<uint32_t> lower({0x0390});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x0390});
         std::vector<uint32_t> title({0x0399, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0390, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0301, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0390, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0301, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0390});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0301});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0390, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0301, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x0390, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0301, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0390});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0390});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0390, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0390, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x0390, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x0390, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 017)
 {
-    std::array<uint32_t, 1> const from = {0x03B0};
+    // 03B0; 03B0; 03A5 0308 0301; 03A5 0308 0301; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND TONOS
+    std::array<uint32_t, 1> const cp = {0x03B0};
+
     { // to_lower
         std::vector<uint32_t> lower({0x03B0});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x03B0});
         std::vector<uint32_t> title({0x03A5, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x03B0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0301, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x03B0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0301, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x03B0});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0301});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x03B0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0301, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x03B0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0301, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x03B0});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x03B0});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x03B0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x03B0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x03B0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x03B0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 018)
 {
-    std::array<uint32_t, 1> const from = {0x01F0};
+    // 01F0; 01F0; 004A 030C; 004A 030C; # LATIN SMALL LETTER J WITH CARON
+    std::array<uint32_t, 1> const cp = {0x01F0};
+
     { // to_lower
         std::vector<uint32_t> lower({0x01F0});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x01F0});
         std::vector<uint32_t> title({0x004A, 0x030C});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x01F0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x004A, 0x030C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x01F0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x004A, 0x030C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x01F0});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x004A, 0x030C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x01F0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x004A, 0x030C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x01F0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x004A, 0x030C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x01F0});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x01F0});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x01F0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x01F0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x01F0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x01F0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x004A, 0x030C});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 019)
 {
-    std::array<uint32_t, 1> const from = {0x1E96};
+    // 1E96; 1E96; 0048 0331; 0048 0331; # LATIN SMALL LETTER H WITH LINE BELOW
+    std::array<uint32_t, 1> const cp = {0x1E96};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1E96});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1E96});
         std::vector<uint32_t> title({0x0048, 0x0331});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1E96, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0048, 0x0331, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1E96, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0048, 0x0331, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E96});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0048, 0x0331});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E96, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0048, 0x0331, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E96, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0048, 0x0331, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E96});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E96});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E96, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E96, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E96, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E96, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0048, 0x0331});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 020)
 {
-    std::array<uint32_t, 1> const from = {0x1E97};
+    // 1E97; 1E97; 0054 0308; 0054 0308; # LATIN SMALL LETTER T WITH DIAERESIS
+    std::array<uint32_t, 1> const cp = {0x1E97};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1E97});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1E97});
         std::vector<uint32_t> title({0x0054, 0x0308});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1E97, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0054, 0x0308, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1E97, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0054, 0x0308, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E97});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0054, 0x0308});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E97, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0054, 0x0308, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E97, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0054, 0x0308, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E97});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E97});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E97, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E97, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E97, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E97, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0054, 0x0308});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 021)
 {
-    std::array<uint32_t, 1> const from = {0x1E98};
+    // 1E98; 1E98; 0057 030A; 0057 030A; # LATIN SMALL LETTER W WITH RING ABOVE
+    std::array<uint32_t, 1> const cp = {0x1E98};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1E98});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1E98});
         std::vector<uint32_t> title({0x0057, 0x030A});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1E98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0057, 0x030A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1E98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0057, 0x030A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E98});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0057, 0x030A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0057, 0x030A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0057, 0x030A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E98});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E98});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0057, 0x030A});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 022)
 {
-    std::array<uint32_t, 1> const from = {0x1E99};
+    // 1E99; 1E99; 0059 030A; 0059 030A; # LATIN SMALL LETTER Y WITH RING ABOVE
+    std::array<uint32_t, 1> const cp = {0x1E99};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1E99});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1E99});
         std::vector<uint32_t> title({0x0059, 0x030A});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1E99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0059, 0x030A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1E99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0059, 0x030A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E99});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0059, 0x030A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0059, 0x030A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0059, 0x030A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E99});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E99});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0059, 0x030A});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 023)
 {
-    std::array<uint32_t, 1> const from = {0x1E9A};
+    // 1E9A; 1E9A; 0041 02BE; 0041 02BE; # LATIN SMALL LETTER A WITH RIGHT HALF RING
+    std::array<uint32_t, 1> const cp = {0x1E9A};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1E9A});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1E9A});
         std::vector<uint32_t> title({0x0041, 0x02BE});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1E9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x02BE, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1E9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x02BE, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E9A});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0041, 0x02BE});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0041, 0x02BE, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1E9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0041, 0x02BE, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E9A});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E9A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1E9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1E9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0041, 0x02BE});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 024)
 {
-    std::array<uint32_t, 1> const from = {0x1F50};
+    // 1F50; 1F50; 03A5 0313; 03A5 0313; # GREEK SMALL LETTER UPSILON WITH PSILI
+    std::array<uint32_t, 1> const cp = {0x1F50};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F50});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F50});
         std::vector<uint32_t> title({0x03A5, 0x0313});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F50, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F50, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F50});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F50, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F50, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F50});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F50});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F50, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F50, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F50, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F50, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0313});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 025)
 {
-    std::array<uint32_t, 1> const from = {0x1F52};
+    // 1F52; 1F52; 03A5 0313 0300; 03A5 0313 0300; # GREEK SMALL LETTER UPSILON WITH PSILI AND VARIA
+    std::array<uint32_t, 1> const cp = {0x1F52};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F52});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F52});
         std::vector<uint32_t> title({0x03A5, 0x0313, 0x0300});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F52, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0300, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F52, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0300, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F52});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0300});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F52, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0300, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F52, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0300, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F52});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F52});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F52, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F52, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F52, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F52, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0313, 0x0300});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 026)
 {
-    std::array<uint32_t, 1> const from = {0x1F54};
+    // 1F54; 1F54; 03A5 0313 0301; 03A5 0313 0301; # GREEK SMALL LETTER UPSILON WITH PSILI AND OXIA
+    std::array<uint32_t, 1> const cp = {0x1F54};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F54});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F54});
         std::vector<uint32_t> title({0x03A5, 0x0313, 0x0301});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F54, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0301, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F54, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0301, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F54});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0301});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F54, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0301, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F54, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0301, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F54});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F54});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F54, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F54, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F54, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F54, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0313, 0x0301});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 027)
 {
-    std::array<uint32_t, 1> const from = {0x1F56};
+    // 1F56; 1F56; 03A5 0313 0342; 03A5 0313 0342; # GREEK SMALL LETTER UPSILON WITH PSILI AND PERISPOMENI
+    std::array<uint32_t, 1> const cp = {0x1F56};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F56});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F56});
         std::vector<uint32_t> title({0x03A5, 0x0313, 0x0342});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F56, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F56, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F56});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F56, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F56, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0313, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F56});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F56});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F56, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F56, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F56, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F56, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0313, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 028)
 {
-    std::array<uint32_t, 1> const from = {0x1FB6};
+    // 1FB6; 1FB6; 0391 0342; 0391 0342; # GREEK SMALL LETTER ALPHA WITH PERISPOMENI
+    std::array<uint32_t, 1> const cp = {0x1FB6};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FB6});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FB6});
         std::vector<uint32_t> title({0x0391, 0x0342});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FB6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0391, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FB6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0391, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB6});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0391, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0391, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0391, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB6});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB6});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 029)
 {
-    std::array<uint32_t, 1> const from = {0x1FC6};
+    // 1FC6; 1FC6; 0397 0342; 0397 0342; # GREEK SMALL LETTER ETA WITH PERISPOMENI
+    std::array<uint32_t, 1> const cp = {0x1FC6};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FC6});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FC6});
         std::vector<uint32_t> title({0x0397, 0x0342});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FC6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0397, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FC6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0397, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC6});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0397, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0397, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0397, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC6});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC6});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0397, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 030)
 {
-    std::array<uint32_t, 1> const from = {0x1FD2};
+    // 1FD2; 1FD2; 0399 0308 0300; 0399 0308 0300; # GREEK SMALL LETTER IOTA WITH DIALYTIKA AND VARIA
+    std::array<uint32_t, 1> const cp = {0x1FD2};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FD2});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FD2});
         std::vector<uint32_t> title({0x0399, 0x0308, 0x0300});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FD2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0300, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FD2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0300, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD2});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0300});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0300, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0300, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD2});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD2});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0308, 0x0300});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 031)
 {
-    std::array<uint32_t, 1> const from = {0x1FD3};
+    // 1FD3; 1FD3; 0399 0308 0301; 0399 0308 0301; # GREEK SMALL LETTER IOTA WITH DIALYTIKA AND OXIA
+    std::array<uint32_t, 1> const cp = {0x1FD3};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FD3});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FD3});
         std::vector<uint32_t> title({0x0399, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FD3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0301, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FD3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0301, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD3});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0301});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0301, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0301, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD3});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD3});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 032)
 {
-    std::array<uint32_t, 1> const from = {0x1FD6};
+    // 1FD6; 1FD6; 0399 0342; 0399 0342; # GREEK SMALL LETTER IOTA WITH PERISPOMENI
+    std::array<uint32_t, 1> const cp = {0x1FD6};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FD6});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FD6});
         std::vector<uint32_t> title({0x0399, 0x0342});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FD6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0399, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FD6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0399, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD6});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD6});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD6});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 033)
 {
-    std::array<uint32_t, 1> const from = {0x1FD7};
+    // 1FD7; 1FD7; 0399 0308 0342; 0399 0308 0342; # GREEK SMALL LETTER IOTA WITH DIALYTIKA AND PERISPOMENI
+    std::array<uint32_t, 1> const cp = {0x1FD7};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FD7});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FD7});
         std::vector<uint32_t> title({0x0399, 0x0308, 0x0342});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FD7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FD7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD7});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FD7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0399, 0x0308, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD7});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD7});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FD7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FD7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0308, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 034)
 {
-    std::array<uint32_t, 1> const from = {0x1FE2};
+    // 1FE2; 1FE2; 03A5 0308 0300; 03A5 0308 0300; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND VARIA
+    std::array<uint32_t, 1> const cp = {0x1FE2};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FE2});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FE2});
         std::vector<uint32_t> title({0x03A5, 0x0308, 0x0300});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FE2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0300, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FE2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0300, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE2});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0300});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0300, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0300, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE2});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE2});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0300});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 035)
 {
-    std::array<uint32_t, 1> const from = {0x1FE3};
+    // 1FE3; 1FE3; 03A5 0308 0301; 03A5 0308 0301; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND OXIA
+    std::array<uint32_t, 1> const cp = {0x1FE3};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FE3});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FE3});
         std::vector<uint32_t> title({0x03A5, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FE3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0301, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FE3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0301, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE3});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0301});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0301, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0301, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE3});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE3});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 036)
 {
-    std::array<uint32_t, 1> const from = {0x1FE4};
+    // 1FE4; 1FE4; 03A1 0313; 03A1 0313; # GREEK SMALL LETTER RHO WITH PSILI
+    std::array<uint32_t, 1> const cp = {0x1FE4};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FE4});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FE4});
         std::vector<uint32_t> title({0x03A1, 0x0313});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FE4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A1, 0x0313, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FE4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A1, 0x0313, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE4});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A1, 0x0313});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A1, 0x0313, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A1, 0x0313, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE4});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE4});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A1, 0x0313});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 037)
 {
-    std::array<uint32_t, 1> const from = {0x1FE6};
+    // 1FE6; 1FE6; 03A5 0342; 03A5 0342; # GREEK SMALL LETTER UPSILON WITH PERISPOMENI
+    std::array<uint32_t, 1> const cp = {0x1FE6};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FE6});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FE6});
         std::vector<uint32_t> title({0x03A5, 0x0342});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FE6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A5, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FE6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A5, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE6});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE6});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE6});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 038)
 {
-    std::array<uint32_t, 1> const from = {0x1FE7};
+    // 1FE7; 1FE7; 03A5 0308 0342; 03A5 0308 0342; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND PERISPOMENI
+    std::array<uint32_t, 1> const cp = {0x1FE7};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FE7});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FE7});
         std::vector<uint32_t> title({0x03A5, 0x0308, 0x0342});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FE7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FE7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE7});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FE7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A5, 0x0308, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE7});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE7});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FE7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FE7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 039)
 {
-    std::array<uint32_t, 1> const from = {0x1FF6};
+    // 1FF6; 1FF6; 03A9 0342; 03A9 0342; # GREEK SMALL LETTER OMEGA WITH PERISPOMENI
+    std::array<uint32_t, 1> const cp = {0x1FF6};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FF6});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FF6});
         std::vector<uint32_t> title({0x03A9, 0x0342});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FF6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A9, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FF6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A9, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF6});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A9, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A9, 0x0342, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A9, 0x0342, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF6});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF6});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A9, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 040)
 {
-    std::array<uint32_t, 1> const from = {0x1F80};
+    // 1F80; 1F80; 1F88; 1F08 0399; # GREEK SMALL LETTER ALPHA WITH PSILI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F80};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F80});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F80});
         std::vector<uint32_t> title({0x1F88});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F80, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F88, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F80, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F88, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F80});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F88});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F80, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F88, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F80, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F88, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F80});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F80});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F80, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F80, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F80, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F80, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F08, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 041)
 {
-    std::array<uint32_t, 1> const from = {0x1F81};
+    // 1F81; 1F81; 1F89; 1F09 0399; # GREEK SMALL LETTER ALPHA WITH DASIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F81};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F81});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F81});
         std::vector<uint32_t> title({0x1F89});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F81, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F89, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F81, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F89, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F81});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F89});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F81, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F89, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F81, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F89, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F81});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F81});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F81, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F81, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F81, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F81, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F09, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 042)
 {
-    std::array<uint32_t, 1> const from = {0x1F82};
+    // 1F82; 1F82; 1F8A; 1F0A 0399; # GREEK SMALL LETTER ALPHA WITH PSILI AND VARIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F82};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F82});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F82});
         std::vector<uint32_t> title({0x1F8A});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F82, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F82, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F82});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F82, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F82, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F82});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F82});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F82, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F82, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F82, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F82, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 043)
 {
-    std::array<uint32_t, 1> const from = {0x1F83};
+    // 1F83; 1F83; 1F8B; 1F0B 0399; # GREEK SMALL LETTER ALPHA WITH DASIA AND VARIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F83};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F83});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F83});
         std::vector<uint32_t> title({0x1F8B});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F83, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F83, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F83});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8B});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F83, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F83, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F83});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F83});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F83, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F83, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F83, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F83, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 044)
 {
-    std::array<uint32_t, 1> const from = {0x1F84};
+    // 1F84; 1F84; 1F8C; 1F0C 0399; # GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F84};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F84});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F84});
         std::vector<uint32_t> title({0x1F8C});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F84, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F84, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F84});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F84, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F84, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F84});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F84});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F84, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F84, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F84, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F84, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 045)
 {
-    std::array<uint32_t, 1> const from = {0x1F85};
+    // 1F85; 1F85; 1F8D; 1F0D 0399; # GREEK SMALL LETTER ALPHA WITH DASIA AND OXIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F85};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F85});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F85});
         std::vector<uint32_t> title({0x1F8D});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F85, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F85, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F85});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8D});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F85, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F85, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F85});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F85});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F85, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F85, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F85, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F85, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 046)
 {
-    std::array<uint32_t, 1> const from = {0x1F86};
+    // 1F86; 1F86; 1F8E; 1F0E 0399; # GREEK SMALL LETTER ALPHA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F86};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F86});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F86});
         std::vector<uint32_t> title({0x1F8E});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F86, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F86, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F86});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8E});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F86, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F86, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F86});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F86});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F86, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F86, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F86, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F86, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 047)
 {
-    std::array<uint32_t, 1> const from = {0x1F87};
+    // 1F87; 1F87; 1F8F; 1F0F 0399; # GREEK SMALL LETTER ALPHA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F87};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F87});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F87});
         std::vector<uint32_t> title({0x1F8F});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F87, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F87, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F87});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8F});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F87, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F87, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F87});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F87});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F87, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F87, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F87, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F87, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 048)
 {
-    std::array<uint32_t, 1> const from = {0x1F88};
+    // 1F88; 1F80; 1F88; 1F08 0399; # GREEK CAPITAL LETTER ALPHA WITH PSILI AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F88};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F80});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F88});
         std::vector<uint32_t> title({0x1F88});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F88, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F88, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F88, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F88, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F88});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F88});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F88, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F88, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F88, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F88, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F88});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F80});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F88, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F80, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F88, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F80, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F08, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 049)
 {
-    std::array<uint32_t, 1> const from = {0x1F89};
+    // 1F89; 1F81; 1F89; 1F09 0399; # GREEK CAPITAL LETTER ALPHA WITH DASIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F89};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F81});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F89});
         std::vector<uint32_t> title({0x1F89});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F89, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F89, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F89, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F89, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F89});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F89});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F89, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F89, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F89, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F89, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F89});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F81});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F89, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F81, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F89, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F81, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F09, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 050)
 {
-    std::array<uint32_t, 1> const from = {0x1F8A};
+    // 1F8A; 1F82; 1F8A; 1F0A 0399; # GREEK CAPITAL LETTER ALPHA WITH PSILI AND VARIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F8A};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F82});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F8A});
         std::vector<uint32_t> title({0x1F8A});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8A});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8A});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F82});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F82, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F82, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 051)
 {
-    std::array<uint32_t, 1> const from = {0x1F8B};
+    // 1F8B; 1F83; 1F8B; 1F0B 0399; # GREEK CAPITAL LETTER ALPHA WITH DASIA AND VARIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F8B};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F83});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F8B});
         std::vector<uint32_t> title({0x1F8B});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8B});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8B});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8B});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F83});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F83, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F83, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 052)
 {
-    std::array<uint32_t, 1> const from = {0x1F8C};
+    // 1F8C; 1F84; 1F8C; 1F0C 0399; # GREEK CAPITAL LETTER ALPHA WITH PSILI AND OXIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F8C};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F84});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F8C});
         std::vector<uint32_t> title({0x1F8C});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8C});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8C});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F84});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F84, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F84, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 053)
 {
-    std::array<uint32_t, 1> const from = {0x1F8D};
+    // 1F8D; 1F85; 1F8D; 1F0D 0399; # GREEK CAPITAL LETTER ALPHA WITH DASIA AND OXIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F8D};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F85});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F8D});
         std::vector<uint32_t> title({0x1F8D});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8D});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8D});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8D});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F85});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F85, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F85, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 054)
 {
-    std::array<uint32_t, 1> const from = {0x1F8E};
+    // 1F8E; 1F86; 1F8E; 1F0E 0399; # GREEK CAPITAL LETTER ALPHA WITH PSILI AND PERISPOMENI AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F8E};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F86});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F8E});
         std::vector<uint32_t> title({0x1F8E});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8E});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8E});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8E});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F86});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F86, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F86, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 055)
 {
-    std::array<uint32_t, 1> const from = {0x1F8F};
+    // 1F8F; 1F87; 1F8F; 1F0F 0399; # GREEK CAPITAL LETTER ALPHA WITH DASIA AND PERISPOMENI AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F8F};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F87});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F8F});
         std::vector<uint32_t> title({0x1F8F});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F8F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F8F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F8F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8F});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8F});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F8F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F8F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8F});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F87});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F87, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F8F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F87, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 056)
 {
-    std::array<uint32_t, 1> const from = {0x1F90};
+    // 1F90; 1F90; 1F98; 1F28 0399; # GREEK SMALL LETTER ETA WITH PSILI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F90};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F90});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F90});
         std::vector<uint32_t> title({0x1F98});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F90, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F90, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F90});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F98});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F90, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F90, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F90});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F90});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F90, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F90, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F90, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F90, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F28, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 057)
 {
-    std::array<uint32_t, 1> const from = {0x1F91};
+    // 1F91; 1F91; 1F99; 1F29 0399; # GREEK SMALL LETTER ETA WITH DASIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F91};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F91});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F91});
         std::vector<uint32_t> title({0x1F99});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F91, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F91, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F91});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F99});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F91, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F91, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F91});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F91});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F91, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F91, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F91, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F91, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F29, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 058)
 {
-    std::array<uint32_t, 1> const from = {0x1F92};
+    // 1F92; 1F92; 1F9A; 1F2A 0399; # GREEK SMALL LETTER ETA WITH PSILI AND VARIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F92};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F92});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F92});
         std::vector<uint32_t> title({0x1F9A});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F92, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F92, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F92});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F92, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F92, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F92});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F92});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F92, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F92, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F92, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F92, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 059)
 {
-    std::array<uint32_t, 1> const from = {0x1F93};
+    // 1F93; 1F93; 1F9B; 1F2B 0399; # GREEK SMALL LETTER ETA WITH DASIA AND VARIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F93};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F93});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F93});
         std::vector<uint32_t> title({0x1F9B});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F93, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F93, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F93});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9B});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F93, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F93, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F93});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F93});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F93, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F93, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F93, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F93, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 060)
 {
-    std::array<uint32_t, 1> const from = {0x1F94};
+    // 1F94; 1F94; 1F9C; 1F2C 0399; # GREEK SMALL LETTER ETA WITH PSILI AND OXIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F94};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F94});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F94});
         std::vector<uint32_t> title({0x1F9C});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F94, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F94, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F94});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F94, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F94, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F94});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F94});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F94, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F94, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F94, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F94, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 061)
 {
-    std::array<uint32_t, 1> const from = {0x1F95};
+    // 1F95; 1F95; 1F9D; 1F2D 0399; # GREEK SMALL LETTER ETA WITH DASIA AND OXIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F95};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F95});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F95});
         std::vector<uint32_t> title({0x1F9D});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F95, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F95, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F95});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9D});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F95, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F95, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F95});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F95});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F95, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F95, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F95, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F95, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 062)
 {
-    std::array<uint32_t, 1> const from = {0x1F96};
+    // 1F96; 1F96; 1F9E; 1F2E 0399; # GREEK SMALL LETTER ETA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F96};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F96});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F96});
         std::vector<uint32_t> title({0x1F9E});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F96, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F96, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F96});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9E});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F96, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F96, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F96});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F96});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F96, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F96, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F96, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F96, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 063)
 {
-    std::array<uint32_t, 1> const from = {0x1F97};
+    // 1F97; 1F97; 1F9F; 1F2F 0399; # GREEK SMALL LETTER ETA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F97};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F97});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F97});
         std::vector<uint32_t> title({0x1F9F});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F97, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F97, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F97});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9F});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F97, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F97, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F97});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F97});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F97, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F97, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F97, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F97, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 064)
 {
-    std::array<uint32_t, 1> const from = {0x1F98};
+    // 1F98; 1F90; 1F98; 1F28 0399; # GREEK CAPITAL LETTER ETA WITH PSILI AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F98};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F90});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F98});
         std::vector<uint32_t> title({0x1F98});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F98});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F98});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F98});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F90});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F98, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F90, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F98, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F90, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F28, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 065)
 {
-    std::array<uint32_t, 1> const from = {0x1F99};
+    // 1F99; 1F91; 1F99; 1F29 0399; # GREEK CAPITAL LETTER ETA WITH DASIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F99};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F91});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F99});
         std::vector<uint32_t> title({0x1F99});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F99});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F99});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F99});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F91});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F99, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F91, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F99, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F91, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F29, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 066)
 {
-    std::array<uint32_t, 1> const from = {0x1F9A};
+    // 1F9A; 1F92; 1F9A; 1F2A 0399; # GREEK CAPITAL LETTER ETA WITH PSILI AND VARIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F9A};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F92});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F9A});
         std::vector<uint32_t> title({0x1F9A});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9A});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9A});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F92});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9A, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F92, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9A, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F92, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 067)
 {
-    std::array<uint32_t, 1> const from = {0x1F9B};
+    // 1F9B; 1F93; 1F9B; 1F2B 0399; # GREEK CAPITAL LETTER ETA WITH DASIA AND VARIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F9B};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F93});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F9B});
         std::vector<uint32_t> title({0x1F9B});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9B});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9B});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9B});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F93});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9B, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F93, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9B, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F93, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 068)
 {
-    std::array<uint32_t, 1> const from = {0x1F9C};
+    // 1F9C; 1F94; 1F9C; 1F2C 0399; # GREEK CAPITAL LETTER ETA WITH PSILI AND OXIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F9C};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F94});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F9C});
         std::vector<uint32_t> title({0x1F9C});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9C});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9C});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F94});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9C, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F94, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9C, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F94, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 069)
 {
-    std::array<uint32_t, 1> const from = {0x1F9D};
+    // 1F9D; 1F95; 1F9D; 1F2D 0399; # GREEK CAPITAL LETTER ETA WITH DASIA AND OXIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F9D};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F95});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F9D});
         std::vector<uint32_t> title({0x1F9D});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9D});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9D});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9D});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F95});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9D, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F95, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9D, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F95, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 070)
 {
-    std::array<uint32_t, 1> const from = {0x1F9E};
+    // 1F9E; 1F96; 1F9E; 1F2E 0399; # GREEK CAPITAL LETTER ETA WITH PSILI AND PERISPOMENI AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F9E};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F96});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F9E});
         std::vector<uint32_t> title({0x1F9E});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9E});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9E});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9E});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F96});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9E, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F96, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9E, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F96, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 071)
 {
-    std::array<uint32_t, 1> const from = {0x1F9F};
+    // 1F9F; 1F97; 1F9F; 1F2F 0399; # GREEK CAPITAL LETTER ETA WITH DASIA AND PERISPOMENI AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1F9F};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1F97});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1F9F});
         std::vector<uint32_t> title({0x1F9F});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1F9F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1F9F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1F9F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9F});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9F});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1F9F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1F9F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9F});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F97});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9F, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F97, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1F9F, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1F97, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 072)
 {
-    std::array<uint32_t, 1> const from = {0x1FA0};
+    // 1FA0; 1FA0; 1FA8; 1F68 0399; # GREEK SMALL LETTER OMEGA WITH PSILI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FA0};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA0});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FA0});
         std::vector<uint32_t> title({0x1FA8});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FA8, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FA8, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA0});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA8});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA8, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA8, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA0});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA0});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F68, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 073)
 {
-    std::array<uint32_t, 1> const from = {0x1FA1};
+    // 1FA1; 1FA1; 1FA9; 1F69 0399; # GREEK SMALL LETTER OMEGA WITH DASIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FA1};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA1});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FA1});
         std::vector<uint32_t> title({0x1FA9});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA1, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FA9, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA1, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FA9, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA1});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA9});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA1, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA9, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA1, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA9, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA1});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA1});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA1, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA1, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA1, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA1, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F69, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 074)
 {
-    std::array<uint32_t, 1> const from = {0x1FA2};
+    // 1FA2; 1FA2; 1FAA; 1F6A 0399; # GREEK SMALL LETTER OMEGA WITH PSILI AND VARIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FA2};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA2});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FA2});
         std::vector<uint32_t> title({0x1FAA});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAA, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAA, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA2});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAA});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAA, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAA, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA2});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA2});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 075)
 {
-    std::array<uint32_t, 1> const from = {0x1FA3};
+    // 1FA3; 1FA3; 1FAB; 1F6B 0399; # GREEK SMALL LETTER OMEGA WITH DASIA AND VARIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FA3};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA3});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FA3});
         std::vector<uint32_t> title({0x1FAB});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAB, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAB, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA3});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAB});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAB, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAB, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA3});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA3});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 076)
 {
-    std::array<uint32_t, 1> const from = {0x1FA4};
+    // 1FA4; 1FA4; 1FAC; 1F6C 0399; # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FA4};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA4});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FA4});
         std::vector<uint32_t> title({0x1FAC});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA4});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA4});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA4});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 077)
 {
-    std::array<uint32_t, 1> const from = {0x1FA5};
+    // 1FA5; 1FA5; 1FAD; 1F6D 0399; # GREEK SMALL LETTER OMEGA WITH DASIA AND OXIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FA5};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA5});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FA5});
         std::vector<uint32_t> title({0x1FAD});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA5, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAD, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA5, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAD, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA5});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAD});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA5, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAD, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA5, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAD, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA5});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA5});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA5, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA5, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA5, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA5, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 078)
 {
-    std::array<uint32_t, 1> const from = {0x1FA6};
+    // 1FA6; 1FA6; 1FAE; 1F6E 0399; # GREEK SMALL LETTER OMEGA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FA6};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA6});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FA6});
         std::vector<uint32_t> title({0x1FAE});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAE, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAE, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA6});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAE});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAE, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAE, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA6});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA6});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 079)
 {
-    std::array<uint32_t, 1> const from = {0x1FA7};
+    // 1FA7; 1FA7; 1FAF; 1F6F 0399; # GREEK SMALL LETTER OMEGA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FA7};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA7});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FA7});
         std::vector<uint32_t> title({0x1FAF});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA7});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAF});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA7});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA7});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 080)
 {
-    std::array<uint32_t, 1> const from = {0x1FA8};
+    // 1FA8; 1FA0; 1FA8; 1F68 0399; # GREEK CAPITAL LETTER OMEGA WITH PSILI AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FA8};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA0});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FA8});
         std::vector<uint32_t> title({0x1FA8});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA8, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FA8, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA8, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FA8, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA8});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA8});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA8, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA8, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA8, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA8, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA8});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA0});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA8, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA0, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA8, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA0, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F68, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 081)
 {
-    std::array<uint32_t, 1> const from = {0x1FA9};
+    // 1FA9; 1FA1; 1FA9; 1F69 0399; # GREEK CAPITAL LETTER OMEGA WITH DASIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FA9};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA1});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FA9});
         std::vector<uint32_t> title({0x1FA9});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA9, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FA9, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FA9, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FA9, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA9});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA9});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA9, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA9, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FA9, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FA9, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA9});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA1});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA9, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA1, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FA9, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA1, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F69, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 082)
 {
-    std::array<uint32_t, 1> const from = {0x1FAA};
+    // 1FAA; 1FA2; 1FAA; 1F6A 0399; # GREEK CAPITAL LETTER OMEGA WITH PSILI AND VARIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FAA};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA2});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FAA});
         std::vector<uint32_t> title({0x1FAA});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAA, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAA, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAA, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAA, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAA});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAA});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAA, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAA, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAA, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAA, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAA});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA2});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAA, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAA, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 083)
 {
-    std::array<uint32_t, 1> const from = {0x1FAB};
+    // 1FAB; 1FA3; 1FAB; 1F6B 0399; # GREEK CAPITAL LETTER OMEGA WITH DASIA AND VARIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FAB};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA3});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FAB});
         std::vector<uint32_t> title({0x1FAB});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAB, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAB, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAB, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAB, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAB});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAB});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAB, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAB, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAB, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAB, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAB});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA3});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAB, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAB, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 084)
 {
-    std::array<uint32_t, 1> const from = {0x1FAC};
+    // 1FAC; 1FA4; 1FAC; 1F6C 0399; # GREEK CAPITAL LETTER OMEGA WITH PSILI AND OXIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FAC};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA4});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FAC});
         std::vector<uint32_t> title({0x1FAC});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAC});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAC});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA4});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 085)
 {
-    std::array<uint32_t, 1> const from = {0x1FAD};
+    // 1FAD; 1FA5; 1FAD; 1F6D 0399; # GREEK CAPITAL LETTER OMEGA WITH DASIA AND OXIA AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FAD};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA5});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FAD});
         std::vector<uint32_t> title({0x1FAD});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAD, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAD, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAD, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAD, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAD});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAD});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAD, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAD, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAD, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAD, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAD});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA5});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAD, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA5, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAD, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA5, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 086)
 {
-    std::array<uint32_t, 1> const from = {0x1FAE};
+    // 1FAE; 1FA6; 1FAE; 1F6E 0399; # GREEK CAPITAL LETTER OMEGA WITH PSILI AND PERISPOMENI AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FAE};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA6});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FAE});
         std::vector<uint32_t> title({0x1FAE});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAE, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAE, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAE, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAE, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAE});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAE});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAE, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAE, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAE, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAE, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAE});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA6});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAE, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA6, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAE, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA6, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 087)
 {
-    std::array<uint32_t, 1> const from = {0x1FAF};
+    // 1FAF; 1FA7; 1FAF; 1F6F 0399; # GREEK CAPITAL LETTER OMEGA WITH DASIA AND PERISPOMENI AND PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FAF};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FA7});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FAF});
         std::vector<uint32_t> title({0x1FAF});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FAF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FAF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FAF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAF});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAF});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FAF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FAF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAF});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA7});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAF, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FAF, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FA7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 088)
 {
-    std::array<uint32_t, 1> const from = {0x1FB3};
+    // 1FB3; 1FB3; 1FBC; 0391 0399; # GREEK SMALL LETTER ALPHA WITH YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FB3};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FB3});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FB3});
         std::vector<uint32_t> title({0x1FBC});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FB3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FBC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FB3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FBC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB3});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FBC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FBC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FBC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB3});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB3});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 089)
 {
-    std::array<uint32_t, 1> const from = {0x1FBC};
+    // 1FBC; 1FB3; 1FBC; 0391 0399; # GREEK CAPITAL LETTER ALPHA WITH PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FBC};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FB3});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FBC});
         std::vector<uint32_t> title({0x1FBC});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FBC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FBC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FBC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FBC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FBC});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FBC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FBC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FBC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FBC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FBC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FBC});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB3});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FBC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FBC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 090)
 {
-    std::array<uint32_t, 1> const from = {0x1FC3};
+    // 1FC3; 1FC3; 1FCC; 0397 0399; # GREEK SMALL LETTER ETA WITH YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FC3};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FC3});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FC3});
         std::vector<uint32_t> title({0x1FCC});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FC3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FCC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FC3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FCC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC3});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FCC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FCC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FCC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC3});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC3});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0397, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 091)
 {
-    std::array<uint32_t, 1> const from = {0x1FCC};
+    // 1FCC; 1FC3; 1FCC; 0397 0399; # GREEK CAPITAL LETTER ETA WITH PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FCC};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FC3});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FCC});
         std::vector<uint32_t> title({0x1FCC});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FCC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FCC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FCC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FCC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FCC});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FCC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FCC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FCC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FCC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FCC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FCC});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC3});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FCC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FCC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0397, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 092)
 {
-    std::array<uint32_t, 1> const from = {0x1FF3};
+    // 1FF3; 1FF3; 1FFC; 03A9 0399; # GREEK SMALL LETTER OMEGA WITH YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FF3};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FF3});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FF3});
         std::vector<uint32_t> title({0x1FFC});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FF3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FFC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FF3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FFC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF3});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FFC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FFC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FFC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF3});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF3});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A9, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 093)
 {
-    std::array<uint32_t, 1> const from = {0x1FFC};
+    // 1FFC; 1FF3; 1FFC; 03A9 0399; # GREEK CAPITAL LETTER OMEGA WITH PROSGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FFC};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FF3});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FFC});
         std::vector<uint32_t> title({0x1FFC});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FFC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FFC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FFC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FFC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FFC});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FFC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FFC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FFC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FFC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FFC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FFC});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF3});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FFC, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF3, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FFC, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF3, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A9, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 094)
 {
-    std::array<uint32_t, 1> const from = {0x1FB2};
+    // 1FB2; 1FB2; 1FBA 0345; 1FBA 0399; # GREEK SMALL LETTER ALPHA WITH VARIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FB2};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FB2});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FB2});
         std::vector<uint32_t> title({0x1FBA, 0x0345});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FB2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FBA, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FB2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FBA, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB2});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FBA, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FBA, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FBA, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB2});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB2});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1FBA, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 095)
 {
-    std::array<uint32_t, 1> const from = {0x1FB4};
+    // 1FB4; 1FB4; 0386 0345; 0386 0399; # GREEK SMALL LETTER ALPHA WITH OXIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FB4};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FB4});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FB4});
         std::vector<uint32_t> title({0x0386, 0x0345});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FB4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0386, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FB4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0386, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB4});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0386, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0386, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0386, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB4});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB4});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0386, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 096)
 {
-    std::array<uint32_t, 1> const from = {0x1FC2};
+    // 1FC2; 1FC2; 1FCA 0345; 1FCA 0399; # GREEK SMALL LETTER ETA WITH VARIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FC2};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FC2});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FC2});
         std::vector<uint32_t> title({0x1FCA, 0x0345});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FC2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FCA, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FC2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FCA, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC2});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FCA, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FCA, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FCA, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC2});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC2});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1FCA, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 097)
 {
-    std::array<uint32_t, 1> const from = {0x1FC4};
+    // 1FC4; 1FC4; 0389 0345; 0389 0399; # GREEK SMALL LETTER ETA WITH OXIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FC4};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FC4});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FC4});
         std::vector<uint32_t> title({0x0389, 0x0345});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FC4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0389, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FC4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0389, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC4});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0389, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0389, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0389, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC4});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC4});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0389, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 098)
 {
-    std::array<uint32_t, 1> const from = {0x1FF2};
+    // 1FF2; 1FF2; 1FFA 0345; 1FFA 0399; # GREEK SMALL LETTER OMEGA WITH VARIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FF2};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FF2});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FF2});
         std::vector<uint32_t> title({0x1FFA, 0x0345});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FF2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x1FFA, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FF2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x1FFA, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF2});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FFA, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FFA, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x1FFA, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF2});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF2});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF2, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF2, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x1FFA, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 099)
 {
-    std::array<uint32_t, 1> const from = {0x1FF4};
+    // 1FF4; 1FF4; 038F 0345; 038F 0399; # GREEK SMALL LETTER OMEGA WITH OXIA AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FF4};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FF4});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FF4});
         std::vector<uint32_t> title({0x038F, 0x0345});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FF4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x038F, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FF4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x038F, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF4});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x038F, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x038F, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x038F, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF4});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF4});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF4, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF4, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x038F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 100)
 {
-    std::array<uint32_t, 1> const from = {0x1FB7};
+    // 1FB7; 1FB7; 0391 0342 0345; 0391 0342 0399; # GREEK SMALL LETTER ALPHA WITH PERISPOMENI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FB7};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FB7});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FB7});
         std::vector<uint32_t> title({0x0391, 0x0342, 0x0345});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FB7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0391, 0x0342, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FB7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0391, 0x0342, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB7});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0391, 0x0342, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0391, 0x0342, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FB7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0391, 0x0342, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB7});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB7});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FB7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FB7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0342, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 101)
 {
-    std::array<uint32_t, 1> const from = {0x1FC7};
+    // 1FC7; 1FC7; 0397 0342 0345; 0397 0342 0399; # GREEK SMALL LETTER ETA WITH PERISPOMENI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FC7};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FC7});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FC7});
         std::vector<uint32_t> title({0x0397, 0x0342, 0x0345});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FC7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0397, 0x0342, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FC7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0397, 0x0342, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC7});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0397, 0x0342, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0397, 0x0342, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FC7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0397, 0x0342, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC7});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC7});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FC7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FC7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0397, 0x0342, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 102)
 {
-    std::array<uint32_t, 1> const from = {0x1FF7};
+    // 1FF7; 1FF7; 03A9 0342 0345; 03A9 0342 0399; # GREEK SMALL LETTER OMEGA WITH PERISPOMENI AND YPOGEGRAMMENI
+    std::array<uint32_t, 1> const cp = {0x1FF7};
+
     { // to_lower
         std::vector<uint32_t> lower({0x1FF7});
         std::vector<uint32_t> result;
 
-        to_lower(from, std::back_inserter(result));
+        to_lower(cp, std::back_inserter(result));
         EXPECT_EQ(result, lower);
-
     }
     { // to_title
+        std::vector<uint32_t> from({0x1FF7});
         std::vector<uint32_t> title({0x03A9, 0x0342, 0x0345});
         std::vector<uint32_t> result;
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FF7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x03A9, 0x0342, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
 
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x1FF7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x03A9, 0x0342, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF7});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A9, 0x0342, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A9, 0x0342, 0x0345, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0020, 0x0020, 0x0020, 0x1FF7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x03A9, 0x0342, 0x0345, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF7});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF7});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF7, 0x0020, 0x0020, 0x0020});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_title
+        std::vector<uint32_t> from({0x0061, 0x0061, 0x0061, 0x1FF7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x1FF7, 0x0061, 0x0061, 0x0061});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x03A9, 0x0342, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(from, std::back_inserter(result));
+        to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-
     }
 
 }
 
 TEST(case_mapping, 103)
 {
-    std::array<uint32_t, 1> const from = {0x03A3};
+    // 03A3; 03C2; 03A3; 03A3; Final_Sigma; # GREEK CAPITAL LETTER SIGMA
+    std::array<uint32_t, 1> const cp = {0x03A3};
+
 
 }
 
 TEST(case_mapping, 104)
 {
-    std::array<uint32_t, 1> const from = {0x0307};
+    // 0307; 0307; ; ; lt After_Soft_Dotted; # COMBINING DOT ABOVE
+    std::array<uint32_t, 1> const cp = {0x0307};
+
 
 }
 
 TEST(case_mapping, 105)
 {
-    std::array<uint32_t, 1> const from = {0x0049};
+    // 0049; 0069 0307; 0049; 0049; lt More_Above; # LATIN CAPITAL LETTER I
+    std::array<uint32_t, 1> const cp = {0x0049};
+
 
 }
 
 TEST(case_mapping, 106)
 {
-    std::array<uint32_t, 1> const from = {0x004A};
+    // 004A; 006A 0307; 004A; 004A; lt More_Above; # LATIN CAPITAL LETTER J
+    std::array<uint32_t, 1> const cp = {0x004A};
+
 
 }
 
 TEST(case_mapping, 107)
 {
-    std::array<uint32_t, 1> const from = {0x012E};
+    // 012E; 012F 0307; 012E; 012E; lt More_Above; # LATIN CAPITAL LETTER I WITH OGONEK
+    std::array<uint32_t, 1> const cp = {0x012E};
+
 
 }
 
 TEST(case_mapping, 108)
 {
-    std::array<uint32_t, 1> const from = {0x00CC};
+    // 00CC; 0069 0307 0300; 00CC; 00CC; lt; # LATIN CAPITAL LETTER I WITH GRAVE
+    std::array<uint32_t, 1> const cp = {0x00CC};
+
 
 }
 
 TEST(case_mapping, 109)
 {
-    std::array<uint32_t, 1> const from = {0x00CD};
+    // 00CD; 0069 0307 0301; 00CD; 00CD; lt; # LATIN CAPITAL LETTER I WITH ACUTE
+    std::array<uint32_t, 1> const cp = {0x00CD};
+
 
 }
 
 TEST(case_mapping, 110)
 {
-    std::array<uint32_t, 1> const from = {0x0128};
+    // 0128; 0069 0307 0303; 0128; 0128; lt; # LATIN CAPITAL LETTER I WITH TILDE
+    std::array<uint32_t, 1> const cp = {0x0128};
+
 
 }
 
 TEST(case_mapping, 111)
 {
-    std::array<uint32_t, 1> const from = {0x0130};
+    // 0130; 0069; 0130; 0130; tr; # LATIN CAPITAL LETTER I WITH DOT ABOVE
+    std::array<uint32_t, 1> const cp = {0x0130};
+
 
 }
 
 TEST(case_mapping, 112)
 {
-    std::array<uint32_t, 1> const from = {0x0130};
+    // 0130; 0069; 0130; 0130; az; # LATIN CAPITAL LETTER I WITH DOT ABOVE
+    std::array<uint32_t, 1> const cp = {0x0130};
+
 
 }
 
 TEST(case_mapping, 113)
 {
-    std::array<uint32_t, 1> const from = {0x0307};
+    // 0307; ; 0307; 0307; tr After_I; # COMBINING DOT ABOVE
+    std::array<uint32_t, 1> const cp = {0x0307};
+
 
 }
 
 TEST(case_mapping, 114)
 {
-    std::array<uint32_t, 1> const from = {0x0307};
+    // 0307; ; 0307; 0307; az After_I; # COMBINING DOT ABOVE
+    std::array<uint32_t, 1> const cp = {0x0307};
+
 
 }
 
 TEST(case_mapping, 115)
 {
-    std::array<uint32_t, 1> const from = {0x0049};
+    // 0049; 0131; 0049; 0049; tr Not_Before_Dot; # LATIN CAPITAL LETTER I
+    std::array<uint32_t, 1> const cp = {0x0049};
+
 
 }
 
 TEST(case_mapping, 116)
 {
-    std::array<uint32_t, 1> const from = {0x0049};
+    // 0049; 0131; 0049; 0049; az Not_Before_Dot; # LATIN CAPITAL LETTER I
+    std::array<uint32_t, 1> const cp = {0x0049};
+
 
 }
 
 TEST(case_mapping, 117)
 {
-    std::array<uint32_t, 1> const from = {0x0069};
+    // 0069; 0069; 0130; 0130; tr; # LATIN SMALL LETTER I
+    std::array<uint32_t, 1> const cp = {0x0069};
+
 
 }
 
 TEST(case_mapping, 118)
 {
-    std::array<uint32_t, 1> const from = {0x0069};
+    // 0069; 0069; 0130; 0130; az; # LATIN SMALL LETTER I
+    std::array<uint32_t, 1> const cp = {0x0069};
+
 
 }
 

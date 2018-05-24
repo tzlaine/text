@@ -134,11 +134,29 @@ def decls(name, l):
         std::vector<uint32_t> result;
 '''.format(to_array(name, l))
 
+def decls_with_from(from_l, name, l):
+    return '''\
+        {}
+        {}
+        std::vector<uint32_t> result;
+'''.format(to_array('from', from_l), to_array(name, l))
+
 def checks(name_1, name_2):
     return '''\
         to_{1}({0}, std::back_inserter(result));
-        EXPECT_EQ(result, {1});
-'''.format(name_1, name_2)
+        EXPECT_EQ(result, {1});'''.format(name_1, name_2)
+
+title_prefixes = [
+    ([], []),
+    (['0020', '0020', '0020'], ['0020', '0020', '0020']),
+    (['0061', '0061', '0061'], ['0041', '0061', '0061'])
+]
+
+title_suffixes = [
+    [],
+    ['0020', '0020', '0020'],
+    ['0061', '0061', '0061']
+]
 
 def case_mapping_tests(special_casing):
     tests = []
@@ -162,27 +180,41 @@ def case_mapping_tests(special_casing):
             conditions_ = []
             if 3 < len(fields) and '#' not in fields[4]:
                 conditions_ = fields[4].strip().split(' ')
-            blocks = '    std::array<uint32_t, 1> const from = {{0x{}}};\n'.format(cp)
+            blocks = '''\
+    // {}
+    std::array<uint32_t, 1> const cp = {{0x{}}};
+
+'''.format(line, cp)
             if len(lower):
                 if len(conditions_) == 0:
                     blocks += test_block.format(
                         'lower',
                         decls('lower', lower),
-                        checks('from', 'lower')
+                        checks('cp', 'lower')
                     )
             if len(title):
                 if len(conditions_) == 0:
-                    blocks += test_block.format(
-                        'title',
-                        decls('title', title),
-                        checks('from', 'title')
-                    )
+                    for n in range(len(title_prefixes) * len(title_suffixes)):
+                        pref = n / len(title_prefixes)
+                        suff = n % len(title_prefixes)
+                        to = title
+                        if title_prefixes[pref][0] != title_prefixes[pref][1]:
+                            to = lower
+                        blocks += test_block.format(
+                            'title',
+                            decls_with_from(
+                                title_prefixes[pref][0] + [cp] + title_suffixes[suff],
+                                'title',
+                                title_prefixes[pref][1] + to + title_suffixes[suff]
+                            ),
+                            checks('from', 'title')
+                        )
             if len(upper):
                 if len(conditions_) == 0:
                     blocks += test_block.format(
                         'upper',
                         decls('upper', upper),
-                        checks('from', 'upper')
+                        checks('cp', 'upper')
                     )
             test = test_form.format(test_idx, blocks)
             test_idx += 1
