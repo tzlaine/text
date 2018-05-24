@@ -15,112 +15,99 @@ using namespace boost::text;
 test_form = '''\
 TEST(case_mapping, {0:03})
 {{
-{1}
-}}
+{1}}}
 '''
 
 test_block = '''\
     {{ // to_{0}
 {1}
-{2}
+{2}{3}
     }}
 '''
 
 
 condition_prefixes = {
-    'Final_Sigma': {
-        'valid': [
-            ['0345', '0345'], # 0345 is cased and case-ignorable
-            ['0069'],         # 0069 is cased only
-            ['0069', '0345'],
-            ['0069', '1DFE']  # 1DFE is case-ignorable only
-        ],
-        'invalid': [
-            ['0345'],
-            ['1DFE'],
-            ['1DFE', '1DFE'],
-            ['']
-        ]
-    },
-    'After_Soft_Dotted': {
-        'valid': [
-            ['006A', '006A'], # 006A is soft-dotted (and thus also ccc=0)
-            ['006A', '07F3']  # 07F3 is ccc=230 and not soft-dotted
-        ],
-        'invalid': [
-            ['006A'],
-            ['07F3'],
-            ['07F3', '07F3'],
-            ['']
-        ]
-    },
-    'More_Above': {           # none
-        'valid': [''],
-        'invalid': ['']
-    },
-    'Not_Before_Dot': {       # none
-        'valid': [''],
-        'invalid': ['']
-    },
-    'After_I': {
-        'valid': [
-            ['0049', '0049'], # 'I' (ccc=0)
-            ['0049', '0737']  # 0737 is ccc=220
-        ],
-        'invalid': [
-            ['0049'],
-            ['004A'],         # 'J' (ccc=0)
-            ['']
-        ]
-    }
+    'Final_Sigma': [
+        # valid
+        (['0345', '0345'], True),   # 0345 is cased and case-ignorable
+        (['0069'], True),           # 0069 is cased only
+        (['0069', '0345'], True),
+        (['0069', '1DFE'], True),   # 1DFE is case-ignorable only
+        # invalid
+        (['0345'], False),
+        (['1DFE'], False),
+        (['1DFE', '1DFE'], False),
+        ([], False)
+    ],
+    'After_Soft_Dotted': [
+        # valid
+        (['006A', '006A'], True),   # 006A is soft-dotted (and thus also ccc=0)
+        (['006A', '07F3'], True),   # 07F3 is ccc=230 and not soft-dotted
+        # invalid
+        (['006A'], False),
+        (['07F3'], False),
+        (['07F3', '07F3'], False),
+        ([], False)
+    ],
+    'More_Above': [                 # none
+        ([], True),
+        ([], False)
+    ],
+    'Not_Before_Dot': [             # none
+        ([], True),
+        ([], False)
+    ],
+    'After_I': [
+        # valid
+        (['0049', '0049'], True),   # 'I' (ccc=0)
+        (['0049', '0737'], True),   # 0737 is ccc=220
+        # invalid
+        (['0049'], False),
+        (['004A'], False),          # 'J' (ccc=0)
+        ([], False)
+    ]
 }
 condition_suffixes = {
-    'Final_Sigma': {
-        'valid': [
-            ['0345'],
-            ['1dfe'],
-            ['1dfe', '1dfe'],
-            ['']
-        ],
-        'invalid': [
-            ['0345', '0345'],
-            ['0069'],
-            ['0345', '0069'],
-            ['1dfe', '0069']
-        ]
-    },
-    'After_Soft_Dotted': {    # none
-        'valid': [''],
-        'invalid': ['']
-    },
-    'More_Above': {
-        'valid': [
-            ['0737', '07F3'], # 0737 is ccc=220, 07F3 is ccc=230
-            ['07F3']
-        ],
-        'invalid': [
-            ['0737', '0737'],
-            ['0737', '006A'], # 006A is ccc=0
-            ['006A', '07F3'],
-            ['']
-        ]
-    },
-    'Not_Before_Dot': {
-        'valid': [
-            ['0737', '0737'],
-            ['0737', '006A'], # 006A is ccc=0
-            ['006A', '0307'],
-            ['']
-        ],
-        'invalid': [
-            ['0737', '0307'], # 0737 is ccc=220
-            ['0307']
-        ]
-    },
-    'After_I': {              # none
-        'valid': [''],
-        'invalid': ['']
-    }
+    'Final_Sigma': [
+        # valid
+        (['0345'], True),
+        (['1dfe'], True),
+        (['1dfe', '1dfe'], True),
+        ([], True),
+        # invalid
+        (['0345', '0345'], False),
+        (['0069'], False),
+        (['0345', '0069'], False),
+        (['1dfe', '0069'], False)
+    ],
+    'After_Soft_Dotted': [          # none
+        ([], True),
+        ([], False)
+    ],
+    'More_Above': [
+        # valid
+        (['0737', '07F3'], True),   # 0737 is ccc=220, 07F3 is ccc=230
+        (['07F3'], True),
+        # invalid
+        (['0737', '0737'], False),
+        (['0737', '006A'], False),  # 006A is ccc=0
+        (['006A', '07F3'], False),
+        ([], False)
+    ],
+    'Not_Before_Dot': [
+        # valid
+        (['0737', '0737'], True),   # 0737 is ccc=220
+        (['0737', '006A'], True),   # 006A is ccc=0
+        (['006A', '0307'], True),
+        ([], True),
+        # invalid
+        (['0737', '0307'], False),
+        (['0307'], False)
+    ],
+    'After_I': [                    # none
+        ([], True),
+        ([], False)
+    ]
 }
 
 def to_array(name, l):
@@ -141,10 +128,23 @@ def decls_with_from(from_l, name, l):
         std::vector<uint32_t> result;
 '''.format(to_array('from', from_l), to_array(name, l))
 
-def checks(name_1, name_2):
+def decls_with_from_and_slice(from_l, name, l, slice_):
     return '''\
-        to_{1}({0}, std::back_inserter(result));
-        EXPECT_EQ(result, {1});'''.format(name_1, name_2)
+        {}
+        {}
+        std::vector<uint32_t> result;
+        int const slice[] = {{{}, {}}}; // We only care about the CP begin tested, not the prefix/suffix.
+'''.format(to_array('from', from_l), to_array(name, l), slice_[0], slice_[1])
+
+def checks(name_1, name_2, expect = 'EXPECT_EQ', lang = None, sliced = False):
+    do_slice = ''
+    if sliced:
+        do_slice = '''
+        result.erase(result.begin() + slice[1], result.end());
+        result.erase(result.begin(), result.begin() + slice[0]);'''
+    return '''\
+        to_{1}({0}, std::back_inserter(result){3});{4}
+        {2}(result, {1});'''.format(name_1, name_2, expect, lang and ', ' + lang or '', do_slice)
 
 title_prefixes = [
     ([], []),
@@ -157,6 +157,73 @@ title_suffixes = [
     ['0020', '0020', '0020'],
     ['0061', '0061', '0061']
 ]
+
+# TODO: May need to be updated with new conditions when the data change.
+def language_condition(conditions):
+    retval = None
+    for c in conditions:
+        if c in ['az', 'lt', 'tr']:
+            if retval != None:
+                raise Error('Multiple language conditions are not expected')
+            cpp_names = {'az': 'case_language::azerbaijani', 'lt': 'case_language::lithuanian', 'tr': 'case_language::turkish'}
+            retval = cpp_names[c]
+    return retval
+
+def nonlanguage_condition(conditions):
+    retval = None
+    for c in conditions:
+        if c in ['After_I', 'After_Soft_Dotted', 'Final_Sigma', 'More_Above', 'Not_Before_Dot']:
+            if retval != None:
+                raise Error('Multiple non-language conditions are not expected')
+            retval = c
+    return retval
+
+def condition_case(name, to, cp, conditions, blocks):
+    lang = language_condition(conditions)
+    non_lang = nonlanguage_condition(conditions)
+    prefixes = [([], True)]
+    suffixes = [([], True)]
+    if non_lang in condition_prefixes:
+        prefixes = condition_prefixes[non_lang]
+        suffixes = condition_suffixes[non_lang]
+    to_is_from = to == [cp]
+    without_lang_check = ''
+    if lang != None:
+        without_lang_check = '''
+        result.clear();
+{}
+'''.format(checks('from', name, to_is_from and 'EXPECT_EQ' or 'EXPECT_NE', None, True)) # fails without lang
+    for n in range(len(prefixes) * len(suffixes)):
+        pref = prefixes[n / len(suffixes)]
+        suff = suffixes[n % len(suffixes)]
+        expect = 'EXPECT_EQ'
+        if (not pref[1] or not suff[1]) and not to_is_from:
+            expect = 'EXPECT_NE'
+        blocks += test_block.format(
+            name,
+            decls_with_from_and_slice(
+                pref[0] + [cp] + suff[0],
+                name,
+                to,
+                (len(pref[0]), len(pref[0]) + len(to))
+            ),
+            checks('from', name, expect, lang, True), # lang may be None here
+            without_lang_check
+        )
+    return blocks
+
+# TODO: CharRange should check convertible-to-char, not is-same-as-char.
+# TODO: Eliminating the default constructions from char *, or justify it in the rationale.
+# TODO: Figure out why unencoded_rope::{clear,swap}() are not noexcept; make this consistent with rope.
+# TODO: Document the places that have bidi-like proxy iterators, e.g. grapheme_iterator.
+# TODO: Make grapheme_iterators and grapheme_iterators-to-const appropriately interconvertible.
+# TODO: Find better names for capacity(), max_size(), etc. in text layer types.
+# TODO: Add a tagged overload of text::replace(string &&) that indicates that the invariants hold.
+# TODO: Remvoe foreach_segment() from segmented_vector.
+# TODO: Add extend_match() to trie, to compliment extend_subsequence().
+# TODO: foreach_subrange() should return the callable f.
+# TODO: Make an overload of foreach_subrange() that produces ranges as its output, writing through an output iterator.
+# TODO: Consider using char8_t instead of char (where available), because it does not alias.
 
 def case_mapping_tests(special_casing):
     tests = []
@@ -180,23 +247,29 @@ def case_mapping_tests(special_casing):
             conditions_ = []
             if 3 < len(fields) and '#' not in fields[4]:
                 conditions_ = fields[4].strip().split(' ')
-            blocks = '''\
-    // {}
+            blocks = '    // ' + line + '\n'
+            if len(conditions_) == 0:
+                blocks += '''\
     std::array<uint32_t, 1> const cp = {{0x{}}};
-
-'''.format(line, cp)
+'''.format(cp)
+            blocks += '\n'
             if len(lower):
-                if len(conditions_) == 0:
+                if len(conditions_):
+                    blocks = condition_case('lower', lower, cp, conditions_, blocks)
+                else:
                     blocks += test_block.format(
                         'lower',
                         decls('lower', lower),
-                        checks('cp', 'lower')
+                        checks('cp', 'lower'),
+                        ''
                     )
             if len(title):
-                if len(conditions_) == 0:
+                if len(conditions_):
+                    blocks = condition_case('title', title, cp, conditions_, blocks)
+                else:
                     for n in range(len(title_prefixes) * len(title_suffixes)):
-                        pref = n / len(title_prefixes)
-                        suff = n % len(title_prefixes)
+                        pref = n / len(title_suffixes)
+                        suff = n % len(title_suffixes)
                         to = title
                         if title_prefixes[pref][0] != title_prefixes[pref][1]:
                             to = lower
@@ -207,14 +280,18 @@ def case_mapping_tests(special_casing):
                                 'title',
                                 title_prefixes[pref][1] + to + title_suffixes[suff]
                             ),
-                            checks('from', 'title')
+                            checks('from', 'title'),
+                            ''
                         )
             if len(upper):
-                if len(conditions_) == 0:
+                if len(conditions_):
+                    blocks = condition_case('upper', upper, cp, conditions_, blocks)
+                else:
                     blocks += test_block.format(
                         'upper',
                         decls('upper', upper),
-                        checks('cp', 'upper')
+                        checks('cp', 'upper'),
+                        ''
                     )
             test = test_form.format(test_idx, blocks)
             test_idx += 1
