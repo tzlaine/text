@@ -8,16 +8,21 @@ using namespace boost::text;
 
 TEST(case_mapping, 000)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x00DF};
+    { // to_lower
         std::vector<uint32_t> lower({0x00DF});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0053, 0x0053});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -25,16 +30,21 @@ TEST(case_mapping, 000)
 
 TEST(case_mapping, 001)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x0130};
+    { // to_lower
         std::vector<uint32_t> lower({0x0069, 0x0307});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0130});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -42,16 +52,21 @@ TEST(case_mapping, 001)
 
 TEST(case_mapping, 002)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB00};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB00});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x0046});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -59,16 +74,21 @@ TEST(case_mapping, 002)
 
 TEST(case_mapping, 003)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB01};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB01});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x0049});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -76,16 +96,21 @@ TEST(case_mapping, 003)
 
 TEST(case_mapping, 004)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB02};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB02});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x004C});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -93,16 +118,21 @@ TEST(case_mapping, 004)
 
 TEST(case_mapping, 005)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB03};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB03});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x0046, 0x0049});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -110,16 +140,21 @@ TEST(case_mapping, 005)
 
 TEST(case_mapping, 006)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB04};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB04});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x0046, 0x004C});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -127,16 +162,21 @@ TEST(case_mapping, 006)
 
 TEST(case_mapping, 007)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB05};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB05});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0053, 0x0054});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -144,16 +184,21 @@ TEST(case_mapping, 007)
 
 TEST(case_mapping, 008)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB06};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB06});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0053, 0x0054});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -161,16 +206,21 @@ TEST(case_mapping, 008)
 
 TEST(case_mapping, 009)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x0587};
+    { // to_lower
         std::vector<uint32_t> lower({0x0587});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0535, 0x0552});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -178,16 +228,21 @@ TEST(case_mapping, 009)
 
 TEST(case_mapping, 010)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB13};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB13});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x0546});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -195,16 +250,21 @@ TEST(case_mapping, 010)
 
 TEST(case_mapping, 011)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB14};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB14});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x0535});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -212,16 +272,21 @@ TEST(case_mapping, 011)
 
 TEST(case_mapping, 012)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB15};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB15});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x053B});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -229,16 +294,21 @@ TEST(case_mapping, 012)
 
 TEST(case_mapping, 013)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB16};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB16});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x054E, 0x0546});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -246,16 +316,21 @@ TEST(case_mapping, 013)
 
 TEST(case_mapping, 014)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0xFB17};
+    { // to_lower
         std::vector<uint32_t> lower({0xFB17});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x053D});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -263,16 +338,21 @@ TEST(case_mapping, 014)
 
 TEST(case_mapping, 015)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x0149};
+    { // to_lower
         std::vector<uint32_t> lower({0x0149});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x02BC, 0x004E});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -280,16 +360,21 @@ TEST(case_mapping, 015)
 
 TEST(case_mapping, 016)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x0390};
+    { // to_lower
         std::vector<uint32_t> lower({0x0390});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -297,16 +382,21 @@ TEST(case_mapping, 016)
 
 TEST(case_mapping, 017)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x03B0};
+    { // to_lower
         std::vector<uint32_t> lower({0x03B0});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -314,16 +404,21 @@ TEST(case_mapping, 017)
 
 TEST(case_mapping, 018)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x01F0};
+    { // to_lower
         std::vector<uint32_t> lower({0x01F0});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x004A, 0x030C});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -331,16 +426,21 @@ TEST(case_mapping, 018)
 
 TEST(case_mapping, 019)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1E96};
+    { // to_lower
         std::vector<uint32_t> lower({0x1E96});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0048, 0x0331});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -348,16 +448,21 @@ TEST(case_mapping, 019)
 
 TEST(case_mapping, 020)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1E97};
+    { // to_lower
         std::vector<uint32_t> lower({0x1E97});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0054, 0x0308});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -365,16 +470,21 @@ TEST(case_mapping, 020)
 
 TEST(case_mapping, 021)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1E98};
+    { // to_lower
         std::vector<uint32_t> lower({0x1E98});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0057, 0x030A});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -382,16 +492,21 @@ TEST(case_mapping, 021)
 
 TEST(case_mapping, 022)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1E99};
+    { // to_lower
         std::vector<uint32_t> lower({0x1E99});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0059, 0x030A});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -399,16 +514,21 @@ TEST(case_mapping, 022)
 
 TEST(case_mapping, 023)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1E9A};
+    { // to_lower
         std::vector<uint32_t> lower({0x1E9A});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0041, 0x02BE});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -416,16 +536,21 @@ TEST(case_mapping, 023)
 
 TEST(case_mapping, 024)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F50};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F50});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0313});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -433,16 +558,21 @@ TEST(case_mapping, 024)
 
 TEST(case_mapping, 025)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F52};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F52});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0313, 0x0300});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -450,16 +580,21 @@ TEST(case_mapping, 025)
 
 TEST(case_mapping, 026)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F54};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F54});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0313, 0x0301});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -467,16 +602,21 @@ TEST(case_mapping, 026)
 
 TEST(case_mapping, 027)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F56};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F56});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0313, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -484,16 +624,21 @@ TEST(case_mapping, 027)
 
 TEST(case_mapping, 028)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FB6};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FB6});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -501,16 +646,21 @@ TEST(case_mapping, 028)
 
 TEST(case_mapping, 029)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FC6};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FC6});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0397, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -518,16 +668,21 @@ TEST(case_mapping, 029)
 
 TEST(case_mapping, 030)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FD2};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FD2});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0308, 0x0300});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -535,16 +690,21 @@ TEST(case_mapping, 030)
 
 TEST(case_mapping, 031)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FD3};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FD3});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -552,16 +712,21 @@ TEST(case_mapping, 031)
 
 TEST(case_mapping, 032)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FD6};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FD6});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -569,16 +734,21 @@ TEST(case_mapping, 032)
 
 TEST(case_mapping, 033)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FD7};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FD7});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0308, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -586,16 +756,21 @@ TEST(case_mapping, 033)
 
 TEST(case_mapping, 034)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FE2};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FE2});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0300});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -603,16 +778,21 @@ TEST(case_mapping, 034)
 
 TEST(case_mapping, 035)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FE3};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FE3});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0301});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -620,16 +800,21 @@ TEST(case_mapping, 035)
 
 TEST(case_mapping, 036)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FE4};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FE4});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A1, 0x0313});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -637,16 +822,21 @@ TEST(case_mapping, 036)
 
 TEST(case_mapping, 037)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FE6};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FE6});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -654,16 +844,21 @@ TEST(case_mapping, 037)
 
 TEST(case_mapping, 038)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FE7};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FE7});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -671,16 +866,21 @@ TEST(case_mapping, 038)
 
 TEST(case_mapping, 039)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FF6};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FF6});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A9, 0x0342});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -688,16 +888,21 @@ TEST(case_mapping, 039)
 
 TEST(case_mapping, 040)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F80};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F80});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F08, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -705,16 +910,21 @@ TEST(case_mapping, 040)
 
 TEST(case_mapping, 041)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F81};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F81});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F09, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -722,16 +932,21 @@ TEST(case_mapping, 041)
 
 TEST(case_mapping, 042)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F82};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F82});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -739,16 +954,21 @@ TEST(case_mapping, 042)
 
 TEST(case_mapping, 043)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F83};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F83});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -756,16 +976,21 @@ TEST(case_mapping, 043)
 
 TEST(case_mapping, 044)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F84};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F84});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -773,16 +998,21 @@ TEST(case_mapping, 044)
 
 TEST(case_mapping, 045)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F85};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F85});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -790,16 +1020,21 @@ TEST(case_mapping, 045)
 
 TEST(case_mapping, 046)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F86};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F86});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -807,16 +1042,21 @@ TEST(case_mapping, 046)
 
 TEST(case_mapping, 047)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F87};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F87});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -824,16 +1064,21 @@ TEST(case_mapping, 047)
 
 TEST(case_mapping, 048)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F88};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F80});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F08, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -841,16 +1086,21 @@ TEST(case_mapping, 048)
 
 TEST(case_mapping, 049)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F89};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F81});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F09, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -858,16 +1108,21 @@ TEST(case_mapping, 049)
 
 TEST(case_mapping, 050)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F8A};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F82});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -875,16 +1130,21 @@ TEST(case_mapping, 050)
 
 TEST(case_mapping, 051)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F8B};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F83});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -892,16 +1152,21 @@ TEST(case_mapping, 051)
 
 TEST(case_mapping, 052)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F8C};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F84});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -909,16 +1174,21 @@ TEST(case_mapping, 052)
 
 TEST(case_mapping, 053)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F8D};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F85});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -926,16 +1196,21 @@ TEST(case_mapping, 053)
 
 TEST(case_mapping, 054)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F8E};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F86});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -943,16 +1218,21 @@ TEST(case_mapping, 054)
 
 TEST(case_mapping, 055)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F8F};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F87});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F0F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -960,16 +1240,21 @@ TEST(case_mapping, 055)
 
 TEST(case_mapping, 056)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F90};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F90});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F28, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -977,16 +1262,21 @@ TEST(case_mapping, 056)
 
 TEST(case_mapping, 057)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F91};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F91});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F29, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -994,16 +1284,21 @@ TEST(case_mapping, 057)
 
 TEST(case_mapping, 058)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F92};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F92});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1011,16 +1306,21 @@ TEST(case_mapping, 058)
 
 TEST(case_mapping, 059)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F93};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F93});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1028,16 +1328,21 @@ TEST(case_mapping, 059)
 
 TEST(case_mapping, 060)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F94};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F94});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1045,16 +1350,21 @@ TEST(case_mapping, 060)
 
 TEST(case_mapping, 061)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F95};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F95});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1062,16 +1372,21 @@ TEST(case_mapping, 061)
 
 TEST(case_mapping, 062)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F96};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F96});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1079,16 +1394,21 @@ TEST(case_mapping, 062)
 
 TEST(case_mapping, 063)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F97};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F97});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1096,16 +1416,21 @@ TEST(case_mapping, 063)
 
 TEST(case_mapping, 064)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F98};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F90});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F28, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1113,16 +1438,21 @@ TEST(case_mapping, 064)
 
 TEST(case_mapping, 065)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F99};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F91});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F29, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1130,16 +1460,21 @@ TEST(case_mapping, 065)
 
 TEST(case_mapping, 066)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F9A};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F92});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1147,16 +1482,21 @@ TEST(case_mapping, 066)
 
 TEST(case_mapping, 067)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F9B};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F93});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1164,16 +1504,21 @@ TEST(case_mapping, 067)
 
 TEST(case_mapping, 068)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F9C};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F94});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1181,16 +1526,21 @@ TEST(case_mapping, 068)
 
 TEST(case_mapping, 069)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F9D};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F95});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1198,16 +1548,21 @@ TEST(case_mapping, 069)
 
 TEST(case_mapping, 070)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F9E};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F96});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1215,16 +1570,21 @@ TEST(case_mapping, 070)
 
 TEST(case_mapping, 071)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1F9F};
+    { // to_lower
         std::vector<uint32_t> lower({0x1F97});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F2F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1232,16 +1592,21 @@ TEST(case_mapping, 071)
 
 TEST(case_mapping, 072)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FA0};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA0});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F68, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1249,16 +1614,21 @@ TEST(case_mapping, 072)
 
 TEST(case_mapping, 073)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FA1};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA1});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F69, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1266,16 +1636,21 @@ TEST(case_mapping, 073)
 
 TEST(case_mapping, 074)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FA2};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA2});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1283,16 +1658,21 @@ TEST(case_mapping, 074)
 
 TEST(case_mapping, 075)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FA3};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA3});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1300,16 +1680,21 @@ TEST(case_mapping, 075)
 
 TEST(case_mapping, 076)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FA4};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA4});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1317,16 +1702,21 @@ TEST(case_mapping, 076)
 
 TEST(case_mapping, 077)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FA5};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA5});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1334,16 +1724,21 @@ TEST(case_mapping, 077)
 
 TEST(case_mapping, 078)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FA6};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA6});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1351,16 +1746,21 @@ TEST(case_mapping, 078)
 
 TEST(case_mapping, 079)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FA7};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA7});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1368,16 +1768,21 @@ TEST(case_mapping, 079)
 
 TEST(case_mapping, 080)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FA8};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA0});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F68, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1385,16 +1790,21 @@ TEST(case_mapping, 080)
 
 TEST(case_mapping, 081)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FA9};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA1});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F69, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1402,16 +1812,21 @@ TEST(case_mapping, 081)
 
 TEST(case_mapping, 082)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FAA};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA2});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6A, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1419,16 +1834,21 @@ TEST(case_mapping, 082)
 
 TEST(case_mapping, 083)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FAB};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA3});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6B, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1436,16 +1856,21 @@ TEST(case_mapping, 083)
 
 TEST(case_mapping, 084)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FAC};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA4});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6C, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1453,16 +1878,21 @@ TEST(case_mapping, 084)
 
 TEST(case_mapping, 085)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FAD};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA5});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6D, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1470,16 +1900,21 @@ TEST(case_mapping, 085)
 
 TEST(case_mapping, 086)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FAE};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA6});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6E, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1487,16 +1922,21 @@ TEST(case_mapping, 086)
 
 TEST(case_mapping, 087)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FAF};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FA7});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1F6F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1504,16 +1944,21 @@ TEST(case_mapping, 087)
 
 TEST(case_mapping, 088)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FB3};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FB3});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1521,16 +1966,21 @@ TEST(case_mapping, 088)
 
 TEST(case_mapping, 089)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FBC};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FB3});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1538,16 +1988,21 @@ TEST(case_mapping, 089)
 
 TEST(case_mapping, 090)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FC3};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FC3});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0397, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1555,16 +2010,21 @@ TEST(case_mapping, 090)
 
 TEST(case_mapping, 091)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FCC};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FC3});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0397, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1572,16 +2032,21 @@ TEST(case_mapping, 091)
 
 TEST(case_mapping, 092)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FF3};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FF3});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A9, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1589,16 +2054,21 @@ TEST(case_mapping, 092)
 
 TEST(case_mapping, 093)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FFC};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FF3});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x03A9, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1606,16 +2076,21 @@ TEST(case_mapping, 093)
 
 TEST(case_mapping, 094)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FB2};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FB2});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1FBA, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1623,16 +2098,21 @@ TEST(case_mapping, 094)
 
 TEST(case_mapping, 095)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FB4};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FB4});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0386, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1640,16 +2120,21 @@ TEST(case_mapping, 095)
 
 TEST(case_mapping, 096)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FC2};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FC2});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1FCA, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1657,16 +2142,21 @@ TEST(case_mapping, 096)
 
 TEST(case_mapping, 097)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FC4};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FC4});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0389, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1674,16 +2164,21 @@ TEST(case_mapping, 097)
 
 TEST(case_mapping, 098)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FF2};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FF2});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x1FFA, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1691,16 +2186,21 @@ TEST(case_mapping, 098)
 
 TEST(case_mapping, 099)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FF4};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FF4});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x038F, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1708,16 +2208,21 @@ TEST(case_mapping, 099)
 
 TEST(case_mapping, 100)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FB7};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FB7});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0342, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1725,16 +2230,21 @@ TEST(case_mapping, 100)
 
 TEST(case_mapping, 101)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FC7};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FC7});
+        std::vector<uint32_t> result;
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+
+    }
+    { // to_upper
         std::vector<uint32_t> upper({0x0397, 0x0342, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
+        to_upper(from, std::back_inserter(result));
         EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
-        EXPECT_EQ(result, lower);
 
     }
 
@@ -1742,18 +2252,119 @@ TEST(case_mapping, 101)
 
 TEST(case_mapping, 102)
 {
-    { // lower <-> upper
+    std::array<uint32_t, 1> const from = {0x1FF7};
+    { // to_lower
         std::vector<uint32_t> lower({0x1FF7});
-        std::vector<uint32_t> upper({0x03A9, 0x0342, 0x0399});
         std::vector<uint32_t> result;
 
-        to_upper(lower, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_lower(upper, std::back_inserter(result));
+        to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
 
     }
+    { // to_upper
+        std::vector<uint32_t> upper({0x03A9, 0x0342, 0x0399});
+        std::vector<uint32_t> result;
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, upper);
+
+    }
+
+}
+
+TEST(case_mapping, 103)
+{
+    std::array<uint32_t, 1> const from = {0x03A3};
+
+}
+
+TEST(case_mapping, 104)
+{
+    std::array<uint32_t, 1> const from = {0x0307};
+
+}
+
+TEST(case_mapping, 105)
+{
+    std::array<uint32_t, 1> const from = {0x0049};
+
+}
+
+TEST(case_mapping, 106)
+{
+    std::array<uint32_t, 1> const from = {0x004A};
+
+}
+
+TEST(case_mapping, 107)
+{
+    std::array<uint32_t, 1> const from = {0x012E};
+
+}
+
+TEST(case_mapping, 108)
+{
+    std::array<uint32_t, 1> const from = {0x00CC};
+
+}
+
+TEST(case_mapping, 109)
+{
+    std::array<uint32_t, 1> const from = {0x00CD};
+
+}
+
+TEST(case_mapping, 110)
+{
+    std::array<uint32_t, 1> const from = {0x0128};
+
+}
+
+TEST(case_mapping, 111)
+{
+    std::array<uint32_t, 1> const from = {0x0130};
+
+}
+
+TEST(case_mapping, 112)
+{
+    std::array<uint32_t, 1> const from = {0x0130};
+
+}
+
+TEST(case_mapping, 113)
+{
+    std::array<uint32_t, 1> const from = {0x0307};
+
+}
+
+TEST(case_mapping, 114)
+{
+    std::array<uint32_t, 1> const from = {0x0307};
+
+}
+
+TEST(case_mapping, 115)
+{
+    std::array<uint32_t, 1> const from = {0x0049};
+
+}
+
+TEST(case_mapping, 116)
+{
+    std::array<uint32_t, 1> const from = {0x0049};
+
+}
+
+TEST(case_mapping, 117)
+{
+    std::array<uint32_t, 1> const from = {0x0069};
+
+}
+
+TEST(case_mapping, 118)
+{
+    std::array<uint32_t, 1> const from = {0x0069};
 
 }
 

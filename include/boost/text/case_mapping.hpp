@@ -59,18 +59,18 @@ namespace boost { namespace text {
             Sentinel last,
             OutIter out,
             case_language lang,
-            case_trie_t const & trie,
-            bool title /* TODO: pass pointer to to-lower trie instead? */) noexcept
+            case_map_t const & map,
+            bool title) noexcept
         {
             uint16_t const lang_conditions = lang_to_condition(lang);
 
             while (it != last) {
-                case_trie_match_t const match = trie.longest_match(it, last);
+                auto const map_it = map.find(*it);
 
                 uint16_t conditions = lang_conditions;
 
-                if (match.match) {
-                    case_elements const elements = trie[match];
+                if (map_it != map.end()) {
+                    case_elements const elements = map_it->second;
                     auto const elem_first = elements.begin(g_case_mapping_to_first);
                     auto const elem_last = elements.end(g_case_mapping_to_first);
 
@@ -82,7 +82,7 @@ namespace boost { namespace text {
                             return conds | to.conditions_;
                         });
 
-                    auto const condition_first = std::next(it, match.size);
+                    auto const condition_first = std::next(it);
 
                     if (all_conditions &
                         (uint16_t)case_condition::Final_Sigma) {
@@ -182,9 +182,9 @@ namespace boost { namespace text {
                         if ((elem_it->conditions_ & conditions) ==
                             elem_it->conditions_) {
                             auto const cp_first =
-                                g_case_cps_first + elem_it->cps_.first_;
+                                g_case_cps_first + elem_it->first_;
                             auto const cp_last =
-                                g_case_cps_first + elem_it->cps_.last_;
+                                g_case_cps_first + elem_it->last_;
                             out = std::copy(cp_first, cp_last, out);
                             it = condition_first;
                             met_conditions = true;
@@ -214,7 +214,7 @@ namespace boost { namespace text {
         case_language lang = case_language::other) noexcept
     {
         return map_case(
-            first, it, last, out, lang, detail::to_lower_trie(), false);
+            first, it, last, out, lang, detail::to_lower_map(), false);
     }
 
     /** TODO */
@@ -253,7 +253,7 @@ namespace boost { namespace text {
                 r.end(),
                 out,
                 lang,
-                detail::to_title_trie(),
+                detail::to_title_map(),
                 true);
         }
 
@@ -292,7 +292,7 @@ namespace boost { namespace text {
         case_language lang = case_language::other) noexcept
     {
         return map_case(
-            first, it, last, out, lang, detail::to_upper_trie(), false);
+            first, it, last, out, lang, detail::to_upper_map(), false);
     }
 
     /** TODO */
@@ -304,11 +304,7 @@ namespace boost { namespace text {
     {
         using std::begin;
         using std::end;
-        auto first = begin(range);
-        auto it = begin(range);
-        auto last = end(range);
-        return to_upper(first, it, last, out, lang);
-//        return to_upper(begin(range), begin(range), end(range), out, lang);
+        return to_upper(begin(range), begin(range), end(range), out, lang);
     }
 
 }}

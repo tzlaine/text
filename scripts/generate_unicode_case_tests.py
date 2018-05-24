@@ -20,9 +20,9 @@ TEST(case_mapping, {0:03})
 '''
 
 test_block = '''\
-    {{ // {0} <-> {1}
+    {{ // to_{0}
+{1}
 {2}
-{3}
     }}
 '''
 
@@ -128,20 +128,16 @@ def to_array(name, l):
         name, ', '.join(map(lambda x: '0x' + x, l))
     )
 
-def decls(name_1, l_1, name_2, l_2):
+def decls(name, l):
     return '''\
         {}
-        {}
         std::vector<uint32_t> result;
-'''.format(to_array(name_1, l_1), to_array(name_2, l_2))
+'''.format(to_array(name, l))
 
 def checks(name_1, name_2):
     return '''\
         to_{1}({0}, std::back_inserter(result));
         EXPECT_EQ(result, {1});
-        result.clear();
-        to_{0}({1}, std::back_inserter(result));
-        EXPECT_EQ(result, {0});
 '''.format(name_1, name_2)
 
 def case_mapping_tests(special_casing):
@@ -153,6 +149,7 @@ def case_mapping_tests(special_casing):
         line = line[:-1]
         if not line.startswith('#') and len(line) != 0:
             fields = map(lambda x: x.strip(), line.split(';'))
+            cp = fields[0].strip()
             lower = fields[1].strip().split(' ')
             if lower == ['']:
                 lower = []
@@ -165,21 +162,26 @@ def case_mapping_tests(special_casing):
             conditions_ = []
             if 3 < len(fields) and '#' not in fields[4]:
                 conditions_ = fields[4].strip().split(' ')
+            blocks = '    std::array<uint32_t, 1> const from = {{0x{}}};\n'.format(cp)
             if len(lower):
-                if len(title):
-                    pass # TODO
-                if len(upper):
-                    if len(conditions_) == 0:
-                        block = test_block.format(
-                            'lower', 'upper',
-                            decls('lower', lower, 'upper', upper),
-                            checks('lower', 'upper')
-                        )
-                        test = test_form.format(test_idx, block)
-                        test_idx += 1
-                        tests.append(test)
-            if len(title) and len(upper):
+                if len(conditions_) == 0:
+                    blocks += test_block.format(
+                        'lower',
+                        decls('lower', lower),
+                        checks('from', 'lower')
+                    )
+            if len(title):
                 pass # TODO
+            if len(upper):
+                if len(conditions_) == 0:
+                    blocks += test_block.format(
+                        'upper',
+                        decls('upper', upper),
+                        checks('from', 'upper')
+                    )
+            test = test_form.format(test_idx, blocks)
+            test_idx += 1
+            tests.append(test)
 
     cpp_file = open('case_mapping.cpp', 'w')
     cpp_file.write(test_file_form.format('\n'.join(tests)))

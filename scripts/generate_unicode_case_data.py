@@ -66,38 +66,32 @@ namespace boost {{ namespace text {{ namespace detail {{
     case_mapping_to const * g_case_mapping_to_first = &g_case_mapping_to[0];
 
 
-    case_trie_t make_to_lower_trie()
+    case_map_t make_to_lower_map()
     {{
-        case_trie_t retval;
+        case_map_t retval;
         for (auto datum : g_to_lower) {{
-            retval.insert(
-                &g_case_cps[0] + datum.from_.first_,
-                &g_case_cps[0] + datum.from_.last_,
-                case_elements{{datum.to_.first_, datum.to_.last_}});
+            retval[datum.from_] =
+                case_elements{{datum.first_, datum.last_}};
         }}
         return retval;
     }}
 
-    case_trie_t make_to_title_trie()
+    case_map_t make_to_title_map()
     {{
-        case_trie_t retval;
+        case_map_t retval;
         for (auto datum : g_to_title) {{
-            retval.insert(
-                &g_case_cps[0] + datum.from_.first_,
-                &g_case_cps[0] + datum.from_.last_,
-                case_elements{{datum.to_.first_, datum.to_.last_}});
+            retval[datum.from_] =
+                case_elements{{datum.first_, datum.last_}};
         }}
         return retval;
     }}
 
-    case_trie_t make_to_upper_trie()
+    case_map_t make_to_upper_map()
     {{
-        case_trie_t retval;
+        case_map_t retval;
         for (auto datum : g_to_upper) {{
-            retval.insert(
-                &g_case_cps[0] + datum.from_.first_,
-                &g_case_cps[0] + datum.from_.last_,
-                case_elements{{datum.to_.first_, datum.to_.last_}});
+            retval[datum.from_] =
+                case_elements{{datum.first_, datum.last_}};
         }}
         return retval;
     }}
@@ -148,22 +142,16 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
             lower = fields[13]
             title = fields[14]
             if lower != '':
-                tup = (cp, None, None)
-                init_dict_elem(tup, to_lower)
-                to_lower[tup].append(([lower], [], 'from_unicode_data'))
-                all_tuples.add(tup)
+                init_dict_elem(cp, to_lower)
+                to_lower[cp].append(([lower], [], 'from_unicode_data'))
                 all_tuples.add((lower, None, None))
             if title != '':
-                tup = (cp, None, None)
-                init_dict_elem(tup, to_title)
-                to_title[tup].append(([title], [], 'from_unicode_data'))
-                all_tuples.add(tup)
+                init_dict_elem(cp, to_title)
+                to_title[cp].append(([title], [], 'from_unicode_data'))
                 all_tuples.add((title, None, None))
             if upper != '':
-                tup = (cp, None, None)
-                init_dict_elem(tup, to_upper)
-                to_upper[tup].append(([upper], [], 'from_unicode_data'))
-                all_tuples.add(tup)
+                init_dict_elem(cp, to_upper)
+                to_upper[cp].append(([upper], [], 'from_unicode_data'))
                 all_tuples.add((upper, None, None))
 
     def to_tuple_2(l):
@@ -196,6 +184,7 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
         line = line[:-1]
         if not line.startswith('#') and len(line) != 0:
             fields = map(lambda x: x.strip(), line.split(';'))
+            cp = fields[0].strip()
             lower = fields[1].strip().split(' ')
             if lower == ['']:
                 lower = []
@@ -211,33 +200,17 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
                 for c in conditions_:
                     conditions.add(c)
             if len(lower):
-                if len(title):
-                    lower_tup = to_tuple_3(lower)
-                    title_tup = to_tuple_3(title)
-                    init_dict_elem(title_tup, to_lower)
-                    to_lower[title_tup].append((lower, conditions_, None))
-                    init_dict_elem(lower_tup, to_title)
-                    to_title[lower_tup].append((title, conditions_, None))
-                    all_tuples.add(to_tuple_3(title))
-                    all_tuples.add(to_tuple_3(lower))
-                if len(upper):
-                    lower_tup = to_tuple_3(lower)
-                    upper_tup = to_tuple_3(upper)
-                    init_dict_elem(upper_tup, to_lower)
-                    to_lower[upper_tup].append((lower, conditions_, None))
-                    init_dict_elem(lower_tup, to_upper)
-                    to_upper[lower_tup].append((upper, conditions_, None))
-                    all_tuples.add(to_tuple_3(upper))
-                    all_tuples.add(to_tuple_3(lower))
-            if len(title) and len(upper):
-                title_tup = to_tuple_3(title)
-                upper_tup = to_tuple_3(upper)
-                init_dict_elem(upper_tup, to_title)
-                to_title[upper_tup].append((title, conditions_, None))
-                init_dict_elem(title_tup, to_upper)
-                to_upper[title_tup].append((upper, conditions_, None))
-                all_tuples.add(to_tuple_3(upper))
+                init_dict_elem(cp, to_lower)
+                to_lower[cp].append((lower, conditions_, None))
+                all_tuples.add(to_tuple_3(lower))
+            if len(title):
+                init_dict_elem(cp, to_title)
+                to_title[cp].append((title, conditions_, None))
                 all_tuples.add(to_tuple_3(title))
+            if len(upper):
+                init_dict_elem(cp, to_upper)
+                to_upper[cp].append((upper, conditions_, None))
+                all_tuples.add(to_tuple_3(upper))
 
     all_tuples = sorted(map(from_tuple, all_tuples))
     conditions = sorted(conditions)
@@ -297,11 +270,11 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
         mapped_tos = filter_dupes(map(lambda x: (cp_indices(to_tuple_3(x[0])), to_cond_bitset(x[1])), v))
         subseq = subsequence(all_mapped_tos, mapped_tos)
         if subseq[0] != subseq[1]:
-            to_lower.append((cp_indices(k), subseq))
+            to_lower.append((k, subseq))
             continue
         all_mapped_tos += mapped_tos
         hi = len(all_mapped_tos)
-        to_lower.append((cp_indices(k), (lo, hi)))
+        to_lower.append((k, (lo, hi)))
 
     tmp = to_title
     to_title = []
@@ -310,11 +283,11 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
         mapped_tos = filter_dupes(map(lambda x: (cp_indices(to_tuple_3(x[0])), to_cond_bitset(x[1])), v))
         subseq = subsequence(all_mapped_tos, mapped_tos)
         if subseq[0] != subseq[1]:
-            to_title.append((cp_indices(k), subseq))
+            to_title.append((k, subseq))
             continue
         all_mapped_tos += mapped_tos
         hi = len(all_mapped_tos)
-        to_title.append((cp_indices(k), (lo, hi)))
+        to_title.append((k, (lo, hi)))
 
     tmp = to_upper
     to_upper = []
@@ -323,11 +296,11 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
         mapped_tos = filter_dupes(map(lambda x: (cp_indices(to_tuple_3(x[0])), to_cond_bitset(x[1])), v))
         subseq = subsequence(all_mapped_tos, mapped_tos)
         if subseq[0] != subseq[1]:
-            to_upper.append((cp_indices(k), subseq))
+            to_upper.append((k, subseq))
             continue
         all_mapped_tos += mapped_tos
         hi = len(all_mapped_tos)
-        to_upper.append((cp_indices(k), (lo, hi)))
+        to_upper.append((k, (lo, hi)))
 
     soft_dotteds = []
     lines = open(prop_list, 'r').readlines()
@@ -378,12 +351,10 @@ for i in range(len(conditions)):
 hpp_file.write(constants_header_form.format('\n'.join(condition_enums)))
 
 def make_case_mapping_to(t):
-    return '{{ {{{}, {}}}, {} }}'.format(t[0][0], t[0][1], t[1])
+    return '{{ {}, {}, {} }}'.format(t[0][0], t[0][1], t[1])
 
 def make_case_mapping(t):
-    from_ = '{{{}, {}}}'.format(t[0][0], t[0][1])
-    to_ = '{{{}, {}}}'.format(t[1][0], t[1][1])
-    return '{{ {}, {} }}'.format(from_, to_)
+    return '{{ 0x{}, {}, {} }}'.format(t[0], t[1][0], t[1][1])
 
 cpp_file = open('case_mapping.cpp', 'w')
 cpp_file.write(case_impl_file_form.format(
@@ -403,55 +374,3 @@ cpp_file.write(case_impl_file_form.format(
     len(to_title),
     ',\n        '.join(map(make_case_mapping, to_upper)),
     len(to_upper)))
-
-#cased_cps = set(map(lambda x: int(x, 16), cased_cps))
-#cased_ignorable_cps = set(map(lambda x: int(x, 16), cased_ignorable_cps))
-#soft_dotteds = set(map(lambda x: int(x, 16), soft_dotteds))
-
-#for cp in cased_cps:
-#    if cp in cased_ignorable_cps:
-#        print 'in both:', hex(cp)
-#
-#for cp in cased_ignorable_cps:
-#    if cp not in cased_cps:
-#        print 'ignorable only:', hex(cp)
-
-#from generate_unicode_normalization_data import cccs
-#cccs_dict = cccs('DerivedCombiningClass.txt')
-#def ccc(cp):
-#    if cp in cccs_dict:
-#        return cccs_dict[cp]
-#    return 0
-#
-#for cp in soft_dotteds:
-#    ccc_ = ccc(cp)
-#    if ccc_ == 0 or ccc_ == 230:
-#        print 'soft_dotted',hex(cp),'is',ccc_
-#    else:
-#        print 'soft_dotted',hex(cp),'is',ccc_
-#
-#for k,v in cccs_dict.items():
-#    if k == 0x0307:
-#        print hex(k),v
-
-# TODO: Need a fix for this:
-
-#The other day there was a discussion about grapheme clusters, and I mentioned that they are useful for user input, e.g., the effect of left/right arrows.
-#I was _wrong_
-#The grapheme cluster definition is not usable as is for left/right arrow movement without surprising UX. (edited)
-#Same for Delete key, selection, etc.
-#And yes, it’s the emoji that mess this up.
-#Which, tbh, sounds silly, but it’s probably a more compelling argument than “it’s the Linear B syllables” or something like that.
-#I’m just brain-dumping here right now, so feel free to interrupt me. I want to write a more complete and more structured “treatise” on this later.
-#So, emoji ZWJ sequences. “man+ZWJ+heart+ZWJ+woman” produces “man and woman in love” (:couple_with_heart:). One glyph here on Slack, I assume everyone sees the same. (edited)
-#
-#Now, that is _only recommended_.
-#
-#rmf [4:28 AM]
-#Implementations can support different sets of such sequences (and I’m convinced there are existing examples of such differences, though I’ll have to find some later on)
-#
-#rmf [4:30 AM]
-#Wait, bad example. There’s a single code point for that one.
-#Sigh.
-#Better example: “man+ZWJ+girl” produces “family: man, girl” (:man-girl:). On an implementation without this emoji, you may see, instead, :man::girl: (I removed the ZWJ on purpose so that Slack won’t render a single glyph now)
-#The set of sequences supported is fully implementation-defined; there is a recommended list, but the set isn’t bounded.
