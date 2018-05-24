@@ -171,7 +171,12 @@ def case_mapping_tests(special_casing):
                         checks('from', 'lower')
                     )
             if len(title):
-                pass # TODO
+                if len(conditions_) == 0:
+                    blocks += test_block.format(
+                        'title',
+                        decls('title', title),
+                        checks('from', 'title')
+                    )
             if len(upper):
                 if len(conditions_) == 0:
                     blocks += test_block.format(

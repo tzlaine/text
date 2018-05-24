@@ -52,6 +52,8 @@ namespace boost { namespace text {
             return ccc_ == 230 || ccc_ == 0;
         }
 
+        enum class title_state_t { none, before, after };
+
         template<typename CPIter, typename Sentinel, typename OutIter>
         OutIter map_case(
             CPIter first,
@@ -64,12 +66,20 @@ namespace boost { namespace text {
         {
             uint16_t const lang_conditions = lang_to_condition(lang);
 
+            title_state_t title_state =
+                title ? title_state_t::before : title_state_t::none;
+
             while (it != last) {
-                auto const map_it = map.find(*it);
+                auto const map_it = title_state == title_state_t::after
+                                        ? to_lower_map().find(*it)
+                                        : map.find(*it);
 
                 uint16_t conditions = lang_conditions;
 
                 if (map_it != map.end()) {
+                    if (title_state == title_state_t::before)
+                        title_state = title_state_t::after;
+
                     case_elements const elements = map_it->second;
                     auto const elem_first = elements.begin(g_case_mapping_to_first);
                     auto const elem_last = elements.end(g_case_mapping_to_first);

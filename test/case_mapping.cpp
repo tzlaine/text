@@ -17,6 +17,14 @@ TEST(case_mapping, 000)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0053, 0x0073});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0053, 0x0053});
         std::vector<uint32_t> result;
@@ -37,6 +45,14 @@ TEST(case_mapping, 001)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0130});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -61,6 +77,14 @@ TEST(case_mapping, 002)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0046, 0x0066});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x0046});
         std::vector<uint32_t> result;
@@ -81,6 +105,14 @@ TEST(case_mapping, 003)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0046, 0x0069});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -105,6 +137,14 @@ TEST(case_mapping, 004)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0046, 0x006C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x004C});
         std::vector<uint32_t> result;
@@ -125,6 +165,14 @@ TEST(case_mapping, 005)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0046, 0x0066, 0x0069});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -149,6 +197,14 @@ TEST(case_mapping, 006)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0046, 0x0066, 0x006C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0046, 0x0046, 0x004C});
         std::vector<uint32_t> result;
@@ -169,6 +225,14 @@ TEST(case_mapping, 007)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0053, 0x0074});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -193,6 +257,14 @@ TEST(case_mapping, 008)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0053, 0x0074});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0053, 0x0054});
         std::vector<uint32_t> result;
@@ -213,6 +285,14 @@ TEST(case_mapping, 009)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0535, 0x0582});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -237,6 +317,14 @@ TEST(case_mapping, 010)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0544, 0x0576});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x0546});
         std::vector<uint32_t> result;
@@ -257,6 +345,14 @@ TEST(case_mapping, 011)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0544, 0x0565});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -281,6 +377,14 @@ TEST(case_mapping, 012)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0544, 0x056B});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x053B});
         std::vector<uint32_t> result;
@@ -301,6 +405,14 @@ TEST(case_mapping, 013)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x054E, 0x0576});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -325,6 +437,14 @@ TEST(case_mapping, 014)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0544, 0x056D});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0544, 0x053D});
         std::vector<uint32_t> result;
@@ -345,6 +465,14 @@ TEST(case_mapping, 015)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x02BC, 0x004E});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -369,6 +497,14 @@ TEST(case_mapping, 016)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0301});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0308, 0x0301});
         std::vector<uint32_t> result;
@@ -389,6 +525,14 @@ TEST(case_mapping, 017)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0301});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -413,6 +557,14 @@ TEST(case_mapping, 018)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x004A, 0x030C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x004A, 0x030C});
         std::vector<uint32_t> result;
@@ -433,6 +585,14 @@ TEST(case_mapping, 019)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0048, 0x0331});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -457,6 +617,14 @@ TEST(case_mapping, 020)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0054, 0x0308});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0054, 0x0308});
         std::vector<uint32_t> result;
@@ -477,6 +645,14 @@ TEST(case_mapping, 021)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0057, 0x030A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -501,6 +677,14 @@ TEST(case_mapping, 022)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0059, 0x030A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0059, 0x030A});
         std::vector<uint32_t> result;
@@ -521,6 +705,14 @@ TEST(case_mapping, 023)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0041, 0x02BE});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -545,6 +737,14 @@ TEST(case_mapping, 024)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x03A5, 0x0313});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0313});
         std::vector<uint32_t> result;
@@ -565,6 +765,14 @@ TEST(case_mapping, 025)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0300});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -589,6 +797,14 @@ TEST(case_mapping, 026)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0301});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0313, 0x0301});
         std::vector<uint32_t> result;
@@ -609,6 +825,14 @@ TEST(case_mapping, 027)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x03A5, 0x0313, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -633,6 +857,14 @@ TEST(case_mapping, 028)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0391, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0342});
         std::vector<uint32_t> result;
@@ -653,6 +885,14 @@ TEST(case_mapping, 029)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0397, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -677,6 +917,14 @@ TEST(case_mapping, 030)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0300});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0308, 0x0300});
         std::vector<uint32_t> result;
@@ -697,6 +945,14 @@ TEST(case_mapping, 031)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0301});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -721,6 +977,14 @@ TEST(case_mapping, 032)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0399, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0399, 0x0342});
         std::vector<uint32_t> result;
@@ -741,6 +1005,14 @@ TEST(case_mapping, 033)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0399, 0x0308, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -765,6 +1037,14 @@ TEST(case_mapping, 034)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0300});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0300});
         std::vector<uint32_t> result;
@@ -785,6 +1065,14 @@ TEST(case_mapping, 035)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0301});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -809,6 +1097,14 @@ TEST(case_mapping, 036)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x03A1, 0x0313});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x03A1, 0x0313});
         std::vector<uint32_t> result;
@@ -829,6 +1125,14 @@ TEST(case_mapping, 037)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x03A5, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -853,6 +1157,14 @@ TEST(case_mapping, 038)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x03A5, 0x0308, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0342});
         std::vector<uint32_t> result;
@@ -873,6 +1185,14 @@ TEST(case_mapping, 039)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x03A9, 0x0342});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -897,6 +1217,14 @@ TEST(case_mapping, 040)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F88});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F08, 0x0399});
         std::vector<uint32_t> result;
@@ -917,6 +1245,14 @@ TEST(case_mapping, 041)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F89});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -941,6 +1277,14 @@ TEST(case_mapping, 042)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0A, 0x0399});
         std::vector<uint32_t> result;
@@ -961,6 +1305,14 @@ TEST(case_mapping, 043)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8B});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -985,6 +1337,14 @@ TEST(case_mapping, 044)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0C, 0x0399});
         std::vector<uint32_t> result;
@@ -1005,6 +1365,14 @@ TEST(case_mapping, 045)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8D});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1029,6 +1397,14 @@ TEST(case_mapping, 046)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8E});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0E, 0x0399});
         std::vector<uint32_t> result;
@@ -1049,6 +1425,14 @@ TEST(case_mapping, 047)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8F});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1073,6 +1457,14 @@ TEST(case_mapping, 048)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F88});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F08, 0x0399});
         std::vector<uint32_t> result;
@@ -1093,6 +1485,14 @@ TEST(case_mapping, 049)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F89});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1117,6 +1517,14 @@ TEST(case_mapping, 050)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0A, 0x0399});
         std::vector<uint32_t> result;
@@ -1137,6 +1545,14 @@ TEST(case_mapping, 051)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8B});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1161,6 +1577,14 @@ TEST(case_mapping, 052)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0C, 0x0399});
         std::vector<uint32_t> result;
@@ -1181,6 +1605,14 @@ TEST(case_mapping, 053)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8D});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1205,6 +1637,14 @@ TEST(case_mapping, 054)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8E});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F0E, 0x0399});
         std::vector<uint32_t> result;
@@ -1225,6 +1665,14 @@ TEST(case_mapping, 055)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F8F});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1249,6 +1697,14 @@ TEST(case_mapping, 056)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F98});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F28, 0x0399});
         std::vector<uint32_t> result;
@@ -1269,6 +1725,14 @@ TEST(case_mapping, 057)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F99});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1293,6 +1757,14 @@ TEST(case_mapping, 058)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2A, 0x0399});
         std::vector<uint32_t> result;
@@ -1313,6 +1785,14 @@ TEST(case_mapping, 059)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9B});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1337,6 +1817,14 @@ TEST(case_mapping, 060)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2C, 0x0399});
         std::vector<uint32_t> result;
@@ -1357,6 +1845,14 @@ TEST(case_mapping, 061)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9D});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1381,6 +1877,14 @@ TEST(case_mapping, 062)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9E});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2E, 0x0399});
         std::vector<uint32_t> result;
@@ -1401,6 +1905,14 @@ TEST(case_mapping, 063)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9F});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1425,6 +1937,14 @@ TEST(case_mapping, 064)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F98});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F28, 0x0399});
         std::vector<uint32_t> result;
@@ -1445,6 +1965,14 @@ TEST(case_mapping, 065)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F99});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1469,6 +1997,14 @@ TEST(case_mapping, 066)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9A});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2A, 0x0399});
         std::vector<uint32_t> result;
@@ -1489,6 +2025,14 @@ TEST(case_mapping, 067)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9B});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1513,6 +2057,14 @@ TEST(case_mapping, 068)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9C});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2C, 0x0399});
         std::vector<uint32_t> result;
@@ -1533,6 +2085,14 @@ TEST(case_mapping, 069)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9D});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1557,6 +2117,14 @@ TEST(case_mapping, 070)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9E});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F2E, 0x0399});
         std::vector<uint32_t> result;
@@ -1577,6 +2145,14 @@ TEST(case_mapping, 071)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1F9F});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1601,6 +2177,14 @@ TEST(case_mapping, 072)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FA8});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F68, 0x0399});
         std::vector<uint32_t> result;
@@ -1621,6 +2205,14 @@ TEST(case_mapping, 073)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FA9});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1645,6 +2237,14 @@ TEST(case_mapping, 074)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAA});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6A, 0x0399});
         std::vector<uint32_t> result;
@@ -1665,6 +2265,14 @@ TEST(case_mapping, 075)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAB});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1689,6 +2297,14 @@ TEST(case_mapping, 076)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6C, 0x0399});
         std::vector<uint32_t> result;
@@ -1709,6 +2325,14 @@ TEST(case_mapping, 077)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAD});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1733,6 +2357,14 @@ TEST(case_mapping, 078)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAE});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6E, 0x0399});
         std::vector<uint32_t> result;
@@ -1753,6 +2385,14 @@ TEST(case_mapping, 079)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAF});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1777,6 +2417,14 @@ TEST(case_mapping, 080)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FA8});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F68, 0x0399});
         std::vector<uint32_t> result;
@@ -1797,6 +2445,14 @@ TEST(case_mapping, 081)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FA9});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1821,6 +2477,14 @@ TEST(case_mapping, 082)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAA});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6A, 0x0399});
         std::vector<uint32_t> result;
@@ -1841,6 +2505,14 @@ TEST(case_mapping, 083)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAB});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1865,6 +2537,14 @@ TEST(case_mapping, 084)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6C, 0x0399});
         std::vector<uint32_t> result;
@@ -1885,6 +2565,14 @@ TEST(case_mapping, 085)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAD});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1909,6 +2597,14 @@ TEST(case_mapping, 086)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAE});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1F6E, 0x0399});
         std::vector<uint32_t> result;
@@ -1929,6 +2625,14 @@ TEST(case_mapping, 087)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FAF});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1953,6 +2657,14 @@ TEST(case_mapping, 088)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FBC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0399});
         std::vector<uint32_t> result;
@@ -1973,6 +2685,14 @@ TEST(case_mapping, 089)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FBC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -1997,6 +2717,14 @@ TEST(case_mapping, 090)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FCC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0397, 0x0399});
         std::vector<uint32_t> result;
@@ -2017,6 +2745,14 @@ TEST(case_mapping, 091)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FCC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -2041,6 +2777,14 @@ TEST(case_mapping, 092)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FFC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x03A9, 0x0399});
         std::vector<uint32_t> result;
@@ -2061,6 +2805,14 @@ TEST(case_mapping, 093)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x1FFC});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -2085,6 +2837,14 @@ TEST(case_mapping, 094)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FBA, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1FBA, 0x0399});
         std::vector<uint32_t> result;
@@ -2105,6 +2865,14 @@ TEST(case_mapping, 095)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0386, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -2129,6 +2897,14 @@ TEST(case_mapping, 096)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FCA, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1FCA, 0x0399});
         std::vector<uint32_t> result;
@@ -2149,6 +2925,14 @@ TEST(case_mapping, 097)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x0389, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -2173,6 +2957,14 @@ TEST(case_mapping, 098)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x1FFA, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x1FFA, 0x0399});
         std::vector<uint32_t> result;
@@ -2193,6 +2985,14 @@ TEST(case_mapping, 099)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x038F, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
@@ -2217,6 +3017,14 @@ TEST(case_mapping, 100)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0391, 0x0342, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0391, 0x0342, 0x0399});
         std::vector<uint32_t> result;
@@ -2239,6 +3047,14 @@ TEST(case_mapping, 101)
         EXPECT_EQ(result, lower);
 
     }
+    { // to_title
+        std::vector<uint32_t> title({0x0397, 0x0342, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+
+    }
     { // to_upper
         std::vector<uint32_t> upper({0x0397, 0x0342, 0x0399});
         std::vector<uint32_t> result;
@@ -2259,6 +3075,14 @@ TEST(case_mapping, 102)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_EQ(result, lower);
+
+    }
+    { // to_title
+        std::vector<uint32_t> title({0x03A9, 0x0342, 0x0345});
+        std::vector<uint32_t> result;
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
 
     }
     { // to_upper
