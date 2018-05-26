@@ -255,7 +255,7 @@ def case_mapping_tests(special_casing):
             blocks = '    // ' + line + '\n'
             if len(conditions_) == 0:
                 blocks += '''\
-    std::array<uint32_t, 1> const cp = {{0x{}}};
+    std::array<uint32_t, 1> const cp = {{{{0x{}}}}};
 '''.format(cp)
             blocks += '\n'
             if len(lower):

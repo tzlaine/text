@@ -9,7 +9,7 @@ using namespace boost::text;
 TEST(case_mapping, 000)
 {
     // 00DF; 00DF; 0053 0073; 0053 0053; # LATIN SMALL LETTER SHARP S
-    std::array<uint32_t, 1> const cp = {0x00DF};
+    std::array<uint32_t, 1> const cp = {{0x00DF}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x00DF});
@@ -102,7 +102,7 @@ TEST(case_mapping, 000)
 TEST(case_mapping, 001)
 {
     // 0130; 0069 0307; 0130; 0130; # LATIN CAPITAL LETTER I WITH DOT ABOVE
-    std::array<uint32_t, 1> const cp = {0x0130};
+    std::array<uint32_t, 1> const cp = {{0x0130}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x0069, 0x0307});
@@ -195,7 +195,7 @@ TEST(case_mapping, 001)
 TEST(case_mapping, 002)
 {
     // FB00; FB00; 0046 0066; 0046 0046; # LATIN SMALL LIGATURE FF
-    std::array<uint32_t, 1> const cp = {0xFB00};
+    std::array<uint32_t, 1> const cp = {{0xFB00}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB00});
@@ -288,7 +288,7 @@ TEST(case_mapping, 002)
 TEST(case_mapping, 003)
 {
     // FB01; FB01; 0046 0069; 0046 0049; # LATIN SMALL LIGATURE FI
-    std::array<uint32_t, 1> const cp = {0xFB01};
+    std::array<uint32_t, 1> const cp = {{0xFB01}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB01});
@@ -381,7 +381,7 @@ TEST(case_mapping, 003)
 TEST(case_mapping, 004)
 {
     // FB02; FB02; 0046 006C; 0046 004C; # LATIN SMALL LIGATURE FL
-    std::array<uint32_t, 1> const cp = {0xFB02};
+    std::array<uint32_t, 1> const cp = {{0xFB02}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB02});
@@ -474,7 +474,7 @@ TEST(case_mapping, 004)
 TEST(case_mapping, 005)
 {
     // FB03; FB03; 0046 0066 0069; 0046 0046 0049; # LATIN SMALL LIGATURE FFI
-    std::array<uint32_t, 1> const cp = {0xFB03};
+    std::array<uint32_t, 1> const cp = {{0xFB03}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB03});
@@ -567,7 +567,7 @@ TEST(case_mapping, 005)
 TEST(case_mapping, 006)
 {
     // FB04; FB04; 0046 0066 006C; 0046 0046 004C; # LATIN SMALL LIGATURE FFL
-    std::array<uint32_t, 1> const cp = {0xFB04};
+    std::array<uint32_t, 1> const cp = {{0xFB04}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB04});
@@ -660,7 +660,7 @@ TEST(case_mapping, 006)
 TEST(case_mapping, 007)
 {
     // FB05; FB05; 0053 0074; 0053 0054; # LATIN SMALL LIGATURE LONG S T
-    std::array<uint32_t, 1> const cp = {0xFB05};
+    std::array<uint32_t, 1> const cp = {{0xFB05}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB05});
@@ -753,7 +753,7 @@ TEST(case_mapping, 007)
 TEST(case_mapping, 008)
 {
     // FB06; FB06; 0053 0074; 0053 0054; # LATIN SMALL LIGATURE ST
-    std::array<uint32_t, 1> const cp = {0xFB06};
+    std::array<uint32_t, 1> const cp = {{0xFB06}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB06});
@@ -846,7 +846,7 @@ TEST(case_mapping, 008)
 TEST(case_mapping, 009)
 {
     // 0587; 0587; 0535 0582; 0535 0552; # ARMENIAN SMALL LIGATURE ECH YIWN
-    std::array<uint32_t, 1> const cp = {0x0587};
+    std::array<uint32_t, 1> const cp = {{0x0587}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x0587});
@@ -939,7 +939,7 @@ TEST(case_mapping, 009)
 TEST(case_mapping, 010)
 {
     // FB13; FB13; 0544 0576; 0544 0546; # ARMENIAN SMALL LIGATURE MEN NOW
-    std::array<uint32_t, 1> const cp = {0xFB13};
+    std::array<uint32_t, 1> const cp = {{0xFB13}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB13});
@@ -1032,7 +1032,7 @@ TEST(case_mapping, 010)
 TEST(case_mapping, 011)
 {
     // FB14; FB14; 0544 0565; 0544 0535; # ARMENIAN SMALL LIGATURE MEN ECH
-    std::array<uint32_t, 1> const cp = {0xFB14};
+    std::array<uint32_t, 1> const cp = {{0xFB14}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB14});
@@ -1125,7 +1125,7 @@ TEST(case_mapping, 011)
 TEST(case_mapping, 012)
 {
     // FB15; FB15; 0544 056B; 0544 053B; # ARMENIAN SMALL LIGATURE MEN INI
-    std::array<uint32_t, 1> const cp = {0xFB15};
+    std::array<uint32_t, 1> const cp = {{0xFB15}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB15});
@@ -1218,7 +1218,7 @@ TEST(case_mapping, 012)
 TEST(case_mapping, 013)
 {
     // FB16; FB16; 054E 0576; 054E 0546; # ARMENIAN SMALL LIGATURE VEW NOW
-    std::array<uint32_t, 1> const cp = {0xFB16};
+    std::array<uint32_t, 1> const cp = {{0xFB16}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB16});
@@ -1311,7 +1311,7 @@ TEST(case_mapping, 013)
 TEST(case_mapping, 014)
 {
     // FB17; FB17; 0544 056D; 0544 053D; # ARMENIAN SMALL LIGATURE MEN XEH
-    std::array<uint32_t, 1> const cp = {0xFB17};
+    std::array<uint32_t, 1> const cp = {{0xFB17}};
 
     { // to_lower
         std::vector<uint32_t> lower({0xFB17});
@@ -1404,7 +1404,7 @@ TEST(case_mapping, 014)
 TEST(case_mapping, 015)
 {
     // 0149; 0149; 02BC 004E; 02BC 004E; # LATIN SMALL LETTER N PRECEDED BY APOSTROPHE
-    std::array<uint32_t, 1> const cp = {0x0149};
+    std::array<uint32_t, 1> const cp = {{0x0149}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x0149});
@@ -1497,7 +1497,7 @@ TEST(case_mapping, 015)
 TEST(case_mapping, 016)
 {
     // 0390; 0390; 0399 0308 0301; 0399 0308 0301; # GREEK SMALL LETTER IOTA WITH DIALYTIKA AND TONOS
-    std::array<uint32_t, 1> const cp = {0x0390};
+    std::array<uint32_t, 1> const cp = {{0x0390}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x0390});
@@ -1590,7 +1590,7 @@ TEST(case_mapping, 016)
 TEST(case_mapping, 017)
 {
     // 03B0; 03B0; 03A5 0308 0301; 03A5 0308 0301; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND TONOS
-    std::array<uint32_t, 1> const cp = {0x03B0};
+    std::array<uint32_t, 1> const cp = {{0x03B0}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x03B0});
@@ -1683,7 +1683,7 @@ TEST(case_mapping, 017)
 TEST(case_mapping, 018)
 {
     // 01F0; 01F0; 004A 030C; 004A 030C; # LATIN SMALL LETTER J WITH CARON
-    std::array<uint32_t, 1> const cp = {0x01F0};
+    std::array<uint32_t, 1> const cp = {{0x01F0}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x01F0});
@@ -1776,7 +1776,7 @@ TEST(case_mapping, 018)
 TEST(case_mapping, 019)
 {
     // 1E96; 1E96; 0048 0331; 0048 0331; # LATIN SMALL LETTER H WITH LINE BELOW
-    std::array<uint32_t, 1> const cp = {0x1E96};
+    std::array<uint32_t, 1> const cp = {{0x1E96}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1E96});
@@ -1869,7 +1869,7 @@ TEST(case_mapping, 019)
 TEST(case_mapping, 020)
 {
     // 1E97; 1E97; 0054 0308; 0054 0308; # LATIN SMALL LETTER T WITH DIAERESIS
-    std::array<uint32_t, 1> const cp = {0x1E97};
+    std::array<uint32_t, 1> const cp = {{0x1E97}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1E97});
@@ -1962,7 +1962,7 @@ TEST(case_mapping, 020)
 TEST(case_mapping, 021)
 {
     // 1E98; 1E98; 0057 030A; 0057 030A; # LATIN SMALL LETTER W WITH RING ABOVE
-    std::array<uint32_t, 1> const cp = {0x1E98};
+    std::array<uint32_t, 1> const cp = {{0x1E98}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1E98});
@@ -2055,7 +2055,7 @@ TEST(case_mapping, 021)
 TEST(case_mapping, 022)
 {
     // 1E99; 1E99; 0059 030A; 0059 030A; # LATIN SMALL LETTER Y WITH RING ABOVE
-    std::array<uint32_t, 1> const cp = {0x1E99};
+    std::array<uint32_t, 1> const cp = {{0x1E99}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1E99});
@@ -2148,7 +2148,7 @@ TEST(case_mapping, 022)
 TEST(case_mapping, 023)
 {
     // 1E9A; 1E9A; 0041 02BE; 0041 02BE; # LATIN SMALL LETTER A WITH RIGHT HALF RING
-    std::array<uint32_t, 1> const cp = {0x1E9A};
+    std::array<uint32_t, 1> const cp = {{0x1E9A}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1E9A});
@@ -2241,7 +2241,7 @@ TEST(case_mapping, 023)
 TEST(case_mapping, 024)
 {
     // 1F50; 1F50; 03A5 0313; 03A5 0313; # GREEK SMALL LETTER UPSILON WITH PSILI
-    std::array<uint32_t, 1> const cp = {0x1F50};
+    std::array<uint32_t, 1> const cp = {{0x1F50}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F50});
@@ -2334,7 +2334,7 @@ TEST(case_mapping, 024)
 TEST(case_mapping, 025)
 {
     // 1F52; 1F52; 03A5 0313 0300; 03A5 0313 0300; # GREEK SMALL LETTER UPSILON WITH PSILI AND VARIA
-    std::array<uint32_t, 1> const cp = {0x1F52};
+    std::array<uint32_t, 1> const cp = {{0x1F52}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F52});
@@ -2427,7 +2427,7 @@ TEST(case_mapping, 025)
 TEST(case_mapping, 026)
 {
     // 1F54; 1F54; 03A5 0313 0301; 03A5 0313 0301; # GREEK SMALL LETTER UPSILON WITH PSILI AND OXIA
-    std::array<uint32_t, 1> const cp = {0x1F54};
+    std::array<uint32_t, 1> const cp = {{0x1F54}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F54});
@@ -2520,7 +2520,7 @@ TEST(case_mapping, 026)
 TEST(case_mapping, 027)
 {
     // 1F56; 1F56; 03A5 0313 0342; 03A5 0313 0342; # GREEK SMALL LETTER UPSILON WITH PSILI AND PERISPOMENI
-    std::array<uint32_t, 1> const cp = {0x1F56};
+    std::array<uint32_t, 1> const cp = {{0x1F56}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F56});
@@ -2613,7 +2613,7 @@ TEST(case_mapping, 027)
 TEST(case_mapping, 028)
 {
     // 1FB6; 1FB6; 0391 0342; 0391 0342; # GREEK SMALL LETTER ALPHA WITH PERISPOMENI
-    std::array<uint32_t, 1> const cp = {0x1FB6};
+    std::array<uint32_t, 1> const cp = {{0x1FB6}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FB6});
@@ -2706,7 +2706,7 @@ TEST(case_mapping, 028)
 TEST(case_mapping, 029)
 {
     // 1FC6; 1FC6; 0397 0342; 0397 0342; # GREEK SMALL LETTER ETA WITH PERISPOMENI
-    std::array<uint32_t, 1> const cp = {0x1FC6};
+    std::array<uint32_t, 1> const cp = {{0x1FC6}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FC6});
@@ -2799,7 +2799,7 @@ TEST(case_mapping, 029)
 TEST(case_mapping, 030)
 {
     // 1FD2; 1FD2; 0399 0308 0300; 0399 0308 0300; # GREEK SMALL LETTER IOTA WITH DIALYTIKA AND VARIA
-    std::array<uint32_t, 1> const cp = {0x1FD2};
+    std::array<uint32_t, 1> const cp = {{0x1FD2}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FD2});
@@ -2892,7 +2892,7 @@ TEST(case_mapping, 030)
 TEST(case_mapping, 031)
 {
     // 1FD3; 1FD3; 0399 0308 0301; 0399 0308 0301; # GREEK SMALL LETTER IOTA WITH DIALYTIKA AND OXIA
-    std::array<uint32_t, 1> const cp = {0x1FD3};
+    std::array<uint32_t, 1> const cp = {{0x1FD3}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FD3});
@@ -2985,7 +2985,7 @@ TEST(case_mapping, 031)
 TEST(case_mapping, 032)
 {
     // 1FD6; 1FD6; 0399 0342; 0399 0342; # GREEK SMALL LETTER IOTA WITH PERISPOMENI
-    std::array<uint32_t, 1> const cp = {0x1FD6};
+    std::array<uint32_t, 1> const cp = {{0x1FD6}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FD6});
@@ -3078,7 +3078,7 @@ TEST(case_mapping, 032)
 TEST(case_mapping, 033)
 {
     // 1FD7; 1FD7; 0399 0308 0342; 0399 0308 0342; # GREEK SMALL LETTER IOTA WITH DIALYTIKA AND PERISPOMENI
-    std::array<uint32_t, 1> const cp = {0x1FD7};
+    std::array<uint32_t, 1> const cp = {{0x1FD7}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FD7});
@@ -3171,7 +3171,7 @@ TEST(case_mapping, 033)
 TEST(case_mapping, 034)
 {
     // 1FE2; 1FE2; 03A5 0308 0300; 03A5 0308 0300; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND VARIA
-    std::array<uint32_t, 1> const cp = {0x1FE2};
+    std::array<uint32_t, 1> const cp = {{0x1FE2}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FE2});
@@ -3264,7 +3264,7 @@ TEST(case_mapping, 034)
 TEST(case_mapping, 035)
 {
     // 1FE3; 1FE3; 03A5 0308 0301; 03A5 0308 0301; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND OXIA
-    std::array<uint32_t, 1> const cp = {0x1FE3};
+    std::array<uint32_t, 1> const cp = {{0x1FE3}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FE3});
@@ -3357,7 +3357,7 @@ TEST(case_mapping, 035)
 TEST(case_mapping, 036)
 {
     // 1FE4; 1FE4; 03A1 0313; 03A1 0313; # GREEK SMALL LETTER RHO WITH PSILI
-    std::array<uint32_t, 1> const cp = {0x1FE4};
+    std::array<uint32_t, 1> const cp = {{0x1FE4}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FE4});
@@ -3450,7 +3450,7 @@ TEST(case_mapping, 036)
 TEST(case_mapping, 037)
 {
     // 1FE6; 1FE6; 03A5 0342; 03A5 0342; # GREEK SMALL LETTER UPSILON WITH PERISPOMENI
-    std::array<uint32_t, 1> const cp = {0x1FE6};
+    std::array<uint32_t, 1> const cp = {{0x1FE6}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FE6});
@@ -3543,7 +3543,7 @@ TEST(case_mapping, 037)
 TEST(case_mapping, 038)
 {
     // 1FE7; 1FE7; 03A5 0308 0342; 03A5 0308 0342; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND PERISPOMENI
-    std::array<uint32_t, 1> const cp = {0x1FE7};
+    std::array<uint32_t, 1> const cp = {{0x1FE7}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FE7});
@@ -3636,7 +3636,7 @@ TEST(case_mapping, 038)
 TEST(case_mapping, 039)
 {
     // 1FF6; 1FF6; 03A9 0342; 03A9 0342; # GREEK SMALL LETTER OMEGA WITH PERISPOMENI
-    std::array<uint32_t, 1> const cp = {0x1FF6};
+    std::array<uint32_t, 1> const cp = {{0x1FF6}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FF6});
@@ -3729,7 +3729,7 @@ TEST(case_mapping, 039)
 TEST(case_mapping, 040)
 {
     // 1F80; 1F80; 1F88; 1F08 0399; # GREEK SMALL LETTER ALPHA WITH PSILI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F80};
+    std::array<uint32_t, 1> const cp = {{0x1F80}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F80});
@@ -3822,7 +3822,7 @@ TEST(case_mapping, 040)
 TEST(case_mapping, 041)
 {
     // 1F81; 1F81; 1F89; 1F09 0399; # GREEK SMALL LETTER ALPHA WITH DASIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F81};
+    std::array<uint32_t, 1> const cp = {{0x1F81}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F81});
@@ -3915,7 +3915,7 @@ TEST(case_mapping, 041)
 TEST(case_mapping, 042)
 {
     // 1F82; 1F82; 1F8A; 1F0A 0399; # GREEK SMALL LETTER ALPHA WITH PSILI AND VARIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F82};
+    std::array<uint32_t, 1> const cp = {{0x1F82}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F82});
@@ -4008,7 +4008,7 @@ TEST(case_mapping, 042)
 TEST(case_mapping, 043)
 {
     // 1F83; 1F83; 1F8B; 1F0B 0399; # GREEK SMALL LETTER ALPHA WITH DASIA AND VARIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F83};
+    std::array<uint32_t, 1> const cp = {{0x1F83}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F83});
@@ -4101,7 +4101,7 @@ TEST(case_mapping, 043)
 TEST(case_mapping, 044)
 {
     // 1F84; 1F84; 1F8C; 1F0C 0399; # GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F84};
+    std::array<uint32_t, 1> const cp = {{0x1F84}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F84});
@@ -4194,7 +4194,7 @@ TEST(case_mapping, 044)
 TEST(case_mapping, 045)
 {
     // 1F85; 1F85; 1F8D; 1F0D 0399; # GREEK SMALL LETTER ALPHA WITH DASIA AND OXIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F85};
+    std::array<uint32_t, 1> const cp = {{0x1F85}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F85});
@@ -4287,7 +4287,7 @@ TEST(case_mapping, 045)
 TEST(case_mapping, 046)
 {
     // 1F86; 1F86; 1F8E; 1F0E 0399; # GREEK SMALL LETTER ALPHA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F86};
+    std::array<uint32_t, 1> const cp = {{0x1F86}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F86});
@@ -4380,7 +4380,7 @@ TEST(case_mapping, 046)
 TEST(case_mapping, 047)
 {
     // 1F87; 1F87; 1F8F; 1F0F 0399; # GREEK SMALL LETTER ALPHA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F87};
+    std::array<uint32_t, 1> const cp = {{0x1F87}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F87});
@@ -4473,7 +4473,7 @@ TEST(case_mapping, 047)
 TEST(case_mapping, 048)
 {
     // 1F88; 1F80; 1F88; 1F08 0399; # GREEK CAPITAL LETTER ALPHA WITH PSILI AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F88};
+    std::array<uint32_t, 1> const cp = {{0x1F88}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F80});
@@ -4566,7 +4566,7 @@ TEST(case_mapping, 048)
 TEST(case_mapping, 049)
 {
     // 1F89; 1F81; 1F89; 1F09 0399; # GREEK CAPITAL LETTER ALPHA WITH DASIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F89};
+    std::array<uint32_t, 1> const cp = {{0x1F89}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F81});
@@ -4659,7 +4659,7 @@ TEST(case_mapping, 049)
 TEST(case_mapping, 050)
 {
     // 1F8A; 1F82; 1F8A; 1F0A 0399; # GREEK CAPITAL LETTER ALPHA WITH PSILI AND VARIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F8A};
+    std::array<uint32_t, 1> const cp = {{0x1F8A}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F82});
@@ -4752,7 +4752,7 @@ TEST(case_mapping, 050)
 TEST(case_mapping, 051)
 {
     // 1F8B; 1F83; 1F8B; 1F0B 0399; # GREEK CAPITAL LETTER ALPHA WITH DASIA AND VARIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F8B};
+    std::array<uint32_t, 1> const cp = {{0x1F8B}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F83});
@@ -4845,7 +4845,7 @@ TEST(case_mapping, 051)
 TEST(case_mapping, 052)
 {
     // 1F8C; 1F84; 1F8C; 1F0C 0399; # GREEK CAPITAL LETTER ALPHA WITH PSILI AND OXIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F8C};
+    std::array<uint32_t, 1> const cp = {{0x1F8C}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F84});
@@ -4938,7 +4938,7 @@ TEST(case_mapping, 052)
 TEST(case_mapping, 053)
 {
     // 1F8D; 1F85; 1F8D; 1F0D 0399; # GREEK CAPITAL LETTER ALPHA WITH DASIA AND OXIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F8D};
+    std::array<uint32_t, 1> const cp = {{0x1F8D}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F85});
@@ -5031,7 +5031,7 @@ TEST(case_mapping, 053)
 TEST(case_mapping, 054)
 {
     // 1F8E; 1F86; 1F8E; 1F0E 0399; # GREEK CAPITAL LETTER ALPHA WITH PSILI AND PERISPOMENI AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F8E};
+    std::array<uint32_t, 1> const cp = {{0x1F8E}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F86});
@@ -5124,7 +5124,7 @@ TEST(case_mapping, 054)
 TEST(case_mapping, 055)
 {
     // 1F8F; 1F87; 1F8F; 1F0F 0399; # GREEK CAPITAL LETTER ALPHA WITH DASIA AND PERISPOMENI AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F8F};
+    std::array<uint32_t, 1> const cp = {{0x1F8F}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F87});
@@ -5217,7 +5217,7 @@ TEST(case_mapping, 055)
 TEST(case_mapping, 056)
 {
     // 1F90; 1F90; 1F98; 1F28 0399; # GREEK SMALL LETTER ETA WITH PSILI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F90};
+    std::array<uint32_t, 1> const cp = {{0x1F90}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F90});
@@ -5310,7 +5310,7 @@ TEST(case_mapping, 056)
 TEST(case_mapping, 057)
 {
     // 1F91; 1F91; 1F99; 1F29 0399; # GREEK SMALL LETTER ETA WITH DASIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F91};
+    std::array<uint32_t, 1> const cp = {{0x1F91}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F91});
@@ -5403,7 +5403,7 @@ TEST(case_mapping, 057)
 TEST(case_mapping, 058)
 {
     // 1F92; 1F92; 1F9A; 1F2A 0399; # GREEK SMALL LETTER ETA WITH PSILI AND VARIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F92};
+    std::array<uint32_t, 1> const cp = {{0x1F92}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F92});
@@ -5496,7 +5496,7 @@ TEST(case_mapping, 058)
 TEST(case_mapping, 059)
 {
     // 1F93; 1F93; 1F9B; 1F2B 0399; # GREEK SMALL LETTER ETA WITH DASIA AND VARIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F93};
+    std::array<uint32_t, 1> const cp = {{0x1F93}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F93});
@@ -5589,7 +5589,7 @@ TEST(case_mapping, 059)
 TEST(case_mapping, 060)
 {
     // 1F94; 1F94; 1F9C; 1F2C 0399; # GREEK SMALL LETTER ETA WITH PSILI AND OXIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F94};
+    std::array<uint32_t, 1> const cp = {{0x1F94}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F94});
@@ -5682,7 +5682,7 @@ TEST(case_mapping, 060)
 TEST(case_mapping, 061)
 {
     // 1F95; 1F95; 1F9D; 1F2D 0399; # GREEK SMALL LETTER ETA WITH DASIA AND OXIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F95};
+    std::array<uint32_t, 1> const cp = {{0x1F95}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F95});
@@ -5775,7 +5775,7 @@ TEST(case_mapping, 061)
 TEST(case_mapping, 062)
 {
     // 1F96; 1F96; 1F9E; 1F2E 0399; # GREEK SMALL LETTER ETA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F96};
+    std::array<uint32_t, 1> const cp = {{0x1F96}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F96});
@@ -5868,7 +5868,7 @@ TEST(case_mapping, 062)
 TEST(case_mapping, 063)
 {
     // 1F97; 1F97; 1F9F; 1F2F 0399; # GREEK SMALL LETTER ETA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F97};
+    std::array<uint32_t, 1> const cp = {{0x1F97}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F97});
@@ -5961,7 +5961,7 @@ TEST(case_mapping, 063)
 TEST(case_mapping, 064)
 {
     // 1F98; 1F90; 1F98; 1F28 0399; # GREEK CAPITAL LETTER ETA WITH PSILI AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F98};
+    std::array<uint32_t, 1> const cp = {{0x1F98}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F90});
@@ -6054,7 +6054,7 @@ TEST(case_mapping, 064)
 TEST(case_mapping, 065)
 {
     // 1F99; 1F91; 1F99; 1F29 0399; # GREEK CAPITAL LETTER ETA WITH DASIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F99};
+    std::array<uint32_t, 1> const cp = {{0x1F99}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F91});
@@ -6147,7 +6147,7 @@ TEST(case_mapping, 065)
 TEST(case_mapping, 066)
 {
     // 1F9A; 1F92; 1F9A; 1F2A 0399; # GREEK CAPITAL LETTER ETA WITH PSILI AND VARIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F9A};
+    std::array<uint32_t, 1> const cp = {{0x1F9A}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F92});
@@ -6240,7 +6240,7 @@ TEST(case_mapping, 066)
 TEST(case_mapping, 067)
 {
     // 1F9B; 1F93; 1F9B; 1F2B 0399; # GREEK CAPITAL LETTER ETA WITH DASIA AND VARIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F9B};
+    std::array<uint32_t, 1> const cp = {{0x1F9B}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F93});
@@ -6333,7 +6333,7 @@ TEST(case_mapping, 067)
 TEST(case_mapping, 068)
 {
     // 1F9C; 1F94; 1F9C; 1F2C 0399; # GREEK CAPITAL LETTER ETA WITH PSILI AND OXIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F9C};
+    std::array<uint32_t, 1> const cp = {{0x1F9C}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F94});
@@ -6426,7 +6426,7 @@ TEST(case_mapping, 068)
 TEST(case_mapping, 069)
 {
     // 1F9D; 1F95; 1F9D; 1F2D 0399; # GREEK CAPITAL LETTER ETA WITH DASIA AND OXIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F9D};
+    std::array<uint32_t, 1> const cp = {{0x1F9D}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F95});
@@ -6519,7 +6519,7 @@ TEST(case_mapping, 069)
 TEST(case_mapping, 070)
 {
     // 1F9E; 1F96; 1F9E; 1F2E 0399; # GREEK CAPITAL LETTER ETA WITH PSILI AND PERISPOMENI AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F9E};
+    std::array<uint32_t, 1> const cp = {{0x1F9E}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F96});
@@ -6612,7 +6612,7 @@ TEST(case_mapping, 070)
 TEST(case_mapping, 071)
 {
     // 1F9F; 1F97; 1F9F; 1F2F 0399; # GREEK CAPITAL LETTER ETA WITH DASIA AND PERISPOMENI AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1F9F};
+    std::array<uint32_t, 1> const cp = {{0x1F9F}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1F97});
@@ -6705,7 +6705,7 @@ TEST(case_mapping, 071)
 TEST(case_mapping, 072)
 {
     // 1FA0; 1FA0; 1FA8; 1F68 0399; # GREEK SMALL LETTER OMEGA WITH PSILI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FA0};
+    std::array<uint32_t, 1> const cp = {{0x1FA0}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA0});
@@ -6798,7 +6798,7 @@ TEST(case_mapping, 072)
 TEST(case_mapping, 073)
 {
     // 1FA1; 1FA1; 1FA9; 1F69 0399; # GREEK SMALL LETTER OMEGA WITH DASIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FA1};
+    std::array<uint32_t, 1> const cp = {{0x1FA1}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA1});
@@ -6891,7 +6891,7 @@ TEST(case_mapping, 073)
 TEST(case_mapping, 074)
 {
     // 1FA2; 1FA2; 1FAA; 1F6A 0399; # GREEK SMALL LETTER OMEGA WITH PSILI AND VARIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FA2};
+    std::array<uint32_t, 1> const cp = {{0x1FA2}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA2});
@@ -6984,7 +6984,7 @@ TEST(case_mapping, 074)
 TEST(case_mapping, 075)
 {
     // 1FA3; 1FA3; 1FAB; 1F6B 0399; # GREEK SMALL LETTER OMEGA WITH DASIA AND VARIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FA3};
+    std::array<uint32_t, 1> const cp = {{0x1FA3}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA3});
@@ -7077,7 +7077,7 @@ TEST(case_mapping, 075)
 TEST(case_mapping, 076)
 {
     // 1FA4; 1FA4; 1FAC; 1F6C 0399; # GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FA4};
+    std::array<uint32_t, 1> const cp = {{0x1FA4}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA4});
@@ -7170,7 +7170,7 @@ TEST(case_mapping, 076)
 TEST(case_mapping, 077)
 {
     // 1FA5; 1FA5; 1FAD; 1F6D 0399; # GREEK SMALL LETTER OMEGA WITH DASIA AND OXIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FA5};
+    std::array<uint32_t, 1> const cp = {{0x1FA5}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA5});
@@ -7263,7 +7263,7 @@ TEST(case_mapping, 077)
 TEST(case_mapping, 078)
 {
     // 1FA6; 1FA6; 1FAE; 1F6E 0399; # GREEK SMALL LETTER OMEGA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FA6};
+    std::array<uint32_t, 1> const cp = {{0x1FA6}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA6});
@@ -7356,7 +7356,7 @@ TEST(case_mapping, 078)
 TEST(case_mapping, 079)
 {
     // 1FA7; 1FA7; 1FAF; 1F6F 0399; # GREEK SMALL LETTER OMEGA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FA7};
+    std::array<uint32_t, 1> const cp = {{0x1FA7}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA7});
@@ -7449,7 +7449,7 @@ TEST(case_mapping, 079)
 TEST(case_mapping, 080)
 {
     // 1FA8; 1FA0; 1FA8; 1F68 0399; # GREEK CAPITAL LETTER OMEGA WITH PSILI AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FA8};
+    std::array<uint32_t, 1> const cp = {{0x1FA8}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA0});
@@ -7542,7 +7542,7 @@ TEST(case_mapping, 080)
 TEST(case_mapping, 081)
 {
     // 1FA9; 1FA1; 1FA9; 1F69 0399; # GREEK CAPITAL LETTER OMEGA WITH DASIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FA9};
+    std::array<uint32_t, 1> const cp = {{0x1FA9}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA1});
@@ -7635,7 +7635,7 @@ TEST(case_mapping, 081)
 TEST(case_mapping, 082)
 {
     // 1FAA; 1FA2; 1FAA; 1F6A 0399; # GREEK CAPITAL LETTER OMEGA WITH PSILI AND VARIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FAA};
+    std::array<uint32_t, 1> const cp = {{0x1FAA}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA2});
@@ -7728,7 +7728,7 @@ TEST(case_mapping, 082)
 TEST(case_mapping, 083)
 {
     // 1FAB; 1FA3; 1FAB; 1F6B 0399; # GREEK CAPITAL LETTER OMEGA WITH DASIA AND VARIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FAB};
+    std::array<uint32_t, 1> const cp = {{0x1FAB}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA3});
@@ -7821,7 +7821,7 @@ TEST(case_mapping, 083)
 TEST(case_mapping, 084)
 {
     // 1FAC; 1FA4; 1FAC; 1F6C 0399; # GREEK CAPITAL LETTER OMEGA WITH PSILI AND OXIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FAC};
+    std::array<uint32_t, 1> const cp = {{0x1FAC}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA4});
@@ -7914,7 +7914,7 @@ TEST(case_mapping, 084)
 TEST(case_mapping, 085)
 {
     // 1FAD; 1FA5; 1FAD; 1F6D 0399; # GREEK CAPITAL LETTER OMEGA WITH DASIA AND OXIA AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FAD};
+    std::array<uint32_t, 1> const cp = {{0x1FAD}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA5});
@@ -8007,7 +8007,7 @@ TEST(case_mapping, 085)
 TEST(case_mapping, 086)
 {
     // 1FAE; 1FA6; 1FAE; 1F6E 0399; # GREEK CAPITAL LETTER OMEGA WITH PSILI AND PERISPOMENI AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FAE};
+    std::array<uint32_t, 1> const cp = {{0x1FAE}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA6});
@@ -8100,7 +8100,7 @@ TEST(case_mapping, 086)
 TEST(case_mapping, 087)
 {
     // 1FAF; 1FA7; 1FAF; 1F6F 0399; # GREEK CAPITAL LETTER OMEGA WITH DASIA AND PERISPOMENI AND PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FAF};
+    std::array<uint32_t, 1> const cp = {{0x1FAF}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FA7});
@@ -8193,7 +8193,7 @@ TEST(case_mapping, 087)
 TEST(case_mapping, 088)
 {
     // 1FB3; 1FB3; 1FBC; 0391 0399; # GREEK SMALL LETTER ALPHA WITH YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FB3};
+    std::array<uint32_t, 1> const cp = {{0x1FB3}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FB3});
@@ -8286,7 +8286,7 @@ TEST(case_mapping, 088)
 TEST(case_mapping, 089)
 {
     // 1FBC; 1FB3; 1FBC; 0391 0399; # GREEK CAPITAL LETTER ALPHA WITH PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FBC};
+    std::array<uint32_t, 1> const cp = {{0x1FBC}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FB3});
@@ -8379,7 +8379,7 @@ TEST(case_mapping, 089)
 TEST(case_mapping, 090)
 {
     // 1FC3; 1FC3; 1FCC; 0397 0399; # GREEK SMALL LETTER ETA WITH YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FC3};
+    std::array<uint32_t, 1> const cp = {{0x1FC3}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FC3});
@@ -8472,7 +8472,7 @@ TEST(case_mapping, 090)
 TEST(case_mapping, 091)
 {
     // 1FCC; 1FC3; 1FCC; 0397 0399; # GREEK CAPITAL LETTER ETA WITH PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FCC};
+    std::array<uint32_t, 1> const cp = {{0x1FCC}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FC3});
@@ -8565,7 +8565,7 @@ TEST(case_mapping, 091)
 TEST(case_mapping, 092)
 {
     // 1FF3; 1FF3; 1FFC; 03A9 0399; # GREEK SMALL LETTER OMEGA WITH YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FF3};
+    std::array<uint32_t, 1> const cp = {{0x1FF3}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FF3});
@@ -8658,7 +8658,7 @@ TEST(case_mapping, 092)
 TEST(case_mapping, 093)
 {
     // 1FFC; 1FF3; 1FFC; 03A9 0399; # GREEK CAPITAL LETTER OMEGA WITH PROSGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FFC};
+    std::array<uint32_t, 1> const cp = {{0x1FFC}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FF3});
@@ -8751,7 +8751,7 @@ TEST(case_mapping, 093)
 TEST(case_mapping, 094)
 {
     // 1FB2; 1FB2; 1FBA 0345; 1FBA 0399; # GREEK SMALL LETTER ALPHA WITH VARIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FB2};
+    std::array<uint32_t, 1> const cp = {{0x1FB2}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FB2});
@@ -8844,7 +8844,7 @@ TEST(case_mapping, 094)
 TEST(case_mapping, 095)
 {
     // 1FB4; 1FB4; 0386 0345; 0386 0399; # GREEK SMALL LETTER ALPHA WITH OXIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FB4};
+    std::array<uint32_t, 1> const cp = {{0x1FB4}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FB4});
@@ -8937,7 +8937,7 @@ TEST(case_mapping, 095)
 TEST(case_mapping, 096)
 {
     // 1FC2; 1FC2; 1FCA 0345; 1FCA 0399; # GREEK SMALL LETTER ETA WITH VARIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FC2};
+    std::array<uint32_t, 1> const cp = {{0x1FC2}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FC2});
@@ -9030,7 +9030,7 @@ TEST(case_mapping, 096)
 TEST(case_mapping, 097)
 {
     // 1FC4; 1FC4; 0389 0345; 0389 0399; # GREEK SMALL LETTER ETA WITH OXIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FC4};
+    std::array<uint32_t, 1> const cp = {{0x1FC4}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FC4});
@@ -9123,7 +9123,7 @@ TEST(case_mapping, 097)
 TEST(case_mapping, 098)
 {
     // 1FF2; 1FF2; 1FFA 0345; 1FFA 0399; # GREEK SMALL LETTER OMEGA WITH VARIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FF2};
+    std::array<uint32_t, 1> const cp = {{0x1FF2}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FF2});
@@ -9216,7 +9216,7 @@ TEST(case_mapping, 098)
 TEST(case_mapping, 099)
 {
     // 1FF4; 1FF4; 038F 0345; 038F 0399; # GREEK SMALL LETTER OMEGA WITH OXIA AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FF4};
+    std::array<uint32_t, 1> const cp = {{0x1FF4}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FF4});
@@ -9309,7 +9309,7 @@ TEST(case_mapping, 099)
 TEST(case_mapping, 100)
 {
     // 1FB7; 1FB7; 0391 0342 0345; 0391 0342 0399; # GREEK SMALL LETTER ALPHA WITH PERISPOMENI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FB7};
+    std::array<uint32_t, 1> const cp = {{0x1FB7}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FB7});
@@ -9402,7 +9402,7 @@ TEST(case_mapping, 100)
 TEST(case_mapping, 101)
 {
     // 1FC7; 1FC7; 0397 0342 0345; 0397 0342 0399; # GREEK SMALL LETTER ETA WITH PERISPOMENI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FC7};
+    std::array<uint32_t, 1> const cp = {{0x1FC7}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FC7});
@@ -9495,7 +9495,7 @@ TEST(case_mapping, 101)
 TEST(case_mapping, 102)
 {
     // 1FF7; 1FF7; 03A9 0342 0345; 03A9 0342 0399; # GREEK SMALL LETTER OMEGA WITH PERISPOMENI AND YPOGEGRAMMENI
-    std::array<uint32_t, 1> const cp = {0x1FF7};
+    std::array<uint32_t, 1> const cp = {{0x1FF7}};
 
     { // to_lower
         std::vector<uint32_t> lower({0x1FF7});
