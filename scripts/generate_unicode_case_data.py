@@ -263,11 +263,24 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
                 retval.append(x)
         return retval
 
+    def unconditioned_last(l):
+        unconditioned = None
+        retval = []
+        for x in l:
+            if x[1] == '0':
+                unconditioned = x
+            else:
+                retval.append(x)
+        if unconditioned != None:
+            retval.append(unconditioned)
+        return retval
+
     tmp = to_lower
     to_lower = []
     for k,v in tmp.items():
         lo = len(all_mapped_tos)
-        mapped_tos = filter_dupes(map(lambda x: (cp_indices(to_tuple_3(x[0])), to_cond_bitset(x[1])), v))
+        mapped_tos = map(lambda x: (cp_indices(to_tuple_3(x[0])), to_cond_bitset(x[1])), v)
+        mapped_tos = unconditioned_last(filter_dupes(mapped_tos))
         subseq = subsequence(all_mapped_tos, mapped_tos)
         if subseq[0] != subseq[1]:
             to_lower.append((k, subseq))
@@ -280,7 +293,8 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
     to_title = []
     for k,v in tmp.items():
         lo = len(all_mapped_tos)
-        mapped_tos = filter_dupes(map(lambda x: (cp_indices(to_tuple_3(x[0])), to_cond_bitset(x[1])), v))
+        mapped_tos = map(lambda x: (cp_indices(to_tuple_3(x[0])), to_cond_bitset(x[1])), v)
+        mapped_tos = unconditioned_last(filter_dupes(mapped_tos))
         subseq = subsequence(all_mapped_tos, mapped_tos)
         if subseq[0] != subseq[1]:
             to_title.append((k, subseq))
@@ -293,7 +307,8 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
     to_upper = []
     for k,v in tmp.items():
         lo = len(all_mapped_tos)
-        mapped_tos = filter_dupes(map(lambda x: (cp_indices(to_tuple_3(x[0])), to_cond_bitset(x[1])), v))
+        mapped_tos = map(lambda x: (cp_indices(to_tuple_3(x[0])), to_cond_bitset(x[1])), v)
+        mapped_tos = unconditioned_last(filter_dupes(mapped_tos))
         subseq = subsequence(all_mapped_tos, mapped_tos)
         if subseq[0] != subseq[1]:
             to_upper.append((k, subseq))

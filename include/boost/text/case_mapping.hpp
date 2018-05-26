@@ -12,6 +12,8 @@
 
 namespace boost { namespace text {
 
+    // TODO: Consider adding support for Dutch IJ and other cases supported by ICU.
+
     /** TODO */
     enum class case_language : uint16_t {
         other,
@@ -99,10 +101,9 @@ namespace boost { namespace text {
                         bool before = false;
                         auto find_it =
                             find_if_backward(first, it, [](uint32_t cp) {
-                                return cased(cp) || !case_ignorable(cp);
+                                return !case_ignorable(cp);
                             });
-                        if (find_it != first) {
-                            --find_it;
+                        if (find_it != it) {
                             if (cased(*find_it))
                                 before = true;
                         }
@@ -111,10 +112,9 @@ namespace boost { namespace text {
                             bool after = false;
                             auto find_it =
                                 find_if(condition_first, last, [](uint32_t cp) {
-                                    return cased(cp) || case_ignorable(cp);
+                                    return !case_ignorable(cp);
                                 });
                             if (find_it != last) {
-                                ++find_it;
                                 if (cased(*find_it))
                                     after = true;
                             }
@@ -129,10 +129,9 @@ namespace boost { namespace text {
                         (uint16_t)case_condition::After_Soft_Dotted) {
                         auto find_it =
                             find_if_backward(first, it, [](uint32_t cp) {
-                                return soft_dotted(cp) || ccc_230_0(cp);
+                                return ccc_230_0(cp);
                             });
-                        if (find_it != first) {
-                            --find_it;
+                        if (find_it != it) {
                             if (soft_dotted(*find_it)) {
                                 conditions |=
                                     (uint16_t)case_condition::After_Soft_Dotted;
@@ -150,7 +149,6 @@ namespace boost { namespace text {
                                     return ccc_230_0(cp);
                                 });
                             if (find_it != last) {
-                                ++find_it;
                                 if (ccc(*find_it) == 230) {
                                     conditions |=
                                         (uint16_t)case_condition::More_Above;
@@ -161,26 +159,27 @@ namespace boost { namespace text {
 
                     if (all_conditions &
                         (uint16_t)case_condition::Not_Before_Dot) {
+                        bool before = false;
                         auto find_it =
                             find_if(condition_first, last, [](uint32_t cp) {
-                                return cp == 0x0307 || ccc_230_0(cp);
+                                return ccc_230_0(cp);
                             });
                         if (find_it != last) {
-                            ++find_it;
-                            if (*find_it == 0x0307) {
-                                conditions |=
-                                    (uint16_t)case_condition::Not_Before_Dot;
-                            }
+                            if (*find_it == 0x0307)
+                                before = true;
+                        }
+                        if (!before) {
+                            conditions |=
+                                (uint16_t)case_condition::Not_Before_Dot;
                         }
                     }
 
                     if (all_conditions & (uint16_t)case_condition::After_I) {
                         auto find_it =
                             find_if_backward(first, it, [](uint32_t cp) {
-                                return cp == 0x0049 || ccc_230_0(cp);
+                                return ccc_230_0(cp);
                             });
-                        if (find_it != first) {
-                            --find_it;
+                        if (find_it != it) {
                             if (*find_it == 0x0049)
                                 conditions |= (uint16_t)case_condition::After_I;
                         }
@@ -189,6 +188,10 @@ namespace boost { namespace text {
                     bool met_conditions = false;
                     for (auto elem_it = elem_first; elem_it != elem_last;
                          ++elem_it) {
+                        // This condition only works (that is, it correctly
+                        // prefers matches with conditions) because the data
+                        // generation puts the condition=0 elements at the
+                        // end.
                         if ((elem_it->conditions_ & conditions) ==
                             elem_it->conditions_) {
                             auto const cp_first =

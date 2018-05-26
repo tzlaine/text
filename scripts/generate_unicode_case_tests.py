@@ -29,11 +29,11 @@ test_block = '''\
 condition_prefixes = {
     'Final_Sigma': [
         # valid
-        (['0345', '0345'], True),   # 0345 is cased and case-ignorable
         (['0069'], True),           # 0069 is cased only
-        (['0069', '0345'], True),
+        (['0069', '0345'], True),   # 0345 is cased and case-ignorable
         (['0069', '1DFE'], True),   # 1DFE is case-ignorable only
         # invalid
+        (['0345', '0345'], False),
         (['0345'], False),
         (['1DFE'], False),
         (['1DFE', '1DFE'], False),
@@ -50,12 +50,10 @@ condition_prefixes = {
         ([], False)
     ],
     'More_Above': [                 # none
-        ([], True),
-        ([], False)
+        ([], True)
     ],
     'Not_Before_Dot': [             # none
-        ([], True),
-        ([], False)
+        ([], True)
     ],
     'After_I': [
         # valid
@@ -71,18 +69,17 @@ condition_suffixes = {
     'Final_Sigma': [
         # valid
         (['0345'], True),
+        (['0345', '0345'], True),
         (['1dfe'], True),
         (['1dfe', '1dfe'], True),
         ([], True),
         # invalid
-        (['0345', '0345'], False),
         (['0069'], False),
         (['0345', '0069'], False),
         (['1dfe', '0069'], False)
     ],
     'After_Soft_Dotted': [          # none
-        ([], True),
-        ([], False)
+        ([], True)
     ],
     'More_Above': [
         # valid
@@ -105,8 +102,7 @@ condition_suffixes = {
         (['0307'], False)
     ],
     'After_I': [                    # none
-        ([], True),
-        ([], False)
+        ([], True)
     ]
 }
 
@@ -128,23 +124,28 @@ def decls_with_from(from_l, name, l):
         std::vector<uint32_t> result;
 '''.format(to_array('from', from_l), to_array(name, l))
 
-def decls_with_from_and_slice(from_l, name, l, slice_):
+def decls_with_from_and_prefix(from_l, prefix_size):
     return '''\
         {}
-        {}
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {{{}, {}}}; // We only care about the CP begin tested, not the prefix/suffix.
-'''.format(to_array('from', from_l), to_array(name, l), slice_[0], slice_[1])
+        int const prefix_size = {};
+'''.format(to_array('from', from_l), prefix_size)
 
-def checks(name_1, name_2, expect = 'EXPECT_EQ', lang = None, sliced = False):
-    do_slice = ''
-    if sliced:
-        do_slice = '''
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);'''
+def checks(name_1, name_2):
     return '''\
-        to_{1}({0}, std::back_inserter(result){3});{4}
-        {2}(result, {1});'''.format(name_1, name_2, expect, lang and ', ' + lang or '', do_slice)
+        to_{1}({0}, std::back_inserter(result));
+        EXPECT_EQ(result, {1});'''.format(name_1, name_2)
+
+def conditioned_checks(op, expected_cps, expect = 'EXPECT_EQ', lang = None):
+    return '''\
+        to_{0}(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {{{1}}});
+        to_{0}(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_{0}(from, std::back_inserter(result){2});
+        {3}(result, expected);'''.format(
+            op, ', '.join(map(lambda x: '0x' + x, expected_cps)), lang and ', ' + lang or '', expect)
 
 title_prefixes = [
     ([], []),
@@ -178,6 +179,9 @@ def nonlanguage_condition(conditions):
             retval = c
     return retval
 
+def unconditional_mapping(to_dict, cp):
+    mappings = to_dict[cp]
+
 def condition_case(name, to, cp, conditions, blocks):
     lang = language_condition(conditions)
     non_lang = nonlanguage_condition(conditions)
@@ -190,9 +194,12 @@ def condition_case(name, to, cp, conditions, blocks):
     without_lang_check = ''
     if lang != None:
         without_lang_check = '''
+
+        expected.clear();
         result.clear();
+
 {}
-'''.format(checks('from', name, to_is_from and 'EXPECT_EQ' or 'EXPECT_NE', None, True)) # fails without lang
+'''.format(conditioned_checks(name, to, to_is_from and 'EXPECT_EQ' or 'EXPECT_NE', None))
     for n in range(len(prefixes) * len(suffixes)):
         pref = prefixes[n / len(suffixes)]
         suff = suffixes[n % len(suffixes)]
@@ -201,13 +208,11 @@ def condition_case(name, to, cp, conditions, blocks):
             expect = 'EXPECT_NE'
         blocks += test_block.format(
             name,
-            decls_with_from_and_slice(
+            decls_with_from_and_prefix(
                 pref[0] + [cp] + suff[0],
-                name,
-                to,
-                (len(pref[0]), len(pref[0]) + len(to))
+                len(pref[0])
             ),
-            checks('from', name, expect, lang, True), # lang may be None here
+            conditioned_checks(name, to, expect, lang),
             without_lang_check
         )
     return blocks
@@ -264,9 +269,7 @@ def case_mapping_tests(special_casing):
                         ''
                     )
             if len(title):
-                if len(conditions_):
-                    blocks = condition_case('title', title, cp, conditions_, blocks)
-                else:
+                if len(conditions_) == 0:
                     for n in range(len(title_prefixes) * len(title_suffixes)):
                         pref = n / len(title_suffixes)
                         suff = n % len(title_suffixes)

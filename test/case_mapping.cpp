@@ -9590,2116 +9590,1668 @@ TEST(case_mapping, 103)
     // 03A3; 03C2; 03A3; 03A3; Final_Sigma; # GREEK CAPITAL LETTER SIGMA
 
     { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x03A3});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
     }
     { // to_lower
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_EQ(result, expected);
     }
     { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x03A3});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x03A3});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x03A3, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x03A3, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x03A3});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x03A3, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> lower({0x03C2});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x03A3});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
-    { // to_title
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
-    { // to_title
+    { // to_lower
+        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
-    { // to_title
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
-    { // to_title
+    { // to_lower
+        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_title
+    { // to_lower
         std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x03A3});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x03A3});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x03A3, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x03A3, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x03A3});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x03A3, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> title({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-    }
-    { // to_upper
+    { // to_lower
         std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
+    { // to_lower
         std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_upper
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
         std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_upper
+    { // to_lower
         std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
-    { // to_upper
+    { // to_lower
         std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
 
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345, 0x0345});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345, 0x0345});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345, 0x0345});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x03A3, 0x0345});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x03A3, 0x0345, 0x0345});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x03A3, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x03A3, 0x0345, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
+    }
+    { // to_lower
+        std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03C2});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_lower(from, std::back_inserter(result));
+        EXPECT_NE(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0069, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345, 0x0345});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x0069});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x0345, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x1DFE, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x03A3, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3});
-        std::vector<uint32_t> upper({0x03A3});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x03A3, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x1dfe});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
+    }
+    { // to_upper
+        std::vector<uint32_t> from({0x03A3});
+        std::vector<uint32_t> expected;
+        std::vector<uint32_t> result;
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
+        to_upper(from, std::back_inserter(result));
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x03A3, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
     { // to_upper
         std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> upper({0x03A3});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x03A3});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
     }
 }
 
@@ -11709,206 +11261,146 @@ TEST(case_mapping, 104)
 
     { // to_lower
         std::vector<uint32_t> from({0x006A, 0x006A, 0x0307});
-        std::vector<uint32_t> lower({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x006A, 0x006A, 0x0307});
-        std::vector<uint32_t> lower({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x006A, 0x07F3, 0x0307});
-        std::vector<uint32_t> lower({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x006A, 0x07F3, 0x0307});
-        std::vector<uint32_t> lower({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x006A, 0x0307});
-        std::vector<uint32_t> lower({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x006A, 0x0307});
-        std::vector<uint32_t> lower({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x07F3, 0x0307});
-        std::vector<uint32_t> lower({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x07F3, 0x0307});
-        std::vector<uint32_t> lower({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x07F3, 0x07F3, 0x0307});
-        std::vector<uint32_t> lower({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x07F3, 0x07F3, 0x0307});
-        std::vector<uint32_t> lower({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0307});
-        std::vector<uint32_t> lower({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0307});
-        std::vector<uint32_t> lower({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -11919,614 +11411,290 @@ TEST(case_mapping, 105)
 
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0737, 0x07F3});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x07F3});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x006A, 0x07F3});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x07F3});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x07F3});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x07F3});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> lower({0x0069, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x07F3});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x07F3});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x07F3});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x07F3});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x07F3});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x07F3});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        EXPECT_NE(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x07F3});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x07F3});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x006A, 0x07F3});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x07F3});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x07F3});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x07F3});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -12537,614 +11705,290 @@ TEST(case_mapping, 106)
 
     { // to_lower
         std::vector<uint32_t> from({0x004A, 0x0737, 0x07F3});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x004A, 0x07F3});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x004A, 0x0737, 0x0737});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x004A, 0x0737, 0x006A});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x004A, 0x006A, 0x07F3});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x004A});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x006A, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x07F3});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x004A, 0x07F3});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x0737});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x006A});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x004A, 0x006A, 0x07F3});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x004A});
-        std::vector<uint32_t> lower({0x006A, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x07F3});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x07F3});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x0737});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x006A});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x006A, 0x07F3});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x07F3});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x07F3});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x0737});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x006A});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x006A, 0x07F3});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A});
-        std::vector<uint32_t> title({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        EXPECT_NE(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x004A, 0x0737, 0x07F3});
-        std::vector<uint32_t> upper({0x004A});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x004A, 0x07F3});
-        std::vector<uint32_t> upper({0x004A});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x004A, 0x0737, 0x0737});
-        std::vector<uint32_t> upper({0x004A});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x004A, 0x0737, 0x006A});
-        std::vector<uint32_t> upper({0x004A});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x004A, 0x006A, 0x07F3});
-        std::vector<uint32_t> upper({0x004A});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x004A});
-        std::vector<uint32_t> upper({0x004A});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x004A});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x07F3});
-        std::vector<uint32_t> upper({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x004A, 0x07F3});
-        std::vector<uint32_t> upper({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x0737});
-        std::vector<uint32_t> upper({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x004A, 0x0737, 0x006A});
-        std::vector<uint32_t> upper({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x004A, 0x006A, 0x07F3});
-        std::vector<uint32_t> upper({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x004A});
-        std::vector<uint32_t> upper({0x004A});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -13155,614 +11999,290 @@ TEST(case_mapping, 107)
 
     { // to_lower
         std::vector<uint32_t> from({0x012E, 0x0737, 0x07F3});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x012E, 0x07F3});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x012E, 0x0737, 0x0737});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x012E, 0x0737, 0x006A});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x012E, 0x006A, 0x07F3});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x012E});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012F, 0x0307});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x07F3});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x012E, 0x07F3});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x0737});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x006A});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x012E, 0x006A, 0x07F3});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x012E});
-        std::vector<uint32_t> lower({0x012F, 0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x07F3});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E, 0x07F3});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x0737});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x006A});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E, 0x006A, 0x07F3});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x07F3});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E, 0x07F3});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x0737});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x006A});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E, 0x006A, 0x07F3});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x012E});
-        std::vector<uint32_t> title({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        EXPECT_NE(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x012E, 0x0737, 0x07F3});
-        std::vector<uint32_t> upper({0x012E});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x012E, 0x07F3});
-        std::vector<uint32_t> upper({0x012E});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x012E, 0x0737, 0x0737});
-        std::vector<uint32_t> upper({0x012E});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x012E, 0x0737, 0x006A});
-        std::vector<uint32_t> upper({0x012E});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x012E, 0x006A, 0x07F3});
-        std::vector<uint32_t> upper({0x012E});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x012E});
-        std::vector<uint32_t> upper({0x012E});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x012E});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x07F3});
-        std::vector<uint32_t> upper({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x012E, 0x07F3});
-        std::vector<uint32_t> upper({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x0737});
-        std::vector<uint32_t> upper({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x012E, 0x0737, 0x006A});
-        std::vector<uint32_t> upper({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x012E, 0x006A, 0x07F3});
-        std::vector<uint32_t> upper({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x012E});
-        std::vector<uint32_t> upper({0x012E});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -13773,53 +12293,50 @@ TEST(case_mapping, 108)
 
     { // to_lower
         std::vector<uint32_t> from({0x00CC});
-        std::vector<uint32_t> lower({0x0069, 0x0307, 0x0300});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307, 0x0300});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307, 0x0300});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x00CC});
-        std::vector<uint32_t> title({0x00CC});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        EXPECT_NE(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x00CC});
-        std::vector<uint32_t> upper({0x00CC});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x00CC});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x00CC});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -13830,53 +12347,50 @@ TEST(case_mapping, 109)
 
     { // to_lower
         std::vector<uint32_t> from({0x00CD});
-        std::vector<uint32_t> lower({0x0069, 0x0307, 0x0301});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307, 0x0301});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307, 0x0301});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x00CD});
-        std::vector<uint32_t> title({0x00CD});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        EXPECT_NE(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x00CD});
-        std::vector<uint32_t> upper({0x00CD});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x00CD});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x00CD});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -13887,53 +12401,50 @@ TEST(case_mapping, 110)
 
     { // to_lower
         std::vector<uint32_t> from({0x0128});
-        std::vector<uint32_t> lower({0x0069, 0x0307, 0x0303});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307, 0x0303});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069, 0x0307, 0x0303});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0128});
-        std::vector<uint32_t> title({0x0128});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        EXPECT_NE(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0128});
-        std::vector<uint32_t> upper({0x0128});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0128});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::lithuanian);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0128});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -13944,53 +12455,50 @@ TEST(case_mapping, 111)
 
     { // to_lower
         std::vector<uint32_t> from({0x0130});
-        std::vector<uint32_t> lower({0x0069});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0130});
-        std::vector<uint32_t> title({0x0130});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        EXPECT_NE(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0130});
-        std::vector<uint32_t> upper({0x0130});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0130});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0130});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -14001,53 +12509,50 @@ TEST(case_mapping, 112)
 
     { // to_lower
         std::vector<uint32_t> from({0x0130});
-        std::vector<uint32_t> lower({0x0069});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0130});
-        std::vector<uint32_t> title({0x0130});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        EXPECT_NE(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0130});
-        std::vector<uint32_t> upper({0x0130});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0130});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0130});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -14056,344 +12561,124 @@ TEST(case_mapping, 113)
 {
     // 0307; ; 0307; 0307; tr After_I; # COMBINING DOT ABOVE
 
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x004A, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x004A, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0307});
-        std::vector<uint32_t> upper({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0307});
-        std::vector<uint32_t> upper({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -14402,344 +12687,124 @@ TEST(case_mapping, 114)
 {
     // 0307; ; 0307; 0307; az After_I; # COMBINING DOT ABOVE
 
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x004A, 0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0307});
-        std::vector<uint32_t> title({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 2;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {2, 3}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x004A, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 1;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x004A, 0x0307});
-        std::vector<uint32_t> upper({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {1, 2}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0307});
-        std::vector<uint32_t> upper({0x0307});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0307});
-        std::vector<uint32_t> upper({0x0307});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0307});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -14750,614 +12815,290 @@ TEST(case_mapping, 115)
 
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        EXPECT_NE(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -15368,614 +13109,290 @@ TEST(case_mapping, 116)
 
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
 
     }
     { // to_lower
         std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
+        EXPECT_NE(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0131});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_lower
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> lower({0x0131});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-        result.clear();
-        to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> title({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
+        EXPECT_NE(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0049});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0737});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x006A});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x006A, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0737, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0049, 0x0307});
-        std::vector<uint32_t> upper({0x0049});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
-        result.clear();
-        to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
 
     }
 }
@@ -15986,53 +13403,50 @@ TEST(case_mapping, 117)
 
     { // to_lower
         std::vector<uint32_t> from({0x0069});
-        std::vector<uint32_t> lower({0x0069});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0069});
-        std::vector<uint32_t> title({0x0130});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, title);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069});
-        std::vector<uint32_t> upper({0x0130});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0130});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::turkish);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0130});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, upper);
+        EXPECT_NE(result, expected);
 
     }
 }
@@ -16043,53 +13457,50 @@ TEST(case_mapping, 118)
 
     { // to_lower
         std::vector<uint32_t> from({0x0069});
-        std::vector<uint32_t> lower({0x0069});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_lower(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_lower(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0069});
+        to_lower(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_lower(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, lower);
-
-    }
-    { // to_title
-        std::vector<uint32_t> from({0x0069});
-        std::vector<uint32_t> title({0x0130});
-        std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
-
-        to_title(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, title);
-        result.clear();
-        to_title(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, title);
+        EXPECT_EQ(result, expected);
 
     }
     { // to_upper
         std::vector<uint32_t> from({0x0069});
-        std::vector<uint32_t> upper({0x0130});
+        std::vector<uint32_t> expected;
         std::vector<uint32_t> result;
-        int const slice[] = {0, 1}; // We only care about the CP begin tested, not the prefix/suffix.
+        int const prefix_size = 0;
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0130});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
 
         to_upper(from, std::back_inserter(result), case_language::azerbaijani);
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_EQ(result, upper);
+        EXPECT_EQ(result, expected);
+
+        expected.clear();
         result.clear();
+
+        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
+        expected.insert(expected.end(), {0x0130});
+        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
+
         to_upper(from, std::back_inserter(result));
-        result.erase(result.begin() + slice[1], result.end());
-        result.erase(result.begin(), result.begin() + slice[0]);
-        EXPECT_NE(result, upper);
+        EXPECT_NE(result, expected);
 
     }
 }
