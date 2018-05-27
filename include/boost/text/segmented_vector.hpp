@@ -389,8 +389,10 @@ namespace boost { namespace text {
                 std::vector<T> & v = const_cast<std::vector<T> &>(
                     found.leaf_->as_leaf()->as_vec());
                 auto const inserted_size = v.size() + size;
-                if (size < 0 && v.size() < found.offset_ + -size)
+                if (size < 0 &&
+                    (std::ptrdiff_t)v.size() < found.offset_ + -size) {
                     return vec_insertion{nullptr};
+                }
                 if ((0 < inserted_size && inserted_size <= v.capacity()) ||
                     (allocation_note == would_allocate &&
                      inserted_size <= detail::vec_insert_max)) {
