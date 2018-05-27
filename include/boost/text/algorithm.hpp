@@ -1053,7 +1053,7 @@ namespace boost { namespace text {
         A subrange is a contiguous subsequence of elements, each of which is
         equal to \a x.  Subranges passed to \a f are non-overlapping. */
     template<typename FwdIter, typename Sentinel, typename T, typename Func>
-    void foreach_subrange(FwdIter first, Sentinel last, T const & x, Func f)
+    Func foreach_subrange(FwdIter first, Sentinel last, T const & x, Func f)
     {
         using value_type = typename std::iterator_traits<FwdIter>::value_type;
         while (first != last) {
@@ -1064,6 +1064,7 @@ namespace boost { namespace text {
             f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;
         }
+        return f;
     }
 
     /** Calls <code>f(sub)</code> for each subrange \a sub in [first, last).
@@ -1071,7 +1072,7 @@ namespace boost { namespace text {
         <code>p(ei)</code> is true.  Subranges passed to \a f are
         non-overlapping. */
     template<typename FwdIter, typename Sentinel, typename Pred, typename Func>
-    void foreach_subrange_if(FwdIter first, Sentinel last, Pred p, Func f)
+    Func foreach_subrange_if(FwdIter first, Sentinel last, Pred p, Func f)
     {
         while (first != last) {
             first = find_if(first, last, p);
@@ -1079,6 +1080,7 @@ namespace boost { namespace text {
             f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;
         }
+        return f;
     }
 
     /** TODO: foreach_partition(), range overloads of the above. */
