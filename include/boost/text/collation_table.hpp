@@ -23,6 +23,181 @@ namespace boost { namespace text {
 
     namespace detail {
 
+        inline bool
+        appears_at_noninitial_position_of_decomp(uint32_t cp) noexcept
+        {
+            return false; // TODO
+        }
+
+        using canonical_closure_string_t =
+            boost::container::small_vector<uint32_t, 16>;
+        using canonical_closure_buffer_t =
+            boost::container::small_vector<uint32_t, 64>;
+
+        using canonical_closure_subsegments_elem_t =
+            boost::container::small_vector<canonical_closure_string_t, 8>;
+        using canonical_closure_subsegments_t = boost::container::
+            small_vector<canonical_closure_subsegments_elem_t, 8>;
+
+        inline bool canonical_closure_starter(uint32_t cp) noexcept
+        {
+            return !ccc(cp) && !appears_at_noninitial_position_of_decomp(cp);
+        }
+
+        template<typename CPIter, typename OutIter>
+        OutIter
+        segment_canonical_closure(CPIter first, CPIter last, OutIter out) noexcept
+        {
+            assert(first != last);
+
+            if (!canonical_closure_starter(*first))
+                return out;
+
+            // 3a Use the set of [composed] characters whose decomposition
+            // begins with the segment's starter.
+            canonical_closure_buffer_t
+                comps; // TODO: Find these values for [first, last).
+
+            // 3b For each character in this set:
+            for (auto comp : comps) {
+                // 3b I Get the character's decomposition.
+                canonical_decomposition decomp = canonical_decompose(comp);
+
+                bool skip = false;
+                for (auto decomp_cp : decomp) {
+                    // 3b II If the decomposition contains characters that are
+                    // not in the segment, then skip this character.
+                    auto same_cp_in_seg_it = std::find(first, last, decomp_cp);
+                    if (same_cp_in_seg_it == last){
+                        skip = true;
+                        break;
+                    }
+
+                    // 3b III If the decomposition contains a character that
+                    // is blocked in the segment (preceded by a combining mark
+                    // with the same combining class), then also skip this
+                    // character.
+                    if (same_cp_in_seg_it != first) {
+                        auto const decomp_cp_ccc = ccc(decomp_cp);
+                        if (ccc(*std::prev(same_cp_in_seg_it)) ==
+                            decomp_cp_ccc) {
+                            skip = true;
+                            break;
+                        }
+                    }
+                }
+                if (skip)
+                    continue;
+
+                // 3b IV Otherwise, start building a new string with this
+                // character.
+                canonical_closure_string_t new_string;
+                new_string.push_back(*decomp.begin());
+
+                // 3b V Append all characters from the input segment that are
+                // not in this character's decomposition in canonical order.
+                std::copy_if(
+                    std::next(first),
+                    last,
+                    std::back_inserter(new_string),
+                    [&decomp](uint32_t cp) {
+                        return std::find(decomp.begin(), decomp.end(), cp) ==
+                               decomp.end();
+                    });
+
+                // 3b VI Add this string to the set of canonical equivalents
+                // for the current segment.
+                *out = new_string;
+                ++out;
+
+                // 3b VII Recurse: Treat all but the initial character of this
+                // new string as a segment and add to the set for the current
+                // segment all combinations of the initial character and the
+                // equivalent strings of the rest.
+
+                if (1 < new_string.size()) {
+                    canonical_closure_subsegments_t subsegments(
+                        new_string.size() - 1);
+
+                    auto total = 1;
+                    for (auto i = 1, end = (int)new_string.size(); i != end;
+                         ++i) {
+                        // Retain this equivalent.
+                        subsegments[i].push_back(
+                            canonical_closure_string_t(1, new_string[i]));
+
+                        // Find other equivalents.
+                        uint32_t new_c[1] = {new_string[i]};
+                        canonical_closure_string_t nfd;
+                        normalize_to_nfd(
+                            new_c, new_c + 1, std::back_inserter(nfd));
+                        segment_canonical_closure(
+                            nfd.begin(),
+                            nfd.end(),
+                            std::back_inserter(subsegments[i]));
+                        total *= subsegments[i].size();
+                    }
+                    assert(total);
+
+                    // First is the total count, second is the current index.
+                    boost::container::small_vector<std::pair<int, int>, 8>
+                        counters(subsegments.size());
+                    for (auto i = 0, end = (int)counters.size(); i < end; ++i) {
+                        counters[i].first = (int)subsegments[i].size();
+                    }
+
+                    for (auto i = 0; i < total; ++i) {
+                        auto counters_it = std::prev(counters.end());
+                        for (; counters_it != counters.begin(); --counters_it) {
+                            ++counters_it->second;
+                            if (counters_it->second % counters_it->first)
+                                break;
+                        }
+
+                        canonical_closure_string_t string;
+                        for (auto i = 0, end = (int)subsegments.size(); i < end;
+                             ++i) {
+                            auto const & seg =
+                                subsegments[i][counters[i].second];
+                            string.insert(string.end(), seg.begin(), seg.end());
+                        }
+                        *out = string;
+                        ++out;
+                    }
+                }
+            }
+        }
+
+        template<typename CPIter, typename OutIter>
+        OutIter
+        canonical_closure(CPIter first, CPIter last, OutIter out) noexcept
+        {
+            // https://www.unicode.org/notes/tn5/#Enumerating_Equivalent_Strings
+
+            assert(first != last);
+
+            // 1 Transform the input string into its NFD form.
+            canonical_closure_buffer_t nfd;
+            normalize_to_nfd(first, last, std::back_inserter(nfd));
+
+            // 2 Partition the string into segments, with each starter
+            // character in the string at the beginning of a segment.  (A
+            // starter in this sense has combining class 0 and does not appear
+            // in non-initial position of any other character's
+            // decomposition.)
+
+            // Yeah, yeah, whatever.  Instead, I'm only supporting one
+            // segment.
+            assert(
+                std::count_if(
+                    nfd.begin(), nfd.end(), canonical_closure_starter) <= 1);
+            assert(canonical_closure_starter(nfd[0]));
+
+            // 3 For each segment enumerate canonically equivalent forms, as
+            // follows:
+            return segment_canonical_closure(nfd.begin(), nfd.end(), out);
+        }
+
         struct nonsimple_script_reorder
         {
             collation_element first_;
