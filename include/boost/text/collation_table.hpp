@@ -166,6 +166,8 @@ namespace boost { namespace text {
                     }
                 }
             }
+
+            return out;
         }
 
         template<typename CPIter, typename OutIter>
