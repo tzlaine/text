@@ -9,7 +9,7 @@ TEST(detail, canonical_closure)
 {
     using string_t = detail::canonical_closure_string_t;
 
-    // Example from top of ICU's caniter.cpp
+    // Second segment from example from top of ICU's caniter.cpp
     {
         string_t const equivalent_strings[] = {
             string_t({0x0064, 0x0307, 0x0327}), // LATIN SMALL LETTER D, COMBINING DOT ABOVE, COMBINING CEDILLA
@@ -25,6 +25,34 @@ TEST(detail, canonical_closure)
                 equivalent_strings[0].end(),
                 std::back_inserter(results));
             EXPECT_EQ(results.size(), 3);
+            // TODO: Check that they match the above.
+        }
+    }
+
+    // Full example from caniter.cpp
+    {
+        string_t const equivalent_strings[] = {
+            string_t({0x0041, 0x030A, 0x0064, 0x0307, 0x0327}), // LATIN CAPITAL LETTER A, COMBINING RING ABOVE, LATIN SMALL LETTER D, COMBINING DOT ABOVE, COMBINING CEDILLA
+            string_t({0x0041, 0x030A, 0x0064, 0x0327, 0x0307}), // LATIN CAPITAL LETTER A, COMBINING RING ABOVE, LATIN SMALL LETTER D, COMBINING CEDILLA, COMBINING DOT ABOVE
+            string_t({0x0041, 0x030A, 0x1E0B, 0x0327}), // LATIN CAPITAL LETTER A, COMBINING RING ABOVE, LATIN SMALL LETTER D WITH DOT ABOVE, COMBINING CEDILLA
+            string_t({0x0041, 0x030A, 0x1E11, 0x0307}), // LATIN CAPITAL LETTER A, COMBINING RING ABOVE, LATIN SMALL LETTER D WITH CEDILLA, COMBINING DOT ABOVE
+            string_t({0x00C5, 0x0064, 0x0307, 0x0327}), // LATIN CAPITAL LETTER A WITH RING ABOVE, LATIN SMALL LETTER D, COMBINING DOT ABOVE, COMBINING CEDILLA
+            string_t({0x00C5, 0x0064, 0x0327, 0x0307}), // LATIN CAPITAL LETTER A WITH RING ABOVE, LATIN SMALL LETTER D, COMBINING CEDILLA, COMBINING DOT ABOVE
+            string_t({0x00C5, 0x1E0B, 0x0327}), // LATIN CAPITAL LETTER A WITH RING ABOVE, LATIN SMALL LETTER D WITH DOT ABOVE, COMBINING CEDILLA
+            string_t({0x00C5, 0x1E11, 0x0307}), // LATIN CAPITAL LETTER A WITH RING ABOVE, LATIN SMALL LETTER D WITH CEDILLA, COMBINING DOT ABOVE
+            string_t({0x212B, 0x0064, 0x0307, 0x0327}), // ANGSTROM SIGN, LATIN SMALL LETTER D, COMBINING DOT ABOVE, COMBINING CEDILLA
+            string_t({0x212B, 0x0064, 0x0327, 0x0307}), // ANGSTROM SIGN, LATIN SMALL LETTER D, COMBINING CEDILLA, COMBINING DOT ABOVE
+            string_t({0x212B, 0x1E0B, 0x0327}), // ANGSTROM SIGN, LATIN SMALL LETTER D WITH DOT ABOVE, COMBINING CEDILLA
+            string_t({0x212B, 0x1E11, 0x0307}) // ANGSTROM SIGN, LATIN SMALL LETTER D WITH CEDILLA, COMBINING DOT ABOVE
+        };
+
+        {
+            std::vector<string_t> results;
+            detail::canonical_closure(
+                equivalent_strings[0].begin(),
+                equivalent_strings[0].end(),
+                std::back_inserter(results));
+            EXPECT_EQ(results.size(), 11);
             // TODO: Check that they match the above.
         }
     }

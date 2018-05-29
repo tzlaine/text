@@ -44,11 +44,47 @@ namespace boost { namespace text {
             return !ccc(cp) && !appears_at_noninitial_position_of_decomp(cp);
         }
 
+        template<typename OutIter>
+        OutIter canonical_closure_combinations(
+            canonical_closure_subsegments_t const & subsegments,
+            int total,
+            OutIter out)
+        {
+            // First is the total count, second is the current index.
+            boost::container::small_vector<std::pair<int, int>, 8> counters(
+                subsegments.size());
+            for (auto i = 0, end = (int)counters.size(); i < end; ++i) {
+                counters[i].first = (int)subsegments[i].size();
+            }
+
+            for (auto i = 0; i < total; ++i) {
+                auto counters_it = std::prev(counters.end());
+                for (; counters_it != counters.begin(); --counters_it) {
+                    ++counters_it->second;
+                    if (counters_it->second % counters_it->first)
+                        break;
+                }
+
+                canonical_closure_string_t string;
+                for (auto i = 0, end = (int)subsegments.size(); i < end; ++i) {
+                    auto const & seg = subsegments[i][counters[i].second];
+                    string.insert(string.end(), seg.begin(), seg.end());
+                }
+                *out = string;
+                ++out;
+            }
+
+            return out;
+        }
+
         template<typename CPIter, typename OutIter>
         OutIter
         segment_canonical_closure(CPIter first, CPIter last, OutIter out) noexcept
         {
             assert(first != last);
+
+            // 3 For each segment enumerate canonically equivalent forms, as
+            // follows:
 
             if (!canonical_closure_starter(*first))
                 return out;
@@ -139,31 +175,8 @@ namespace boost { namespace text {
                     }
                     assert(total);
 
-                    // First is the total count, second is the current index.
-                    boost::container::small_vector<std::pair<int, int>, 8>
-                        counters(subsegments.size());
-                    for (auto i = 0, end = (int)counters.size(); i < end; ++i) {
-                        counters[i].first = (int)subsegments[i].size();
-                    }
-
-                    for (auto i = 0; i < total; ++i) {
-                        auto counters_it = std::prev(counters.end());
-                        for (; counters_it != counters.begin(); --counters_it) {
-                            ++counters_it->second;
-                            if (counters_it->second % counters_it->first)
-                                break;
-                        }
-
-                        canonical_closure_string_t string;
-                        for (auto i = 0, end = (int)subsegments.size(); i < end;
-                             ++i) {
-                            auto const & seg =
-                                subsegments[i][counters[i].second];
-                            string.insert(string.end(), seg.begin(), seg.end());
-                        }
-                        *out = string;
-                        ++out;
-                    }
+                    out =
+                        canonical_closure_combinations(subsegments, total, out);
                 }
             }
 
@@ -182,22 +195,30 @@ namespace boost { namespace text {
             canonical_closure_buffer_t nfd;
             normalize_to_nfd(first, last, std::back_inserter(nfd));
 
+            assert(canonical_closure_starter(nfd[0]));
+
             // 2 Partition the string into segments, with each starter
             // character in the string at the beginning of a segment.  (A
             // starter in this sense has combining class 0 and does not appear
             // in non-initial position of any other character's
             // decomposition.)
 
-            // Yeah, yeah, whatever.  Instead, I'm only supporting one
-            // segment.
-            assert(
-                std::count_if(
-                    nfd.begin(), nfd.end(), canonical_closure_starter) <= 1);
-            assert(canonical_closure_starter(nfd[0]));
+            canonical_closure_subsegments_t segment_results;
+            auto it = nfd.begin();
+            auto total = 1;
+            while (it != nfd.end()) {
+                auto next = std::find_if(
+                    std::next(it), nfd.end(), canonical_closure_starter);
+                segment_results.resize(segment_results.size() + 1);
+                segment_canonical_closure(
+                    it, next, std::back_inserter(segment_results.back()));
+                total *= segment_results.back().size();
+                it = next;
+            }
+            assert(total);
 
-            // 3 For each segment enumerate canonically equivalent forms, as
-            // follows:
-            return segment_canonical_closure(nfd.begin(), nfd.end(), out);
+            // 4 Enumerate the combinations of all forms of all segments.
+            return canonical_closure_combinations(segment_results, total, out);
         }
 
         struct nonsimple_script_reorder
