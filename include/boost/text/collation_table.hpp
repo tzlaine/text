@@ -26,7 +26,7 @@ namespace boost { namespace text {
         inline bool
         appears_at_noninitial_position_of_decomp(uint32_t cp) noexcept
         {
-            return false; // TODO
+            return appears_at_noninitial_position_of_decomp_set().count(cp);
         }
 
         using canonical_closure_string_t =
@@ -91,8 +91,19 @@ namespace boost { namespace text {
 
             // 3a Use the set of [composed] characters whose decomposition
             // begins with the segment's starter.
-            canonical_closure_buffer_t
-                comps; // TODO: Find these values for [first, last).
+            canonical_closure_buffer_t comps;
+            {
+                auto const equal_range =
+                    compositions_whose_decompositions_start_with_cp_map()
+                        .equal_range(*first);
+                std::transform(
+                    equal_range.first,
+                    equal_range.second,
+                    std::back_inserter(comps),
+                    [](std::pair<uint32_t, uint32_t> pair) {
+                        return pair.second;
+                    });
+            }
 
             // 3b For each character in this set:
             for (auto comp : comps) {

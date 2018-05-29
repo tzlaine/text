@@ -133,6 +133,60 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
+    inline std::unordered_multimap<uint32_t, uint32_t> const &
+    compositions_whose_decompositions_start_with_cp_map()
+    {
+        static std::unordered_multimap<uint32_t, uint32_t> retval;
+        if (retval.empty()) {
+            auto const & map = detail::cp_props_map();
+            for (auto const & pair : map) {
+                auto const decomp_it =
+                    detail::g_all_canonical_decompositions +
+                    pair.second.canonical_decomposition_.first_;
+                auto const decomp_end =
+                    detail::g_all_canonical_decompositions +
+                    pair.second.canonical_decomposition_.last_;
+                if (decomp_it != decomp_end) {
+                    retval.insert(
+                        std::pair<uint32_t, uint32_t>(*decomp_it, pair.first));
+                }
+            }
+
+            for (uint32_t cp = 0xAC00, end = 0xD7A3 + 1; cp < end; ++cp) {
+                auto const decomp = detail::decompose_hangul_syllable<4>(cp);
+                retval.insert(
+                    std::pair<uint32_t, uint32_t>(*decomp.begin(), cp));
+            }
+        }
+        return retval;
+    }
+
+    inline std::unordered_set<uint32_t> const &
+    appears_at_noninitial_position_of_decomp_set()
+    {
+        static std::unordered_set<uint32_t> retval;
+        if (retval.empty()) {
+            auto const & map = detail::cp_props_map();
+            for (auto const & pair : map) {
+                auto const decomp_it =
+                    detail::g_all_canonical_decompositions +
+                    pair.second.canonical_decomposition_.first_;
+                auto const decomp_end =
+                    detail::g_all_canonical_decompositions +
+                    pair.second.canonical_decomposition_.last_;
+                if (2 <= decomp_end - decomp_it)
+                    retval.insert(*std::next(decomp_it));
+            }
+
+            for (uint32_t cp = 0xAC00, end = 0xD7A3 + 1; cp < end; ++cp) {
+                auto const decomp = detail::decompose_hangul_syllable<4>(cp);
+                if (2 <= decomp.size_)
+                    retval.insert(*std::next(decomp.begin()));
+            }
+        }
+        return retval;
+    }
+
     inline constexpr uint64_t key(uint64_t cp0, uint32_t cp1) noexcept
     {
         return (cp0 << 32) | cp1;
