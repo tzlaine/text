@@ -14,6 +14,8 @@
 #include <iostream>
 #endif
 
+#include <iostream> // TODO
+
 
 namespace boost { namespace filesystem {
     class path;
@@ -30,14 +32,25 @@ namespace boost { namespace text {
         }
 
         using canonical_closure_string_t =
-            boost::container::small_vector<uint32_t, 16>;
+            boost::container::small_vector<uint32_t, 32>;
         using canonical_closure_buffer_t =
             boost::container::small_vector<uint32_t, 64>;
 
         using canonical_closure_subsegments_elem_t =
             boost::container::small_vector<canonical_closure_string_t, 8>;
         using canonical_closure_subsegments_t = boost::container::
-            small_vector<canonical_closure_subsegments_elem_t, 8>;
+            small_vector<canonical_closure_subsegments_elem_t, 32>;
+
+#if 1 // TODO
+        template<typename Seq>
+        void dump_(Seq s)
+        {
+            for (auto cp : s) {
+                std::cout << std::hex << std::setw(4) << std::setfill('0') << cp
+                          << " ";
+            }
+        }
+#endif
 
         inline bool canonical_closure_starter(uint32_t cp) noexcept
         {
@@ -51,27 +64,42 @@ namespace boost { namespace text {
             OutIter out)
         {
             // First is the total count, second is the current index.
-            boost::container::small_vector<std::pair<int, int>, 8> counters(
+            boost::container::small_vector<std::pair<int, int>, 32> counters(
                 subsegments.size());
+            std::cout << "counters\n";
             for (auto i = 0, end = (int)counters.size(); i < end; ++i) {
                 counters[i].first = (int)subsegments[i].size();
+                std::cout << counters[i].first << " ";
             }
+            std::cout << "\n";
 
             for (auto i = 0; i < total; ++i) {
-                auto counters_it = std::prev(counters.end());
-                for (; counters_it != counters.begin(); --counters_it) {
-                    ++counters_it->second;
-                    if (counters_it->second % counters_it->first)
-                        break;
+                std::cout << "i=" << i << "\n";
+                for (auto i = 0, end = (int)counters.size(); i < end; ++i) {
+                    std::cout << "  " << counters[i].second
+#if 0
+                              << "/" << counters[i].first
+#endif
+                              << "\n";
                 }
+                std::cout << "\n";
 
                 canonical_closure_string_t string;
                 for (auto i = 0, end = (int)subsegments.size(); i < end; ++i) {
                     auto const & seg = subsegments[i][counters[i].second];
                     string.insert(string.end(), seg.begin(), seg.end());
                 }
+
                 *out = string;
                 ++out;
+
+                for (auto counters_it = counters.end();
+                     counters_it-- != counters.begin();) {
+                    if (++counters_it->second == counters_it->first)
+                        counters_it->second = 0;
+                    else
+                        break;
+                }
             }
 
             return out;
@@ -92,6 +120,10 @@ namespace boost { namespace text {
             // 3a Use the set of [composed] characters whose decomposition
             // begins with the segment's starter.
             canonical_closure_buffer_t comps;
+#if 1
+            std::cout << "comps of " << std::hex << std::setw(4)
+                      << std::setfill('0') << (*first) << ":\n";
+#endif
             {
                 auto const equal_range =
                     compositions_whose_decompositions_start_with_cp_map()
@@ -101,14 +133,34 @@ namespace boost { namespace text {
                     equal_range.second,
                     std::back_inserter(comps),
                     [](std::pair<uint32_t, uint32_t> pair) {
+#if 1
+                        std::cout << std::hex << std::setw(4)
+                                  << std::setfill('0') << pair.second << " ";
+#endif
                         return pair.second;
                     });
+#if 0 // TODO
+                if (std::find(comps.begin(), comps.end(), *first) ==
+                    comps.end()) {
+                    comps.push_back(*first);
+                }
+#endif
+#if 1
+                std::cout << "\n";
+#endif
             }
 
             // 3b For each character in this set:
             for (auto comp : comps) {
                 // 3b I Get the character's decomposition.
                 canonical_decomposition decomp = canonical_decompose(comp);
+
+                std::cout << "comp=" << std::hex << std::setw(4)
+                          << std::setfill('0') << comp << "\n";
+
+                std::cout << "  decomp=";
+                dump_(decomp);
+                std::cout << "\n";
 
                 bool skip = false;
                 for (auto decomp_cp : decomp) {
@@ -117,6 +169,7 @@ namespace boost { namespace text {
                     auto same_cp_in_seg_it = std::find(first, last, decomp_cp);
                     if (same_cp_in_seg_it == last){
                         skip = true;
+                        std::cout << "  skipped (first rule)\n";
                         break;
                     }
 
@@ -129,6 +182,7 @@ namespace boost { namespace text {
                         if (ccc(*std::prev(same_cp_in_seg_it)) ==
                             decomp_cp_ccc) {
                             skip = true;
+                            std::cout << "  skipped (second rule)\n";
                             break;
                         }
                     }
@@ -136,45 +190,76 @@ namespace boost { namespace text {
                 if (skip)
                     continue;
 
+                std::cout << "  not skipped...\n";
+
                 // 3b IV Otherwise, start building a new string with this
                 // character.
-                canonical_closure_string_t new_string;
-                new_string.push_back(*decomp.begin());
+
+                // Note that here we don't actually create a string per se,
+                // but instead make an initial subsegment from the character.
+                // This is because we collapse the string creating and
+                // permutation into a single recursive approach below.
+                canonical_closure_subsegments_t subsegments(1);
+                subsegments.back().push_back(
+                    canonical_closure_string_t(1, comp));
+                subsegments.back().push_back(
+                    canonical_closure_string_t(decomp.begin(), decomp.end()));
 
                 // 3b V Append all characters from the input segment that are
                 // not in this character's decomposition in canonical order.
-                std::copy_if(
-                    std::next(first),
-                    last,
-                    std::back_inserter(new_string),
-                    [&decomp](uint32_t cp) {
-                        return std::find(decomp.begin(), decomp.end(), cp) ==
-                               decomp.end();
-                    });
+                auto prev_ccc = 256;
+                for (auto input_it = std::next(first), end = last;
+                     input_it != end;
+                     ++input_it) {
+                    if (std::find(decomp.begin(), decomp.end(), *input_it) ==
+                        decomp.end()) {
+                        auto const ccc_ = ccc(*input_it);
+                        // Collapse ccc-equal characters into the same
+                        // subsegment's strings, so that they get permuted
+                        // below.
+                        std::cout << "Include cp " << std::hex << std::setw(4)
+                                  << std::setfill('0') << *input_it
+                                  << " w/ccc=" << ccc_ << "\n";
+                        if (ccc_ != prev_ccc) {
+                            std::cout << "  (in a new subsegment\n";
+                            subsegments.resize(subsegments.size() + 1);
+                        }
+                        subsegments.back().push_back(
+                            canonical_closure_string_t(1, *input_it));
+                    }
+                }
 
                 // 3b VI Add this string to the set of canonical equivalents
                 // for the current segment.
-                *out = new_string;
-                ++out;
+
+                // See below
 
                 // 3b VII Recurse: Treat all but the initial character of this
                 // new string as a segment and add to the set for the current
                 // segment all combinations of the initial character and the
                 // equivalent strings of the rest.
 
-                if (1 < new_string.size()) {
-                    canonical_closure_subsegments_t subsegments(
-                        new_string.size() - 1);
+                // Even though 3b VI and 3b VII respectively indicate that we
+                // should add the original string and its recursive
+                // permutations, we can treat them uniformly here, and this is
+                // simpler.
 
-                    auto total = 1;
-                    for (auto i = 1, end = (int)new_string.size(); i != end;
-                         ++i) {
-                        // Retain this equivalent.
-                        subsegments[i].push_back(
-                            canonical_closure_string_t(1, new_string[i]));
+                auto total = 1;
+                for (auto i = 0, end = (int)subsegments.size(); i != end; ++i) {
+#if 1 // TODO?
+                    if (!i) {
+                        total *= subsegments[0].size();
+                        continue;
+                    }
+#endif
 
+                    // We might have multiple alternatives here, if they were
+                    // collapsed together above for being ccc-equal.
+                    for (auto j = 0, j_end = (int)subsegments[i].size();
+                         j != j_end;
+                         ++j) {
                         // Find other equivalents.
-                        uint32_t new_c[1] = {new_string[i]};
+                        uint32_t new_c[1] = {subsegments[i][j][0]};
                         canonical_closure_string_t nfd;
                         normalize_to_nfd(
                             new_c, new_c + 1, std::back_inserter(nfd));
@@ -182,13 +267,25 @@ namespace boost { namespace text {
                             nfd.begin(),
                             nfd.end(),
                             std::back_inserter(subsegments[i]));
-                        total *= subsegments[i].size();
                     }
-                    assert(total);
-
-                    out =
-                        canonical_closure_combinations(subsegments, total, out);
+                    total *= subsegments[i].size();
                 }
+                assert(total);
+
+                std::cout << "about to print subsegments:\n";
+
+                for (auto i = 0, end = (int)subsegments.size(); i != end; ++i) {
+                    std::cout << "subseg " << i << ":\n";
+                    for (auto j = 0, j_end = (int)subsegments[i].size();
+                         j != j_end;
+                         ++j) {
+                        std::cout << "  str " << j << ": ";
+                        dump_(subsegments[i][j]);
+                        std::cout << "\n";
+                    }
+                }
+
+                out = canonical_closure_combinations(subsegments, total, out);
             }
 
             return out;
@@ -231,6 +328,8 @@ namespace boost { namespace text {
             // 4 Enumerate the combinations of all forms of all segments.
             return canonical_closure_combinations(segment_results, total, out);
         }
+
+        // TODO: Needed (converts to fcc form + sort + unique)? fcc_canonical_closure()
 
         struct nonsimple_script_reorder
         {

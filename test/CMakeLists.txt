@@ -76,7 +76,7 @@ add_test_executable(trie_map_0)
 add_test_executable(trie_map_1)
 add_test_executable(detail_bidi)
 add_test_executable(case_mapping)
-# TODO add_test_executable(canonical_closure)
+add_test_executable(canonical_closure)
 
 set(LIMIT_TESTING_FOR_TRAVIS false CACHE BOOL "Travis kinda sucks, so...")
 if (LIMIT_TESTING_FOR_TRAVIS)
