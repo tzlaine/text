@@ -1,4 +1,4 @@
-#include <boost/text/collation_table.hpp>
+#include <boost/text/detail/canonical_closure.hpp>
 
 #include <gtest/gtest.h>
 
