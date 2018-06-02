@@ -16,7 +16,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     using canonical_closure_string_t =
-        boost::container::small_vector<uint32_t, 32>;
+        boost::container::small_vector<uint32_t, 8>;
     using canonical_closure_buffer_t =
         boost::container::small_vector<uint32_t, 64>;
 
@@ -48,11 +48,14 @@ namespace boost { namespace text { namespace detail {
         OutIter out)
     {
         // First is the total count, second is the current index.
-        boost::container::small_vector<std::pair<int, int>, 32> counters(
-            subsegments.size());
-        for (auto i = 0, end = (int)counters.size(); i < end; ++i) {
-            counters[i].first = (int)subsegments[i].size();
-        }
+        boost::container::small_vector<std::pair<int, int>, 32> counters;
+        std::transform(
+            subsegments.begin(),
+            subsegments.end(),
+            std::back_inserter(counters),
+            [](canonical_closure_subsegments_elem_t const & subseg) {
+                return std::pair<int, int>(subseg.size(), 0);
+            });
 
         for (auto i = 0; i < total; ++i) {
             canonical_closure_string_t string;
@@ -64,10 +67,9 @@ namespace boost { namespace text { namespace detail {
             *out = string;
             ++out;
 
-            for (auto counters_it = counters.end();
-                 counters_it-- != counters.begin();) {
-                if (++counters_it->second == counters_it->first)
-                    counters_it->second = 0;
+            for (auto & counter : counters) {
+                if (++counter.second == counter.first)
+                    counter.second = 0;
                 else
                     break;
             }
@@ -234,7 +236,8 @@ namespace boost { namespace text { namespace detail {
         return out;
     }
 
-    // Note that this always produces results in NFD.
+    // Note that this outputs canonical_closure_string_ts, and always produces
+    // results in NFD.
     template<typename CPIter, typename OutIter>
     OutIter canonical_closure(CPIter first, CPIter last, OutIter out) noexcept
     {
@@ -246,7 +249,10 @@ namespace boost { namespace text { namespace detail {
         canonical_closure_buffer_t nfd;
         normalize_to_nfd(first, last, std::back_inserter(nfd));
 
-        assert(canonical_closure_starter(nfd[0]));
+        if (!canonical_closure_starter(nfd[0])) {
+            out = canonical_closure_string_t(nfd.begin(), nfd.end());
+            return ++out;
+        }
 
         // 2 Partition the string into segments, with each starter
         // character in the string at the beginning of a segment.  (A
@@ -276,9 +282,6 @@ namespace boost { namespace text { namespace detail {
 
         return canonical_closure_combinations(segment_results, total, out);
     }
-
-    // TODO: Needed (converts to fcc form + sort + unique)?
-    // fcc_canonical_closure()
 
 }}}
 

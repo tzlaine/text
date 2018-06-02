@@ -1095,15 +1095,25 @@ namespace boost { namespace text {
             boost::container::
                 small_vector<detail::canonical_closure_string_t, 64>
                     relation_closure;
+#define DO_CANONICAL_CLOSURE 0
+#if DO_CANONICAL_CLOSURE
             detail::canonical_closure(
                 relation.begin(),
                 relation.end(),
                 std::back_inserter(relation_closure));
 
+            for (auto & rel : relation_closure) {
+                detail::canonical_closure_string_t str;
+                normalize_to_fcc(rel, std::back_inserter(str));
+                rel = std::move(str);
+            }
             std::sort(relation_closure.begin(), relation_closure.end());
             relation_closure.erase(
                 std::unique(relation_closure.begin(), relation_closure.end()),
                 relation_closure.end());
+#else
+            relation_closure.push_back(relation);
+#endif
 
             for (auto & rel : relation_closure) {
                 // TODO: Call add_temp_tailoring() for all prefixes of rel,
