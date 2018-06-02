@@ -17,8 +17,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path("nb_standard.table"))) {
+        string const table_str(data::nb::standard_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::nb::standard_collation_tailoring(),
+            table_str,
             "nb::standard_collation_tailoring()", error, warning);
         save_table(table, "nb_standard.table.0");
         boost::filesystem::rename("nb_standard.table.0", "nb_standard.table");

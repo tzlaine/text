@@ -17,8 +17,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path("de_AT_phonebook.table"))) {
+        string const table_str(data::de_AT::phonebook_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::de_AT::phonebook_collation_tailoring(),
+            table_str,
             "de_AT::phonebook_collation_tailoring()", error, warning);
         save_table(table, "de_AT_phonebook.table.0");
         boost::filesystem::rename("de_AT_phonebook.table.0", "de_AT_phonebook.table");

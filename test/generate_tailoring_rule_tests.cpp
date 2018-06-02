@@ -102,8 +102,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path(")Q" << table_name << R"Q(.table"))) {
+        string const table_str(data::)Q" << this_tailoring << R"Q(_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::)Q" << this_tailoring << R"Q(_collation_tailoring(),
+            table_str,
             ")Q"
           << this_tailoring << R"Q(_collation_tailoring()", error, warning);
         save_table(table, ")Q" << table_name << ".table." << g_test_subfile_count << R"Q(");

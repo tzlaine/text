@@ -17,8 +17,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path("zh_gb2312han.table"))) {
+        string const table_str(data::zh::gb2312han_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::zh::gb2312han_collation_tailoring(),
+            table_str,
             "zh::gb2312han_collation_tailoring()", error, warning);
         save_table(table, "zh_gb2312han.table.6");
         boost::filesystem::rename("zh_gb2312han.table.6", "zh_gb2312han.table");

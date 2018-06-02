@@ -17,8 +17,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path("ko_unihan.table"))) {
+        string const table_str(data::ko::unihan_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::ko::unihan_collation_tailoring(),
+            table_str,
             "ko::unihan_collation_tailoring()", error, warning);
         save_table(table, "ko_unihan.table.0");
         boost::filesystem::rename("ko_unihan.table.0", "ko_unihan.table");

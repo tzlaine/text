@@ -17,8 +17,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path("zh_stroke.table"))) {
+        string const table_str(data::zh::stroke_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::zh::stroke_collation_tailoring(),
+            table_str,
             "zh::stroke_collation_tailoring()", error, warning);
         save_table(table, "zh_stroke.table.24");
         boost::filesystem::rename("zh_stroke.table.24", "zh_stroke.table");

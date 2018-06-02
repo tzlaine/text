@@ -17,8 +17,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path("und_emoji.table"))) {
+        string const table_str(data::und::emoji_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::und::emoji_collation_tailoring(),
+            table_str,
             "und::emoji_collation_tailoring()", error, warning);
         save_table(table, "und_emoji.table.1");
         boost::filesystem::rename("und_emoji.table.1", "und_emoji.table");

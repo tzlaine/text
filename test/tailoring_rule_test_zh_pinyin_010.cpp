@@ -17,8 +17,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path("zh_pinyin.table"))) {
+        string const table_str(data::zh::pinyin_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::zh::pinyin_collation_tailoring(),
+            table_str,
             "zh::pinyin_collation_tailoring()", error, warning);
         save_table(table, "zh_pinyin.table.10");
         boost::filesystem::rename("zh_pinyin.table.10", "zh_pinyin.table");

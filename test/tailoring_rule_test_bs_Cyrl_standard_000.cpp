@@ -17,8 +17,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path("bs_Cyrl_standard.table"))) {
+        string const table_str(data::bs_Cyrl::standard_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::bs_Cyrl::standard_collation_tailoring(),
+            table_str,
             "bs_Cyrl::standard_collation_tailoring()", error, warning);
         save_table(table, "bs_Cyrl_standard.table.0");
         boost::filesystem::rename("bs_Cyrl_standard.table.0", "bs_Cyrl_standard.table");

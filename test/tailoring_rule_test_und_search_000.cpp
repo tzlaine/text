@@ -17,8 +17,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path("und_search.table"))) {
+        string const table_str(data::und::search_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::und::search_collation_tailoring(),
+            table_str,
             "und::search_collation_tailoring()", error, warning);
         save_table(table, "und_search.table.0");
         boost::filesystem::rename("und_search.table.0", "und_search.table");

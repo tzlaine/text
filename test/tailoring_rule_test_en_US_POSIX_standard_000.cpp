@@ -17,8 +17,9 @@ auto const warning = [](string const & s) {};
 collation_table make_save_load_table()
 {
     if (!exists(boost::filesystem::path("en_US_POSIX_standard.table"))) {
+        string const table_str(data::en_US_POSIX::standard_collation_tailoring());
         collation_table table = tailored_collation_table(
-            data::en_US_POSIX::standard_collation_tailoring(),
+            table_str,
             "en_US_POSIX::standard_collation_tailoring()", error, warning);
         save_table(table, "en_US_POSIX_standard.table.0");
         boost::filesystem::rename("en_US_POSIX_standard.table.0", "en_US_POSIX_standard.table");
@@ -32,14 +33,12 @@ collation_table const & table()
 }
 TEST(tailoring, en_US_POSIX_standard_000_001)
 {
-#if 0 // 'A' actaully gets moved to later in the tailoring later in the rule.
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0041),
         std::vector<uint32_t>(1, 0x0020),
         table(), collation_strength::primary),
         -1);
-#endif
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x0020),
