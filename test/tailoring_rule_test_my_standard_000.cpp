@@ -5735,12 +5735,14 @@ TEST(tailoring, my_standard_000_012)
         std::vector<uint32_t>(1, 0x1023),
         table(), collation_strength::tertiary),
         -1);
+#if 0 // This test it optional.
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x1021, 0x102d},
         std::vector<uint32_t>(1, 0x1023),
         table(), collation_strength::secondary),
         0);
+#endif
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>{0x1021, 0x102e},

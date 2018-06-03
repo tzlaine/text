@@ -5083,12 +5083,14 @@ TEST(tailoring, zh_zhuyin_018_016)
         std::vector<uint32_t>(1, 0x7565),
         table(), collation_strength::primary),
         -1);
+#if 0 // Clearly nothing is less than itself!
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x7565),
         std::vector<uint32_t>(1, 0x7565),
         table(), collation_strength::primary),
         -1);
+#endif
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x7565),

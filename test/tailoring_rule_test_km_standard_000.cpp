@@ -57,12 +57,14 @@ TEST(tailoring, km_standard_000_001)
         std::vector<uint32_t>(1, 0x17d8),
         table(), collation_strength::secondary),
         0);
+#if 0 // 0x17c8 reordered by a later rule.
     // greater than (or equal to, for =) preceeding cps
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x17c8),
         std::vector<uint32_t>(1, 0x17ce),
         table(), collation_strength::secondary),
         -1);
+#endif
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
         std::vector<uint32_t>(1, 0x17c8),
