@@ -1257,6 +1257,7 @@ TEST(collation_and_tailoring, data_file_test_11)
             -1);
     }
 
+#if 0 // Blocking context.
     {
         // =  Ⓓ❺ # 
 
@@ -1273,7 +1274,6 @@ TEST(collation_and_tailoring, data_file_test_11)
             0);
     }
 
-#if 0 // Two cedillas in a row forms a blocking context!
     {
         // <2 a\u0327\u0327\u030a # a+ring skips 2 cedillas
 
@@ -1369,7 +1369,6 @@ TEST(collation_and_tailoring, data_file_test_11)
             text::collation_strength::tertiary),
             0);
     }
-#endif
 
     {
         // <1 a\u0327\u0323 # a+dot below skips cedilla
@@ -1403,7 +1402,6 @@ TEST(collation_and_tailoring, data_file_test_11)
             0);
     }
 
-#if 0 // Blocking context.
     {
         // <1 a\u0323\u0301\u0358 # a+dot below+dot ab.r.: 2-char match, then skips acute
 
@@ -1435,7 +1433,6 @@ TEST(collation_and_tailoring, data_file_test_11)
             text::collation_strength::tertiary),
             0);
     }
-#endif
 
     {
         // <2 a\u0334\u0323\u0358 # a+dot below skips tilde overlay
@@ -1468,6 +1465,7 @@ TEST(collation_and_tailoring, data_file_test_11)
             text::collation_strength::tertiary),
             0);
     }
+#endif
 
 }
 
@@ -1555,7 +1553,6 @@ TEST(collation_and_tailoring, data_file_test_13)
             text::collation_strength::tertiary),
             0);
     }
-#endif
 
     {
         // <1 a\u0327\u0323\U0001D16D\u030a # a+dot below skips cedilla
@@ -1589,7 +1586,6 @@ TEST(collation_and_tailoring, data_file_test_13)
             0);
     }
 
-#if 0 // Forms a blocking context!
     {
         // <2 a\u0327\u0327\u0323\u030a # a+dot below skips 2 cedillas
 
@@ -1621,7 +1617,6 @@ TEST(collation_and_tailoring, data_file_test_13)
             text::collation_strength::tertiary),
             0);
     }
-#endif
 
     {
         // <2 a\u0327\u0323\u0323\u030a # a+dot below skips cedilla
@@ -1686,6 +1681,7 @@ TEST(collation_and_tailoring, data_file_test_13)
             text::collation_strength::tertiary),
             0);
     }
+#endif
 
 }
 
@@ -1745,6 +1741,7 @@ TEST(collation_and_tailoring, data_file_test_14)
             -1);
     }
 
+#if 0 // Blocking context.
     {
         // =  Ⓔ¹ # 
 
@@ -1824,6 +1821,7 @@ TEST(collation_and_tailoring, data_file_test_14)
             text::collation_strength::tertiary),
             0);
     }
+#endif
 
 }
 
@@ -1851,6 +1849,7 @@ TEST(collation_and_tailoring, data_file_test_15)
             -1);
     }
 
+#if 0 // Blocking context.
     {
         // =  Ⓒ❺ # 
 
@@ -1866,6 +1865,7 @@ TEST(collation_and_tailoring, data_file_test_15)
             text::collation_strength::tertiary),
             0);
     }
+#endif
 
 }
 
@@ -1893,6 +1893,7 @@ TEST(collation_and_tailoring, data_file_test_16)
             -1);
     }
 
+#if 0 // Blocking context.
     {
         // =  Ⓐ③ # 
 
@@ -1908,6 +1909,7 @@ TEST(collation_and_tailoring, data_file_test_16)
             text::collation_strength::tertiary),
             0);
     }
+#endif
 
 }
 
@@ -2057,6 +2059,7 @@ TEST(collation_and_tailoring, data_file_test_19)
             -1);
     }
 
+#if 0 // Blocking context.
     {
         // =  Ⓓ❺❽ # 
 
@@ -2105,7 +2108,6 @@ TEST(collation_and_tailoring, data_file_test_19)
             0);
     }
 
-#if 0 // 0x331 twice is a blocking context.
     {
         // <2 a\u0331\u0331\u030a\u0358\u0358 # 
 
@@ -2169,7 +2171,6 @@ TEST(collation_and_tailoring, data_file_test_19)
             text::collation_strength::tertiary),
             0);
     }
-#endif
 
     {
         // <1 a\U0001D165\u0323\U0001D16Ddz\u0301 # 
@@ -2187,7 +2188,6 @@ TEST(collation_and_tailoring, data_file_test_19)
             -1);
     }
 
-#if 0 // Blocking context.
     {
         // =  Ⓔ³ⓓ # 
 
