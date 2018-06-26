@@ -167,7 +167,7 @@ TEST(tailoring, case_level)
         auto const secondary_less =
             case_level_on.compare(text::collation_strength::secondary);
         EXPECT_TRUE(secondary_less(strings[0], strings[1]));
-        EXPECT_TRUE(secondary_less(strings[1], strings[2]));
+        EXPECT_TRUE(secondary_less(strings[1], strings[2])); // TODO
         auto const tertiary_less =
             case_level_on.compare(text::collation_strength::tertiary);
         EXPECT_TRUE(tertiary_less(strings[0], strings[2]));

@@ -501,6 +501,62 @@ namespace boost { namespace text {
             return temp_table.end();
         }
 
+        inline uint8_t increment_l2_byte(uint8_t byte)
+        {
+            if (byte < min_secondary_byte) {
+                return min_secondary_byte;
+            } else {
+                ++byte;
+                if (max_secondary_byte < byte)
+                    return 0;
+                return byte;
+            }
+        }
+
+        inline uint16_t increment_l2(uint16_t l2)
+        {
+            uint8_t bytes[] = {uint8_t(l2 >> 8), uint8_t(l2 & 0xff)};
+
+            bytes[1] = increment_l2_byte(bytes[1]);
+            if (!bytes[1])
+                bytes[0] = increment_l2_byte(bytes[0]);
+
+            return (uint16_t(bytes[0]) << 8) | bytes[1];
+        }
+
+        inline uint8_t increment_l3_byte(uint8_t byte)
+        {
+            if (byte < min_tertiary_byte) {
+                return min_tertiary_byte;
+            } else {
+                ++byte;
+                if (max_tertiary_byte < byte)
+                    return 0;
+                return byte;
+            }
+        }
+
+        inline uint16_t increment_l3(uint16_t l3)
+        {
+            uint8_t const byte_mask = case_level_bits_mask >> 8;
+            uint8_t const byte_disable_mask = disable_case_level_mask >> 8;
+
+            uint8_t bytes[] = {uint8_t(l3 >> 8), uint8_t(l3 & 0xff)};
+            uint8_t const case_masks[] = {uint8_t(bytes[0] & byte_mask),
+                                          uint8_t(bytes[1] & byte_mask)};
+            bytes[0] &= byte_disable_mask;
+            bytes[1] &= byte_disable_mask;
+
+            bytes[1] = increment_l3_byte(bytes[1]);
+            if (!bytes[1])
+                bytes[0] = increment_l3_byte(bytes[0]);
+
+            bytes[0] |= case_masks[0];
+            bytes[1] |= case_masks[1];
+
+            return (uint16_t(bytes[0]) << 8) | bytes[1];
+        }
+
         inline void increment_ce(
             collation_element & ce,
             collation_strength strength,
@@ -516,20 +572,14 @@ namespace boost { namespace text {
                 }
                 break;
             case collation_strength::secondary:
-                if (ce.l2_ & 0xff00)
-                    ce.l2_ += 1;
-                else
-                    ce.l2_ += 0x0100;
+                ce.l2_ = increment_l2(ce.l2_);
                 if (initial_bump) {
                     auto const case_bits = ce.l3_ & case_level_bits_mask;
                     ce.l3_ = common_l3_weight_compressed | case_bits;
                 }
                 break;
             case collation_strength::tertiary:
-                if ((((ce.l3_ & 0x3f00) + 0x0100) & case_level_bits_mask) == 0)
-                    ce.l3_ += 0x0100;
-                else
-                    ++ce.l3_;
+                ce.l3_ = increment_l3(ce.l3_);
                 break;
             case collation_strength::quaternary:
                 ce.l4_ = increment_32_bit(ce.l4_, false);

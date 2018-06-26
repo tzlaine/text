@@ -65,6 +65,13 @@ namespace boost {{ namespace text {{ namespace detail {{
         first_secondary_in_primary = 0x0500,
         last_secondary_in_primary = 0x7c00,
 
+        min_secondary_byte = 0x02,
+        min_tertiary_byte = 0x03,
+        common_secondary_byte = 0x05,
+        common_tertiary_byte = 0x05,
+        max_secondary_byte = 0xfe,
+        max_tertiary_byte = 0xb8,
+
         implicit_weights_spacing_times_ten = {},
         implicit_weights_first_lead_byte = {},
         implicit_weights_final_lead_byte = {}
@@ -312,6 +319,12 @@ def to_ce(groups, cet):
 
     return ce
 
+class extrema:
+    min_secondary = 1000
+    min_tertiary = 1000
+    max_secondary = 0
+    max_tertiary = 0
+
 def get_frac_uca_cet(filename, compressible_lead_bytes = None):
     lines = open(filename, 'r').readlines()
 
@@ -320,6 +333,21 @@ def get_frac_uca_cet(filename, compressible_lead_bytes = None):
     # Those a | b keys go here so they can be processed after the "a" part has
     # been seen.
     deferred = {}
+
+    def get_mins(ces):
+        for ce in ces:
+            for x in ce[1]:
+                if x == '':
+                    continue
+                secondary = int(x, 16)
+                extrema.min_secondary = min(secondary, extrema.min_secondary)
+                extrema.max_secondary = max(secondary, extrema.max_secondary)
+            for x in ce[2]:
+                if x == '':
+                    continue
+                tertiary = int(x, 16)
+                extrema.min_tertiary = min(tertiary, extrema.min_tertiary)
+                extrema.max_tertiary = max(tertiary, extrema.max_tertiary)
 
     original_cet_position = 0
     in_top_bytes = False
@@ -364,11 +392,18 @@ def get_frac_uca_cet(filename, compressible_lead_bytes = None):
                     fffe_placed = True
                 if ces[0][0][0] == '02':
                     continue
+                get_mins(ces)
                 cet[key] = (ces, original_cet_position)
                 original_cet_position += 1
 
     for k,v in deferred.items():
         cet[k] = (cet[(k[0],)][0] + v[0], v[1])
+
+    # TODO: Automate putting these into collation_constants.hpp.
+    #print 'min_secondary=',hex(extrema.min_secondary)
+    #print 'min_tertiary=',hex(extrema.min_tertiary)
+    #print 'max_secondary=',hex(extrema.max_secondary)
+    #print 'max_tertiary=',hex(extrema.max_tertiary)
 
     return cet
 

@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_COLLATE_HPP
 #define BOOST_TEXT_COLLATE_HPP
 
+#include <boost/text/algorithm.hpp>
 #include <boost/text/collation_fwd.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/string.hpp>
@@ -275,8 +276,6 @@ namespace boost { namespace text {
                         if (after_variable)
                             ce.l4_ = 0x0000;
                         else
-                            // TODO: Needs to be the same number of bits set as
-                            // in the L1 initially.
                             ce.l4_ = 0xffffffff;
                     }
                     after_variable = false;
@@ -397,6 +396,134 @@ namespace boost { namespace text {
             }
         }
 
+        using level_sort_key_values_t = container::small_vector<uint32_t, 256>;
+        using level_sort_key_bytes_t = container::small_vector<uint8_t, 1024>;
+
+        // In-place compression of values such that 8-bit byte values are
+        // packed into a 32-bit dwords (e.g. 0x0000XX00, 0x0000YYZZ ->
+        // 0x00XXYYZZ), based on
+        // https://www.unicode.org/reports/tr10/#Reducing_Sort_Key_Lengths
+        // 9.1.3.
+        inline level_sort_key_bytes_t
+        pack_words(level_sort_key_values_t const & values)
+        {
+            level_sort_key_bytes_t retval;
+
+            // We cannot treat the inputs naively as a sequence of bytes,
+            // because we don't know the endianness.
+            for (auto x : values) {
+                uint8_t const bytes[4] = {
+                    uint8_t(x >> 24),
+                    uint8_t((x >> 16) & 0xff),
+                    uint8_t((x >> 8) & 0xff),
+                    uint8_t(x & 0xff),
+                };
+                if (bytes[0])
+                    retval.push_back(bytes[0]);
+                if (bytes[1])
+                    retval.push_back(bytes[1]);
+                if (bytes[2])
+                    retval.push_back(bytes[2]);
+                if (bytes[3])
+                    retval.push_back(bytes[3]);
+            }
+
+            return retval;
+        }
+
+        // In-place run-length encoding, based on
+        // https://www.unicode.org/reports/tr10/#Reducing_Sort_Key_Lengths
+        // 9.1.4.
+        inline void
+        rle(level_sort_key_bytes_t & bytes,
+            uint8_t min_,
+            uint8_t common,
+            uint8_t max_)
+        {
+            uint8_t const min_top = (common - 1) - (min_ - 1);
+            uint8_t const max_bottom = (common + 1) + (0xff - max_);
+            int const bound = (min_top + max_bottom) / 2;
+
+            auto it = bytes.begin();
+            auto const end = bytes.end();
+            auto out = bytes.begin();
+            while (it != end) {
+                if (*it == common) {
+                    auto const last_common = find_not(it, end, common);
+                    auto const size = last_common - it;
+                    if (last_common == end || *last_common < common) {
+                        int const synthetic_low = min_top + size;
+                        if (bound <= synthetic_low) {
+                            auto const max_compressible_copies =
+                                (bound - 1) - min_top;
+                            auto const repetitions =
+                                size / max_compressible_copies;
+                            out = std::fill_n(out, repetitions, bound - 1);
+                            auto const remainder =
+                                size % max_compressible_copies;
+                            if (remainder)
+                                *out++ = min_top + remainder;
+                        } else {
+                            *out++ = synthetic_low;
+                        }
+                    } else {
+                        int const synthetic_high = max_bottom - size;
+                        if (synthetic_high < bound) {
+                            auto const max_compressible_copies =
+                                max_bottom - bound;
+                            auto const repetitions =
+                                size / max_compressible_copies;
+                            out = std::fill_n(out, repetitions, bound);
+                            auto const remainder =
+                                size % max_compressible_copies;
+                            if (remainder)
+                                *out++ = max_bottom - remainder;
+                        } else {
+                            *out++ = synthetic_high;
+                        }
+                    }
+                    it = last_common;
+                } else {
+                    if (min_ <= *it && *it < common)
+                        *out = *it - (min_ - 1);
+                    else if (common < *it && *it <= max_)
+                        *out = *it + 0xff - max_;
+                    else
+                        *out = *it;
+                    ++it;
+                    ++out;
+                }
+            }
+
+            bytes.erase(out, end);
+        }
+
+        inline void pad_words(level_sort_key_bytes_t & bytes)
+        {
+            int remainder = bytes.size() % 4;
+            if (remainder) {
+                remainder = 4 - remainder;
+                bytes.resize(bytes.size() + remainder, 0);
+            }
+        }
+
+        inline void level_bytes_to_values(
+            level_sort_key_bytes_t const & bytes,
+            level_sort_key_values_t & values)
+        {
+            assert(bytes.size() % 4 == 0);
+
+            values.resize(bytes.size() / 4);
+
+            auto out = values.begin();
+            for (auto it = bytes.begin(), end = bytes.end(); it != end;
+                 it += 4) {
+                uint32_t const x = *(it + 0) << 24 | *(it + 1) << 16 |
+                                   *(it + 2) << 8 | *(it + 3) << 0;
+                *out++ = x;
+            }
+        }
+
         // https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Weights
         inline collation_element modify_for_case(
             collation_element ce,
@@ -424,6 +551,8 @@ namespace boost { namespace text {
 
             if (case_lvl == case_level::on) {
                 if (strength == collation_strength::primary) {
+                    // Ensure we use values >= min_secondary_byte.
+                    c += min_secondary_byte - 1;
                     if (!ce.l1_)
                         ce.l2_ = 0;
                     else
@@ -431,6 +560,8 @@ namespace boost { namespace text {
                     ce.l3_ = 0;
                 } else {
                     ce.l4_ = ce.l3_ & disable_case_level_mask;
+                    // Ensure we use values >= min_tertiary_byte.
+                    c += min_tertiary_byte - 1;
                     if (!ce.l1_ && !ce.l2_)
                         ce.l3_ = 0;
                     else
@@ -461,23 +592,12 @@ namespace boost { namespace text {
            int cps_size,
            Container & bytes) -> detail::cp_iter_ret_t<void, CPIter>
         {
-            container::small_vector<uint32_t, 256> l1;
-            container::small_vector<uint32_t, 256> l2;
-            container::small_vector<uint32_t, 256> l3;
-            container::small_vector<uint32_t, 256> l4;
+            level_sort_key_values_t l1;
+            level_sort_key_values_t l2;
+            level_sort_key_values_t l3;
+            level_sort_key_values_t l4;
             // For when case level bumps L4.
-            container::small_vector<uint32_t, 256> l4_overflow;
-#if 0 // Superfluous!  We already reserved 256 elements by using a small_vector.
-            l1.reserve(ces_size);
-            if (collation_strength::primary < strength) {
-                l2.reserve(ces_size);
-                if (collation_strength::secondary < strength) {
-                    l3.reserve(ces_size);
-                    if (collation_strength::tertiary < strength)
-                        l4.reserve(ces_size);
-                }
-            }
-#endif
+            level_sort_key_values_t l4_overflow;
 
             auto const strength_for_copies =
                 case_lvl == case_level::on
@@ -511,10 +631,30 @@ namespace boost { namespace text {
                 return;
             }
 
-            // TODO: Needs to change under certain compression schemes.
+            if (!l2.empty()) {
+                if (l2_order == l2_weight_order::backward)
+                    std::reverse(l2.begin(), l2.end());
+                auto packed_l2 = pack_words(l2);
+                rle(packed_l2,
+                    min_secondary_byte,
+                    common_secondary_byte,
+                    max_secondary_byte);
+                pad_words(packed_l2);
+                level_bytes_to_values(packed_l2, l2);
+                if (!l3.empty()) {
+                    auto packed_l3 = pack_words(l3);
+                    rle(packed_l3,
+                        min_tertiary_byte,
+                        common_tertiary_byte,
+                        max_tertiary_byte);
+                    pad_words(packed_l3);
+                    level_bytes_to_values(packed_l3, l3);
+                }
+            }
+
             int const separators = static_cast<int>(strength_for_copies);
 
-            container::small_vector<uint32_t, 256> nfd;
+            level_sort_key_values_t nfd;
             if (collation_strength::quaternary < strength)
                 normalize_to_nfd(cps_first, cps_last, std::back_inserter(nfd));
 
@@ -543,10 +683,7 @@ namespace boost { namespace text {
             it = std::copy(l1.begin(), l1.end(), it);
             if (collation_strength::primary < strength_for_copies) {
                 *it++ = 0x0000;
-                if (l2_order == l2_weight_order::forward)
-                    it = std::copy(l2.begin(), l2.end(), it);
-                else
-                    it = std::copy(l2.rbegin(), l2.rend(), it);
+                it = std::copy(l2.begin(), l2.end(), it);
                 if (collation_strength::secondary < strength_for_copies) {
                     *it++ = 0x0000;
                     it = std::copy(l3.begin(), l3.end(), it);
