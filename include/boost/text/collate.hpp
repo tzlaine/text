@@ -95,17 +95,16 @@ namespace boost { namespace text {
         {
             if (hangul_syllable(cp)) {
                 auto cps = decompose_hangul_syllable<3>(cp);
-                container::small_vector<collation_element, 1024> ces;
-                s2(cps.begin(),
-                   cps.end(),
-                   ces,
-                   trie,
-                   collation_elements_first,
-                   lead_byte,
-                   strength,
-                   weighting,
-                   retain_case_bits);
-                return std::copy(ces.begin(), ces.end(), out);
+                return s2(
+                    cps.begin(),
+                    cps.end(),
+                    out,
+                    trie,
+                    collation_elements_first,
+                    lead_byte,
+                    strength,
+                    weighting,
+                    retain_case_bits);
             }
 
             // Core Han Unified Ideographs
@@ -222,18 +221,18 @@ namespace boost { namespace text {
         }
 
         // http://www.unicode.org/reports/tr10/#Variable_Weighting
+        template<typename CEIter>
         inline bool s2_3(
-            collation_element * first,
-            collation_element * last,
+            CEIter first,
+            CEIter last,
             collation_strength strength,
             variable_weighting weighting,
             bool after_variable,
             retain_case_bits_t retain_case_bits)
         {
             if (retain_case_bits == retain_case_bits_t::no) {
-                auto it = first;
-                while (it != last) {
-                    auto & ce = *it++;
+                for (auto it = first; it != last; ++it) {
+                    auto & ce = *it;
                     // The top two bits in each byte in FractionalUCA.txt's L3
                     // weights are for the case level.
                     // http://www.unicode.org/reports/tr35/tr35-collation.html#File_Format_FractionalUCA_txt
@@ -261,9 +260,8 @@ namespace boost { namespace text {
             // since that's what CollationTest_SHIFTED.txt expects.
             bool second_of_implicit_weight_pair = false;
 
-            auto it = first;
-            while (it != last) {
-                auto & ce = *it++;
+            for (auto it = first; it != last; ++it) {
+                auto & ce = *it;
                 if (after_variable && ignorable(ce)) {
                     ce.l1_ = 0;
                     ce.l2_ = 0;
@@ -307,19 +305,21 @@ namespace boost { namespace text {
             return after_variable;
         }
 
-        template<typename CPIter, typename LeadByteFunc>
+        template<typename CPIter, typename CPOutIter, typename LeadByteFunc>
         auto
         s2(CPIter first,
            CPIter last,
-           container::small_vector<collation_element, 1024> & ces,
+           CPOutIter out,
            detail::collation_trie_t const & trie,
            collation_element const * collation_elements_first,
            LeadByteFunc const & lead_byte,
            collation_strength strength,
            variable_weighting weighting,
            retain_case_bits_t retain_case_bits)
-            -> detail::cp_iter_ret_t<void, CPIter>
+            -> detail::cp_iter_ret_t<CPOutIter, CPIter>
         {
+            container::small_vector<collation_element, 64> ce_buffer;
+
             bool after_variable = false;
             while (first != last) {
                 // S2.1 Find longest prefix that results in a collation trie
@@ -345,8 +345,7 @@ namespace boost { namespace text {
                         weighting,
                         after_variable,
                         retain_case_bits);
-                    std::copy(
-                        derived_ces, derived_ces_end, std::back_inserter(ces));
+                    out = std::copy(derived_ces, derived_ces_end, out);
                     continue;
                 }
                 first += collation_.size;
@@ -380,20 +379,26 @@ namespace boost { namespace text {
                 auto const collation_it = const_trie_iterator_t(collation_);
 
                 // S2.4
-                ces.insert(
-                    ces.end(),
+                ce_buffer.resize(collation_it->value.size());
+                auto const ce_buffer_first = ce_buffer.begin();
+                auto const ce_buffer_last = std::copy(
                     collation_it->value.begin(collation_elements_first),
-                    collation_it->value.end(collation_elements_first));
+                    collation_it->value.end(collation_elements_first),
+                    ce_buffer_first);
 
                 // S2.3
                 after_variable = s2_3(
-                    &*(ces.end() - collation_it->value.size()),
-                    &*ces.end(),
+                    ce_buffer_first,
+                    ce_buffer_last,
                     strength,
                     weighting,
                     after_variable,
                     retain_case_bits);
+
+                out = std::copy(ce_buffer_first, ce_buffer_last, out);
             }
+
+            return out;
         }
 
         using level_sort_key_values_t = container::small_vector<uint32_t, 256>;
@@ -933,15 +938,14 @@ namespace boost { namespace text { namespace detail {
             }
 
             auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
-            container::small_vector<collation_element, 1024> const temp =
-                table.collation_elements(
-                    buffer.begin(),
-                    s2_it,
-                    strength,
-                    case_1st,
-                    case_lvl,
-                    weighting);
-            ces.insert(ces.end(), temp.begin(), temp.end());
+            table.copy_collation_elements(
+                buffer.begin(),
+                s2_it,
+                std::back_inserter(ces),
+                strength,
+                case_1st,
+                case_lvl,
+                weighting);
             buf_it = std::copy(s2_it, buf_it, buffer.begin());
             first = end_of_raw_input;
         }

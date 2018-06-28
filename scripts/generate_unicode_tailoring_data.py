@@ -412,8 +412,9 @@ TEST(tailoring, {0}_{1}_suppressions_{2})
         container::small_vector<text::detail::collation_element, 1024> ces = {{
             {2}
         }};
-        container::small_vector<text::detail::collation_element, 1024> result =
-            table.collation_elements(cps, cps + {1});
+        container::small_vector<text::detail::collation_element, 1024> result;
+        table.copy_collation_elements(
+            cps, cps + {1}, std::back_inserter(result));
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {{

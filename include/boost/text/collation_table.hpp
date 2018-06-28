@@ -225,32 +225,16 @@ namespace boost { namespace text {
             variable_weighting weighting = variable_weighting::non_ignorable,
             l2_weight_order l2_order = l2_weight_order::forward) const;
 
-        template<typename Iter>
-        container::small_vector<detail::collation_element, 1024>
-        collation_elements(
-            Iter first,
-            Iter last,
+        template<typename CPIter, typename CPOutIter>
+        CPOutIter copy_collation_elements(
+            CPIter first,
+            CPIter last,
+            CPOutIter out,
             collation_strength strength = collation_strength::tertiary,
             case_first case_1st = case_first::off,
             case_level case_lvl = case_level::off,
             variable_weighting weighting =
                 variable_weighting::non_ignorable) const;
-
-        template<typename CPRange>
-        container::small_vector<detail::collation_element, 1024>
-        collation_elements(
-            CPRange & r,
-            collation_strength strength = collation_strength::tertiary,
-            case_first case_1st = case_first::off,
-            case_level case_lvl = case_level::off,
-            variable_weighting weighting =
-                variable_weighting::non_ignorable) const
-        {
-            using std::begin;
-            using std::end;
-            return collation_elements(
-                begin(r), end(r), strength, case_1st, case_lvl, weighting);
-        }
 
         optional<l2_weight_order> l2_order() const noexcept
         {
@@ -1324,11 +1308,11 @@ namespace boost { namespace text {
             *this, strength, case_1st, case_lvl, weighting, l2_order);
     }
 
-    template<typename Iter>
-    container::small_vector<detail::collation_element, 1024>
-    collation_table::collation_elements(
+    template<typename Iter, typename OutIter>
+    OutIter collation_table::copy_collation_elements(
         Iter first,
         Iter last,
+        OutIter out,
         collation_strength strength,
         case_first case_1st,
         case_level case_lvl,
@@ -1344,11 +1328,10 @@ namespace boost { namespace text {
             case_1st != case_first::off || case_lvl != case_level::off
                 ? detail::retain_case_bits_t::yes
                 : detail::retain_case_bits_t::no;
-        container::small_vector<detail::collation_element, 1024> retval;
-        detail::s2(
+        return detail::s2(
             first,
             last,
-            retval,
+            out,
             data_->trie_,
             collation_elements_begin(),
             [&](detail::collation_element ce) {
@@ -1358,7 +1341,6 @@ namespace boost { namespace text {
             strength,
             weighting,
             retain_case_bits);
-        return retval;
     }
 
     template<typename CPRange1, typename CPRange2>
@@ -1666,11 +1648,10 @@ namespace boost { namespace text {
         {
             temp_table_element::ces_t retval;
 
-            container::small_vector<collation_element, 1024> ces;
             detail::s2(
                 cps.begin(),
                 cps.end(),
-                ces,
+                std::back_inserter(retval),
                 table.trie_,
                 table.collation_elements_ ? table.collation_elements_
                                           : &table.collation_element_vec_[0],
@@ -1703,9 +1684,6 @@ namespace boost { namespace text {
             }
             std::cerr << "\n++++++++++\n";
 #endif
-
-            retval.resize(ces.size());
-            std::copy(ces.begin(), ces.end(), retval.begin());
 
             return retval;
         }
