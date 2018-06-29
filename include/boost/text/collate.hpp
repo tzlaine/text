@@ -10,7 +10,6 @@
 
 #include <boost/algorithm/cxx14/mismatch.hpp>
 #include <boost/container/small_vector.hpp>
-#include <boost/container/static_vector.hpp>
 
 #include <vector>
 
@@ -759,7 +758,9 @@ namespace boost { namespace text {
         }
     }
 
-    // TODO: Versions of the functions below that do not assume FCC.
+    // TODO: Versions of the functions below that do not assume FCC?
+
+    // TODO: Sentinels!
 
     /** Returns a collation sort key for the code points in <code>[first,
         last)</code>, using the given collation table.  Any optional settings
