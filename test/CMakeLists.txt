@@ -149,6 +149,7 @@ add_test_executable(tailoring riwords.txt)
 add_test_executable(tailoring_reorderings)
 add_test_executable(tailoring_suppressions)
 add_test_executable(tailoring_data)
+add_test_executable(collation_search)
 
 if (BUILD_COVERAGE AND UNIX)
     if (APPLE)
