@@ -1204,7 +1204,7 @@ namespace std {
             for (auto ce : ces) {
                 retval = combine(
                     retval,
-                    (result_type(ce.l1_) << 32) | (ce.l2_ << 16) | ce.l1_);
+                    (result_type(ce.l1_) << 32) | (ce.l2_ << 16) | ce.l3_);
             }
             return retval;
         }
