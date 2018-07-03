@@ -304,7 +304,11 @@ namespace boost { namespace text {
             return after_variable;
         }
 
-        template<typename CPIter, typename CPOutIter, typename LeadByteFunc>
+        template<
+            typename CPIter,
+            typename CPOutIter,
+            typename LeadByteFunc,
+            typename SizeOutIter = std::ptrdiff_t *>
         auto
         s2(CPIter first,
            CPIter last,
@@ -314,7 +318,8 @@ namespace boost { namespace text {
            LeadByteFunc const & lead_byte,
            collation_strength strength,
            variable_weighting weighting,
-           retain_case_bits_t retain_case_bits)
+           retain_case_bits_t retain_case_bits,
+           SizeOutIter * size_out = nullptr)
             -> detail::cp_iter_ret_t<CPOutIter, CPIter>
         {
             container::small_vector<collation_element, 64> ce_buffer;
@@ -345,6 +350,8 @@ namespace boost { namespace text {
                         after_variable,
                         retain_case_bits);
                     out = std::copy(derived_ces, derived_ces_end, out);
+                    if (size_out)
+                        *(*size_out)++ = 1;
                     continue;
                 }
                 first += collation_.size;
@@ -395,6 +402,8 @@ namespace boost { namespace text {
                     retain_case_bits);
 
                 out = std::copy(ce_buffer_first, ce_buffer_last, out);
+                if (size_out)
+                    *(*size_out)++ = collation_it->value.size();
             }
 
             return out;

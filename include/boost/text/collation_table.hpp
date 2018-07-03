@@ -225,7 +225,10 @@ namespace boost { namespace text {
             variable_weighting weighting = variable_weighting::non_ignorable,
             l2_weight_order l2_order = l2_weight_order::forward) const;
 
-        template<typename CPIter, typename CPOutIter>
+        template<
+            typename CPIter,
+            typename CPOutIter,
+            typename SizeOutIter = std::ptrdiff_t *>
         CPOutIter copy_collation_elements(
             CPIter first,
             CPIter last,
@@ -233,8 +236,8 @@ namespace boost { namespace text {
             collation_strength strength = collation_strength::tertiary,
             case_first case_1st = case_first::off,
             case_level case_lvl = case_level::off,
-            variable_weighting weighting =
-                variable_weighting::non_ignorable) const;
+            variable_weighting weighting = variable_weighting::non_ignorable,
+            SizeOutIter * size_out = nullptr) const;
 
         optional<l2_weight_order> l2_order() const noexcept
         {
@@ -1308,15 +1311,16 @@ namespace boost { namespace text {
             *this, strength, case_1st, case_lvl, weighting, l2_order);
     }
 
-    template<typename Iter, typename OutIter>
-    OutIter collation_table::copy_collation_elements(
-        Iter first,
-        Iter last,
-        OutIter out,
+    template<typename CPIter, typename CPOutIter, typename SizeOutIter>
+    CPOutIter collation_table::copy_collation_elements(
+        CPIter first,
+        CPIter last,
+        CPOutIter out,
         collation_strength strength,
         case_first case_1st,
         case_level case_lvl,
-        variable_weighting weighting) const
+        variable_weighting weighting,
+        SizeOutIter * size_out) const
     {
         if (data_->weighting_)
             weighting = *data_->weighting_;
@@ -1340,7 +1344,8 @@ namespace boost { namespace text {
             },
             strength,
             weighting,
-            retain_case_bits);
+            retain_case_bits,
+            size_out);
     }
 
     template<typename CPRange1, typename CPRange2>
