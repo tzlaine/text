@@ -34,6 +34,12 @@ TEST(collation_search, default_)
 
     {
         auto it = collation_search(
+            str, make_boyer_moore_collation_searcher(substr, default_table));
+        (void)it;
+    }
+
+    {
+        auto it = collation_search(
             str,
             make_boyer_moore_horspool_collation_searcher(
                 substr, default_table));

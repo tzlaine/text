@@ -622,9 +622,11 @@ namespace boost { namespace text {
                                 case_level_,
                                 weighting_);
                         }
+                        if ((std::ptrdiff_t)str_ces.size() <= str_ce_for_skip)
+                            return std::pair<CPIter2, CPIter2>(last, last);
                         pop_front(skips_[str_ces[str_ce_for_skip]]);
                     } else {
-                        if (break_fn_(first, pair.first, last) == pair.first)
+                        if (at_break(pair.first))
                             return std::pair<CPIter2, CPIter2>(it, pair.first);
                         else
                             pop_front(str_ce_sizes.front());
@@ -761,6 +763,316 @@ namespace boost { namespace text {
             weighting);
     }
 
+    /** TODO */
+    template<typename CPIter, typename BreakFunc>
+    struct boyer_moore_collation_searcher
+    {
+        boyer_moore_collation_searcher(
+            CPIter pattern_first,
+            CPIter pattern_last,
+            BreakFunc break_fn,
+            collation_table const & table,
+            collation_strength strength = collation_strength::tertiary,
+            case_first case_1st = case_first::off,
+            case_level case_lvl = case_level::off,
+            variable_weighting weighting = variable_weighting::non_ignorable) :
+            table_(table),
+            strength_(strength),
+            case_first_(case_1st),
+            case_level_(case_lvl),
+            weighting_(weighting),
+            break_fn_(break_fn)
+        {
+            detail::get_search_ces(
+                pattern_first,
+                pattern_last,
+                pattern_last,
+                pattern_ces_,
+                table_,
+                strength_,
+                case_first_,
+                case_level_,
+                weighting_);
+
+            skips_ = detail::search_skip_table(pattern_ces_.size(), -1);
+
+            std::ptrdiff_t i = 0;
+            for (auto ce : pattern_ces_) {
+                skips_.insert(ce, i++);
+            }
+
+            build_suffix_table();
+        }
+
+        template<typename CPIter2>
+        std::pair<CPIter2, CPIter2>
+        operator()(CPIter2 first, CPIter2 last) const
+        {
+            if (first == last || !skips_.empty())
+                return std::pair<CPIter2, CPIter2>(first, first);
+
+            std::deque<detail::collation_element> str_ces;
+            std::deque<int> str_ce_sizes;
+
+            auto it = first;
+
+            auto pop_front = [&str_ces, &str_ce_sizes, &it](int ces) {
+                str_ces.erase(str_ces.begin(), str_ces.begin() + ces);
+                while (0 <= ces) {
+                    ces -= str_ce_sizes.front();
+                    str_ce_sizes.pop_front();
+                    ++it;
+                }
+                str_ces.erase(str_ces.begin(), str_ces.begin() - ces);
+            };
+
+            auto at_break = [first, last, this](CPIter2 it) {
+                return break_fn_(first, it, last) == it;
+            };
+
+            auto const no_match = std::pair<CPIter2, CPIter2>(last, last);
+
+            while (it != last) {
+                if (at_break(it)) {
+                    std::ptrdiff_t const pattern_length = pattern_ces_.size();
+                    std::ptrdiff_t const str_ces_needed_for_search =
+                        pattern_length - (std::ptrdiff_t)str_ces.size();
+                    // We need to have sufficient lookahead (at least
+                    // pattern_length CEs) for the search below to work.
+                    if (0 < str_ces_needed_for_search) {
+                        auto const append_it =
+                            std::next(it, str_ce_sizes.size());
+                        detail::append_search_ces_and_sizes(
+                            append_it,
+                            detail::next_until(
+                                append_it, str_ces_needed_for_search, last),
+                            last,
+                            str_ces,
+                            str_ce_sizes,
+                            table_,
+                            strength_,
+                            case_first_,
+                            case_level_,
+                            weighting_);
+                    }
+                    if ((std::ptrdiff_t)str_ces.size() < pattern_length)
+                        return no_match;
+                    auto const mismatch = std::mismatch(
+                        str_ces.rend() - pattern_length,
+                        str_ces.rend(),
+                        pattern_ces_.rbegin());
+                    if (mismatch.second == pattern_ces_.rend()) {
+                        std::ptrdiff_t remainder = pattern_length;
+                        auto match_end = it;
+                        for (auto size : str_ce_sizes) {
+                            remainder -= size;
+                            if (remainder == 0)
+                                break;
+                            if (remainder < 0) {
+                                match_end = it;
+                                break;
+                            }
+                            ++match_end;
+                        }
+                        if (match_end != it && at_break(match_end))
+                            return std::pair<CPIter2, CPIter2>(it, match_end);
+                        else
+                            pop_front(str_ce_sizes.front());
+                    } else {
+                        auto const skip_lookup = skips_[*mismatch.first];
+                        auto const mismatch_index = str_ces.rend() - mismatch.first;
+                        auto const m = mismatch_index - skip_lookup - 1;
+                        auto const mismatch_suffix = suffixes_[mismatch_index];
+                        if (skip_lookup < mismatch_index &&
+                            mismatch_suffix < m) {
+                            pop_front(m);
+                        } else {
+                            pop_front(mismatch_suffix);
+                        }
+                    }
+                } else {
+                    if (!str_ces.empty())
+                        pop_front(str_ce_sizes.front());
+                    else
+                        ++it;
+                }
+            }
+
+            return no_match;
+        }
+
+    private:
+        using ces_t = container::small_vector<detail::collation_element, 256>;
+        using ces_iter = typename ces_t::iterator;
+
+        template<typename CEIter>
+        std::vector<std::ptrdiff_t> compute_prefixes(CEIter first)
+        {
+            std::vector<std::ptrdiff_t> retval(pattern_ces_.size());
+
+            retval[0] = 0;
+            std::size_t k = 0;
+            for (std::size_t i = 1, end = retval.size(); i < end; ++i) {
+                assert(k < end);
+                while (0 < k && first[k] != first[i]) {
+                    assert(k < end);
+                    k = retval[k - 1];
+                }
+                if (first[k] == first[i])
+                    ++k;
+                retval[i] = k;
+            }
+
+            return retval;
+        }
+
+        void build_suffix_table()
+        {
+            if (pattern_ces_.empty())
+                return;
+
+            std::ptrdiff_t const pattern_size = pattern_ces_.size();
+            suffixes_.resize(pattern_size + 1);
+
+            std::vector<std::ptrdiff_t> const prefixes =
+                compute_prefixes(pattern_ces_.begin());
+            std::vector<std::ptrdiff_t> const prefixes_reversed =
+                compute_prefixes(pattern_ces_.rbegin());
+
+            std::fill(
+                suffixes_.begin(),
+                suffixes_.end(),
+                pattern_size - prefixes[pattern_size - 1]);
+
+            for (std::ptrdiff_t i = 0; i < pattern_size; ++i) {
+                auto const reversed_i = prefixes_reversed[i];
+                auto const j = pattern_size - reversed_i;
+                auto const k = i - reversed_i + 1;
+
+                if (k < suffixes_[j])
+                    suffixes_[j] = k;
+            }
+        }
+
+        collation_table table_;
+        collation_strength strength_;
+        case_first case_first_;
+        case_level case_level_;
+        variable_weighting weighting_;
+        detail::search_skip_table skips_;
+        std::vector<std::ptrdiff_t> suffixes_;
+        ces_t pattern_ces_;
+        BreakFunc break_fn_;
+    };
+
+    /** TODO */
+    template<typename CPIter>
+    boyer_moore_collation_searcher<
+        CPIter,
+        detail::dummy_prev_break<CPIter, CPIter>>
+    make_boyer_moore_collation_searcher(
+        CPIter first,
+        CPIter last,
+        collation_table const & table,
+        collation_strength strength = collation_strength::tertiary,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
+        variable_weighting weighting = variable_weighting::non_ignorable)
+    {
+        return boyer_moore_collation_searcher<
+            CPIter,
+            detail::dummy_prev_break<CPIter, CPIter>>(
+            first,
+            last,
+            detail::dummy_prev_break<CPIter, CPIter>{},
+            table,
+            strength,
+            case_1st,
+            case_lvl,
+            weighting);
+    }
+
+    /** TODO */
+    template<typename CPIter, typename BreakFunc>
+    boyer_moore_collation_searcher<CPIter, BreakFunc>
+    make_boyer_moore_collation_searcher(
+        CPIter first,
+        CPIter last,
+        BreakFunc break_fn,
+        collation_table const & table,
+        collation_strength strength = collation_strength::tertiary,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
+        variable_weighting weighting = variable_weighting::non_ignorable)
+    {
+        return boyer_moore_collation_searcher<CPIter, BreakFunc>(
+            first,
+            last,
+            break_fn,
+            table,
+            strength,
+            case_1st,
+            case_lvl,
+            weighting);
+    }
+
+    /** TODO */
+    template<typename CPRange>
+    auto make_boyer_moore_collation_searcher(
+        CPRange r,
+        collation_table const & table,
+        collation_strength strength = collation_strength::tertiary,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
+        variable_weighting weighting = variable_weighting::non_ignorable)
+        -> boyer_moore_collation_searcher<
+            decltype(std::begin(r)),
+            detail::dummy_prev_break<
+                decltype(std::begin(r)),
+                decltype(std::begin(r))>>
+    {
+        using std::begin;
+        using std::end;
+        using r_iter = decltype(std::begin(r));
+        return boyer_moore_collation_searcher<
+            r_iter,
+            detail::dummy_prev_break<r_iter, r_iter>>(
+            begin(r),
+            end(r),
+            detail::dummy_prev_break<r_iter, r_iter>{},
+            table,
+            strength,
+            case_1st,
+            case_lvl,
+            weighting);
+    }
+
+    /** TODO */
+    template<typename CPRange, typename BreakFunc>
+    auto make_boyer_moore_collation_searcher(
+        CPRange r,
+        BreakFunc break_fn,
+        collation_table const & table,
+        collation_strength strength = collation_strength::tertiary,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
+        variable_weighting weighting = variable_weighting::non_ignorable)
+        -> boyer_moore_collation_searcher<decltype(std::begin(r)), BreakFunc>
+    {
+        using std::begin;
+        using std::end;
+        using r_iter = decltype(std::begin(r));
+        return boyer_moore_collation_searcher<r_iter, BreakFunc>(
+            begin(r),
+            end(r),
+            break_fn,
+            table,
+            strength,
+            case_1st,
+            case_lvl,
+            weighting);
+    }
+
     // Convenience overloads
 
     /** Returns the first occurrence of the subsequence [pattern_first,
@@ -865,6 +1177,8 @@ namespace boost { namespace text {
             weighting);
         return collation_search(begin(str), end(str), s);
     }
+
+    // TODO: Add convenience functions for Boyer-Moore and Boyer-Moore-Horspool.
 
 }}
 
