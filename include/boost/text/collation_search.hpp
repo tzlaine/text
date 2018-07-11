@@ -14,6 +14,9 @@ namespace boost { namespace text {
 
     // TODO: Sentinels!
 
+    // TODO: These must return a range, since it's not obvious where the end of
+    // the match is!
+
     /** TODO */
     template<typename CPIter, typename Searcher>
     CPIter
@@ -176,107 +179,6 @@ namespace boost { namespace text {
                 typename std::iterator_traits<Iter>::iterator_category{});
         }
 
-        enum { search_eos = -1 };
-
-        // Returns a pair, which consists of: a) an iterator to the CP in
-        // [first, last) at which the end of the match is found, or first
-        // otherwise; and b) the index of the first mismatched CE in str_ces.
-        // b) is only relevant if a) is equal to the 'last' parameter.  If a)
-        // is last and b) is search_eos, we're done and the search has failed
-        // to find a match.
-        template<typename CPIter1, std::size_t N>
-        std::pair<CPIter1, std::ptrdiff_t> search_mismatch(
-            CPIter1 first,
-            CPIter1 last,
-            std::deque<collation_element> & str_ces,
-            std::deque<int> & str_ce_sizes,
-            container::small_vector<collation_element, N> const & pattern_ces,
-            collation_table const & table,
-            collation_strength strength,
-            case_first case_1st,
-            case_level case_lvl,
-            variable_weighting weighting)
-        {
-            // TODO: Only return a valid match if the CE we end up on is also
-            // at the end of some CP's CEs.
-
-            auto pattern_ces_it = pattern_ces.begin();
-            auto const pattern_ces_end = pattern_ces.end();
-
-            constexpr int cps_per_append = 16; // TODO: Tune this value?
-
-            auto match = [first, &str_ce_sizes]() {
-                return std::make_pair(std::next(first, str_ce_sizes.size()), 0);
-            };
-            auto mismatch_at =
-                [first, &str_ces](
-                    typename std::deque<collation_element>::iterator at) {
-                    return std::make_pair(first, at - str_ces.begin());
-                };
-
-            auto mismatch = algorithm::mismatch(
-                str_ces.begin(),
-                str_ces.end(),
-                pattern_ces_it,
-                pattern_ces_end);
-
-            // If the entirety of str_ces matches pattern_ces, then keep
-            // looking....
-            if (mismatch.first == str_ces.end()) {
-                // If the match is also at the end of pattern_ces, that's our
-                // full match.
-                if (mismatch.second == pattern_ces_end) {
-                    return match();
-                } else {
-                    // Othwerwise, take CEs a few CPs at a time and see if
-                    // they match.
-                    pattern_ces_it = mismatch.second;
-                    while (pattern_ces_it != pattern_ces_end) {
-                        auto const it = std::next(first, str_ce_sizes.size());
-                        if (it == last)
-                            return std::make_pair(first, search_eos);
-
-                        auto const str_ces_old_size = str_ces.size();
-                        append_search_ces_and_sizes(
-                            it,
-                            next_until(it, cps_per_append, last),
-                            last,
-                            str_ces,
-                            str_ce_sizes,
-                            table,
-                            strength,
-                            case_1st,
-                            case_lvl,
-                            weighting);
-
-                        mismatch = algorithm::mismatch(
-                            str_ces.begin() + str_ces_old_size,
-                            str_ces.begin() + str_ces.size(),
-                            pattern_ces_it,
-                            pattern_ces_end);
-
-                        if (mismatch.first == str_ces.end()) {
-                            if (mismatch.second == pattern_ces_end) {
-                                return match();
-                            } else {
-                                pattern_ces_it = mismatch.second;
-                                continue;
-                            }
-                        } else {
-                            if (mismatch.second == pattern_ces_end)
-                                return match();
-                            else
-                                return mismatch_at(mismatch.first);
-                        }
-                    }
-
-                    return match();
-                }
-            } else {
-                return mismatch_at(mismatch.first);
-            }
-        }
-
         struct search_skip_table
         {
             search_skip_table() : default_() {}
@@ -307,6 +209,217 @@ namespace boost { namespace text {
             std::ptrdiff_t default_;
             map_t map_;
         };
+
+        // O, to have constexpr if!
+        template<
+            typename CPIter,
+            std::size_t N,
+            typename StrCEsIter,
+            typename PatternCEsIter,
+            typename AtBreakFunc,
+            typename PopFrontFunc,
+            typename PopsFunc>
+        std::pair<CPIter, CPIter> search_mismatch_impl(
+            CPIter it,
+            container::small_vector<detail::collation_element, N> const &
+                pattern_ces,
+            std::deque<detail::collation_element> const & str_ces,
+            std::deque<int> const & str_ce_sizes,
+            StrCEsIter str_ces_first,
+            StrCEsIter str_ces_last,
+            PatternCEsIter pattern_ces_first,
+            AtBreakFunc at_break,
+            PopFrontFunc pop_front,
+            PopsFunc pops_on_mismatch)
+        {
+            auto const pattern_length = pattern_ces.size();
+
+            auto const mismatch =
+                std::mismatch(str_ces_first, str_ces_last, pattern_ces_first);
+            if (mismatch.first == str_ces_last) {
+                std::ptrdiff_t remainder = pattern_length;
+                auto match_end = it;
+                for (auto size : str_ce_sizes) {
+                    remainder -= size;
+                    if (remainder == 0)
+                        break;
+                    if (remainder < 0) {
+                        match_end = it;
+                        break;
+                    }
+                    ++match_end;
+                }
+                if (match_end != it && at_break(match_end))
+                    return std::pair<CPIter, CPIter>(it, match_end);
+                else
+                    pop_front(str_ce_sizes.front());
+            } else {
+                auto const ces_to_pop = pops_on_mismatch(mismatch, str_ces);
+                pop_front(ces_to_pop);
+            }
+
+            return std::pair<CPIter, CPIter>(it, it);
+        }
+
+        enum class mismatch_dir { fwd, rev };
+
+        template<mismatch_dir MismatchDir>
+        struct search_mismatch_t
+        {
+            template<
+                typename CPIter,
+                std::size_t N,
+                typename AtBreakFunc,
+                typename PopFrontFunc,
+                typename PopsFunc>
+            std::pair<CPIter, CPIter> operator()(
+                CPIter it,
+                container::small_vector<detail::collation_element, N> const &
+                    pattern_ces,
+                std::deque<detail::collation_element> const & str_ces,
+                std::deque<int> const & str_ce_sizes,
+                AtBreakFunc at_break,
+                PopFrontFunc pop_front,
+                PopsFunc pops_on_mismatch)
+            {
+                return search_mismatch_impl(
+                    it,
+                    pattern_ces,
+                    str_ces,
+                    str_ce_sizes,
+                    str_ces.begin(),
+                    str_ces.begin() + pattern_ces.size(),
+                    pattern_ces.begin(),
+                    at_break,
+                    pop_front,
+                    pops_on_mismatch);
+            }
+        };
+
+        template<>
+        struct search_mismatch_t<mismatch_dir::rev>
+        {
+            template<
+                typename CPIter,
+                std::size_t N,
+                typename AtBreakFunc,
+                typename PopFrontFunc,
+                typename PopsFunc>
+            std::pair<CPIter, CPIter> operator()(
+                CPIter it,
+                container::small_vector<detail::collation_element, N> const &
+                    pattern_ces,
+                std::deque<detail::collation_element> const & str_ces,
+                std::deque<int> const & str_ce_sizes,
+                AtBreakFunc at_break,
+                PopFrontFunc pop_front,
+                PopsFunc pops_on_mismatch)
+            {
+                return search_mismatch_impl(
+                    it,
+                    pattern_ces,
+                    str_ces,
+                    str_ce_sizes,
+                    str_ces.rend() - pattern_ces.size(),
+                    str_ces.rend(),
+                    pattern_ces.rbegin(),
+                    at_break,
+                    pop_front,
+                    pops_on_mismatch);
+            }
+        };
+
+        template<
+            mismatch_dir MismatchDir,
+            typename CPIter,
+            typename BreakFunc,
+            std::size_t N,
+            typename PopsFunc>
+        std::pair<CPIter, CPIter> search_impl(
+            CPIter first,
+            CPIter last,
+            container::small_vector<detail::collation_element, N> const &
+                pattern_ces,
+            BreakFunc break_fn,
+            collation_table const & table,
+            collation_strength strength,
+            case_first case_1st,
+            case_level case_lvl,
+            variable_weighting weighting,
+            PopsFunc pops_on_mismatch)
+        {
+            if (first == last || pattern_ces.empty())
+                return std::pair<CPIter, CPIter>(first, first);
+
+            std::deque<detail::collation_element> str_ces;
+            std::deque<int> str_ce_sizes;
+
+            auto it = first;
+
+            auto pop_front = [&str_ces, &str_ce_sizes, &it](int ces) {
+                str_ces.erase(str_ces.begin(), str_ces.begin() + ces);
+                while (0 <= ces) {
+                    ces -= str_ce_sizes.front();
+                    if (0 <= ces) {
+                        str_ce_sizes.pop_front();
+                        ++it;
+                    }
+                }
+                str_ces.erase(str_ces.begin(), str_ces.begin() - ces);
+            };
+
+            auto at_break = [first, last, break_fn](CPIter it) {
+                return break_fn(first, it, last) == it;
+            };
+
+            auto const no_match = std::pair<CPIter, CPIter>(last, last);
+
+            while (it != last) {
+                if (at_break(it)) {
+                    std::ptrdiff_t const pattern_length = pattern_ces.size();
+                    std::ptrdiff_t const str_ces_needed_for_search =
+                        pattern_length - (std::ptrdiff_t)str_ces.size();
+                    // We need to have sufficient lookahead (at least
+                    // pattern_length CEs) for the search below to work.
+                    if (0 < str_ces_needed_for_search) {
+                        auto const append_it =
+                            std::next(it, str_ce_sizes.size());
+                        detail::append_search_ces_and_sizes(
+                            append_it,
+                            detail::next_until(
+                                append_it, str_ces_needed_for_search, last),
+                            last,
+                            str_ces,
+                            str_ce_sizes,
+                            table,
+                            strength,
+                            case_1st,
+                            case_lvl,
+                            weighting);
+                    }
+                    if ((std::ptrdiff_t)str_ces.size() < pattern_length)
+                        return no_match;
+                    search_mismatch_t<MismatchDir> search_mismatch;
+                    auto const result = search_mismatch(
+                        it,
+                        pattern_ces,
+                        str_ces,
+                        str_ce_sizes,
+                        at_break,
+                        pop_front,
+                        pops_on_mismatch);
+                    if (result.first != result.second)
+                        return result;
+                } else {
+                    if (!str_ces.empty())
+                        pop_front(str_ce_sizes.front());
+                    else
+                        ++it;
+                }
+            }
+
+            return no_match;
+        }
     }
 
     // TODO: Refactor breaking searches to use next_break() like:
@@ -354,46 +467,24 @@ namespace boost { namespace text {
         std::pair<CPIter2, CPIter2>
         operator()(CPIter2 first, CPIter2 last) const
         {
-            if (first == last || pattern_ces_.empty())
-                return std::pair<CPIter2, CPIter2>(first, first);
-
-            std::deque<detail::collation_element> str_ces;
-            std::deque<int> str_ce_sizes;
-
-            auto pop_front = [&str_ces, &str_ce_sizes]() {
-                str_ces.erase(
-                    str_ces.begin(), str_ces.begin() + str_ce_sizes.front());
-                str_ce_sizes.pop_front();
-            };
-
-            auto at_break = [first, last, this](CPIter2 it) {
-                return break_fn_(first, it, last) == it;
-            };
-
-            auto it = first;
-            while (it != last) {
-                if (at_break(it)) {
-                    auto mismatch_it = detail::search_mismatch(
-                                           it,
-                                           last,
-                                           str_ces,
-                                           str_ce_sizes,
-                                           pattern_ces_,
-                                           table_,
-                                           strength_,
-                                           case_first_,
-                                           case_level_,
-                                           weighting_)
-                                           .first;
-                    if (mismatch_it != it && at_break(mismatch_it))
-                        return std::pair<CPIter2, CPIter2>(it, mismatch_it);
-                }
-                if (!str_ces.empty())
-                    pop_front();
-                ++it;
-            }
-
-            return std::pair<CPIter2, CPIter2>(last, last);
+            using mismatch_t = std::pair<
+                std::deque<detail::collation_element>::const_iterator,
+                container::small_vector<detail::collation_element, 256>::
+                    const_iterator>;
+            return detail::search_impl<detail::mismatch_dir::fwd>(
+                first,
+                last,
+                pattern_ces_,
+                break_fn_,
+                table_,
+                strength_,
+                case_first_,
+                case_level_,
+                weighting_,
+                [this](
+                    mismatch_t, std::deque<detail::collation_element> const &) {
+                    return 1;
+                });
         }
 
     private:
@@ -558,88 +649,25 @@ namespace boost { namespace text {
         std::pair<CPIter2, CPIter2>
         operator()(CPIter2 first, CPIter2 last) const
         {
-            if (first == last || !skips_.empty())
-                return std::pair<CPIter2, CPIter2>(first, first);
-
-            std::deque<detail::collation_element> str_ces;
-            std::deque<int> str_ce_sizes;
-
-            auto it = first;
-
-            auto pop_front = [&str_ces, &str_ce_sizes, &it](int ces) {
-                str_ces.erase(str_ces.begin(), str_ces.begin() + ces);
-                while (0 <= ces) {
-                    ces -= str_ce_sizes.front();
-                    str_ce_sizes.pop_front();
-                    ++it;
-                }
-                str_ces.erase(str_ces.begin(), str_ces.begin() - ces);
-            };
-
-            auto at_break = [first, last, this](CPIter2 it) {
-                return break_fn_(first, it, last) == it;
-            };
-
-            while (it != last) {
-                if (at_break(it)) {
-                    auto pair = detail::search_mismatch(
-                        it,
-                        last,
-                        str_ces,
-                        str_ce_sizes,
-                        pattern_ces_,
-                        table_,
-                        strength_,
-                        case_first_,
-                        case_level_,
-                        weighting_);
-                    if (pair.first == it) {
-                        if (pair.second == detail::search_eos)
-                            return std::pair<CPIter2, CPIter2>(last, last);
-                        std::ptrdiff_t const pattern_length =
-                            pattern_ces_.size();
-                        std::ptrdiff_t const str_ce_for_skip =
-                            pair.second + pattern_length - 1;
-                        // We need to have sufficient lookahead (at least
-                        // pattern_length extra CEs) for the skip below to
-                        // work.
-                        if ((std::ptrdiff_t)str_ces.size() < str_ce_for_skip) {
-                            auto const append_it =
-                                std::next(it, str_ce_sizes.size());
-                            detail::append_search_ces_and_sizes(
-                                append_it,
-                                detail::next_until(
-                                    append_it,
-                                    (str_ce_for_skip -
-                                     (std::ptrdiff_t)str_ces.size()),
-                                    last),
-                                last,
-                                str_ces,
-                                str_ce_sizes,
-                                table_,
-                                strength_,
-                                case_first_,
-                                case_level_,
-                                weighting_);
-                        }
-                        if ((std::ptrdiff_t)str_ces.size() <= str_ce_for_skip)
-                            return std::pair<CPIter2, CPIter2>(last, last);
-                        pop_front(skips_[str_ces[str_ce_for_skip]]);
-                    } else {
-                        if (at_break(pair.first))
-                            return std::pair<CPIter2, CPIter2>(it, pair.first);
-                        else
-                            pop_front(str_ce_sizes.front());
-                    }
-                } else {
-                    if (!str_ces.empty())
-                        pop_front(str_ce_sizes.front());
-                    else
-                        ++it;
-                }
-            }
-
-            return std::pair<CPIter2, CPIter2>(last, last);
+            using mismatch_t = std::pair<
+                std::deque<detail::collation_element>::const_iterator,
+                container::small_vector<detail::collation_element, 256>::
+                    const_iterator>;
+            return detail::search_impl<detail::mismatch_dir::fwd>(
+                first,
+                last,
+                pattern_ces_,
+                break_fn_,
+                table_,
+                strength_,
+                case_first_,
+                case_level_,
+                weighting_,
+                [this](
+                    mismatch_t mismatch,
+                    std::deque<detail::collation_element> const & str_ces) {
+                    return skips_[mismatch.first[pattern_ces_.size() - 1]];
+                });
         }
 
     private:
@@ -808,102 +836,37 @@ namespace boost { namespace text {
         std::pair<CPIter2, CPIter2>
         operator()(CPIter2 first, CPIter2 last) const
         {
-            if (first == last || !skips_.empty())
-                return std::pair<CPIter2, CPIter2>(first, first);
-
-            std::deque<detail::collation_element> str_ces;
-            std::deque<int> str_ce_sizes;
-
-            auto it = first;
-
-            auto pop_front = [&str_ces, &str_ce_sizes, &it](int ces) {
-                str_ces.erase(str_ces.begin(), str_ces.begin() + ces);
-                while (0 <= ces) {
-                    ces -= str_ce_sizes.front();
-                    str_ce_sizes.pop_front();
-                    ++it;
-                }
-                str_ces.erase(str_ces.begin(), str_ces.begin() - ces);
-            };
-
-            auto at_break = [first, last, this](CPIter2 it) {
-                return break_fn_(first, it, last) == it;
-            };
-
-            auto const no_match = std::pair<CPIter2, CPIter2>(last, last);
-
-            while (it != last) {
-                if (at_break(it)) {
-                    std::ptrdiff_t const pattern_length = pattern_ces_.size();
-                    std::ptrdiff_t const str_ces_needed_for_search =
-                        pattern_length - (std::ptrdiff_t)str_ces.size();
-                    // We need to have sufficient lookahead (at least
-                    // pattern_length CEs) for the search below to work.
-                    if (0 < str_ces_needed_for_search) {
-                        auto const append_it =
-                            std::next(it, str_ce_sizes.size());
-                        detail::append_search_ces_and_sizes(
-                            append_it,
-                            detail::next_until(
-                                append_it, str_ces_needed_for_search, last),
-                            last,
-                            str_ces,
-                            str_ce_sizes,
-                            table_,
-                            strength_,
-                            case_first_,
-                            case_level_,
-                            weighting_);
-                    }
-                    if ((std::ptrdiff_t)str_ces.size() < pattern_length)
-                        return no_match;
-                    auto const mismatch = std::mismatch(
-                        str_ces.rend() - pattern_length,
-                        str_ces.rend(),
-                        pattern_ces_.rbegin());
-                    if (mismatch.second == pattern_ces_.rend()) {
-                        std::ptrdiff_t remainder = pattern_length;
-                        auto match_end = it;
-                        for (auto size : str_ce_sizes) {
-                            remainder -= size;
-                            if (remainder == 0)
-                                break;
-                            if (remainder < 0) {
-                                match_end = it;
-                                break;
-                            }
-                            ++match_end;
-                        }
-                        if (match_end != it && at_break(match_end))
-                            return std::pair<CPIter2, CPIter2>(it, match_end);
-                        else
-                            pop_front(str_ce_sizes.front());
+            using mismatch_t = std::pair<
+                std::deque<detail::collation_element>::const_reverse_iterator,
+                ces_t::const_reverse_iterator>;
+            return detail::search_impl<detail::mismatch_dir::rev>(
+                first,
+                last,
+                pattern_ces_,
+                break_fn_,
+                table_,
+                strength_,
+                case_first_,
+                case_level_,
+                weighting_,
+                [this](
+                    mismatch_t mismatch,
+                    std::deque<detail::collation_element> const & str_ces) {
+                    auto const skip_lookup = skips_[*mismatch.first];
+                    auto const mismatch_index = str_ces.rend() - mismatch.first;
+                    auto const m = mismatch_index - skip_lookup - 1;
+                    auto const mismatch_suffix = suffixes_[mismatch_index];
+                    if (skip_lookup < mismatch_index && mismatch_suffix < m) {
+                        return m;
                     } else {
-                        auto const skip_lookup = skips_[*mismatch.first];
-                        auto const mismatch_index = str_ces.rend() - mismatch.first;
-                        auto const m = mismatch_index - skip_lookup - 1;
-                        auto const mismatch_suffix = suffixes_[mismatch_index];
-                        if (skip_lookup < mismatch_index &&
-                            mismatch_suffix < m) {
-                            pop_front(m);
-                        } else {
-                            pop_front(mismatch_suffix);
-                        }
+                        return mismatch_suffix;
                     }
-                } else {
-                    if (!str_ces.empty())
-                        pop_front(str_ce_sizes.front());
-                    else
-                        ++it;
-                }
-            }
-
-            return no_match;
+                });
         }
 
     private:
         using ces_t = container::small_vector<detail::collation_element, 256>;
-        using ces_iter = typename ces_t::iterator;
+        using ces_iter = ces_t::iterator;
 
         template<typename CEIter>
         std::vector<std::ptrdiff_t> compute_prefixes(CEIter first)
