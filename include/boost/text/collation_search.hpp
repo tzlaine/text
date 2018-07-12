@@ -14,25 +14,27 @@ namespace boost { namespace text {
 
     // TODO: Sentinels!
 
-    // TODO: These must return a range, since it's not obvious where the end of
-    // the match is!
+    // TODO: Remove all the using std::begin business.  Just use std::begin()
+    // directly.  (This should be done in all files, not just this one.)
 
     /** TODO */
     template<typename CPIter, typename Searcher>
-    CPIter
+    cp_range<CPIter>
     collation_search(CPIter first, CPIter last, Searcher const & searcher)
     {
-        return searcher(first, last).first;
+        auto const pair = searcher(first, last);
+        return cp_range<CPIter>(pair.first, pair.second);
     }
 
     /** TODO */
     template<typename CPRange, typename Searcher>
     auto collation_search(CPRange r, Searcher const & searcher)
-        -> decltype(std::begin(r))
+        -> cp_range<decltype(std::begin(r))>
     {
         using std::begin;
         using std::end;
-        return searcher(begin(r), end(r)).first;
+        auto const pair = searcher(begin(r), end(r));
+        return cp_range<decltype(begin(r))>(pair.first, pair.second);
     }
 
 }}
@@ -1042,7 +1044,7 @@ namespace boost { namespace text {
         pattern_last) in the range [first, last), or a value equal to last if
         no such occurrence is found. */
     template<typename CPIter1, typename CPIter2, typename BreakFunc>
-    CPIter1 collation_search(
+    cp_range<CPIter1> collation_search(
         CPIter1 first,
         CPIter1 last,
         CPIter2 pattern_first,
@@ -1078,7 +1080,7 @@ namespace boost { namespace text {
         case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
-        -> decltype(str.begin())
+        -> cp_range<decltype(std::begin(str))>
     {
         using std::begin;
         using std::end;
@@ -1091,7 +1093,7 @@ namespace boost { namespace text {
         pattern_last) in the range [first, last), or a value equal to last if
         no such occurrence is found. */
     template<typename CPIter1, typename CPIter2>
-    CPIter1 collation_search(
+    cp_range<CPIter1> collation_search(
         CPIter1 first,
         CPIter1 last,
         CPIter2 pattern_first,
@@ -1125,7 +1127,7 @@ namespace boost { namespace text {
         case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
-        -> decltype(std::begin(str))
+        -> cp_range<decltype(std::begin(str))>
     {
         using std::begin;
         using std::end;

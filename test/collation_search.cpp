@@ -20,30 +20,30 @@ TEST(collation_search, default_)
     // TODO: These all crash!
 #if 0
     {
-        auto it = collation_search(str, substr, default_table);
-        (void)it;
+        auto r = collation_search(str, substr, default_table);
+        (void)r;
     }
 #endif
 
 #if 0
     {
-        auto it = collation_search(
+        auto r = collation_search(
             str, make_default_collation_searcher(substr, default_table));
-        (void)it;
+        (void)r;
     }
 
     {
-        auto it = collation_search(
+        auto r = collation_search(
             str, make_boyer_moore_collation_searcher(substr, default_table));
-        (void)it;
+        (void)r;
     }
 
     {
-        auto it = collation_search(
+        auto r = collation_search(
             str,
             make_boyer_moore_horspool_collation_searcher(
                 substr, default_table));
-        (void)it;
+        (void)r;
     }
 #endif
 }
