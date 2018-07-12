@@ -22,8 +22,7 @@ namespace boost { namespace text {
     cp_range<CPIter>
     collation_search(CPIter first, CPIter last, Searcher const & searcher)
     {
-        auto const pair = searcher(first, last);
-        return cp_range<CPIter>(pair.first, pair.second);
+        return searcher(first, last);
     }
 
     /** TODO */
@@ -33,8 +32,7 @@ namespace boost { namespace text {
     {
         using std::begin;
         using std::end;
-        auto const pair = searcher(begin(r), end(r));
-        return cp_range<decltype(begin(r))>(pair.first, pair.second);
+        return searcher(begin(r), end(r));
     }
 
 }}
@@ -221,7 +219,7 @@ namespace boost { namespace text {
             typename AtBreakFunc,
             typename PopFrontFunc,
             typename PopsFunc>
-        std::pair<CPIter, CPIter> search_mismatch_impl(
+        text::cp_range<CPIter> search_mismatch_impl(
             CPIter it,
             container::small_vector<detail::collation_element, N> const &
                 pattern_ces,
@@ -252,7 +250,7 @@ namespace boost { namespace text {
                     ++match_end;
                 }
                 if (match_end != it && at_break(match_end))
-                    return std::pair<CPIter, CPIter>(it, match_end);
+                    return text::cp_range<CPIter>(it, match_end);
                 else
                     pop_front(str_ce_sizes.front());
             } else {
@@ -260,7 +258,7 @@ namespace boost { namespace text {
                 pop_front(ces_to_pop);
             }
 
-            return std::pair<CPIter, CPIter>(it, it);
+            return text::cp_range<CPIter>(it, it);
         }
 
         enum class mismatch_dir { fwd, rev };
@@ -274,7 +272,7 @@ namespace boost { namespace text {
                 typename AtBreakFunc,
                 typename PopFrontFunc,
                 typename PopsFunc>
-            std::pair<CPIter, CPIter> operator()(
+            text::cp_range<CPIter> operator()(
                 CPIter it,
                 container::small_vector<detail::collation_element, N> const &
                     pattern_ces,
@@ -307,7 +305,7 @@ namespace boost { namespace text {
                 typename AtBreakFunc,
                 typename PopFrontFunc,
                 typename PopsFunc>
-            std::pair<CPIter, CPIter> operator()(
+            text::cp_range<CPIter> operator()(
                 CPIter it,
                 container::small_vector<detail::collation_element, N> const &
                     pattern_ces,
@@ -337,7 +335,7 @@ namespace boost { namespace text {
             typename BreakFunc,
             std::size_t N,
             typename PopsFunc>
-        std::pair<CPIter, CPIter> search_impl(
+        text::cp_range<CPIter> search_impl(
             CPIter first,
             CPIter last,
             container::small_vector<detail::collation_element, N> const &
@@ -351,7 +349,7 @@ namespace boost { namespace text {
             PopsFunc pops_on_mismatch)
         {
             if (first == last || pattern_ces.empty())
-                return std::pair<CPIter, CPIter>(first, first);
+                return text::cp_range<CPIter>(first, first);
 
             std::deque<detail::collation_element> str_ces;
             std::deque<int> str_ce_sizes;
@@ -374,7 +372,7 @@ namespace boost { namespace text {
                 return break_fn(first, it, last) == it;
             };
 
-            auto const no_match = std::pair<CPIter, CPIter>(last, last);
+            auto const no_match = text::cp_range<CPIter>(last, last);
 
             while (it != last) {
                 if (at_break(it)) {
@@ -410,7 +408,7 @@ namespace boost { namespace text {
                         at_break,
                         pop_front,
                         pops_on_mismatch);
-                    if (result.first != result.second)
+                    if (!result.empty())
                         return result;
                 } else {
                     if (!str_ces.empty())
@@ -466,8 +464,7 @@ namespace boost { namespace text {
         }
 
         template<typename CPIter2>
-        std::pair<CPIter2, CPIter2>
-        operator()(CPIter2 first, CPIter2 last) const
+        text::cp_range<CPIter2> operator()(CPIter2 first, CPIter2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_iterator,
@@ -648,8 +645,7 @@ namespace boost { namespace text {
         }
 
         template<typename CPIter2>
-        std::pair<CPIter2, CPIter2>
-        operator()(CPIter2 first, CPIter2 last) const
+        text::cp_range<CPIter2> operator()(CPIter2 first, CPIter2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_iterator,
@@ -835,8 +831,7 @@ namespace boost { namespace text {
         }
 
         template<typename CPIter2>
-        std::pair<CPIter2, CPIter2>
-        operator()(CPIter2 first, CPIter2 last) const
+        text::cp_range<CPIter2> operator()(CPIter2 first, CPIter2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_reverse_iterator,
