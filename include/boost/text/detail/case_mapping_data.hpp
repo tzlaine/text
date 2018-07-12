@@ -62,24 +62,37 @@ namespace boost { namespace text { namespace detail {
     BOOST_TEXT_DECL std::vector<uint32_t> make_soft_dotted_cps();
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_cased_cps();
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_case_ignorable_cps();
-    BOOST_TEXT_DECL extern uint32_t const * g_case_cps_first;
-    BOOST_TEXT_DECL extern case_mapping_to const * g_case_mapping_to_first;
+    BOOST_TEXT_DECL extern std::array<uint32_t, 2849> case_cps_array();
+    BOOST_TEXT_DECL extern std::array<case_mapping_to, 2761>
+    case_mapping_to_array();
+
+    inline uint32_t const * case_cps_ptr()
+    {
+        static auto const retval = case_cps_array();
+        return retval.data();
+    }
+
+    inline case_mapping_to const * case_mapping_to_ptr()
+    {
+        static auto const retval = case_mapping_to_array();
+        return retval.data();
+    }
 
     inline case_map_t const & to_lower_map()
     {
-        static case_map_t const retval = make_to_lower_map();
+        static auto const retval = make_to_lower_map();
         return retval;
     }
 
     inline case_map_t const & to_title_map()
     {
-        static case_map_t const retval = make_to_title_map();
+        static auto const retval = make_to_title_map();
         return retval;
     }
 
     inline case_map_t const & to_upper_map()
     {
-        static case_map_t const retval = make_to_upper_map();
+        static auto const retval = make_to_upper_map();
         return retval;
     }
 

@@ -14,6 +14,8 @@ constants_header_form = '''\
 #ifndef BOOST_TEXT_DETAIL_COLLATION_CONSTANTS_HPP
 #define BOOST_TEXT_DETAIL_COLLATION_CONSTANTS_HPP
 
+#include <boost/text/config.hpp>
+
 #include <array>
 
 #include <cstdint>
@@ -89,8 +91,8 @@ namespace boost {{ namespace text {{ namespace detail {{
         uint32_t primary_offset_;
     }};
 
-    extern std::array<implicit_weights_segment, {}>
-        const g_implicit_weights_segments;
+    BOOST_TEXT_DECL extern std::array<implicit_weights_segment, 10>
+    implicit_weights_segments();
 
 }}}}}}
 
@@ -107,21 +109,26 @@ collation_data_0_file_form = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-std::array<implicit_weights_segment, {1}> const g_implicit_weights_segments = {{{{
+std::array<implicit_weights_segment, {1}> implicit_weights_segments()
+{{
+return {{{{
 {0}
 }}}};
+}}
 
-std::array<reorder_group, {3}> const g_reorder_groups = {{{{
+std::array<reorder_group, {3}> reorder_groups_impl()
+{{
+return {{{{
 {2}
 }}}};
+}}
 
-std::array<collation_element, {5}> const g_collation_elements = {{{{
+std::array<collation_element, {5}> collation_elements_impl()
+{{
+return {{{{
 {4}
 }}}};
-
-int const g_num_collation_elements = int(g_collation_elements.size());
-collation_element const * g_collation_elements_first =
-    g_collation_elements.data();
+}}
 
 }}}}}}
 '''
@@ -134,20 +141,21 @@ trie_file_form = '''\
 namespace boost {{ namespace text {{
 
 namespace detail {{
-    namespace {{
-        static constexpr std::array<collation_trie_key<3>, {0}> g_trie_keys = {{{{
+    std::array<collation_trie_key<3>, 38593> trie_keys_impl()
+    {{
+        return {{{{
 {1}
         }}}};
-        static constexpr std::array<collation_elements, {0}> g_trie_values = {{{{
+    }}
+
+    std::array<collation_elements, 38593> trie_values_impl()
+    {{
+        return {{{{
 {2}
         }}}};
     }}
 
-    int const g_num_trie_elements = int(g_trie_keys.size());
-    collation_trie_key<3> const * g_trie_keys_first = &g_trie_keys[0];
-    collation_elements const * g_trie_values_first = &g_trie_values[0];
 }}
-
 }}}}
 '''
 

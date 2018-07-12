@@ -5,8 +5,9 @@
 namespace boost { namespace text {
 
 namespace detail {
-    namespace {
-        static constexpr std::array<collation_trie_key<3>, 38593> g_trie_keys = {{
+    std::array<collation_trie_key<3>, 38593> trie_keys_impl()
+    {
+        return {{
         { collation_trie_key<3>::storage_t{ 0x0 }, 1 },
         { collation_trie_key<3>::storage_t{ 0x1 }, 1 },
         { collation_trie_key<3>::storage_t{ 0x2 }, 1 },
@@ -38602,7 +38603,11 @@ namespace detail {
         { collation_trie_key<3>::storage_t{ 0xffff }, 1 },
 
         }};
-        static constexpr std::array<collation_elements, 38593> g_trie_values = {{
+    }
+
+    std::array<collation_elements, 38593> trie_values_impl()
+    {
+        return {{
         {29, 30},
         {29, 30},
         {29, 30},
@@ -77200,9 +77205,5 @@ namespace detail {
         }};
     }
 
-    int const g_num_trie_elements = int(g_trie_keys.size());
-    collation_trie_key<3> const * g_trie_keys_first = &g_trie_keys[0];
-    collation_elements const * g_trie_values_first = &g_trie_values[0];
 }
-
 }}

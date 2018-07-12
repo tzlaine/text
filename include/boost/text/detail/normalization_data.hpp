@@ -62,16 +62,29 @@ namespace boost { namespace text { namespace detail {
         uint16_t last_;
     };
 
-    BOOST_TEXT_DECL extern uint32_t const * g_all_canonical_decompositions;
-    BOOST_TEXT_DECL extern uint32_t const * g_all_compatible_decompositions;
+    BOOST_TEXT_DECL extern std::array<uint32_t, 3404>
+    all_canonical_decompositions_array();
+    BOOST_TEXT_DECL extern std::array<uint32_t, 8974>
+    all_compatible_decompositions_array();
+
+    inline uint32_t const * all_canonical_decompositions_ptr()
+    {
+        static auto const retval = all_canonical_decompositions_array();
+        return retval.data();
+    }
+
+    inline uint32_t const * all_compatible_decompositions_ptr()
+    {
+        static auto const retval = all_compatible_decompositions_array();
+        return retval.data();
+    }
 
     BOOST_TEXT_DECL std::unordered_map<uint64_t, uint32_t>
     make_composition_map();
 
     inline std::unordered_map<uint64_t, uint32_t> const & composition_map()
     {
-        static std::unordered_map<uint64_t, uint32_t> const retval =
-            make_composition_map();
+        static auto const retval = make_composition_map();
         return retval;
     }
 
@@ -92,8 +105,7 @@ namespace boost { namespace text { namespace detail {
 
     inline std::unordered_map<uint32_t, cp_props> const & cp_props_map()
     {
-        static std::unordered_map<uint32_t, cp_props> const retval =
-            make_cp_props_map();
+        static auto const retval = make_cp_props_map();
         return retval;
     }
 
@@ -141,10 +153,10 @@ namespace boost { namespace text { namespace detail {
             auto const & map = detail::cp_props_map();
             for (auto const & pair : map) {
                 auto const decomp_it =
-                    detail::g_all_canonical_decompositions +
+                    detail::all_canonical_decompositions_ptr() +
                     pair.second.canonical_decomposition_.first_;
                 auto const decomp_end =
-                    detail::g_all_canonical_decompositions +
+                    detail::all_canonical_decompositions_ptr() +
                     pair.second.canonical_decomposition_.last_;
                 if (decomp_it != decomp_end) {
                     retval.insert(
@@ -169,10 +181,10 @@ namespace boost { namespace text { namespace detail {
             auto const & map = detail::cp_props_map();
             for (auto const & pair : map) {
                 auto const decomp_it =
-                    detail::g_all_canonical_decompositions +
+                    detail::all_canonical_decompositions_ptr() +
                     pair.second.canonical_decomposition_.first_;
                 auto const decomp_end =
-                    detail::g_all_canonical_decompositions +
+                    detail::all_canonical_decompositions_ptr() +
                     pair.second.canonical_decomposition_.last_;
                 if (2 <= decomp_end - decomp_it)
                     retval.insert(*std::next(decomp_it));
@@ -209,9 +221,9 @@ namespace boost { namespace text { namespace detail {
             it->second.canonical_decomposition_.last_ -
                 it->second.canonical_decomposition_.first_};
         std::copy(
-            detail::g_all_canonical_decompositions +
+            detail::all_canonical_decompositions_ptr() +
                 it->second.canonical_decomposition_.first_,
-            detail::g_all_canonical_decompositions +
+            detail::all_canonical_decompositions_ptr() +
                 it->second.canonical_decomposition_.last_,
             retval.storage_.begin());
 
@@ -236,9 +248,9 @@ namespace boost { namespace text { namespace detail {
             it->second.compatible_decomposition_.last_ -
                 it->second.compatible_decomposition_.first_};
         std::copy(
-            detail::g_all_compatible_decompositions +
+            detail::all_compatible_decompositions_ptr() +
                 it->second.compatible_decomposition_.first_,
-            detail::g_all_compatible_decompositions +
+            detail::all_compatible_decompositions_ptr() +
                 it->second.compatible_decomposition_.last_,
             retval.storage_.begin());
 

@@ -18,7 +18,7 @@ TEST(collation_search, default_)
     std::array<uint32_t, 4> substr = {{0, 0, 0, 0}};
 
     // TODO: These all crash!
-#if 0
+#if 1
     {
         auto r = collation_search(str, substr, default_table);
         (void)r;

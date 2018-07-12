@@ -207,7 +207,7 @@ namespace boost { namespace text { namespace detail {
                 collation_element_vec[i] = convert(sce);
             }
         } else {
-            collation_elements = g_collation_elements_first;
+            collation_elements = collation_elements_ptr();
         }
     }
 

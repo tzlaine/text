@@ -6,7 +6,9 @@
 
 namespace boost { namespace text { namespace detail {
 
-    std::array<uint32_t, 2849> const g_case_cps = {{
+    std::array<uint32_t, 2849> case_cps_array()
+    {
+return {{
         0x0041,
         0x0041,
         0x02BE,
@@ -2857,8 +2859,11 @@ namespace boost { namespace text { namespace detail {
         0xFF59,
         0xFF5A
     }};
+    }
 
-    std::array<case_mapping_to, 2761> const g_case_mapping_to = {{
+    std::array<case_mapping_to, 2761> case_mapping_to_array()
+    {
+return {{
         { 303, 304, 0 },
         { 1083, 1084, 0 },
         { 1082, 1083, 0 },
@@ -5621,8 +5626,13 @@ namespace boost { namespace text { namespace detail {
         { 2002, 2004, 0 },
         { 2005, 2007, 0 }
     }};
+    }
 
-    std::array<uint32_t, 4105> const g_cased_cps = {{
+    namespace {
+
+    constexpr std::array<uint32_t, 4105> cased_cps()
+    {
+return {{
         0x0041,
         0x42,
         0x43,
@@ -9729,8 +9739,11 @@ namespace boost { namespace text { namespace detail {
         0x1F188,
         0x1F189
     }};
+    }
 
-    std::array<uint32_t, 2314> const g_case_ignorable_cps = {{
+    constexpr std::array<uint32_t, 2314> case_ignorable_cps()
+    {
+return {{
         0x0027,
         0x002E,
         0x003A,
@@ -12046,8 +12059,11 @@ namespace boost { namespace text { namespace detail {
         0xE01EE,
         0xE01EF
     }};
+    }
 
-    std::array<uint32_t, 46> const g_soft_dotted_cps = {{
+    constexpr std::array<uint32_t, 46> soft_dotted_cps()
+    {
+return {{
         0x0069,
         0x6A,
         0x012F,
@@ -12095,8 +12111,11 @@ namespace boost { namespace text { namespace detail {
         0x1D692,
         0x1D693
     }};
+    }
 
-    std::array<case_mapping, 1381> const g_to_lower = {{
+    constexpr std::array<case_mapping, 1381> to_lower_mappings()
+    {
+return {{
         { 0x018B, 0, 1 },
         { 0x0545, 1, 2 },
         { 0x0544, 2, 3 },
@@ -13479,8 +13498,11 @@ namespace boost { namespace text { namespace detail {
         { 0x0052, 1348, 1349 },
         { 0x1EDE, 1349, 1350 }
     }};
+    }
 
-    std::array<case_mapping, 1409> const g_to_title = {{
+    constexpr std::array<case_mapping, 1409> to_title_mappings()
+    {
+return {{
         { 0x1E79, 1350, 1351 },
         { 0x1E73, 1351, 1352 },
         { 0x1E71, 1352, 1353 },
@@ -14891,8 +14913,11 @@ namespace boost { namespace text { namespace detail {
         { 0xABBB, 2703, 2704 },
         { 0xABBA, 2704, 2705 }
     }};
+    }
 
-    std::array<case_mapping, 1405> const g_to_upper = {{
+    constexpr std::array<case_mapping, 1405> to_upper_mappings()
+    {
+return {{
         { 0x1E79, 1350, 1351 },
         { 0x1E73, 1351, 1352 },
         { 0x1E71, 1352, 1353 },
@@ -16299,15 +16324,14 @@ namespace boost { namespace text { namespace detail {
         { 0xABBB, 2703, 2704 },
         { 0xABBA, 2704, 2705 }
     }};
+    }
 
-    uint32_t const * g_case_cps_first = &g_case_cps[0];
-    case_mapping_to const * g_case_mapping_to_first = &g_case_mapping_to[0];
-
+    }
 
     case_map_t make_to_lower_map()
     {
         case_map_t retval;
-        for (auto datum : g_to_lower) {
+        for (auto datum : to_lower_mappings()) {
             retval[datum.from_] =
                 case_elements{datum.first_, datum.last_};
         }
@@ -16317,7 +16341,7 @@ namespace boost { namespace text { namespace detail {
     case_map_t make_to_title_map()
     {
         case_map_t retval;
-        for (auto datum : g_to_title) {
+        for (auto datum : to_title_mappings()) {
             retval[datum.from_] =
                 case_elements{datum.first_, datum.last_};
         }
@@ -16327,7 +16351,7 @@ namespace boost { namespace text { namespace detail {
     case_map_t make_to_upper_map()
     {
         case_map_t retval;
-        for (auto datum : g_to_upper) {
+        for (auto datum : to_upper_mappings()) {
             retval[datum.from_] =
                 case_elements{datum.first_, datum.last_};
         }
@@ -16336,18 +16360,18 @@ namespace boost { namespace text { namespace detail {
 
     std::vector<uint32_t> make_soft_dotted_cps()
     {
-        return std::vector<uint32_t>(g_soft_dotted_cps.begin(), g_soft_dotted_cps.end());
+        return std::vector<uint32_t>(soft_dotted_cps().begin(), soft_dotted_cps().end());
     }
 
     std::unordered_set<uint32_t> make_cased_cps()
     {
-        return std::unordered_set<uint32_t>(g_cased_cps.begin(), g_cased_cps.end());
+        return std::unordered_set<uint32_t>(cased_cps().begin(), cased_cps().end());
     }
 
     std::unordered_set<uint32_t> make_case_ignorable_cps()
     {
         return std::unordered_set<uint32_t>(
-            g_case_ignorable_cps.begin(), g_case_ignorable_cps.end());
+            case_ignorable_cps().begin(), case_ignorable_cps().end());
     }
 
 }}}

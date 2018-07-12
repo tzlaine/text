@@ -7,7 +7,9 @@
 
 namespace boost { namespace text { namespace detail {
 
-std::array<implicit_weights_segment, 10> const g_implicit_weights_segments = {{
+std::array<implicit_weights_segment, 10> implicit_weights_segments()
+{
+return {{
     {0x17000, 0x18b00, 0},
     {0x1b170, 0x1b300, 55296},
     {0x4e00, 0x9feb, 58496},
@@ -20,8 +22,11 @@ std::array<implicit_weights_segment, 10> const g_implicit_weights_segments = {{
     {0x2ceb0, 0x2ebe1, 701896},
 
 }};
+}
 
-std::array<reorder_group, 140> const g_reorder_groups = {{
+std::array<reorder_group, 140> reorder_groups_impl()
+{
+return {{
     { "space", {0x03020200, 0x0500, 0x0500}, {0x05060200, 0x0500, 0x0500}, true, false },
     { "punct", {0x05060200, 0x0500, 0x0500}, {0x0C020200, 0x0500, 0x0500}, true, false },
     { "symbol", {0x0C020200, 0x0500, 0x0500}, {0x0D700200, 0x0500, 0x0500}, true, false },
@@ -164,8 +169,11 @@ std::array<reorder_group, 140> const g_reorder_groups = {{
     { "Hani", {0x7D020200, 0x0500, 0x0500}, {0xe5000000, 0x0500, 0x0500}, true, false },
 
 }};
+}
 
-std::array<collation_element, 39258> const g_collation_elements = {{
+std::array<collation_element, 39258> collation_elements_impl()
+{
+return {{
     {0x0C55C600, 0x0500, 0x0500},
     {0x7C579C00, 0x0500, 0x0500},
     {0x0D37E400, 0x0500, 0x0500},
@@ -39426,9 +39434,6 @@ std::array<collation_element, 39258> const g_collation_elements = {{
     {0x7C5FDE00, 0x0500, 0x0500},
 
 }};
-
-int const g_num_collation_elements = int(g_collation_elements.size());
-collation_element const * g_collation_elements_first =
-    g_collation_elements.data();
+}
 
 }}}

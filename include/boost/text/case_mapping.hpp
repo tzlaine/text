@@ -83,8 +83,9 @@ namespace boost { namespace text {
                         title_state = title_state_t::after;
 
                     case_elements const elements = map_it->second;
-                    auto const elem_first = elements.begin(g_case_mapping_to_first);
-                    auto const elem_last = elements.end(g_case_mapping_to_first);
+                    auto const elem_first =
+                        elements.begin(case_mapping_to_ptr());
+                    auto const elem_last = elements.end(case_mapping_to_ptr());
 
                     auto const all_conditions = std::accumulate(
                         elem_first,
@@ -195,9 +196,9 @@ namespace boost { namespace text {
                         if ((elem_it->conditions_ & conditions) ==
                             elem_it->conditions_) {
                             auto const cp_first =
-                                g_case_cps_first + elem_it->first_;
+                                case_cps_ptr() + elem_it->first_;
                             auto const cp_last =
-                                g_case_cps_first + elem_it->last_;
+                                case_cps_ptr() + elem_it->last_;
                             out = std::copy(cp_first, cp_last, out);
                             it = condition_first;
                             met_conditions = true;

@@ -11,7 +11,9 @@ namespace boost { namespace text { namespace detail {
 
     namespace {
         struct data_t { uint64_t key_; uint32_t value_; };
-        static constexpr std::array<data_t, 940> g_data = {{
+        constexpr std::array<data_t, 940> data()
+        {
+        return {{
     { key(0x3c, 0x338), 0x226e },
     { key(0x3d, 0x338), 0x2260 },
     { key(0x3e, 0x338), 0x226f },
@@ -954,12 +956,13 @@ namespace boost { namespace text { namespace detail {
     { key(0x115b9, 0x115af), 0x115bb },
 
         }};
+        }
     }
 
     std::unordered_map<uint64_t, uint32_t> make_composition_map()
     {
         std::unordered_map<uint64_t, uint32_t> retval;
-        for (auto datum : g_data) {
+        for (auto datum : data()) {
             retval[datum.key_] = datum.value_;
         }
         return retval;

@@ -97,8 +97,19 @@ namespace boost { namespace text { namespace detail {
         return collation_strength::identical;
     }
 
-    BOOST_TEXT_DECL extern int const g_num_collation_elements;
-    BOOST_TEXT_DECL extern collation_element const * g_collation_elements_first;
+    BOOST_TEXT_DECL extern std::array<collation_element, 39258>
+    collation_elements_impl();
+
+    inline std::array<collation_element, 39258> const & collation_elements_()
+    {
+        static auto const retval = collation_elements_impl();
+        return retval;
+    }
+
+    inline collation_element const * collation_elements_ptr()
+    {
+        return &collation_elements_()[0];
+    }
 
     struct collation_elements
     {
@@ -194,10 +205,21 @@ namespace boost { namespace text { namespace detail {
     using trie_iterator_t = collation_trie_t::iterator;
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 
-    BOOST_TEXT_DECL extern int const g_num_trie_elements;
-    BOOST_TEXT_DECL extern collation_trie_key<3> const * g_trie_keys_first;
-    BOOST_TEXT_DECL extern collation_elements const * g_trie_values_first;
-    BOOST_TEXT_DECL extern int const * g_trie_element_original_order_first;
+    BOOST_TEXT_DECL extern std::array<collation_trie_key<3>, 38593>
+    trie_keys_impl();
+    BOOST_TEXT_DECL extern std::array<collation_elements, 38593>
+    trie_values_impl();
+
+    inline std::array<collation_trie_key<3>, 38593> const & trie_keys()
+    {
+        static auto const retval = trie_keys_impl();
+        return retval;
+    }
+    inline std::array<collation_elements, 38593> const & trie_values()
+    {
+        static auto const retval = trie_values_impl();
+        return retval;
+    }
 
     struct reorder_group
     {
@@ -215,7 +237,13 @@ namespace boost { namespace text { namespace detail {
                lhs.compressible_ == rhs.compressible_;
     }
 
-    BOOST_TEXT_DECL extern std::array<reorder_group, 140> const g_reorder_groups;
+    BOOST_TEXT_DECL extern std::array<reorder_group, 140> reorder_groups_impl();
+
+    inline std::array<reorder_group, 140> const & reorder_groups()
+    {
+        static auto const retval = reorder_groups_impl();
+        return retval;
+    }
 
     inline optional<reorder_group> find_reorder_group(string_view name) noexcept
     {
@@ -227,7 +255,7 @@ namespace boost { namespace text { namespace detail {
             name = "Hani";
         if (name == "Hant")
             name = "Hani";
-        for (auto group : g_reorder_groups) {
+        for (auto group : reorder_groups()) {
             if (group.name_ == name)
                 return group;
         }

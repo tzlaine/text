@@ -420,17 +420,17 @@ namespace boost { namespace text { namespace detail {
     inline bool shares_lead_byte(string const & script)
     {
         auto const it = std::find_if(
-            g_reorder_groups.begin(),
-            g_reorder_groups.end(),
+            reorder_groups().begin(),
+            reorder_groups().end(),
             [&](reorder_group group) { return group.name_ == script; });
-        if (it == g_reorder_groups.end())
+        if (it == reorder_groups().end())
             return false;
         auto const lead_byte = it->first_.l1_ & 0xff000000;
-        if (it != g_reorder_groups.begin() &&
+        if (it != reorder_groups().begin() &&
             (std::prev(it)->first_.l1_ & 0xff000000) == lead_byte) {
             return true;
         }
-        if (std::next(it) != g_reorder_groups.end() &&
+        if (std::next(it) != reorder_groups().end() &&
             (std::next(it)->first_.l1_ & 0xff000000) == lead_byte) {
             return true;
         }
@@ -699,7 +699,7 @@ namespace boost { namespace text { namespace detail {
             std::vector<string> reorderings;
             std::vector<reorder_group> final_reorderings;
             auto others_offset = -1;
-            final_reorderings.reserve(g_reorder_groups.size() + 10);
+            final_reorderings.reserve(reorder_groups().size() + 10);
 
             optional<string> str;
             while ((str = next_identifier(it, end))) {
@@ -780,8 +780,8 @@ namespace boost { namespace text { namespace detail {
             };
 
             std::copy_if(
-                g_reorder_groups.begin() + 5,
-                g_reorder_groups.end(),
+                reorder_groups().begin() + 5,
+                reorder_groups().end(),
                 std::inserter(
                     final_reorderings,
                     others_offset < 0
@@ -790,8 +790,8 @@ namespace boost { namespace text { namespace detail {
                 not_in_reorderings);
 
             std::copy_if(
-                g_reorder_groups.begin(),
-                g_reorder_groups.begin() + 5,
+                reorder_groups().begin(),
+                reorder_groups().begin() + 5,
                 std::inserter(final_reorderings, final_reorderings.begin()),
                 [&](reorder_group group) {
                     return std::find(

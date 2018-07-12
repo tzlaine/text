@@ -8,7 +8,9 @@
 
 namespace boost { namespace text { namespace detail {
 
-    std::array<uint32_t, 3404> const g_all_canonical_decompositions_array = {{
+    std::array<uint32_t, 3404> all_canonical_decompositions_array()
+    {
+return {{
     0x41,
     0x300,
     0x41,
@@ -3415,11 +3417,11 @@ namespace boost { namespace text { namespace detail {
     0x2a600,
 
     }};
+    }
 
-    uint32_t const * g_all_canonical_decompositions = 
-        g_all_canonical_decompositions_array.data();
-
-    std::array<uint32_t, 8974> const g_all_compatible_decompositions_array = {{
+    std::array<uint32_t, 8974> all_compatible_decompositions_array()
+    {
+return {{
     0x20,
     0x20,
     0x308,
@@ -12396,13 +12398,13 @@ namespace boost { namespace text { namespace detail {
     0x2a600,
 
     }};
-
-    uint32_t const * g_all_compatible_decompositions = 
-        g_all_compatible_decompositions_array.data();
+    }
 
     namespace {
         struct data_t { uint32_t key_; cp_props value_; };
-        static constexpr std::array<data_t, 17787> g_data = {{
+        constexpr std::array<data_t, 17787> data()
+        {
+        return {{
         { 0xa0, { {0, 0}, {0, 1}, 0, (uint8_t)quick_check::yes, (uint8_t)quick_check::no, (uint8_t)quick_check::yes, (uint8_t)quick_check::no } },
         { 0xa8, { {0, 0}, {1, 3}, 0, (uint8_t)quick_check::yes, (uint8_t)quick_check::no, (uint8_t)quick_check::yes, (uint8_t)quick_check::no } },
         { 0xaa, { {0, 0}, {3, 4}, 0, (uint8_t)quick_check::yes, (uint8_t)quick_check::no, (uint8_t)quick_check::yes, (uint8_t)quick_check::no } },
@@ -30192,12 +30194,13 @@ namespace boost { namespace text { namespace detail {
         { 0x2fa1d, { {3403, 3404}, {8973, 8974}, 0, (uint8_t)quick_check::no, (uint8_t)quick_check::no, (uint8_t)quick_check::no, (uint8_t)quick_check::no } },
 
         }};
+        }
     }
 
     std::unordered_map<uint32_t, cp_props> make_cp_props_map()
     {
         std::unordered_map<uint32_t, cp_props> retval;
-        for (auto datum : g_data) {
+        for (auto datum : data()) {
             retval[datum.key_] = datum.value_;
         }
         return retval;

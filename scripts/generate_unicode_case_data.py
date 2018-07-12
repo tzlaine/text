@@ -30,46 +30,70 @@ case_impl_file_form = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-    std::array<uint32_t, {1}> const g_case_cps = {{{{
+    std::array<uint32_t, {1}> case_cps_array()
+    {{
+return {{{{
         {0}
     }}}};
+    }}
 
-    std::array<case_mapping_to, {3}> const g_case_mapping_to = {{{{
+    std::array<case_mapping_to, {3}> case_mapping_to_array()
+    {{
+return {{{{
         {2}
     }}}};
+    }}
 
-    std::array<uint32_t, {5}> const g_cased_cps = {{{{
+    namespace {{
+
+    constexpr std::array<uint32_t, {5}> cased_cps()
+    {{
+return {{{{
         {4}
     }}}};
+    }}
 
-    std::array<uint32_t, {7}> const g_case_ignorable_cps = {{{{
+    constexpr std::array<uint32_t, {7}> case_ignorable_cps()
+    {{
+return {{{{
         {6}
     }}}};
+    }}
 
-    std::array<uint32_t, {9}> const g_soft_dotted_cps = {{{{
+    constexpr std::array<uint32_t, {9}> soft_dotted_cps()
+    {{
+return {{{{
         {8}
     }}}};
+    }}
 
-    std::array<case_mapping, {11}> const g_to_lower = {{{{
+    constexpr std::array<case_mapping, {11}> to_lower_mappings()
+    {{
+return {{{{
         {10}
     }}}};
+    }}
 
-    std::array<case_mapping, {13}> const g_to_title = {{{{
+    constexpr std::array<case_mapping, {13}> to_title_mappings()
+    {{
+return {{{{
         {12}
     }}}};
+    }}
 
-    std::array<case_mapping, {15}> const g_to_upper = {{{{
+    constexpr std::array<case_mapping, {15}> to_upper_mappings()
+    {{
+return {{{{
         {14}
     }}}};
+    }}
 
-    uint32_t const * g_case_cps_first = &g_case_cps[0];
-    case_mapping_to const * g_case_mapping_to_first = &g_case_mapping_to[0];
-
+    }}
 
     case_map_t make_to_lower_map()
     {{
         case_map_t retval;
-        for (auto datum : g_to_lower) {{
+        for (auto datum : to_lower_mappings()) {{
             retval[datum.from_] =
                 case_elements{{datum.first_, datum.last_}};
         }}
@@ -79,7 +103,7 @@ namespace boost {{ namespace text {{ namespace detail {{
     case_map_t make_to_title_map()
     {{
         case_map_t retval;
-        for (auto datum : g_to_title) {{
+        for (auto datum : to_title_mappings()) {{
             retval[datum.from_] =
                 case_elements{{datum.first_, datum.last_}};
         }}
@@ -89,7 +113,7 @@ namespace boost {{ namespace text {{ namespace detail {{
     case_map_t make_to_upper_map()
     {{
         case_map_t retval;
-        for (auto datum : g_to_upper) {{
+        for (auto datum : to_upper_mappings()) {{
             retval[datum.from_] =
                 case_elements{{datum.first_, datum.last_}};
         }}
@@ -98,18 +122,18 @@ namespace boost {{ namespace text {{ namespace detail {{
 
     std::vector<uint32_t> make_soft_dotted_cps()
     {{
-        return std::vector<uint32_t>(g_soft_dotted_cps.begin(), g_soft_dotted_cps.end());
+        return std::vector<uint32_t>(soft_dotted_cps().begin(), soft_dotted_cps().end());
     }}
 
     std::unordered_set<uint32_t> make_cased_cps()
     {{
-        return std::unordered_set<uint32_t>(g_cased_cps.begin(), g_cased_cps.end());
+        return std::unordered_set<uint32_t>(cased_cps().begin(), cased_cps().end());
     }}
 
     std::unordered_set<uint32_t> make_case_ignorable_cps()
     {{
         return std::unordered_set<uint32_t>(
-            g_case_ignorable_cps.begin(), g_case_ignorable_cps.end());
+            case_ignorable_cps().begin(), case_ignorable_cps().end());
     }}
 
 }}}}}}

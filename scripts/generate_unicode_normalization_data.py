@@ -11,31 +11,34 @@ cp_props_file_form = decls = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-    std::array<uint32_t, {1}> const g_all_canonical_decompositions_array = {{{{
+    std::array<uint32_t, {1}> all_canonical_decompositions_array()
+    {{
+return {{{{
 {0}
     }}}};
+    }}
 
-    uint32_t const * g_all_canonical_decompositions = 
-        g_all_canonical_decompositions_array.data();
-
-    std::array<uint32_t, {3}> const g_all_compatible_decompositions_array = {{{{
+    std::array<uint32_t, {3}> all_compatible_decompositions_array()
+    {{
+return {{{{
 {2}
     }}}};
-
-    uint32_t const * g_all_compatible_decompositions = 
-        g_all_compatible_decompositions_array.data();
+    }}
 
     namespace {{
         struct data_t {{ uint32_t key_; cp_props value_; }};
-        static constexpr std::array<data_t, {5}> g_data = {{{{
+        constexpr std::array<data_t, {5}> data()
+        {{
+        return {{{{
 {4}
         }}}};
+        }}
     }}
 
     std::unordered_map<uint32_t, cp_props> make_cp_props_map()
     {{
         std::unordered_map<uint32_t, cp_props> retval;
-        for (auto datum : g_data) {{
+        for (auto datum : data()) {{
             retval[datum.key_] = datum.value_;
         }}
         return retval;
@@ -58,15 +61,18 @@ namespace boost {{ namespace text {{ namespace detail {{
 
     namespace {{
         struct data_t {{ uint64_t key_; uint32_t value_; }};
-        static constexpr std::array<data_t, {1}> g_data = {{{{
+        constexpr std::array<data_t, {1}> data()
+        {{
+        return {{{{
 {0}
         }}}};
+        }}
     }}
 
     std::unordered_map<uint64_t, uint32_t> make_composition_map()
     {{
         std::unordered_map<uint64_t, uint32_t> retval;
-        for (auto datum : g_data) {{
+        for (auto datum : data()) {{
             retval[datum.key_] = datum.value_;
         }}
         return retval;

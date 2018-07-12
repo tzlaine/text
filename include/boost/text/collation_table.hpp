@@ -44,8 +44,8 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
-        using nonsimple_reorders_t = container::
-            static_vector<nonsimple_script_reorder, g_reorder_groups.size()>;
+        using nonsimple_reorders_t =
+            container::static_vector<nonsimple_script_reorder, 140>;
 
         inline uint32_t lead_byte(
             collation_element cce,
@@ -340,17 +340,17 @@ namespace boost { namespace text {
         inline temp_table_t make_temp_table()
         {
             temp_table_t retval;
-            for (int i = 0, end = g_num_trie_elements; i != end; ++i) {
+            for (int i = 0, end = trie_keys().size(); i != end; ++i) {
                 temp_table_element element;
                 element.cps_.assign(
-                    g_trie_keys_first[i].begin(), g_trie_keys_first[i].end());
+                    trie_keys()[i].begin(), trie_keys()[i].end());
                 element.ces_.assign(
-                    g_trie_values_first[i].begin(g_collation_elements_first),
-                    g_trie_values_first[i].end(g_collation_elements_first));
+                    trie_values()[i].begin(collation_elements_ptr()),
+                    trie_values()[i].end(collation_elements_ptr()));
                 retval = retval.push_back(element);
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
-                if (g_trie_keys_first[i].size_ == 1 &&
-                    *g_trie_keys_first[i].begin() == 0xe5b) {
+                if (trie_keys()[i].size_ == 1 &&
+                    *trie_keys()[i].begin() == 0xe5b) {
                     std::cerr << "========== 0xe5b\n";
                     for (auto ce : element.ces_) {
                         std::cerr << "[" << std::hex << std::setw(8)
@@ -465,14 +465,14 @@ namespace boost { namespace text {
             temp_table_element::ces_t const & ces, temp_table_t & temp_table)
         {
             temp_table_element::ces_t group_first_ces;
-            group_first_ces.push_back(g_reorder_groups[0].first_);
+            group_first_ces.push_back(reorder_groups()[0].first_);
             if (less(ces, group_first_ces)) {
                 return std::lower_bound(
                     temp_table.begin(), temp_table.end(), group_first_ces);
             }
 
             temp_table_element::ces_t group_last_ces;
-            for (auto const & group : g_reorder_groups) {
+            for (auto const & group : reorder_groups()) {
                 group_first_ces.clear();
                 group_first_ces.push_back(group.first_);
                 group_last_ces.clear();
@@ -1248,10 +1248,11 @@ namespace boost { namespace text {
             collation_trie_t retval;
             std::vector<key_and_index_t> key_and_indices;
             {
-                key_and_indices.resize(g_num_trie_elements);
-                for (int i = 0, end = g_num_trie_elements; i < end; ++i) {
+                key_and_indices.resize(trie_keys().size());
+                for (int i = 0, end = (int)key_and_indices.size(); i < end;
+                     ++i) {
                     auto & kai = key_and_indices[i];
-                    auto key = g_trie_keys_first[i];
+                    auto key = trie_keys()[i];
                     std::copy(key.begin(), key.end(), kai.cps_.begin());
                     kai.index_ = i;
                 }
@@ -1259,8 +1260,7 @@ namespace boost { namespace text {
             }
             for (auto kai : key_and_indices) {
                 retval.insert(
-                    g_trie_keys_first[kai.index_],
-                    g_trie_values_first[kai.index_]);
+                    trie_keys()[kai.index_], trie_values()[kai.index_]);
             }
             return retval;
         }
@@ -1271,7 +1271,7 @@ namespace boost { namespace text {
     inline collation_table default_collation_table()
     {
         collation_table retval;
-        retval.data_->collation_elements_ = detail::g_collation_elements_first;
+        retval.data_->collation_elements_ = detail::collation_elements_ptr();
         retval.data_->trie_ = detail::make_default_trie();
         return retval;
     }
@@ -1374,9 +1374,9 @@ namespace boost { namespace text {
         collation_table table;
         table.data_->trie_ = detail::make_default_trie();
         table.data_->collation_element_vec_.assign(
-            detail::g_collation_elements_first,
-            detail::g_collation_elements_first +
-                detail::g_num_collation_elements);
+            detail::collation_elements_ptr(),
+            detail::collation_elements_ptr() +
+                detail::collation_elements_().size());
 
         uint32_t const symbol_lookup[] = {
             detail::initial_first_tertiary_ignorable,
@@ -1399,8 +1399,8 @@ namespace boost { namespace text {
                     symbol_lookup[symbol - detail::first_tertiary_ignorable];
                 auto const elems = table.data_->trie_[detail::cp_rng{cp}];
                 logical_positions[symbol].assign(
-                    elems->begin(detail::g_collation_elements_first),
-                    elems->end(detail::g_collation_elements_first));
+                    elems->begin(detail::collation_elements_ptr()),
+                    elems->end(detail::collation_elements_ptr()));
             };
             lookup_and_assign(detail::first_tertiary_ignorable);
             lookup_and_assign(detail::last_tertiary_ignorable);
@@ -1481,7 +1481,7 @@ namespace boost { namespace text {
             },
             [&](std::vector<detail::reorder_group> const & reorder_groups) {
                 uint32_t curr_reorder_lead_byte =
-                    (detail::g_reorder_groups[0].first_.l1_ & 0xff000000) -
+                    (detail::reorder_groups()[0].first_.l1_ & 0xff000000) -
                     0x01000000;
                 bool prev_group_compressible = false;
                 detail::collation_element prev_group_first = {
