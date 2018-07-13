@@ -97,7 +97,7 @@ namespace boost { namespace text { namespace detail {
         return collation_strength::identical;
     }
 
-    BOOST_TEXT_DECL extern std::array<collation_element, 39258>
+    BOOST_TEXT_DECL extern std::array<collation_element, 39258> const &
     make_collation_elements();
 
     inline std::array<collation_element, 39258> const & collation_elements_()
@@ -205,9 +205,9 @@ namespace boost { namespace text { namespace detail {
     using trie_iterator_t = collation_trie_t::iterator;
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 
-    BOOST_TEXT_DECL extern std::array<collation_trie_key<3>, 38593>
+    BOOST_TEXT_DECL extern std::array<collation_trie_key<3>, 38593> const &
     make_trie_keys();
-    BOOST_TEXT_DECL extern std::array<collation_elements, 38593>
+    BOOST_TEXT_DECL extern std::array<collation_elements, 38593> const &
     make_trie_values();
 
     inline std::array<collation_trie_key<3>, 38593> const & trie_keys()
@@ -237,7 +237,8 @@ namespace boost { namespace text { namespace detail {
                lhs.compressible_ == rhs.compressible_;
     }
 
-    BOOST_TEXT_DECL extern std::array<reorder_group, 140> make_reorder_groups();
+    BOOST_TEXT_DECL extern std::array<reorder_group, 140> const &
+    make_reorder_groups();
 
     inline std::array<reorder_group, 140> const & reorder_groups()
     {

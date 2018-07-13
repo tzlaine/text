@@ -5,9 +5,9 @@
 namespace boost { namespace text {
 
 namespace detail {
-    std::array<collation_trie_key<3>, 38593> make_trie_keys()
+    std::array<collation_trie_key<3>, 38593> const & make_trie_keys()
     {
-        return {{
+        constexpr static std::array<collation_trie_key<3>, 38593> retval = {{
         { collation_trie_key<3>::storage_t{ 0x0 }, 1 },
         { collation_trie_key<3>::storage_t{ 0x1 }, 1 },
         { collation_trie_key<3>::storage_t{ 0x2 }, 1 },
@@ -38603,11 +38603,12 @@ namespace detail {
         { collation_trie_key<3>::storage_t{ 0xffff }, 1 },
 
         }};
+        return retval;
     }
 
-    std::array<collation_elements, 38593> make_trie_values()
+    std::array<collation_elements, 38593> const & make_trie_values()
     {
-        return {{
+        constexpr static std::array<collation_elements, 38593> retval = {{
         {29, 30},
         {29, 30},
         {29, 30},
@@ -77203,6 +77204,7 @@ namespace detail {
         {32669, 32670},
 
         }};
+        return retval;
     }
 
 }

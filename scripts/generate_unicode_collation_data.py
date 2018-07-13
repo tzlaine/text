@@ -111,23 +111,26 @@ namespace boost {{ namespace text {{ namespace detail {{
 
 std::array<implicit_weights_segment, {1}> make_implicit_weights_segments()
 {{
-return {{{{
+constexpr static std::array<implicit_weights_segment, {1}> retval = {{{{
 {0}
 }}}};
+return retval;
 }}
 
-std::array<reorder_group, {3}> make_reorder_groups()
+std::array<reorder_group, {3}> const & make_reorder_groups()
 {{
-return {{{{
+constexpr static std::array<reorder_group, {3}> retval = {{{{
 {2}
 }}}};
+return retval;
 }}
 
-std::array<collation_element, {5}> make_collation_elements()
+std::array<collation_element, {5}> const & make_collation_elements()
 {{
-return {{{{
+constexpr static std::array<collation_element, {5}> retval = {{{{
 {4}
 }}}};
+return retval;
 }}
 
 }}}}}}
@@ -141,18 +144,20 @@ trie_file_form = '''\
 namespace boost {{ namespace text {{
 
 namespace detail {{
-    std::array<collation_trie_key<3>, 38593> make_trie_keys()
+    std::array<collation_trie_key<3>, 38593> const & make_trie_keys()
     {{
-        return {{{{
+        constexpr static std::array<collation_trie_key<3>, 38593> retval = {{{{
 {1}
         }}}};
+        return retval;
     }}
 
-    std::array<collation_elements, 38593> make_trie_values()
+    std::array<collation_elements, 38593> const & make_trie_values()
     {{
-        return {{{{
+        constexpr static std::array<collation_elements, 38593> retval = {{{{
 {2}
         }}}};
+        return retval;
     }}
 
 }}

@@ -9,7 +9,7 @@ namespace boost { namespace text { namespace detail {
 
 std::array<implicit_weights_segment, 10> make_implicit_weights_segments()
 {
-return {{
+constexpr static std::array<implicit_weights_segment, 10> retval = {{
     {0x17000, 0x18b00, 0},
     {0x1b170, 0x1b300, 55296},
     {0x4e00, 0x9feb, 58496},
@@ -22,11 +22,12 @@ return {{
     {0x2ceb0, 0x2ebe1, 701896},
 
 }};
+return retval;
 }
 
-std::array<reorder_group, 140> make_reorder_groups()
+std::array<reorder_group, 140> const & make_reorder_groups()
 {
-return {{
+constexpr static std::array<reorder_group, 140> retval = {{
     { "space", {0x03020200, 0x0500, 0x0500}, {0x05060200, 0x0500, 0x0500}, true, false },
     { "punct", {0x05060200, 0x0500, 0x0500}, {0x0C020200, 0x0500, 0x0500}, true, false },
     { "symbol", {0x0C020200, 0x0500, 0x0500}, {0x0D700200, 0x0500, 0x0500}, true, false },
@@ -169,11 +170,12 @@ return {{
     { "Hani", {0x7D020200, 0x0500, 0x0500}, {0xe5000000, 0x0500, 0x0500}, true, false },
 
 }};
+return retval;
 }
 
-std::array<collation_element, 39258> make_collation_elements()
+std::array<collation_element, 39258> const & make_collation_elements()
 {
-return {{
+constexpr static std::array<collation_element, 39258> retval = {{
     {0x0C55C600, 0x0500, 0x0500},
     {0x7C579C00, 0x0500, 0x0500},
     {0x0D37E400, 0x0500, 0x0500},
@@ -39434,6 +39436,7 @@ return {{
     {0x7C5FDE00, 0x0500, 0x0500},
 
 }};
+return retval;
 }
 
 }}}
