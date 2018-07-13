@@ -30,14 +30,14 @@ case_impl_file_form = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-    std::array<uint32_t, {1}> case_cps_array()
+    std::array<uint32_t, {1}> make_case_cps()
     {{
 return {{{{
         {0}
     }}}};
     }}
 
-    std::array<case_mapping_to, {3}> case_mapping_to_array()
+    std::array<case_mapping_to, {3}> make_case_mapping_to()
     {{
 return {{{{
         {2}

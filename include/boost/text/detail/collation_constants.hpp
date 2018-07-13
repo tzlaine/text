@@ -80,7 +80,7 @@ namespace boost { namespace text { namespace detail {
     };
 
     BOOST_TEXT_DECL extern std::array<implicit_weights_segment, 10>
-    implicit_weights_segments();
+    make_implicit_weights_segments();
 
 }}}
 

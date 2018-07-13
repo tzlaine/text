@@ -92,7 +92,7 @@ namespace boost {{ namespace text {{ namespace detail {{
     }};
 
     BOOST_TEXT_DECL extern std::array<implicit_weights_segment, 10>
-    implicit_weights_segments();
+    make_implicit_weights_segments();
 
 }}}}}}
 
@@ -109,21 +109,21 @@ collation_data_0_file_form = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-std::array<implicit_weights_segment, {1}> implicit_weights_segments()
+std::array<implicit_weights_segment, {1}> make_implicit_weights_segments()
 {{
 return {{{{
 {0}
 }}}};
 }}
 
-std::array<reorder_group, {3}> reorder_groups_impl()
+std::array<reorder_group, {3}> make_reorder_groups()
 {{
 return {{{{
 {2}
 }}}};
 }}
 
-std::array<collation_element, {5}> collation_elements_impl()
+std::array<collation_element, {5}> make_collation_elements()
 {{
 return {{{{
 {4}
@@ -141,14 +141,14 @@ trie_file_form = '''\
 namespace boost {{ namespace text {{
 
 namespace detail {{
-    std::array<collation_trie_key<3>, 38593> trie_keys_impl()
+    std::array<collation_trie_key<3>, 38593> make_trie_keys()
     {{
         return {{{{
 {1}
         }}}};
     }}
 
-    std::array<collation_elements, 38593> trie_values_impl()
+    std::array<collation_elements, 38593> make_trie_values()
     {{
         return {{{{
 {2}

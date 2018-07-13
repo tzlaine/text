@@ -62,19 +62,19 @@ namespace boost { namespace text { namespace detail {
     BOOST_TEXT_DECL std::vector<uint32_t> make_soft_dotted_cps();
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_cased_cps();
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_case_ignorable_cps();
-    BOOST_TEXT_DECL extern std::array<uint32_t, 2849> case_cps_array();
+    BOOST_TEXT_DECL extern std::array<uint32_t, 2849> make_case_cps();
     BOOST_TEXT_DECL extern std::array<case_mapping_to, 2761>
-    case_mapping_to_array();
+    make_case_mapping_to();
 
     inline uint32_t const * case_cps_ptr()
     {
-        static auto const retval = case_cps_array();
+        static auto const retval = make_case_cps();
         return retval.data();
     }
 
     inline case_mapping_to const * case_mapping_to_ptr()
     {
-        static auto const retval = case_mapping_to_array();
+        static auto const retval = make_case_mapping_to();
         return retval.data();
     }
 

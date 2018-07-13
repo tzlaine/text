@@ -8,7 +8,7 @@
 
 namespace boost { namespace text { namespace detail {
 
-    std::array<uint32_t, 3404> all_canonical_decompositions_array()
+    std::array<uint32_t, 3404> make_all_canonical_decompositions()
     {
 return {{
     0x41,
@@ -3419,7 +3419,7 @@ return {{
     }};
     }
 
-    std::array<uint32_t, 8974> all_compatible_decompositions_array()
+    std::array<uint32_t, 8974> make_all_compatible_decompositions()
     {
 return {{
     0x20,

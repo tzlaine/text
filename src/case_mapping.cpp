@@ -6,7 +6,7 @@
 
 namespace boost { namespace text { namespace detail {
 
-    std::array<uint32_t, 2849> case_cps_array()
+    std::array<uint32_t, 2849> make_case_cps()
     {
 return {{
         0x0041,
@@ -2861,7 +2861,7 @@ return {{
     }};
     }
 
-    std::array<case_mapping_to, 2761> case_mapping_to_array()
+    std::array<case_mapping_to, 2761> make_case_mapping_to()
     {
 return {{
         { 303, 304, 0 },

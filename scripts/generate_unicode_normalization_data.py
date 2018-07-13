@@ -11,14 +11,14 @@ cp_props_file_form = decls = '''\
 
 namespace boost {{ namespace text {{ namespace detail {{
 
-    std::array<uint32_t, {1}> all_canonical_decompositions_array()
+    std::array<uint32_t, {1}> make_all_canonical_decompositions()
     {{
 return {{{{
 {0}
     }}}};
     }}
 
-    std::array<uint32_t, {3}> all_compatible_decompositions_array()
+    std::array<uint32_t, {3}> make_all_compatible_decompositions()
     {{
 return {{{{
 {2}

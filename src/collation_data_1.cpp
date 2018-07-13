@@ -5,7 +5,7 @@
 namespace boost { namespace text {
 
 namespace detail {
-    std::array<collation_trie_key<3>, 38593> trie_keys_impl()
+    std::array<collation_trie_key<3>, 38593> make_trie_keys()
     {
         return {{
         { collation_trie_key<3>::storage_t{ 0x0 }, 1 },
@@ -38605,7 +38605,7 @@ namespace detail {
         }};
     }
 
-    std::array<collation_elements, 38593> trie_values_impl()
+    std::array<collation_elements, 38593> make_trie_values()
     {
         return {{
         {29, 30},

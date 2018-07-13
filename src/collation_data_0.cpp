@@ -7,7 +7,7 @@
 
 namespace boost { namespace text { namespace detail {
 
-std::array<implicit_weights_segment, 10> implicit_weights_segments()
+std::array<implicit_weights_segment, 10> make_implicit_weights_segments()
 {
 return {{
     {0x17000, 0x18b00, 0},
@@ -24,7 +24,7 @@ return {{
 }};
 }
 
-std::array<reorder_group, 140> reorder_groups_impl()
+std::array<reorder_group, 140> make_reorder_groups()
 {
 return {{
     { "space", {0x03020200, 0x0500, 0x0500}, {0x05060200, 0x0500, 0x0500}, true, false },
@@ -171,7 +171,7 @@ return {{
 }};
 }
 
-std::array<collation_element, 39258> collation_elements_impl()
+std::array<collation_element, 39258> make_collation_elements()
 {
 return {{
     {0x0C55C600, 0x0500, 0x0500},

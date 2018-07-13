@@ -98,11 +98,11 @@ namespace boost { namespace text { namespace detail {
     }
 
     BOOST_TEXT_DECL extern std::array<collation_element, 39258>
-    collation_elements_impl();
+    make_collation_elements();
 
     inline std::array<collation_element, 39258> const & collation_elements_()
     {
-        static auto const retval = collation_elements_impl();
+        static auto const retval = make_collation_elements();
         return retval;
     }
 
@@ -206,18 +206,18 @@ namespace boost { namespace text { namespace detail {
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 
     BOOST_TEXT_DECL extern std::array<collation_trie_key<3>, 38593>
-    trie_keys_impl();
+    make_trie_keys();
     BOOST_TEXT_DECL extern std::array<collation_elements, 38593>
-    trie_values_impl();
+    make_trie_values();
 
     inline std::array<collation_trie_key<3>, 38593> const & trie_keys()
     {
-        static auto const retval = trie_keys_impl();
+        static auto const retval = make_trie_keys();
         return retval;
     }
     inline std::array<collation_elements, 38593> const & trie_values()
     {
-        static auto const retval = trie_values_impl();
+        static auto const retval = make_trie_values();
         return retval;
     }
 
@@ -237,11 +237,11 @@ namespace boost { namespace text { namespace detail {
                lhs.compressible_ == rhs.compressible_;
     }
 
-    BOOST_TEXT_DECL extern std::array<reorder_group, 140> reorder_groups_impl();
+    BOOST_TEXT_DECL extern std::array<reorder_group, 140> make_reorder_groups();
 
     inline std::array<reorder_group, 140> const & reorder_groups()
     {
-        static auto const retval = reorder_groups_impl();
+        static auto const retval = make_reorder_groups();
         return retval;
     }
 

@@ -157,7 +157,7 @@ namespace boost { namespace text {
 
             double const spacing = implicit_weights_spacing_times_ten / 10.0;
 
-            for (auto seg : implicit_weights_segments()) {
+            for (auto seg : make_implicit_weights_segments()) {
                 if (seg.first_ <= cp && cp < seg.last_) {
                     if (seg.first_ == CJK_Compatibility_Ideographs[0] &&
                         ((cp & ~OR_CJK_Compatibility_Ideographs) ||

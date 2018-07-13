@@ -63,19 +63,19 @@ namespace boost { namespace text { namespace detail {
     };
 
     BOOST_TEXT_DECL extern std::array<uint32_t, 3404>
-    all_canonical_decompositions_array();
+    make_all_canonical_decompositions();
     BOOST_TEXT_DECL extern std::array<uint32_t, 8974>
-    all_compatible_decompositions_array();
+    make_all_compatible_decompositions();
 
     inline uint32_t const * all_canonical_decompositions_ptr()
     {
-        static auto const retval = all_canonical_decompositions_array();
+        static auto const retval = make_all_canonical_decompositions();
         return retval.data();
     }
 
     inline uint32_t const * all_compatible_decompositions_ptr()
     {
-        static auto const retval = all_compatible_decompositions_array();
+        static auto const retval = make_all_compatible_decompositions();
         return retval.data();
     }
 
