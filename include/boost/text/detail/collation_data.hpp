@@ -223,7 +223,9 @@ namespace boost { namespace text { namespace detail {
 
     struct reorder_group
     {
-        string_view name_;
+        // string_view is not constexpr constructible from a string literal in
+        // C++11; C++14 constexpr support is required.
+        char const * name_;
         collation_element first_;
         collation_element last_;
         bool simple_;
@@ -232,7 +234,7 @@ namespace boost { namespace text { namespace detail {
 
     inline bool operator==(reorder_group lhs, reorder_group rhs) noexcept
     {
-        return lhs.name_ == rhs.name_ && lhs.first_ == rhs.first_ &&
+        return !strcmp(lhs.name_, rhs.name_) && lhs.first_ == rhs.first_ &&
                lhs.last_ == rhs.last_ && lhs.simple_ == rhs.simple_ &&
                lhs.compressible_ == rhs.compressible_;
     }
