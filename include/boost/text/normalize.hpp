@@ -59,12 +59,13 @@ namespace boost { namespace text {
 
         template<
             typename Iter,
+            typename Sentinel,
             std::size_t Capacity,
             typename DecomposeFunc,
             typename FlushFunc>
         bool normalize_to_decomposed_impl(
             Iter first,
-            Iter last,
+            Sentinel last,
             container::static_vector<uint32_t, Capacity> & buffer,
             DecomposeFunc && decompose,
             FlushFunc && flush)
@@ -83,9 +84,13 @@ namespace boost { namespace text {
             return true;
         }
 
-        template<typename Iter, typename OutIter, typename DecomposeFunc>
+        template<
+            typename Iter,
+            typename Sentinel,
+            typename OutIter,
+            typename DecomposeFunc>
         OutIter normalize_to_decomposed(
-            Iter first, Iter last, OutIter out, DecomposeFunc && decompose)
+            Iter first, Sentinel last, OutIter out, DecomposeFunc && decompose)
         {
             container::static_vector<uint32_t, 64> buffer;
             using buffer_iterator =
@@ -212,13 +217,14 @@ namespace boost { namespace text {
         template<
             bool DisallowDiscontiguous,
             typename Iter,
+            typename Sentinel,
             std::size_t Capacity,
             typename DecomposeFunc,
             typename QuickCheckFunc,
             typename FlushFunc>
         bool normalize_to_composed_impl(
             Iter first,
-            Iter last,
+            Sentinel last,
             container::static_vector<uint32_t, Capacity> & buffer,
             DecomposeFunc && decompose,
             QuickCheckFunc && quick_check_,
@@ -253,12 +259,13 @@ namespace boost { namespace text {
         template<
             bool DisallowDiscontiguous,
             typename Iter,
+            typename Sentinel,
             typename OutIter,
             typename DecomposeFunc,
             typename QuickCheckFunc>
         OutIter normalize_to_composed(
             Iter first,
-            Iter last,
+            Sentinel last,
             OutIter out,
             DecomposeFunc && decompose,
             QuickCheckFunc && quick_check_)
@@ -297,9 +304,9 @@ namespace boost { namespace text {
 
         // TODO: Experiment with writing out the ccc values for reuse in case
         // the result is not quick_check::yes.
-        template<typename Iter, typename QuickCheckFunc>
+        template<typename Iter, typename Sentinel, typename QuickCheckFunc>
         quick_check normalized_quick_check(
-            Iter first, Iter last, QuickCheckFunc && quick_check_) noexcept
+            Iter first, Sentinel last, QuickCheckFunc && quick_check_) noexcept
         {
             quick_check retval = quick_check::yes;
             int prev_ccc = 0;
@@ -324,10 +331,14 @@ namespace boost { namespace text {
             return retval;
         }
 
-        template<typename Iter, typename DecomposeFunc, typename QuickCheckFunc>
+        template<
+            typename Iter,
+            typename Sentinel,
+            typename DecomposeFunc,
+            typename QuickCheckFunc>
         bool normalized_decomposed(
             Iter first,
-            Iter last,
+            Sentinel last,
             DecomposeFunc && decompose,
             QuickCheckFunc && quick_check_) noexcept
         {
@@ -355,10 +366,14 @@ namespace boost { namespace text {
             return check == quick_check::yes;
         }
 
-        template<typename Iter, typename DecomposeFunc, typename QuickCheckFunc>
+        template<
+            typename Iter,
+            typename Sentinel,
+            typename DecomposeFunc,
+            typename QuickCheckFunc>
         bool normalized_composed(
             Iter first,
-            Iter last,
+            Sentinel last,
             DecomposeFunc && decompose,
             QuickCheckFunc && quick_check_) noexcept
         {
@@ -390,8 +405,8 @@ namespace boost { namespace text {
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
         form NFD to \a out. */
-    template<typename CPIter, typename OutIter>
-    inline auto normalize_to_nfd(CPIter first, CPIter last, OutIter out)
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto normalize_to_nfd(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_decomposed(
@@ -409,8 +424,8 @@ namespace boost { namespace text {
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
         form NFKD to \a out. */
-    template<typename CPIter, typename OutIter>
-    inline auto normalize_to_nfkd(CPIter first, CPIter last, OutIter out)
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto normalize_to_nfkd(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_decomposed(
@@ -428,8 +443,8 @@ namespace boost { namespace text {
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
         form NFC to \a out. */
-    template<typename CPIter, typename OutIter>
-    inline auto normalize_to_nfc(CPIter first, CPIter last, OutIter out)
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto normalize_to_nfc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_composed<false>(
@@ -449,8 +464,8 @@ namespace boost { namespace text {
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
         form NFKC to \a out. */
-    template<typename CPIter, typename OutIter>
-    inline auto normalize_to_nfkc(CPIter first, CPIter last, OutIter out)
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto normalize_to_nfkc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_composed<false>(
@@ -475,8 +490,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given sequence of code points is normalized
         NFD. */
-    template<typename CPIter>
-    auto normalized_nfd(CPIter first, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    auto normalized_nfd(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_decomposed(
@@ -496,8 +511,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given sequence of code points is normalized
         NFKD. */
-    template<typename CPIter>
-    auto normalized_nfkd(CPIter first, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    auto normalized_nfkd(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_decomposed(
@@ -519,8 +534,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given sequence of code points is normalized
         NFC. */
-    template<typename CPIter>
-    auto normalized_nfc(CPIter first, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    auto normalized_nfc(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_composed(
@@ -540,8 +555,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given sequence of code points is normalized
         NFKC. */
-    template<typename CPIter>
-    auto normalized_nfkc(CPIter first, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    auto normalized_nfkc(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_composed(
@@ -563,8 +578,8 @@ namespace boost { namespace text {
 
     /** Returns true iff the given sequence of code points is in an FCD
         form. */
-    template<typename CPIter>
-    auto fcd_form(CPIter first, CPIter last) noexcept
+    template<typename CPIter, typename Sentinel>
+    auto fcd_form(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
         // http://www.unicode.org/notes/tn5/#FCD_Test
@@ -594,8 +609,8 @@ namespace boost { namespace text {
 
         \see https://unicode.org/notes/tn5
     */
-    template<typename CPIter, typename OutIter>
-    inline auto normalize_to_fcc(CPIter first, CPIter last, OutIter out)
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto normalize_to_fcc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_composed<true>(

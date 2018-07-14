@@ -591,7 +591,11 @@ namespace boost { namespace text {
             return ce;
         }
 
-        template<typename CEIter, typename CPIter, typename Container>
+        template<
+            typename CEIter,
+            typename CPIter,
+            typename Sentinel,
+            typename Container>
         auto
         s3(CEIter ces_first,
            CEIter ces_last,
@@ -601,7 +605,7 @@ namespace boost { namespace text {
            case_level case_lvl,
            l2_weight_order l2_order,
            CPIter cps_first,
-           CPIter cps_last,
+           Sentinel cps_last,
            int cps_size,
            Container & bytes) -> detail::cp_iter_ret_t<void, CPIter>
         {
@@ -719,10 +723,10 @@ namespace boost { namespace text {
             assert(it == bytes.end());
         }
 
-        template<typename CPIter>
+        template<typename CPIter, typename Sentinel>
         auto collation_sort_key(
             CPIter first,
-            CPIter last,
+            Sentinel last,
             collation_strength strength,
             case_first case_1st,
             case_level case_lvl,
@@ -731,12 +735,16 @@ namespace boost { namespace text {
             collation_table const & table)
             -> detail::cp_iter_ret_t<text_sort_key, CPIter>;
 
-        template<typename CPIter1, typename CPIter2>
+        template<
+            typename CPIter1,
+            typename Sentinel1,
+            typename CPIter2,
+            typename Sentinel2>
         auto collate(
             CPIter1 lhs_first,
-            CPIter1 lhs_last,
+            Sentinel1 lhs_last,
             CPIter2 rhs_first,
-            CPIter2 rhs_last,
+            Sentinel2 rhs_last,
             collation_strength strength,
             case_first case_1st,
             case_level case_lvl,
@@ -767,18 +775,16 @@ namespace boost { namespace text {
         }
     }
 
-    // TODO: Versions of the functions below that do not assume FCC?
-
-    // TODO: Sentinels!
+    // TODO: Document that these functions all assume FCC.
 
     /** Returns a collation sort key for the code points in <code>[first,
         last)</code>, using the given collation table.  Any optional settings
         such as case_first will be honored, so long as they do not conlfict
         with the settings on the given table. */
-    template<typename CPIter>
+    template<typename CPIter, typename Sentinel>
     auto collation_sort_key(
         CPIter first,
-        CPIter last,
+        Sentinel last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
@@ -829,12 +835,16 @@ namespace boost { namespace text {
         <code>[rhs_first, rhs_last)</code>, respectively.  Any optional
         settings such as case_first will be honored, so long as they do not
         conlfict with the settings on the given table. */
-    template<typename CPIter1, typename CPIter2>
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
     auto collate(
         CPIter1 lhs_first,
-        CPIter1 lhs_last,
+        Sentinel1 lhs_last,
         CPIter2 rhs_first,
-        CPIter2 rhs_last,
+        Sentinel2 rhs_last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
@@ -890,10 +900,10 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { namespace detail {
 
-    template<typename CPIter>
+    template<typename CPIter, typename Sentinel>
     auto collation_sort_key(
         CPIter first,
-        CPIter last,
+        Sentinel last,
         collation_strength strength,
         case_first case_1st,
         case_level case_lvl,

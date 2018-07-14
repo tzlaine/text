@@ -1,4 +1,5 @@
 #include <boost/text/segmented_vector.hpp>
+#include <boost/text/utf8.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 
@@ -231,5 +232,29 @@ TEST(segmented_vector, test_replace)
             t.replace(t.begin() + i, t.begin() + j, ct.begin(), ct.end());
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j;
         }
+    }
+}
+
+TEST(segmented_vector, test_sentinel_api)
+{
+    {
+        char const * chars = "chars";
+        text::segmented_vector<char> v(chars, text::utf8::null_sentinel{});
+        EXPECT_TRUE(algorithm::equal(
+            chars, chars + std::strlen(chars), v.begin(), v.end()));
+    }
+    {
+        char const * chars = "chars";
+        text::segmented_vector<char> v;
+        v.insert(v.end(), chars, text::utf8::null_sentinel{});
+        EXPECT_TRUE(algorithm::equal(
+            chars, chars + std::strlen(chars), v.begin(), v.end()));
+    }
+    {
+        char const * chars = "chars";
+        text::segmented_vector<char> v;
+        v.replace(v.begin(), v.end(), chars, text::utf8::null_sentinel{});
+        EXPECT_TRUE(algorithm::equal(
+            chars, chars + std::strlen(chars), v.begin(), v.end()));
     }
 }

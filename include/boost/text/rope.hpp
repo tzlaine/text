@@ -79,8 +79,8 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
-        template<typename CharIter>
-        rope(CharIter first, Iter Charlast);
+        template<typename CharIter, typename Sentinel>
+        rope(CharIter first, Sentinel last);
 
 #else
 
@@ -88,10 +88,10 @@ namespace boost { namespace text {
         explicit rope(
             CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0);
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         rope(
             CharIter first,
-            CharIter last,
+            Sentinel last,
             detail::char_iter_ret_t<void *, CharIter> = 0);
 
 #endif
@@ -196,8 +196,8 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
-        template<typename CharIter>
-        const_iterator insert(const_iterator at, CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        const_iterator insert(const_iterator at, CharIter first, Sentinel last);
 
 #else
 
@@ -205,8 +205,8 @@ namespace boost { namespace text {
         auto insert(const_iterator at, CharRange const & r)
             -> detail::rng_alg_ret_t<const_iterator, CharRange>;
 
-        template<typename CharIter>
-        auto insert(const_iterator at, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto insert(const_iterator at, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<const_iterator, CharIter>;
 
 #endif
@@ -269,8 +269,8 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        template<typename CharIter>
-        rope & replace(rope_view old_substr, CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        rope & replace(rope_view old_substr, CharIter first, Sentinel last);
 
 #else
 
@@ -278,8 +278,8 @@ namespace boost { namespace text {
         auto replace(rope_view old_substr, CharRange const & r)
             -> detail::rng_alg_ret_t<rope &, CharRange>;
 
-        template<typename CharIter>
-        auto replace(rope_view old_substr, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto replace(rope_view old_substr, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<rope &, CharIter>;
 
 #endif
@@ -418,10 +418,10 @@ namespace boost { namespace text {
         rope_(text(r).extract())
     {}
 
-    template<typename CharIter>
+    template<typename CharIter, typename Sentinel>
     rope::rope(
         CharIter first,
-        CharIter last,
+        Sentinel last,
         detail::char_iter_ret_t<void *, CharIter>) :
         rope_(text(first, last).extract())
     {}
@@ -563,8 +563,8 @@ namespace boost { namespace text {
         return insert_impl(at, string(r), false);
     }
 
-    template<typename CharIter>
-    auto rope::insert(const_iterator at, CharIter first, CharIter last)
+    template<typename CharIter, typename Sentinel>
+    auto rope::insert(const_iterator at, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<rope::const_iterator, CharIter>
     {
         return insert_impl(at, string(first, last), false);
@@ -643,8 +643,8 @@ namespace boost { namespace text {
         return *this;
     }
 
-    template<typename CharIter>
-    auto rope::replace(rope_view old_substr, CharIter first, CharIter last)
+    template<typename CharIter, typename Sentinel>
+    auto rope::replace(rope_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<rope &, CharIter>
     {
         return replace_impl(old_substr, string(first, last), false);

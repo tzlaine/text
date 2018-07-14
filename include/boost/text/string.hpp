@@ -70,8 +70,8 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if
             CharIter models the CharIter concept. */
-        template<typename CharIter>
-        string(CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        string(CharIter first, Sentinel last);
 
         /** Constructs a string from a range of graphemes over an underlying
             range of char.
@@ -93,10 +93,10 @@ namespace boost { namespace text {
             insert(0, r);
         }
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         string(
             CharIter first,
-            CharIter last,
+            Sentinel last,
             detail::char_iter_ret_t<void *, CharIter> = 0) :
             storage_(),
             size_(0),
@@ -325,16 +325,16 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
-        template<typename CharIter>
-        string & insert(int at, CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        string & insert(int at, CharIter first, Sentinel last);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
 
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
-        template<typename CharIter>
-        iterator insert(iterator at, CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        iterator insert(iterator at, CharIter first, Sentinel last);
 
         /** Inserts the underlying range of char from the given range of
             graphemes into *this starting at offset at.
@@ -362,8 +362,8 @@ namespace boost { namespace text {
         auto insert(iterator at, CharRange const & r)
             -> detail::rng_alg_ret_t<iterator, CharRange>;
 
-        template<typename CharIter>
-        auto insert(int at, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto insert(int at, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<string &, CharIter>
         {
             assert(0 <= at && at <= size_);
@@ -376,8 +376,8 @@ namespace boost { namespace text {
             return *this;
         }
 
-        template<typename CharIter>
-        auto insert(iterator at, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto insert(iterator at, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<iterator, CharIter>
         {
             assert(begin() <= at && at <= end());
@@ -456,8 +456,8 @@ namespace boost { namespace text {
 
             \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
             old_substr.end()) */
-        template<typename CharIter>
-        string & replace(string_view old_substr, CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        string & replace(string_view old_substr, CharIter first, Sentinel last);
 
         /** Replaces the portion of *this delimited by [old_first, old_last)
             with the char sequence [new_first, new_last).
@@ -466,12 +466,12 @@ namespace boost { namespace text {
             models the CharIter concept.
 
            \pre old_first <= old_last */
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         string & replace(
             iterator old_first,
             iterator old_last,
             CharIter new_first,
-            CharIter new_last);
+            Sentinel new_last);
 
 #else
 
@@ -479,16 +479,16 @@ namespace boost { namespace text {
         auto replace(string_view old_substr, CharRange const & r)
             -> detail::rng_alg_ret_t<string &, CharRange>;
 
-        template<typename CharIter>
-        auto replace(string_view old_substr, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto replace(string_view old_substr, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<string &, CharIter>;
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         auto replace(
             iterator old_first,
             iterator old_last,
             CharIter new_first,
-            CharIter new_last) -> detail::char_iter_ret_t<string &, CharIter>
+            Sentinel new_last) -> detail::char_iter_ret_t<string &, CharIter>
         {
             assert(begin() <= old_first && old_last <= end());
             assert(old_first <= old_last);
@@ -707,8 +707,8 @@ namespace boost { namespace text {
             ++size_;
         }
 
-        template<typename CharIter>
-        auto insert_iter_impl(int at, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto insert_iter_impl(int at, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<iterator, CharIter>
         {
             auto const initial_size = size_;
@@ -735,9 +735,9 @@ namespace boost { namespace text {
             CharIter it_;
         };
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         buf_ptr_iterator<CharIter>
-        fill_buf(char * buf, int size, CharIter first, CharIter last)
+        fill_buf(char * buf, int size, CharIter first, Sentinel last)
         {
             char * const buf_end = buf + size;
             while (first != last && buf != buf_end) {
@@ -758,13 +758,13 @@ namespace boost { namespace text {
             return it;
         }
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         int read_iters(
             char * buf,
             int size,
             std::list<heap_t> & bufs,
             CharIter first,
-            CharIter last)
+            Sentinel last)
         {
             buf_ptr_iterator<CharIter> buf_first =
                 fill_buf(buf, size, first, last);
@@ -1270,8 +1270,8 @@ namespace boost { namespace text {
         return replace(old_substr, std::begin(r), std::end(r));
     }
 
-    template<typename CharIter>
-    auto string::replace(string_view old_substr, CharIter first, CharIter last)
+    template<typename CharIter, typename Sentinel>
+    auto string::replace(string_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<string &, CharIter>
     {
         assert(0 <= old_substr.size());

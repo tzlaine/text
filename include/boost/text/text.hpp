@@ -84,7 +84,7 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         text(CharIter first, Iter Charlast);
 
         /** Constructs a text from a range of graphemes over an underlying
@@ -101,10 +101,10 @@ namespace boost { namespace text {
         explicit text(
             CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0);
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         text(
             CharIter first,
-            CharIter last,
+            Sentinel last,
             detail::char_iter_ret_t<void *, CharIter> = 0);
 
         template<typename GraphemeRange>
@@ -256,8 +256,8 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
-        template<typename CharIter>
-        iterator insert(iterator at, CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        iterator insert(iterator at, CharIter first, Sentinel last);
 
 #else
 
@@ -265,8 +265,8 @@ namespace boost { namespace text {
         auto insert(iterator at, CharRange const & r)
             -> detail::rng_alg_ret_t<iterator, CharRange>;
 
-        template<typename CharIter>
-        auto insert(iterator at, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto insert(iterator at, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<iterator, CharIter>;
 
 #endif
@@ -353,8 +353,8 @@ namespace boost { namespace text {
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        template<typename CharIter>
-        text & replace(text_view old_substr, CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        text & replace(text_view old_substr, CharIter first, Sentinel last);
 
 #else
 
@@ -362,8 +362,8 @@ namespace boost { namespace text {
         auto replace(text_view old_substr, CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
-        template<typename CharIter>
-        auto replace(text_view old_substr, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto replace(text_view old_substr, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<text &, CharIter>;
 
 #endif
@@ -464,19 +464,19 @@ namespace boost { namespace text {
         // https://www.unicode.org/reports/tr15/#Concatenation
         void normalize_subrange(int from_near_offset, int to_near_offset);
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         iterator insert_impl(
             iterator at,
             CharIter first,
-            CharIter last,
+            Sentinel last,
             bool first_last_normalized);
         iterator insert_impl(iterator at, string_view sv, bool sv_normalized);
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         text & replace_impl(
             text_view old_substr,
             CharIter first,
-            CharIter last,
+            Sentinel last,
             bool first_last_normalized);
         text & replace_impl(
             text_view old_substr,
@@ -582,10 +582,10 @@ namespace boost { namespace text {
         normalize_to_fcc(str_);
     }
 
-    template<typename CharIter>
+    template<typename CharIter, typename Sentinel>
     text::text(
         CharIter first,
-        CharIter last,
+        Sentinel last,
         detail::char_iter_ret_t<void *, CharIter>) :
         str_(first, last)
     {
@@ -659,8 +659,8 @@ namespace boost { namespace text {
         return insert(at, std::begin(r), std::end(r));
     }
 
-    template<typename CharIter>
-    auto text::insert(iterator at, CharIter first, CharIter last)
+    template<typename CharIter, typename Sentinel>
+    auto text::insert(iterator at, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<iterator, CharIter>
     {
         return insert_impl(at, first, last, false);
@@ -749,8 +749,8 @@ namespace boost { namespace text {
         return replace(old_substr, std::begin(r), std::end(r));
     }
 
-    template<typename CharIter>
-    auto text::replace(text_view old_substr, CharIter first, CharIter last)
+    template<typename CharIter, typename Sentinel>
+    auto text::replace(text_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<text &, CharIter>
     {
         return replace_impl(old_substr, first, last, false);
@@ -823,9 +823,9 @@ namespace boost { namespace text {
             string_view(&buf[0], buf.size()));
     }
 
-    template<typename CharIter>
+    template<typename CharIter, typename Sentinel>
     text::iterator text::insert_impl(
-        iterator at, CharIter first, CharIter last, bool first_last_normalized)
+        iterator at, CharIter first, Sentinel last, bool first_last_normalized)
     {
         int const offset = at.base().base() - str_.begin();
 
@@ -866,11 +866,11 @@ namespace boost { namespace text {
         return make_iter(str_.begin(), str_.begin() + offset, str_.end());
     }
 
-    template<typename CharIter>
+    template<typename CharIter, typename Sentinel>
     text & text::replace_impl(
         text_view old_substr,
         CharIter first,
-        CharIter last,
+        Sentinel last,
         bool first_last_normalized)
     {
         int const lo = old_substr.begin().base().base() - str_.begin();

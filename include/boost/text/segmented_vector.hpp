@@ -29,13 +29,13 @@ namespace boost { namespace text {
         /** Default ctor.
 
             \post size() == 0 && begin() == end() */
-        segmented_vector() noexcept : ptr_(nullptr) {}
+        segmented_vector() noexcept {}
 
         segmented_vector(segmented_vector const & rhs) = default;
         segmented_vector(segmented_vector && rhs) noexcept = default;
 
-        template<typename Iter>
-        segmented_vector(Iter first, Iter last)
+        template<typename Iter, typename Sentinel>
+        segmented_vector(Iter first, Sentinel last)
         {
             for (; first != last; ++first) {
                 push_back(*first);
@@ -234,8 +234,8 @@ namespace boost { namespace text {
 
         /** Inserts the T sequence [first, last) into *this starting at
             position at. */
-        template<typename Iter>
-        const_iterator insert(const_iterator at, Iter first, Iter last)
+        template<typename Iter, typename Sentinel>
+        const_iterator insert(const_iterator at, Iter first, Sentinel last)
         {
             assert(begin() <= at && at <= end());
 
@@ -244,10 +244,13 @@ namespace boost { namespace text {
 
             int const offset = at - begin();
 
+            std::vector<T> vec;
+            for (; first != last; ++first) {
+                vec.push_back(*first);
+            }
+
             ptr_ = detail::btree_insert(
-                ptr_,
-                at - begin(),
-                detail::make_node(std::vector<T>(first, last)));
+                ptr_, at - begin(), detail::make_node(std::move(vec)));
 
             return begin() + offset;
         }
@@ -341,12 +344,12 @@ namespace boost { namespace text {
             with the T sequence [new_first, new_last).
 
            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Iter>
+        template<typename Iter, typename Sentinel>
         segmented_vector & replace(
             const_iterator old_first,
             const_iterator old_last,
             Iter new_first,
-            Iter new_last)
+            Sentinel new_last)
         {
             erase(old_first, old_last);
             insert(old_first + 0, new_first, new_last);

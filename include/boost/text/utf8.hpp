@@ -456,23 +456,23 @@ namespace boost { namespace text { namespace utf8 {
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
     operator==(char const * p, null_sentinel)
     {
-        return p == nullptr;
+        return !*p;
     }
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
     operator!=(char const * p, null_sentinel)
     {
-        return p != nullptr;
+        return !!*p;
     }
 
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
     operator==(null_sentinel, char const * p)
     {
-        return p == nullptr;
+        return !*p;
     }
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
     operator!=(null_sentinel, char const * p)
     {
-        return p != nullptr;
+        return !!*p;
     }
 
 

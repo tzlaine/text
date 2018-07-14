@@ -3,6 +3,7 @@
 
 #include <boost/text/string_view.hpp>
 #include <boost/text/detail/algorithm.hpp>
+#include <boost/text/detail/sentinel_tag.hpp>
 
 #include <boost/algorithm/searching/boyer_moore.hpp>
 
@@ -925,11 +926,6 @@ namespace boost { namespace text {
     }
 
     namespace detail {
-        struct sentinel_tag
-        {};
-        struct non_sentinel_tag
-        {};
-
         template<typename Iter>
         std::ptrdiff_t distance(Iter first, Iter last, non_sentinel_tag)
         {

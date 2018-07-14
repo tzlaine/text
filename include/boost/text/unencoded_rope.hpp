@@ -62,8 +62,8 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
-        template<typename CharIter>
-        unencoded_rope(CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        unencoded_rope(CharIter first, Sentinel last);
 
         /** Constructs a unencoded_rope from a range of graphemes over an
             underlying range of char.
@@ -83,10 +83,10 @@ namespace boost { namespace text {
             insert(0, r);
         }
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         unencoded_rope(
             CharIter first,
-            CharIter last,
+            Sentinel last,
             detail::char_iter_ret_t<void *, CharIter> = 0) :
             ptr_()
         {
@@ -305,17 +305,17 @@ namespace boost { namespace text {
 
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
-        template<typename CharIter>
-        unencoded_rope & insert(size_type at, CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        unencoded_rope & insert(size_type at, CharIter first, Sentinel last);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
 
             This function only participates in overload resolution if CharIter
             models the CharIter concept. */
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         unencoded_rope &
-        insert(const_iterator at, CharIter first, CharIter last);
+        insert(const_iterator at, CharIter first, Sentinel last);
 
 #else
 
@@ -334,12 +334,12 @@ namespace boost { namespace text {
                 string_view,
                 repeated_string_view>;
 
-        template<typename CharIter>
-        auto insert(size_type at, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto insert(size_type at, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<unencoded_rope &, CharIter>;
 
-        template<typename CharIter>
-        auto insert(const_iterator at, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto insert(const_iterator at, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<const_iterator, CharIter>;
 
 #endif
@@ -393,9 +393,9 @@ namespace boost { namespace text {
             models the CharIter concept.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         unencoded_rope &
-        replace(unencoded_rope_view old_substr, CharIter first, CharIter last);
+        replace(unencoded_rope_view old_substr, CharIter first, Sentinel last);
 
         /** Replaces the portion of *this delimited by [old_first, old_last)
             with the char sequence [new_first, new_last).
@@ -404,12 +404,12 @@ namespace boost { namespace text {
             models the CharIter concept.
 
            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         unencoded_rope & replace(
             const_iterator old_first,
             const_iterator old_last,
             CharIter new_first,
-            CharIter new_last);
+            Sentinel new_last);
 
 #else
 
@@ -421,17 +421,17 @@ namespace boost { namespace text {
                 string_view,
                 repeated_string_view>;
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         auto
-        replace(unencoded_rope_view old_substr, CharIter first, CharIter last)
+        replace(unencoded_rope_view old_substr, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<unencoded_rope &, CharIter>;
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         auto replace(
             const_iterator old_first,
             const_iterator old_last,
             CharIter new_first,
-            CharIter new_last)
+            Sentinel new_last)
             -> detail::char_iter_ret_t<unencoded_rope &, CharIter>;
 
 #endif
@@ -797,8 +797,8 @@ namespace boost { namespace text {
         return this->begin() + offset;
     }
 
-    template<typename CharIter>
-    auto unencoded_rope::insert(size_type at, CharIter first, CharIter last)
+    template<typename CharIter, typename Sentinel>
+    auto unencoded_rope::insert(size_type at, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
     {
         assert(0 <= at && at <= size());
@@ -812,9 +812,9 @@ namespace boost { namespace text {
         return *this;
     }
 
-    template<typename CharIter>
+    template<typename CharIter, typename Sentinel>
     auto
-    unencoded_rope::insert(const_iterator at, CharIter first, CharIter last)
+    unencoded_rope::insert(const_iterator at, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<const_iterator, CharIter>
     {
         assert(begin() <= at && at <= end());
@@ -925,9 +925,9 @@ namespace boost { namespace text {
         return replace(old_substr, std::begin(r), std::end(r));
     }
 
-    template<typename CharIter>
+    template<typename CharIter, typename Sentinel>
     auto unencoded_rope::replace(
-        unencoded_rope_view old_substr, CharIter first, CharIter last)
+        unencoded_rope_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
     {
         assert(self_reference(old_substr));
@@ -936,12 +936,12 @@ namespace boost { namespace text {
         return replace(old_first, old_first + old_substr.size(), first, last);
     }
 
-    template<typename CharIter>
+    template<typename CharIter, typename Sentinel>
     auto unencoded_rope::replace(
         const_iterator old_first,
         const_iterator old_last,
         CharIter new_first,
-        CharIter new_last)
+        Sentinel new_last)
         -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
     {
         assert(old_first <= old_last);

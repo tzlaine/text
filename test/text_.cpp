@@ -713,3 +713,27 @@ TEST(text_tests, normalization)
         EXPECT_EQ(t.distance(), 2);
     }
 }
+
+TEST(text, test_sentinel_api)
+{
+    {
+        char const * chars = "chars";
+        text::text s(chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, text::text(chars));
+    }
+    {
+        char const * chars = "chars";
+        text::text s;
+        s.insert(s.end(), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, text::text(chars));
+    }
+    {
+        char const * chars = "chars";
+        text::text s;
+        s.replace(
+            text::text_view(s.begin(), s.begin()),
+            chars,
+            text::utf8::null_sentinel{});
+        EXPECT_EQ(s, text::text(chars));
+    }
+}

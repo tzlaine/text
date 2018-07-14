@@ -1232,8 +1232,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         };
     }
 
-    // TODO: CPIter last -> Sentinel last
-
     /** Returns the bounds of the line (using hard line breaks) that
         <code>it</code> lies within. */
     template<typename CPIter, typename Sentinel>

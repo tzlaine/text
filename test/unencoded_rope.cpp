@@ -849,3 +849,36 @@ TEST(unencoded_rope, test_unformatted_output)
         EXPECT_EQ(oss.str(), "abc");
     }
 }
+
+TEST(unencoded_rope, test_sentinel_api)
+{
+    {
+        char const * chars = "chars";
+        text::unencoded_rope s(chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::unencoded_rope s;
+        s.insert(0, chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::unencoded_rope s;
+        s.insert(s.end(), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::unencoded_rope s;
+        s.replace(s(0, 0), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::unencoded_rope s;
+        s.replace(s.begin(), s.begin(), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+}

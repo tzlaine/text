@@ -80,6 +80,7 @@ add_test_executable(detail_bidi)
 # add_test_executable(case_mapping)
 
 add_test_executable(case_mapping_api)
+add_test_executable(normalization_collation_api)
 add_test_executable(canonical_closure)
 
 set(LIMIT_TESTING_FOR_CI false CACHE BOOL "Timeouts kinda suck, so...")

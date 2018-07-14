@@ -967,3 +967,27 @@ TEST(rope, normalization)
         EXPECT_EQ(t.distance(), 2);
     }
 }
+
+TEST(rope, test_sentinel_api)
+{
+    {
+        char const * chars = "chars";
+        text::rope s(chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, text::text(chars));
+    }
+    {
+        char const * chars = "chars";
+        text::rope s;
+        s.insert(s.end(), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, text::text(chars));
+    }
+    {
+        char const * chars = "chars";
+        text::rope s;
+        s.replace(
+            text::rope_view(s.begin(), s.begin()),
+            chars,
+            text::utf8::null_sentinel{});
+        EXPECT_EQ(s, text::text(chars));
+    }
+}
