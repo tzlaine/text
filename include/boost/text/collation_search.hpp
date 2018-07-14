@@ -2,6 +2,7 @@
 #define BOOST_TEXT_SEARCH_HPP
 
 #include <boost/text/collate.hpp>
+#include <boost/text/detail/algorithm.hpp>
 
 #include <boost/algorithm/cxx14/mismatch.hpp>
 #include <boost/container/small_vector.hpp>
@@ -16,14 +17,13 @@
 
 namespace boost { namespace text {
 
-    // TODO: Sentinels!
-
     // TODO: Remove all the using std::begin business.  Just use std::begin()
     // directly.  (This should be done in all files, not just this one.)
 
     /** TODO */
-    template<typename CPIter, typename Searcher>
-    auto collation_search(CPIter first, CPIter last, Searcher const & searcher)
+    template<typename CPIter, typename Sentinel, typename Searcher>
+    auto
+    collation_search(CPIter first, Sentinel last, Searcher const & searcher)
         -> decltype(searcher(first, last))
     {
         return searcher(first, last);
@@ -60,9 +60,9 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        template<typename CPIter, typename Sentinel>
-        struct dummy_prev_break
+        struct noop_prev_break
         {
+            template<typename CPIter, typename Sentinel>
             CPIter operator()(CPIter first, CPIter it, Sentinel last) const
                 noexcept
             {
@@ -101,11 +101,10 @@ namespace boost { namespace text {
         }
 #endif
 
-        template<typename CPIter, std::size_t N>
-        void get_search_ces(
-            CPIter get_first,
-            CPIter get_last,
-            CPIter last,
+        template<typename CPIter, typename Sentinel, std::size_t N>
+        void get_pattern_ces(
+            CPIter first,
+            Sentinel last,
             container::small_vector<collation_element, N> & ces,
             collation_table const & table,
             collation_strength strength,
@@ -114,20 +113,17 @@ namespace boost { namespace text {
             variable_weighting weighting)
         {
             ces.clear();
-            std::ptrdiff_t n = std::distance(get_first, get_last);
-            auto const next_contiguous_starter_it =
-                std::find_if(get_last, last, [&n](uint32_t cp) {
-                    auto const retval = ccc(cp) == 0;
-                    if (!retval)
-                        ++n;
-                    return retval;
-                });
-
+            std::ptrdiff_t const n = text::distance(first, last);
             container::small_vector<uint32_t, 1024> buf(n);
-            std::copy(get_first, next_contiguous_starter_it, buf.begin());
+            {
+                auto buf_it = buf.begin();
+                for (auto it = first; it != last; ++it, ++buf_it) {
+                    *buf_it = *it;
+                }
+            }
 
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
-            std::cout << "get_search_ces(): Gathering CEs for [" << std::hex;
+            std::cout << "get_pattern_ces(): Gathering CEs for [" << std::hex;
             bool first_cp = true;
             for (auto cp : buf) {
                 if (!first_cp)
@@ -154,11 +150,11 @@ namespace boost { namespace text {
             }
         }
 
-        template<typename CPIter>
+        template<typename CPIter, typename Sentinel>
         void append_search_ces_and_sizes(
             CPIter get_first,
             CPIter get_last,
-            CPIter last,
+            Sentinel last,
             std::deque<collation_element> & ces,
             std::deque<int> & ce_sizes,
             collation_table const & table,
@@ -167,9 +163,9 @@ namespace boost { namespace text {
             case_level case_lvl,
             variable_weighting weighting)
         {
-            std::ptrdiff_t n = std::distance(get_first, get_last);
+            std::ptrdiff_t n = text::distance(get_first, get_last);
             auto const next_contiguous_starter_it =
-                std::find_if(get_last, last, [&n](uint32_t cp) {
+                find_if(get_last, last, [&n](uint32_t cp) {
                     auto const retval = ccc(cp) == 0;
                     if (!retval)
                         ++n;
@@ -239,8 +235,17 @@ namespace boost { namespace text {
 #endif
         }
 
-        template<typename Iter, typename IteratorCategory>
-        Iter next_until(Iter it, std::ptrdiff_t n, Iter last, IteratorCategory)
+        template<
+            typename Iter,
+            typename Sentinel,
+            typename IteratorCategory,
+            typename SentinelCategory>
+        Iter next_until(
+            Iter it,
+            std::ptrdiff_t n,
+            Sentinel last,
+            IteratorCategory,
+            SentinelCategory)
         {
             assert(0 <= n);
             while (n && it != last) {
@@ -255,19 +260,24 @@ namespace boost { namespace text {
             Iter it,
             std::ptrdiff_t n,
             Iter last,
-            std::random_access_iterator_tag)
+            std::random_access_iterator_tag,
+            non_sentinel_tag)
         {
             return std::next(it, (std::min)(n, last - it));
         }
 
-        template<typename Iter>
-        Iter next_until(Iter it, std::ptrdiff_t n, Iter last)
+        template<typename Iter, typename Sentinel>
+        Iter next_until(Iter it, std::ptrdiff_t n, Sentinel last)
         {
             return next_until(
                 it,
                 n,
                 last,
-                typename std::iterator_traits<Iter>::iterator_category{});
+                typename std::iterator_traits<Iter>::iterator_category{},
+                typename std::conditional<
+                    std::is_same<Iter, Sentinel>::value,
+                    non_sentinel_tag,
+                    sentinel_tag>::type());
         }
 
         struct search_skip_table
@@ -467,12 +477,13 @@ namespace boost { namespace text {
         template<
             mismatch_dir MismatchDir,
             typename CPIter,
+            typename Sentinel,
             typename BreakFunc,
             std::size_t N,
             typename PopsFunc>
         text::cp_range<CPIter> search_impl(
             CPIter first,
-            CPIter last,
+            Sentinel last,
             container::small_vector<collation_element, N> const & pattern_ces,
             BreakFunc break_fn,
             collation_table const & table,
@@ -514,8 +525,6 @@ namespace boost { namespace text {
                 return break_fn(first, it, last) == it;
             };
 
-            auto const no_match = text::cp_range<CPIter>(last, last);
-
             while (it != last) {
                 if (at_break(it)) {
                     std::ptrdiff_t const pattern_length = pattern_ces.size();
@@ -539,8 +548,12 @@ namespace boost { namespace text {
                             case_lvl,
                             weighting);
                     }
-                    if ((std::ptrdiff_t)str_ces.size() < pattern_length)
-                        return no_match;
+                    if ((std::ptrdiff_t)str_ces.size() < pattern_length) {
+                        while (it != last) {
+                            ++it;
+                        }
+                        return text::cp_range<CPIter>(it, it);
+                    }
                     search_mismatch_t<MismatchDir> search_mismatch;
                     auto const result = search_mismatch(
                         it,
@@ -560,19 +573,19 @@ namespace boost { namespace text {
                 }
             }
 
-            return no_match;
+            return text::cp_range<CPIter>(it, it);
         }
     }
 
     // Searchers
 
     /** TODO */
-    template<typename CPIter, typename BreakFunc>
+    template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct default_collation_searcher
     {
         default_collation_searcher(
             CPIter pattern_first,
-            CPIter pattern_last,
+            Sentinel pattern_last,
             BreakFunc break_fn,
             collation_table const & table,
             collation_strength strength = collation_strength::tertiary,
@@ -586,9 +599,8 @@ namespace boost { namespace text {
             weighting_(weighting),
             break_fn_(break_fn)
         {
-            detail::get_search_ces(
+            detail::get_pattern_ces(
                 pattern_first,
-                pattern_last,
                 pattern_last,
                 pattern_ces_,
                 table_,
@@ -598,8 +610,8 @@ namespace boost { namespace text {
                 weighting_);
         }
 
-        template<typename CPIter2>
-        text::cp_range<CPIter2> operator()(CPIter2 first, CPIter2 last) const
+        template<typename CPIter2, typename Sentinel2>
+        text::cp_range<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_iterator,
@@ -634,23 +646,27 @@ namespace boost { namespace text {
     // TODO: Document the requirements of BreakFunc.
 
     /** TODO */
-    template<typename CPIter>
-    default_collation_searcher<CPIter, detail::dummy_prev_break<CPIter, CPIter>>
-    make_default_collation_searcher(
-        CPIter first,
-        CPIter last,
-        collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+    template<typename CPIter, typename Sentinel>
+    typename std::enable_if<
+        detail::is_cp_iter<CPIter>::value,
+        default_collation_searcher<CPIter, Sentinel, detail::noop_prev_break>>::
+        type
+        make_default_collation_searcher(
+            CPIter first,
+            Sentinel last,
+            collation_table const & table,
+            collation_strength strength = collation_strength::tertiary,
+            case_first case_1st = case_first::off,
+            case_level case_lvl = case_level::off,
+            variable_weighting weighting = variable_weighting::non_ignorable)
     {
         return default_collation_searcher<
             CPIter,
-            detail::dummy_prev_break<CPIter, CPIter>>(
+            Sentinel,
+            detail::noop_prev_break>(
             first,
             last,
-            detail::dummy_prev_break<CPIter, CPIter>{},
+            detail::noop_prev_break{},
             table,
             strength,
             case_1st,
@@ -659,11 +675,11 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CPIter, typename BreakFunc>
-    default_collation_searcher<CPIter, BreakFunc>
+    template<typename CPIter, typename Sentinel, typename BreakFunc>
+    default_collation_searcher<CPIter, Sentinel, BreakFunc>
     make_default_collation_searcher(
         CPIter first,
-        CPIter last,
+        Sentinel last,
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
@@ -671,7 +687,7 @@ namespace boost { namespace text {
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
-        return default_collation_searcher<CPIter, BreakFunc>(
+        return default_collation_searcher<CPIter, Sentinel, BreakFunc>(
             first,
             last,
             break_fn,
@@ -693,19 +709,20 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> default_collation_searcher<
             decltype(std::begin(r)),
-            detail::dummy_prev_break<
-                decltype(std::begin(r)),
-                decltype(std::begin(r))>>
+            decltype(std::end(r)),
+            detail::noop_prev_break>
     {
         using std::begin;
         using std::end;
         using r_iter = decltype(std::begin(r));
+        using r_sntl = decltype(std::end(r));
         return default_collation_searcher<
             r_iter,
-            detail::dummy_prev_break<r_iter, r_iter>>(
+            r_sntl,
+            detail::noop_prev_break>(
             begin(r),
             end(r),
-            detail::dummy_prev_break<r_iter, r_iter>{},
+            detail::noop_prev_break{},
             table,
             strength,
             case_1st,
@@ -722,13 +739,19 @@ namespace boost { namespace text {
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
-        -> default_collation_searcher<decltype(std::begin(r)), BreakFunc>
+        variable_weighting weighting = variable_weighting::non_ignorable) ->
+        typename std::enable_if<
+            !detail::is_cp_iter<CPRange>::value,
+            default_collation_searcher<
+                decltype(std::begin(r)),
+                decltype(std::end(r)),
+                BreakFunc>>::type
     {
         using std::begin;
         using std::end;
         using r_iter = decltype(std::begin(r));
-        return default_collation_searcher<r_iter, BreakFunc>(
+        using r_sntl = decltype(std::end(r));
+        return default_collation_searcher<r_iter, r_sntl, BreakFunc>(
             begin(r),
             end(r),
             break_fn,
@@ -740,12 +763,12 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CPIter, typename BreakFunc>
+    template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct boyer_moore_horspool_collation_searcher
     {
         boyer_moore_horspool_collation_searcher(
             CPIter pattern_first,
-            CPIter pattern_last,
+            Sentinel pattern_last,
             BreakFunc break_fn,
             collation_table const & table,
             collation_strength strength = collation_strength::tertiary,
@@ -762,9 +785,8 @@ namespace boost { namespace text {
             if (pattern_first == pattern_last)
                 return;
 
-            detail::get_search_ces(
+            detail::get_pattern_ces(
                 pattern_first,
-                pattern_last,
                 pattern_last,
                 pattern_ces_,
                 table_,
@@ -785,8 +807,8 @@ namespace boost { namespace text {
             }
         }
 
-        template<typename CPIter2>
-        text::cp_range<CPIter2> operator()(CPIter2 first, CPIter2 last) const
+        template<typename CPIter2, typename Sentinel2>
+        text::cp_range<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_reverse_iterator,
@@ -822,13 +844,14 @@ namespace boost { namespace text {
     };
 
     /** TODO */
-    template<typename CPIter>
+    template<typename CPIter, typename Sentinel>
     boyer_moore_horspool_collation_searcher<
         CPIter,
-        detail::dummy_prev_break<CPIter, CPIter>>
+        Sentinel,
+        detail::noop_prev_break>
     make_boyer_moore_horspool_collation_searcher(
         CPIter first,
-        CPIter last,
+        Sentinel last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
@@ -837,10 +860,11 @@ namespace boost { namespace text {
     {
         return boyer_moore_horspool_collation_searcher<
             CPIter,
-            detail::dummy_prev_break<CPIter, CPIter>>(
+            Sentinel,
+            detail::noop_prev_break>(
             first,
             last,
-            detail::dummy_prev_break<CPIter, CPIter>{},
+            detail::noop_prev_break{},
             table,
             strength,
             case_1st,
@@ -849,11 +873,11 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CPIter, typename BreakFunc>
-    boyer_moore_horspool_collation_searcher<CPIter, BreakFunc>
+    template<typename CPIter, typename Sentinel, typename BreakFunc>
+    boyer_moore_horspool_collation_searcher<CPIter, Sentinel, BreakFunc>
     make_boyer_moore_horspool_collation_searcher(
         CPIter first,
-        CPIter last,
+        Sentinel last,
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
@@ -861,7 +885,10 @@ namespace boost { namespace text {
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
-        return boyer_moore_horspool_collation_searcher<CPIter, BreakFunc>(
+        return boyer_moore_horspool_collation_searcher<
+            CPIter,
+            Sentinel,
+            BreakFunc>(
             first,
             last,
             break_fn,
@@ -883,19 +910,20 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> boyer_moore_horspool_collation_searcher<
             decltype(std::begin(r)),
-            detail::dummy_prev_break<
-                decltype(std::begin(r)),
-                decltype(std::begin(r))>>
+            decltype(std::end(r)),
+            detail::noop_prev_break>
     {
         using std::begin;
         using std::end;
         using r_iter = decltype(std::begin(r));
+        using r_sntl = decltype(std::end(r));
         return boyer_moore_horspool_collation_searcher<
             r_iter,
-            detail::dummy_prev_break<r_iter, r_iter>>(
+            r_sntl,
+            detail::noop_prev_break>(
             begin(r),
             end(r),
-            detail::dummy_prev_break<r_iter, r_iter>{},
+            detail::noop_prev_break{},
             table,
             strength,
             case_1st,
@@ -915,12 +943,17 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> boyer_moore_horspool_collation_searcher<
             decltype(std::begin(r)),
+            decltype(std::end(r)),
             BreakFunc>
     {
         using std::begin;
         using std::end;
         using r_iter = decltype(std::begin(r));
-        return boyer_moore_horspool_collation_searcher<r_iter, BreakFunc>(
+        using r_sntl = decltype(std::end(r));
+        return boyer_moore_horspool_collation_searcher<
+            r_iter,
+            r_sntl,
+            BreakFunc>(
             begin(r),
             end(r),
             break_fn,
@@ -932,12 +965,12 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CPIter, typename BreakFunc>
+    template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct boyer_moore_collation_searcher
     {
         boyer_moore_collation_searcher(
             CPIter pattern_first,
-            CPIter pattern_last,
+            Sentinel pattern_last,
             BreakFunc break_fn,
             collation_table const & table,
             collation_strength strength = collation_strength::tertiary,
@@ -951,9 +984,8 @@ namespace boost { namespace text {
             weighting_(weighting),
             break_fn_(break_fn)
         {
-            detail::get_search_ces(
+            detail::get_pattern_ces(
                 pattern_first,
-                pattern_last,
                 pattern_last,
                 pattern_ces_,
                 table_,
@@ -972,8 +1004,8 @@ namespace boost { namespace text {
             build_suffix_table();
         }
 
-        template<typename CPIter2>
-        text::cp_range<CPIter2> operator()(CPIter2 first, CPIter2 last) const
+        template<typename CPIter2, typename Sentinel2>
+        text::cp_range<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_reverse_iterator,
@@ -1068,13 +1100,11 @@ namespace boost { namespace text {
     };
 
     /** TODO */
-    template<typename CPIter>
-    boyer_moore_collation_searcher<
-        CPIter,
-        detail::dummy_prev_break<CPIter, CPIter>>
+    template<typename CPIter, typename Sentinel>
+    boyer_moore_collation_searcher<CPIter, Sentinel, detail::noop_prev_break>
     make_boyer_moore_collation_searcher(
         CPIter first,
-        CPIter last,
+        Sentinel last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
@@ -1083,10 +1113,11 @@ namespace boost { namespace text {
     {
         return boyer_moore_collation_searcher<
             CPIter,
-            detail::dummy_prev_break<CPIter, CPIter>>(
+            Sentinel,
+            detail::noop_prev_break>(
             first,
             last,
-            detail::dummy_prev_break<CPIter, CPIter>{},
+            detail::noop_prev_break{},
             table,
             strength,
             case_1st,
@@ -1095,11 +1126,11 @@ namespace boost { namespace text {
     }
 
     /** TODO */
-    template<typename CPIter, typename BreakFunc>
-    boyer_moore_collation_searcher<CPIter, BreakFunc>
+    template<typename CPIter, typename Sentinel, typename BreakFunc>
+    boyer_moore_collation_searcher<CPIter, Sentinel, BreakFunc>
     make_boyer_moore_collation_searcher(
         CPIter first,
-        CPIter last,
+        Sentinel last,
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
@@ -1107,7 +1138,7 @@ namespace boost { namespace text {
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
-        return boyer_moore_collation_searcher<CPIter, BreakFunc>(
+        return boyer_moore_collation_searcher<CPIter, Sentinel, BreakFunc>(
             first,
             last,
             break_fn,
@@ -1129,19 +1160,20 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> boyer_moore_collation_searcher<
             decltype(std::begin(r)),
-            detail::dummy_prev_break<
-                decltype(std::begin(r)),
-                decltype(std::begin(r))>>
+            decltype(std::end(r)),
+            detail::noop_prev_break>
     {
         using std::begin;
         using std::end;
         using r_iter = decltype(std::begin(r));
+        using r_sntl = decltype(std::end(r));
         return boyer_moore_collation_searcher<
             r_iter,
-            detail::dummy_prev_break<r_iter, r_iter>>(
+            r_sntl,
+            detail::noop_prev_break>(
             begin(r),
             end(r),
-            detail::dummy_prev_break<r_iter, r_iter>{},
+            detail::noop_prev_break{},
             table,
             strength,
             case_1st,
@@ -1159,12 +1191,16 @@ namespace boost { namespace text {
         case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
-        -> boyer_moore_collation_searcher<decltype(std::begin(r)), BreakFunc>
+        -> boyer_moore_collation_searcher<
+            decltype(std::begin(r)),
+            decltype(std::end(r)),
+            BreakFunc>
     {
         using std::begin;
         using std::end;
         using r_iter = decltype(std::begin(r));
-        return boyer_moore_collation_searcher<r_iter, BreakFunc>(
+        using r_sntl = decltype(std::end(r));
+        return boyer_moore_collation_searcher<r_iter, r_sntl, BreakFunc>(
             begin(r),
             end(r),
             break_fn,
@@ -1180,12 +1216,17 @@ namespace boost { namespace text {
     /** Returns the first occurrence of the subsequence [pattern_first,
         pattern_last) in the range [first, last), or a value equal to last if
         no such occurrence is found. */
-    template<typename CPIter1, typename CPIter2, typename BreakFunc>
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2,
+        typename BreakFunc>
     cp_range<CPIter1> collation_search(
         CPIter1 first,
-        CPIter1 last,
+        Sentinel1 last,
         CPIter2 pattern_first,
-        CPIter2 pattern_last,
+        Sentinel2 pattern_last,
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
@@ -1229,12 +1270,16 @@ namespace boost { namespace text {
     /** Returns the first occurrence of the subsequence [pattern_first,
         pattern_last) in the range [first, last), or a value equal to last if
         no such occurrence is found. */
-    template<typename CPIter1, typename CPIter2>
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
     cp_range<CPIter1> collation_search(
         CPIter1 first,
-        CPIter1 last,
+        Sentinel1 last,
         CPIter2 pattern_first,
-        CPIter2 pattern_last,
+        Sentinel2 pattern_last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
@@ -1244,7 +1289,7 @@ namespace boost { namespace text {
         auto const s = make_default_collation_searcher(
             pattern_first,
             pattern_last,
-            detail::dummy_prev_break<CPIter1, CPIter1>{},
+            detail::noop_prev_break{},
             table,
             strength,
             case_1st,
@@ -1268,10 +1313,9 @@ namespace boost { namespace text {
     {
         using std::begin;
         using std::end;
-        using str_iter = decltype(std::begin(str));
         auto const s = make_default_collation_searcher(
             pattern,
-            detail::dummy_prev_break<str_iter, str_iter>{},
+            detail::noop_prev_break{},
             table,
             strength,
             case_1st,

@@ -924,6 +924,44 @@ namespace boost { namespace text {
         return back(string_view(r));
     }
 
+    namespace detail {
+        struct sentinel_tag
+        {};
+        struct non_sentinel_tag
+        {};
+
+        template<typename Iter>
+        std::ptrdiff_t distance(Iter first, Iter last, non_sentinel_tag)
+        {
+            return std::distance(first, last);
+        }
+
+        template<typename Iter, typename Sentinel>
+        std::ptrdiff_t distance(Iter first, Sentinel last, sentinel_tag)
+        {
+            std::ptrdiff_t retval = 0;
+            while (first != last) {
+                ++retval;
+                ++first;
+            }
+            return retval;
+        }
+    }
+
+    /** Range-friendly version of std::distance(), taking an iterator and a
+        sentinel. */
+    template<typename Iter, typename Sentinel>
+    std::ptrdiff_t distance(Iter first, Sentinel last)
+    {
+        return detail::distance(
+            first,
+            last,
+            typename std::conditional<
+                std::is_same<Iter, Sentinel>::value,
+                detail::non_sentinel_tag,
+                detail::sentinel_tag>::type());
+    }
+
     /** Range-friendly version of std::find(), taking an iterator and a
         sentinel. */
     template<typename BidiIter, typename Sentinel, typename T>
