@@ -122,18 +122,20 @@ return {{{{
 
     std::vector<uint32_t> make_soft_dotted_cps()
     {{
-        return std::vector<uint32_t>(soft_dotted_cps().begin(), soft_dotted_cps().end());
+        auto const cps = soft_dotted_cps();
+        return std::vector<uint32_t>(cps.begin(), cps.end());
     }}
 
     std::unordered_set<uint32_t> make_cased_cps()
     {{
-        return std::unordered_set<uint32_t>(cased_cps().begin(), cased_cps().end());
+        auto const cps = cased_cps();
+        return std::unordered_set<uint32_t>(cps.begin(), cps.end());
     }}
 
     std::unordered_set<uint32_t> make_case_ignorable_cps()
     {{
-        return std::unordered_set<uint32_t>(
-            case_ignorable_cps().begin(), case_ignorable_cps().end());
+        auto const cps = case_ignorable_cps();
+        return std::unordered_set<uint32_t>(cps.begin(), cps.end());
     }}
 
 }}}}}}

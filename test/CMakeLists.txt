@@ -75,10 +75,7 @@ add_test_executable(algorithm)
 add_test_executable(trie_map_0)
 add_test_executable(trie_map_1)
 add_test_executable(detail_bidi)
-
-# TODO: ASan builds of this test indicate errors.  Disable until they are addressed.
-# add_test_executable(case_mapping)
-
+add_test_executable(case_mapping)
 add_test_executable(case_mapping_api)
 add_test_executable(normalization_collation_api)
 add_test_executable(canonical_closure)
