@@ -10,6 +10,10 @@
 #include <unordered_map>
 
 
+#ifndef BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+#define BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION 0
+#endif
+
 namespace boost { namespace text {
 
     // TODO: Sentinels!
@@ -19,8 +23,8 @@ namespace boost { namespace text {
 
     /** TODO */
     template<typename CPIter, typename Searcher>
-    cp_range<CPIter>
-    collation_search(CPIter first, CPIter last, Searcher const & searcher)
+    auto collation_search(CPIter first, CPIter last, Searcher const & searcher)
+        -> decltype(searcher(first, last))
     {
         return searcher(first, last);
     }
@@ -28,7 +32,7 @@ namespace boost { namespace text {
     /** TODO */
     template<typename CPRange, typename Searcher>
     auto collation_search(CPRange r, Searcher const & searcher)
-        -> cp_range<decltype(std::begin(r))>
+        -> decltype(searcher(std::begin(r), std::end(r)))
     {
         using std::begin;
         using std::end;
@@ -84,6 +88,19 @@ namespace boost { namespace text {
             return ce;
         }
 
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+        std::ostream & operator<<(std::ostream & os, collation_element ce)
+        {
+            os << "[" << std::hex;
+            os << "0x" << std::setfill('0') << std::setw(4) << ce.l1_ << ", ";
+            os << "0x" << std::setfill('0') << std::setw(2) << ce.l2_ << ", ";
+            os << "0x" << std::setfill('0') << std::setw(2) << ce.l3_ << ", ";
+            os << "0x" << std::setfill('0') << std::setw(4) << ce.l4_;
+            os << "]" << std::dec;
+            return os;
+        }
+#endif
+
         template<typename CPIter, std::size_t N>
         void get_search_ces(
             CPIter get_first,
@@ -97,12 +114,35 @@ namespace boost { namespace text {
             variable_weighting weighting)
         {
             ces.clear();
-            auto const next_contiguous_starter_it = std::find_if(
-                get_last, last, [](uint32_t cp) { return ccc(cp) == 0; });
+            std::ptrdiff_t n = std::distance(get_first, get_last);
+            auto const next_contiguous_starter_it =
+                std::find_if(get_last, last, [&n](uint32_t cp) {
+                    auto const retval = ccc(cp) == 0;
+                    if (!retval)
+                        ++n;
+                    return retval;
+                });
+
+            container::small_vector<uint32_t, 1024> buf(n);
+            std::copy(get_first, next_contiguous_starter_it, buf.begin());
+
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+            std::cout << "get_search_ces(): Gathering CEs for [" << std::hex;
+            bool first_cp = true;
+            for (auto cp : buf) {
+                if (!first_cp)
+                    std::cout << ", ";
+                std::cout << "0x" << std::setw(4) << std::setfill('0') << cp;
+                if (cp < 0x80)
+                    std::cout << " '" << (char)cp << "'";
+                first_cp = false;
+            }
+            std::cout << std::dec << "]\n";
+#endif
 
             table.copy_collation_elements(
-                get_first,
-                next_contiguous_starter_it,
+                buf.begin(),
+                buf.end(),
                 std::back_inserter(ces),
                 strength,
                 case_1st,
@@ -127,14 +167,40 @@ namespace boost { namespace text {
             case_level case_lvl,
             variable_weighting weighting)
         {
-            auto const next_contiguous_starter_it = std::find_if(
-                get_last, last, [](uint32_t cp) { return ccc(cp) == 0; });
+            std::ptrdiff_t n = std::distance(get_first, get_last);
+            auto const next_contiguous_starter_it =
+                std::find_if(get_last, last, [&n](uint32_t cp) {
+                    auto const retval = ccc(cp) == 0;
+                    if (!retval)
+                        ++n;
+                    return retval;
+                });
+
+            container::small_vector<uint32_t, 1024> buf(n);
+            std::copy(get_first, next_contiguous_starter_it, buf.begin());
+
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+            auto const old_ce_sizes_size = ce_sizes.size();
+
+            std::cout << "append_search_ces_and_sizes(): Gathering CEs for ["
+                      << std::hex;
+            bool first_cp = true;
+            for (auto cp : buf) {
+                if (!first_cp)
+                    std::cout << ", ";
+                std::cout << "0x" << std::setw(4) << std::setfill('0') << cp;
+                if (cp < 0x80)
+                    std::cout << " '" << (char)cp << "'";
+                first_cp = false;
+            }
+            std::cout << std::dec << "]\n";
+#endif
 
             auto ce_size_it = std::back_inserter(ce_sizes);
             auto const old_ces_size = ces.size();
             table.copy_collation_elements(
-                get_first,
-                next_contiguous_starter_it,
+                buf.begin(),
+                buf.end(),
                 std::back_inserter(ces),
                 strength,
                 case_1st,
@@ -142,10 +208,35 @@ namespace boost { namespace text {
                 weighting,
                 &ce_size_it);
 
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+#if 0
+            std::cout << "    ces gathered: [ ";
+            for (auto i = old_ces_size, end = ces.size(); i < end; ++i) {
+                std::cout << ces[i] << ' ';
+            }
+            std::cout << "]\n";
+#endif
+#endif
+
             for (auto i = old_ces_size, end = ces.size(); i < end; ++i) {
                 ces[i] =
                     adjust_ce_for_search(ces[i], strength, case_1st, case_lvl);
             }
+
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+            std::cout << "    modified ces: [ ";
+            for (auto i = old_ces_size, end = ces.size(); i < end; ++i) {
+                std::cout << ces[i] << ' ';
+            }
+            std::cout << "]\n";
+
+            std::cout << "    ce_sizes appended: [ ";
+            for (auto i = old_ce_sizes_size, end = ce_sizes.size(); i < end;
+                 ++i) {
+                std::cout << ce_sizes[i] << ' ';
+            }
+            std::cout << "]\n";
+#endif
         }
 
         template<typename Iter, typename IteratorCategory>
@@ -189,26 +280,51 @@ namespace boost { namespace text {
                 map_(pattern_ces)
             {}
 
-            void insert(detail::collation_element key, std::ptrdiff_t value)
+            void insert(collation_element key, std::ptrdiff_t value)
             {
                 map_[key] = value;
             }
 
             bool empty() const { return map_.empty(); }
 
-            std::ptrdiff_t operator[](detail::collation_element key) const
+            std::ptrdiff_t operator[](collation_element key) const
             {
                 auto const it = map_.find(key);
                 return it == map_.end() ? default_ : it->second;
             }
 
         private:
-            using map_t =
-                std::unordered_map<detail::collation_element, std::ptrdiff_t>;
+            using map_t = std::unordered_map<collation_element, std::ptrdiff_t>;
 
             std::ptrdiff_t default_;
             map_t map_;
         };
+
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+        struct collation_element_dumper
+        {
+            template<typename Range>
+            collation_element_dumper(Range const & r) :
+                first_(&*r.begin()),
+                last_(&*r.end())
+            {}
+
+            friend std::ostream &
+            operator<<(std::ostream & os, collation_element_dumper d)
+            {
+                for (auto it = d.first_; it != d.last_; ++it) {
+                    if (it != d.first_)
+                        os << ", ";
+                    os << *it;
+                }
+                return os;
+            }
+
+        private:
+            collation_element const * first_;
+            collation_element const * last_;
+        };
+#endif
 
         // O, to have constexpr if!
         template<
@@ -221,9 +337,8 @@ namespace boost { namespace text {
             typename PopsFunc>
         text::cp_range<CPIter> search_mismatch_impl(
             CPIter it,
-            container::small_vector<detail::collation_element, N> const &
-                pattern_ces,
-            std::deque<detail::collation_element> const & str_ces,
+            container::small_vector<collation_element, N> const & pattern_ces,
+            std::deque<collation_element> const & str_ces,
             std::deque<int> const & str_ce_sizes,
             StrCEsIter str_ces_first,
             StrCEsIter str_ces_last,
@@ -234,26 +349,46 @@ namespace boost { namespace text {
         {
             auto const pattern_length = pattern_ces.size();
 
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+            std::cout << "Comparing str="
+                      << collation_element_dumper(
+                             std::vector<collation_element>(
+                                 str_ces_first, str_ces_last))
+                      << "\n";
+            std::cout << "To     substr="
+                      << collation_element_dumper(
+                             std::vector<collation_element>(
+                                 pattern_ces_first,
+                                 std::next(pattern_ces_first, pattern_length)))
+                      << "\n";
+#endif
+
             auto const mismatch =
                 std::mismatch(str_ces_first, str_ces_last, pattern_ces_first);
             if (mismatch.first == str_ces_last) {
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+                std::cout << "*** == ***\n";
+#endif
                 std::ptrdiff_t remainder = pattern_length;
                 auto match_end = it;
                 for (auto size : str_ce_sizes) {
                     remainder -= size;
+                    ++match_end;
                     if (remainder == 0)
                         break;
                     if (remainder < 0) {
                         match_end = it;
                         break;
                     }
-                    ++match_end;
                 }
                 if (match_end != it && at_break(match_end))
                     return text::cp_range<CPIter>(it, match_end);
                 else
                     pop_front(str_ce_sizes.front());
             } else {
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+                std::cout << "*** != ***\n";
+#endif
                 auto const ces_to_pop = pops_on_mismatch(mismatch, str_ces);
                 pop_front(ces_to_pop);
             }
@@ -274,9 +409,9 @@ namespace boost { namespace text {
                 typename PopsFunc>
             text::cp_range<CPIter> operator()(
                 CPIter it,
-                container::small_vector<detail::collation_element, N> const &
+                container::small_vector<collation_element, N> const &
                     pattern_ces,
-                std::deque<detail::collation_element> const & str_ces,
+                std::deque<collation_element> const & str_ces,
                 std::deque<int> const & str_ce_sizes,
                 AtBreakFunc at_break,
                 PopFrontFunc pop_front,
@@ -307,9 +442,9 @@ namespace boost { namespace text {
                 typename PopsFunc>
             text::cp_range<CPIter> operator()(
                 CPIter it,
-                container::small_vector<detail::collation_element, N> const &
+                container::small_vector<collation_element, N> const &
                     pattern_ces,
-                std::deque<detail::collation_element> const & str_ces,
+                std::deque<collation_element> const & str_ces,
                 std::deque<int> const & str_ce_sizes,
                 AtBreakFunc at_break,
                 PopFrontFunc pop_front,
@@ -338,8 +473,7 @@ namespace boost { namespace text {
         text::cp_range<CPIter> search_impl(
             CPIter first,
             CPIter last,
-            container::small_vector<detail::collation_element, N> const &
-                pattern_ces,
+            container::small_vector<collation_element, N> const & pattern_ces,
             BreakFunc break_fn,
             collation_table const & table,
             collation_strength strength,
@@ -351,21 +485,29 @@ namespace boost { namespace text {
             if (first == last || pattern_ces.empty())
                 return text::cp_range<CPIter>(first, first);
 
-            std::deque<detail::collation_element> str_ces;
+            std::deque<collation_element> str_ces;
             std::deque<int> str_ce_sizes;
 
             auto it = first;
 
             auto pop_front = [&str_ces, &str_ce_sizes, &it](int ces) {
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+                auto const old_str_ces_size = str_ces.size();
+                auto const old_str_ce_sizes_size = str_ce_sizes.size();
+#endif
                 str_ces.erase(str_ces.begin(), str_ces.begin() + ces);
-                while (0 <= ces) {
+                while (0 < ces) {
                     ces -= str_ce_sizes.front();
-                    if (0 <= ces) {
-                        str_ce_sizes.pop_front();
-                        ++it;
-                    }
+                    str_ce_sizes.pop_front();
+                    ++it;
                 }
                 str_ces.erase(str_ces.begin(), str_ces.begin() - ces);
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+                std::cout << " === Popped "
+                          << (old_str_ces_size - str_ces.size()) << " CEs, "
+                          << (old_str_ce_sizes_size - str_ce_sizes.size())
+                          << " sizes\n";
+#endif
             };
 
             auto at_break = [first, last, break_fn](CPIter it) {
@@ -384,9 +526,9 @@ namespace boost { namespace text {
                     if (0 < str_ces_needed_for_search) {
                         auto const append_it =
                             std::next(it, str_ce_sizes.size());
-                        detail::append_search_ces_and_sizes(
+                        append_search_ces_and_sizes(
                             append_it,
-                            detail::next_until(
+                            next_until(
                                 append_it, str_ces_needed_for_search, last),
                             last,
                             str_ces,
@@ -624,6 +766,9 @@ namespace boost { namespace text {
             weighting_(weighting),
             break_fn_(break_fn)
         {
+            if (pattern_first == pattern_last)
+                return;
+
             detail::get_search_ces(
                 pattern_first,
                 pattern_last,
@@ -639,8 +784,11 @@ namespace boost { namespace text {
                 detail::search_skip_table(pattern_ces_.size(), pattern_ces_.size());
 
             std::ptrdiff_t i = 0;
-            for (auto ce : pattern_ces_) {
-                skips_.insert(ce, pattern_ces_.size() - 1 - i++);
+            for (auto it = pattern_ces_.begin(),
+                      end = std::prev(pattern_ces_.end());
+                 it != end;
+                 ++it, ++i) {
+                skips_.insert(*it, pattern_ces_.size() - 1 - i);
             }
         }
 
@@ -648,10 +796,9 @@ namespace boost { namespace text {
         text::cp_range<CPIter2> operator()(CPIter2 first, CPIter2 last) const
         {
             using mismatch_t = std::pair<
-                std::deque<detail::collation_element>::const_iterator,
-                container::small_vector<detail::collation_element, 256>::
-                    const_iterator>;
-            return detail::search_impl<detail::mismatch_dir::fwd>(
+                std::deque<detail::collation_element>::const_reverse_iterator,
+                ces_t::const_reverse_iterator>;
+            return detail::search_impl<detail::mismatch_dir::rev>(
                 first,
                 last,
                 pattern_ces_,
@@ -662,20 +809,22 @@ namespace boost { namespace text {
                 case_level_,
                 weighting_,
                 [this](
-                    mismatch_t mismatch,
+                    mismatch_t,
                     std::deque<detail::collation_element> const & str_ces) {
-                    return skips_[mismatch.first[pattern_ces_.size() - 1]];
+                    return skips_[str_ces[pattern_ces_.size() - 1]];
                 });
         }
 
     private:
+        using ces_t = container::small_vector<detail::collation_element, 256>;
+
         collation_table table_;
         collation_strength strength_;
         case_first case_first_;
         case_level case_level_;
         variable_weighting weighting_;
         detail::search_skip_table skips_;
-        container::small_vector<detail::collation_element, 256> pattern_ces_;
+        ces_t pattern_ces_;
         BreakFunc break_fn_;
     };
 
