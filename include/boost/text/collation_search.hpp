@@ -564,13 +564,6 @@ namespace boost { namespace text {
         }
     }
 
-    // TODO: Refactor breaking searches to use next_break() like:
-    //   next = next_break(it, last);
-    //   search_in(it, next);
-    // ?  search_in() should single step through CEs when (next - it) >
-    // some-heuristic-threshold, and grab all CEs in [it, next) at once
-    // otherwise.
-
     // Searchers
 
     /** TODO */
@@ -1286,8 +1279,6 @@ namespace boost { namespace text {
             weighting);
         return collation_search(begin(str), end(str), s);
     }
-
-    // TODO: Add convenience functions for Boyer-Moore and Boyer-Moore-Horspool.
 
 }}
 
