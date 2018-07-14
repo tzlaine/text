@@ -405,7 +405,6 @@ namespace boost { namespace text {
                         if (pdi_it != end) {
                             auto const all_runs_end =
                                 &all_runs[0] + all_runs.size();
-                            // TODO: lower_bound instead?
                             auto const run_it = std::find_if(
                                 &run,
                                 all_runs_end,
