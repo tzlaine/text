@@ -291,7 +291,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         \pre <code>first</code> is at the beginning of a word. */
     template<typename CPIter, typename Sentinel>
     auto next_grapheme_break(CPIter first, Sentinel last) noexcept
-        ->detail::cp_iter_ret_t<CPIter, CPIter>
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         if (first == last)
             return first;
@@ -349,9 +349,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     auto prev_grapheme_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
-        using std::begin;
-        using std::end;
-        return prev_grapheme_break(begin(range), it, end(range));
+        return prev_grapheme_break(std::begin(range), it, std::end(range));
     }
 
     /** Finds the next grapheme break after <code>range.begin()</code>.  This
@@ -363,9 +361,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     auto next_grapheme_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
-        using std::begin;
-        using std::end;
-        return next_grapheme_break(begin(range), end(range));
+        return next_grapheme_break(std::begin(range), std::end(range));
     }
 
     namespace detail {
@@ -393,9 +389,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     auto grapheme(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        using std::begin;
-        using std::end;
-        auto first = prev_grapheme_break(begin(range), it, end(range));
+        auto first =
+            prev_grapheme_break(std::begin(range), it, std::end(range));
         return cp_range<CPIter>{first, next_grapheme_break(first, range.end())};
     }
 
@@ -421,9 +416,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        using std::begin;
-        using std::end;
-        return {{begin(range), end(range)}, {end(range)}};
+        return {{std::begin(range), std::end(range)}, {std::end(range)}};
     }
 
 }}

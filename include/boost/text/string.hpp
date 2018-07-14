@@ -954,9 +954,7 @@ namespace boost { namespace text {
     auto string::operator=(CharRange const & r)
         -> detail::rng_alg_ret_t<string &, CharRange>
     {
-        using std::begin;
-        using std::end;
-        if (std::distance(begin(r), end(r)) <= size()) {
+        if (std::distance(std::begin(r), std::end(r)) <= size()) {
             clear();
             insert(0, r);
         } else {
@@ -971,10 +969,8 @@ namespace boost { namespace text {
     auto string::operator=(GraphemeRange const & r)
         -> detail::graph_rng_alg_ret_t<string &, GraphemeRange>
     {
-        using std::begin;
-        using std::end;
-        auto const first = begin(r).base().base();
-        auto const last = end(r).base().base();
+        auto const first = std::begin(r).base().base();
+        auto const last = std::end(r).base().base();
         if (std::distance(first, last) <= size()) {
             clear();
             insert(0, r);
@@ -1030,18 +1026,14 @@ namespace boost { namespace text {
     auto string::insert(int at, CharRange const & r)
         -> detail::rng_alg_ret_t<string &, CharRange>
     {
-        using std::begin;
-        using std::end;
-        return insert(at, begin(r), end(r));
+        return insert(at, std::begin(r), std::end(r));
     }
 
     template<typename CharRange>
     auto string::insert(iterator at, CharRange const & r)
         -> detail::rng_alg_ret_t<iterator, CharRange>
     {
-        using std::begin;
-        using std::end;
-        return insert(at, begin(r), end(r));
+        return insert(at, std::begin(r), std::end(r));
     }
 
     inline string & string::insert(int at, string_view sv)
@@ -1138,18 +1130,16 @@ namespace boost { namespace text {
     auto string::insert(int at, GraphemeRange const & r)
         -> detail::graph_rng_alg_ret_t<string &, GraphemeRange>
     {
-        using std::begin;
-        using std::end;
-        return insert(at, begin(r).base().base(), end(r).base().base());
+        return insert(
+            at, std::begin(r).base().base(), std::end(r).base().base());
     }
 
     template<typename GraphemeRange>
     auto string::insert(iterator at, GraphemeRange const & r)
         -> detail::graph_rng_alg_ret_t<iterator, GraphemeRange>
     {
-        using std::begin;
-        using std::end;
-        return insert(at, begin(r).base().base(), end(r).base().base());
+        return insert(
+            at, std::begin(r).base().base(), std::end(r).base().base());
     }
 
     inline string & string::erase(string_view sv) noexcept
@@ -1277,9 +1267,7 @@ namespace boost { namespace text {
     auto string::replace(string_view old_substr, CharRange const & r)
         -> detail::rng_alg_ret_t<string &, CharRange>
     {
-        using std::begin;
-        using std::end;
-        return replace(old_substr, begin(r), end(r));
+        return replace(old_substr, std::begin(r), std::end(r));
     }
 
     template<typename CharIter>
@@ -1395,17 +1383,15 @@ namespace boost { namespace text {
     auto operator==(CharRange const & lhs, string const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
     {
-        using std::begin;
-        using std::end;
-        return algorithm::equal(begin(lhs), end(lhs), rhs.begin(), rhs.end());
+        return algorithm::equal(
+            std::begin(lhs), std::end(lhs), rhs.begin(), rhs.end());
     }
     template<typename CharRange>
     auto operator==(string const & lhs, CharRange const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, string>
     {
-        using std::begin;
-        using std::end;
-        return algorithm::equal(lhs.begin(), lhs.end(), begin(rhs), end(rhs));
+        return algorithm::equal(
+            lhs.begin(), lhs.end(), std::begin(rhs), std::end(rhs));
     }
 
     template<typename CharRange>
@@ -1425,19 +1411,15 @@ namespace boost { namespace text {
     auto operator<(CharRange const & lhs, string const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
     {
-        using std::begin;
-        using std::end;
         return detail::generalized_compare(
-                   begin(lhs), end(lhs), rhs.begin(), rhs.end()) < 0;
+                   std::begin(lhs), std::end(lhs), rhs.begin(), rhs.end()) < 0;
     }
     template<typename CharRange>
     auto operator<(string const & lhs, CharRange const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, string>
     {
-        using std::begin;
-        using std::end;
         return detail::generalized_compare(
-                   lhs.begin(), lhs.end(), begin(rhs), end(rhs)) < 0;
+                   lhs.begin(), lhs.end(), std::begin(rhs), std::end(rhs)) < 0;
     }
 
     template<typename CharRange>

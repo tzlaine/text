@@ -243,9 +243,7 @@ namespace boost { namespace trie {
             size_(0),
             comp_(comp)
         {
-            using std::begin;
-            using std::end;
-            insert(begin(r), end(r));
+            insert(std::begin(r), std::end(r));
         }
         trie_map(std::initializer_list<value_type> il) : size_(0)
         {
@@ -328,10 +326,8 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         const_iterator find(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
+            auto first = std::begin(key);
+            auto const last = std::end(key);
             auto match = longest_match_impl(first, last);
             if (first == last && match.match) {
                 return const_iterator(iter_state_t{
@@ -391,9 +387,7 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            return longest_subsequence(begin(key), end(key));
+            return longest_subsequence(std::begin(key), std::end(key));
         }
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(
@@ -416,13 +410,11 @@ namespace boost { namespace trie {
         }
 
         /** Returns the longeset matching subsequence of \a key found in
-            *this. */
+         *this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            return longest_match(begin(key), end(key));
+            return longest_match(std::begin(key), std::end(key));
         }
 
         BOOST_TRIE_MAP_C_STR_OVERLOAD(
@@ -590,9 +582,7 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         insert_result insert(KeyRange const & key, Value value)
         {
-            using std::begin;
-            using std::end;
-            return insert(begin(key), end(key), std::move(value));
+            return insert(std::begin(key), std::end(key), std::move(value));
         }
 
         template<typename Char, std::size_t N>
@@ -611,9 +601,8 @@ namespace boost { namespace trie {
             new insertion, or false otherwise. */
         insert_result insert(value_type e)
         {
-            using std::begin;
-            using std::end;
-            return insert(begin(e.key), end(e.key), std::move(e.value));
+            return insert(
+                std::begin(e.key), std::end(e.key), std::move(e.value));
         }
 
         /** Inserts the sequence of key/value pairs <code>[first,
@@ -634,9 +623,7 @@ namespace boost { namespace trie {
         template<typename Range>
         insert_result insert(Range const & r)
         {
-            using std::begin;
-            using std::end;
-            return insert(begin(r), end(r));
+            return insert(std::begin(r), std::end(r));
         }
 
         /** Inserts the sequence of key/value pairs \a il into *this.  The
@@ -680,9 +667,8 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         insert_result insert_or_assign(KeyRange const & key, Value value)
         {
-            using std::begin;
-            using std::end;
-            return insert_or_assign(begin(key), end(key), std::move(value));
+            return insert_or_assign(
+                std::begin(key), std::end(key), std::move(value));
         }
 
         template<typename Char, std::size_t N>
@@ -842,10 +828,8 @@ namespace boost { namespace trie {
         template<bool LowerBound, typename KeyRange>
         const_iterator bound_impl(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
+            auto first = std::begin(key);
+            auto const last = std::end(key);
             auto match = longest_match_impl(first, last);
             if (first == last && match.match) {
                 auto retval = const_iterator(iter_state_t{

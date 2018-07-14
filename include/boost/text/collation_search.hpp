@@ -17,9 +17,6 @@
 
 namespace boost { namespace text {
 
-    // TODO: Remove all the using std::begin business.  Just use std::begin()
-    // directly.  (This should be done in all files, not just this one.)
-
     /** TODO */
     template<typename CPIter, typename Sentinel, typename Searcher>
     auto
@@ -34,9 +31,7 @@ namespace boost { namespace text {
     auto collation_search(CPRange r, Searcher const & searcher)
         -> decltype(searcher(std::begin(r), std::end(r)))
     {
-        using std::begin;
-        using std::end;
-        return searcher(begin(r), end(r));
+        return searcher(std::begin(r), std::end(r));
     }
 
 }}
@@ -712,16 +707,14 @@ namespace boost { namespace text {
             decltype(std::end(r)),
             detail::noop_prev_break>
     {
-        using std::begin;
-        using std::end;
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
         return default_collation_searcher<
             r_iter,
             r_sntl,
             detail::noop_prev_break>(
-            begin(r),
-            end(r),
+            std::begin(r),
+            std::end(r),
             detail::noop_prev_break{},
             table,
             strength,
@@ -747,13 +740,11 @@ namespace boost { namespace text {
                 decltype(std::end(r)),
                 BreakFunc>>::type
     {
-        using std::begin;
-        using std::end;
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
         return default_collation_searcher<r_iter, r_sntl, BreakFunc>(
-            begin(r),
-            end(r),
+            std::begin(r),
+            std::end(r),
             break_fn,
             table,
             strength,
@@ -795,8 +786,8 @@ namespace boost { namespace text {
                 case_level_,
                 weighting_);
 
-            skips_ =
-                detail::search_skip_table(pattern_ces_.size(), pattern_ces_.size());
+            skips_ = detail::search_skip_table(
+                pattern_ces_.size(), pattern_ces_.size());
 
             std::ptrdiff_t i = 0;
             for (auto it = pattern_ces_.begin(),
@@ -913,16 +904,14 @@ namespace boost { namespace text {
             decltype(std::end(r)),
             detail::noop_prev_break>
     {
-        using std::begin;
-        using std::end;
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
         return boyer_moore_horspool_collation_searcher<
             r_iter,
             r_sntl,
             detail::noop_prev_break>(
-            begin(r),
-            end(r),
+            std::begin(r),
+            std::end(r),
             detail::noop_prev_break{},
             table,
             strength,
@@ -946,16 +935,14 @@ namespace boost { namespace text {
             decltype(std::end(r)),
             BreakFunc>
     {
-        using std::begin;
-        using std::end;
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
         return boyer_moore_horspool_collation_searcher<
             r_iter,
             r_sntl,
             BreakFunc>(
-            begin(r),
-            end(r),
+            std::begin(r),
+            std::end(r),
             break_fn,
             table,
             strength,
@@ -1163,16 +1150,14 @@ namespace boost { namespace text {
             decltype(std::end(r)),
             detail::noop_prev_break>
     {
-        using std::begin;
-        using std::end;
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
         return boyer_moore_collation_searcher<
             r_iter,
             r_sntl,
             detail::noop_prev_break>(
-            begin(r),
-            end(r),
+            std::begin(r),
+            std::end(r),
             detail::noop_prev_break{},
             table,
             strength,
@@ -1196,13 +1181,11 @@ namespace boost { namespace text {
             decltype(std::end(r)),
             BreakFunc>
     {
-        using std::begin;
-        using std::end;
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
         return boyer_moore_collation_searcher<r_iter, r_sntl, BreakFunc>(
-            begin(r),
-            end(r),
+            std::begin(r),
+            std::end(r),
             break_fn,
             table,
             strength,
@@ -1260,11 +1243,9 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> cp_range<decltype(std::begin(str))>
     {
-        using std::begin;
-        using std::end;
         auto const s = make_default_collation_searcher(
             pattern, break_fn, table, strength, case_1st, case_lvl, weighting);
-        return collation_search(begin(str), end(str), s);
+        return collation_search(std::begin(str), std::end(str), s);
     }
 
     /** Returns the first occurrence of the subsequence [pattern_first,
@@ -1311,8 +1292,6 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> cp_range<decltype(std::begin(str))>
     {
-        using std::begin;
-        using std::end;
         auto const s = make_default_collation_searcher(
             pattern,
             detail::noop_prev_break{},
@@ -1321,7 +1300,7 @@ namespace boost { namespace text {
             case_1st,
             case_lvl,
             weighting);
-        return collation_search(begin(str), end(str), s);
+        return collation_search(std::begin(str), std::end(str), s);
     }
 
 }}

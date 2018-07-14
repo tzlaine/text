@@ -89,18 +89,9 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using has_member_begin = decltype(*std::declval<T>().begin());
+    using has_begin = decltype(*std::begin(std::declval<T>()));
     template<typename T>
-    using has_free_unqualified_begin = decltype(*begin(std::declval<T>()));
-    template<typename T>
-    using has_free_std_begin = decltype(*std::begin(std::declval<T>()));
-
-    template<typename T>
-    using has_member_end = decltype(*std::declval<T>().end());
-    template<typename T>
-    using has_free_unqualified_end = decltype(*end(std::declval<T>()));
-    template<typename T>
-    using has_free_std_end = decltype(*std::end(std::declval<T>()));
+    using has_end = decltype(*std::end(std::declval<T>()));
 
     template<typename T>
     using value_type_ = typename std::remove_cv<
@@ -123,28 +114,13 @@ namespace boost { namespace text { namespace detail {
     using is_char_range = std::integral_constant<
         bool,
         std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value || // TODO
-        std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value || // TODO
-            (std::is_same<
-                remove_cv_ref_t<detected_or<
-                    detected_or<
-                        detected_t<has_free_std_begin, T>,
-                        has_free_unqualified_begin,
-                        T>,
-                    has_member_begin,
-                    T>>,
-                char>::value &&
-                 std::is_same<
-                     remove_cv_ref_t<detected_or<
-                         detected_or<
-                             detected_t<has_free_std_end, T>,
-                             has_free_unqualified_end,
-                             T>,
-                         has_member_end,
-                         T>>,
-                     char>::value &&
-                     std::is_same<
-                         detected_t<iterator_category_, T>,
-                         std::random_access_iterator_tag>::value)>;
+            std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value ||  // TODO
+            (std::is_same<remove_cv_ref_t<detected_t<has_begin, T>>, char>::
+                 value && std::
+                     is_same<remove_cv_ref_t<detected_t<has_end, T>>, char>::
+                         value && std::is_same<
+                             detected_t<iterator_category_, T>,
+                             std::random_access_iterator_tag>::value)>;
 
 
 
@@ -195,40 +171,18 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using has_contig_member_begin = decltype(&*std::declval<T>().begin());
+    using has_contig_begin = decltype(&*std::begin(std::declval<T>()));
     template<typename T>
-    using has_contig_free_unqualified_begin =
-        decltype(&*begin(std::declval<T>()));
-    template<typename T>
-    using has_contig_free_std_begin = decltype(&*std::begin(std::declval<T>()));
-
-    template<typename T>
-    using has_contig_member_end = decltype(&*std::declval<T>().end());
-    template<typename T>
-    using has_contig_free_unqualified_end = decltype(&*end(std::declval<T>()));
-    template<typename T>
-    using has_contig_free_std_end = decltype(&*std::end(std::declval<T>()));
+    using has_contig_end = decltype(&*std::end(std::declval<T>()));
 
     template<typename T>
     using is_contig_char_range = std::integral_constant<
         bool,
         std::is_same<
-            fixup_ptr_t<detected_or<
-                detected_or<
-                    detected_t<has_contig_free_std_begin, T>,
-                    has_contig_free_unqualified_begin,
-                    T>,
-                has_contig_member_begin,
-                T>>,
+            fixup_ptr_t<detected_t<has_contig_begin, T>>,
             char const *>::value &&
             std::is_same<
-                fixup_ptr_t<detected_or<
-                    detected_or<
-                        detected_t<has_contig_free_std_end, T>,
-                        has_contig_free_unqualified_end,
-                        T>,
-                    has_contig_member_end,
-                    T>>,
+                fixup_ptr_t<detected_t<has_contig_end, T>>,
                 char const *>::value &&
             std::is_same<
                 iterator_category_<T>,

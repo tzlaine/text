@@ -78,9 +78,7 @@ namespace boost { namespace trie {
         explicit trie_set(Range r, Compare const & comp = Compare()) :
             trie_(comp)
         {
-            using std::begin;
-            using std::end;
-            insert(begin(r), end(r));
+            insert(std::begin(r), std::end(r));
         }
         trie_set(std::initializer_list<value_type> il) : trie_() { insert(il); }
 
@@ -151,7 +149,7 @@ namespace boost { namespace trie {
         BOOST_TRIE_SET_C_STR_OVERLOAD(bool, contains, const noexcept)
 
         /** Returns the iterator pointing to the key, if \a key is found in
-            *this.  Returns end() otherwise. */
+         *this.  Returns end() otherwise. */
         template<typename KeyRange>
         const_iterator find(KeyRange const & key) const noexcept
         {
@@ -221,7 +219,7 @@ namespace boost { namespace trie {
         }
 
         /** Returns the longeset matching subsequence of \a key found in
-            *this. */
+         *this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
@@ -266,7 +264,7 @@ namespace boost { namespace trie {
         void clear() noexcept { trie_.clear(); }
 
         /** Returns the iterator pointing to the key, if \a key is found in
-            *this.  Returns end() otherwise. */
+         *this.  Returns end() otherwise. */
         template<typename KeyRange>
         iterator find(KeyRange const & key) noexcept
         {
@@ -322,10 +320,8 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         insert_result insert(KeyRange const & key)
         {
-            using std::begin;
-            using std::end;
             auto const trie_result =
-                trie_.insert(begin(key), end(key), detail::void_{});
+                trie_.insert(std::begin(key), std::end(key), detail::void_{});
             return translate_insert_result(trie_result);
         }
 
@@ -336,9 +332,7 @@ namespace boost { namespace trie {
             or false otherwise. */
         insert_result insert(Key const & key)
         {
-            using std::begin;
-            using std::end;
-            return insert(begin(key), end(key));
+            return insert(std::begin(key), std::end(key));
         }
 
         /** Inserts the the sequence of keys <code>[first, last)</code> into
@@ -355,9 +349,7 @@ namespace boost { namespace trie {
         template<typename Range>
         insert_result insert(Range const & r)
         {
-            using std::begin;
-            using std::end;
-            trie_.insert(begin(r), end(r));
+            trie_.insert(std::begin(r), std::end(r));
         }
 #endif
 
@@ -372,7 +364,7 @@ namespace boost { namespace trie {
         }
 
         /** Erases \a key from *this.  Returns true if the key is found in
-            *this, false otherwise. */
+         *this, false otherwise. */
         template<typename KeyRange>
         bool erase(KeyRange const & key) noexcept
         {

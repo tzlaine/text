@@ -812,11 +812,9 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
-        using std::begin;
-        using std::end;
         return collation_sort_key(
-            begin(r),
-            end(r),
+            std::begin(r),
+            std::end(r),
             table,
             strength,
             case_1st,
@@ -873,13 +871,11 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
     {
-        using std::begin;
-        using std::end;
         return collate(
-            begin(r1),
-            end(r1),
-            begin(r2),
-            end(r2),
+            std::begin(r1),
+            std::end(r1),
+            std::begin(r2),
+            std::end(r2),
             table,
             strength,
             case_1st,

@@ -12,7 +12,8 @@
 
 namespace boost { namespace text {
 
-    // TODO: Consider adding support for Dutch IJ and other cases supported by ICU.
+    // TODO: Consider adding support for Dutch IJ and other cases supported by
+    // ICU.
 
     /** TODO */
     enum class case_language : uint16_t {
@@ -238,9 +239,8 @@ namespace boost { namespace text {
         OutIter out,
         case_language lang = case_language::other) noexcept
     {
-        using std::begin;
-        using std::end;
-        return to_lower(begin(range), begin(range), end(range), out, lang);
+        return to_lower(
+            std::begin(range), std::begin(range), std::end(range), out, lang);
     }
 
     /** TODO */
@@ -285,12 +285,10 @@ namespace boost { namespace text {
         case_language lang = case_language::other,
         NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
     {
-        using std::begin;
-        using std::end;
         return to_title(
-            begin(range),
-            begin(range),
-            end(range),
+            std::begin(range),
+            std::begin(range),
+            std::end(range),
             out,
             lang,
             static_cast<NextWordBreakFunc &&>(next_word_break));
@@ -316,9 +314,8 @@ namespace boost { namespace text {
         OutIter out,
         case_language lang = case_language::other) noexcept
     {
-        using std::begin;
-        using std::end;
-        return to_upper(begin(range), begin(range), end(range), out, lang);
+        return to_upper(
+            std::begin(range), std::begin(range), std::end(range), out, lang);
     }
 
 }}

@@ -98,9 +98,7 @@ namespace boost { namespace text {
             GraphemeRange const & r,
             detail::graph_rng_alg_ret_t<int *, GraphemeRange> = 0)
         {
-            using std::begin;
-            using std::end;
-            insert(0, begin(r).base().base(), end(r).base().base());
+            insert(0, std::begin(r).base().base(), std::end(r).base().base());
         }
 
 #endif
@@ -480,9 +478,7 @@ namespace boost { namespace text {
         auto operator+=(CharRange const & r)
             -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
         {
-            using std::begin;
-            using std::end;
-            return insert(size(), begin(r), end(r));
+            return insert(size(), std::begin(r), std::end(r));
         }
 
 #endif
@@ -784,9 +780,7 @@ namespace boost { namespace text {
             string_view,
             repeated_string_view>
     {
-        using std::begin;
-        using std::end;
-        insert(at, begin(r), end(r));
+        insert(at, std::begin(r), std::end(r));
         return *this;
     }
 
@@ -798,10 +792,8 @@ namespace boost { namespace text {
             string_view,
             repeated_string_view>
     {
-        using std::begin;
-        using std::end;
         auto const offset = at - this->begin();
-        insert(at, begin(r), end(r));
+        insert(at, std::begin(r), std::end(r));
         return this->begin() + offset;
     }
 
@@ -930,9 +922,7 @@ namespace boost { namespace text {
             string_view,
             repeated_string_view>
     {
-        using std::begin;
-        using std::end;
-        return replace(old_substr, begin(r), end(r));
+        return replace(old_substr, std::begin(r), std::end(r));
     }
 
     template<typename CharIter>
@@ -1167,17 +1157,15 @@ namespace boost { namespace text {
     auto operator==(CharRange const & lhs, unencoded_rope const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, string>
     {
-        using std::begin;
-        using std::end;
-        return algorithm::equal(begin(lhs), end(lhs), rhs.begin(), rhs.end());
+        return algorithm::equal(
+            std::begin(lhs), std::end(lhs), rhs.begin(), rhs.end());
     }
     template<typename CharRange>
     auto operator==(unencoded_rope const & lhs, CharRange const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
     {
-        using std::begin;
-        using std::end;
-        return algorithm::equal(lhs.begin(), lhs.end(), begin(rhs), end(rhs));
+        return algorithm::equal(
+            lhs.begin(), lhs.end(), std::begin(rhs), std::end(rhs));
     }
 
     template<typename CharRange>
@@ -1197,19 +1185,15 @@ namespace boost { namespace text {
     auto operator<(CharRange const & lhs, unencoded_rope const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, string>
     {
-        using std::begin;
-        using std::end;
         return detail::generalized_compare(
-                   begin(lhs), end(lhs), rhs.begin(), rhs.end()) < 0;
+                   std::begin(lhs), std::end(lhs), rhs.begin(), rhs.end()) < 0;
     }
     template<typename CharRange>
     auto operator<(unencoded_rope const & lhs, CharRange const & rhs) noexcept
         -> detail::rng_alg_ret_t<bool, CharRange, unencoded_rope>
     {
-        using std::begin;
-        using std::end;
         return detail::generalized_compare(
-                   lhs.begin(), lhs.end(), begin(rhs), end(rhs)) < 0;
+                   lhs.begin(), lhs.end(), std::begin(rhs), std::end(rhs)) < 0;
     }
 
     template<typename CharRange>
@@ -1331,9 +1315,7 @@ namespace boost { namespace text {
     auto operator+(CharRange const & r, unencoded_rope ur)
         -> detail::rng_alg_ret_t<unencoded_rope, CharRange, string>
     {
-        using std::begin;
-        using std::end;
-        return ur.insert(0, begin(r), end(r));
+        return ur.insert(0, std::begin(r), std::end(r));
     }
 
 #endif
@@ -1374,13 +1356,11 @@ namespace boost { namespace text {
         detail::contig_rng_alg_ret_t<int *, ContigCharRange>) :
         ref_(rope_ref())
     {
-        using std::begin;
-        using std::end;
-        if (begin(r) == end(r)) {
+        if (std::begin(r) == std::end(r)) {
             *this = unencoded_rope_view();
         } else {
-            *this =
-                unencoded_rope_view(string_view(&*begin(r), end(r) - begin(r)));
+            *this = unencoded_rope_view(
+                string_view(&*std::begin(r), std::end(r) - std::begin(r)));
         }
     }
 
@@ -1390,14 +1370,12 @@ namespace boost { namespace text {
         detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange>) :
         ref_(rope_ref())
     {
-        using std::begin;
-        using std::end;
-        if (begin(r) == end(r)) {
+        if (std::begin(r) == std::end(r)) {
             *this = unencoded_rope_view();
         } else {
             *this = unencoded_rope_view(string_view(
-                &*begin(r).base().base(),
-                end(r).base().base() - begin(r).base().base()));
+                &*std::begin(r).base().base(),
+                std::end(r).base().base() - std::begin(r).base().base()));
         }
     }
 

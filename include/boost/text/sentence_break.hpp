@@ -621,9 +621,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     auto prev_sentence_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
-        using std::begin;
-        using std::end;
-        return prev_sentence_break(begin(range), it, end(range));
+        return prev_sentence_break(std::begin(range), it, std::end(range));
     }
 
     /** Finds the next sentence break after <code>range.begin()</code>.  This
@@ -635,9 +633,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     auto next_sentence_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
-        using std::begin;
-        using std::end;
-        return next_sentence_break(begin(range), end(range));
+        return next_sentence_break(std::begin(range), std::end(range));
     }
 
     namespace detail {
@@ -667,10 +663,10 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     auto sentence(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        using std::begin;
-        using std::end;
-        auto first = prev_sentence_break(begin(range), it, end(range));
-        return cp_range<CPIter>{first, next_sentence_break(first, end(range))};
+        auto first =
+            prev_sentence_break(std::begin(range), it, std::end(range));
+        return cp_range<CPIter>{first,
+                                next_sentence_break(first, std::end(range))};
     }
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
@@ -695,9 +691,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        using std::begin;
-        using std::end;
-        return {{begin(range), end(range)}, {end(range)}};
+        return {{std::begin(range), std::end(range)}, {std::end(range)}};
     }
 
 }}

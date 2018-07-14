@@ -639,9 +639,7 @@ namespace boost { namespace text {
     auto rope::replace(rope_view old_substr, CharRange const & r)
         -> detail::rng_alg_ret_t<rope &, CharRange>
     {
-        using std::begin;
-        using std::end;
-        replace(old_substr, begin(r), end(r));
+        replace(old_substr, std::begin(r), std::end(r));
         return *this;
     }
 

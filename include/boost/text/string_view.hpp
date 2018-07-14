@@ -85,13 +85,12 @@ namespace boost { namespace text {
             ContigCharRange const & r,
             detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0)
         {
-            using std::begin;
-            using std::end;
-            if (begin(r) == end(r)) {
-                data_ = &*begin(r);
+            if (std::begin(r) == std::end(r)) {
+                data_ = &*std::begin(r);
                 size_ = 0;
             } else {
-                *this = string_view(&*begin(r), end(r) - begin(r));
+                *this =
+                    string_view(&*std::begin(r), std::end(r) - std::begin(r));
             }
         }
 
@@ -100,15 +99,13 @@ namespace boost { namespace text {
             ContigGraphemeRange const & r,
             detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> = 0)
         {
-            using std::begin;
-            using std::end;
-            if (begin(r) == end(r)) {
-                data_ = &*begin(r).base().base();
+            if (std::begin(r) == std::end(r)) {
+                data_ = &*std::begin(r).base().base();
                 size_ = 0;
             } else {
                 *this = string_view(
-                    &*begin(r).base().base(),
-                    end(r).base().base() - begin(r).base().base());
+                    &*std::begin(r).base().base(),
+                    std::end(r).base().base() - std::begin(r).base().base());
             }
         }
 

@@ -45,7 +45,7 @@ namespace boost { namespace text {
         \pre <code>first</code> is at the beginning of a paragraph. */
     template<typename CPIter, typename Sentinel>
     auto next_paragraph_break(CPIter first, Sentinel last) noexcept
-        ->detail::cp_iter_ret_t<CPIter, CPIter>
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         if (first == last)
             return first;
@@ -69,9 +69,7 @@ namespace boost { namespace text {
     auto prev_paragraph_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
-        using std::begin;
-        using std::end;
-        return prev_paragraph_break(begin(range), it, end(range));
+        return prev_paragraph_break(std::begin(range), it, std::end(range));
     }
 
     /** Finds the next paragraph break after <code>range.begin()</code>.  This
@@ -83,9 +81,7 @@ namespace boost { namespace text {
     auto next_paragraph_break(CPRange & range) noexcept
         -> detail::iterator_t<CPRange>
     {
-        using std::begin;
-        using std::end;
-        return next_paragraph_break(begin(range), end(range));
+        return next_paragraph_break(std::begin(range), std::end(range));
     }
 
     namespace detail {
@@ -106,11 +102,10 @@ namespace boost { namespace text {
     auto paragraph(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        using std::begin;
-        using std::end;
-        auto first = prev_paragraph_break(begin(range), it, end(range));
+        auto first =
+            prev_paragraph_break(std::begin(range), it, std::end(range));
         return cp_range<CPIter>{first,
-                                next_paragraph_break(first, end(range))};
+                                next_paragraph_break(first, std::end(range))};
     }
 
     /** Returns the bounds of the paragraph that <code>it</code> lies
@@ -144,9 +139,7 @@ namespace boost { namespace text {
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        using std::begin;
-        using std::end;
-        return {{begin(range), end(range)}, {end(range)}};
+        return {{std::begin(range), std::end(range)}, {std::end(range)}};
     }
 
 }}

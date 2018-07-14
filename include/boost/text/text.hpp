@@ -560,10 +560,7 @@ namespace boost { namespace text {
         normalize_to_fcc(str_);
     }
 
-    inline text::text(string s) : str_(std::move(s))
-    {
-        normalize_to_fcc(str_);
-    }
+    inline text::text(string s) : str_(std::move(s)) { normalize_to_fcc(str_); }
 
     inline text::text(text_view tv) : str_()
     {
@@ -571,10 +568,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
-    inline text::text(string_view sv) : str_(sv)
-    {
-        normalize_to_fcc(str_);
-    }
+    inline text::text(string_view sv) : str_(sv) { normalize_to_fcc(str_); }
 
     inline text::text(repeated_string_view rsv) : str_(rsv)
     {
@@ -662,9 +656,7 @@ namespace boost { namespace text {
     auto text::insert(iterator at, CharRange const & r)
         -> detail::rng_alg_ret_t<iterator, CharRange>
     {
-        using std::begin;
-        using std::end;
-        return insert(at, begin(r), end(r));
+        return insert(at, std::begin(r), std::end(r));
     }
 
     template<typename CharIter>
@@ -754,9 +746,7 @@ namespace boost { namespace text {
     auto text::replace(text_view old_substr, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        using std::begin;
-        using std::end;
-        return replace(old_substr, begin(r), end(r));
+        return replace(old_substr, std::begin(r), std::end(r));
     }
 
     template<typename CharIter>
@@ -787,9 +777,7 @@ namespace boost { namespace text {
     auto text::operator+=(CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        using std::begin;
-        using std::end;
-        insert(this->end(), begin(r), end(r));
+        insert(this->end(), std::begin(r), std::end(r));
         return *this;
     }
 
@@ -880,7 +868,10 @@ namespace boost { namespace text {
 
     template<typename CharIter>
     text & text::replace_impl(
-        text_view old_substr, CharIter first, CharIter last, bool first_last_normalized)
+        text_view old_substr,
+        CharIter first,
+        CharIter last,
+        bool first_last_normalized)
     {
         int const lo = old_substr.begin().base().base() - str_.begin();
         int const old_size = storage_bytes();

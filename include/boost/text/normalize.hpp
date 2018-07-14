@@ -404,9 +404,7 @@ namespace boost { namespace text {
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfd(CPRange const & r, OutIter out)
     {
-        using std::begin;
-        using std::end;
-        return normalize_to_nfd(begin(r), end(r), out);
+        return normalize_to_nfd(std::begin(r), std::end(r), out);
     }
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
@@ -425,9 +423,7 @@ namespace boost { namespace text {
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfkd(CPRange const & r, OutIter out)
     {
-        using std::begin;
-        using std::end;
-        return normalize_to_nfkd(begin(r), end(r), out);
+        return normalize_to_nfkd(std::begin(r), std::end(r), out);
     }
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
@@ -448,9 +444,7 @@ namespace boost { namespace text {
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfc(CPRange const & r, OutIter out)
     {
-        using std::begin;
-        using std::end;
-        return normalize_to_nfc(begin(r), end(r), out);
+        return normalize_to_nfc(std::begin(r), std::end(r), out);
     }
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
@@ -473,9 +467,7 @@ namespace boost { namespace text {
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfkc(CPRange const & r, OutIter out)
     {
-        using std::begin;
-        using std::end;
-        return normalize_to_nfkc(begin(r), end(r), out);
+        return normalize_to_nfkc(std::begin(r), std::end(r), out);
     }
 
     // TODO: Document how the normalized_*() functions should be used.
@@ -499,9 +491,7 @@ namespace boost { namespace text {
     template<typename CPRange>
     bool normalized_nfd(CPRange const & r) noexcept
     {
-        using std::begin;
-        using std::end;
-        return normalized_nfd(begin(r), end(r));
+        return normalized_nfd(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is normalized
@@ -524,9 +514,7 @@ namespace boost { namespace text {
     template<typename CPRange>
     bool normalized_nfkd(CPRange const & r) noexcept
     {
-        using std::begin;
-        using std::end;
-        return normalized_nfkd(begin(r), end(r));
+        return normalized_nfkd(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is normalized
@@ -547,9 +535,7 @@ namespace boost { namespace text {
     template<typename CPRange>
     bool normalized_nfc(CPRange const & r) noexcept
     {
-        using std::begin;
-        using std::end;
-        return normalized_nfc(begin(r), end(r));
+        return normalized_nfc(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is normalized
@@ -572,9 +558,7 @@ namespace boost { namespace text {
     template<typename CPRange>
     bool normalized_nfkc(CPRange const & r) noexcept
     {
-        using std::begin;
-        using std::end;
-        return normalized_nfkc(begin(r), end(r));
+        return normalized_nfkc(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is in an FCD
@@ -602,9 +586,7 @@ namespace boost { namespace text {
     template<typename CPRange>
     bool fcd_form(CPRange const & r) noexcept
     {
-        using std::begin;
-        using std::end;
-        return fcd_form(begin(r), end(r));
+        return fcd_form(std::begin(r), std::end(r));
     }
 
     /** Writes sequence <code>[first, last)</code> in normalization
@@ -631,9 +613,7 @@ namespace boost { namespace text {
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_fcc(CPRange const & r, OutIter out)
     {
-        using std::begin;
-        using std::end;
-        return normalize_to_fcc(begin(r), end(r), out);
+        return normalize_to_fcc(std::begin(r), std::end(r), out);
     }
 
 }}

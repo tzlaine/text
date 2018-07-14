@@ -344,9 +344,7 @@ namespace boost { namespace trie {
             size_(0),
             comp_(comp)
         {
-            using std::begin;
-            using std::end;
-            insert(begin(r), end(r));
+            insert(std::begin(r), std::end(r));
         }
         trie(std::initializer_list<trie_element<key_type, value_type>> il) :
             size_(0)
@@ -381,10 +379,8 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         bool contains(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
+            auto first = std::begin(key);
+            auto const last = std::end(key);
             auto match = longest_match_impl(first, last);
             return first == last && match.match;
         }
@@ -405,9 +401,7 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            return longest_subsequence(begin(key), end(key));
+            return longest_subsequence(std::begin(key), std::end(key));
         }
 
         BOOST_TRIE_C_STR_OVERLOAD(
@@ -430,13 +424,11 @@ namespace boost { namespace trie {
         }
 
         /** Returns the longeset matching subsequence of \a key found in
-            *this. */
+         *this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            return longest_match(begin(key), end(key));
+            return longest_match(std::begin(key), std::end(key));
         }
 
         BOOST_TRIE_C_STR_OVERLOAD(match_result, longest_match, const noexcept)
@@ -476,10 +468,8 @@ namespace boost { namespace trie {
         optional_ref<value_type const> operator[](KeyRange const & key) const
             noexcept
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
+            auto first = std::begin(key);
+            auto const last = std::end(key);
             auto match = longest_match_impl(first, last);
             if (first != last || !match.match)
                 return {};
@@ -510,10 +500,8 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         optional_ref<value_type> operator[](KeyRange const & key) noexcept
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
+            auto first = std::begin(key);
+            auto const last = std::end(key);
             auto match = longest_match_impl(first, last);
             if (first != last || !match.match)
                 return {};
@@ -560,9 +548,7 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         bool insert(KeyRange const & key, Value value)
         {
-            using std::begin;
-            using std::end;
-            return insert(begin(key), end(key), std::move(value));
+            return insert(std::begin(key), std::end(key), std::move(value));
         }
 
         template<typename Char, std::size_t N>
@@ -596,9 +582,7 @@ namespace boost { namespace trie {
         template<typename Range>
         bool insert(Range const & r)
         {
-            using std::begin;
-            using std::end;
-            return insert(begin(r), end(r));
+            return insert(std::begin(r), std::end(r));
         }
 
         /** Inserts the sequence of key/value pairs \a il into *this. */
@@ -615,10 +599,8 @@ namespace boost { namespace trie {
         template<typename KeyRange>
         bool erase(KeyRange const & key)
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
+            auto first = std::begin(key);
+            auto const last = std::end(key);
             auto match = longest_match_impl(first, last);
             if (first != last || !match.match)
                 return false;
