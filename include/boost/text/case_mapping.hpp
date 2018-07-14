@@ -15,7 +15,8 @@ namespace boost { namespace text {
     // TODO: Consider adding support for Dutch IJ and other cases supported by
     // ICU.
 
-    /** TODO */
+    /** The list of languages handled specially in the case mapping
+        functions. */
     enum class case_language : uint16_t {
         other,
         azerbaijani,
@@ -23,7 +24,9 @@ namespace boost { namespace text {
         turkish
     };
 
-    /** TODO */
+    /** A callable type that returns the next possible word break in [first,
+        last).  This is the default line break callable type used with the
+        case mapping functions. */
     struct next_word_break_callable
     {
         template<typename CPIter, typename Sentinel>
@@ -219,7 +222,8 @@ namespace boost { namespace text {
         }
     }
 
-    /** TODO */
+    /** Writes the lower-case form of [first, last) to output iterator out,
+        using language-specific handling as indicated by lang. */
     template<typename CPIter, typename Sentinel, typename OutIter>
     OutIter to_lower(
         CPIter first,
@@ -232,7 +236,8 @@ namespace boost { namespace text {
             first, it, last, out, lang, detail::to_lower_map(), false);
     }
 
-    /** TODO */
+    /** Writes the lower-case form of range to output iterator out, using
+        language-specific handling as indicated by lang. */
     template<typename CPRange, typename OutIter>
     OutIter to_lower(
         CPRange & range,
@@ -243,7 +248,8 @@ namespace boost { namespace text {
             std::begin(range), std::begin(range), std::end(range), out, lang);
     }
 
-    /** TODO */
+    /** Writes the title-case form of [first, last) to output iterator out,
+        using language-specific handling as indicated by lang. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -274,7 +280,8 @@ namespace boost { namespace text {
         return out;
     }
 
-    /** TODO */
+    /** Writes the title-case form of range to output iterator out, using
+        language-specific handling as indicated by lang. */
     template<
         typename CPRange,
         typename OutIter,
@@ -294,7 +301,8 @@ namespace boost { namespace text {
             static_cast<NextWordBreakFunc &&>(next_word_break));
     }
 
-    /** TODO */
+    /** Writes the upper-case form of [first, last) to output iterator out,
+        using language-specific handling as indicated by lang. */
     template<typename CPIter, typename Sentinel, typename OutIter>
     OutIter to_upper(
         CPIter first,
@@ -307,7 +315,8 @@ namespace boost { namespace text {
             first, it, last, out, lang, detail::to_upper_map(), false);
     }
 
-    /** TODO */
+    /** Writes the upper-case form of range to output iterator out, using
+        language-specific handling as indicated by lang. */
     template<typename CPRange, typename OutIter>
     OutIter to_upper(
         CPRange & range,
