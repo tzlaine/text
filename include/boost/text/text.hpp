@@ -386,7 +386,8 @@ namespace boost { namespace text {
         /** Removes and returns the underlying string from *this. */
         string extract() && noexcept { return std::move(str_); }
 
-        /** Replaces the underlying string in *this. */
+        /** Replaces the underlying string in *this.  If s is not normalized
+            FCC, the results are undefined. */
         void replace(string && s) noexcept { str_ = std::move(s); }
 
         /** Appends c_str to *this. */
