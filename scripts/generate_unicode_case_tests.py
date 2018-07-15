@@ -217,19 +217,6 @@ def condition_case(name, to, cp, conditions, blocks):
         )
     return blocks
 
-# TODO: CharRange should check convertible-to-char, not is-same-as-char.
-# TODO: Eliminating the default constructions from char *, or justify it in the rationale.
-# TODO: Figure out why unencoded_rope::{clear,swap}() are not noexcept; make this consistent with rope.
-# TODO: Document the places that have bidi-like proxy iterators, e.g. grapheme_iterator.
-# TODO: Make grapheme_iterators and grapheme_iterators-to-const appropriately interconvertible.
-# TODO: Find better names for capacity(), max_size(), etc. in text layer types.
-# TODO: Add a tagged overload of text::replace(string &&) that indicates that the invariants hold.
-# TODO: Remvoe foreach_segment() from segmented_vector.
-# TODO: Add extend_match() to trie, to compliment extend_subsequence().
-# TODO: foreach_subrange() should return the callable f.
-# TODO: Make an overload of foreach_subrange() that produces ranges as its output, writing through an output iterator.
-# TODO: Consider using char8_t instead of char (where available), because it does not alias.
-
 def case_mapping_tests(special_casing):
     tests = []
     test_idx = 0

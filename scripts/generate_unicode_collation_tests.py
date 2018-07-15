@@ -452,7 +452,7 @@ def generate_datafile_collation_tests(lines):
                 line = lines[line_idx].strip()
             table = 'text::default_collation_table()'
             if len(compares) == 0:
-                test_idx += 1 # TODO
+                test_idx += 1
             if skip_rules or len(compares) == 0 or '\\ud800' in rules.lower() \
               or '\\udb' in rules.lower() or '\\udc' in rules.lower() \
               or '\\udf' in rules.lower():
