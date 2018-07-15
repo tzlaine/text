@@ -1117,8 +1117,6 @@ namespace boost { namespace text {
         return f;
     }
 
-    /** TODO: foreach_partition(), range overloads of the above. */
-
     // TODO: Separate constexpr versions into their own namespace and header,
     // and only provide the non-constexpr ones here.
 

@@ -113,8 +113,8 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     using is_char_range = std::integral_constant<
         bool,
-        std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value || // TODO
-            std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value ||  // TODO
+        std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value ||
+            std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value ||
             (std::is_same<remove_cv_ref_t<detected_t<has_begin, T>>, char>::
                  value && std::
                      is_same<remove_cv_ref_t<detected_t<has_end, T>>, char>::
