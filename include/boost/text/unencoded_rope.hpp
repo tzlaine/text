@@ -255,7 +255,7 @@ namespace boost { namespace text {
             return ptr_ == rhs.ptr_;
         }
 
-        void clear() { ptr_ = detail::node_ptr<detail::rope_tag>(); }
+        void clear() noexcept { ptr_ = detail::node_ptr<detail::rope_tag>(); }
 
         /** Inserts the null-terminated string into *this starting at offset
             at. */
@@ -437,7 +437,7 @@ namespace boost { namespace text {
 #endif
 
         /** Swaps *this with rhs. */
-        void swap(unencoded_rope & rhs) { ptr_.swap(rhs.ptr_); }
+        void swap(unencoded_rope & rhs) noexcept { ptr_.swap(rhs.ptr_); }
 
         /** Appends c_str to *this. */
         unencoded_rope & operator+=(char const * c_str);
