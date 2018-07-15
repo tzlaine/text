@@ -64,7 +64,8 @@ static_assert(
     text::detail::is_char_range<iterator_range<std::vector<int>::iterator>>::value,
     "");
 
-static_assert(!text::detail::is_char_range<std::list<char>>::value, "");
+static_assert(text::detail::is_char_range<std::list<char>>::value, "");
+
 static_assert(!text::detail::is_char_range<char>::value, "");
 static_assert(!text::detail::is_char_range<int>::value, "");
 static_assert(!text::detail::is_char_range<wchar_t[5]>::value, "");

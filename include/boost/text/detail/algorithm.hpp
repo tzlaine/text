@@ -128,10 +128,7 @@ namespace boost { namespace text { namespace detail {
                  char>::value &&
              std::is_convertible<
                  remove_cv_ref_t<detected_t<has_end, T>>,
-                 char>::value &&
-             std::is_same<
-                 detected_t<iterator_category_, T>,
-                 std::random_access_iterator_tag>::value)>;
+                 char>::value)>;
 
 
 
