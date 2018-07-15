@@ -98,38 +98,6 @@ namespace boost { namespace text {
         /** Returns the maximum size a segmented_vector can have. */
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
 
-        /** Visits each segment s of *this and calls f(s).  Each segment is
-            presented as a pair of T const * pointers.  Depending of the
-            operation performed on each segment, this may be more efficient
-            than iterating over [begin(), end()).
-
-            \pre Fn is an Invocable accepting a pair of T const *
-            parameters. */
-        template<typename Fn>
-        void foreach_segment(Fn && f) const
-        {
-            detail::foreach_leaf(
-                ptr_, [&](detail::leaf_node_t<T> const * leaf) {
-                    switch (leaf->which_) {
-                    case detail::leaf_node_t<T>::which::vec:
-                        f(&*leaf->as_vec().begin(), &*leaf->as_vec().end());
-                        break;
-                    case detail::leaf_node_t<T>::which::ref:
-                        f(&*leaf->as_reference()
-                                .vec_.as_leaf()
-                                ->as_vec()
-                                .begin(),
-                          &*leaf->as_reference()
-                                .vec_.as_leaf()
-                                ->as_vec()
-                                .end());
-                        break;
-                    default: assert(!"unhandled leaf node case"); break;
-                    }
-                    return true;
-                });
-        }
-
         /** Lexicographical compare.  Returns a value < 0 when *this is
             lexicographically less than rhs, 0 if *this == rhs, and a value >
             0 if *this is lexicographically greater than rhs. */
