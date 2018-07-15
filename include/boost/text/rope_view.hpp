@@ -18,7 +18,7 @@ namespace boost { namespace text {
     struct text_view;
     struct rope;
 
-    /** TODO. */
+    /** A reference to a substring of a rope, text, or text_view. */
     struct rope_view
     {
         using value_type =

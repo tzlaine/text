@@ -13,8 +13,8 @@ namespace boost { namespace text {
         struct const_reverse_rope_view_iterator;
     }
 
-    /** A reference to a substring of an unencoded_rope, string, or
-        repeated_string_view. */
+    /** A reference to a substring of an unencoded_rope, string, string_view,
+        or repeated_string_view. */
     struct unencoded_rope_view
     {
         using value_type = char;
