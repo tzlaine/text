@@ -111,16 +111,27 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
+    using is_char_iter = std::integral_constant<
+        bool,
+        std::is_same<char *, typename std::remove_cv<T>::type>::value ||
+            std::is_same<char const *, typename std::remove_cv<T>::type>::
+                value ||
+            std::is_convertible<detected_t<value_type_, T>, char>::value>;
+
+    template<typename T>
     using is_char_range = std::integral_constant<
         bool,
         std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value ||
             std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value ||
-            (std::is_same<remove_cv_ref_t<detected_t<has_begin, T>>, char>::
-                 value && std::
-                     is_same<remove_cv_ref_t<detected_t<has_end, T>>, char>::
-                         value && std::is_same<
-                             detected_t<iterator_category_, T>,
-                             std::random_access_iterator_tag>::value)>;
+            (std::is_convertible<
+                 remove_cv_ref_t<detected_t<has_begin, T>>,
+                 char>::value &&
+             std::is_convertible<
+                 remove_cv_ref_t<detected_t<has_end, T>>,
+                 char>::value &&
+             std::is_same<
+                 detected_t<iterator_category_, T>,
+                 std::random_access_iterator_tag>::value)>;
 
 
 
@@ -184,7 +195,7 @@ namespace boost { namespace text { namespace detail {
             std::is_same<
                 fixup_ptr_t<detected_t<has_contig_end, T>>,
                 char const *>::value &&
-            std::is_same<
+            std::is_convertible<
                 iterator_category_<T>,
                 std::random_access_iterator_tag>::value &&
             !std::is_same<T, unencoded_rope>::value &&
@@ -229,13 +240,6 @@ namespace boost { namespace text { namespace detail {
     using contig_rngs_alg_ret_t = typename contig_rngs_alg_ret<T, R1, R2>::type;
 
 
-
-    template<typename T>
-    using is_char_iter = std::integral_constant<
-        bool,
-        std::is_same<char const *, T>::value ||
-            std::is_same<char *, T>::value ||
-            std::is_same<detected_t<value_type_, T>, char>::value>;
 
     template<
         typename T,
