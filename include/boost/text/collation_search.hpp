@@ -17,7 +17,9 @@
 
 namespace boost { namespace text {
 
-    /** TODO */
+    /** Returns the subrange within [first, last) in which the given searcher
+        finds its pattern.  If the pattern is not found, the resulting range
+        will be empty. */
     template<typename CPIter, typename Sentinel, typename Searcher>
     auto
     collation_search(CPIter first, Sentinel last, Searcher const & searcher)
@@ -26,7 +28,9 @@ namespace boost { namespace text {
         return searcher(first, last);
     }
 
-    /** TODO */
+    /** Returns the subrange within r in which the given searcher finds its
+        pattern.  If the pattern is not found, the resulting range will be
+        empty. */
     template<typename CPRange, typename Searcher>
     auto collation_search(CPRange r, Searcher const & searcher)
         -> decltype(searcher(std::begin(r), std::end(r)))
@@ -574,7 +578,9 @@ namespace boost { namespace text {
 
     // Searchers
 
-    /** TODO */
+    /** A searcher for use with the collation_search() algorithm.  This
+        searcher uses a simple brute-force matching algorithm, like that found
+        in std::search(). */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct default_collation_searcher
     {
@@ -639,8 +645,11 @@ namespace boost { namespace text {
     };
 
     // TODO: Document the requirements of BreakFunc.
+    // TODO: Document the requirements of Searcher.
 
-    /** TODO */
+    /** Returns a default_collation_searcher that will find the pattern
+        [first, last).  There are no restrictions on where within the searched
+        text a match may occur. */
     template<typename CPIter, typename Sentinel>
     typename std::enable_if<
         detail::is_cp_iter<CPIter>::value,
@@ -669,7 +678,10 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** Returns a default_collation_searcher that will find the pattern
+        [first, last).  Any occurance of the pattern must be found starting at
+        and ending at a boundary found by break_fn (e.g. a grapheme cluster or
+        word boundary). */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     default_collation_searcher<CPIter, Sentinel, BreakFunc>
     make_default_collation_searcher(
@@ -693,7 +705,9 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** Returns a default_collation_searcher that will find the pattern r.
+        There are no restrictions on where within the searched text a match
+        may occur. */
     template<typename CPRange>
     auto make_default_collation_searcher(
         CPRange r,
@@ -723,7 +737,10 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** Returns a default_collation_searcher that will find the pattern r.
+        Any occurance of the pattern must be found starting at and ending at a
+        boundary found by break_fn (e.g. a grapheme cluster or word
+        boundary). */
     template<typename CPRange, typename BreakFunc>
     auto make_default_collation_searcher(
         CPRange r,
@@ -753,7 +770,8 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** A searcher for use with the collation_search() algorithm.  This
+        searcher uses the Boyer-Moore-Horspool matching algorithm. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct boyer_moore_horspool_collation_searcher
     {
@@ -834,7 +852,9 @@ namespace boost { namespace text {
         BreakFunc break_fn_;
     };
 
-    /** TODO */
+    /** Returns a boyer_moore_horspool_collation_searcher that will find the
+        pattern [first, last).  There are no restrictions on where within the
+        searched text a match may occur. */
     template<typename CPIter, typename Sentinel>
     boyer_moore_horspool_collation_searcher<
         CPIter,
@@ -863,7 +883,10 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** Returns a boyer_moore_horspool_collation_searcher that will find the
+        pattern [first, last).  Any occurance of the pattern must be found
+        starting at and ending at a boundary found by break_fn (e.g. a
+        grapheme cluster or word boundary). */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     boyer_moore_horspool_collation_searcher<CPIter, Sentinel, BreakFunc>
     make_boyer_moore_horspool_collation_searcher(
@@ -890,7 +913,9 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** Returns a boyer_moore_horspool_collation_searcher that will find the
+        pattern r.  There are no restrictions on where within the searched
+        text a match may occur. */
     template<typename CPRange>
     auto make_boyer_moore_horspool_collation_searcher(
         CPRange r,
@@ -920,7 +945,10 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** Returns a boyer_moore_horspool_collation_searcher that will find the
+        pattern r.  Any occurance of the pattern must be found starting at and
+        ending at a boundary found by break_fn (e.g. a grapheme cluster or
+        word boundary). */
     template<typename CPRange, typename BreakFunc>
     auto make_boyer_moore_horspool_collation_searcher(
         CPRange r,
@@ -951,7 +979,8 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** A searcher for use with the collation_search() algorithm.  This
+        searcher uses the Boyer-Moore matching algorithm. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct boyer_moore_collation_searcher
     {
@@ -1086,7 +1115,9 @@ namespace boost { namespace text {
         BreakFunc break_fn_;
     };
 
-    /** TODO */
+    /** Returns a boyer_moore_collation_searcher that will find the pattern
+        [first, last).  There are no restrictions on where within the searched
+        text a match may occur. */
     template<typename CPIter, typename Sentinel>
     boyer_moore_collation_searcher<CPIter, Sentinel, detail::noop_prev_break>
     make_boyer_moore_collation_searcher(
@@ -1112,7 +1143,10 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** Returns a boyer_moore_collation_searcher that will find the pattern
+        [first, last).  Any occurance of the pattern must be found starting at
+        and ending at a boundary found by break_fn (e.g. a grapheme cluster or
+        word boundary). */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     boyer_moore_collation_searcher<CPIter, Sentinel, BreakFunc>
     make_boyer_moore_collation_searcher(
@@ -1136,7 +1170,9 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** Returns a boyer_moore_collation_searcher that will find the pattern r.
+        There are no restrictions on where within the searched text a match
+        may occur. */
     template<typename CPRange>
     auto make_boyer_moore_collation_searcher(
         CPRange r,
@@ -1166,7 +1202,10 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** TODO */
+    /** Returns a boyer_moore_collation_searcher that will find the pattern r.
+        Any occurance of the pattern must be found starting at and ending at a
+        boundary found by break_fn (e.g. a grapheme cluster or word
+        boundary). */
     template<typename CPRange, typename BreakFunc>
     auto make_boyer_moore_collation_searcher(
         CPRange r,
@@ -1196,9 +1235,10 @@ namespace boost { namespace text {
 
     // Convenience overloads
 
-    /** Returns the first occurrence of the subsequence [pattern_first,
-        pattern_last) in the range [first, last), or a value equal to last if
-        no such occurrence is found. */
+    /** Returns a range indicating the first occurrence of the subsequence
+        [pattern_first, pattern_last) in the range [first, last), or an empty
+        range if no such occurrence is found.  This function uses the same
+        simple brute-force matching approach as std::search(). */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -1229,8 +1269,9 @@ namespace boost { namespace text {
         return collation_search(first, last, s);
     }
 
-    /** Returns the first occurrence of pattern in str, or a value equal to
-        str.end() if no such occurrence is found. */
+    /** Returns a range indicating the first occurrence of pattern in str, or
+        an empty range if no such occurrence is found.  This function uses the
+        same simple brute-force matching approach as std::search(). */
     template<typename CPRange1, typename CPRange2, typename BreakFunc>
     auto collation_search(
         CPRange1 & str,
@@ -1248,9 +1289,10 @@ namespace boost { namespace text {
         return collation_search(std::begin(str), std::end(str), s);
     }
 
-    /** Returns the first occurrence of the subsequence [pattern_first,
-        pattern_last) in the range [first, last), or a value equal to last if
-        no such occurrence is found. */
+    /** Returns a range indicating the first occurrence of the subsequence
+        [pattern_first, pattern_last) in the range [first, last), or an empty
+        range if no such occurrence is found.  This function uses the same
+        simple brute-force matching approach as std::search(). */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -1279,8 +1321,9 @@ namespace boost { namespace text {
         return collation_search(first, last, s);
     }
 
-    /** Returns the first occurrence of pattern in str, or a value equal to
-        str.end() if no such occurrence is found. */
+    /** Returns a range indicating the first occurrence of pattern in str, or
+        an empty range if no such occurrence is found.  This function uses the
+        same simple brute-force matching approach as std::search(). */
     template<typename CPRange1, typename CPRange2>
     auto collation_search(
         CPRange1 & str,
