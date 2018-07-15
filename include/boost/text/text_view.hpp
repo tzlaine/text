@@ -82,8 +82,8 @@ namespace boost { namespace text {
             O(n). */
         int distance() const noexcept { return std::distance(begin(), end()); }
 
-        /** Returns the maximum size a text_view can have. */
-        int max_size() const noexcept { return INT_MAX; }
+        /** Returns the maximum size in bytes a text_view can have. */
+        int max_bytes() const noexcept { return INT_MAX; }
 
         /** Swaps *this with rhs. */
         void swap(text_view & rhs) noexcept

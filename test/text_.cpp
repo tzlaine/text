@@ -29,7 +29,7 @@ TEST(text_tests, test_empty)
     EXPECT_EQ(t.distance(), 0);
     EXPECT_EQ(t.begin(), t.end());
 
-    EXPECT_EQ(t.max_size(), INT_MAX / 2);
+    EXPECT_EQ(t.max_bytes(), INT_MAX / 2);
 
     EXPECT_TRUE(t == t);
     EXPECT_FALSE(t != t);
@@ -84,14 +84,14 @@ TEST(text_tests, test_non_empty_const_interface)
 
     EXPECT_FALSE(t_a.empty());
     EXPECT_EQ(t_a.distance(), 1);
-    EXPECT_GT(t_a.capacity(), t_a.distance());
+    EXPECT_GT(t_a.bytes_capacity(), t_a.distance());
 
     EXPECT_FALSE(t_ab.empty());
     EXPECT_EQ(t_ab.distance(), 2);
-    EXPECT_GT(t_ab.capacity(), t_ab.distance());
+    EXPECT_GT(t_ab.bytes_capacity(), t_ab.distance());
 
-    EXPECT_EQ(t_a.max_size(), INT_MAX / 2);
-    EXPECT_EQ(t_ab.max_size(), INT_MAX / 2);
+    EXPECT_EQ(t_a.max_bytes(), INT_MAX / 2);
+    EXPECT_EQ(t_ab.max_bytes(), INT_MAX / 2);
 
     EXPECT_FALSE(t_a == t_ab);
     EXPECT_TRUE(t_a != t_ab);

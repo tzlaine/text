@@ -87,8 +87,8 @@ namespace boost { namespace text {
             return std::distance(begin(), end());
         }
 
-        /** Returns the maximum size a rope_view can have. */
-        size_type max_size() const noexcept { return PTRDIFF_MAX; }
+        /** Returns the maximum size in bytes a rope_view can have. */
+        size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
 
         /** Visits each segment s of the underlying unencoded_rope and calls
             f(s).  Each segment is a value whose type models a CharIter

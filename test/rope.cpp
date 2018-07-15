@@ -22,7 +22,7 @@ TEST(rope, test_empty)
     EXPECT_EQ(t.distance(), 0);
     EXPECT_EQ(t.begin(), t.end());
 
-    EXPECT_EQ(t.max_size(), PTRDIFF_MAX);
+    EXPECT_EQ(t.max_bytes(), PTRDIFF_MAX);
 
     EXPECT_TRUE(t == t);
     EXPECT_FALSE(t != t);
@@ -71,8 +71,8 @@ TEST(rope, test_non_empty_const_interface)
     text::rope_view tv_ab = t_ab;
     EXPECT_EQ(tv_ab, t_ab);
 
-    EXPECT_EQ(t_a.max_size(), PTRDIFF_MAX);
-    EXPECT_EQ(t_ab.max_size(), PTRDIFF_MAX);
+    EXPECT_EQ(t_a.max_bytes(), PTRDIFF_MAX);
+    EXPECT_EQ(t_ab.max_bytes(), PTRDIFF_MAX);
 
     EXPECT_FALSE(t_a == t_ab);
     EXPECT_TRUE(t_a != t_ab);

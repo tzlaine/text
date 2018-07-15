@@ -202,15 +202,15 @@ namespace boost { namespace text {
         int storage_bytes() const noexcept { return str_.size(); }
 
         /** Returns the number of bytes of storage currently in use by
-         *this. */
-        int capacity() const noexcept { return str_.capacity(); }
+            *this. */
+        int bytes_capacity() const noexcept { return str_.capacity(); }
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
         int distance() const noexcept { return std::distance(begin(), end()); }
 
-        /** Returns the maximum size a text can have. */
-        int max_size() const noexcept { return INT_MAX / 2; }
+        /** Returns the maximum size in bytes a text can have. */
+        int max_bytes() const noexcept { return INT_MAX / 2; }
 
         /** Clear.
 

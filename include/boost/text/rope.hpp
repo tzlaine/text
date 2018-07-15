@@ -151,8 +151,8 @@ namespace boost { namespace text {
             O(n). */
         size_type distance() const noexcept;
 
-        /** Returns the maximum size a rope can have. */
-        size_type max_size() const noexcept { return PTRDIFF_MAX; }
+        /** Returns the maximum size in bytes a rope can have. */
+        size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
 
         /** Returns true if *this and rhs contain the same root node pointer.
             This is useful when you want to check for equality between two
