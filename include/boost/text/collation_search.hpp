@@ -628,8 +628,7 @@ namespace boost { namespace text {
                 case_first_,
                 case_level_,
                 weighting_,
-                [this](
-                    mismatch_t, std::deque<detail::collation_element> const &) {
+                [](mismatch_t, std::deque<detail::collation_element> const &) {
                     return 1;
                 });
         }
