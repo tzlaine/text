@@ -97,6 +97,60 @@ namespace boost { namespace text {
             return ce;
         }
 
+        template<std::size_t N>
+        typename container::small_vector<collation_element, N>::iterator
+        adjust_ces_for_search(
+            container::small_vector<collation_element, N> & ces,
+            collation_strength strength,
+            case_level case_lvl)
+        {
+            auto out = ces.begin();
+            for (auto ce : ces) {
+                ce = adjust_ce_for_search(ce, strength, case_lvl);
+                if (ce.l1_ || ce.l2_ || ce.l3_ || ce.l4_)
+                    *out++ = ce;
+            }
+            return out;
+        }
+
+        template<typename Iter, typename SizeIter>
+        Iter adjust_ces_for_search(
+            Iter first,
+            Iter last,
+            SizeIter size_first,
+            SizeIter size_last,
+            collation_strength strength,
+            case_level case_lvl)
+        {
+            Iter out = first;
+
+            for (auto size_it = size_first; size_it != size_last; ++size_it) {
+                auto const curr_size = *size_it;
+
+                // Just pass over any zeros after a nonzero.
+                if (!curr_size && size_it != size_first &&
+                    *std::prev(size_it)) {
+                    while (size_it != size_last && !*size_it) {
+                        size_it++;
+                    }
+                    --size_it;
+                    continue;
+                }
+
+                for (auto i = 0; i < curr_size; ++i, ++first) {
+                    assert(first != last);
+                    auto ce = adjust_ce_for_search(*first, strength, case_lvl);
+                    if (ce.l1_ || ce.l2_ || ce.l3_ || ce.l4_) {
+                        *out++ = ce;
+                    } else {
+                        --*size_it;
+                    }
+                }
+            }
+
+            return out;
+        }
+
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
         std::ostream & operator<<(std::ostream & os, collation_element ce)
         {
@@ -134,6 +188,7 @@ namespace boost { namespace text {
             }
 
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+            auto const old_ces_size = ces.size();
             std::cout << "get_pattern_ces(): Gathering CEs for [" << std::hex;
             bool first_cp = true;
             for (auto cp : buf) {
@@ -156,9 +211,17 @@ namespace boost { namespace text {
                 case_lvl,
                 weighting);
 
-            for (auto & ce : ces) {
-                ce = adjust_ce_for_search(ce, strength, case_lvl);
+            auto const new_ces_end =
+                adjust_ces_for_search(ces, strength, case_lvl);
+            ces.erase(new_ces_end, ces.end());
+
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
+            std::cout << "    modified ces: [ ";
+            for (auto i = old_ces_size, end = ces.size(); i < end; ++i) {
+                std::cout << ces[i] << ' ';
             }
+            std::cout << "]\n";
+#endif
         }
 
         template<typename CPIter, typename Sentinel>
@@ -200,7 +263,6 @@ namespace boost { namespace text {
             std::copy(get_first, next_contiguous_starter_it, buf.begin());
 
             auto const old_ce_sizes_size = ce_sizes.size();
-            (void)old_ce_sizes_size;
 
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
             std::cout << "append_search_ces_and_sizes(): Gathering CEs for ["
@@ -238,12 +300,24 @@ namespace boost { namespace text {
                 std::cout << ces[i] << ' ';
             }
             std::cout << "]\n";
+
+            std::cout << "    ce_sizes gathered: [ ";
+            for (auto i = old_ce_sizes_size, end = ce_sizes.size(); i < end;
+                 ++i) {
+                std::cout << ce_sizes[i] << ' ';
+            }
+            std::cout << "]\n";
 #endif
 #endif
 
-            for (auto i = old_ces_size, end = ces.size(); i < end; ++i) {
-                ces[i] = adjust_ce_for_search(ces[i], strength, case_lvl);
-            }
+            auto const new_ces_end = adjust_ces_for_search(
+                ces.begin() + old_ces_size,
+                ces.end(),
+                ce_sizes.begin() + old_ce_sizes_size,
+                ce_sizes.end(),
+                strength,
+                case_lvl);
+            ces.erase(new_ces_end, ces.end());
 
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
             std::cout << "    modified ces: [ ";
