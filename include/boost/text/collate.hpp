@@ -402,8 +402,12 @@ namespace boost { namespace text {
                     retain_case_bits);
 
                 out = std::copy(ce_buffer_first, ce_buffer_last, out);
-                if (size_out)
+                if (size_out) {
                     *(*size_out)++ = collation_it->value.size();
+                    for (int i = 1; i < collation_.size; ++i) {
+                        *(*size_out)++ = 0;
+                    }
+                }
             }
 
             return out;

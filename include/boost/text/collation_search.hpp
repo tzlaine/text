@@ -17,6 +17,17 @@
 
 namespace boost { namespace text {
 
+    // TODO: Document that "a\u0300\u0301" -- an 'a' followed by an grave
+    // accent followed by an acute accent -- will not always be matched
+    // correctly by pattern "a\u0300" (or "a\u0301"), due to the arbitrary
+    // ordering of combining marks with the same CCC.  This does not matter in
+    // the whole-grapheme case, which handles this correctly.  It will only
+    // matter in code point level searches, because you may search for partial
+    // graphemes as in the collation_search("a\u0300", "a\u0300\u0301")
+    // example.
+
+    // TODO: Make the default whole-grapheme-based, not CP-based!
+
     /** Returns the subrange within [first, last) in which the given searcher
         finds its pattern.  If the pattern is not found, the resulting range
         will be empty. */
@@ -72,10 +83,9 @@ namespace boost { namespace text {
         collation_element adjust_ce_for_search(
             collation_element ce,
             collation_strength strength,
-            case_first case_1st,
             case_level case_lvl) noexcept
         {
-            ce = modify_for_case(ce, strength, case_1st, case_lvl);
+            ce = modify_for_case(ce, strength, case_first::off, case_lvl);
             if (strength < collation_strength::quaternary) {
                 ce.l4_ = 0;
                 if (strength < collation_strength::tertiary) {
@@ -107,7 +117,6 @@ namespace boost { namespace text {
             container::small_vector<collation_element, N> & ces,
             collation_table const & table,
             collation_strength strength,
-            case_first case_1st,
             case_level case_lvl,
             variable_weighting weighting)
         {
@@ -115,6 +124,9 @@ namespace boost { namespace text {
             std::ptrdiff_t const n = text::distance(first, last);
             container::small_vector<uint32_t, 1024> buf(n);
             {
+                // TODO: Reorder CPs such that runs of combining marks with the
+                // same CCC are ordered by increasing CP value, to make matches
+                // unambiguous.
                 auto buf_it = buf.begin();
                 for (auto it = first; it != last; ++it, ++buf_it) {
                     *buf_it = *it;
@@ -140,12 +152,12 @@ namespace boost { namespace text {
                 buf.end(),
                 std::back_inserter(ces),
                 strength,
-                case_1st,
+                case_first::off,
                 case_lvl,
                 weighting);
 
             for (auto & ce : ces) {
-                ce = adjust_ce_for_search(ce, strength, case_1st, case_lvl);
+                ce = adjust_ce_for_search(ce, strength, case_lvl);
             }
         }
 
@@ -158,12 +170,22 @@ namespace boost { namespace text {
             std::deque<int> & ce_sizes,
             collation_table const & table,
             collation_strength strength,
-            case_first case_1st,
             case_level case_lvl,
             variable_weighting weighting)
         {
             std::ptrdiff_t n = text::distance(get_first, get_last);
-            auto const next_contiguous_starter_it =
+
+            // Add safe stream format-sized slop to the end, to make sure, as
+            // much as we can efficiently do, that we do not slice
+            // constractions like Danish "aa".
+            for (int i = 0; i < 32; ++i) {
+                if (get_last == last)
+                    break;
+                ++n;
+                ++get_last;
+            }
+
+            auto next_contiguous_starter_it =
                 find_if(get_last, last, [&n](uint32_t cp) {
                     auto const retval = ccc(cp) == 0;
                     if (!retval)
@@ -172,11 +194,15 @@ namespace boost { namespace text {
                 });
 
             container::small_vector<uint32_t, 1024> buf(n);
+            // TODO: Reorder CPs such that runs of combining marks with the
+            // same CCC are ordered by increasing CP value, to make matches
+            // unambiguous.
             std::copy(get_first, next_contiguous_starter_it, buf.begin());
 
-#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
             auto const old_ce_sizes_size = ce_sizes.size();
+            (void)old_ce_sizes_size;
 
+#if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
             std::cout << "append_search_ces_and_sizes(): Gathering CEs for ["
                       << std::hex;
             bool first_cp = true;
@@ -198,10 +224,12 @@ namespace boost { namespace text {
                 buf.end(),
                 std::back_inserter(ces),
                 strength,
-                case_1st,
+                case_first::off,
                 case_lvl,
                 weighting,
                 &ce_size_it);
+
+            assert(buf.size() == ce_sizes.size() - old_ce_sizes_size);
 
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
 #if 0
@@ -214,8 +242,7 @@ namespace boost { namespace text {
 #endif
 
             for (auto i = old_ces_size, end = ces.size(); i < end; ++i) {
-                ces[i] =
-                    adjust_ce_for_search(ces[i], strength, case_1st, case_lvl);
+                ces[i] = adjust_ce_for_search(ces[i], strength, case_lvl);
             }
 
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
@@ -381,10 +408,10 @@ namespace boost { namespace text {
                 std::ptrdiff_t remainder = pattern_length;
                 auto match_end = it;
                 for (auto size : str_ce_sizes) {
+                    if (size && !remainder)
+                        break;
                     remainder -= size;
                     ++match_end;
-                    if (remainder == 0)
-                        break;
                     if (remainder < 0) {
                         match_end = it;
                         break;
@@ -487,7 +514,6 @@ namespace boost { namespace text {
             BreakFunc break_fn,
             collation_table const & table,
             collation_strength strength,
-            case_first case_1st,
             case_level case_lvl,
             variable_weighting weighting,
             PopsFunc pops_on_mismatch)
@@ -510,6 +536,9 @@ namespace boost { namespace text {
                     ces -= str_ce_sizes.front();
                     str_ce_sizes.pop_front();
                     ++it;
+                }
+                while (!str_ce_sizes.empty() && !str_ce_sizes.front()) {
+                    str_ce_sizes.pop_front();
                 }
                 str_ces.erase(str_ces.begin(), str_ces.begin() - ces);
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
@@ -543,7 +572,6 @@ namespace boost { namespace text {
                             str_ce_sizes,
                             table,
                             strength,
-                            case_1st,
                             case_lvl,
                             weighting);
                     }
@@ -590,12 +618,10 @@ namespace boost { namespace text {
             BreakFunc break_fn,
             collation_table const & table,
             collation_strength strength = collation_strength::tertiary,
-            case_first case_1st = case_first::off,
             case_level case_lvl = case_level::off,
             variable_weighting weighting = variable_weighting::non_ignorable) :
             table_(table),
             strength_(strength),
-            case_first_(case_1st),
             case_level_(case_lvl),
             weighting_(weighting),
             break_fn_(break_fn)
@@ -606,7 +632,6 @@ namespace boost { namespace text {
                 pattern_ces_,
                 table_,
                 strength_,
-                case_first_,
                 case_level_,
                 weighting_);
         }
@@ -625,7 +650,6 @@ namespace boost { namespace text {
                 break_fn_,
                 table_,
                 strength_,
-                case_first_,
                 case_level_,
                 weighting_,
                 [](mismatch_t, std::deque<detail::collation_element> const &) {
@@ -636,7 +660,6 @@ namespace boost { namespace text {
     private:
         collation_table table_;
         collation_strength strength_;
-        case_first case_first_;
         case_level case_level_;
         variable_weighting weighting_;
         container::small_vector<detail::collation_element, 256> pattern_ces_;
@@ -659,7 +682,6 @@ namespace boost { namespace text {
             Sentinel last,
             collation_table const & table,
             collation_strength strength = collation_strength::tertiary,
-            case_first case_1st = case_first::off,
             case_level case_lvl = case_level::off,
             variable_weighting weighting = variable_weighting::non_ignorable)
     {
@@ -672,7 +694,6 @@ namespace boost { namespace text {
             detail::noop_prev_break{},
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -689,7 +710,6 @@ namespace boost { namespace text {
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
@@ -699,7 +719,6 @@ namespace boost { namespace text {
             break_fn,
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -712,7 +731,6 @@ namespace boost { namespace text {
         CPRange r,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> default_collation_searcher<
@@ -731,7 +749,6 @@ namespace boost { namespace text {
             detail::noop_prev_break{},
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -746,7 +763,6 @@ namespace boost { namespace text {
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable) ->
         typename std::enable_if<
@@ -764,7 +780,6 @@ namespace boost { namespace text {
             break_fn,
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -780,12 +795,10 @@ namespace boost { namespace text {
             BreakFunc break_fn,
             collation_table const & table,
             collation_strength strength = collation_strength::tertiary,
-            case_first case_1st = case_first::off,
             case_level case_lvl = case_level::off,
             variable_weighting weighting = variable_weighting::non_ignorable) :
             table_(table),
             strength_(strength),
-            case_first_(case_1st),
             case_level_(case_lvl),
             weighting_(weighting),
             break_fn_(break_fn)
@@ -799,7 +812,6 @@ namespace boost { namespace text {
                 pattern_ces_,
                 table_,
                 strength_,
-                case_first_,
                 case_level_,
                 weighting_);
 
@@ -828,7 +840,6 @@ namespace boost { namespace text {
                 break_fn_,
                 table_,
                 strength_,
-                case_first_,
                 case_level_,
                 weighting_,
                 [this](
@@ -843,7 +854,6 @@ namespace boost { namespace text {
 
         collation_table table_;
         collation_strength strength_;
-        case_first case_first_;
         case_level case_level_;
         variable_weighting weighting_;
         detail::search_skip_table skips_;
@@ -864,7 +874,6 @@ namespace boost { namespace text {
         Sentinel last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
@@ -877,7 +886,6 @@ namespace boost { namespace text {
             detail::noop_prev_break{},
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -894,7 +902,6 @@ namespace boost { namespace text {
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
@@ -907,7 +914,6 @@ namespace boost { namespace text {
             break_fn,
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -920,7 +926,6 @@ namespace boost { namespace text {
         CPRange r,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> boyer_moore_horspool_collation_searcher<
@@ -939,7 +944,6 @@ namespace boost { namespace text {
             detail::noop_prev_break{},
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -954,7 +958,6 @@ namespace boost { namespace text {
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> boyer_moore_horspool_collation_searcher<
@@ -973,7 +976,6 @@ namespace boost { namespace text {
             break_fn,
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -989,12 +991,10 @@ namespace boost { namespace text {
             BreakFunc break_fn,
             collation_table const & table,
             collation_strength strength = collation_strength::tertiary,
-            case_first case_1st = case_first::off,
             case_level case_lvl = case_level::off,
             variable_weighting weighting = variable_weighting::non_ignorable) :
             table_(table),
             strength_(strength),
-            case_first_(case_1st),
             case_level_(case_lvl),
             weighting_(weighting),
             break_fn_(break_fn)
@@ -1005,7 +1005,6 @@ namespace boost { namespace text {
                 pattern_ces_,
                 table_,
                 strength_,
-                case_first_,
                 case_level_,
                 weighting_);
 
@@ -1032,7 +1031,6 @@ namespace boost { namespace text {
                 break_fn_,
                 table_,
                 strength_,
-                case_first_,
                 case_level_,
                 weighting_,
                 [this](
@@ -1105,7 +1103,6 @@ namespace boost { namespace text {
 
         collation_table table_;
         collation_strength strength_;
-        case_first case_first_;
         case_level case_level_;
         variable_weighting weighting_;
         detail::search_skip_table skips_;
@@ -1124,7 +1121,6 @@ namespace boost { namespace text {
         Sentinel last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
@@ -1137,7 +1133,6 @@ namespace boost { namespace text {
             detail::noop_prev_break{},
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -1154,7 +1149,6 @@ namespace boost { namespace text {
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
@@ -1164,7 +1158,6 @@ namespace boost { namespace text {
             break_fn,
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -1177,7 +1170,6 @@ namespace boost { namespace text {
         CPRange r,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> boyer_moore_collation_searcher<
@@ -1196,7 +1188,6 @@ namespace boost { namespace text {
             detail::noop_prev_break{},
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -1211,7 +1202,6 @@ namespace boost { namespace text {
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> boyer_moore_collation_searcher<
@@ -1227,7 +1217,6 @@ namespace boost { namespace text {
             break_fn,
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
     }
@@ -1252,7 +1241,6 @@ namespace boost { namespace text {
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
@@ -1262,7 +1250,6 @@ namespace boost { namespace text {
             break_fn,
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
         return collation_search(first, last, s);
@@ -1278,13 +1265,12 @@ namespace boost { namespace text {
         BreakFunc break_fn,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> cp_range<decltype(std::begin(str))>
     {
         auto const s = make_default_collation_searcher(
-            pattern, break_fn, table, strength, case_1st, case_lvl, weighting);
+            pattern, break_fn, table, strength, case_lvl, weighting);
         return collation_search(std::begin(str), std::end(str), s);
     }
 
@@ -1304,7 +1290,6 @@ namespace boost { namespace text {
         Sentinel2 pattern_last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
@@ -1314,7 +1299,6 @@ namespace boost { namespace text {
             detail::noop_prev_break{},
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
         return collation_search(first, last, s);
@@ -1329,7 +1313,6 @@ namespace boost { namespace text {
         CPRange2 & pattern,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> cp_range<decltype(std::begin(str))>
@@ -1339,7 +1322,6 @@ namespace boost { namespace text {
             detail::noop_prev_break{},
             table,
             strength,
-            case_1st,
             case_lvl,
             weighting);
         return collation_search(std::begin(str), std::end(str), s);

@@ -1,4 +1,5 @@
 #include <boost/text/collation_search.hpp>
+#include <boost/text/data/da.hpp>
 
 #include <gtest/gtest.h>
 
@@ -7,9 +8,9 @@ using namespace boost::text;
 
 
 collation_table const default_table = default_collation_table();
+collation_table const danish_table =
+    tailored_collation_table(data::da::standard_collation_tailoring());
 
-// TODO: Use non-ASCII CPs with tables that tailor those CPS.
-// TODO: Use CPs associated with multiple CEs.
 // TODO: Test boundary-break functionality.
 // TODO: Test options like ignoring case or accents.
 
@@ -19,10 +20,14 @@ void do_simple_search(
     utf32_range substr,
     int expected_first,
     int expected_last,
-    int line)
+    int line,
+    collation_strength strength,
+    case_level case_lvl,
+    variable_weighting weighting)
 {
     {
-        auto const r = collation_search(str, substr, table);
+        auto const r =
+            collation_search(str, substr, table, strength, case_lvl, weighting);
         EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "simple, line " << line;
         EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
@@ -30,7 +35,9 @@ void do_simple_search(
     }
     {
         auto r = collation_search(
-            str, make_default_collation_searcher(substr, table));
+            str,
+            make_default_collation_searcher(
+                substr, table, strength, case_lvl, weighting));
         EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "simple, line " << line;
         EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
@@ -55,7 +62,13 @@ void do_simple_search(
                                       utf8::null_sentinel{}};
 
     {
-        auto const r = collation_search(str_cp_range, substr_cp_range, table);
+        auto const r = collation_search(
+            str_cp_range,
+            substr_cp_range,
+            table,
+            strength,
+            case_lvl,
+            weighting);
         EXPECT_EQ(
             std::distance(str_cp_range.begin(), r.begin()), expected_first)
             << "simple, line " << line;
@@ -65,7 +78,8 @@ void do_simple_search(
     {
         auto r = collation_search(
             str_cp_range,
-            make_default_collation_searcher(substr_cp_range, table));
+            make_default_collation_searcher(
+                substr_cp_range, table, strength, case_lvl, weighting));
         EXPECT_EQ(
             std::distance(str_cp_range.begin(), r.begin()), expected_first)
             << "simple, line " << line;
@@ -74,7 +88,9 @@ void do_simple_search(
     }
     {
         auto r = collation_search(
-            str_cp_range, make_default_collation_searcher(substr, table));
+            str_cp_range,
+            make_default_collation_searcher(
+                substr, table, strength, case_lvl, weighting));
         EXPECT_EQ(
             std::distance(str_cp_range.begin(), r.begin()), expected_first)
             << "simple, line " << line;
@@ -89,11 +105,16 @@ void do_boyer_moore_search(
     utf32_range substr,
     int expected_first,
     int expected_last,
-    int line)
+    int line,
+    collation_strength strength,
+    case_level case_lvl,
+    variable_weighting weighting)
 {
     {
         auto r = collation_search(
-            str, make_boyer_moore_collation_searcher(substr, table));
+            str,
+            make_boyer_moore_collation_searcher(
+                substr, table, strength, case_lvl, weighting));
         EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "BM, line " << line;
         EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
@@ -120,7 +141,8 @@ void do_boyer_moore_search(
     {
         auto r = collation_search(
             str_cp_range,
-            make_boyer_moore_collation_searcher(substr_cp_range, table));
+            make_boyer_moore_collation_searcher(
+                substr_cp_range, table, strength, case_lvl, weighting));
         EXPECT_EQ(
             std::distance(str_cp_range.begin(), r.begin()), expected_first)
             << "simple, line " << line;
@@ -129,7 +151,9 @@ void do_boyer_moore_search(
     }
     {
         auto r = collation_search(
-            str_cp_range, make_boyer_moore_collation_searcher(substr, table));
+            str_cp_range,
+            make_boyer_moore_collation_searcher(
+                substr, table, strength, case_lvl, weighting));
         EXPECT_EQ(
             std::distance(str_cp_range.begin(), r.begin()), expected_first)
             << "simple, line " << line;
@@ -144,11 +168,16 @@ void do_boyer_moore_horspool_search(
     utf32_range substr,
     int expected_first,
     int expected_last,
-    int line)
+    int line,
+    collation_strength strength,
+    case_level case_lvl,
+    variable_weighting weighting)
 {
     {
         auto r = collation_search(
-            str, make_boyer_moore_horspool_collation_searcher(substr, table));
+            str,
+            make_boyer_moore_horspool_collation_searcher(
+                substr, table, strength, case_lvl, weighting));
         EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "BMH, line " << line;
         EXPECT_EQ(std::distance(str.begin(), r.end()), expected_last)
@@ -176,7 +205,7 @@ void do_boyer_moore_horspool_search(
         auto r = collation_search(
             str_cp_range,
             make_boyer_moore_horspool_collation_searcher(
-                substr_cp_range, table));
+                substr_cp_range, table, strength, case_lvl, weighting));
         EXPECT_EQ(
             std::distance(str_cp_range.begin(), r.begin()), expected_first)
             << "simple, line " << line;
@@ -186,7 +215,8 @@ void do_boyer_moore_horspool_search(
     {
         auto r = collation_search(
             str_cp_range,
-            make_boyer_moore_horspool_collation_searcher(substr, table));
+            make_boyer_moore_horspool_collation_searcher(
+                substr, table, strength, case_lvl, weighting));
         EXPECT_EQ(
             std::distance(str_cp_range.begin(), r.begin()), expected_first)
             << "simple, line " << line;
@@ -201,16 +231,44 @@ void do_search(
     string const & substr_,
     int expected_first,
     int expected_last,
-    int line)
+    int line,
+    collation_strength strength = collation_strength::tertiary,
+    case_level case_lvl = case_level::off,
+    variable_weighting weighting = variable_weighting::non_ignorable)
 {
     auto const str = utf32_range(str_);
     auto const substr = utf32_range(substr_);
 
-    do_simple_search(table, str, substr, expected_first, expected_last, line);
+    do_simple_search(
+        table,
+        str,
+        substr,
+        expected_first,
+        expected_last,
+        line,
+        strength,
+        case_lvl,
+        weighting);
     do_boyer_moore_search(
-        table, str, substr, expected_first, expected_last, line);
+        table,
+        str,
+        substr,
+        expected_first,
+        expected_last,
+        line,
+        strength,
+        case_lvl,
+        weighting);
     do_boyer_moore_horspool_search(
-        table, str, substr, expected_first, expected_last, line);
+        table,
+        str,
+        substr,
+        expected_first,
+        expected_last,
+        line,
+        strength,
+        case_lvl,
+        weighting);
 }
 
 // Test strings cribbed from Boost.Algorithm's search tests.  Thanks, Marshall!
@@ -231,7 +289,6 @@ TEST(collation_search, default_)
     string const haystack_3("abra abracad abracadabra");
     string const needle_12("abracadabra");
 
-    // TODO: Other tables too!  This currently only uses the default one.
     auto table = default_table;
 
     do_search(table, haystack_1, needle_1, 26, 26 + needle_1.size(), __LINE__);
@@ -283,4 +340,239 @@ TEST(collation_search, default_)
 
         do_search(table, corpus, base_pairs, 8, corpus.size(), __LINE__);
     }
+}
+
+TEST(collation_search, danish)
+{
+    string const haystack_1(u8"Danish aa ");
+    string const haystack_2(u8"Danish aa");
+    string const haystack_3(u8"Danish a");
+    string const haystack_4(u8"Danish Å ");
+    string const haystack_5(u8"Danish Å");
+    string const needle_1(u8"Å");
+    string const needle_2(u8"aa");
+    string const needle_3(u8"AA");
+
+    auto table = danish_table;
+
+    // The Danish collation includes this line:
+    // &[before 1]ǀ<æ<<<Æ<<ä<<<Ä<ø<<<Ø<<ö<<<Ö<<ő<<<Ő<å<<<Å<<<aa<<<Aa<<<AA
+    // This implies that we should expect no non-identical matches with the
+    // default collation strength (tertiary), but should expect non-identical
+    // matches (e.g. AA and aa) at secondary strength.
+
+    // Tertiary strength
+
+    do_search(
+        table,
+        haystack_1,
+        needle_1,
+        haystack_1.size(),
+        haystack_1.size(),
+        __LINE__);
+    do_search(table, haystack_1, needle_2, 7, 9, __LINE__);
+    do_search(
+        table,
+        haystack_1,
+        needle_3,
+        haystack_1.size(),
+        haystack_1.size(),
+        __LINE__);
+
+    do_search(
+        table,
+        haystack_2,
+        needle_1,
+        haystack_2.size(),
+        haystack_2.size(),
+        __LINE__);
+    do_search(table, haystack_2, needle_2, 7, 9, __LINE__);
+    do_search(
+        table,
+        haystack_2,
+        needle_3,
+        haystack_2.size(),
+        haystack_2.size(),
+        __LINE__);
+
+    do_search(
+        table,
+        haystack_3,
+        needle_1,
+        haystack_3.size(),
+        haystack_3.size(),
+        __LINE__);
+    do_search(
+        table,
+        haystack_3,
+        needle_2,
+        haystack_3.size(),
+        haystack_3.size(),
+        __LINE__);
+    do_search(
+        table,
+        haystack_3,
+        needle_3,
+        haystack_3.size(),
+        haystack_3.size(),
+        __LINE__);
+
+    do_search(table, haystack_4, needle_1, 7, 8, __LINE__);
+    do_search(
+        table,
+        haystack_4,
+        needle_2,
+        haystack_4.size() - 1,
+        haystack_4.size() - 1,
+        __LINE__);
+    do_search(
+        table,
+        haystack_4,
+        needle_3,
+        haystack_4.size() - 1,
+        haystack_4.size() - 1,
+        __LINE__);
+
+    do_search(table, haystack_5, needle_1, 7, 8, __LINE__);
+    do_search(
+        table,
+        haystack_5,
+        needle_2,
+        haystack_5.size() - 1,
+        haystack_5.size() - 1,
+        __LINE__);
+    do_search(
+        table,
+        haystack_5,
+        needle_3,
+        haystack_5.size() - 1,
+        haystack_5.size() - 1,
+        __LINE__);
+
+    // Secondary strength
+
+    do_search(
+        table,
+        haystack_1,
+        needle_1,
+        7,
+        9,
+        __LINE__,
+        collation_strength::secondary);
+    do_search(
+        table,
+        haystack_1,
+        needle_2,
+        7,
+        9,
+        __LINE__,
+        collation_strength::secondary);
+    do_search(
+        table,
+        haystack_1,
+        needle_3,
+        7,
+        9,
+        __LINE__,
+        collation_strength::secondary);
+
+    do_search(
+        table,
+        haystack_2,
+        needle_1,
+        7,
+        9,
+        __LINE__,
+        collation_strength::secondary);
+    do_search(
+        table,
+        haystack_2,
+        needle_2,
+        7,
+        9,
+        __LINE__,
+        collation_strength::secondary);
+    do_search(
+        table,
+        haystack_2,
+        needle_3,
+        7,
+        9,
+        __LINE__,
+        collation_strength::secondary);
+
+    do_search(
+        table,
+        haystack_3,
+        needle_1,
+        haystack_3.size(),
+        haystack_3.size(),
+        __LINE__,
+        collation_strength::secondary);
+    do_search(
+        table,
+        haystack_3,
+        needle_2,
+        haystack_3.size(),
+        haystack_3.size(),
+        __LINE__,
+        collation_strength::secondary);
+    do_search(
+        table,
+        haystack_3,
+        needle_3,
+        haystack_3.size(),
+        haystack_3.size(),
+        __LINE__,
+        collation_strength::secondary);
+
+    do_search(
+        table,
+        haystack_4,
+        needle_1,
+        7,
+        8,
+        __LINE__,
+        collation_strength::secondary);
+    do_search(
+        table,
+        haystack_4,
+        needle_2,
+        7,
+        8,
+        __LINE__,
+        collation_strength::secondary);
+    do_search(
+        table,
+        haystack_4,
+        needle_3,
+        7,
+        8,
+        __LINE__,
+        collation_strength::secondary);
+
+    do_search(
+        table,
+        haystack_5,
+        needle_1,
+        7,
+        8,
+        __LINE__,
+        collation_strength::secondary);
+    do_search(
+        table,
+        haystack_5,
+        needle_2,
+        7,
+        8,
+        __LINE__,
+        collation_strength::secondary);
+    do_search(
+        table,
+        haystack_5,
+        needle_3,
+        7,
+        8,
+        __LINE__,
+        collation_strength::secondary);
 }
