@@ -682,9 +682,9 @@ namespace boost { namespace text {
         searcher uses a simple brute-force matching algorithm, like that found
         in std::search(). */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
-    struct default_collation_searcher
+    struct simple_collation_searcher
     {
-        default_collation_searcher(
+        simple_collation_searcher(
             CPIter pattern_first,
             Sentinel pattern_last,
             BreakFunc break_fn,
@@ -741,15 +741,15 @@ namespace boost { namespace text {
     // TODO: Document the requirements of BreakFunc.
     // TODO: Document the requirements of Searcher.
 
-    /** Returns a default_collation_searcher that will find the pattern
+    /** Returns a simple_collation_searcher that will find the pattern
         [first, last).  There are no restrictions on where within the searched
         text a match may occur. */
     template<typename CPIter, typename Sentinel>
     typename std::enable_if<
         detail::is_cp_iter<CPIter>::value,
-        default_collation_searcher<CPIter, Sentinel, detail::noop_prev_break>>::
+        simple_collation_searcher<CPIter, Sentinel, detail::noop_prev_break>>::
         type
-        make_default_collation_searcher(
+        make_simple_collation_searcher(
             CPIter first,
             Sentinel last,
             collation_table const & table,
@@ -757,7 +757,7 @@ namespace boost { namespace text {
             case_level case_lvl = case_level::off,
             variable_weighting weighting = variable_weighting::non_ignorable)
     {
-        return default_collation_searcher<
+        return simple_collation_searcher<
             CPIter,
             Sentinel,
             detail::noop_prev_break>(
@@ -770,13 +770,13 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** Returns a default_collation_searcher that will find the pattern
+    /** Returns a simple_collation_searcher that will find the pattern
         [first, last).  Any occurance of the pattern must be found starting at
         and ending at a boundary found by break_fn (e.g. a grapheme cluster or
         word boundary). */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
-    default_collation_searcher<CPIter, Sentinel, BreakFunc>
-    make_default_collation_searcher(
+    simple_collation_searcher<CPIter, Sentinel, BreakFunc>
+    make_simple_collation_searcher(
         CPIter first,
         Sentinel last,
         BreakFunc break_fn,
@@ -785,7 +785,7 @@ namespace boost { namespace text {
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
-        return default_collation_searcher<CPIter, Sentinel, BreakFunc>(
+        return simple_collation_searcher<CPIter, Sentinel, BreakFunc>(
             first,
             last,
             break_fn,
@@ -795,24 +795,24 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** Returns a default_collation_searcher that will find the pattern r.
+    /** Returns a simple_collation_searcher that will find the pattern r.
         There are no restrictions on where within the searched text a match
         may occur. */
     template<typename CPRange>
-    auto make_default_collation_searcher(
+    auto make_simple_collation_searcher(
         CPRange r,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
-        -> default_collation_searcher<
+        -> simple_collation_searcher<
             decltype(std::begin(r)),
             decltype(std::end(r)),
             detail::noop_prev_break>
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
-        return default_collation_searcher<
+        return simple_collation_searcher<
             r_iter,
             r_sntl,
             detail::noop_prev_break>(
@@ -825,12 +825,12 @@ namespace boost { namespace text {
             weighting);
     }
 
-    /** Returns a default_collation_searcher that will find the pattern r.
+    /** Returns a simple_collation_searcher that will find the pattern r.
         Any occurance of the pattern must be found starting at and ending at a
         boundary found by break_fn (e.g. a grapheme cluster or word
         boundary). */
     template<typename CPRange, typename BreakFunc>
-    auto make_default_collation_searcher(
+    auto make_simple_collation_searcher(
         CPRange r,
         BreakFunc break_fn,
         collation_table const & table,
@@ -839,14 +839,14 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable) ->
         typename std::enable_if<
             !detail::is_cp_iter<CPRange>::value,
-            default_collation_searcher<
+            simple_collation_searcher<
                 decltype(std::begin(r)),
                 decltype(std::end(r)),
                 BreakFunc>>::type
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
-        return default_collation_searcher<r_iter, r_sntl, BreakFunc>(
+        return simple_collation_searcher<r_iter, r_sntl, BreakFunc>(
             std::begin(r),
             std::end(r),
             break_fn,
@@ -1316,7 +1316,7 @@ namespace boost { namespace text {
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
-        auto const s = make_default_collation_searcher(
+        auto const s = make_simple_collation_searcher(
             pattern_first,
             pattern_last,
             break_fn,
@@ -1341,7 +1341,7 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> cp_range<decltype(std::begin(str))>
     {
-        auto const s = make_default_collation_searcher(
+        auto const s = make_simple_collation_searcher(
             pattern, break_fn, table, strength, case_lvl, weighting);
         return collation_search(std::begin(str), std::end(str), s);
     }
@@ -1365,7 +1365,7 @@ namespace boost { namespace text {
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable)
     {
-        auto const s = make_default_collation_searcher(
+        auto const s = make_simple_collation_searcher(
             pattern_first,
             pattern_last,
             detail::noop_prev_break{},
@@ -1389,7 +1389,7 @@ namespace boost { namespace text {
         variable_weighting weighting = variable_weighting::non_ignorable)
         -> cp_range<decltype(std::begin(str))>
     {
-        auto const s = make_default_collation_searcher(
+        auto const s = make_simple_collation_searcher(
             pattern,
             detail::noop_prev_break{},
             table,

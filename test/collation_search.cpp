@@ -34,7 +34,7 @@ void do_simple_search(
     {
         auto r = collation_search(
             str,
-            make_default_collation_searcher(
+            make_simple_collation_searcher(
                 substr, table, strength, case_lvl, weighting));
         EXPECT_EQ(std::distance(str.begin(), r.begin()), expected_first)
             << "simple, line " << line;
@@ -76,7 +76,7 @@ void do_simple_search(
     {
         auto r = collation_search(
             str_cp_range,
-            make_default_collation_searcher(
+            make_simple_collation_searcher(
                 substr_cp_range, table, strength, case_lvl, weighting));
         EXPECT_EQ(
             std::distance(str_cp_range.begin(), r.begin()), expected_first)
@@ -87,7 +87,7 @@ void do_simple_search(
     {
         auto r = collation_search(
             str_cp_range,
-            make_default_collation_searcher(
+            make_simple_collation_searcher(
                 substr, table, strength, case_lvl, weighting));
         EXPECT_EQ(
             std::distance(str_cp_range.begin(), r.begin()), expected_first)
@@ -821,19 +821,11 @@ TEST(collation_search, case_accents_and_punct)
 }
 
 #if 0 // TODO
-TEST(collation_search, same_ccc_reordering)
-{
-    auto const table = default_table;
-
-    do_full_match_search(table, u8"e\u0301\u0300", u8"e\u0300\u0301", __LINE__);
-}
-#endif
-
-#if 0 // TODO
 TEST(collation_search, grapheme_boundaries)
 {
     auto const table = default_table;
 
+    do_search(table, u8"e\u0301\u0300", u8"e\u0301", 3, 3, __LINE__);
 }
 #endif
 
