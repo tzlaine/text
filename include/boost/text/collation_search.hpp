@@ -182,9 +182,6 @@ namespace boost { namespace text {
             std::ptrdiff_t const n = text::distance(first, last);
             container::small_vector<uint32_t, 1024> buf(n);
             {
-                // TODO: Reorder CPs such that runs of combining marks with the
-                // same CCC are ordered by increasing CP value, to make matches
-                // unambiguous.
                 auto buf_it = buf.begin();
                 for (auto it = first; it != last; ++it, ++buf_it) {
                     *buf_it = *it;
@@ -261,9 +258,6 @@ namespace boost { namespace text {
                 });
 
             container::small_vector<uint32_t, 1024> buf(n);
-            // TODO: Reorder CPs such that runs of combining marks with the
-            // same CCC are ordered by increasing CP value, to make matches
-            // unambiguous.
             std::copy(get_first, next_contiguous_starter_it, buf.begin());
 
             auto const old_ce_sizes_size = ce_sizes.size();
