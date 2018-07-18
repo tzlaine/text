@@ -1084,17 +1084,50 @@ namespace boost { namespace text {
     };
 
     /** Calls <code>f(sub)</code> for each subrange \a sub in [first, last).
-        A subrange is a contiguous subsequence of elements, each of which is
-        equal to \a x.  Subranges passed to \a f are non-overlapping. */
-    template<typename FwdIter, typename Sentinel, typename T, typename Func>
-    Func foreach_subrange(FwdIter first, Sentinel last, T const & x, Func f)
+        A subrange is a contiguous subsequence of elements that each compares
+        equal to the first element of the subsequence.  Subranges passed to \a
+        f are non-overlapping. */
+    template<typename FwdIter, typename Sentinel, typename Func>
+    Func foreach_subrange(FwdIter first, Sentinel last, Func f)
+    {
+        while (first != last) {
+            auto const & x = *first;
+            auto const next = find_not(first, last, x);
+            f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
+            first = next;
+        }
+        return f;
+    }
+
+    /** Calls <code>f(sub)</code> for each subrange \a sub in [first, last).
+        A subrange is a contiguous subsequence of elements that for each
+        element e, proj(e) each compares equal to proj() of the first element
+        of the subsequence.  Subranges passed to \a f are non-overlapping. */
+    template<typename FwdIter, typename Sentinel, typename Func, typename Proj>
+    Func foreach_subrange(FwdIter first, Sentinel last, Func f, Proj proj)
     {
         using value_type = typename std::iterator_traits<FwdIter>::value_type;
         while (first != last) {
+            auto const & x = proj(*first);
+            auto const next = find_if_not(
+                first, last, [&x, proj](const value_type & element) {
+                    return proj(element) == x;
+                });
+            f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
+            first = next;
+        }
+        return f;
+    }
+
+    /** Calls <code>f(sub)</code> for each subrange \a sub in [first, last).
+        A subrange is a contiguous subsequence of elements, each of which is
+        equal to \a x.  Subranges passed to \a f are non-overlapping. */
+    template<typename FwdIter, typename Sentinel, typename T, typename Func>
+    Func foreach_subrange_of(FwdIter first, Sentinel last, T const & x, Func f)
+    {
+        while (first != last) {
             first = find(first, last, x);
-            auto next = find_if_not(first, last, [&x](value_type const & elem) {
-                return elem == x;
-            });
+            auto const next = find_not(first, last, x);
             f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;
         }
@@ -1110,7 +1143,7 @@ namespace boost { namespace text {
     {
         while (first != last) {
             first = find_if(first, last, p);
-            auto next = find_if_not(first, last, p);
+            auto const next = find_if_not(first, last, p);
             f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;
         }
