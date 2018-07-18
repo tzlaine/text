@@ -27,6 +27,21 @@ namespace boost { namespace text {
     // graphemes as in the collation_search("a\u0300", "a\u0300\u0301")
     // example.
 
+    /** The flags taken by most functions in the collation_search API, used to
+        indicate accent- case- and punctuation-insensitive searches. */
+    enum class search_flags : unsigned int {
+        none = 0,
+        ignore_accents = 1 << 0,
+        ignore_case = 1 << 1,
+        ignore_punctuation = 1 << 2
+    };
+
+    inline search_flags operator|(search_flags lhs, search_flags rhs)
+    {
+        return search_flags(
+            static_cast<unsigned int>(lhs) | static_cast<unsigned int>(rhs));
+    }
+
     /** Returns the subrange within [first, last) in which the given searcher
         finds its pattern.  If the pattern is not found, the resulting range
         will be empty. */
@@ -68,6 +83,45 @@ namespace std {
 namespace boost { namespace text {
 
     namespace detail {
+
+        inline unsigned int to_uint(search_flags flag)
+        {
+            return static_cast<unsigned int>(flag);
+        }
+
+        inline collation_strength to_strength(search_flags flags_)
+        {
+            unsigned int const flags = static_cast<unsigned int>(flags_);
+
+            if (flags & to_uint(search_flags::ignore_accents))
+                return collation_strength::primary;
+            else if (flags & to_uint(search_flags::ignore_case))
+                return collation_strength::secondary;
+            else
+                return collation_strength::tertiary;
+        }
+
+        inline case_level to_case_level(search_flags flags_)
+        {
+            unsigned int const flags = static_cast<unsigned int>(flags_);
+
+            if (flags & to_uint(search_flags::ignore_accents) &&
+                !(flags & to_uint(search_flags::ignore_case))) {
+                return case_level::on;
+            } else {
+                return case_level::off;
+            }
+        }
+
+        inline variable_weighting to_weighting(search_flags flags_)
+        {
+            unsigned int const flags = static_cast<unsigned int>(flags_);
+
+            if (flags & to_uint(search_flags::ignore_punctuation))
+                return variable_weighting::shifted;
+            else
+                return variable_weighting::non_ignorable;
+        }
 
         struct prev_grapheme_callable
         {
@@ -767,9 +821,7 @@ namespace boost { namespace text {
         CPIter first,
         Sentinel last,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
     {
         return simple_collation_searcher<
             CPIter,
@@ -779,9 +831,9 @@ namespace boost { namespace text {
             last,
             detail::prev_grapheme_callable{},
             table,
-            strength,
-            case_lvl,
-            weighting);
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a simple_collation_searcher that will find the pattern
@@ -795,23 +847,23 @@ namespace boost { namespace text {
         Sentinel last,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
     {
         return simple_collation_searcher<CPIter, Sentinel, BreakFunc>(
-            first, last, break_fn, table, strength, case_lvl, weighting);
+            first,
+            last,
+            break_fn,
+            table,
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a simple_collation_searcher that will find the pattern r.  A
         match must begin and end at a grapheme boundary. */
     template<typename CPRange>
     auto make_simple_collation_searcher(
-        CPRange r,
-        collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        CPRange r, collation_table const & table, search_flags flags = search_flags::none)
         -> simple_collation_searcher<
             decltype(std::begin(r)),
             decltype(std::end(r)),
@@ -827,9 +879,9 @@ namespace boost { namespace text {
             std::end(r),
             detail::prev_grapheme_callable{},
             table,
-            strength,
-            case_lvl,
-            weighting);
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a simple_collation_searcher that will find the pattern r.
@@ -841,9 +893,7 @@ namespace boost { namespace text {
         CPRange r,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable) ->
+        search_flags flags = search_flags::none) ->
         typename std::enable_if<
             !detail::is_cp_iter<CPRange>::value,
             simple_collation_searcher<
@@ -858,9 +908,9 @@ namespace boost { namespace text {
             std::end(r),
             break_fn,
             table,
-            strength,
-            case_lvl,
-            weighting);
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** A searcher for use with the collation_search() algorithm.  This
@@ -952,9 +1002,7 @@ namespace boost { namespace text {
         CPIter first,
         Sentinel last,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
     {
         return boyer_moore_horspool_collation_searcher<
             CPIter,
@@ -964,9 +1012,9 @@ namespace boost { namespace text {
             last,
             detail::prev_grapheme_callable{},
             table,
-            strength,
-            case_lvl,
-            weighting);
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
@@ -980,26 +1028,26 @@ namespace boost { namespace text {
         Sentinel last,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
     {
         return boyer_moore_horspool_collation_searcher<
             CPIter,
             Sentinel,
             BreakFunc>(
-            first, last, break_fn, table, strength, case_lvl, weighting);
+            first,
+            last,
+            break_fn,
+            table,
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
         pattern r.  A match must begin and end at a grapheme boundary. */
     template<typename CPRange>
     auto make_boyer_moore_horspool_collation_searcher(
-        CPRange r,
-        collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        CPRange r, collation_table const & table, search_flags flags = search_flags::none)
         -> boyer_moore_horspool_collation_searcher<
             decltype(std::begin(r)),
             decltype(std::end(r)),
@@ -1015,9 +1063,9 @@ namespace boost { namespace text {
             std::end(r),
             detail::prev_grapheme_callable{},
             table,
-            strength,
-            case_lvl,
-            weighting);
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
@@ -1029,9 +1077,7 @@ namespace boost { namespace text {
         CPRange r,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
         -> boyer_moore_horspool_collation_searcher<
             decltype(std::begin(r)),
             decltype(std::end(r)),
@@ -1047,9 +1093,9 @@ namespace boost { namespace text {
             std::end(r),
             break_fn,
             table,
-            strength,
-            case_lvl,
-            weighting);
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
         /** A searcher for use with the collation_search() algorithm.  A match
@@ -1194,9 +1240,7 @@ namespace boost { namespace text {
         CPIter first,
         Sentinel last,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
     {
         return boyer_moore_collation_searcher<
             CPIter,
@@ -1206,9 +1250,9 @@ namespace boost { namespace text {
             last,
             detail::prev_grapheme_callable{},
             table,
-            strength,
-            case_lvl,
-            weighting);
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern
@@ -1222,23 +1266,23 @@ namespace boost { namespace text {
         Sentinel last,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
     {
         return boyer_moore_collation_searcher<CPIter, Sentinel, BreakFunc>(
-            first, last, break_fn, table, strength, case_lvl, weighting);
+            first,
+            last,
+            break_fn,
+            table,
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern r.
         A match must begin and end at a grapheme boundary. */
     template<typename CPRange>
     auto make_boyer_moore_collation_searcher(
-        CPRange r,
-        collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        CPRange r, collation_table const & table, search_flags flags = search_flags::none)
         -> boyer_moore_collation_searcher<
             decltype(std::begin(r)),
             decltype(std::end(r)),
@@ -1254,9 +1298,9 @@ namespace boost { namespace text {
             std::end(r),
             detail::prev_grapheme_callable{},
             table,
-            strength,
-            case_lvl,
-            weighting);
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern r.
@@ -1268,9 +1312,7 @@ namespace boost { namespace text {
         CPRange r,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
         -> boyer_moore_collation_searcher<
             decltype(std::begin(r)),
             decltype(std::end(r)),
@@ -1283,9 +1325,9 @@ namespace boost { namespace text {
             std::end(r),
             break_fn,
             table,
-            strength,
-            case_lvl,
-            weighting);
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     // Convenience overloads
@@ -1309,18 +1351,10 @@ namespace boost { namespace text {
         Sentinel2 pattern_last,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
     {
         auto const s = make_simple_collation_searcher(
-            pattern_first,
-            pattern_last,
-            break_fn,
-            table,
-            strength,
-            case_lvl,
-            weighting);
+            pattern_first, pattern_last, break_fn, table, flags);
         return collation_search(first, last, s);
     }
 
@@ -1336,13 +1370,11 @@ namespace boost { namespace text {
         CPRange2 & pattern,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
         -> cp_range<decltype(std::begin(str))>
     {
-        auto const s = make_simple_collation_searcher(
-            pattern, break_fn, table, strength, case_lvl, weighting);
+        auto const s =
+            make_simple_collation_searcher(pattern, break_fn, table, flags);
         return collation_search(std::begin(str), std::end(str), s);
     }
 
@@ -1362,18 +1394,14 @@ namespace boost { namespace text {
         CPIter2 pattern_first,
         Sentinel2 pattern_last,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
     {
         auto const s = make_simple_collation_searcher(
             pattern_first,
             pattern_last,
             detail::prev_grapheme_callable{},
             table,
-            strength,
-            case_lvl,
-            weighting);
+            flags);
         return collation_search(first, last, s);
     }
 
@@ -1386,18 +1414,11 @@ namespace boost { namespace text {
         CPRange1 & str,
         CPRange2 & pattern,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable)
+        search_flags flags = search_flags::none)
         -> cp_range<decltype(std::begin(str))>
     {
         auto const s = make_simple_collation_searcher(
-            pattern,
-            detail::prev_grapheme_callable{},
-            table,
-            strength,
-            case_lvl,
-            weighting);
+            pattern, detail::prev_grapheme_callable{}, table, flags);
         return collation_search(std::begin(str), std::end(str), s);
     }
 
