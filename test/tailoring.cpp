@@ -240,8 +240,10 @@ TEST(tailoring, reordering)
         for (int i = 0, end = (int)cps.size() - 1; i != end; ++i) {
             EXPECT_LE(
                 text::collate(
-                    cps[i],
-                    cps[i + 1],
+                    cps[i].begin(),
+                    cps[i].end(),
+                    cps[i + 1].begin(),
+                    cps[i + 1].end(),
                     table,
                     text::collation_strength::primary,
                     text::case_first::off,
@@ -297,8 +299,10 @@ TEST(tailoring, de)
     for (int i = 0; i < cases; ++i) {
         EXPECT_EQ(
             text::collate(
-                lhs[i],
-                rhs[i],
+                lhs[i].begin(),
+                lhs[i].end(),
+                rhs[i].begin(),
+                rhs[i].end(),
                 table,
                 text::collation_strength::primary,
                 text::case_first::off,
@@ -310,8 +314,10 @@ TEST(tailoring, de)
             << rhs[i] << "\n";
         EXPECT_EQ(
             text::collate(
-                lhs[i],
-                rhs[i],
+                lhs[i].begin(),
+                lhs[i].end(),
+                rhs[i].begin(),
+                rhs[i].end(),
                 table,
                 text::collation_strength::tertiary,
                 text::case_first::off,
@@ -562,8 +568,10 @@ TEST(tailoring, en)
         for (int i = 38; i < 43; ++i) {
             EXPECT_EQ(
                 text::collate(
-                    lhs[i],
-                    rhs[i],
+                    lhs[i].begin(),
+                    lhs[i].end(),
+                    rhs[i].begin(),
+                    rhs[i].end(),
                     table,
                     text::collation_strength::primary,
                     text::case_first::off,
@@ -577,8 +585,10 @@ TEST(tailoring, en)
         for (int i = 43; i < 49; ++i) {
             EXPECT_EQ(
                 text::collate(
-                    lhs[i],
-                    rhs[i],
+                    lhs[i].begin(),
+                    lhs[i].end(),
+                    rhs[i].begin(),
+                    rhs[i].end(),
                     table,
                     text::collation_strength::secondary,
                     text::case_first::off,
@@ -592,8 +602,10 @@ TEST(tailoring, en)
         for (int i = 0; i < 38; ++i) {
             EXPECT_EQ(
                 text::collate(
-                    lhs[i],
-                    rhs[i],
+                    lhs[i].begin(),
+                    lhs[i].end(),
+                    rhs[i].begin(),
+                    rhs[i].end(),
                     table,
                     text::collation_strength::tertiary,
                     text::case_first::off,
@@ -624,8 +636,10 @@ TEST(tailoring, en)
             for (int j = i + 1; j < cases; ++j) {
                 EXPECT_EQ(
                     text::collate(
-                        primary_less[i],
-                        primary_less[j],
+                        primary_less[i].begin(),
+                        primary_less[i].end(),
+                        primary_less[j].begin(),
+                        primary_less[j].end(),
                         table,
                         text::collation_strength::tertiary,
                         text::case_first::off,
@@ -660,8 +674,10 @@ TEST(tailoring, en)
                     expected = 1;
                 EXPECT_EQ(
                     text::collate(
-                        strings[i],
-                        strings[j],
+                        strings[i].begin(),
+                        strings[i].end(),
+                        strings[j].begin(),
+                        strings[j].end(),
                         table,
                         text::collation_strength::tertiary,
                         text::case_first::off,
@@ -713,8 +729,10 @@ TEST(tailoring, en)
                     expected = 1;
                 EXPECT_EQ(
                     text::collate(
-                        strings[i],
-                        strings[j],
+                        strings[i].begin(),
+                        strings[i].end(),
+                        strings[j].begin(),
+                        strings[j].end(),
                         table,
                         text::collation_strength::secondary,
                         text::case_first::off,
@@ -767,8 +785,10 @@ TEST(tailoring, es)
     for (int i = 0; i < 5; ++i) {
         EXPECT_EQ(
             text::collate(
-                lhs[i],
-                rhs[i],
+                lhs[i].begin(),
+                lhs[i].end(),
+                rhs[i].begin(),
+                rhs[i].end(),
                 table,
                 text::collation_strength::tertiary,
                 text::case_first::off,
@@ -783,8 +803,10 @@ TEST(tailoring, es)
     for (int i = 5; i < cases; ++i) {
         EXPECT_EQ(
             text::collate(
-                lhs[i],
-                rhs[i],
+                lhs[i].begin(),
+                lhs[i].end(),
+                rhs[i].begin(),
+                rhs[i].end(),
                 table,
                 text::collation_strength::primary,
                 text::case_first::off,
@@ -825,8 +847,10 @@ TEST(tailoring, fi)
     for (int i = 0; i < 4; ++i) {
         EXPECT_EQ(
             text::collate(
-                lhs[i],
-                rhs[i],
+                lhs[i].begin(),
+                lhs[i].end(),
+                rhs[i].begin(),
+                rhs[i].end(),
                 table,
                 text::collation_strength::tertiary,
                 text::case_first::off,
@@ -840,8 +864,10 @@ TEST(tailoring, fi)
 
     EXPECT_EQ(
         text::collate(
-            lhs[4],
-            rhs[4],
+            lhs[4].begin(),
+            lhs[4].end(),
+            rhs[4].begin(),
+            rhs[4].end(),
             table,
             text::collation_strength::primary,
             text::case_first::off,
@@ -897,8 +923,10 @@ TEST(tailoring, fr)
         for (int i = 0; i < cases; ++i) {
             EXPECT_EQ(
                 text::collate(
-                    lhs[i],
-                    rhs[i],
+                    lhs[i].begin(),
+                    lhs[i].end(),
+                    rhs[i].begin(),
+                    rhs[i].end(),
                     table,
                     text::collation_strength::tertiary,
                     text::case_first::off,
@@ -930,8 +958,10 @@ TEST(tailoring, fr)
             for (int j = i + 1; j < cases; ++j) {
                 EXPECT_EQ(
                     text::collate(
-                        tertiary_less[i],
-                        tertiary_less[j],
+                        tertiary_less[i].begin(),
+                        tertiary_less[i].end(),
+                        tertiary_less[j].begin(),
+                        tertiary_less[j].end(),
                         table,
                         text::collation_strength::tertiary,
                         text::case_first::off,
@@ -984,8 +1014,10 @@ TEST(tailoring, fr)
                     expected = 1;
                 EXPECT_EQ(
                     text::collate(
-                        strings[i],
-                        strings[j],
+                        strings[i].begin(),
+                        strings[i].end(),
+                        strings[j].begin(),
+                        strings[j].end(),
                         table,
                         text::collation_strength::secondary,
                         text::case_first::off,
@@ -1035,8 +1067,10 @@ TEST(tailoring, ja)
                 continue;
             EXPECT_EQ(
                 text::collate(
-                    lhs[i],
-                    rhs[i],
+                    lhs[i].begin(),
+                    lhs[i].end(),
+                    rhs[i].begin(),
+                    rhs[i].end(),
                     table,
                     text::collation_strength::tertiary,
                     text::case_first::off,
@@ -1058,8 +1092,10 @@ TEST(tailoring, ja)
         for (int i = 0; i < cases - 1; ++i) {
             EXPECT_EQ(
                 text::collate(
-                    primary_less[i],
-                    primary_less[i + 1],
+                    primary_less[i].begin(),
+                    primary_less[i].end(),
+                    primary_less[i + 1].begin(),
+                    primary_less[i + 1].end(),
                     table,
                     text::collation_strength::primary,
                     text::case_first::off,
@@ -1083,8 +1119,10 @@ TEST(tailoring, ja)
         for (int i = 0; i < cases - 1; ++i) {
             EXPECT_EQ(
                 text::collate(
-                    secondary_less[i],
-                    secondary_less[i + 1],
+                    secondary_less[i].begin(),
+                    secondary_less[i].end(),
+                    secondary_less[i + 1].begin(),
+                    secondary_less[i + 1].end(),
                     table,
                     text::collation_strength::secondary,
                     text::case_first::off,
@@ -1108,8 +1146,10 @@ TEST(tailoring, ja)
         for (int i = 0; i < cases - 1; ++i) {
             EXPECT_EQ(
                 text::collate(
-                    tertiary_less[i],
-                    tertiary_less[i + 1],
+                    tertiary_less[i].begin(),
+                    tertiary_less[i].end(),
+                    tertiary_less[i + 1].begin(),
+                    tertiary_less[i + 1].end(),
                     table,
                     text::collation_strength::tertiary,
                     text::case_first::off,
@@ -1134,8 +1174,10 @@ TEST(tailoring, ja)
         for (int i = 0; i < cases - 1; ++i) {
             EXPECT_EQ(
                 text::collate(
-                    quaternary_less[i],
-                    quaternary_less[i + 1],
+                    quaternary_less[i].begin(),
+                    quaternary_less[i].end(),
+                    quaternary_less[i + 1].begin(),
+                    quaternary_less[i + 1].end(),
                     table,
                     text::collation_strength::quaternary,
                     text::case_first::off,
@@ -1167,8 +1209,10 @@ TEST(tailoring, ja)
                 continue;
             EXPECT_EQ(
                 text::collate(
-                    quaternary_less[i],
-                    quaternary_less[i + 1],
+                    quaternary_less[i].begin(),
+                    quaternary_less[i].end(),
+                    quaternary_less[i + 1].begin(),
+                    quaternary_less[i + 1].end(),
                     table,
                     text::collation_strength::quaternary,
                     text::case_first::off,
@@ -1207,10 +1251,14 @@ TEST(tailoring, th)
     }
 
     for (int i = 0, end = int(lines.size()) - 1; i < end; ++i) {
+        text::utf32_range i_(lines[i]);
+        text::utf32_range i_1(lines[i + 1]);
         EXPECT_LE(
             text::collate(
-                text::utf32_range(lines[i]),
-                text::utf32_range(lines[i + 1]),
+                i_.begin(),
+                i_.end(),
+                i_1.begin(),
+                i_1.end(),
                 table,
                 text::collation_strength::tertiary),
             0);
@@ -1252,10 +1300,14 @@ TEST(tailoring, th)
             {-1, -1, -1, -1, 0, -1, 0, -1, -1, -1, -1, -1, -1}};
 
         for (int i = 0; i < cases; ++i) {
+            text::utf32_range lhs_(lhs[i]);
+            text::utf32_range rhs_(rhs[i]);
             EXPECT_EQ(
                 text::collate(
-                    text::utf32_range(lhs[i]),
-                    text::utf32_range(rhs[i]),
+                    lhs_.begin(),
+                    lhs_.end(),
+                    rhs_.begin(),
+                    rhs_.end(),
                     table,
                     text::collation_strength::tertiary,
                     text::case_first::off,
@@ -1321,10 +1373,14 @@ TEST(tailoring, th)
              -1, 0,  -1, 0, 0, 0,  -1, 0, -1, 0,  0, 0, -1}};
 
         for (int i = 0; i < cases; ++i) {
+            text::utf32_range lhs_(lhs[i]);
+            text::utf32_range rhs_(rhs[i]);
             EXPECT_EQ(
                 text::collate(
-                    text::utf32_range(lhs[i]),
-                    text::utf32_range(rhs[i]),
+                    lhs_.begin(),
+                    lhs_.end(),
+                    rhs_.begin(),
+                    rhs_.end(),
                     table,
                     text::collation_strength::secondary,
                     text::case_first::off,
@@ -1347,10 +1403,14 @@ TEST(tailoring, th)
 
         text::string const a("\u0e41ab");
         text::string const b("\u0e41c");
+        text::utf32_range a_(a);
+        text::utf32_range b_(b);
         EXPECT_EQ(
             text::collate(
-                text::utf32_range(a),
-                text::utf32_range(b),
+                a_.begin(),
+                a_.end(),
+                b_.begin(),
+                b_.end(),
                 custom_table,
                 text::collation_strength::tertiary,
                 text::case_first::off,
@@ -1401,8 +1461,10 @@ TEST(tailoring, tr)
     for (int i = 0; i < 8; ++i) {
         EXPECT_EQ(
             text::collate(
-                lhs[i],
-                rhs[i],
+                lhs[i].begin(),
+                lhs[i].end(),
+                rhs[i].begin(),
+                rhs[i].end(),
                 table,
                 text::collation_strength::tertiary,
                 text::case_first::off,
@@ -1416,8 +1478,10 @@ TEST(tailoring, tr)
     for (int i = 8; i < cases; ++i) {
         EXPECT_EQ(
             text::collate(
-                lhs[i],
-                rhs[i],
+                lhs[i].begin(),
+                lhs[i].end(),
+                rhs[i].begin(),
+                rhs[i].end(),
                 table,
                 text::collation_strength::primary,
                 text::case_first::off,

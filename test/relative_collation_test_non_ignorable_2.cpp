@@ -36,7 +36,8 @@ TEST(collation, relative_non_ignorable_2)
             curr_un_norm, std::back_inserter(curr_cps));
 
         curr_key = boost::text::collation_sort_key(
-            curr_cps,
+            curr_cps.begin(),
+            curr_cps.end(),
             table(),
             boost::text::collation_strength::identical,
             boost::text::case_first::off,

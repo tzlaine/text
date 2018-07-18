@@ -19,7 +19,7 @@ void do_simple_search(
     int expected_first,
     int expected_last,
     int line,
-    search_flags flags)
+    collation_flags flags)
 {
     {
         auto const r = collation_search(str, substr, table, flags);
@@ -91,7 +91,7 @@ void do_boyer_moore_search(
     int expected_first,
     int expected_last,
     int line,
-    search_flags flags)
+    collation_flags flags)
 {
     {
         auto r = collation_search(
@@ -148,7 +148,7 @@ void do_boyer_moore_horspool_search(
     int expected_first,
     int expected_last,
     int line,
-    search_flags flags)
+    collation_flags flags)
 {
     {
         auto r = collation_search(
@@ -207,7 +207,7 @@ void do_search(
     int expected_first,
     int expected_last,
     int line,
-    search_flags flags = search_flags::none)
+    collation_flags flags = collation_flags::none)
 {
     auto const str = utf32_range(str_);
     auto const substr = utf32_range(substr_);
@@ -401,18 +401,54 @@ TEST(collation_search, danish)
     // Secondary strength
 
     do_search(
-        table, haystack_1, needle_1, 7, 9, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_1,
+        needle_1,
+        7,
+        9,
+        __LINE__,
+        collation_flags::ignore_case);
     do_search(
-        table, haystack_1, needle_2, 7, 9, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_1,
+        needle_2,
+        7,
+        9,
+        __LINE__,
+        collation_flags::ignore_case);
     do_search(
-        table, haystack_1, needle_3, 7, 9, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_1,
+        needle_3,
+        7,
+        9,
+        __LINE__,
+        collation_flags::ignore_case);
 
     do_search(
-        table, haystack_2, needle_1, 7, 9, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_2,
+        needle_1,
+        7,
+        9,
+        __LINE__,
+        collation_flags::ignore_case);
     do_search(
-        table, haystack_2, needle_2, 7, 9, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_2,
+        needle_2,
+        7,
+        9,
+        __LINE__,
+        collation_flags::ignore_case);
     do_search(
-        table, haystack_2, needle_3, 7, 9, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_2,
+        needle_3,
+        7,
+        9,
+        __LINE__,
+        collation_flags::ignore_case);
 
     do_search(
         table,
@@ -421,7 +457,7 @@ TEST(collation_search, danish)
         haystack_3.size(),
         haystack_3.size(),
         __LINE__,
-        search_flags::ignore_case);
+        collation_flags::ignore_case);
     do_search(
         table,
         haystack_3,
@@ -429,7 +465,7 @@ TEST(collation_search, danish)
         haystack_3.size(),
         haystack_3.size(),
         __LINE__,
-        search_flags::ignore_case);
+        collation_flags::ignore_case);
     do_search(
         table,
         haystack_3,
@@ -437,21 +473,57 @@ TEST(collation_search, danish)
         haystack_3.size(),
         haystack_3.size(),
         __LINE__,
-        search_flags::ignore_case);
+        collation_flags::ignore_case);
 
     do_search(
-        table, haystack_4, needle_1, 7, 8, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_4,
+        needle_1,
+        7,
+        8,
+        __LINE__,
+        collation_flags::ignore_case);
     do_search(
-        table, haystack_4, needle_2, 7, 8, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_4,
+        needle_2,
+        7,
+        8,
+        __LINE__,
+        collation_flags::ignore_case);
     do_search(
-        table, haystack_4, needle_3, 7, 8, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_4,
+        needle_3,
+        7,
+        8,
+        __LINE__,
+        collation_flags::ignore_case);
 
     do_search(
-        table, haystack_5, needle_1, 7, 8, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_5,
+        needle_1,
+        7,
+        8,
+        __LINE__,
+        collation_flags::ignore_case);
     do_search(
-        table, haystack_5, needle_2, 7, 8, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_5,
+        needle_2,
+        7,
+        8,
+        __LINE__,
+        collation_flags::ignore_case);
     do_search(
-        table, haystack_5, needle_3, 7, 8, __LINE__, search_flags::ignore_case);
+        table,
+        haystack_5,
+        needle_3,
+        7,
+        8,
+        __LINE__,
+        collation_flags::ignore_case);
 }
 
 void do_full_match_search(
@@ -459,7 +531,7 @@ void do_full_match_search(
     string const & str_1,
     string const & str_2,
     int line,
-    search_flags flags = search_flags::none)
+    collation_flags flags = collation_flags::none)
 {
     utf32_range as_utf32(str_1);
     auto size = std::distance(as_utf32.begin(), as_utf32.end());
@@ -474,7 +546,7 @@ void do_full_no_match_search(
     string const & str_1,
     string const & str_2,
     int line,
-    search_flags flags = search_flags::none)
+    collation_flags flags = collation_flags::none)
 {
     utf32_range as_utf32(str_1);
     auto size = std::distance(as_utf32.begin(), as_utf32.end());
@@ -511,7 +583,8 @@ TEST(collation_search, case_accents_and_punct)
                     forms[i],
                     forms[j],
                     -(i * 10000 + j * 100),
-                    search_flags::ignore_accents | search_flags::ignore_case);
+                    collation_flags::ignore_accents |
+                        collation_flags::ignore_case);
             }
         }
     }
@@ -533,7 +606,7 @@ TEST(collation_search, case_accents_and_punct)
                     matchers_1[i],
                     matchers_1[j],
                     -(i * 10000 + j * 100),
-                    search_flags::ignore_accents);
+                    collation_flags::ignore_accents);
             }
         }
 
@@ -542,103 +615,115 @@ TEST(collation_search, case_accents_and_punct)
             u8"Resume",
             u8"Resume",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
             u8"Resume",
             u8"Résumé",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
             u8"Résumé",
             u8"Résumé",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
             u8"RESUME",
             u8"RESUME",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
             u8"RESUME",
             u8"RÉSUMÉ",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
             u8"RÉSUMÉ",
             u8"RÉSUMÉ",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
             u8"resume",
             u8"résumé",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_match_search(
             table,
             u8"resume",
             u8"re\u0301sume\u0301",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
             u8"resume",
             u8"Resume",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
             u8"resume",
             u8"RESUME",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
             u8"résumé",
             u8"RÉSUMÉ",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
 
         do_full_no_match_search(
             table,
             u8"résumé",
             u8"RÉSUMÉ",
             __LINE__,
-            search_flags::ignore_accents);
+            collation_flags::ignore_accents);
     }
 
     // Consider accents, but ignore case.
     {
         do_full_match_search(
-            table, u8"resume", u8"RESUME", __LINE__, search_flags::ignore_case);
+            table,
+            u8"resume",
+            u8"RESUME",
+            __LINE__,
+            collation_flags::ignore_case);
 
         do_full_match_search(
-            table, u8"résumé", u8"RÉSUMÉ", __LINE__, search_flags::ignore_case);
+            table,
+            u8"résumé",
+            u8"RÉSUMÉ",
+            __LINE__,
+            collation_flags::ignore_case);
 
         do_full_match_search(
             table,
             u8"re\u0301sume\u0301", // same as above, decomposed
             u8"Résumé",
             __LINE__,
-            search_flags::ignore_case);
+            collation_flags::ignore_case);
 
         do_full_no_match_search(
-            table, u8"résumé", u8"rèsumè", __LINE__, search_flags::ignore_case);
+            table,
+            u8"résumé",
+            u8"rèsumè",
+            __LINE__,
+            collation_flags::ignore_case);
     }
 
     // Completely ignore punctuation.
@@ -648,14 +733,14 @@ TEST(collation_search, case_accents_and_punct)
             u8"ellipsis",
             u8"ellips...is",
             __LINE__,
-            search_flags::ignore_punctuation);
+            collation_flags::ignore_punctuation);
 
         do_full_match_search(
             table,
             u8"el...lipsis",
             u8"ellips...is",
             __LINE__,
-            search_flags::ignore_punctuation);
+            collation_flags::ignore_punctuation);
     }
 }
 
@@ -688,7 +773,7 @@ void do_simple_word_search(
     int expected_first,
     int expected_last,
     int line,
-    search_flags flags = search_flags::none)
+    collation_flags flags = collation_flags::none)
 {
     {
         auto const r =
@@ -765,7 +850,7 @@ void do_simple_word_search_not_found(
     utf32_range str,
     utf32_range substr,
     int line,
-    search_flags flags = search_flags::none)
+    collation_flags flags = collation_flags::none)
 {
     {
         auto const r =

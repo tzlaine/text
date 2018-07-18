@@ -132,9 +132,13 @@ TEST(sentinel_apis, collation)
     sentinel_cp_range_t cps;
     to_sentinel_cp_range(cps_, cps, {0x0338, 0x0334}, true);
 
+    std::vector<uint32_t> other_cps({0x0338, 0x0334});
+
     collate(
-        cps,
-        std::vector<uint32_t>({0x0338, 0x0334}),
+        cps.begin(),
+        cps.end(),
+        other_cps.begin(),
+        other_cps.end(),
         default_collation_table(),
         collation_strength::identical,
         case_first::off,

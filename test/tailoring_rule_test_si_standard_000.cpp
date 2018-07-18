@@ -34,21 +34,33 @@ collation_table const & table()
 TEST(tailoring, si_standard_000_001)
 {
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>(1, 0x0d96);
+    auto const rel = std::vector<uint32_t>(1, 0x0d82);
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0d96),
-        std::vector<uint32_t>(1, 0x0d82),
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::primary),
         -1);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>(1, 0x0d82);
+    auto const rel = std::vector<uint32_t>(1, 0x0d83);
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0d82),
-        std::vector<uint32_t>(1, 0x0d83),
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::primary),
         -1);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>(1, 0x0da5);
+    auto const rel = std::vector<uint32_t>(1, 0x0da4);
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0da5),
-        std::vector<uint32_t>(1, 0x0da4),
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::primary),
         -1);
+    }
 }

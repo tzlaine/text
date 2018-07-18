@@ -808,29 +808,45 @@ namespace boost { namespace text {
             table);
     }
 
+    /** Returns a collation sort key for the code points in <code>[first,
+        last)</code>, using the given collation table.  Any optional settings
+        such as case_first will be honored, so long as they do not conlfict
+        with the settings on the given table. */
+    template<typename CPIter, typename Sentinel>
+    auto collation_sort_key(
+        CPIter first,
+        Sentinel last,
+        collation_table const & table,
+        collation_flags flags) -> detail::cp_iter_ret_t<text_sort_key, CPIter>
+    {
+        return detail::collation_sort_key(
+            first,
+            last,
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags),
+            table);
+    }
+
     /** Returns a collation sort key for the code points in \a r, using the
         given collation table.  Any optional settings such as case_first will
         be honored, so long as they do not conlfict with the settings on the
         given table. */
     template<typename CPRange>
     text_sort_key collation_sort_key(
-        CPRange const & r,
-        collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable,
-        l2_weight_order l2_order = l2_weight_order::forward)
+        CPRange const & r, collation_table const & table, collation_flags flags)
     {
         return collation_sort_key(
             std::begin(r),
             std::end(r),
             table,
-            strength,
-            case_1st,
-            case_lvl,
-            weighting,
-            l2_order);
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags));
     }
 
 
@@ -871,6 +887,37 @@ namespace boost { namespace text {
     }
 
     /** Returns the result of calling compare() on collation sort keys
+        produced using <code>[lhs_first, lhs_last)</code> and
+        <code>[rhs_first, rhs_last)</code>, respectively.  Any optional
+        settings such as case_first will be honored, so long as they do not
+        conlfict with the settings on the given table. */
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    auto collate(
+        CPIter1 lhs_first,
+        Sentinel1 lhs_last,
+        CPIter2 rhs_first,
+        Sentinel2 rhs_last,
+        collation_table const & table,
+        collation_flags flags) -> detail::cp_iter_ret_t<int, CPIter1>
+    {
+        return detail::collate(
+            lhs_first,
+            lhs_last,
+            rhs_first,
+            rhs_last,
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags),
+            table);
+    }
+
+    /** Returns the result of calling compare() on collation sort keys
         produced using \a r1 and \a r2, respectively.  Any optional settings
         such as case_first will be honored, so long as they do not conlfict
         with the settings on the given table. */
@@ -879,11 +926,7 @@ namespace boost { namespace text {
         CPRange1 const & r1,
         CPRange2 const & r2,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable,
-        l2_weight_order l2_order = l2_weight_order::forward)
+        collation_flags flags)
     {
         return collate(
             std::begin(r1),
@@ -891,11 +934,11 @@ namespace boost { namespace text {
             std::begin(r2),
             std::end(r2),
             table,
-            strength,
-            case_1st,
-            case_lvl,
-            weighting,
-            l2_order);
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags));
     }
 
 }}

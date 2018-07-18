@@ -34,1715 +34,2299 @@ collation_table const & table()
 TEST(tailoring, my_standard_000_000)
 {
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1012, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1012, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1012, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1012, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1012, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1012, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1012, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1012, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1012, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1012, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1012, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1012, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1012, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1012, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1012, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1012, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1012, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1012, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1012, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1012, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1012, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1012, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1012, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1012, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1012, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1012, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1012, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1012, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1012, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1012, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1012, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1012, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1012, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1012, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1012, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1012, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1012, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1012, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1012, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1012, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1012, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1012, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1012, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1012, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1012, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1012, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1012, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1012, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1012, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1013, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1013, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1013, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1013, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1013, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1013, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1013, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1013, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1013, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1013, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1013, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1013, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1013, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1013, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1013, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1013, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1013, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1013, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1013, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1013, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1013, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1013, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1013, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1013, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1013, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1013, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1013, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1013, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1013, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1013, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1013, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1013, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1013, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1013, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1013, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1013, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1013, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1013, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1013, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1013, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1013, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1013, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1013, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1013, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1013, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1013, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1013, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1013, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1013, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1014, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1014, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1014, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1014, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1014, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1014, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1014, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1014, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1014, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1014, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1014, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1014, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1014, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1014, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1014, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1014, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1014, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1014, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1014, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1014, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1014, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1014, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1014, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1014, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1014, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1014, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1014, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1014, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1014, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1014, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1014, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1014, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1014, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1014, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1014, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1014, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
 }
 
 TEST(tailoring, my_standard_001_001)
 {
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1014, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1014, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1014, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1014, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1014, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1014, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1014, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1014, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1014, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1014, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1014, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1014, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1014, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1015, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1015, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1015, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1015, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1015, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1015, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1015, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1015, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1015, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1015, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1015, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1015, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1015, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1015, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1015, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1015, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1015, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1015, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1015, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1015, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1015, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1015, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1015, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1015, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1015, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1015, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1015, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1015, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1015, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1015, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1015, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1015, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1016, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1016, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1016, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1016, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1016, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1016, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1016, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1016, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1016, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1016, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1016, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1016, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1016, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1016, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1016, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1016, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1016, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1016, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1016, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1016, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1016, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1016, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1016, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1016, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1016, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1016, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1016, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1016, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1016, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1016, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1016, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1016, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1016, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1016, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1016, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1016, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1016, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1016, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1016, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1016, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1016, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1016, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1016, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1016, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1016, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1016, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1016, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1016, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1016, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1017, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1017, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1017, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1017, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1017, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1017, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1017, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1017, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1017, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1017, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1017, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1017, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
 }
 
 TEST(tailoring, my_standard_001_002)
 {
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1017, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1017, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1017, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1017, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1017, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1017, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1017, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1017, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1017, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1017, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1017, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1017, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1017, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1017, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1017, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1017, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1017, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1017, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1017, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1017, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1017, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1017, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1017, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1017, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1017, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1017, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1017, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1017, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1017, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1017, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1017, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1017, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1017, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1017, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1017, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1017, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1017, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1018, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1018, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1018, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1018, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1018, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1018, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1018, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1018, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1018, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1018, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1018, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1018, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1018, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1018, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1018, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1018, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1018, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1018, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1018, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1018, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1018, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1018, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1018, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1018, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1018, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1018, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1018, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1018, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1018, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1018, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1018, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1018, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1018, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1018, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1018, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1018, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1018, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1018, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1018, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1018, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1018, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1018, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1018, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1018, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1018, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1018, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1018, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1018, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1018, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1019, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1019, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1019, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1019, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1019, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x1019, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x1019, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x1019, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1019, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1019, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x1019, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x1019, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1019, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1019, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1019, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1019, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1019, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x1019, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x1019, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x1019, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1019, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1019, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x1019, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x1019, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1019, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1019, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1019, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1019, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1019, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x1019, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x1019, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x1019, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1019, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1019, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x1019, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x1019, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1019, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1019, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1019, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1019, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1019, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1019, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
 }
 
 TEST(tailoring, my_standard_001_003)
 {
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1019, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1019, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1019, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1019, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1019, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x1019, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x1019, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101a, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x101a, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101a, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x101a, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101a, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x101a, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101a, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x101a, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101a, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x101a, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101a, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x101a, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101a, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x101a, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101a, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x101a, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101a, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x101a, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101a, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x101a, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101a, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x101a, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101a, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x101a, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x101a, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x101a, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101a, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x101a, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101a, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x101a, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x101a, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x101a, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101a, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x101a, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101a, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x101a, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x101a, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x101a, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x101a, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x101a, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x101a, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x101a, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101a, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101a, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101a, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101a, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101a, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101a, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101a, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101b, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x101b, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101b, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x101b, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101b, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x101b, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101b, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x101b, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101b, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x101b, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101b, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x101b, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101b, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x101b, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101b, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x101b, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101b, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x101b, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101b, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x101b, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101b, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x101b, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101b, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x101b, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x101b, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x101b, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101b, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x101b, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101b, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x101b, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x101b, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x101b, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101b, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x101b, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101b, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x101b, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x101b, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x101b, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x101b, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x101b, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x101b, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x101b, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101b, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101b, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101b, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101b, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101b, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101b, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101b, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101c, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x101c, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101c, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x101c, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101c, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x101c, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101c, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x101c, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101c, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x101c, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101c, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x101c, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101c, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x101c, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101c, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x101c, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101c, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x101c, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101c, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x101c, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101c, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x101c, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101c, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x101c, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
 }
 
 TEST(tailoring, my_standard_001_004)
 {
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x101c, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x101c, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101c, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x101c, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101c, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x101c, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x101c, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x101c, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101c, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x101c, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101c, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x101c, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x101c, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x101c, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x101c, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x101c, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x101c, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x101c, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101c, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101c, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101c, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101c, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101c, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101c, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101c, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101e, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x101e, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101e, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x101e, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101e, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x101e, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101e, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x101e, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101e, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x101e, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101e, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x101e, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101e, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x101e, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101e, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x101e, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101e, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x101e, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101e, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x101e, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101e, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x101e, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101e, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x101e, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x101e, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x101e, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101e, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x101e, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101e, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x101e, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x101e, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x101e, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101e, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x101e, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101e, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x101e, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x101e, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x101e, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x101e, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x101e, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x101e, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x101e, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101e, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101e, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101e, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101e, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101e, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101e, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101e, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101f, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x101f, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101f, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x101f, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101f, 0x1039},
-        std::vector<uint32_t>{0x1023, 0x101f, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101f, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x101f, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101f, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x101f, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101f, 0x103a},
-        std::vector<uint32_t>{0x1023, 0x101f, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101f, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x101f, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101f, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x101f, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101f, 0x1039},
-        std::vector<uint32_t>{0x1025, 0x101f, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101f, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x101f, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101f, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x101f, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101f, 0x103a},
-        std::vector<uint32_t>{0x1025, 0x101f, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x101f, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x101f, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101f, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x101f, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101f, 0x1039},
-        std::vector<uint32_t>{0x1027, 0x101f, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x101f, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1027, 0x101f, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101f, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x101f, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x101f, 0x103a},
-        std::vector<uint32_t>{0x1027, 0x101f, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x101f, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x101f, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x101f, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x101f, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x101f, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x101f, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x1039};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101f, 0x1039};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101f, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x1039},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101f, 0x1039},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101f, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101f, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x1031, 0x102c, 0x101f, 0x103a},
-        std::vector<uint32_t>{0x1029, 0x1031, 0x102c, 0x101f, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
 }
 
 TEST(tailoring, my_standard_001_005)
 {
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1031, 0x102c, 0x1000, 0x103a, 0x1000, 0x103b};
+    auto const rel = std::vector<uint32_t>{0x1031, 0x102c, 0x1000, 0x103a, 0x103b};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1031, 0x102c, 0x1000, 0x103a, 0x1000, 0x103b},
-        std::vector<uint32_t>{0x1031, 0x102c, 0x1000, 0x103a, 0x103b},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::quaternary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1014, 0x103a, 0x1014, 0x102f, 0x1015, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x1014, 0x103a, 0x102f, 0x1015, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1014, 0x103a, 0x1014, 0x102f, 0x1015, 0x103a},
-        std::vector<uint32_t>{0x1014, 0x103a, 0x102f, 0x1015, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::quaternary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1031, 0x101e, 0x1039, 0x101e};
+    auto const rel = std::vector<uint32_t>{0x1031, 0x103f};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1031, 0x101e, 0x1039, 0x101e},
-        std::vector<uint32_t>{0x1031, 0x103f},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::quaternary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x102d, 0x101e, 0x1039, 0x101e};
+    auto const rel = std::vector<uint32_t>{0x102d, 0x103f};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x102d, 0x101e, 0x1039, 0x101e},
-        std::vector<uint32_t>{0x102d, 0x103f},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::quaternary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x102f, 0x101e, 0x1039, 0x101e};
+    auto const rel = std::vector<uint32_t>{0x102f, 0x103f};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x102f, 0x101e, 0x1039, 0x101e},
-        std::vector<uint32_t>{0x102f, 0x103f},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::quaternary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d, 0x101e, 0x1039, 0x101e};
+    auto const rel = std::vector<uint32_t>{0x1023, 0x103f};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101e, 0x1039, 0x101e},
-        std::vector<uint32_t>{0x1023, 0x103f},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d, 0x101e, 0x1039, 0x101e},
-        std::vector<uint32_t>{0x1023, 0x103f},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102f, 0x101e, 0x1039, 0x101e};
+    auto const rel = std::vector<uint32_t>{0x1025, 0x103f};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101e, 0x1039, 0x101e},
-        std::vector<uint32_t>{0x1025, 0x103f},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102f, 0x101e, 0x1039, 0x101e},
-        std::vector<uint32_t>{0x1025, 0x103f},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x101e, 0x1039, 0x101e};
+    auto const rel = std::vector<uint32_t>(1, 0x103f);
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x101e, 0x1039, 0x101e},
-        std::vector<uint32_t>(1, 0x103f),
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::quaternary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1014, 0x103e, 0x102d, 0x102f, 0x1000, 0x103a};
+    auto const rel = std::vector<uint32_t>(1, 0x104c);
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1014, 0x103e, 0x102d, 0x102f, 0x1000, 0x103a},
-        std::vector<uint32_t>(1, 0x104c),
-        table(), collation_strength::secondary),
-        -1);
-    // equal to preceeding cps at next-lower strength
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1014, 0x103e, 0x102d, 0x102f, 0x1000, 0x103a},
-        std::vector<uint32_t>(1, 0x104c),
-        table(), collation_strength::primary),
-        0);
-    // greater than (or equal to, for =) preceeding cps
-    EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x101b, 0x103d, 0x1031, 0x1037},
-        std::vector<uint32_t>(1, 0x104d),
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x101b, 0x103d, 0x1031, 0x1037},
-        std::vector<uint32_t>(1, 0x104d),
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::primary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x101b, 0x103d, 0x1031, 0x1037};
+    auto const rel = std::vector<uint32_t>(1, 0x104d);
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x101c, 0x100a, 0x103a, 0x1038, 0x1000, 0x1031, 0x102c, 0x1004, 0x103a, 0x1038},
-        std::vector<uint32_t>{0x104e, 0x1004, 0x103a, 0x1038},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x101c, 0x100a, 0x103a, 0x1038, 0x1000, 0x1031, 0x102c, 0x1004, 0x103a, 0x1038},
-        std::vector<uint32_t>{0x104e, 0x1004, 0x103a, 0x1038},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::primary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x101c, 0x100a, 0x103a, 0x1038, 0x1000, 0x1031, 0x102c, 0x1004, 0x103a, 0x1038};
+    auto const rel = std::vector<uint32_t>{0x104e, 0x1004, 0x103a, 0x1038};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d},
-        std::vector<uint32_t>(1, 0x104f),
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1021, 0x102d},
-        std::vector<uint32_t>(1, 0x104f),
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::primary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1021, 0x102d};
+    auto const rel = std::vector<uint32_t>(1, 0x104f);
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x101c, 0x1000, 0x103a, 0x101a, 0x102c},
-        std::vector<uint32_t>{0x101c, 0x1000, 0x103a, 0x103b, 0x102c},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+    }
+    // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x101c, 0x1000, 0x103a, 0x101a, 0x102c};
+    auto const rel = std::vector<uint32_t>{0x101c, 0x1000, 0x103a, 0x103b, 0x102c};
+    EXPECT_EQ(collate(
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::quaternary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x101e, 0x1019, 0x102e};
+    auto const rel = std::vector<uint32_t>{0x101e, 0x1039, 0x1019, 0x102e};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x101e, 0x1019, 0x102e},
-        std::vector<uint32_t>{0x101e, 0x1039, 0x1019, 0x102e},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::quaternary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x1011, 0x1019, 0x1004, 0x103a, 0x1038};
+    auto const rel = std::vector<uint32_t>{0x1011, 0x1039, 0x1019, 0x1004, 0x103a, 0x1038};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x1011, 0x1019, 0x1004, 0x103a, 0x1038},
-        std::vector<uint32_t>{0x1011, 0x1039, 0x1019, 0x1004, 0x103a, 0x1038},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::quaternary),
         0);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>{0x101c, 0x1000, 0x103a, 0x1018, 0x1000, 0x103a};
+    auto const rel = std::vector<uint32_t>{0x101c, 0x1039, 0x1018, 0x1000, 0x103a};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>{0x101c, 0x1000, 0x103a, 0x1018, 0x1000, 0x103a},
-        std::vector<uint32_t>{0x101c, 0x1039, 0x1018, 0x1000, 0x103a},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::quaternary),
         0);
+    }
 }

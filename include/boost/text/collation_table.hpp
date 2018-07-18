@@ -225,6 +225,9 @@ namespace boost { namespace text {
             variable_weighting weighting = variable_weighting::non_ignorable,
             l2_weight_order l2_order = l2_weight_order::forward) const;
 
+        /** Returns a comparison object. */
+        collation_compare compare(collation_flags flags) const;
+
         template<
             typename CPIter,
             typename CPOutIter,
@@ -322,6 +325,15 @@ namespace boost { namespace text {
             case_level_(case_lvl),
             weighting_(weighting),
             l2_order_(l2_order)
+        {}
+
+        collation_compare(collation_table table, collation_flags flags) :
+            table_(std::move(table)),
+            strength_(detail::to_strength(flags)),
+            case_first_(detail::to_case_first(flags)),
+            case_level_(detail::to_case_level(flags)),
+            weighting_(detail::to_weighting(flags)),
+            l2_order_(detail::to_l2_order(flags))
         {}
 
         template<typename CPRange1, typename CPRange2>
@@ -1311,6 +1323,12 @@ namespace boost { namespace text {
             *this, strength, case_1st, case_lvl, weighting, l2_order);
     }
 
+    inline collation_compare
+    collation_table::compare(collation_flags flags) const
+    {
+        return collation_compare(*this, flags);
+    }
+
     template<typename CPIter, typename CPOutIter, typename SizeOutIter>
     CPOutIter collation_table::copy_collation_elements(
         CPIter first,
@@ -1353,8 +1371,10 @@ namespace boost { namespace text {
     operator()(CPRange1 const & r1, CPRange2 const & r2) const
     {
         return collate(
-                   r1,
-                   r2,
+                   r1.begin(),
+                   r1.end(),
+                   r2.begin(),
+                   r2.end(),
                    table_,
                    strength_,
                    case_first_,

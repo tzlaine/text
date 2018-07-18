@@ -34,21 +34,29 @@ collation_table const & table()
 TEST(tailoring, hy_standard_000_001)
 {
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>(1, 0x0584);
+    auto const rel = std::vector<uint32_t>(1, 0x0587);
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0584),
-        std::vector<uint32_t>(1, 0x0587),
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::primary),
         -1);
+    }
     // greater than (or equal to, for =) preceeding cps
+    {
+    auto const res = std::vector<uint32_t>(1, 0x0587);
+    auto const rel = std::vector<uint32_t>{0x0535, 0x0582};
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0587),
-        std::vector<uint32_t>{0x0535, 0x0582},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::tertiary),
         -1);
     // equal to preceeding cps at next-lower strength
     EXPECT_EQ(collate(
-        std::vector<uint32_t>(1, 0x0587),
-        std::vector<uint32_t>{0x0535, 0x0582},
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
         table(), collation_strength::secondary),
         0);
+    }
 }

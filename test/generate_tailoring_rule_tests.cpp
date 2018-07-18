@@ -171,18 +171,26 @@ void print_rule_test(
             curr_reset.insert(
                 curr_reset.end(), extension->begin(), extension->end());
         }
-        g_ofs << "    // greater than (or equal to, for =) preceeding cps\n"
-              << "    EXPECT_EQ(collate(\n        " << vector_of(curr_reset)
-              << ",\n        " << vector_of(relation) << ",\n        "
-              << "table(), " << strength << "),\n        "
+        g_ofs << "    {\n"
+              << "    // greater than (or equal to, for =) preceeding cps\n"
+              << "    auto const res = " << vector_of(curr_reset) << ";\n"
+              << "    auto const rel = " << vector_of(relation) << ";\n"
+              << "    EXPECT_EQ(collate(\n"
+              << "        res.begin(), res.end(),\n"
+              << "        rel.begin(), rel.end(),\n"
+              << "        table(), " << strength << "),\n"
+              << "        "
               << (strength == collation_strength::identical ? 0 : -1) << ");\n";
         if (collation_strength::primary < strength &&
             strength <= collation_strength::quaternary && !g_shifted) {
             g_ofs << "    // equal to preceeding cps at next-lower strength\n"
-                  << "    EXPECT_EQ(collate(\n        " << vector_of(curr_reset)
-                  << ",\n        " << vector_of(relation) << ",\n        "
-                  << "table(), " << prev(strength) << "),\n        0);\n";
+                  << "    EXPECT_EQ(collate(\n"
+                  << "        res.begin(), res.end(),\n"
+                  << "        rel.begin(), rel.end(),\n"
+                  << "        table(), " << prev(strength) << "),\n"
+                  << "        0);\n";
         }
+        g_ofs << "    }\n";
     }
 
     if (g_before &&
@@ -191,12 +199,16 @@ void print_rule_test(
         if (extension) {
             reset.insert(reset.end(), extension->begin(), extension->end());
         }
-        g_ofs
-            << "    // before initial reset cps\n"
-            << "    EXPECT_EQ(collate(\n        " << vector_of(reset)
-            << ",\n        " << vector_of(relation)
-            << ",\n        table(), collation_strength::quaternary),\n        "
-               "1);\n";
+        g_ofs << "    {\n"
+              << "    // before initial reset cps\n"
+              << "    auto const res = " << vector_of(reset) << ";\n"
+              << "    auto const rel = " << vector_of(relation) << ";\n"
+              << "    EXPECT_EQ(collate(\n"
+              << "        res.begin(), res.end(),\n"
+              << "        rel.begin(), rel.end(),\n"
+              << "        table(), collation_strength::quaternary),\n"
+              << "        1);\n"
+              << "    }\n";
     }
 }
 
