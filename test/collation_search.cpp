@@ -578,40 +578,223 @@ TEST(collation_search, danish)
         collation_strength::secondary);
 }
 
-TEST(collation_search, case_and_accents_1)
+void do_full_match_search(
+    collation_table const & table,
+    string const & str_1,
+    string const & str_2,
+    int line,
+    collation_strength strength = collation_strength::tertiary,
+    case_level case_lvl = case_level::off,
+    variable_weighting weighting = variable_weighting::non_ignorable)
 {
-    string const forms[9] = {
-        u8"resume",
-        u8"Resume",
-        u8"RESUME",
-        u8"résumé",
-        u8"re\u0301sume\u0301", // same as above, decomposed
-        u8"rèsumè",
-        u8"re\u0300sume\u0300", // same as above, decomposed
-        u8"Résumé",
-        u8"RÉSUMÉ",
-    };
+    utf32_range as_utf32(str_1);
+    auto size = std::distance(as_utf32.begin(), as_utf32.end());
+    do_search(
+        table, str_1, str_2, 0, size, line, strength, case_lvl, weighting);
+    as_utf32 = utf32_range(str_2);
+    size = std::distance(as_utf32.begin(), as_utf32.end());
+    do_search(
+        table, str_2, str_1, 0, size, line, strength, case_lvl, weighting);
+}
 
+void do_full_no_match_search(
+    collation_table const & table,
+    string const & str_1,
+    string const & str_2,
+    int line,
+    collation_strength strength = collation_strength::tertiary,
+    case_level case_lvl = case_level::off,
+    variable_weighting weighting = variable_weighting::non_ignorable)
+{
+    utf32_range as_utf32(str_1);
+    auto size = std::distance(as_utf32.begin(), as_utf32.end());
+    do_search(
+        table, str_1, str_2, size, size, line, strength, case_lvl, weighting);
+    as_utf32 = utf32_range(str_2);
+    size = std::distance(as_utf32.begin(), as_utf32.end());
+    do_search(
+        table, str_2, str_1, size, size, line, strength, case_lvl, weighting);
+}
+
+TEST(collation_search, case_and_accents)
+{
     auto const table = default_table;
 
-    // At primary strength, all the above should match each other, and those
-    // matches should be symmetric.
-    for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 9; ++j) {
-            utf32_range as_utf32(forms[i]);
-            auto const num_cps =
-                std::distance(as_utf32.begin(), as_utf32.end());
-            do_search(
-                table,
-                forms[i],
-                forms[j],
-                0,
-                num_cps,
-                -(i * 10000 + j * 100),
-                collation_strength::primary);
+    // Ignore accents and case.
+    {
+        string const forms[9] = {
+            u8"resume",
+            u8"Resume",
+            u8"RESUME",
+            u8"résumé",
+            u8"re\u0301sume\u0301", // same as above, decomposed
+            u8"rèsumè",
+            u8"re\u0300sume\u0300", // same as above, decomposed
+            u8"Résumé",
+            u8"RÉSUMÉ",
+        };
+
+        // At primary strength (ignore accents and case), all the above should
+        // match each other, and those matches should be symmetric.
+        for (int i = 0; i < 9; ++i) {
+            for (int j = i; j < 9; ++j) {
+                do_full_match_search(
+                    table,
+                    forms[i],
+                    forms[j],
+                    -(i * 10000 + j * 100),
+                    collation_strength::primary);
+            }
         }
     }
 
-    // TODO: Mix-and match the values above, comparing using case or not,
-    // accents or not, etc.
+    // Ignore accents, but consider case.
+    {
+        string const matchers_1[5] = {
+            u8"resume",
+            u8"résumé",
+            u8"re\u0301sume\u0301", // same as above, decomposed
+            u8"rèsumè",
+            u8"re\u0300sume\u0300", // same as above, decomposed
+        };
+
+        for (int i = 0; i < 5; ++i) {
+            for (int j = i; j < 5; ++j) {
+                do_full_match_search(
+                    table,
+                    matchers_1[i],
+                    matchers_1[j],
+                    -(i * 10000 + j * 100),
+                    collation_strength::primary,
+                    case_level::on);
+            }
+        }
+
+        do_full_match_search(
+            table,
+            u8"Resume",
+            u8"Resume",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_match_search(
+            table,
+            u8"Resume",
+            u8"Résumé",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_match_search(
+            table,
+            u8"Résumé",
+            u8"Résumé",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_match_search(
+            table,
+            u8"RESUME",
+            u8"RESUME",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_match_search(
+            table,
+            u8"RESUME",
+            u8"RÉSUMÉ",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_match_search(
+            table,
+            u8"RÉSUMÉ",
+            u8"RÉSUMÉ",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_match_search(
+            table,
+            u8"resume",
+            u8"résumé",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_match_search(
+            table,
+            u8"resume",
+            u8"re\u0301sume\u0301",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_no_match_search(
+            table,
+            u8"resume",
+            u8"Resume",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_no_match_search(
+            table,
+            u8"resume",
+            u8"RESUME",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_no_match_search(
+            table,
+            u8"résumé",
+            u8"RÉSUMÉ",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+
+        do_full_no_match_search(
+            table,
+            u8"résumé",
+            u8"RÉSUMÉ",
+            __LINE__,
+            collation_strength::primary,
+            case_level::on);
+    }
+
+    // Consider accents, but ignore case.
+    {
+        do_full_match_search(
+            table,
+            u8"resume",
+            u8"RESUME",
+            __LINE__,
+            collation_strength::secondary);
+
+        do_full_match_search(
+            table,
+            u8"résumé",
+            u8"RÉSUMÉ",
+            __LINE__,
+            collation_strength::secondary);
+
+        do_full_match_search(
+            table,
+            u8"re\u0301sume\u0301", // same as above, decomposed
+            u8"Résumé",
+            __LINE__,
+            collation_strength::secondary);
+
+        do_full_no_match_search(
+            table,
+            u8"résumé",
+            u8"rèsumè",
+            __LINE__,
+            collation_strength::secondary);
+    }
 }

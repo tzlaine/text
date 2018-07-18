@@ -85,12 +85,16 @@ namespace boost { namespace text {
             collation_strength strength,
             case_level case_lvl) noexcept
         {
+            auto const strength_for_copies =
+                case_lvl == case_level::on
+                    ? collation_strength(static_cast<int>(strength) + 1)
+                    : strength;
             ce = modify_for_case(ce, strength, case_first::off, case_lvl);
-            if (strength < collation_strength::quaternary) {
+            if (strength_for_copies < collation_strength::quaternary) {
                 ce.l4_ = 0;
-                if (strength < collation_strength::tertiary) {
+                if (strength_for_copies < collation_strength::tertiary) {
                     ce.l3_ = 0;
-                    if (strength < collation_strength::secondary)
+                    if (strength_for_copies < collation_strength::secondary)
                         ce.l2_ = 0;
                 }
             }
