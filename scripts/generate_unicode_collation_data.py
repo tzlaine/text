@@ -4,6 +4,7 @@
 from generate_unicode_normalization_data import cccs
 from generate_unicode_normalization_data import expand_decomp_canonical
 from generate_unicode_normalization_data import get_decompositions
+import lzw
 
 
 # TODO: These are from the latest FractionalUCA.txt.  When updaing it, these
@@ -144,19 +145,33 @@ trie_file_form = '''\
 namespace boost {{ namespace text {{
 
 namespace detail {{
-    std::array<collation_trie_key<3>, 38593> const & make_trie_keys()
+    std::array<collation_trie_key<3>, {4}> make_trie_keys()
     {{
-        constexpr static std::array<collation_trie_key<3>, 38593> retval = {{{{
-{1}
+        constexpr static std::array<uint16_t, {1}> compressed = {{{{
+{0}
         }}}};
+        std::array<collation_trie_key<3>, {4}> retval;
+        container::small_vector<unsigned char, 256> buf;
+        lzw_decompress(
+            compressed.begin(),
+            compressed.end(),
+            make_lzw_to_trie_key_iter(retval.begin(), buf));
+        assert(buf.empty());
         return retval;
     }}
 
-    std::array<collation_elements, 38593> const & make_trie_values()
+    std::array<collation_elements, {4}> make_trie_values()
     {{
-        constexpr static std::array<collation_elements, 38593> retval = {{{{
+        constexpr static std::array<uint16_t, {3}> compressed = {{{{
 {2}
         }}}};
+        std::array<collation_elements, {4}> retval;
+        container::small_vector<unsigned char, 256> buf;
+        lzw_decompress(
+            compressed.begin(),
+            compressed.end(),
+            make_lzw_to_trie_value_iter(retval.begin(), buf));
+        assert(buf.empty());
         return retval;
     }}
 
@@ -639,6 +654,7 @@ if __name__ == "__main__":
         len(implicit_weights_segments)
     ))
 
+
     weights_strings = map(lambda x: '{{{}, {}, {}}}'.format(hex(x[0][0]), hex(x[0][1]), x[1]), implicit_weights_segments)
     implicit_weights_segments_str = '    ' + ',\n    '.join(weights_strings) + ',\n'
     def to_reorder_group(k, v, simple, compress):
@@ -665,12 +681,33 @@ if __name__ == "__main__":
     cpp_file = open('collation_data_0.cpp', 'w')
     cpp_file.write(collation_data_0_file_form.format(implicit_weights_segments_str, len(implicit_weights_segments), reorder_group_str, len(reorder_group_strings), collation_elements_list, len(collation_elements)))
 
-    key_lines = ''
-    value_lines = ''
+    key_ints = []
+    value_ints = []
     for k,v in sorted(fcc_cet.items(), key=lambda x: original_order[x[0]]):
-        line = '        {{ {{ collation_trie_key<3>::storage_t{{{{ {} }}}}, {} }}, {{{}, {}}} }},\n'.format(', '.join(map(lambda x: hex(x), k)), len(k), v[0], v[1])
-        key_lines += '        {{ collation_trie_key<3>::storage_t{{ {} }}, {} }},\n'.format(', '.join(map(lambda x: hex(x), k)), len(k))
-        value_lines += '        {{{}, {}}},\n'.format(v[0], v[1])
+        lzw.add_byte(key_ints, len(k))
+        for x in k:
+            lzw.add_cp(key_ints, x)
+        lzw.add_short(value_ints, v[0])
+        lzw.add_short(value_ints, v[1])
+
+    compressed_keys = lzw.compress(key_ints)
+    compressed_values = lzw.compress(value_ints)
+
+    values_per_line = 12
+
+    key_lines = ''
+    i = 0
+    while i + values_per_line < len(compressed_keys):
+        key_lines += ', '.join(map(lambda x: hex(x), compressed_keys[i:i+values_per_line])) + ',\n'
+        i += values_per_line
+    key_lines += ', '.join(map(lambda x: hex(x), compressed_keys[i:])) + '\n'
+
+    value_lines = ''
+    i = 0
+    while i + values_per_line < len(compressed_values):
+        value_lines += ', '.join(map(lambda x: hex(x), compressed_values[i:i+values_per_line])) + ',\n'
+        i += values_per_line
+    value_lines += ', '.join(map(lambda x: hex(x), compressed_values[i:])) + '\n'
 
     cpp_file = open('collation_data_1.cpp', 'w')
-    cpp_file.write(trie_file_form.format(len(fcc_cet), key_lines, value_lines))
+    cpp_file.write(trie_file_form.format(key_lines, len(compressed_keys), value_lines, len(compressed_values), len(fcc_cet)))

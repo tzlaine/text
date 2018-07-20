@@ -1,3 +1,30 @@
+def add_int_impl(values, n):
+    values.append(n)
+def add_int(values, n):
+    _0 = (n >> 24) & 0xff
+    _1 = (n >> 16) & 0xff
+    _2 = (n >> 8)  & 0xff
+    _3 = (n >> 0)  & 0xff
+    add_int_impl(values, _0)
+    add_int_impl(values, _1)
+    add_int_impl(values, _2)
+    add_int_impl(values, _3)
+def add_cp(values, n):
+    _0 = (n >> 16) & 0xff
+    _1 = (n >> 8)  & 0xff
+    _2 = (n >> 0)  & 0xff
+    add_int_impl(values, _0)
+    add_int_impl(values, _1)
+    add_int_impl(values, _2)
+def add_short(values, n):
+    _0 = (n >> 8)  & 0xff
+    _1 = (n >> 0)  & 0xff
+    add_int_impl(values, _0)
+    add_int_impl(values, _1)
+def add_byte(values, n):
+    _0 = (n >> 0)  & 0xff
+    add_int_impl(values, _0)
+
 def compress(uncompressed, bits = 16):
     if bits < 9:
         raise Exception('lzw.compress() requires bits >= 9.')
