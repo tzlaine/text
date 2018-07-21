@@ -24,10 +24,9 @@ namespace boost { namespace text { namespace detail {
             buf_(&buf)
         {}
 
-        template<typename BidiRange>
-        lzw_to_break_prop_iter & operator=(BidiRange const & r)
+        lzw_to_break_prop_iter & operator=(unsigned char c)
         {
-            buf_->insert(buf_->end(), r.rbegin(), r.rend());
+            buf_->push_back(c);
             auto const element_bytes = 4;
             auto it = buf_->begin();
             for (auto end = buf_->end() - buf_->size() % element_bytes;

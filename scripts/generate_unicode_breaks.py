@@ -23,12 +23,12 @@ return retval;
 
 std::unordered_map<uint32_t, {0}erty> make_{0}_map()
 {{
-constexpr std::array<uint16_t, {5}> compressed = {{{{
+constexpr std::array<unsigned char, {5}> compressed = {{{{
 {4}
 }}}};
 std::unordered_map<uint32_t, {0}erty> retval;
 container::small_vector<unsigned char, 256> buf;
-lzw_decompress(
+std::copy(
     compressed.begin(),
     compressed.end(),
     lzw_to_break_prop_iter<{0}erty>(retval, buf));
@@ -158,9 +158,6 @@ def extract_break_properties(filename, prop_, prop_names):
         else:
             for i in range(interval[0], interval[1]):
                 intervals_map.append((i, prop_names[interval[2]]))
-#                intervals_map += '    {{ {}, {}::{} }},\n'.format(
-#                    hex(i), prop_enum, interval[2]
-#                )
     return (intervals_list, num_intervals, intervals_map)
 
 
@@ -234,9 +231,6 @@ def extract_line_break_properties(filename, prop_, prop_names):
         else:
             for i in range(interval[0], interval[1]):
                 intervals_map.append((i, prop_names[interval[2]]))
-#                intervals_map += '    {{ {}, {}::{} }},\n'.format(
-#                    hex(i), prop_enum, interval[2]
-#                )
     return (intervals_list, num_intervals, intervals_map)
 
 
@@ -282,24 +276,28 @@ def extract_bidi_mirroring_properties(filename):
     return mapping, values
 
 
-def compressed_prop_lines(cp_prop_pairs):
-    values_per_line = 12
-
+def uncompressed_prop_bytes(cp_prop_pairs):
     bytes_ = []
-
     for pair in cp_prop_pairs:
         lzw.add_cp(bytes_, pair[0])
         lzw.add_byte(bytes_, pair[1])
+    return bytes_
+
+def uncompressed_prop_lines(cp_prop_pairs):
+    values_per_line = 18
+    bytes_ = uncompressed_prop_bytes(cp_prop_pairs)
+    return lzw.compressed_bytes_to_lines(bytes_, values_per_line)
+
+def compressed_prop_lines(cp_prop_pairs):
+    values_per_line = 12
+
+    bytes_ = uncompressed_prop_bytes(cp_prop_pairs)
     compressed_bytes = lzw.compress(bytes_)
 
-    compressed_byte_lines = ''
-    i = 0
-    while i + values_per_line < len(compressed_bytes):
-        compressed_byte_lines += ', '.join(map(lambda x: hex(x), compressed_bytes[i:i+values_per_line])) + ',\n'
-        i += values_per_line
-    compressed_byte_lines += ', '.join(map(lambda x: hex(x), compressed_bytes[i:])) + '\n'
+    #print 'rewrote {} * 64 = {} bits as {} * 8 = {} bits'.format(len(cp_prop_pairs), len(cp_prop_pairs)*64, len(bytes_), len(bytes_)*8)
+    #print 'compressed to {} * 16 = {} bits'.format(len(compressed_bytes), len(compressed_bytes) * 16)
 
-    return compressed_byte_lines, len(compressed_bytes)
+    return lzw.compressed_bytes_to_lines(compressed_bytes, values_per_line)
 
 
 grapheme_props = {
@@ -325,9 +323,9 @@ grapheme_props = {
 
 (grapheme_break_intervals, num_grapheme_intervals, grapheme_break_intervals_map) = \
     extract_break_properties('GraphemeBreakProperty.txt', 'grapheme_prop', grapheme_props)
-compressed_bytes, num_shorts = compressed_prop_lines(grapheme_break_intervals_map)
+bytes_, num_bytes = uncompressed_prop_lines(grapheme_break_intervals_map)
 cpp_file = open('grapheme_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, grapheme_break_intervals, 'grapheme_break', compressed_bytes, num_shorts, len(grapheme_break_intervals_map)))
+cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, grapheme_break_intervals, 'grapheme_break', bytes_, num_bytes, len(grapheme_break_intervals_map)))
 
 word_props = {
     'Other': 0,
@@ -356,9 +354,9 @@ word_props = {
 
 (word_break_intervals, num_word_intervals, word_break_intervals_map) = \
     extract_break_properties('WordBreakProperty.txt', 'word_prop', word_props)
-compressed_bytes, num_shorts = compressed_prop_lines(word_break_intervals_map)
+bytes_, num_bytes = uncompressed_prop_lines(word_break_intervals_map)
 cpp_file = open('word_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break', compressed_bytes, num_shorts, len(word_break_intervals_map)))
+cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break', bytes_, num_bytes, len(word_break_intervals_map)))
 
 sentence_props = {
     'Other': 0,
@@ -380,9 +378,9 @@ sentence_props = {
 
 (sentence_break_intervals, num_sentence_intervals, sentence_break_intervals_map) = \
     extract_break_properties('SentenceBreakProperty.txt', 'sentence_prop', sentence_props)
-compressed_bytes, num_shorts = compressed_prop_lines(sentence_break_intervals_map)
+bytes_, num_bytes = uncompressed_prop_lines(sentence_break_intervals_map)
 cpp_file = open('sentence_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('sentence_prop', num_sentence_intervals, sentence_break_intervals, 'sentence_break', compressed_bytes, num_shorts, len(sentence_break_intervals_map)))
+cpp_file.write(cpp_file_form.format('sentence_prop', num_sentence_intervals, sentence_break_intervals, 'sentence_break', bytes_, num_bytes, len(sentence_break_intervals_map)))
 
 line_props = {
     'AL': 0,
@@ -431,9 +429,9 @@ line_props = {
 
 (line_break_intervals, num_line_intervals, line_break_intervals_map) = \
     extract_line_break_properties('LineBreak.txt', 'line_prop', line_props)
-compressed_bytes, num_shorts = compressed_prop_lines(line_break_intervals_map)
+bytes_, num_bytes = uncompressed_prop_lines(line_break_intervals_map)
 cpp_file = open('line_break.cpp', 'w')
-cpp_file.write(cpp_file_form.format('line_prop', num_line_intervals, line_break_intervals, 'line_break', compressed_bytes, num_shorts, len(line_break_intervals_map)))
+cpp_file.write(cpp_file_form.format('line_prop', num_line_intervals, line_break_intervals, 'line_break', bytes_, num_bytes, len(line_break_intervals_map)))
 
 bidi_props = {
     'L': 0,
@@ -463,9 +461,9 @@ bidi_props = {
 
 (bidi_intervals, num_bidi_intervals, bidi_intervals_map) = \
     extract_break_properties('DerivedBidiClass.txt', 'bidi_prop', bidi_props)
-compressed_bytes, num_shorts = compressed_prop_lines(bidi_intervals_map)
+bytes_, num_bytes = uncompressed_prop_lines(bidi_intervals_map)
 cpp_file = open('bidi.cpp', 'w')
-cpp_file.write(cpp_file_form.format('bidi_prop', num_bidi_intervals, bidi_intervals, 'bidirectional', compressed_bytes, num_shorts, len(bidi_intervals_map)))
+cpp_file.write(cpp_file_form.format('bidi_prop', num_bidi_intervals, bidi_intervals, 'bidirectional', bytes_, num_bytes, len(bidi_intervals_map)))
 
 bidi_bracket_properties = extract_bidi_bracket_properties('BidiBrackets.txt')
 bidi_bracket_properties_lines = '        ' + '\n        '.join(bidi_bracket_properties)

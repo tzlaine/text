@@ -365,53 +365,6 @@ namespace boost { namespace text { namespace detail {
         return lzw_to_trie_key_iter<OutIter>(out, buf);
     }
 
-    template<typename OutIter>
-    struct lzw_to_trie_value_iter
-    {
-        using value_type = collation_elements;
-        using difference_type = int;
-        using pointer = unsigned char *;
-        using reference = unsigned char &;
-        using iterator_category = std::output_iterator_tag;
-        using buffer_t = container::small_vector<unsigned char, 256>;
-
-        lzw_to_trie_value_iter(OutIter out, buffer_t & buf) :
-            out_(out),
-            buf_(&buf)
-        {}
-
-        template<typename BidiRange>
-        lzw_to_trie_value_iter & operator=(BidiRange const & r)
-        {
-            buf_->insert(buf_->end(), r.rbegin(), r.rend());
-            auto const element_bytes = 4;
-            auto it = buf_->begin();
-            for (auto end = buf_->end() - buf_->size() % element_bytes;
-                 it != end;
-                 it += element_bytes) {
-                collation_elements element;
-                element.first_ = bytes_to_uint16_t(&*it);
-                element.last_ = bytes_to_uint16_t(&*it + 2);
-                *out_++ = element;
-            }
-            buf_->erase(buf_->begin(), it);
-            return *this;
-        }
-        lzw_to_trie_value_iter & operator*() { return *this; }
-        lzw_to_trie_value_iter & operator++() { return *this; }
-        lzw_to_trie_value_iter & operator++(int) { return *this; }
-
-    private:
-        OutIter out_;
-        buffer_t * buf_;
-    };
-    template<typename OutIter>
-    lzw_to_trie_value_iter<OutIter> make_lzw_to_trie_value_iter(
-        OutIter out, container::small_vector<unsigned char, 256> & buf)
-    {
-        return lzw_to_trie_value_iter<OutIter>(out, buf);
-    }
-
 }}}
 
 #endif

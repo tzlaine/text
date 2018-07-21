@@ -9,7 +9,7 @@ namespace boost { namespace text { namespace detail {
 
 std::array<implicit_weights_segment, 10> make_implicit_weights_segments()
 {
-constexpr static std::array<implicit_weights_segment, 10> retval = {{
+constexpr std::array<implicit_weights_segment, 10> retval = {{
     {0x17000, 0x18b00, 0},
     {0x1b170, 0x1b300, 55296},
     {0x4e00, 0x9feb, 58496},

@@ -25,6 +25,15 @@ def add_byte(values, n):
     _0 = (n >> 0)  & 0xff
     add_int_impl(values, _0)
 
+def compressed_bytes_to_lines(compressed_bytes, values_per_line):
+    compressed_byte_lines = ''
+    i = 0
+    while i + values_per_line < len(compressed_bytes):
+        compressed_byte_lines += ', '.join(map(lambda x: hex(x), compressed_bytes[i:i+values_per_line])) + ',\n'
+        i += values_per_line
+    compressed_byte_lines += ', '.join(map(lambda x: hex(x), compressed_bytes[i:])) + '\n'
+    return compressed_byte_lines, len(compressed_bytes)
+
 def compress(uncompressed, bits = 16):
     if bits < 9:
         raise Exception('lzw.compress() requires bits >= 9.')

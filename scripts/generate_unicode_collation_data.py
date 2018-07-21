@@ -112,7 +112,7 @@ namespace boost {{ namespace text {{ namespace detail {{
 
 std::array<implicit_weights_segment, {1}> make_implicit_weights_segments()
 {{
-constexpr static std::array<implicit_weights_segment, {1}> retval = {{{{
+constexpr std::array<implicit_weights_segment, {1}> retval = {{{{
 {0}
 }}}};
 return retval;
@@ -152,12 +152,12 @@ trie_file_form = '''\
 namespace boost {{ namespace text {{
 
 namespace detail {{
-    std::array<collation_trie_key<3>, {4}> make_trie_keys()
+    std::array<collation_trie_key<3>, {3}> make_trie_keys()
     {{
         constexpr static std::array<uint16_t, {1}> compressed = {{{{
 {0}
         }}}};
-        std::array<collation_trie_key<3>, {4}> retval;
+        std::array<collation_trie_key<3>, {3}> retval;
         container::small_vector<unsigned char, 256> buf;
         lzw_decompress(
             compressed.begin(),
@@ -167,18 +167,11 @@ namespace detail {{
         return retval;
     }}
 
-    std::array<collation_elements, {4}> make_trie_values()
+    std::array<collation_elements, {3}> make_trie_values()
     {{
-        constexpr static std::array<uint16_t, {3}> compressed = {{{{
+        constexpr std::array<collation_elements, {3}> retval = {{{{
 {2}
         }}}};
-        std::array<collation_elements, {4}> retval;
-        container::small_vector<unsigned char, 256> buf;
-        lzw_decompress(
-            compressed.begin(),
-            compressed.end(),
-            make_lzw_to_trie_value_iter(retval.begin(), buf));
-        assert(buf.empty());
         return retval;
     }}
 
@@ -702,40 +695,35 @@ if __name__ == "__main__":
         lzw.add_short(ce_bytes, int(x, 16))
     compressed_ces = lzw.compress(ce_bytes)
 
-    ce_lines = ''
-    i = 0
-    while i + values_per_line < len(compressed_ces):
-        ce_lines += ', '.join(map(lambda x: hex(x), compressed_ces[i:i+values_per_line])) + ',\n'
-        i += values_per_line
-    ce_lines += ', '.join(map(lambda x: hex(x), compressed_ces[i:])) + '\n'
+    #print 'rewrote {} * 96 = {} bits as {} * 8 = {} bits'.format(len(collation_elements), len(collation_elements)*96, len(ce_bytes), len(ce_bytes)*8)
+    #print 'compressed to {} * 16 = {} bits'.format(len(compressed_ces), len(compressed_ces) * 16)
+    ce_lines = lzw.compressed_bytes_to_lines(compressed_ces, values_per_line)[0]
 
     cpp_file = open('collation_data_0.cpp', 'w')
     cpp_file.write(collation_data_0_file_form.format(implicit_weights_segments_str, len(implicit_weights_segments), reorder_group_str, len(reorder_group_strings), ce_lines, len(compressed_ces), len(collation_elements)))
 
     key_bytes = []
-    value_bytes = []
+    #value_bytes = []
+    value_lines = ''
     for k,v in sorted(fcc_cet.items(), key=lambda x: original_order[x[0]]):
         lzw.add_byte(key_bytes, len(k))
         for x in k:
             lzw.add_cp(key_bytes, x)
-        lzw.add_short(value_bytes, v[0])
-        lzw.add_short(value_bytes, v[1])
+        value_lines += '        {{{}, {}}},\n'.format(v[0], v[1])
+        #lzw.add_short(value_bytes, v[0])
+        #lzw.add_short(value_bytes, v[1])
     compressed_keys = lzw.compress(key_bytes)
-    compressed_values = lzw.compress(value_bytes)
 
-    key_lines = ''
-    i = 0
-    while i + values_per_line < len(compressed_keys):
-        key_lines += ', '.join(map(lambda x: hex(x), compressed_keys[i:i+values_per_line])) + ',\n'
-        i += values_per_line
-    key_lines += ', '.join(map(lambda x: hex(x), compressed_keys[i:])) + '\n'
+    # The other data sets are optimizaed by LZW compression.  This one is
+    # heavily pessimized.
+    # compressed_values = lzw.compress(value_bytes)
 
-    value_lines = ''
-    i = 0
-    while i + values_per_line < len(compressed_values):
-        value_lines += ', '.join(map(lambda x: hex(x), compressed_values[i:i+values_per_line])) + ',\n'
-        i += values_per_line
-    value_lines += ', '.join(map(lambda x: hex(x), compressed_values[i:])) + '\n'
+    #print 'rewrote {} * 128 = {} bits as {} * 8 = {} bits'.format(len(fcc_cet), len(fcc_cet)*128, len(key_bytes), len(key_bytes)*8)
+    #print 'compressed to {} * 16 = {} bits'.format(len(compressed_keys), len(compressed_keys) * 16)
+    key_lines = lzw.compressed_bytes_to_lines(compressed_keys, values_per_line)[0]
+    #print 'rewrote {} * 32 = {} bits as {} * 8 = {} bits'.format(len(fcc_cet), len(fcc_cet)*32, len(value_bytes), len(value_bytes)*8)
+    #print 'compressed to {} * 16 = {} bits'.format(len(compressed_values), len(compressed_values) * 16)
+    #value_lines = lzw.compressed_bytes_to_lines(compressed_values, values_per_line)[0]
 
     cpp_file = open('collation_data_1.cpp', 'w')
-    cpp_file.write(trie_file_form.format(key_lines, len(compressed_keys), value_lines, len(compressed_values), len(fcc_cet)))
+    cpp_file.write(trie_file_form.format(key_lines, len(compressed_keys), value_lines, len(fcc_cet)))
