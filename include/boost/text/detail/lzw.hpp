@@ -27,8 +27,13 @@ namespace boost { namespace text { namespace detail {
 
     struct lzw_reverse_table_element
     {
-        uint16_t pred_ = no_predecessor;
-        uint16_t value_ = no_value;
+        lzw_reverse_table_element(
+            uint16_t pred = no_predecessor, uint16_t value = no_value) :
+            pred_(pred),
+            value_(value)
+        {}
+        uint16_t pred_;
+        uint16_t value_;
     };
 
     using lzw_reverse_table = std::vector<lzw_reverse_table_element>;
