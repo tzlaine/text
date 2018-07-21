@@ -62,9 +62,9 @@ namespace boost { namespace text { namespace detail {
         uint16_t last_;
     };
 
-    BOOST_TEXT_DECL extern std::array<uint32_t, 3404>
+    BOOST_TEXT_DECL std::array<uint32_t, 3404>
     make_all_canonical_decompositions();
-    BOOST_TEXT_DECL extern std::array<uint32_t, 8974>
+    BOOST_TEXT_DECL std::array<uint32_t, 8974>
     make_all_compatible_decompositions();
 
     inline uint32_t const * all_canonical_decompositions_ptr()
