@@ -53,7 +53,7 @@ namespace boost { namespace text {
 
         BOOST_TEXT_DECL std::array<word_prop_interval, 21> const &
         make_word_prop_intervals();
-        BOOST_TEXT_DECL std::unordered_map<uint32_t, word_property> const &
+        BOOST_TEXT_DECL std::unordered_map<uint32_t, word_property>
         make_word_prop_map();
     }
 

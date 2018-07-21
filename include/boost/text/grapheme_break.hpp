@@ -51,7 +51,7 @@ namespace boost { namespace text {
 
         BOOST_TEXT_DECL std::array<grapheme_prop_interval, 3> const &
         make_grapheme_prop_intervals();
-        BOOST_TEXT_DECL std::unordered_map<uint32_t, grapheme_property> const &
+        BOOST_TEXT_DECL std::unordered_map<uint32_t, grapheme_property>
         make_grapheme_prop_map();
     }
 

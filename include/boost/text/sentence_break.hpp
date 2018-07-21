@@ -47,7 +47,7 @@ namespace boost { namespace text {
 
         BOOST_TEXT_DECL std::array<sentence_prop_interval, 28> const &
         make_sentence_prop_intervals();
-        BOOST_TEXT_DECL std::unordered_map<uint32_t, sentence_property> const &
+        BOOST_TEXT_DECL std::unordered_map<uint32_t, sentence_property>
         make_sentence_prop_map();
     }
 

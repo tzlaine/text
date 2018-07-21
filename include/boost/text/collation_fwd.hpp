@@ -1,6 +1,8 @@
 #ifndef BOOST_TEXT_COLLATION_FWD_HPP
 #define BOOST_TEXT_COLLATION_FWD_HPP
 
+#include <boost/text/config.hpp>
+
 #include <cstdint>
 #include <cassert>
 
