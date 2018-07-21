@@ -126,11 +126,18 @@ constexpr static std::array<reorder_group, {3}> retval = {{{{
 return retval;
 }}
 
-std::array<collation_element, {5}> const & make_collation_elements()
+std::array<collation_element, {6}> make_collation_elements()
 {{
-constexpr static std::array<collation_element, {5}> retval = {{{{
+constexpr static std::array<uint16_t, {5}> compressed = {{{{
 {4}
 }}}};
+std::array<collation_element, {6}> retval;
+container::small_vector<unsigned char, 256> buf;
+lzw_decompress(
+    compressed.begin(),
+    compressed.end(),
+    make_lzw_to_coll_elem_iter(retval.begin(), buf));
+assert(buf.empty());
 return retval;
 }}
 
@@ -676,24 +683,45 @@ if __name__ == "__main__":
             to_reorder_group(g[0], g[1], simple, lead_byte in compressible_lead_bytes)
         )
     reorder_group_str = '    ' + ',\n    '.join(reorder_group_strings) + ',\n'
-    item_strings = map(lambda x: ce_to_cpp(x), collation_elements)
-    collation_elements_list = '    ' + ',\n    '.join(item_strings) + ',\n'
-    cpp_file = open('collation_data_0.cpp', 'w')
-    cpp_file.write(collation_data_0_file_form.format(implicit_weights_segments_str, len(implicit_weights_segments), reorder_group_str, len(reorder_group_strings), collation_elements_list, len(collation_elements)))
-
-    key_ints = []
-    value_ints = []
-    for k,v in sorted(fcc_cet.items(), key=lambda x: original_order[x[0]]):
-        lzw.add_byte(key_ints, len(k))
-        for x in k:
-            lzw.add_cp(key_ints, x)
-        lzw.add_short(value_ints, v[0])
-        lzw.add_short(value_ints, v[1])
-
-    compressed_keys = lzw.compress(key_ints)
-    compressed_values = lzw.compress(value_ints)
 
     values_per_line = 12
+
+    ce_bytes = []
+    for ce in collation_elements:
+        x = '0' + ''.join(ce[0])
+        if ce[0] != ('',):
+            x += '0' * (4 - len(ce[0])) * 2
+        lzw.add_int(ce_bytes, int(x, 16))
+        x = '0' + ''.join(ce[1])
+        if ce[1] != ('',):
+            x += '0' * (2 - len(ce[1])) * 2
+        lzw.add_short(ce_bytes, int(x, 16))
+        x = '0' + ''.join(ce[2])
+        if ce[2] != ('',):
+            x += '0' * (2 - len(ce[2])) * 2
+        lzw.add_short(ce_bytes, int(x, 16))
+    compressed_ces = lzw.compress(ce_bytes)
+
+    ce_lines = ''
+    i = 0
+    while i + values_per_line < len(compressed_ces):
+        ce_lines += ', '.join(map(lambda x: hex(x), compressed_ces[i:i+values_per_line])) + ',\n'
+        i += values_per_line
+    ce_lines += ', '.join(map(lambda x: hex(x), compressed_ces[i:])) + '\n'
+
+    cpp_file = open('collation_data_0.cpp', 'w')
+    cpp_file.write(collation_data_0_file_form.format(implicit_weights_segments_str, len(implicit_weights_segments), reorder_group_str, len(reorder_group_strings), ce_lines, len(compressed_ces), len(collation_elements)))
+
+    key_bytes = []
+    value_bytes = []
+    for k,v in sorted(fcc_cet.items(), key=lambda x: original_order[x[0]]):
+        lzw.add_byte(key_bytes, len(k))
+        for x in k:
+            lzw.add_cp(key_bytes, x)
+        lzw.add_short(value_bytes, v[0])
+        lzw.add_short(value_bytes, v[1])
+    compressed_keys = lzw.compress(key_bytes)
+    compressed_values = lzw.compress(value_bytes)
 
     key_lines = ''
     i = 0

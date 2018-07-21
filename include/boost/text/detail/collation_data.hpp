@@ -99,7 +99,7 @@ namespace boost { namespace text { namespace detail {
         return collation_strength::identical;
     }
 
-    BOOST_TEXT_DECL extern std::array<collation_element, 39258> const &
+    BOOST_TEXT_DECL extern std::array<collation_element, 39258>
     make_collation_elements();
 
     inline std::array<collation_element, 39258> const & collation_elements_()
@@ -280,6 +280,55 @@ namespace boost { namespace text { namespace detail {
     inline uint32_t bytes_to_uint16_t(unsigned char const * chars)
     {
         return chars[0] << 8 | chars[1] << 0;
+    }
+
+    template<typename OutIter>
+    struct lzw_to_coll_elem_iter
+    {
+        using value_type = collation_element;
+        using difference_type = int;
+        using pointer = value_type *;
+        using reference = value_type &;
+        using iterator_category = std::output_iterator_tag;
+        using buffer_t = container::small_vector<unsigned char, 256>;
+
+        lzw_to_coll_elem_iter(OutIter out, buffer_t & buf) :
+            out_(out),
+            buf_(&buf)
+        {}
+
+        template<typename BidiRange>
+        lzw_to_coll_elem_iter & operator=(BidiRange const & r)
+        {
+            buf_->insert(buf_->end(), r.rbegin(), r.rend());
+            auto const element_bytes = 8;
+            auto it = buf_->begin();
+            for (auto end = buf_->end() - buf_->size() % element_bytes;
+                 it != end;
+                 it += element_bytes) {
+                collation_element element;
+                element.l1_ = bytes_to_uint32_t(&*it);
+                element.l2_ = bytes_to_uint16_t(&*it + 4);
+                element.l3_ = bytes_to_uint16_t(&*it + 6);
+                element.l4_ = 0;
+                *out_++ = element;
+            }
+            buf_->erase(buf_->begin(), it);
+            return *this;
+        }
+        lzw_to_coll_elem_iter & operator*() { return *this; }
+        lzw_to_coll_elem_iter & operator++() { return *this; }
+        lzw_to_coll_elem_iter & operator++(int) { return *this; }
+
+    private:
+        OutIter out_;
+        buffer_t * buf_;
+    };
+    template<typename OutIter>
+    lzw_to_coll_elem_iter<OutIter> make_lzw_to_coll_elem_iter(
+        OutIter out, container::small_vector<unsigned char, 256> & buf)
+    {
+        return lzw_to_coll_elem_iter<OutIter>(out, buf);
     }
 
     template<typename OutIter>
