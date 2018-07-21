@@ -3,6 +3,8 @@
 
 #include <boost/container/small_vector.hpp>
 
+#include <vector>
+
 
 namespace boost { namespace text { namespace detail {
 

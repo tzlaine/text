@@ -2,6 +2,9 @@
 #define BOOST_TEXT_DETAIL_NORMALIZATION_DATA_HPP
 
 #include <boost/text/utf8.hpp>
+#include <boost/text/detail/lzw.hpp>
+
+#include <boost/container/small_vector.hpp>
 
 #include <array>
 #include <unordered_map>
@@ -357,6 +360,66 @@ namespace boost { namespace text { namespace detail {
         return it->second.ccc_ == 0 &&
                quick_check(it->second.nfc_quick_check_) == quick_check::yes;
     }
+
+    struct lzw_to_cp_props_iter
+    {
+        using value_type = std::pair<uint32_t, cp_props>;
+        using difference_type = int;
+        using pointer = value_type *;
+        using reference = value_type &;
+        using iterator_category = std::output_iterator_tag;
+        using buffer_t = container::small_vector<unsigned char, 256>;
+
+        lzw_to_cp_props_iter(
+            std::unordered_map<uint32_t, cp_props> & map, buffer_t & buf) :
+            map_(&map),
+            buf_(&buf)
+        {}
+
+        template<typename BidiRange>
+        lzw_to_cp_props_iter & operator=(BidiRange const & r)
+        {
+            buf_->insert(buf_->end(), r.rbegin(), r.rend());
+            auto const element_bytes = 3 + 2 + 2 + 2 + 2 + 1 + 1 + 1;
+            auto it = buf_->begin();
+            for (auto end = buf_->end() - buf_->size() % element_bytes;
+                 it != end;
+                 it += element_bytes) {
+                unsigned char * ptr = &*it;
+
+                uint32_t const cp = bytes_to_cp(ptr);
+                ptr += 3;
+
+                cp_props props;
+                props.canonical_decomposition_.first_ = bytes_to_uint16_t(ptr);
+                ptr += 2;
+                props.canonical_decomposition_.last_ = bytes_to_uint16_t(ptr);
+                ptr += 2;
+                props.compatible_decomposition_.first_ = bytes_to_uint16_t(ptr);
+                ptr += 2;
+                props.compatible_decomposition_.last_ = bytes_to_uint16_t(ptr);
+                ptr += 2;
+                props.ccc_ = *ptr++;
+                unsigned char c = *ptr++;
+                props.nfd_quick_check_ = (c >> 4) & 0xf;
+                props.nfkd_quick_check_ = (c >> 0) & 0xf;
+                c = *ptr++;
+                props.nfc_quick_check_ = (c >> 4) & 0xf;
+                props.nfkc_quick_check_ = (c >> 0) & 0xf;
+
+                (*map_)[cp] = props;
+            }
+            buf_->erase(buf_->begin(), it);
+            return *this;
+        }
+        lzw_to_cp_props_iter & operator*() { return *this; }
+        lzw_to_cp_props_iter & operator++() { return *this; }
+        lzw_to_cp_props_iter & operator++(int) { return *this; }
+
+    private:
+        std::unordered_map<uint32_t, cp_props> * map_;
+        buffer_t * buf_;
+    };
 
 }}}
 
