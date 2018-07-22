@@ -222,6 +222,24 @@ namespace boost { namespace text {
         }
     }
 
+    /** Returns true if no code point in [first, last) would change in a call
+        to to_lower(), and false otherwise. */
+    template<typename CPIter, typename Sentinel>
+    bool is_lower(CPIter first, Sentinel last) noexcept
+    {
+        return all_of(first, last, [](uint32_t cp) {
+            return !detail::changes_when_lowered(cp);
+        });
+    }
+
+    /** Returns true if no code point in range would change in a call to
+        to_lower(), and false otherwise. */
+    template<typename CPRange>
+    bool is_lower(CPRange & range) noexcept
+    {
+        return is_lower(std::begin(range), std::end(range));
+    }
+
     /** Writes the lower-case form of [first, last) to output iterator out,
         using language-specific handling as indicated by lang. */
     template<typename CPIter, typename Sentinel, typename OutIter>
@@ -246,6 +264,44 @@ namespace boost { namespace text {
     {
         return to_lower(
             std::begin(range), std::begin(range), std::end(range), out, lang);
+    }
+
+    /** Returns true if no code point in [first, last) would change in a call
+        to to_title(), and false otherwise. */
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        CPIter first,
+        Sentinel last,
+        NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
+    {
+        // TODO: It really seems like we should be using next_word_break
+        // here....
+        lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
+            {first, last}, {last}};
+        for (auto r : words) {
+            auto it = r.begin();
+            if (detail::changes_when_titled(*it))
+                return false;
+            if (!is_lower(++it, r.end()))
+                return false;
+        }
+        return true;
+    }
+
+    /** Returns true if no code point in range would change in a call to
+        to_title(), and false otherwise. */
+    template<
+        typename CPRange,
+        typename NextWordBreakFunc = next_word_break_callable>
+    bool is_title(
+        CPRange & range,
+        NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
+    {
+        return is_title(
+            std::begin(range), std::end(range), std::move(next_word_break));
     }
 
     /** Writes the title-case form of [first, last) to output iterator out,
@@ -299,6 +355,24 @@ namespace boost { namespace text {
             out,
             lang,
             static_cast<NextWordBreakFunc &&>(next_word_break));
+    }
+
+    /** Returns true if no code point in [first, last) would change in a call
+        to to_upper(), and false otherwise. */
+    template<typename CPIter, typename Sentinel>
+    bool is_upper(CPIter first, Sentinel last) noexcept
+    {
+        return all_of(first, last, [](uint32_t cp) {
+            return !detail::changes_when_uppered(cp);
+        });
+    }
+
+    /** Returns true if no code point in range would change in a call to
+        to_upper(), and false otherwise. */
+    template<typename CPRange>
+    bool is_upper(CPRange & range) noexcept
+    {
+        return is_upper(std::begin(range), std::end(range));
     }
 
     /** Writes the upper-case form of [first, last) to output iterator out,

@@ -30,6 +30,9 @@ TEST(case_mapping_api, all)
     sentinel_cp_range_t cp;
     to_sentinel_cp_range(cp_, cp, {0x00DF});
 
+    EXPECT_TRUE(is_lower(cp));
+    EXPECT_FALSE(is_title(cp));
+    EXPECT_FALSE(is_upper(cp));
 
     { // to_lower
         std::vector<uint32_t> lower({0x00DF});
@@ -45,6 +48,10 @@ TEST(case_mapping_api, all)
         std::vector<uint32_t> title({0x0053, 0x0073});
         std::vector<uint32_t> result;
 
+        EXPECT_FALSE(is_lower(title));
+        EXPECT_TRUE(is_title(title));
+        EXPECT_FALSE(is_upper(title));
+
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
@@ -54,6 +61,10 @@ TEST(case_mapping_api, all)
         to_sentinel_cp_range(from_, from, {0x00DF, 0x0020, 0x0020, 0x0020});
         std::vector<uint32_t> title({0x0053, 0x0073, 0x0020, 0x0020, 0x0020});
         std::vector<uint32_t> result;
+
+        EXPECT_FALSE(is_lower(title));
+        EXPECT_TRUE(is_title(title));
+        EXPECT_FALSE(is_upper(title));
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
@@ -65,6 +76,10 @@ TEST(case_mapping_api, all)
         std::vector<uint32_t> title({0x0053, 0x0073, 0x0061, 0x0061, 0x0061});
         std::vector<uint32_t> result;
 
+        EXPECT_FALSE(is_lower(title));
+        EXPECT_TRUE(is_title(title));
+        EXPECT_FALSE(is_upper(title));
+
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
@@ -74,6 +89,10 @@ TEST(case_mapping_api, all)
         to_sentinel_cp_range(from_, from, {0x0020, 0x0020, 0x0020, 0x00DF});
         std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0073});
         std::vector<uint32_t> result;
+
+        EXPECT_FALSE(is_lower(title));
+        EXPECT_TRUE(is_title(title));
+        EXPECT_FALSE(is_upper(title));
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
@@ -85,6 +104,10 @@ TEST(case_mapping_api, all)
         std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0073, 0x0020, 0x0020, 0x0020});
         std::vector<uint32_t> result;
 
+        EXPECT_FALSE(is_lower(title));
+        EXPECT_TRUE(is_title(title));
+        EXPECT_FALSE(is_upper(title));
+
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
@@ -95,6 +118,10 @@ TEST(case_mapping_api, all)
         std::vector<uint32_t> title({0x0020, 0x0020, 0x0020, 0x0053, 0x0073, 0x0061, 0x0061, 0x0061});
         std::vector<uint32_t> result;
 
+        EXPECT_FALSE(is_lower(title));
+        EXPECT_TRUE(is_title(title));
+        EXPECT_FALSE(is_upper(title));
+
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
@@ -104,6 +131,10 @@ TEST(case_mapping_api, all)
         to_sentinel_cp_range(from_, from, {0x0061, 0x0061, 0x0061, 0x00DF});
         std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x00DF});
         std::vector<uint32_t> result;
+
+        EXPECT_FALSE(is_lower(title));
+        EXPECT_TRUE(is_title(title));
+        EXPECT_FALSE(is_upper(title));
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
@@ -125,12 +156,20 @@ TEST(case_mapping_api, all)
         std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x00DF, 0x0061, 0x0061, 0x0061});
         std::vector<uint32_t> result;
 
+        EXPECT_FALSE(is_lower(title));
+        EXPECT_TRUE(is_title(title));
+        EXPECT_FALSE(is_upper(title));
+
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
     { // to_upper
         std::vector<uint32_t> upper({0x0053, 0x0053});
         std::vector<uint32_t> result;
+
+        EXPECT_FALSE(is_lower(upper));
+        EXPECT_FALSE(is_title(upper));
+        EXPECT_TRUE(is_upper(upper));
 
         to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);

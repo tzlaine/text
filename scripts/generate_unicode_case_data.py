@@ -89,6 +89,27 @@ return {{{{
     }}}};
     }}
 
+    constexpr std::array<uint32_t, {17}> changes_when_uppered()
+    {{
+return {{{{
+        {16}
+    }}}};
+    }}
+
+    constexpr std::array<uint32_t, {19}> changes_when_lowered()
+    {{
+return {{{{
+        {18}
+    }}}};
+    }}
+
+    constexpr std::array<uint32_t, {21}> changes_when_titled()
+    {{
+return {{{{
+        {20}
+    }}}};
+    }}
+
     }}
 
     case_map_t make_to_lower_map()
@@ -139,6 +160,24 @@ return {{{{
         return std::unordered_set<uint32_t>(cps.begin(), cps.end());
     }}
 
+    std::unordered_set<uint32_t> make_changes_when_uppered_cps()
+    {{
+        auto const cps = changes_when_uppered();
+        return std::unordered_set<uint32_t>(cps.begin(), cps.end());
+    }}
+
+    std::unordered_set<uint32_t> make_changes_when_lowered_cps()
+    {{
+        auto const cps = changes_when_lowered();
+        return std::unordered_set<uint32_t>(cps.begin(), cps.end());
+    }}
+
+    std::unordered_set<uint32_t> make_changes_when_titled_cps()
+    {{
+        auto const cps = changes_when_titled();
+        return std::unordered_set<uint32_t>(cps.begin(), cps.end());
+    }}
+
 }}}}}}
 '''
 
@@ -149,6 +188,10 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
 
     all_tuples = set()
     conditions = set()
+
+    changes_when_u = []
+    changes_when_l = []
+    changes_when_t = []
 
     def init_dict_elem(k, m):
         if k not in m or (len(m[k]) and m[k][0][2] == 'from_unicode_data'):
@@ -364,26 +407,59 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
         line = line[:-1]
         if not line.startswith('#') and len(line) != 0:
             fields = map(lambda x: x.strip(), line.split(';'))
-            if fields[1].startswith('Cased') or fields[1].startswith('Case_Ignorable'):
+            if fields[1].startswith('Cased') or \
+               fields[1].startswith('Case_Ignorable') or \
+               fields[1].startswith('Changes_When_Lowercased') or \
+               fields[1].startswith('Changes_When_Uppercased') or \
+               fields[1].startswith('Changes_When_Titlecased'):
                 cps_ = fields[0].split('.')
-                if fields[1].startswith('Cased'):
-                    cased_cps.append(cps_[0])
-                else:
-                    cased_ignorable_cps.append(cps_[0])
                 if 1 < len(cps_):
-                    for i in range(int(cps_[0], 16) + 1, int(cps_[2], 16) + 1):
-                         if fields[1].startswith('Cased'):
-                             cased_cps.append(hex(i).upper()[2:])
-                         else:
-                             cased_ignorable_cps.append(hex(i).upper()[2:])
+                    r = range(int(cps_[0], 16) + 1, int(cps_[2], 16) + 1)
+                    cps_ = cps_[:1]
+                    for i in r:
+                         cps_.append(hex(i).upper()[2:])
+                else:
+                    cps_ = cps_[:1]
+                if fields[1].startswith('Cased'):
+                    cased_cps += cps_
+                elif fields[1].startswith('Case_Ignorable'):
+                    cased_ignorable_cps += cps_
+                elif fields[1].startswith('Changes_When_Uppercased'):
+                    changes_when_u += cps_
+                elif fields[1].startswith('Changes_When_Lowercased'):
+                    changes_when_l += cps_
+                elif fields[1].startswith('Changes_When_Titlecased'):
+                    changes_when_t += cps_
 
     return to_lower, to_title, to_upper, cps, conditions, soft_dotteds, \
-        cased_cps, cased_ignorable_cps, all_mapped_tos
+        cased_cps, cased_ignorable_cps, all_mapped_tos, changes_when_u, \
+        changes_when_l, changes_when_t
 
 to_lower, to_title, to_upper, cps, conditions, soft_dotteds, \
-    cased_cps, cased_ignorable_cps, all_mapped_tos = \
+    cased_cps, cased_ignorable_cps, all_mapped_tos, \
+    changes_when_u, changes_when_l, changes_when_t = \
     get_case_mappings('UnicodeData.txt', 'SpecialCasing.txt', \
                       'PropList.txt', 'DerivedCoreProperties.txt')
+
+#changes_when_l = sorted(map(lambda x: int(x, 16), changes_when_l))
+#changes_when_l_ranges = []
+#prev_cp = 0xffffffff
+#curr_range = [0xffffffff, 0xffffffff]
+#ranged_n = 0
+#for cp in changes_when_l:
+#    #cp = int(cp_, 16)
+#    if cp != prev_cp + 1:
+#        if curr_range[0] == 0xffffffff:
+#            curr_range[0] = cp
+#        else:
+#            curr_range[1] = prev_cp + 1
+#            if curr_range[1] != curr_range[0] + 1:
+#                changes_when_l_ranges.append((hex(curr_range[0]), hex(curr_range[1])))
+#                ranged_n += curr_range[1] - curr_range[0]
+#            curr_range = [0xffffffff, 0xffffffff]
+#    prev_cp = cp
+#print changes_when_l_ranges
+#print len(changes_when_l_ranges), ranged_n, len(changes_when_l)
 
 hpp_file = open('case_constants.hpp', 'w')
 condition_enums = []
@@ -475,4 +551,11 @@ cpp_file.write(case_impl_file_form.format(
     ',\n        '.join(map(make_case_mapping, to_title)),
     len(to_title),
     ',\n        '.join(map(make_case_mapping, to_upper)),
-    len(to_upper)))
+    len(to_upper),
+    ',\n        '.join(map(lambda x: '0x' + x, changes_when_u)),
+    len(changes_when_u),
+    ',\n        '.join(map(lambda x: '0x' + x, changes_when_l)),
+    len(changes_when_l),
+    ',\n        '.join(map(lambda x: '0x' + x, changes_when_t)),
+    len(changes_when_t)
+))

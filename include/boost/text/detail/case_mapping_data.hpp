@@ -64,6 +64,9 @@ namespace boost { namespace text { namespace detail {
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_case_ignorable_cps();
     BOOST_TEXT_DECL std::array<uint32_t, 2849> make_case_cps();
     BOOST_TEXT_DECL std::array<case_mapping_to, 2761> make_case_mapping_to();
+    BOOST_TEXT_DECL std::unordered_set<uint32_t> make_changes_when_uppered_cps();
+    BOOST_TEXT_DECL std::unordered_set<uint32_t> make_changes_when_lowered_cps();
+    BOOST_TEXT_DECL std::unordered_set<uint32_t> make_changes_when_titled_cps();
 
     inline uint32_t const * case_cps_ptr()
     {
@@ -113,6 +116,27 @@ namespace boost { namespace text { namespace detail {
         static std::vector<uint32_t> const cps = make_soft_dotted_cps();
         auto const it = std::lower_bound(cps.begin(), cps.end(), cp);
         return it != cps.end() && *it == cp;
+    }
+
+    inline bool changes_when_uppered(uint32_t cp)
+    {
+        static std::unordered_set<uint32_t> const cps =
+            make_changes_when_uppered_cps();
+        return cps.find(cp) != cps.end();
+    }
+
+    inline bool changes_when_lowered(uint32_t cp)
+    {
+        static std::unordered_set<uint32_t> const cps =
+            make_changes_when_lowered_cps();
+        return cps.find(cp) != cps.end();
+    }
+
+    inline bool changes_when_titled(uint32_t cp)
+    {
+        static std::unordered_set<uint32_t> const cps =
+            make_changes_when_titled_cps();
+        return cps.find(cp) != cps.end();
     }
 
 }}}

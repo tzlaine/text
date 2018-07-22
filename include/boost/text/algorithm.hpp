@@ -1150,6 +1150,17 @@ namespace boost { namespace text {
         return f;
     }
 
+    /** Sentinel-friendly version of std::all_of(). */
+    template<typename Iter, typename Sentinel, typename Pred>
+    bool all_of(Iter first, Sentinel last, Pred p)
+    {
+        for (; first != last; ++first) {
+            if (!p(*first))
+                return false;
+        }
+        return true;
+    }
+
     // TODO: Separate constexpr versions into their own namespace and header,
     // and only provide the non-constexpr ones here.
 
