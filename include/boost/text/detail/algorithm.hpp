@@ -1,7 +1,8 @@
 #ifndef BOOST_TEXT_DETAIL_ALGORITHM_HPP
 #define BOOST_TEXT_DETAIL_ALGORITHM_HPP
 
-#include <iterator>
+#include <boost/text/detail/iterator.hpp>
+
 #include <type_traits>
 
 #include <cassert>
@@ -360,9 +361,9 @@ namespace boost { namespace text { namespace detail {
     }
 
     template<typename Iter>
-    std::reverse_iterator<Iter> make_reverse_iterator(Iter it)
+    detail::reverse_iterator<Iter> make_reverse_iterator(Iter it)
     {
-        return std::reverse_iterator<Iter>(it);
+        return detail::reverse_iterator<Iter>(it);
     }
 
 }}}

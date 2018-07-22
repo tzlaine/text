@@ -21,7 +21,7 @@ namespace boost { namespace text {
         using iterator =
             grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
         using const_iterator = iterator;
-        using reverse_iterator = std::reverse_iterator<const_iterator>;
+        using reverse_iterator = detail::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
 
         using text_iterator =

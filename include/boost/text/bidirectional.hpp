@@ -985,7 +985,7 @@ namespace boost { namespace text {
         struct reordered_run
         {
             using iterator = typename props_and_embeddings_t<CPIter>::iterator;
-            using reverse_iterator = std::reverse_iterator<
+            using reverse_iterator = detail::reverse_iterator<
                 typename props_and_embeddings_t<CPIter>::iterator>;
 
             bool reversed() const noexcept { return reversed_; }
@@ -1071,10 +1071,10 @@ namespace boost { namespace text {
             {
                 new (&it_) CPIter(std::move(it));
             }
-            fwd_rev_cp_iter(std::reverse_iterator<CPIter> rit) noexcept :
+            fwd_rev_cp_iter(detail::reverse_iterator<CPIter> rit) noexcept :
                 kind_(kind_t::rev_user_it)
             {
-                new (&rit_) std::reverse_iterator<CPIter>(std::move(rit));
+                new (&rit_) detail::reverse_iterator<CPIter>(std::move(rit));
             }
             fwd_rev_cp_iter(
                 mirrors_array_t::const_iterator ait,
@@ -1177,7 +1177,7 @@ namespace boost { namespace text {
                 if (kind_ == kind_t::user_it)
                     new (&it_) CPIter(other.it_);
                 else if (kind_ == kind_t::rev_user_it)
-                    new (&rit_) std::reverse_iterator<CPIter>(other.rit_);
+                    new (&rit_) detail::reverse_iterator<CPIter>(other.rit_);
                 else
                     new (&ait_) mirrors_array_t::const_iterator(other.ait_);
             }
@@ -1188,14 +1188,14 @@ namespace boost { namespace text {
                     new (&it_) CPIter(std::move(other.it_));
                 } else if (kind_ == kind_t::rev_user_it) {
                     new (&rit_)
-                        std::reverse_iterator<CPIter>(std::move(other.rit_));
+                        detail::reverse_iterator<CPIter>(std::move(other.rit_));
                 } else {
                     new (&ait_) mirrors_array_t::const_iterator(other.ait_);
                 }
             }
             void destroy()
             {
-                using reverse_iterator_t = std::reverse_iterator<CPIter>;
+                using reverse_iterator_t = detail::reverse_iterator<CPIter>;
                 using array_iterator_t = mirrors_array_t::const_iterator;
                 if (kind_ == kind_t::user_it)
                     it_.~CPIter();
@@ -1208,7 +1208,7 @@ namespace boost { namespace text {
             union
             {
                 CPIter it_;
-                std::reverse_iterator<CPIter> rit_;
+                detail::reverse_iterator<CPIter> rit_;
                 mirrors_array_t::const_iterator ait_;
             };
             fwd_rev_cp_iter_kind kind_;

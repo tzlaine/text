@@ -2,6 +2,7 @@
 #define BOOST_TEXT_SEGMENTED_VECTOR_HPP
 
 #include <boost/text/detail/btree.hpp>
+#include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/vector_iterator.hpp>
 
 #include <initializer_list>
@@ -21,8 +22,8 @@ namespace boost { namespace text {
     {
         using iterator = detail::const_vector_iterator<T>;
         using const_iterator = detail::const_vector_iterator<T>;
-        using reverse_iterator = detail::const_reverse_vector_iterator<T>;
-        using const_reverse_iterator = detail::const_reverse_vector_iterator<T>;
+        using reverse_iterator = detail::reverse_iterator<iterator>;
+        using const_reverse_iterator = detail::reverse_iterator<const_iterator>;
 
         using size_type = std::ptrdiff_t;
 
@@ -72,11 +73,11 @@ namespace boost { namespace text {
 
         const_reverse_iterator rbegin() const noexcept
         {
-            return const_reverse_iterator(const_iterator(*this, size() - 1));
+            return const_reverse_iterator(end());
         }
         const_reverse_iterator rend() const noexcept
         {
-            return const_reverse_iterator(const_iterator(*this, -1));
+            return const_reverse_iterator(begin());
         }
 
         bool empty() const noexcept { return size() == 0; }

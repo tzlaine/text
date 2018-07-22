@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_UNENCODED_ROPE_VIEW_HPP
 #define BOOST_TEXT_UNENCODED_ROPE_VIEW_HPP
 
+#include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/rope.hpp>
 
 
@@ -10,7 +11,8 @@ namespace boost { namespace text {
 
     namespace detail {
         struct const_rope_view_iterator;
-        struct const_reverse_rope_view_iterator;
+        using const_reverse_rope_view_iterator =
+            reverse_iterator<const_rope_view_iterator>;
     }
 
     /** A reference to a substring of an unencoded_rope, string, string_view,

@@ -178,14 +178,8 @@ namespace boost { namespace text {
         const_iterator cbegin() const noexcept { return begin(); }
         const_iterator cend() const noexcept { return end(); }
 
-        reverse_iterator rbegin() noexcept
-        {
-            return reverse_iterator(end() - 1);
-        }
-        reverse_iterator rend() noexcept
-        {
-            return reverse_iterator(begin() - 1);
-        }
+        reverse_iterator rbegin() noexcept { return reverse_iterator(end()); }
+        reverse_iterator rend() noexcept { return reverse_iterator(begin()); }
 
         const_reverse_iterator rbegin() const noexcept
         {

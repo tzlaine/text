@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_UNENCODED_ROPE_HPP
 #define BOOST_TEXT_UNENCODED_ROPE_HPP
 
+#include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/rope.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
@@ -16,7 +17,8 @@ namespace boost { namespace text {
 
     namespace detail {
         struct const_rope_iterator;
-        struct const_reverse_rope_iterator;
+        using const_reverse_rope_iterator =
+            reverse_iterator<const_rope_iterator>;
     }
 
     /** A mutable sequence of char with copy-on-write semantics.  An
@@ -988,12 +990,12 @@ namespace boost { namespace text {
     inline unencoded_rope::const_reverse_iterator unencoded_rope::rbegin() const
         noexcept
     {
-        return const_reverse_iterator(const_iterator(*this, size() - 1));
+        return const_reverse_iterator(end());
     }
     inline unencoded_rope::const_reverse_iterator unencoded_rope::rend() const
         noexcept
     {
-        return const_reverse_iterator(const_iterator(*this, -1));
+        return const_reverse_iterator(begin());
     }
 
     inline unencoded_rope::const_reverse_iterator
@@ -1421,12 +1423,12 @@ namespace boost { namespace text {
     inline unencoded_rope_view::const_reverse_iterator
     unencoded_rope_view::rbegin() const noexcept
     {
-        return const_reverse_iterator(end() - 1);
+        return const_reverse_iterator(end());
     }
     inline unencoded_rope_view::const_reverse_iterator
     unencoded_rope_view::rend() const noexcept
     {
-        return const_reverse_iterator(begin() - 1);
+        return const_reverse_iterator(begin());
     }
 
     inline unencoded_rope_view::const_reverse_iterator

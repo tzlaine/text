@@ -101,8 +101,8 @@ namespace boost { namespace text {
         template<typename CPIter, typename Func>
         bool before_close_sp(CPIter it_, CPIter first, bool skip_sps, Func func)
         {
-            std::reverse_iterator<CPIter> it(std::next(it_));
-            std::reverse_iterator<CPIter> last(first);
+            detail::reverse_iterator<CPIter> it(std::next(it_));
+            detail::reverse_iterator<CPIter> last(first);
             it = std::find_if_not(std::next(it), last, [](uint32_t cp) {
                 return skippable(sentence_prop(cp));
             });

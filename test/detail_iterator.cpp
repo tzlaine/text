@@ -43,8 +43,8 @@ TEST(reverse_char_iterator, test_c_str_ctor)
 
     {
         std::string tv_a("a");
-        text::detail::reverse_char_iterator first(&*tv_a.rbegin());
-        text::detail::reverse_char_iterator last(&*tv_a.rbegin() - 1);
+        text::detail::reverse_char_iterator first(&*tv_a.rbegin().base());
+        text::detail::reverse_char_iterator last(&*tv_a.rbegin().base() - 1);
 
         EXPECT_EQ(last.base(), &*first);
 
@@ -71,7 +71,7 @@ TEST(reverse_char_iterator, test_c_str_ctor)
             EXPECT_EQ(it, last);
 
             it = first;
-            it = 1 + it;
+            it = it + 1;
             EXPECT_EQ(it, last);
         }
         {
@@ -94,7 +94,7 @@ TEST(reverse_char_iterator, test_c_str_ctor)
             EXPECT_EQ(it, first);
 
             it = last;
-            it = 1 - it;
+            it = it - 1;
             EXPECT_EQ(it, first);
         }
 
@@ -197,7 +197,7 @@ TEST(const_reverse_char_iterator, test_c_str_ctor)
             EXPECT_EQ(it, last);
 
             it = first;
-            it = 1 + it;
+            it = it + 1;
             EXPECT_EQ(it, last);
         }
         {
@@ -220,7 +220,7 @@ TEST(const_reverse_char_iterator, test_c_str_ctor)
             EXPECT_EQ(it, first);
 
             it = last;
-            it = 1 - it;
+            it = it - 1;
             EXPECT_EQ(it, first);
         }
 
@@ -323,7 +323,7 @@ TEST(const_reverse_char_iterator, test_c_str_ctor_constexpr)
         }
 
         {
-            constexpr auto it = 1 + first;
+            constexpr auto it = first + 1;
             static_assert(it == last, "");
         }
 
@@ -337,7 +337,7 @@ TEST(const_reverse_char_iterator, test_c_str_ctor_constexpr)
         }
 
         {
-            constexpr auto it = 1 - last;
+            constexpr auto it = last - 1;
             static_assert(it == first, "");
         }
 
@@ -493,7 +493,7 @@ TEST(const_repeated_chars_iterator, test_c_str_ctor)
             EXPECT_EQ(it, first + 1);
 
             it = first;
-            it = 1 + it;
+            it = it + 1;
             EXPECT_EQ(it, first + 1);
         }
         {

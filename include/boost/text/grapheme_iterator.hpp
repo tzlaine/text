@@ -45,6 +45,12 @@ namespace boost { namespace text {
             last_(last)
         {}
 
+        template<typename CPIter2, typename Sentinel2>
+        grapheme_iterator(grapheme_iterator<CPIter2, Sentinel2> const & other) :
+            first_(other.begin()),
+            last_(other.end())
+        {}
+
         reference operator*() const noexcept { return grapheme_; }
 
         pointer operator->() const noexcept { return &grapheme_; }
@@ -83,18 +89,6 @@ namespace boost { namespace text {
             return retval;
         }
 
-        friend bool
-        operator==(grapheme_iterator<CPIter, Sentinel> it, Sentinel s)
-        {
-            return it.grapheme_.begin() == s;
-        }
-
-        friend bool
-        operator==(Sentinel s, grapheme_iterator<CPIter, Sentinel> it)
-        {
-            return s == it.grapheme_.begin();
-        }
-
     private:
         value_type grapheme_;
         CPIter first_;
@@ -125,6 +119,34 @@ namespace boost { namespace text {
         -> decltype(!(lhs == rhs))
     {
         return !(lhs == rhs);
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto operator==(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
+        -> decltype(it.base() == s)
+    {
+        return it.base() == s;
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto operator==(Sentinel s, grapheme_iterator<CPIter, Sentinel> it) noexcept
+        -> decltype(it == s)
+    {
+        return it == s;
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto operator!=(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
+        -> decltype(it.base() != s)
+    {
+        return it.base() != s;
+    }
+
+    template<typename CPIter, typename Sentinel>
+    auto operator!=(Sentinel s, grapheme_iterator<CPIter, Sentinel> it) noexcept
+        -> decltype(it != s)
+    {
+        return it != s;
     }
 
 }}

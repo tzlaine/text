@@ -66,7 +66,7 @@ TEST(const_rope_iterator, test_c_str_ctor)
             EXPECT_EQ(it, last);
 
             it = first;
-            it = 1 + it;
+            it = it + 1;
             EXPECT_EQ(it, last);
         }
         {
@@ -89,7 +89,7 @@ TEST(const_rope_iterator, test_c_str_ctor)
             EXPECT_EQ(it, first);
 
             it = last;
-            it = 1 - it;
+            it = it - 1;
             EXPECT_EQ(it, first);
         }
 
@@ -175,7 +175,7 @@ TEST(const_reverse_rope_iterator, test_c_str_ctor)
             EXPECT_EQ(it, last);
 
             it = first;
-            it = 1 + it;
+            it = it + 1;
             EXPECT_EQ(it, last);
         }
         {
@@ -198,7 +198,7 @@ TEST(const_reverse_rope_iterator, test_c_str_ctor)
             EXPECT_EQ(it, first);
 
             it = last;
-            it = 1 - it;
+            it = it - 1;
             EXPECT_EQ(it, first);
         }
 
