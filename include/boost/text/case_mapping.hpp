@@ -275,10 +275,8 @@ namespace boost { namespace text {
     bool is_title(
         CPIter first,
         Sentinel last,
-        NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
-        // TODO: It really seems like we should be using next_word_break
-        // here....
         lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
             {first, last}, {last}};
         for (auto r : words) {
@@ -298,10 +296,9 @@ namespace boost { namespace text {
         typename NextWordBreakFunc = next_word_break_callable>
     bool is_title(
         CPRange & range,
-        NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
-        return is_title(
-            std::begin(range), std::end(range), std::move(next_word_break));
+        return is_title(std::begin(range), std::end(range), next_word_break);
     }
 
     /** Writes the title-case form of [first, last) to output iterator out,
@@ -317,7 +314,7 @@ namespace boost { namespace text {
         Sentinel last,
         OutIter out,
         case_language lang = case_language::other,
-        NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
         lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
             {it, last}, {last}};
@@ -346,7 +343,7 @@ namespace boost { namespace text {
         CPRange & range,
         OutIter out,
         case_language lang = case_language::other,
-        NextWordBreakFunc && next_word_break = NextWordBreakFunc{}) noexcept
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
         return to_title(
             std::begin(range),
@@ -354,7 +351,7 @@ namespace boost { namespace text {
             std::end(range),
             out,
             lang,
-            static_cast<NextWordBreakFunc &&>(next_word_break));
+            next_word_break);
     }
 
     /** Returns true if no code point in [first, last) would change in a call
