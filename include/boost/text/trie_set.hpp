@@ -190,7 +190,7 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_SET_C_STR_OVERLOAD(const_range, equal_range, const noexcept)
 
-        /** Returns the longeset subsequence of <code>[first, last)</code>
+        /** Returns the longest subsequence of <code>[first, last)</code>
             found in *this, whether or not it is a match. */
         template<typename KeyIter, typename Sentinel>
         match_result longest_subsequence(KeyIter first, Sentinel last) const
@@ -199,7 +199,7 @@ namespace boost { namespace trie {
             return trie_.longest_subsequence(first, last);
         }
 
-        /** Returns the longeset subsequence of \a key found in *this, whether
+        /** Returns the longest subsequence of \a key found in *this, whether
             or not it is a match. */
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const noexcept
@@ -210,7 +210,7 @@ namespace boost { namespace trie {
         BOOST_TRIE_SET_C_STR_OVERLOAD(
             match_result, longest_subsequence, const noexcept)
 
-        /** Returns the longeset matching subsequence of <code>[first,
+        /** Returns the longest matching subsequence of <code>[first,
             last)</code> found in *this. */
         template<typename KeyIter, typename Sentinel>
         match_result longest_match(KeyIter first, Sentinel last) const noexcept
@@ -218,7 +218,7 @@ namespace boost { namespace trie {
             return trie_.longest_match(first, last);
         }
 
-        /** Returns the longeset matching subsequence of \a key found in
+        /** Returns the longest matching subsequence of \a key found in
          *this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
@@ -237,13 +237,35 @@ namespace boost { namespace trie {
             return trie_.extend_subsequence(prev, e);
         }
 
-        /** Returns the result of extending \a prev by the longeset
+        /** Returns the result of extending \a prev by the longest
             subsequence of <code>[first, last)</code> found in *this. */
         template<typename KeyIter, typename Sentinel>
         match_result extend_subsequence(
             match_result prev, KeyIter first, Sentinel last) const noexcept
         {
             return trie_.extend_subsequence(prev, first, last);
+        }
+
+        /** Returns the result of extending \a prev by one element, \a e, if
+            that would form a match, and \a prev otherwise.  \a prev must be a
+            match. */
+        template<typename KeyElementT>
+        match_result extend_match(match_result prev, KeyElementT e) const
+            noexcept
+        {
+            return trie_.extend_match(prev, e);
+        }
+
+        /** Returns the result of extending \a prev by the longest
+            subsequence of <code>[first, last)</code> found in *this, if that
+            would form a match, and \a prev otherwise.  \a prev must be a
+            match. */
+        template<typename KeyIter, typename Sentinel>
+        match_result
+        extend_match(match_result prev, KeyIter first, Sentinel last) const
+            noexcept
+        {
+            return trie_.extend_match(prev, first, last);
         }
 
         /** Writes the sequence of elements that would advance \a prev by one

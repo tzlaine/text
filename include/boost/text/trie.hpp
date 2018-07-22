@@ -387,7 +387,7 @@ namespace boost { namespace trie {
 
         BOOST_TRIE_C_STR_OVERLOAD(bool, contains, const noexcept)
 
-        /** Returns the longeset subsequence of <code>[first, last)</code>
+        /** Returns the longest subsequence of <code>[first, last)</code>
             found in *this, whether or not it is a match. */
         template<typename KeyIter, typename Sentinel>
         match_result longest_subsequence(KeyIter first, Sentinel last) const
@@ -396,7 +396,7 @@ namespace boost { namespace trie {
             return longest_match_impl(first, last);
         }
 
-        /** Returns the longeset subsequence of \a key found in *this, whether
+        /** Returns the longest subsequence of \a key found in *this, whether
             or not it is a match. */
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const noexcept
@@ -407,24 +407,17 @@ namespace boost { namespace trie {
         BOOST_TRIE_C_STR_OVERLOAD(
             match_result, longest_subsequence, const noexcept)
 
-        /** Returns the longeset matching subsequence of <code>[first,
+        /** Returns the longest matching subsequence of <code>[first,
             last)</code> found in *this. */
         template<typename KeyIter, typename Sentinel>
         match_result longest_match(KeyIter first, Sentinel last) const noexcept
         {
-            auto retval = longest_match_impl(first, last);
-            auto node = to_node_ptr(retval.node);
-            while (node->parent() && !node->value()) {
-                retval.node = node = node->parent();
-                --retval.size;
-            }
-            if (!!node->value())
-                retval.match = true;
-            return retval;
+            auto const retval = longest_match_impl(first, last);
+            return back_up_to_match(retval);
         }
 
-        /** Returns the longeset matching subsequence of \a key found in
-         *this. */
+        /** Returns the longest matching subsequence of \a key found in
+            *this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
@@ -443,13 +436,40 @@ namespace boost { namespace trie {
                 match_result{prev}, e_ptr, e_ptr + 1);
         }
 
-        /** Returns the result of extending \a prev by the longeset
+        /** Returns the result of extending \a prev by the longest
             subsequence of <code>[first, last)</code> found in *this. */
         template<typename KeyIter, typename Sentinel>
         match_result extend_subsequence(
             match_result prev, KeyIter first, Sentinel last) const noexcept
         {
             return extend_subsequence_impl(match_result{prev}, first, last);
+        }
+
+        /** Returns the result of extending \a prev by one element, \a e, if
+            that would form a match, and \a prev otherwise.  \a prev must be a
+            match. */
+        template<typename KeyElementT>
+        match_result extend_match(match_result prev, KeyElementT e) const
+            noexcept
+        {
+            assert(prev.match);
+            auto e_ptr = &e;
+            auto const retval = extend_subsequence_impl(prev, e_ptr, e_ptr + 1);
+            return back_up_to_match(retval);
+        }
+
+        /** Returns the result of extending \a prev by the longest
+            subsequence of <code>[first, last)</code> found in *this, if that
+            would form a match, and \a prev otherwise.  \a prev must be a
+            match. */
+        template<typename KeyIter, typename Sentinel>
+        match_result
+        extend_match(match_result prev, KeyIter first, Sentinel last) const
+            noexcept
+        {
+            assert(prev.match);
+            auto const retval = extend_subsequence_impl(prev, first, last);
+            return back_up_to_match(retval);
         }
 
         /** Writes the sequence of elements that would advance \a prev by one
@@ -680,6 +700,18 @@ namespace boost { namespace trie {
             }
 
             return match_result{node, size, !!node->value(), node->empty()};
+        }
+
+        static match_result back_up_to_match(match_result retval) noexcept
+        {
+            auto node = to_node_ptr(retval.node);
+            while (node->parent() && !node->value()) {
+                retval.node = node = node->parent();
+                --retval.size;
+            }
+            if (!!node->value())
+                retval.match = true;
+            return retval;
         }
 
         template<typename KeyIter, typename Sentinel>
