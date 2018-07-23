@@ -9,12 +9,6 @@
 namespace boost { namespace text { namespace detail {
 
     template<typename Iter>
-    constexpr Iter prev(Iter it)
-    {
-        return --it;
-    }
-
-    template<typename Iter>
     struct reverse_iterator
     {
         using iterator_category =
@@ -42,7 +36,11 @@ namespace boost { namespace text { namespace detail {
 
         constexpr iterator_type base() const noexcept { return it_; }
 
-        constexpr reference operator*() const noexcept { return *prev(it_); }
+        BOOST_TEXT_CXX14_CONSTEXPR reference operator*() const noexcept
+        {
+            Iter temp = it_;
+            return *--temp;
+        }
 
         constexpr pointer operator->() const noexcept { return &**this; }
 
