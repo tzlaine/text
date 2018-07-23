@@ -167,7 +167,7 @@ TEST(tailoring, case_level)
         auto const secondary_less =
             case_level_on.compare(text::collation_strength::secondary);
         EXPECT_TRUE(secondary_less(strings[0], strings[1]));
-        EXPECT_TRUE(secondary_less(strings[1], strings[2])); // TODO
+        EXPECT_TRUE(secondary_less(strings[1], strings[2]));
         auto const tertiary_less =
             case_level_on.compare(text::collation_strength::tertiary);
         EXPECT_TRUE(tertiary_less(strings[0], strings[2]));
@@ -1062,7 +1062,7 @@ TEST(tailoring, ja)
         std::array<int, cases> const tertiary_result = {{-1, 0, -1, 1, -1, -1}};
 
         for (int i = 0; i < cases; ++i) {
-            // TODO: Needs a fix?
+            // Differs from ICU behavior.
             if (i == 5)
                 continue;
             EXPECT_EQ(
@@ -1204,7 +1204,7 @@ TEST(tailoring, ja)
                                 {0x30A2, 0x30A4, 0x30A2}}};
 
         for (int i = 0; i < cases - 1; ++i) {
-            // TODO: Needs a fix?
+            // Differs from ICU behavior.
             if (i == 3 || i == 5)
                 continue;
             EXPECT_EQ(
@@ -1365,9 +1365,9 @@ TEST(tailoring, th)
              "abc\u0E41\u0301abc",
              "abc\u0E41\u0316\u0301abc"}};
 
-        // TODO: Changed cases 5, 13, 19, and 25 from 0 to -1, since they have
-        // secondary differences.  Need to understand if this is the right thing
-        // to do.
+        // Differs from ICU behavior; changed cases 5, 13, 19, and 25 from 0
+        // to -1, since they have secondary differences.  Need to understand
+        // if this is the right thing to do.
         std::array<int, cases> const secondary_result = {
             {0,  -1, 0,  0, 0, -1, 0,  0, 0,  -1, 0, 0, 0,
              -1, 0,  -1, 0, 0, 0,  -1, 0, -1, 0,  0, 0, -1}};

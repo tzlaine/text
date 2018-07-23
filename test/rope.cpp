@@ -486,7 +486,7 @@ TEST(rope, test_insert)
     }
 }
 
-#if 0 // TODO: Correct, but takes more than a minute in debug builds.
+#if 0 // Correct, but takes more than a minute in debug builds.
 TEST(rope, test_insert_rope_view)
 {
     text::rope rv_rope;

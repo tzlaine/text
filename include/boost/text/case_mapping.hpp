@@ -12,9 +12,6 @@
 
 namespace boost { namespace text {
 
-    // TODO: Consider adding support for Dutch IJ and other cases supported by
-    // ICU.
-
     /** The list of languages handled specially in the case mapping
         functions. */
     enum class case_language : uint16_t {

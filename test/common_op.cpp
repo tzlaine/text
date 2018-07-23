@@ -162,8 +162,6 @@ TEST(common_operations, string_literal_init_initializer_list)
     text::rope_view rv(r);                                                     \
     (void)rv
 
-// TODO: Each of the "OK" cases below needs a compile-fail test.
-
 // T (U const &)
 TEST(common_operations, construction)
 {

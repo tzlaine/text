@@ -1166,7 +1166,7 @@ namespace boost { namespace text {
 
             for (auto & rel : relation_closure) {
                 // TODO: Call add_temp_tailoring() for all prefixes of rel,
-                // when 2 < rel.size(), for WF5.
+                // when 2 < rel.size(), for WF5?
 
                 add_temp_tailoring(table, rel, reset_ces);
                 temp_table_element element;
