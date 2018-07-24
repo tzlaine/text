@@ -534,6 +534,30 @@ def compressed_case_mapping_lines(mappings):
 # compressed_case_mapping_lines(to_title)
 # compressed_case_mapping_lines(to_upper)
 
+def cps_string(cps):
+    return ''.join(map(lambda x: r'\U' + '0' * (8 - len(x)) + x, cps))
+
+def cus_lines(cus):
+    as_ints = map(lambda x: ord(x), cus)
+    values_per_line = 12
+    return lzw.compressed_bytes_to_lines(as_ints, values_per_line)[0]
+
+def utf8_cps(cps):
+    s = cps_string(cps)
+    exec("s = u'" + s + "'")
+    s = s.encode('UTF-8', 'strict')
+    retval = cus_lines(s)
+    print 'rewrote {} * 32 = {} bits as {} * 8 = {} bits ({} bytes saved)'.format(len(cps), len(cps) * 32, len(s), len(s) * 8, (len(cps) * 32 - len(s) * 8) / 8.0)
+    return retval
+
+#utf8_cps(cps)
+#utf8_cps(cased_cps)
+#utf8_cps(cased_ignorable_cps)
+#utf8_cps(soft_dotteds)
+#utf8_cps(changes_when_u)
+#utf8_cps(changes_when_l)
+#utf8_cps(changes_when_t)
+
 cpp_file = open('case_mapping.cpp', 'w')
 cpp_file.write(case_impl_file_form.format(
     ',\n        '.join(map(lambda x: '0x' + x, cps)),

@@ -384,3 +384,24 @@ if __name__ == "__main__":
         props_lines, num_shorts,
         len(all_cps)
     ))
+
+
+def cps_string(cps):
+    cps = map(lambda x: hex(x)[2:], cps)
+    return ''.join(map(lambda x: r'\U' + '0' * (8 - len(x)) + x, cps))
+
+def cus_lines(cus):
+    as_ints = map(lambda x: ord(x), cus)
+    values_per_line = 12
+    return lzw.compressed_bytes_to_lines(as_ints, values_per_line)[0]
+
+def utf8_cps(cps):
+    s = cps_string(cps)
+    exec("s = u'" + s + "'")
+    s = s.encode('UTF-8', 'strict')
+    retval = cus_lines(s)
+    print 'rewrote {} * 32 = {} bits as {} * 8 = {} bits ({} bytes saved)'.format(len(cps), len(cps) * 32, len(s), len(s) * 8, (len(cps) * 32 - len(s) * 8) / 8.0)
+    return retval
+
+#utf8_cps(canon_all_cps)
+#utf8_cps(compat_all_cps)
