@@ -16,15 +16,41 @@ inline std::vector<int> bidi_levels(str_iter_t first, str_iter_t last)
         first,
         last,
         std::back_inserter(retval),
-        next_possible_line_break_callable{},
+        next_hard_line_break_callable{},
         [](detail::props_and_embeddings_t<str_iter_t> & props_and_embeddings,
            int paragraph_embedding_level,
-           next_possible_line_break_callable & next_line_break,
+           next_hard_line_break_callable & next_line_break,
            std::back_insert_iterator<std::vector<int>> out) {
-            for (auto pae : props_and_embeddings) {
-                *out = pae.embedding_;
-                ++out;
+
+            // Do L1, but not the rest of the line-based processing, to get
+            // the final embeddings that match the test data.
+
+            using pae_cp_iterator =
+                detail::props_and_embeddings_cp_iterator<str_iter_t>;
+
+            lazy_segment_range<
+                line_break_result<pae_cp_iterator>,
+                pae_cp_iterator,
+                detail::next_line_break_t<
+                    next_hard_line_break_callable,
+                    line_break_result<pae_cp_iterator>,
+                    pae_cp_iterator>,
+                line_break_cp_range<pae_cp_iterator>>
+                lines{
+                    {line_break_result<pae_cp_iterator>{
+                         pae_cp_iterator{props_and_embeddings.begin()}, false},
+                     pae_cp_iterator{props_and_embeddings.end()}},
+                    {pae_cp_iterator{props_and_embeddings.end()}}};
+
+            for (auto line : lines) {
+                detail::l1(line, paragraph_embedding_level);
+                for (auto it = line.begin(), end = line.end(); it != end;
+                     ++it) {
+                    *out = it.it_->embedding_;
+                    ++out;
+                }
             }
+
             return out;
         });
 

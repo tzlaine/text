@@ -86,17 +86,17 @@ TEST(bidi, bidi_{1:03}_000)
 
 bidi_test_form = '''
     {{
-        // {0}
+        // {0} (line {3})
         std::vector<uint32_t> const cps = {{ {1} }};
         std::vector<int> const levels = bidi_levels(&*cps.begin(), &*cps.end());
-        EXPECT_EQ(levels.size(), cps.size());
         int i = 0;
         for (int l : expected_levels) {{
             if (0 <= l) {{
-                EXPECT_EQ(l, levels[i]) << "i=" << i;
+                EXPECT_EQ(levels[i], l) << "i=" << i;
+                ++i;
             }}
-            ++i;
         }}
+        EXPECT_EQ((int)levels.size(), i);
 '''
 
 
@@ -395,7 +395,9 @@ def generate_bidi_tests(filename, batch_size):
     num_lines = 0
     curr_levels = []
     curr_reorder = []
+    line_number = 0
     for line in lines:
+        line_number += 1
         if num_lines == batch_size:
             test_data.append(current_batch)
             current_batch = []
@@ -425,7 +427,7 @@ def generate_bidi_tests(filename, batch_size):
                 input_ = input_.split(' ')
                 bitset = int(bitset)
                 test_cases = {'auto': bool(bitset & 1), 'LTR': bool(bitset & 2), 'RTL' : bool(bitset & 4)}
-                current_batch.append((input_, curr_levels, curr_reorder, test_cases, line))
+                current_batch.append((input_, curr_levels, curr_reorder, test_cases, line, line_number))
         num_lines += 1
     if len(current_batch):
         test_data.append(current_batch)
@@ -461,7 +463,7 @@ TEST(bidi, bidi_{:03}_{:03})
                 curr_levels = test[1]
             if test[3]['auto']:
                 cps = ', '.join(map(lambda x: bidi_property_cps[x], test[0]))
-                tests += bidi_test_form.format(test[4], cps, levels)
+                tests += bidi_test_form.format(test[4], cps, levels, test[5])
                 tests += '    }\n'
             else:
                 continue # TODO: Remove.

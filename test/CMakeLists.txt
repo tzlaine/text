@@ -10,6 +10,11 @@ add_custom_target(
     COMMAND ${CMAKE_CTEST_COMMAND} -j4 -C ${CMAKE_CFG_INTDIR}
 )
 
+add_custom_target(
+    bidi_tests
+    COMMAND ${CMAKE_CTEST_COMMAND} -j4 -C ${CMAKE_CFG_INTDIR} -R bidi
+)
+
 set(warnings_flag)
 if (NOT MSVC)
     set(warnings_flag -Wall)
@@ -90,7 +95,12 @@ if (LIMIT_TESTING_FOR_CI)
     file(GLOB word_break_tests word_break_00.cpp)
     file(GLOB sentence_break_tests sentence_break_00.cpp)
     file(GLOB line_break_tests line_break_00.cpp)
-    file(GLOB bidi_tests bidi_test_000.cpp)
+    # These are all the falures in the first 100 files.
+    set(bidi_tests
+         bidi_test_048.cpp
+         bidi_test_049.cpp
+         bidi_test_096.cpp
+    )
     file(GLOB normalize_to_nfd_tests normalize_to_nfd_000.cpp)
     file(GLOB normalize_to_nfkd_tests normalize_to_nfkd_000.cpp)
     file(GLOB normalize_to_nfc_tests normalize_to_nfc_000.cpp)
