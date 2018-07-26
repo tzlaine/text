@@ -251,26 +251,6 @@ namespace boost { namespace text {
         };
 
         template<typename CPIter>
-        inline level_run<CPIter> next_level_run(
-            typename props_and_embeddings_t<CPIter>::iterator first,
-            typename props_and_embeddings_t<CPIter>::iterator last) noexcept
-        {
-            if (first == last)
-                return level_run<CPIter>{last, last, false};
-
-            auto const initial_level = first->embedding_;
-            return level_run<CPIter>{
-                first,
-                std::find_if(
-                    first,
-                    last,
-                    [initial_level](prop_and_embedding_t<CPIter> pae) {
-                        return pae.embedding_ != initial_level;
-                    }),
-                false};
-        }
-
-        template<typename CPIter>
         using run_seq_runs_t = container::small_vector<level_run<CPIter>, 32>;
 
         template<typename CPIter>
@@ -362,15 +342,17 @@ namespace boost { namespace text {
             typename props_and_embeddings_t<CPIter>::iterator last)
         {
             all_runs_t<CPIter> retval;
-            {
-                while (first != last) {
-                    auto run = next_level_run<CPIter>(first, last);
-                    if (run.empty())
-                        break;
-                    retval.push_back(run);
-                    first = run.last_;
-                }
-            }
+            using iter_t = decltype(first);
+            foreach_subrange(
+                first,
+                last,
+                [&retval](foreach_subrange_range<iter_t> r) {
+                    retval.push_back(
+                        level_run<CPIter>{r.begin(), r.end(), false});
+                },
+                [](prop_and_embedding_t<CPIter> pae) {
+                    return pae.embedding_;
+                });
             return retval;
         }
 
@@ -584,29 +566,25 @@ namespace boost { namespace text {
         template<typename CPIter>
         inline void w5(run_sequence_t<CPIter> & seq) noexcept
         {
-            auto et = [](prop_and_embedding_t<CPIter> pae) {
-                return pae.prop_ == bidi_property::ET;
-            };
-            auto it = seq.begin();
-            auto const first = seq.begin();
-            auto const last = seq.end();
-            while (it != last) {
-                auto const first_et = std::find_if(it, seq.end(), et);
-                auto const last_et = std::find_if_not(first_et, seq.end(), et);
-                if ((first_et != first &&
-                     std::prev(first_et)->prop_ == bidi_property::EN) ||
-                    (last_et != last && last_et->prop_ == bidi_property::EN)) {
-                    std::transform(
-                        first_et,
-                        last_et,
-                        first_et,
-                        [](prop_and_embedding_t<CPIter> pae) {
-                            pae.prop_ = bidi_property::EN;
-                            return pae;
-                        });
-                }
-                it = last_et;
-            }
+            using iter_t = decltype(seq.begin());
+            foreach_subrange_if(
+                seq.begin(),
+                seq.end(),
+                [](prop_and_embedding_t<CPIter> pae) {
+                    return pae.prop_ == bidi_property::ET;
+                },
+                [&seq](foreach_subrange_range<iter_t> r) {
+                    if ((r.begin() != seq.begin() &&
+                         std::prev(r.begin())->prop_ == bidi_property::EN) ||
+                        (r.end() != seq.end() &&
+                         r.end()->prop_ == bidi_property::EN)) {
+                        std::transform(
+                            r.begin(),
+                            r.end(),
+                            r.begin(),
+                            set_prop<CPIter>(bidi_property::EN));
+                    }
+                });
         }
 
         // https://unicode.org/reports/tr9/#W6
@@ -813,47 +791,36 @@ namespace boost { namespace text {
                 return pae.prop_;
             };
 
-            auto const begin = seq.begin();
-            auto const end = seq.end();
-            auto it = begin;
-            while (it != end) {
-                auto next_it =
-                    std::find_if(it, end, neutral_or_isolate<CPIter>);
-                auto next_next_it = std::find_if(
-                    next_it, end, [](prop_and_embedding_t<CPIter> pae) {
-                        return !neutral_or_isolate(pae);
-                    });
-                if (next_next_it == it) {
-                    ++it;
-                    continue;
-                }
+            using iter_t = decltype(seq.begin());
+            foreach_subrange_if(
+                seq.begin(),
+                seq.end(),
+                neutral_or_isolate<CPIter>,
+                [&seq, &num_to_r](foreach_subrange_range<iter_t> r) {
+                    auto prev_prop = seq.sos_;
+                    if (r.begin() != seq.begin())
+                        prev_prop = num_to_r(*std::prev(r.begin()));
+                    auto next_prop = seq.eos_;
+                    if (r.end() != seq.end())
+                        next_prop = num_to_r(*r.end());
 
-                auto prev_prop = seq.sos_;
-                if (next_it != begin && next_it != end)
-                    prev_prop = num_to_r(*std::prev(next_it));
-                auto next_prop = seq.eos_;
-                if (next_next_it != end)
-                    next_prop = num_to_r(*next_next_it);
-
-                if (prev_prop == bidi_property::L &&
-                    next_prop == bidi_property::L) {
-                    std::transform(
-                        next_it,
-                        next_next_it,
-                        next_it,
-                        set_prop<CPIter>(bidi_property::L));
-                } else if (
-                    prev_prop == bidi_property::R &&
-                    next_prop == bidi_property::R) {
-                    std::transform(
-                        next_it,
-                        next_next_it,
-                        next_it,
-                        set_prop<CPIter>(bidi_property::R));
-                }
-
-                it = next_next_it;
-            }
+                    if (prev_prop == bidi_property::L &&
+                        next_prop == bidi_property::L) {
+                        std::transform(
+                            r.begin(),
+                            r.end(),
+                            r.begin(),
+                            set_prop<CPIter>(bidi_property::L));
+                    } else if (
+                        prev_prop == bidi_property::R &&
+                        next_prop == bidi_property::R) {
+                        std::transform(
+                            r.begin(),
+                            r.end(),
+                            r.begin(),
+                            set_prop<CPIter>(bidi_property::R));
+                    }
+                });
         }
 
         // https://unicode.org/reports/tr9/#N2
