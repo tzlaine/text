@@ -410,27 +410,35 @@ namespace boost { namespace text {
             run_sequences_t<CPIter> & run_sequences,
             int paragraph_embedding_level)
         {
+#if 0
+            std::cout << "find_sos_eos:\n";
+            for (auto rs : run_sequences) {
+                std::cout << "run seq (embedding=" << rs.embedding_ << "):\n";
+                for (auto pae : rs) {
+                    std::cout << pae << "\n";
+                }
+            }
+            std::cout << std::endl;
+#endif
             if (run_sequences.empty())
                 return;
 
             auto prev_embedding = paragraph_embedding_level;
-            auto embedding = run_sequences[0].embedding_;
-            auto next_embedding = run_sequences.size() < 2
-                                      ? paragraph_embedding_level
-                                      : run_sequences[1].embedding_;
-            for (int i = 0, end = (int)run_sequences.size(); i != end; ++i) {
-                run_sequences[i].sos_ =
-                    odd((std::max)(prev_embedding, embedding))
-                        ? bidi_property::R
-                        : bidi_property::L;
-                run_sequences[i].eos_ =
-                    odd((std::max)(embedding, next_embedding))
-                        ? bidi_property::R
-                        : bidi_property::L;
+            for (auto it = run_sequences.begin(), end = run_sequences.end();
+                 it != end;
+                 ++it) {
+                auto embedding = it->embedding_;
+                auto next_embedding = embedding;
+                auto next_it = std::next(it);
+                if (next_it != end)
+                    next_embedding = next_it->embedding_;
+                it->sos_ = odd((std::max)(prev_embedding, embedding))
+                               ? bidi_property::R
+                               : bidi_property::L;
+                it->eos_ = odd((std::max)(embedding, next_embedding))
+                               ? bidi_property::R
+                               : bidi_property::L;
                 prev_embedding = embedding;
-                embedding = next_embedding;
-                if (i < (int)run_sequences.size() - 1)
-                    next_embedding = run_sequences[i + 1].embedding_;
             }
         }
 
@@ -461,6 +469,14 @@ namespace boost { namespace text {
             bidi_property trigger,
             bidi_property replacement) noexcept
         {
+#if 0
+            std::cout << "line:" << __LINE__ << "\n";
+            std::cout << "sos=" << seq.sos_ << "\n";
+            for (auto it = seq.begin(), end = seq.end(); it != end; ++it) {
+                std::cout << *it << "\n";
+            }
+            std::cout << std::endl;
+#endif
             auto en = [](prop_and_embedding_t<CPIter> pae) {
                 return pae.prop_ == bidi_property::EN;
             };
@@ -474,6 +490,9 @@ namespace boost { namespace text {
                 if ((pred_it == from_it && seq.sos_ == trigger) ||
                     pred_it->prop_ == trigger) {
                     from_it->prop_ = replacement;
+#if 0
+                    std::cout << "replacing!\n";
+#endif
                 }
                 --it;
             }
@@ -863,6 +882,10 @@ namespace boost { namespace text {
                 }
             }
         }
+
+        // TODO: Remove FSI, LRI, RLI, and PDI after L1.
+
+        // TODO: L2 should only produce contiguous subranges of CPs, natch.
 
         // https://unicode.org/reports/tr9/#L1
         template<typename CPIter>
@@ -1417,6 +1440,10 @@ namespace boost { namespace text {
                     }
                 };
 
+            // TODO: is_upper() et al are probably broken if they are not
+            // language-aware; they need to pump the state machine in the same
+            // way as to_upper(), etc.
+
             // https://unicode.org/reports/tr9/#X5a
             auto x5a = [&](stack_t & stack,
                            props_and_embeddings_t & props_and_embeddings,
@@ -1485,6 +1512,20 @@ namespace boost { namespace text {
 
                 props_and_embeddings_t props_and_embeddings;
 
+                // https://unicode.org/reports/tr9/#X2 through #X5
+                auto explicits =
+                    [&](int next_embedding_level,
+                        directional_override_t directional_override) {
+                        if (next_embedding_level <= bidi_max_depth &&
+                            !overflow_isolates && !overflow_embedding) {
+                            stack.push(bidi_state_t{next_embedding_level,
+                                                    directional_override,
+                                                    false});
+                        } else if (!overflow_isolates) {
+                            ++overflow_embedding;
+                        }
+                    };
+
                 for (auto it = para_first; it != para_last; ++it) {
                     auto const prop = boost::text::bidi_prop(*it);
                     props_and_embeddings.push_back(prop_and_embedding_t{
@@ -1495,71 +1536,34 @@ namespace boost { namespace text {
                         false,
                         false});
 
-                    // https://unicode.org/reports/tr9/#X2
                     switch (prop) {
-                    case bidi_property::RLE: {
+                    case bidi_property::RLE:
                         // https://unicode.org/reports/tr9/#X2
-                        auto const next_odd_embedding_level =
-                            next_odd(stack, paragraph_embedding_level);
-                        if (next_odd_embedding_level <= bidi_max_depth &&
-                            !overflow_isolates && !overflow_embedding) {
-                            stack.push(
-                                bidi_state_t{next_odd_embedding_level,
-                                             directional_override_t::neutral,
-                                             false});
-                        } else if (!overflow_isolates) {
-                            ++overflow_embedding;
-                        }
+                        explicits(
+                            next_odd(stack, paragraph_embedding_level),
+                            directional_override_t::neutral);
                         break;
-                    }
 
-                    case bidi_property::LRE: {
+                    case bidi_property::LRE:
                         // https://unicode.org/reports/tr9/#X3
-                        auto const next_even_embedding_level =
-                            next_even(stack, paragraph_embedding_level);
-                        if (next_even_embedding_level <= bidi_max_depth &&
-                            !overflow_isolates && !overflow_embedding) {
-                            stack.push(
-                                bidi_state_t{next_even_embedding_level,
-                                             directional_override_t::neutral,
-                                             false});
-                        } else if (!overflow_isolates) {
-                            ++overflow_embedding;
-                        }
+                        explicits(
+                            next_even(stack, paragraph_embedding_level),
+                            directional_override_t::neutral);
                         break;
-                    }
 
-                    case bidi_property::RLO: {
+                    case bidi_property::RLO:
                         // https://unicode.org/reports/tr9/#X4
-                        auto const next_odd_embedding_level =
-                            next_odd(stack, paragraph_embedding_level);
-                        if (next_odd_embedding_level <= bidi_max_depth &&
-                            !overflow_isolates && !overflow_embedding) {
-                            stack.push(bidi_state_t{
-                                next_odd_embedding_level,
-                                directional_override_t::right_to_left,
-                                false});
-                        } else if (!overflow_isolates) {
-                            ++overflow_embedding;
-                        }
+                        explicits(
+                            next_odd(stack, paragraph_embedding_level),
+                            directional_override_t::right_to_left);
                         break;
-                    }
 
-                    case bidi_property::LRO: {
+                    case bidi_property::LRO:
                         // https://unicode.org/reports/tr9/#X5
-                        auto const next_even_embedding_level =
-                            next_even(stack, paragraph_embedding_level);
-                        if (next_even_embedding_level <= bidi_max_depth &&
-                            !overflow_isolates && !overflow_embedding) {
-                            stack.push(bidi_state_t{
-                                next_even_embedding_level,
-                                directional_override_t::left_to_right,
-                                false});
-                        } else if (!overflow_isolates) {
-                            ++overflow_embedding;
-                        }
+                        explicits(
+                            next_even(stack, paragraph_embedding_level),
+                            directional_override_t::left_to_right);
                         break;
-                    }
 
                     case bidi_property::RLI:
                         // https://unicode.org/reports/tr9/#X5a
@@ -1678,6 +1682,7 @@ namespace boost { namespace text {
                     props_and_embeddings.end());
 
 #if 0
+                std::cout << "line:" << __LINE__ << "\n";
                 for (auto pae : props_and_embeddings) {
                     std::cout << pae << "\n";
                 }
@@ -1709,25 +1714,28 @@ namespace boost { namespace text {
 
                     auto const bracket_pairs = find_bracket_pairs(run_sequence);
                     n0(run_sequence, bracket_pairs);
+#if 0
+                    std::cout << "line:" << __LINE__ << "\n";
+                    for (auto pae : props_and_embeddings) {
+                        std::cout << pae << "\n";
+                    }
+                    std::cout << std::endl;
+#endif
                     n1(run_sequence);
+#if 0
+                    std::cout << "line:" << __LINE__ << "\n";
+                    for (auto pae : props_and_embeddings) {
+                        std::cout << pae << "\n";
+                    }
+                    std::cout << std::endl;
+#endif
                     n2(run_sequence);
 
-#if 0
-                    for (auto pae : props_and_embeddings) {
-                        std::cout << pae << "\n";
-                    }
-                    std::cout << std::endl;
-#endif
                     i1_i2(run_sequence);
-#if 0
-                    for (auto pae : props_and_embeddings) {
-                        std::cout << pae << "\n";
-                    }
-                    std::cout << std::endl;
-#endif
                 }
 
 #if 0
+                std::cout << "line:" << __LINE__ << "\n";
                 for (auto pae : props_and_embeddings) {
                     std::cout << pae << "\n";
                 }
@@ -1746,7 +1754,7 @@ namespace boost { namespace text {
     }
 
     /** TODO
-        TODO: Document that NextLineBreakFunc must be polymorphic, taking and
+        TODO: Document that NextLineBreakFunc must be polymorphic, taking an
         iterator whose value_type is uint32_t
         TODO: Accept an optional paragraph_embedding_level (or make an
         overload that takes same), in support of H1.  This replaces the call
