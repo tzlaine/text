@@ -810,6 +810,16 @@ namespace boost { namespace text {
                 return pae.prop_;
             };
 
+#if 0
+            std::cout << "seq size=" << std::distance(seq.begin(), seq.end())
+                      << "\n";
+            std::cout << std::hex;
+            for (auto x : seq) {
+                std::cout << x << "\n";
+            }
+            std::cout << std::dec;
+#endif
+
             using iter_t = decltype(seq.begin());
             foreach_subrange_if(
                 seq.begin(),
@@ -823,8 +833,21 @@ namespace boost { namespace text {
                     if (r.end() != seq.end())
                         next_prop = num_to_r(*r.end());
 
+#if 0
+                    std::cout << "r size=" << std::distance(r.begin(), r.end())
+                              << "\n";
+                    std::cout << std::hex;
+                    for (auto x : r) {
+                        std::cout << x << "\n";
+                    }
+                    std::cout << std::dec;
+#endif
+
                     if (prev_prop == bidi_property::L &&
                         next_prop == bidi_property::L) {
+#if 0
+                        std::cout << "n1 changing NIs to bidi_property::L\n";
+#endif
                         std::transform(
                             r.begin(),
                             r.end(),
@@ -833,6 +856,9 @@ namespace boost { namespace text {
                     } else if (
                         prev_prop == bidi_property::R &&
                         next_prop == bidi_property::R) {
+#if 0
+                        std::cout << "n1 changing NIs to bidi_property::R\n";
+#endif
                         std::transform(
                             r.begin(),
                             r.end(),
@@ -854,7 +880,13 @@ namespace boost { namespace text {
                 seq.begin(),
                 [seq_embedding_prop](prop_and_embedding_t<CPIter> pae) {
                     if (neutral_or_isolate(pae))
+                    {
+#if 0
+                        std::cout << "n2 changing " << pae.prop_ << " to "
+                                  << seq_embedding_prop << "\n";
+#endif
                         pae.prop_ = seq_embedding_prop;
+                    }
                     return pae;
                 });
         }
@@ -1408,18 +1440,14 @@ namespace boost { namespace text {
                 container::static_vector<bidi_state_t, bidi_max_depth + 2>;
             using stack_t = std::stack<bidi_state_t, vec_t>;
 
-            auto next_odd = [](stack_t const & stack,
-                               int paragraph_embedding_level) {
-                auto retval = stack.empty() ? paragraph_embedding_level
-                                            : stack.top().embedding_ + 1;
+            auto next_odd = [](stack_t const & stack) {
+                auto retval = stack.top().embedding_ + 1;
                 if (even(retval))
                     ++retval;
                 return retval;
             };
-            auto next_even = [](stack_t const & stack,
-                                int paragraph_embedding_level) {
-                auto retval = stack.empty() ? paragraph_embedding_level
-                                            : stack.top().embedding_ + 1;
+            auto next_even = [](stack_t const & stack) {
+                auto retval = stack.top().embedding_ + 1;
                 if (odd(retval))
                     ++retval;
                 return retval;
@@ -1428,14 +1456,12 @@ namespace boost { namespace text {
             auto prop_from_top =
                 [](stack_t const & stack,
                    props_and_embeddings_t & props_and_embeddings) {
-                    if (!stack.empty() &&
-                        stack.top().directional_override_ ==
-                            directional_override_t::left_to_right) {
+                    if (stack.top().directional_override_ ==
+                        directional_override_t::left_to_right) {
                         props_and_embeddings.back().prop_ = bidi_property::L;
                     } else if (
-                        !stack.empty() &&
                         stack.top().directional_override_ ==
-                            directional_override_t::right_to_left) {
+                        directional_override_t::right_to_left) {
                         props_and_embeddings.back().prop_ = bidi_property::R;
                     }
                 };
@@ -1449,11 +1475,9 @@ namespace boost { namespace text {
                            props_and_embeddings_t & props_and_embeddings,
                            int & overflow_isolates,
                            int overflow_embedding,
-                           int & valid_isolates,
-                           int paragraph_embedding_level) {
+                           int & valid_isolates) {
                 prop_from_top(stack, props_and_embeddings);
-                auto const next_odd_embedding_level =
-                    next_odd(stack, paragraph_embedding_level);
+                auto const next_odd_embedding_level = next_odd(stack);
                 if (next_odd_embedding_level <= bidi_max_depth &&
                     !overflow_isolates && !overflow_embedding) {
                     ++valid_isolates;
@@ -1470,11 +1494,9 @@ namespace boost { namespace text {
                            props_and_embeddings_t & props_and_embeddings,
                            int & overflow_isolates,
                            int overflow_embedding,
-                           int & valid_isolates,
-                           int paragraph_embedding_level) {
+                           int & valid_isolates) {
                 prop_from_top(stack, props_and_embeddings);
-                auto const next_even_embedding_level =
-                    next_even(stack, paragraph_embedding_level);
+                auto const next_even_embedding_level = next_even(stack);
                 if (next_even_embedding_level <= bidi_max_depth &&
                     !overflow_isolates && !overflow_embedding) {
                     ++valid_isolates;
@@ -1529,39 +1551,32 @@ namespace boost { namespace text {
                 for (auto it = para_first; it != para_last; ++it) {
                     auto const prop = boost::text::bidi_prop(*it);
                     props_and_embeddings.push_back(prop_and_embedding_t{
-                        it,
-                        stack.empty() ? paragraph_embedding_level
-                                      : stack.top().embedding_,
-                        prop,
-                        false,
-                        false});
+                        it, stack.top().embedding_, prop, false, false});
 
                     switch (prop) {
                     case bidi_property::RLE:
                         // https://unicode.org/reports/tr9/#X2
                         explicits(
-                            next_odd(stack, paragraph_embedding_level),
-                            directional_override_t::neutral);
+                            next_odd(stack), directional_override_t::neutral);
                         break;
 
                     case bidi_property::LRE:
                         // https://unicode.org/reports/tr9/#X3
                         explicits(
-                            next_even(stack, paragraph_embedding_level),
-                            directional_override_t::neutral);
+                            next_even(stack), directional_override_t::neutral);
                         break;
 
                     case bidi_property::RLO:
                         // https://unicode.org/reports/tr9/#X4
                         explicits(
-                            next_odd(stack, paragraph_embedding_level),
+                            next_odd(stack),
                             directional_override_t::right_to_left);
                         break;
 
                     case bidi_property::LRO:
                         // https://unicode.org/reports/tr9/#X5
                         explicits(
-                            next_even(stack, paragraph_embedding_level),
+                            next_even(stack),
                             directional_override_t::left_to_right);
                         break;
 
@@ -1571,8 +1586,7 @@ namespace boost { namespace text {
                             props_and_embeddings,
                             overflow_isolates,
                             overflow_embedding,
-                            valid_isolates,
-                            paragraph_embedding_level);
+                            valid_isolates);
                         break;
                     case bidi_property::LRI:
                         // https://unicode.org/reports/tr9/#X5b
@@ -1580,8 +1594,7 @@ namespace boost { namespace text {
                             props_and_embeddings,
                             overflow_isolates,
                             overflow_embedding,
-                            valid_isolates,
-                            paragraph_embedding_level);
+                            valid_isolates);
                         break;
                     case bidi_property::FSI:
                         // https://unicode.org/reports/tr9/#X5c
@@ -1595,8 +1608,7 @@ namespace boost { namespace text {
                                 props_and_embeddings,
                                 overflow_isolates,
                                 overflow_embedding,
-                                valid_isolates,
-                                paragraph_embedding_level);
+                                valid_isolates);
                         } else {
 #if 0
                             std::cout << "fsi pel=" << p2_p3(it, para_last)
@@ -1606,8 +1618,7 @@ namespace boost { namespace text {
                                 props_and_embeddings,
                                 overflow_isolates,
                                 overflow_embedding,
-                                valid_isolates,
-                                paragraph_embedding_level);
+                                valid_isolates);
                         }
                         break;
 
@@ -1619,17 +1630,14 @@ namespace boost { namespace text {
                             props_and_embeddings.back().unmatched_pdi_ = true;
                         } else {
                             overflow_embedding = 0;
-                            while (!stack.empty() &&
-                                   !stack.top().directional_isolate_) {
+                            while (!stack.top().directional_isolate_) {
                                 stack.pop();
                             }
-                            if (stack.empty())
-                                break;
+                            assert(!stack.empty());
                             stack.pop();
                             --valid_isolates;
                         }
-                        if (stack.empty())
-                            break;
+                        assert(!stack.empty());
                         props_and_embeddings.back().embedding_ =
                             stack.top().embedding_;
                         prop_from_top(stack, props_and_embeddings);
@@ -1641,7 +1649,6 @@ namespace boost { namespace text {
                             if (0 < overflow_embedding) {
                                 --overflow_embedding;
                             } else if (
-                                !stack.empty() &&
                                 !stack.top().directional_isolate_ &&
                                 2u <= stack.size()) {
                                 stack.pop();
