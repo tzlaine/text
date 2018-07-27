@@ -1429,6 +1429,7 @@ namespace boost { namespace text {
             Sentinel last,
             OutIter out,
             NextLineBreakFunc && next_line_break,
+            int paragraph_embedding_level,
             EmitResultsFunc emit)
         {
             // https://unicode.org/reports/tr9/#Basic_Display_Algorithm
@@ -1516,8 +1517,8 @@ namespace boost { namespace text {
                 auto const para_first = paragraph.begin();
                 auto const para_last = paragraph.end();
 
-                auto const paragraph_embedding_level =
-                    p2_p3(para_first, para_last);
+                if (paragraph_embedding_level == -1)
+                    paragraph_embedding_level = p2_p3(para_first, para_last);
 
 #if 0
                 std::cout << "initial pel=" << paragraph_embedding_level << "\n";
@@ -1776,7 +1777,8 @@ namespace boost { namespace text {
         CPIter first,
         Sentinel last,
         OutIter out,
-        NextLineBreakFunc && next_line_break = NextLineBreakFunc{})
+        NextLineBreakFunc && next_line_break = NextLineBreakFunc{},
+        int paragraph_embedding_level = -1)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         static_assert(
@@ -1790,6 +1792,7 @@ namespace boost { namespace text {
             last,
             out,
             std::forward<NextLineBreakFunc>(next_line_break),
+            paragraph_embedding_level,
             [](detail::props_and_embeddings_t<CPIter> & props_and_embeddings,
                int paragraph_embedding_level,
                NextLineBreakFunc & next_line_break,

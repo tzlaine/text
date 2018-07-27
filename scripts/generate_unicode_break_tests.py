@@ -86,9 +86,10 @@ TEST(bidi, bidi_{1:03}_000)
 
 bidi_test_form = '''
     {{
-        // {0} (line {3})
+        // {0} ('{5}') (line {3})
         std::vector<uint32_t> const cps = {{ {1} }};
-        std::vector<int> const levels = bidi_levels(&*cps.begin(), &*cps.end());
+        std::vector<int> const levels =
+            bidi_levels(&*cps.begin(), &*cps.end(), {4});
         int i = 0;
         for (int l : expected_levels) {{
             if (0 <= l) {{
@@ -97,6 +98,7 @@ bidi_test_form = '''
             }}
         }}
         EXPECT_EQ((int)levels.size(), i);
+    }}
 '''
 
 
@@ -461,16 +463,13 @@ TEST(bidi, bidi_{:03}_{:03})
     expected_levels = {{ {} }};
 '''.format(levels)
                 curr_levels = test[1]
+            cps = ', '.join(map(lambda x: bidi_property_cps[x], test[0]))
             if test[3]['auto']:
-                cps = ', '.join(map(lambda x: bidi_property_cps[x], test[0]))
-                tests += bidi_test_form.format(test[4], cps, levels, test[5])
-                tests += '    }\n'
-            else:
-                continue # TODO: Remove.
+                tests += bidi_test_form.format(test[4], cps, levels, test[5], -1, 'auto')
             if test[3]['LTR']:
-                pass # TODO: Test with paragraph_embedding_level=0
+                tests += bidi_test_form.format(test[4], cps, levels, test[5], 0, 'LTR')
             if test[3]['RTL']:
-                pass # TODO: Test with paragraph_embedding_level=1
+                tests += bidi_test_form.format(test[4], cps, levels, test[5], 1, 'RTL')
         cpp_file.write(bidi_test_file_form.format(tests, i))
         i += 1
 

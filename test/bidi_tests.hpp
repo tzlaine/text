@@ -6,7 +6,8 @@
 
 using str_iter_t = uint32_t const *;
 
-inline std::vector<int> bidi_levels(str_iter_t first, str_iter_t last)
+inline std::vector<int> bidi_levels(
+    str_iter_t first, str_iter_t last, int paragraph_embedding_level = -1)
 {
     using namespace boost::text;
 
@@ -17,6 +18,7 @@ inline std::vector<int> bidi_levels(str_iter_t first, str_iter_t last)
         last,
         std::back_inserter(retval),
         next_hard_line_break_callable{},
+        paragraph_embedding_level,
         [](detail::props_and_embeddings_t<str_iter_t> & props_and_embeddings,
            int paragraph_embedding_level,
            next_hard_line_break_callable & next_line_break,
