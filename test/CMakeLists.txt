@@ -15,9 +15,21 @@ add_custom_target(
     COMMAND ${CMAKE_CTEST_COMMAND} -j4 -C ${CMAKE_CFG_INTDIR} -R bidi
 )
 
+set(LIMIT_TESTING_FOR_CI false CACHE BOOL "Timeouts kinda suck, so...")
+set(LIMIT_TESTING_FOR_APPVEYOR false CACHE BOOL
+    "Boost is installed, but linking to built Boost libs is problematic")
+
 set(warnings_flag)
 if (NOT MSVC)
     set(warnings_flag -Wall)
+endif ()
+
+if (LIMIT_TESTING_FOR_CI)
+    if (MSVC)
+        set(warnings_flag ${warnings_flag} /D LIMIT_TESTING_FOR_CI)
+    else ()
+        set(warnings_flag ${warnings_flag} -DLIMIT_TESTING_FOR_CI)
+    endif ()
 endif ()
 
 set(coverage_gcda_files)
@@ -35,7 +47,7 @@ macro(add_test_executable name)
     add_executable(${name} ${name}.cpp)
     target_compile_options(${name} PRIVATE ${warnings_flag})
     target_link_libraries(${name} text gtest gtest_main)
-    if (NOT MSVC) # Boost auto-linking handles this with MSVC.
+    if (NOT MSVC AND NOT LIMIT_TESTING_FOR_CI) # Boost auto-linking handles this with MSVC.
         target_link_libraries(${name} boost_system boost_filesystem)
     endif ()
     set_property(TARGET ${name} PROPERTY CXX_STANDARD ${CXX_STD})
@@ -85,10 +97,6 @@ add_test_executable(case_mapping_api)
 add_test_executable(normalization_collation_api)
 add_test_executable(canonical_closure)
 
-set(LIMIT_TESTING_FOR_CI false CACHE BOOL "Timeouts kinda suck, so...")
-set(LIMIT_TESTING_FOR_APPVEYOR false CACHE BOOL
-    "Boost is installed, but linking to built Boost libs is problematic")
-
 if (LIMIT_TESTING_FOR_CI)
     file(GLOB grapheme_break_tests grapheme_break_00.cpp)
     file(GLOB grapheme_iterator_tests grapheme_iterator_00.cpp)
@@ -129,9 +137,7 @@ if (LIMIT_TESTING_FOR_CI)
     file(GLOB normalize_to_nfkd_tests normalize_to_nfkd_000.cpp)
     file(GLOB normalize_to_nfc_tests normalize_to_nfc_000.cpp)
     file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_000.cpp)
-    if (NOT LIMIT_TESTING_FOR_APPVEYOR)
-        file(GLOB tailoring_rule_tests tailoring_rule_test_gu_standard_000.cpp)
-    endif()
+    file(GLOB tailoring_rule_tests tailoring_rule_test_gu_standard_000.cpp)
 else()
     file(GLOB grapheme_break_tests grapheme_break_??.cpp)
     file(GLOB grapheme_iterator_tests grapheme_iterator_??.cpp)
