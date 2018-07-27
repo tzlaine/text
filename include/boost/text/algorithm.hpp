@@ -1093,7 +1093,8 @@ namespace boost { namespace text {
         while (first != last) {
             auto const & x = *first;
             auto const next = find_not(first, last, x);
-            f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
+            if (first != next)
+                f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;
         }
         return f;
@@ -1113,7 +1114,8 @@ namespace boost { namespace text {
                 first, last, [&x, proj](const value_type & element) {
                     return proj(element) == x;
                 });
-            f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
+            if (first != next)
+                f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;
         }
         return f;
@@ -1128,7 +1130,8 @@ namespace boost { namespace text {
         while (first != last) {
             first = find(first, last, x);
             auto const next = find_not(first, last, x);
-            f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
+            if (first != next)
+                f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;
         }
         return f;
@@ -1144,7 +1147,8 @@ namespace boost { namespace text {
         while (first != last) {
             first = find_if(first, last, p);
             auto const next = find_if_not(first, last, p);
-            f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
+            if (first != next)
+                f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;
         }
         return f;
