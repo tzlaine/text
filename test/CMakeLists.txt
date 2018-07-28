@@ -103,8 +103,34 @@ if (LIMIT_TESTING_FOR_CI)
     file(GLOB word_break_tests word_break_00.cpp)
     file(GLOB sentence_break_tests sentence_break_00.cpp)
     file(GLOB line_break_tests line_break_00.cpp)
-    # These are all the failure files.
-#    set(bidi_tests
+    # These are all the failure files. 
+#    set(bidi_tests 
+#        bidi_character_test_000.cpp
+#        bidi_character_test_008.cpp
+#        bidi_character_test_010.cpp
+#        bidi_character_test_011.cpp
+#        bidi_character_test_012.cpp
+#        bidi_character_test_013.cpp
+#        bidi_character_test_020.cpp
+#        bidi_character_test_021.cpp
+#        bidi_character_test_023.cpp
+#        bidi_character_test_024.cpp
+#        bidi_character_test_025.cpp
+#        bidi_character_test_026.cpp
+#        bidi_character_test_073.cpp
+#        bidi_character_test_074.cpp
+#        bidi_character_test_075.cpp
+#        bidi_character_test_077.cpp
+#        bidi_character_test_078.cpp
+#        bidi_character_test_079.cpp
+#        bidi_character_test_080.cpp
+#        bidi_character_test_081.cpp
+#        bidi_character_test_082.cpp
+#        bidi_character_test_083.cpp
+#        bidi_character_test_084.cpp
+#    )
+    # These are all the failure files. 
+#    set(bidi_tests 
 #        bidi_test_096.cpp
 #
 #        bidi_test_291.cpp
