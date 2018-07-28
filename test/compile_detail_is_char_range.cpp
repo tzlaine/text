@@ -68,12 +68,6 @@ static_assert(text::detail::is_char_range<std::list<char>>::value, "");
 
 static_assert(!text::detail::is_char_range<char>::value, "");
 static_assert(!text::detail::is_char_range<int>::value, "");
-static_assert(!text::detail::is_char_range<wchar_t[5]>::value, "");
-static_assert(!text::detail::is_char_range<int[5]>::value, "");
-
-// This may look wrong, but we don't care, because this decays to a char *
-// anyway!
-static_assert(!text::detail::is_char_range<char[5]>::value, "");
 
 static_assert(!text::detail::is_char_range<text::text>::value, "");
 static_assert(!text::detail::is_char_range<text::text_view>::value, "");
