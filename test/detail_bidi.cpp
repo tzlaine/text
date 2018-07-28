@@ -220,7 +220,7 @@ TEST(detail_bidi, find_run_sequences_)
     }
 }
 
-TEST(detail_bidi, steps_W1_through_W7)
+TEST(detail_bidi, W1)
 {
     using namespace boost::text::detail;
 
@@ -328,6 +328,11 @@ TEST(detail_bidi, steps_W1_through_W7)
         ++it;
         EXPECT_EQ(it->prop_, bidi_property::AL);
     }
+}
+
+TEST(detail_bidi, W2)
+{
+    using namespace boost::text::detail;
 
     // W2
     {
@@ -439,6 +444,11 @@ TEST(detail_bidi, steps_W1_through_W7)
         ++it;
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
+}
+
+TEST(detail_bidi, W4)
+{
+    using namespace boost::text::detail;
 
     // W4
     {
@@ -579,6 +589,11 @@ TEST(detail_bidi, steps_W1_through_W7)
         ++it;
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
+}
+
+TEST(detail_bidi, W5)
+{
+    using namespace boost::text::detail;
 
     // W5
     {
@@ -765,6 +780,11 @@ TEST(detail_bidi, steps_W1_through_W7)
         ++it;
         EXPECT_EQ(it->prop_, bidi_property::EN);
     }
+}
+
+TEST(detail_bidi, W6)
+{
+    using namespace boost::text::detail;
 
     // W6
     {
@@ -960,6 +980,11 @@ TEST(detail_bidi, steps_W1_through_W7)
         ++it;
         EXPECT_EQ(it->prop_, bidi_property::AN);
     }
+}
+
+TEST(detail_bidi, W7)
+{
+    using namespace boost::text::detail;
 
     // W7
     {
@@ -2012,7 +2037,7 @@ TEST(detail_bidi, l2_)
             }
         }
 
-        EXPECT_EQ(result, string("he said \u201c<RAC SNAEM car=.\u201d \u201c<SEOD TI=,\u201d she agreed."));
+        EXPECT_EQ(result, string(u8"he said \u201c<RAC SNAEM car=.\u201d \u201c<SEOD TI=,\u201d she agreed."));
     }
     {
         uint32_t cps_[] = {'D', 'I', 'D', ' ', 'Y', 'O', 'U', ' ', 'S', 'A', 'Y', ' ', 0x2019, '>', 'h', 'e', ' ', 's', 'a', 'i', 'd', ' ', 0x201c, '<', 'c', 'a', 'r', ' ', 'M', 'E', 'A', 'N', 'S', ' ', 'C', 'A', 'R', '=', 0x201d, '=', 0x2018, '?'};
@@ -2082,18 +2107,6 @@ TEST(detail_bidi, l2_)
             }
         }
 
-        EXPECT_EQ(result, string("?\u2018=he said \u201c<RAC SNAEM car=\u201d>\u2019 YAS UOY DID"));
+        EXPECT_EQ(result, string(u8"?\u2018=he said \u201c<RAC SNAEM car=\u201d>\u2019 YAS UOY DID"));
     }
-}
-
-// TODO: This is just here for early-stage testing.  Remove once an actual
-// test exists for this function.
-TEST(detail_bidi, bidirectional_order_instantiation)
-{
-    std::array<uint32_t, 1> str = {{'a'}};
-    std::array<bidirectional_subrange<std::array<uint32_t, 1>::iterator>, 1024>
-        subranges;
-    bidirectional_order(str.begin(), str.end(), subranges.begin());
-
-    std::vector<int> embedding_levels = bidi_levels(&*str.begin(), &*str.end());
 }
