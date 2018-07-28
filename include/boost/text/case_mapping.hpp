@@ -76,10 +76,13 @@ namespace boost { namespace text {
                 auto const map_it = title_state == title_state_t::after
                                         ? to_lower_map().find(*it)
                                         : map.find(*it);
+                auto const map_last = title_state == title_state_t::after
+                                          ? to_lower_map().end()
+                                          : map.end();
 
                 uint16_t conditions = lang_conditions;
 
-                if (map_it != map.end()) {
+                if (map_it != map_last) {
                     if (title_state == title_state_t::before)
                         title_state = title_state_t::after;
 
