@@ -126,19 +126,37 @@ constexpr static std::array<reorder_group, {3}> retval = {{{{
 return retval;
 }}
 
-std::array<collation_element, {6}> make_collation_elements()
+namespace {{
+#ifdef _MSC_VER
+std::vector<uint16_t>
+#else
+constexpr std::array<uint16_t, {5}>
+#endif
+compressed_collation_elements()
 {{
-constexpr static std::array<uint16_t, {5}> compressed = {{{{
+#ifdef _MSC_VER
+    std::vector<uint16_t> retval({5});
+    auto it = retval.begin();
+#else
+    constexpr std::array<uint16_t, {5}> retval = {{{{
+#endif
 {4}
-}}}};
-std::array<collation_element, {6}> retval;
+#ifndef _MSC_VER
+    }}}};
+#endif
+    return retval;
+}}
+}}
+
+void make_collation_elements(std::array<collation_element, {6}> & retval)
+{{
 container::small_vector<unsigned char, 256> buf;
+auto const & compressed = compressed_collation_elements();
 lzw_decompress(
     compressed.begin(),
     compressed.end(),
     make_lzw_to_coll_elem_iter(retval.begin(), buf));
 assert(buf.empty());
-return retval;
 }}
 
 }}}}}}
@@ -149,34 +167,70 @@ trie_file_form = '''\
 #include <boost/text/detail/collation_data.hpp>
 
 
-namespace boost {{ namespace text {{
+namespace boost {{ namespace text {{ namespace detail {{
 
-namespace detail {{
-    std::array<collation_trie_key<3>, {3}> make_trie_keys()
-    {{
-        constexpr static std::array<uint16_t, {1}> compressed = {{{{
+namespace {{
+
+#ifdef _MSC_VER
+std::vector<uint16_t>
+#else
+constexpr std::array<uint16_t, {1}>
+#endif
+compressed_trie_keys()
+{{
+#ifdef _MSC_VER
+    std::vector<uint16_t> retval({1});
+    auto it = retval.begin();
+#else
+    constexpr std::array<uint16_t, {1}> retval = {{{{
+#endif
 {0}
-        }}}};
-        std::array<collation_trie_key<3>, {3}> retval;
+#ifndef _MSC_VER
+    }}}};
+#endif
+    return retval;
+}}
+
+#ifdef _MSC_VER
+std::vector<collation_elements>
+#else
+constexpr std::array<collation_elements, {3}>
+#endif
+trie_values_()
+{{
+#ifdef _MSC_VER
+    std::vector<collation_elements> retval({3});
+    auto it = retval.begin();
+#else
+    constexpr std::array<collation_elements, {3}> retval = {{{{
+#endif
+{2}
+#ifndef _MSC_VER
+    }}}};
+#endif
+    return retval;
+}}
+
+}}
+
+    void make_trie_keys(std::array<collation_trie_key<3>, {3}> & retval)
+    {{
+        auto const & compressed = compressed_trie_keys();
         container::small_vector<unsigned char, 256> buf;
         lzw_decompress(
             compressed.begin(),
             compressed.end(),
             make_lzw_to_trie_key_iter(retval.begin(), buf));
         assert(buf.empty());
-        return retval;
     }}
 
-    std::array<collation_elements, {3}> make_trie_values()
+    void make_trie_values(std::array<collation_elements, {3}> & retval)
     {{
-        constexpr std::array<collation_elements, {3}> retval = {{{{
-{2}
-        }}}};
-        return retval;
+        auto const & values = trie_values_();
+        std::copy(values.begin(), values.end(), retval.begin());
     }}
 
-}}
-}}}}
+}}}}}}
 '''
 
 def ccc(cccs_dict, cp):
@@ -549,22 +603,6 @@ def get_group_boundary_to_token_mapping(filename):
         if max_ == 4 and boundary not in name_map:
             name_map[boundary] = token_names[max_index]
 
-#    tokens_to_boundary_names = {}
-#    for k,v in name_map.items():
-#        if v not in tokens_to_boundary_names:
-#            tokens_to_boundary_names[v] = []
-#        tokens_to_boundary_names[v].append(k)
-#    import pprint
-#    print pprint.pprint(tokens_to_boundary_names)
-#    for n in token_names:
-#        if n not in tokens_to_boundary_names:
-#            print n
-#    exit(0)
-
-#    for n in group_boundary_names:
-#        if n not in name_map:
-#            print n
-
     first_lead_byte = 1000
     last_lead_byte = 0
     all_lead_bytes = set()
@@ -695,21 +733,54 @@ if __name__ == "__main__":
         lzw.add_short(ce_bytes, int(x, 16))
     compressed_ces = lzw.compress(ce_bytes)
 
+    def values_to_lines(values, value_type, values_per_chunk):
+        retval = ''
+        chunk_form = '''\
+#ifdef _MSC_VER
+{{
+    std::array<{0}, {1}> values {{{{
+#endif
+    {2}
+#ifdef _MSC_VER
+    }}}};
+    it = std::copy(values.begin(), values.end(), it);
+}}
+#endif
+'''
+        i = 0
+        while i < len(values):
+            next_i = i + values_per_chunk
+            if len(values) < next_i:
+                break
+            retval += chunk_form.format(
+                value_type,
+                values_per_chunk,
+                ''.join(map(lambda x: x + ', ', values[i:next_i]))
+            )
+            i = next_i
+        if i != len(values):
+            retval += chunk_form.format(
+                value_type,
+                len(values) - i,
+                ''.join(map(lambda x: x + ', ', values[i:]))
+            )
+        return retval
+
     #print 'rewrote {} * 96 = {} bits as {} * 8 = {} bits'.format(len(collation_elements), len(collation_elements)*96, len(ce_bytes), len(ce_bytes)*8)
     #print 'compressed to {} * 16 = {} bits'.format(len(compressed_ces), len(compressed_ces) * 16)
-    ce_lines = lzw.compressed_bytes_to_lines(compressed_ces, values_per_line)[0]
+    ce_lines = values_to_lines(map(lambda x: hex(x), compressed_ces), 'uint16_t', 2500)
 
     cpp_file = open('collation_data_0.cpp', 'w')
     cpp_file.write(collation_data_0_file_form.format(implicit_weights_segments_str, len(implicit_weights_segments), reorder_group_str, len(reorder_group_strings), ce_lines, len(compressed_ces), len(collation_elements)))
 
     key_bytes = []
     #value_bytes = []
-    value_lines = ''
+    value_strings = []
     for k,v in sorted(fcc_cet.items(), key=lambda x: original_order[x[0]]):
         lzw.add_byte(key_bytes, len(k))
         for x in k:
             lzw.add_cp(key_bytes, x)
-        value_lines += '        {{{}, {}}},\n'.format(v[0], v[1])
+        value_strings.append('{{{}, {}}}'.format(v[0], v[1]))
         #lzw.add_short(value_bytes, v[0])
         #lzw.add_short(value_bytes, v[1])
     compressed_keys = lzw.compress(key_bytes)
@@ -720,10 +791,10 @@ if __name__ == "__main__":
 
     #print 'rewrote {} * 128 = {} bits as {} * 8 = {} bits'.format(len(fcc_cet), len(fcc_cet)*128, len(key_bytes), len(key_bytes)*8)
     #print 'compressed to {} * 16 = {} bits'.format(len(compressed_keys), len(compressed_keys) * 16)
-    key_lines = lzw.compressed_bytes_to_lines(compressed_keys, values_per_line)[0]
+    key_lines = values_to_lines(map(lambda x: hex(x), compressed_keys), 'uint16_t', 2500)
     #print 'rewrote {} * 32 = {} bits as {} * 8 = {} bits'.format(len(fcc_cet), len(fcc_cet)*32, len(value_bytes), len(value_bytes)*8)
     #print 'compressed to {} * 16 = {} bits'.format(len(compressed_values), len(compressed_values) * 16)
-    #value_lines = lzw.compressed_bytes_to_lines(compressed_values, values_per_line)[0]
+    value_lines = values_to_lines(value_strings, 'collation_elements', 1000)
 
     cpp_file = open('collation_data_1.cpp', 'w')
     cpp_file.write(trie_file_form.format(key_lines, len(compressed_keys), value_lines, len(fcc_cet)))

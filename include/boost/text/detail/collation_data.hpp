@@ -96,12 +96,17 @@ namespace boost { namespace text { namespace detail {
         return collation_strength::identical;
     }
 
-    BOOST_TEXT_DECL std::array<collation_element, 39258>
-    make_collation_elements();
+    BOOST_TEXT_DECL void
+    make_collation_elements(std::array<collation_element, 39258> &);
 
     inline std::array<collation_element, 39258> const & collation_elements_()
     {
-        static auto const retval = make_collation_elements();
+        static std::array<collation_element, 39258> retval;
+        static bool once = true;
+        if (once) {
+            make_collation_elements(retval);
+            once = false;
+        }
         return retval;
     }
 
@@ -204,17 +209,29 @@ namespace boost { namespace text { namespace detail {
     using trie_iterator_t = collation_trie_t::iterator;
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 
-    BOOST_TEXT_DECL std::array<collation_trie_key<3>, 38593> make_trie_keys();
-    BOOST_TEXT_DECL std::array<collation_elements, 38593> make_trie_values();
+    BOOST_TEXT_DECL void
+        make_trie_keys(std::array<collation_trie_key<3>, 38593> &);
+    BOOST_TEXT_DECL void
+        make_trie_values(std::array<collation_elements, 38593> &);
 
     inline std::array<collation_trie_key<3>, 38593> const & trie_keys()
     {
-        static auto const retval = make_trie_keys();
+        static std::array<collation_trie_key<3>, 38593> retval;
+        static bool once = true;
+        if (once) {
+            make_trie_keys(retval);
+            once = false;
+        }
         return retval;
     }
     inline std::array<collation_elements, 38593> const & trie_values()
     {
-        static auto const retval = make_trie_values();
+        static std::array<collation_elements, 38593> retval;
+        static bool once = true;
+        if (once) {
+            make_trie_values(retval);
+            once = false;
+        }
         return retval;
     }
 
