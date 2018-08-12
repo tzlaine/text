@@ -6,6 +6,7 @@
 #include <boost/text/line_break.hpp>
 #include <boost/text/paragraph_break.hpp>
 #include <boost/text/utility.hpp>
+#include <boost/text/detail/normalization_data.hpp>
 #include <boost/text/detail/bidirectional.hpp>
 
 #include <boost/container/small_vector.hpp>
@@ -82,8 +83,10 @@ namespace boost { namespace text {
             friend std::ostream &
             operator<<(std::ostream & os, prop_and_embedding_t pae)
             {
-                os << '{' << std::hex << "0x" << pae.cp() << std::dec << " "
-                   << pae.embedding_ << " " << pae.prop_ << " "
+                os << '{' << std::hex << "0x" << pae.cp() << std::dec << " ";
+                if (pae.cp() < 0x80)
+                    os << "'" << (char)pae.cp() << "' ";
+                os << pae.embedding_ << " " << pae.prop_ << " "
                    << pae.unmatched_pdi_ << " " << pae.originally_nsm_ << '}';
                 return os;
             }
@@ -693,12 +696,64 @@ namespace boost { namespace text {
                     bracket && bracket.type_ == bidi_bracket_type::close) {
                     if (stack.empty())
                         continue;
-                    // TODO: Also compare canonical equivalents?
+                    optional<cp_range> canonical_equivalents;
                     auto match_rit = std::find_if(
                         stack.rbegin(),
                         stack.rend(),
-                        [&it](bracket_stack_element_t<CPIter> elem) {
-                            return it->cp() == elem.paired_bracket_;
+                        [&it, &canonical_equivalents](
+                            bracket_stack_element_t<CPIter> elem) {
+                            if (it->cp() == elem.paired_bracket_)
+                                return true;
+
+                            // Check if the current CP is a canonical
+                            // equivalent to the open bracket.
+                            if (!canonical_equivalents) {
+                                auto const cp_props_it =
+                                    cp_props_map().find(elem.paired_bracket_);
+                                if (cp_props_it != cp_props_map().end()) {
+                                    canonical_equivalents =
+                                        cp_props_it->second
+                                            .canonical_decomposition_;
+                                }
+                            }
+                            if (canonical_equivalents) {
+                                auto const equiv_it = std::find(
+                                    all_canonical_decompositions_ptr() +
+                                        canonical_equivalents->first_,
+                                    all_canonical_decompositions_ptr() +
+                                        canonical_equivalents->last_,
+                                    it->cp());
+                                if (equiv_it !=
+                                    all_canonical_decompositions_ptr() +
+                                        canonical_equivalents->last_) {
+                                    return true;
+                                }
+                            }
+
+                            // Check if the open bracket is a canonical
+                            // equivalent to the current CP.
+                            {
+                                auto const cp_props_it =
+                                    cp_props_map().find(it->cp());
+                                if (cp_props_it == cp_props_map().end())
+                                    return false;
+                                auto const canonical_equivalents =
+                                    cp_props_it->second
+                                        .canonical_decomposition_;
+                                auto const equiv_it = std::find(
+                                    all_canonical_decompositions_ptr() +
+                                        canonical_equivalents.first_,
+                                    all_canonical_decompositions_ptr() +
+                                        canonical_equivalents.last_,
+                                    elem.paired_bracket_);
+                                if (equiv_it !=
+                                    all_canonical_decompositions_ptr() +
+                                        canonical_equivalents.last_) {
+                                    return true;
+                                }
+                            }
+
+                            return false;
                         });
                     if (match_rit != stack.rend()) {
                         auto const match_it = --match_rit.base();
@@ -713,78 +768,6 @@ namespace boost { namespace text {
             return retval;
         }
 
-        // https://unicode.org/reports/tr9/#N0
-        template<typename CPIter>
-        inline void
-        n0(run_sequence_t<CPIter> & seq,
-           bracket_pairs_t<CPIter> const & bracket_pairs) noexcept
-        {
-            auto set_props = [](bracket_pair<CPIter> pair,
-                                typename run_sequence_t<CPIter>::iterator end,
-                                bidi_property prop) {
-                pair.first_->prop_ = prop;
-                auto transform_end = std::find_if(
-                    std::next(pair.last_),
-                    end,
-                    [](prop_and_embedding_t<CPIter> pae) {
-                        return !pae.originally_nsm_;
-                    });
-                std::transform(
-                    pair.last_,
-                    transform_end,
-                    pair.last_,
-                    set_prop<CPIter>(prop));
-            };
-
-            auto strong = [](bidi_property prop) {
-                return prop == bidi_property::L || prop == bidi_property::R;
-            };
-
-            auto bracket_it = bracket_pairs.begin();
-            auto prev_strong_prop = seq.sos_;
-            for (auto it = seq.begin(), end = seq.end();
-                 it != end && bracket_it != bracket_pairs.end();
-                 ++it) {
-                if (strong(it->prop_))
-                    prev_strong_prop = it->prop_;
-                if (it == bracket_it->first_) {
-                    auto pair = *bracket_it++;
-                    bool strong_found = false;
-                    auto same_direction_strong_it = std::find_if(
-                        std::next(pair.first_),
-                        pair.last_,
-                        [&seq, &strong_found, strong](
-                            prop_and_embedding_t<CPIter> pae) {
-                            bool const strong_ = strong(pae.prop_);
-                            if (!strong_)
-                                return false;
-                            strong_found = true;
-                            assert(
-                                pae.prop_ == bidi_property::L ||
-                                pae.prop_ == bidi_property::R);
-                            auto const strong_embedding =
-                                pae.prop_ == bidi_property::L ? 0 : 1;
-                            return even(seq.embedding_ + strong_embedding);
-                        });
-                    if (same_direction_strong_it != pair.last_) {
-                        set_props(
-                            pair, seq.end(), same_direction_strong_it->prop_);
-                    } else if (strong_found) {
-                        auto const prev_strong_embedding =
-                            prev_strong_prop == bidi_property::L ? 0 : 1;
-                        if (odd(seq.embedding_ + prev_strong_embedding)) {
-                            set_props(pair, seq.end(), prev_strong_prop);
-                        } else {
-                            auto const seq_embedding_prop =
-                                even(seq.embedding_) ? bidi_property::L
-                                                     : bidi_property::R;
-                            set_props(pair, seq.end(), seq_embedding_prop);
-                        }
-                    }
-                }
-            }
-        }
-
         template<typename CPIter>
         inline bool
         neutral_or_isolate(prop_and_embedding_t<CPIter> pae) noexcept
@@ -797,6 +780,105 @@ namespace boost { namespace text {
                    pae.prop_ == bidi_property::LRI ||
                    pae.prop_ == bidi_property::RLI ||
                    pae.prop_ == bidi_property::PDI;
+        }
+
+        // https://unicode.org/reports/tr9/#N0
+        template<typename CPIter>
+        inline void
+        n0(run_sequence_t<CPIter> & seq,
+           bracket_pairs_t<CPIter> const & bracket_pairs) noexcept
+        {
+            auto prev_strong_prop = seq.sos_;
+
+            auto set_props = [&prev_strong_prop](
+                                 bracket_pair<CPIter> pair,
+                                 typename run_sequence_t<CPIter>::iterator end,
+                                 bidi_property prop) {
+                prev_strong_prop = prop;
+                pair.first_->prop_ = prop;
+                auto transform_end = std::find_if(
+                    std::next(pair.last_),
+                    end,
+                    [](prop_and_embedding_t<CPIter> pae) {
+                        return !pae.originally_nsm_;
+                    });
+                std::transform(
+                    pair.last_,
+                    transform_end,
+                    pair.last_,
+                    set_prop<CPIter>(prop));
+#if 0
+                std::cout << "transforming "
+                          << std::distance(pair.last_, transform_end)
+                          << " elements to " << prop << "\n";
+#endif
+            };
+
+            auto strong = [](bidi_property prop) {
+                return prop == bidi_property::L || prop == bidi_property::R ||
+                       prop == bidi_property::AN || prop == bidi_property::EN;
+            };
+
+            auto bracket_it = bracket_pairs.begin();
+            for (auto it = seq.begin(), end = seq.end();
+                 it != end && bracket_it != bracket_pairs.end();
+                 ++it) {
+                if (strong(it->prop_))
+                    prev_strong_prop = it->prop_;
+                if (it == bracket_it->first_) {
+                    auto const pair = *bracket_it++;
+                    bool strong_found = false;
+                    auto const same_direction_strong_it = std::find_if(
+                        std::next(pair.first_),
+                        pair.last_,
+                        [&seq, &strong_found, strong](
+                            prop_and_embedding_t<CPIter> pae) {
+#if 0
+                            std::cout << "examining " << pae << "\n";
+#endif
+                            bool const strong_ = strong(pae.prop_);
+                            if (!strong_)
+                                return false;
+                            strong_found = true;
+                            auto const strong_embedding =
+                                pae.prop_ == bidi_property::L ? 0 : 1;
+                            return even(seq.embedding_ + strong_embedding);
+                        });
+                    if (same_direction_strong_it != pair.last_) {
+                        // https://unicode.org/reports/tr9/#N0 b
+                        auto const prop = even(seq.embedding_)
+                                              ? bidi_property::L
+                                              : bidi_property::R;
+                        set_props(pair, seq.end(), prop);
+#if 0
+                        std::cout << "N0 b\n";
+#endif
+                    } else if (strong_found) {
+                        auto const prev_strong_embedding =
+                            prev_strong_prop == bidi_property::L ? 0 : 1;
+                        if (odd(seq.embedding_ + prev_strong_embedding)) {
+                            // https://unicode.org/reports/tr9/#N0 c1
+                            auto const prop = even(seq.embedding_)
+                                                  ? bidi_property::R
+                                                  : bidi_property::L;
+                            set_props(pair, seq.end(), prop);
+#if 0
+                            std::cout << "N0 c1\n";
+#endif
+                        } else {
+                            // https://unicode.org/reports/tr9/#N0 c2
+                            auto const prop = even(seq.embedding_)
+                                                  ? bidi_property::L
+                                                  : bidi_property::R;
+                            set_props(pair, seq.end(), prop);
+#if 0
+                            std::cout << "N0 c2\n";
+#endif
+                        }
+                        // https://unicode.org/reports/tr9/#N0 d (do nothing)
+                    }
+                }
+            }
         }
 
         // https://unicode.org/reports/tr9/#N1
@@ -865,6 +947,12 @@ namespace boost { namespace text {
                             r.begin(),
                             set_prop<CPIter>(bidi_property::R));
                     }
+#if 0
+                    else {
+                        std::cout << "no change; prev_prop=" << prev_prop
+                                  << " and next_prop=" << next_prop << "\n";
+                    }
+#endif
                 });
         }
 
@@ -922,7 +1010,7 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#L1
         template<typename CPIter>
         inline void
-        l1(cp_range<props_and_embeddings_cp_iterator<CPIter>> line,
+        l1(text::cp_range<props_and_embeddings_cp_iterator<CPIter>> line,
            int paragraph_embedding_level)
         {
             // L1.1, L1.2
@@ -1667,6 +1755,7 @@ namespace boost { namespace text {
                     }
 
 #if 0
+                    std::cout << "after X8 (line " << __LINE__ << ")\n";
                     for (auto pae : props_and_embeddings) {
                         std::cout << pae << "\n";
                     }
@@ -1690,7 +1779,7 @@ namespace boost { namespace text {
                     props_and_embeddings.end());
 
 #if 0
-                std::cout << "line:" << __LINE__ << "\n";
+                std::cout << "after X9 (line " << __LINE__ << ")\n";
                 for (auto pae : props_and_embeddings) {
                     std::cout << pae << "\n";
                 }
@@ -1704,6 +1793,7 @@ namespace boost { namespace text {
                     find_run_sequences(props_and_embeddings, all_runs);
 
 #if 0
+                std::cout << "after X10 (line " << __LINE__ << ")\n";
                 for (auto pae : props_and_embeddings) {
                     std::cout << pae << "\n";
                 }
@@ -1720,10 +1810,18 @@ namespace boost { namespace text {
                     w6(run_sequence);
                     w7(run_sequence);
 
+#if 0
+                    std::cout << "after W7 (line " << __LINE__ << ")\n";
+                    for (auto pae : props_and_embeddings) {
+                        std::cout << pae << "\n";
+                    }
+                    std::cout << std::endl;
+#endif
+
                     auto const bracket_pairs = find_bracket_pairs(run_sequence);
                     n0(run_sequence, bracket_pairs);
 #if 0
-                    std::cout << "line:" << __LINE__ << "\n";
+                    std::cout << "after N0 (line " << __LINE__ << ")\n";
                     for (auto pae : props_and_embeddings) {
                         std::cout << pae << "\n";
                     }
@@ -1731,7 +1829,7 @@ namespace boost { namespace text {
 #endif
                     n1(run_sequence);
 #if 0
-                    std::cout << "line:" << __LINE__ << "\n";
+                    std::cout << "after N1 (line " << __LINE__ << ")\n";
                     for (auto pae : props_and_embeddings) {
                         std::cout << pae << "\n";
                     }
@@ -1739,11 +1837,18 @@ namespace boost { namespace text {
 #endif
                     n2(run_sequence);
 
+#if 0
+                    std::cout << "after N2 (line " << __LINE__ << ")\n";
+                    for (auto pae : props_and_embeddings) {
+                        std::cout << pae << "\n";
+                    }
+                    std::cout << std::endl;
+#endif
                     i1_i2(run_sequence);
                 }
 
 #if 0
-                std::cout << "line:" << __LINE__ << "\n";
+                std::cout << "after I2 (line " << __LINE__ << ")\n";
                 for (auto pae : props_and_embeddings) {
                     std::cout << pae << "\n";
                 }
