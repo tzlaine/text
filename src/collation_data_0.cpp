@@ -185,7 +185,7 @@ compressed_collation_elements()
     std::vector<uint16_t> retval(71579);
     auto it = retval.begin();
 #else
-    constexpr std::array<uint16_t, 71579> retval = {{
+    return {{
 #endif
 #ifdef _MSC_VER
 {
@@ -478,10 +478,11 @@ compressed_collation_elements()
 }
 #endif
 
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+    return retval;
+#else
     }};
 #endif
-    return retval;
 }
 }
 

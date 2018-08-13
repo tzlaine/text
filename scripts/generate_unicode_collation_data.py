@@ -138,13 +138,14 @@ compressed_collation_elements()
     std::vector<uint16_t> retval({5});
     auto it = retval.begin();
 #else
-    constexpr std::array<uint16_t, {5}> retval = {{{{
+    return {{{{
 #endif
 {4}
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+    return retval;
+#else
     }}}};
 #endif
-    return retval;
 }}
 }}
 
@@ -182,13 +183,14 @@ compressed_trie_keys()
     std::vector<uint16_t> retval({1});
     auto it = retval.begin();
 #else
-    constexpr std::array<uint16_t, {1}> retval = {{{{
+    return {{{{
 #endif
 {0}
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+    return retval;
+#else
     }}}};
 #endif
-    return retval;
 }}
 
 #ifdef _MSC_VER
@@ -202,13 +204,14 @@ trie_values_()
     std::vector<collation_elements> retval({3});
     auto it = retval.begin();
 #else
-    constexpr std::array<collation_elements, {3}> retval = {{{{
+    return {{{{
 #endif
 {2}
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+    return retval;
+#else
     }}}};
 #endif
-    return retval;
 }}
 
 }}

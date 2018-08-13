@@ -17,7 +17,7 @@ compressed_trie_keys()
     std::vector<uint16_t> retval(72538);
     auto it = retval.begin();
 #else
-    constexpr std::array<uint16_t, 72538> retval = {{
+    return {{
 #endif
 #ifdef _MSC_VER
 {
@@ -320,10 +320,11 @@ compressed_trie_keys()
 }
 #endif
 
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+    return retval;
+#else
     }};
 #endif
-    return retval;
 }
 
 #ifdef _MSC_VER
@@ -337,7 +338,7 @@ trie_values_()
     std::vector<collation_elements> retval(38593);
     auto it = retval.begin();
 #else
-    constexpr std::array<collation_elements, 38593> retval = {{
+    return {{
 #endif
 #ifdef _MSC_VER
 {
@@ -730,10 +731,11 @@ trie_values_()
 }
 #endif
 
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+    return retval;
+#else
     }};
 #endif
-    return retval;
 }
 
 }
