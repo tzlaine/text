@@ -639,7 +639,7 @@ namespace boost { namespace text { namespace utf8 {
     /** Returns a from_utf32_iterator<Iter> constructed from an Iter. */
     template<typename Iter, typename Sentinel>
     from_utf32_iterator<Iter, Sentinel>
-    make_from_utf32_iterator(Iter first, Iter it, Sentinel last)
+    make_from_utf32_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
         return from_utf32_iterator<Iter, Sentinel>(first, it, last);
     }
@@ -1033,7 +1033,7 @@ namespace boost { namespace text { namespace utf8 {
     /** Returns a to_utf32_iterator<Iter> constructed from an Iter. */
     template<typename Iter, typename Sentinel>
     to_utf32_iterator<Iter, Sentinel>
-    make_to_utf32_iterator(Iter first, Iter it, Sentinel last)
+    make_to_utf32_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
         return to_utf32_iterator<Iter, Sentinel>(first, it, last);
     }
@@ -1320,7 +1320,7 @@ namespace boost { namespace text { namespace utf8 {
     /** Returns a from_utf16_iterator<Iter> constructed from an Iter. */
     template<typename Iter, typename Sentinel>
     from_utf16_iterator<Iter, Sentinel>
-    make_from_utf16_iterator(Iter first, Iter it, Sentinel last)
+    make_from_utf16_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
         return from_utf16_iterator<Iter, Sentinel>(first, it, last);
     }
@@ -1507,7 +1507,7 @@ namespace boost { namespace text { namespace utf8 {
     /** Returns a to_utf16_iterator<Iter> constructed from an Iter. */
     template<typename Iter, typename Sentinel>
     to_utf16_iterator<Iter, Sentinel>
-    make_to_utf16_iterator(Iter first, Iter it, Sentinel last)
+    make_to_utf16_iterator(Iter first, Iter it, Sentinel last) noexcept
     {
         return to_utf16_iterator<Iter, Sentinel>(first, it, last);
     }
@@ -1553,7 +1553,7 @@ namespace boost { namespace text { namespace utf8 {
         using iterator_category = std::output_iterator_tag;
 
         from_utf32_insert_iterator(
-            Container & c, typename Container::iterator it) :
+            Container & c, typename Container::iterator it) noexcept :
             c_(&c),
             it_(it)
         {}
@@ -1573,9 +1573,9 @@ namespace boost { namespace text { namespace utf8 {
             return *this;
         }
 
-        from_utf32_insert_iterator & operator*() { return *this; }
-        from_utf32_insert_iterator & operator++() { return *this; }
-        from_utf32_insert_iterator operator++(int) { return *this; }
+        from_utf32_insert_iterator & operator*() noexcept { return *this; }
+        from_utf32_insert_iterator & operator++() noexcept { return *this; }
+        from_utf32_insert_iterator operator++(int)noexcept { return *this; }
 
     private:
         Container * c_;
@@ -1586,7 +1586,7 @@ namespace boost { namespace text { namespace utf8 {
         given container and iterator. */
     template<typename Container>
     from_utf32_insert_iterator<Container>
-    from_utf32_inserter(Container & c, typename Container::iterator it)
+    from_utf32_inserter(Container & c, typename Container::iterator it) noexcept
     {
         return from_utf32_insert_iterator<Container>(c, it);
     }
@@ -1602,7 +1602,7 @@ namespace boost { namespace text { namespace utf8 {
         using reference = void;
         using iterator_category = std::output_iterator_tag;
 
-        from_utf32_back_insert_iterator(Container & c) : c_(&c) {}
+        from_utf32_back_insert_iterator(Container & c) noexcept : c_(&c) {}
 
         from_utf32_back_insert_iterator & operator=(uint32_t cp)
         {
@@ -1618,9 +1618,15 @@ namespace boost { namespace text { namespace utf8 {
             return *this;
         }
 
-        from_utf32_back_insert_iterator & operator*() { return *this; }
-        from_utf32_back_insert_iterator & operator++() { return *this; }
-        from_utf32_back_insert_iterator operator++(int) { return *this; }
+        from_utf32_back_insert_iterator & operator*() noexcept { return *this; }
+        from_utf32_back_insert_iterator & operator++() noexcept
+        {
+            return *this;
+        }
+        from_utf32_back_insert_iterator operator++(int)noexcept
+        {
+            return *this;
+        }
 
     private:
         Container * c_;
@@ -1630,7 +1636,7 @@ namespace boost { namespace text { namespace utf8 {
         given container and iterator. */
     template<typename Container>
     from_utf32_back_insert_iterator<Container>
-    from_utf32_back_inserter(Container & c)
+    from_utf32_back_inserter(Container & c) noexcept
     {
         return from_utf32_back_insert_iterator<Container>(c);
     }
