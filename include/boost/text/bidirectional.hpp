@@ -100,8 +100,8 @@ namespace boost { namespace text {
             return pae.prop_;
         }
 
-        template<typename CPIter, typename Sentinel>
-        CPIter matching_pdi(CPIter it, Sentinel last) noexcept
+        template<typename Iter, typename Sentinel>
+        Iter matching_pdi(Iter it, Sentinel last) noexcept
         {
             if (it == last)
                 return it;
@@ -122,6 +122,12 @@ namespace boost { namespace text {
             }
 
             return it;
+        }
+
+        template<typename Iter>
+        bool has_matching_pdi(Iter it, Iter last) noexcept
+        {
+            return matching_pdi(it, last) != last;
         }
 
         inline bool embedding_initiator(bidi_property prop) noexcept
@@ -267,7 +273,8 @@ namespace boost { namespace text {
 
             run_seq_iter & operator++() noexcept
             {
-                if (++it_ == runs_it_->last_) {
+                ++it_;
+                if (it_ == runs_it_->last_) {
                     auto const next_runs_it = std::next(runs_it_);
                     if (next_runs_it == runs_end_) {
                         it_ = runs_it_->last_;
@@ -317,13 +324,13 @@ namespace boost { namespace text {
 
             iterator begin() noexcept
             {
-                return run_seq_iter<CPIter>{
+                return iterator{
                     runs_.begin()->first_, runs_.begin(), runs_.end()};
             }
             iterator end() noexcept
             {
-                return run_seq_iter<CPIter>{
-                    std::prev(runs_.end())->last_, runs_.begin(), runs_.end()};
+                auto const back_it = std::prev(runs_.end());
+                return iterator{back_it->last_, back_it, runs_.end()};
             }
 
             run_seq_runs_t<CPIter> runs_;
@@ -411,6 +418,7 @@ namespace boost { namespace text {
         template<typename CPIter>
         inline void find_sos_eos(
             run_sequences_t<CPIter> & run_sequences,
+            props_and_embeddings_t<CPIter> & paes,
             int paragraph_embedding_level)
         {
 #if 0
@@ -426,22 +434,40 @@ namespace boost { namespace text {
             if (run_sequences.empty())
                 return;
 
-            auto prev_embedding = paragraph_embedding_level;
             for (auto it = run_sequences.begin(), end = run_sequences.end();
                  it != end;
                  ++it) {
                 auto embedding = it->embedding_;
-                auto next_embedding = embedding;
-                auto next_it = std::next(it);
-                if (next_it != end)
-                    next_embedding = next_it->embedding_;
+
+                auto prev_embedding = paragraph_embedding_level;
+                auto const run_seq_front_pae_it = it->runs_.front().begin();
+                if (run_seq_front_pae_it != paes.begin()) {
+                    auto const prev_it = std::prev(run_seq_front_pae_it);
+                    prev_embedding = prev_it->embedding_;
+                }
+
+                auto next_embedding = paragraph_embedding_level;
+                auto const run_seq_back_pae_it =
+                    std::prev(it->runs_.back().end());
+#if 0
+                auto const back_pae = *run_seq_back_pae_it;
+                std::cout << "back_pae=" << back_pae << "\n";
+                std::cout << "isolate_initiator(run_seq_back_pae_it->prop_)="
+                          << isolate_initiator(run_seq_back_pae_it->prop_)
+                          << "\n";
+#endif
+                if (!isolate_initiator(run_seq_back_pae_it->prop_) ||
+                    has_matching_pdi(run_seq_back_pae_it, paes.end())) {
+                    auto const next_it = it->runs_.back().end();
+                    if (next_it != paes.end())
+                        next_embedding = next_it->embedding_;
+                }
                 it->sos_ = odd((std::max)(prev_embedding, embedding))
                                ? bidi_property::R
                                : bidi_property::L;
                 it->eos_ = odd((std::max)(embedding, next_embedding))
                                ? bidi_property::R
                                : bidi_property::L;
-                prev_embedding = embedding;
             }
         }
 
@@ -497,6 +523,7 @@ namespace boost { namespace text {
                     std::cout << "replacing!\n";
 #endif
                 }
+                // TODO: it = from_it; if (it != first)
                 --it;
             }
         }
@@ -819,6 +846,10 @@ namespace boost { namespace text {
                        prop == bidi_property::AN || prop == bidi_property::EN;
             };
 
+#if 0
+            std::cout << "N0\n";
+#endif
+
             auto bracket_it = bracket_pairs.begin();
             for (auto it = seq.begin(), end = seq.end();
                  it != end && bracket_it != bracket_pairs.end();
@@ -893,13 +924,17 @@ namespace boost { namespace text {
             };
 
 #if 0
-            std::cout << "seq size=" << std::distance(seq.begin(), seq.end())
+            std::cout << "N1\n"
+                      << "seq size=" << std::distance(seq.begin(), seq.end())
                       << "\n";
             std::cout << std::hex;
+            std::cout << "sos=" << seq.sos_ << "\n";
             for (auto x : seq) {
                 std::cout << x << "\n";
             }
+            std::cout << "eos=" << seq.eos_ << "\n";
             std::cout << std::dec;
+            std::cout << "\n";
 #endif
 
             using iter_t = decltype(seq.begin());
@@ -1003,10 +1038,6 @@ namespace boost { namespace text {
             }
         }
 
-        // TODO: Remove FSI, LRI, RLI, and PDI after L1.
-
-        // TODO: L2 should only produce contiguous subranges of CPs, natch.
-
         // https://unicode.org/reports/tr9/#L1
         template<typename CPIter>
         inline void
@@ -1017,7 +1048,19 @@ namespace boost { namespace text {
             for (auto it = line.begin(), end = line.end(); it != end; ++it) {
                 auto const original_prop = boost::text::bidi_prop(it.it_->cp());
                 if (original_prop == bidi_property::B ||
-                    original_prop == bidi_property::S) {
+                    original_prop == bidi_property::S
+#if 0 // TODO
+                    ||
+                    // Note: Resetting these below to the paragraph embedding
+                    // level unconditionally here (as opposed to preceeding an
+                    // S or B as below) is not what the spec says to do, but
+                    // it seems to be what the tests expect.
+                    original_prop == bidi_property::FSI ||
+                    original_prop == bidi_property::LRI ||
+                    original_prop == bidi_property::RLI ||
+                    original_prop == bidi_property::PDI
+#endif
+                ) {
                     it.it_->embedding_ = paragraph_embedding_level;
                 }
             }
@@ -1057,12 +1100,13 @@ namespace boost { namespace text {
 
                     bool reset = r.end() == last;
                     if (!reset) {
-                        auto const original_prop =
+                        auto const original_next_prop =
                             boost::text::bidi_prop(r.end()->cp());
-                        reset = original_prop == bidi_property::S ||
-                                original_prop == bidi_property::B;
+                        reset = original_next_prop == bidi_property::S ||
+                                original_next_prop == bidi_property::B;
 #if 0
-                        std::cout << "original_prop=" << original_prop << "\n";
+                        std::cout << "original_next_prop=" << original_next_prop
+                                  << "\n";
 #endif
                     }
 #if 0
@@ -1117,6 +1161,8 @@ namespace boost { namespace text {
         template<typename CPIter>
         using reordered_runs_t =
             container::small_vector<reordered_run<CPIter>, 1024>;
+
+        // TODO: L2 should only produce contiguous subranges of CPs, natch.
 
         template<typename CPIter>
         inline reordered_runs_t<CPIter> l2(all_runs_t<CPIter> const & all_runs)
@@ -1425,6 +1471,8 @@ namespace boost { namespace text {
             for (auto line : lines) {
                 l1(line, paragraph_embedding_level);
 
+                // TODO: Remove FSI, LRI, RLI, and PDI after L1.
+
                 // https://unicode.org/reports/tr9/#L2
                 all_runs =
                     find_all_runs<CPIter>(line.begin().it_, line.end().it_);
@@ -1555,10 +1603,6 @@ namespace boost { namespace text {
                     }
                 };
 
-            // TODO: is_upper() et al are probably broken if they are not
-            // language-aware; they need to pump the state machine in the same
-            // way as to_upper(), etc.
-
             // https://unicode.org/reports/tr9/#X5a
             auto x5a = [&](stack_t & stack,
                            props_and_embeddings_t & props_and_embeddings,
@@ -1597,15 +1641,12 @@ namespace boost { namespace text {
                 }
             };
 
-            // TODO: I think we can dispense with all the empty stack
-            // checks.
-
             // https://unicode.org/reports/tr9/#P1
             for (auto paragraph : paragraphs(first, last)) {
                 auto const para_first = paragraph.begin();
                 auto const para_last = paragraph.end();
 
-                if (paragraph_embedding_level == -1)
+                if (paragraph_embedding_level < 0)
                     paragraph_embedding_level = p2_p3(para_first, para_last);
 
 #if 0
@@ -1745,7 +1786,11 @@ namespace boost { namespace text {
                         }
                         break;
 
-                    case bidi_property::B: break;
+                    case bidi_property::B:
+                        props_and_embeddings.back().embedding_ =
+                            paragraph_embedding_level;
+                        break;
+
                     case bidi_property::BN: break;
 
                     default:
@@ -1800,7 +1845,10 @@ namespace boost { namespace text {
                 std::cout << std::endl;
 #endif
 
-                find_sos_eos(run_sequences, paragraph_embedding_level);
+                find_sos_eos(
+                    run_sequences,
+                    props_and_embeddings,
+                    paragraph_embedding_level);
                 for (auto & run_sequence : run_sequences) {
                     w1(run_sequence);
                     w2(run_sequence);
@@ -1867,11 +1915,12 @@ namespace boost { namespace text {
     }
 
     /** TODO
+
         TODO: Document that NextLineBreakFunc must be polymorphic, taking an
         iterator whose value_type is uint32_t
-        TODO: Accept an optional paragraph_embedding_level (or make an
-        overload that takes same), in support of H1.  This replaces the call
-        to p2_p3() in X1, but not in X5.
+
+        TODO: Document that specifying a paragraph_embedding_level applies to
+        *all* paragraphs found int the text.
     */
     template<
         typename CPIter,

@@ -354,6 +354,10 @@ namespace boost { namespace text {
             next_word_break);
     }
 
+    // TODO: is_upper() et al are probably broken if they are not
+    // language-aware; they need to pump the state machine in the same way as
+    // to_upper(), etc.
+
     /** Returns true if no code point in [first, last) would change in a call
         to to_upper(), and false otherwise. */
     template<typename CPIter, typename Sentinel>

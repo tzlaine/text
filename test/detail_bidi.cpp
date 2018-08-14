@@ -236,7 +236,7 @@ TEST(detail_bidi, W1)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w1(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -257,7 +257,7 @@ TEST(detail_bidi, W1)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w1(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -275,7 +275,7 @@ TEST(detail_bidi, W1)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w1(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -295,7 +295,7 @@ TEST(detail_bidi, W1)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w1(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -316,7 +316,7 @@ TEST(detail_bidi, W1)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w1(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -345,7 +345,7 @@ TEST(detail_bidi, W2)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w2(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -366,7 +366,7 @@ TEST(detail_bidi, W2)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w2(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -388,7 +388,7 @@ TEST(detail_bidi, W2)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w2(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -409,7 +409,7 @@ TEST(detail_bidi, W2)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w2(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -432,7 +432,7 @@ TEST(detail_bidi, W2)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w2(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -462,7 +462,7 @@ TEST(detail_bidi, W4)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w4(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -485,7 +485,7 @@ TEST(detail_bidi, W4)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w4(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -508,7 +508,7 @@ TEST(detail_bidi, W4)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w4(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -531,7 +531,7 @@ TEST(detail_bidi, W4)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w4(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -554,7 +554,7 @@ TEST(detail_bidi, W4)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w4(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -577,7 +577,7 @@ TEST(detail_bidi, W4)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w4(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -607,7 +607,7 @@ TEST(detail_bidi, W5)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w5(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -630,7 +630,7 @@ TEST(detail_bidi, W5)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w5(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -653,7 +653,7 @@ TEST(detail_bidi, W5)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w5(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -676,7 +676,7 @@ TEST(detail_bidi, W5)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w5(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -699,7 +699,7 @@ TEST(detail_bidi, W5)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w5(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -722,7 +722,7 @@ TEST(detail_bidi, W5)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w5(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -745,7 +745,7 @@ TEST(detail_bidi, W5)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w5(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -768,7 +768,7 @@ TEST(detail_bidi, W5)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w5(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -797,7 +797,7 @@ TEST(detail_bidi, W6)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w6(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -818,7 +818,7 @@ TEST(detail_bidi, W6)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w6(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -841,7 +841,7 @@ TEST(detail_bidi, W6)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w6(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -863,7 +863,7 @@ TEST(detail_bidi, W6)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w6(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -884,7 +884,7 @@ TEST(detail_bidi, W6)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w6(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -905,7 +905,7 @@ TEST(detail_bidi, W6)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w6(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -928,7 +928,7 @@ TEST(detail_bidi, W6)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w6(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -950,7 +950,7 @@ TEST(detail_bidi, W6)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w6(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -970,7 +970,7 @@ TEST(detail_bidi, W6)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w6(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -998,7 +998,7 @@ TEST(detail_bidi, W7)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w7(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -1021,7 +1021,7 @@ TEST(detail_bidi, W7)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w7(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -1045,7 +1045,7 @@ TEST(detail_bidi, W7)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w7(run_sequences[0]);
 
         auto it = run_sequences[0].begin();
@@ -1071,7 +1071,7 @@ TEST(detail_bidi, W7)
         auto run_sequences = find_run_sequences(paes, runs);
         EXPECT_EQ(run_sequences.size(), 1u);
 
-        find_sos_eos(run_sequences, 1); // 1 implies sos==R
+        find_sos_eos(run_sequences, paes, 1); // 1 implies sos==R
         w7(run_sequences[0]);
 
         auto it = run_sequences[0].begin();

@@ -103,41 +103,13 @@ if (LIMIT_TESTING_FOR_CI)
     file(GLOB word_break_tests word_break_00.cpp)
     file(GLOB sentence_break_tests sentence_break_00.cpp)
     file(GLOB line_break_tests line_break_00.cpp)
-    # These are all the failure files.
-#    set(bidi_tests 
-#        bidi_test_096.cpp
-#
-#        bidi_test_291.cpp
-#        bidi_test_290.cpp
-#
-#        bidi_test_302.cpp
-#        bidi_test_336.cpp
-#        bidi_test_338.cpp
-#        bidi_test_349.cpp
-#        bidi_test_355.cpp
-#        bidi_test_356.cpp
-#        bidi_test_396.cpp
-#        bidi_test_397.cpp
-#
-#        bidi_test_406.cpp
-#        bidi_test_407.cpp
-#        bidi_test_408.cpp
-#        bidi_test_412.cpp
-#        bidi_test_413.cpp
-#        bidi_test_447.cpp
-#        bidi_test_464.cpp
-#        bidi_test_465.cpp
-#        bidi_test_479.cpp
-#        bidi_test_480.cpp
-#        bidi_test_481.cpp
-#        bidi_test_491.cpp
-#        bidi_test_497.cpp
-#    )
     file(GLOB normalize_to_nfd_tests normalize_to_nfd_000.cpp)
     file(GLOB normalize_to_nfkd_tests normalize_to_nfkd_000.cpp)
     file(GLOB normalize_to_nfc_tests normalize_to_nfc_000.cpp)
     file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_000.cpp)
     file(GLOB tailoring_rule_tests tailoring_rule_test_gu_standard_000.cpp)
+    file(GLOB bidi_tests bidi_test_000.cpp)
+    file(GLOB bidi_character_tests bidi_character_test_000.cpp)
 else()
     file(GLOB grapheme_break_tests grapheme_break_??.cpp)
     file(GLOB grapheme_iterator_tests grapheme_iterator_??.cpp)
