@@ -265,12 +265,17 @@ namespace boost { namespace text { namespace detail {
          sizeof(T) == 4)>;
 
     template<typename T>
+    using has_deref_and_incr =
+        std::pair<decltype(*std::declval<T>()), decltype(++std::declval<T>())>;
+
+    template<typename T>
     using is_cp_iter = std::integral_constant<
         bool,
         ((std::is_pointer<T>::value &&
           is_code_point<typename std::remove_cv<
               typename std::remove_pointer<T>::type>::type>::value) ||
-         (is_code_point<typename std::remove_cv<
+         (is_detected<has_deref_and_incr, T>::value &&
+          is_code_point<typename std::remove_cv<
               detected_t<value_type_, T>>::type>::value))>;
 
     template<typename T, typename R1, bool R1IsCPRange = is_cp_iter<R1>::value>
