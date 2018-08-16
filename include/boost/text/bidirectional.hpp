@@ -535,7 +535,6 @@ namespace boost { namespace text {
                     pred_it->prop_ == trigger) {
                     from_it->prop_ = replacement;
                 }
-                // TODO: it = from_it; if (it != first)
                 --it;
             }
         }
