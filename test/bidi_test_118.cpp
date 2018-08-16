@@ -9,11 +9,13 @@
 
 
 std::vector<int> expected_levels;
+std::vector<int> expected_reordered_indices;
 
 TEST(bidi, bidi_118_000)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO L PDF FSI; 3 ('auto') (line 118001)
@@ -28,6 +30,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -43,6 +60,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -58,6 +90,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -73,6 +120,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -88,6 +150,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -103,6 +180,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -118,6 +210,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -133,6 +240,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -148,6 +270,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -163,6 +300,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -178,6 +330,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -193,6 +360,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -208,6 +390,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -223,6 +420,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -238,6 +450,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -253,6 +480,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -268,6 +510,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -283,6 +540,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -298,6 +570,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -313,6 +600,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -328,6 +630,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -343,6 +660,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -358,6 +690,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -373,6 +720,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -388,6 +750,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -403,6 +780,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -418,6 +810,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -433,6 +840,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -448,6 +870,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -463,6 +900,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -478,6 +930,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -493,6 +960,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -508,6 +990,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -523,6 +1020,21 @@ TEST(bidi, bidi_118_000)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -530,6 +1042,7 @@ TEST(bidi, bidi_118_001)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO R RLE WS; 2 ('LTR') (line 118026)
@@ -544,6 +1057,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -559,6 +1087,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -574,6 +1117,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -589,6 +1147,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -604,6 +1177,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -619,6 +1207,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -634,6 +1237,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -649,6 +1267,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -664,6 +1297,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -679,6 +1327,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -694,6 +1357,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -709,6 +1387,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -724,6 +1417,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -739,6 +1447,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -754,6 +1477,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -769,6 +1507,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -784,6 +1537,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -799,6 +1567,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -814,6 +1597,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -829,6 +1627,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -844,6 +1657,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -859,6 +1687,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -874,6 +1717,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -889,6 +1747,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -904,6 +1777,21 @@ TEST(bidi, bidi_118_001)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -911,6 +1799,7 @@ TEST(bidi, bidi_118_002)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO R BN S; 2 ('LTR') (line 118051)
@@ -925,6 +1814,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -940,6 +1844,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -955,6 +1874,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -970,6 +1904,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -985,6 +1934,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1000,6 +1964,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1015,6 +1994,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1030,6 +2024,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1045,6 +2054,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1060,6 +2084,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1075,6 +2114,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1090,6 +2144,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1105,6 +2174,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1120,6 +2204,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1135,6 +2234,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1150,6 +2264,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1165,6 +2294,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1180,6 +2324,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1195,6 +2354,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1210,6 +2384,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1225,6 +2414,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1240,6 +2444,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1255,6 +2474,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1270,6 +2504,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1285,6 +2534,21 @@ TEST(bidi, bidi_118_002)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -1292,6 +2556,7 @@ TEST(bidi, bidi_118_003)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO AL RLE FSI; 2 ('LTR') (line 118076)
@@ -1306,6 +2571,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1321,6 +2601,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1336,6 +2631,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1351,6 +2661,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1366,6 +2691,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1381,6 +2721,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1396,6 +2751,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1411,6 +2781,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1426,6 +2811,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1441,6 +2841,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1456,6 +2871,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1471,6 +2901,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1486,6 +2931,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1501,6 +2961,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1516,6 +2991,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1531,6 +3021,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1546,6 +3051,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1561,6 +3081,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1576,6 +3111,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1591,6 +3141,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1606,6 +3171,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1621,6 +3201,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1636,6 +3231,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1651,6 +3261,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1666,6 +3291,21 @@ TEST(bidi, bidi_118_003)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -1673,6 +3313,7 @@ TEST(bidi, bidi_118_004)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO AL BN RLI; 2 ('LTR') (line 118101)
@@ -1687,6 +3328,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1702,6 +3358,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1717,6 +3388,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1732,6 +3418,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1747,6 +3448,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1762,6 +3478,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1777,6 +3508,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1792,6 +3538,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1807,6 +3568,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1822,6 +3598,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1837,6 +3628,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1852,6 +3658,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1867,6 +3688,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1882,6 +3718,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1897,6 +3748,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1912,6 +3778,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1927,6 +3808,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1942,6 +3838,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1957,6 +3868,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1972,6 +3898,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -1987,6 +3928,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2002,6 +3958,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2017,6 +3988,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2032,6 +4018,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2047,6 +4048,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2062,6 +4078,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2077,6 +4108,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2092,6 +4138,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2107,6 +4168,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2122,6 +4198,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2137,6 +4228,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2152,6 +4258,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2167,6 +4288,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2182,6 +4318,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2197,6 +4348,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2212,6 +4378,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2227,6 +4408,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2242,6 +4438,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2257,6 +4468,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2272,6 +4498,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2287,6 +4528,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2302,6 +4558,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2317,6 +4588,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2332,6 +4618,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2347,6 +4648,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2362,6 +4678,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2377,6 +4708,21 @@ TEST(bidi, bidi_118_004)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -2384,6 +4730,7 @@ TEST(bidi, bidi_118_005)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO EN RLO S; 3 ('auto') (line 118126)
@@ -2398,6 +4745,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2413,6 +4775,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2428,6 +4805,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2443,6 +4835,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2458,6 +4865,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2473,6 +4895,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2488,6 +4925,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2503,6 +4955,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2518,6 +4985,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2533,6 +5015,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2548,6 +5045,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2563,6 +5075,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2578,6 +5105,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2593,6 +5135,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2608,6 +5165,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2623,6 +5195,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2638,6 +5225,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2653,6 +5255,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2668,6 +5285,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2683,6 +5315,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2698,6 +5345,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2713,6 +5375,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2728,6 +5405,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2743,6 +5435,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2758,6 +5465,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2773,6 +5495,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2788,6 +5525,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2803,6 +5555,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2818,6 +5585,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2833,6 +5615,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2848,6 +5645,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2863,6 +5675,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2878,6 +5705,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2893,6 +5735,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2908,6 +5765,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2923,6 +5795,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2938,6 +5825,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2953,6 +5855,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2968,6 +5885,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2983,6 +5915,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -2998,6 +5945,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3013,6 +5975,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3028,6 +6005,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3043,6 +6035,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3058,6 +6065,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3073,6 +6095,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3088,6 +6125,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3103,6 +6155,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3118,6 +6185,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3133,6 +6215,21 @@ TEST(bidi, bidi_118_005)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -3140,6 +6237,7 @@ TEST(bidi, bidi_118_006)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO ES LRE B; 3 ('auto') (line 118151)
@@ -3154,6 +6252,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3169,6 +6282,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3184,6 +6312,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3199,6 +6342,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3214,6 +6372,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3229,6 +6402,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3244,6 +6432,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3259,6 +6462,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3274,6 +6492,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3289,6 +6522,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3304,6 +6552,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3319,6 +6582,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3334,6 +6612,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3349,6 +6642,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3364,6 +6672,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3379,6 +6702,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3394,6 +6732,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3409,6 +6762,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3424,6 +6792,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3439,6 +6822,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3454,6 +6852,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3469,6 +6882,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3484,6 +6912,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3499,6 +6942,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3514,6 +6972,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3529,6 +7002,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3544,6 +7032,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3559,6 +7062,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3574,6 +7092,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3589,6 +7122,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3604,6 +7152,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3619,6 +7182,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3634,6 +7212,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3649,6 +7242,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3664,6 +7272,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3679,6 +7302,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3694,6 +7332,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3709,6 +7362,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3724,6 +7392,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3739,6 +7422,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3754,6 +7452,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3769,6 +7482,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3784,6 +7512,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3799,6 +7542,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3814,6 +7572,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3829,6 +7602,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3844,6 +7632,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3859,6 +7662,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3874,6 +7692,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3889,6 +7722,21 @@ TEST(bidi, bidi_118_006)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -3896,6 +7744,7 @@ TEST(bidi, bidi_118_007)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO ES RLO RLI; 3 ('auto') (line 118176)
@@ -3910,6 +7759,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3925,6 +7789,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3940,6 +7819,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3955,6 +7849,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3970,6 +7879,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -3985,6 +7909,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4000,6 +7939,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4015,6 +7969,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4030,6 +7999,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4045,6 +8029,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4060,6 +8059,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4075,6 +8089,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4090,6 +8119,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4105,6 +8149,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4120,6 +8179,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4135,6 +8209,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4150,6 +8239,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4165,6 +8269,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4180,6 +8299,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4195,6 +8329,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4210,6 +8359,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4225,6 +8389,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4240,6 +8419,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4255,6 +8449,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4270,6 +8479,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4285,6 +8509,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4300,6 +8539,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4315,6 +8569,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4330,6 +8599,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4345,6 +8629,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4360,6 +8659,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4375,6 +8689,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4390,6 +8719,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4405,6 +8749,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4420,6 +8779,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4435,6 +8809,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4450,6 +8839,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4465,6 +8869,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4480,6 +8899,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4495,6 +8929,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4510,6 +8959,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4525,6 +8989,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4540,6 +9019,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4555,6 +9049,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4570,6 +9079,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4585,6 +9109,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4600,6 +9139,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4615,6 +9169,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4630,6 +9199,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4645,6 +9229,21 @@ TEST(bidi, bidi_118_007)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -4652,6 +9251,7 @@ TEST(bidi, bidi_118_008)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO ET LRE LRI; 3 ('auto') (line 118201)
@@ -4666,6 +9266,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4681,6 +9296,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4696,6 +9326,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4711,6 +9356,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4726,6 +9386,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4741,6 +9416,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4756,6 +9446,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4771,6 +9476,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4786,6 +9506,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4801,6 +9536,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4816,6 +9566,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4831,6 +9596,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4846,6 +9626,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4861,6 +9656,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4876,6 +9686,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4891,6 +9716,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4906,6 +9746,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4921,6 +9776,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4936,6 +9806,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4951,6 +9836,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4966,6 +9866,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4981,6 +9896,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -4996,6 +9926,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5011,6 +9956,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5026,6 +9986,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5041,6 +10016,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5056,6 +10046,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5071,6 +10076,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5086,6 +10106,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5101,6 +10136,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5116,6 +10166,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5131,6 +10196,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5146,6 +10226,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5161,6 +10256,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5176,6 +10286,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5191,6 +10316,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5206,6 +10346,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5221,6 +10376,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5236,6 +10406,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5251,6 +10436,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5266,6 +10466,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5281,6 +10496,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5296,6 +10526,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5311,6 +10556,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5326,6 +10586,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5341,6 +10616,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5356,6 +10646,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5371,6 +10676,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5386,6 +10706,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5401,6 +10736,21 @@ TEST(bidi, bidi_118_008)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -5408,6 +10758,7 @@ TEST(bidi, bidi_118_009)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO ET PDF L; 3 ('auto') (line 118226)
@@ -5422,6 +10773,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5437,6 +10803,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5452,6 +10833,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5467,6 +10863,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5482,6 +10893,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5497,6 +10923,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5512,6 +10953,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5527,6 +10983,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5542,6 +11013,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5557,6 +11043,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5572,6 +11073,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5587,6 +11103,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5602,6 +11133,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5617,6 +11163,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5632,6 +11193,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5647,6 +11223,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5662,6 +11253,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5677,6 +11283,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5692,6 +11313,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5707,6 +11343,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5722,6 +11373,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5737,6 +11403,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5752,6 +11433,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5767,6 +11463,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5782,6 +11493,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5797,6 +11523,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5812,6 +11553,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5827,6 +11583,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5842,6 +11613,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5857,6 +11643,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5872,6 +11673,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5887,6 +11703,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5902,6 +11733,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5917,6 +11763,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5932,6 +11793,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5947,6 +11823,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5962,6 +11853,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5977,6 +11883,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -5992,6 +11913,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6007,6 +11943,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6022,6 +11973,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6037,6 +12003,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6052,6 +12033,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6067,6 +12063,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6082,6 +12093,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6097,6 +12123,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6112,6 +12153,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6127,6 +12183,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6142,6 +12213,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6157,6 +12243,21 @@ TEST(bidi, bidi_118_009)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -6164,6 +12265,7 @@ TEST(bidi, bidi_118_010)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO AN LRE PDI; 3 ('auto') (line 118251)
@@ -6178,6 +12280,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6193,6 +12310,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6208,6 +12340,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6223,6 +12370,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6238,6 +12400,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6253,6 +12430,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6268,6 +12460,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6283,6 +12490,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6298,6 +12520,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6313,6 +12550,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6328,6 +12580,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6343,6 +12610,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6358,6 +12640,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6373,6 +12670,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6388,6 +12700,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6403,6 +12730,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6418,6 +12760,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6433,6 +12790,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6448,6 +12820,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6463,6 +12850,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6478,6 +12880,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6493,6 +12910,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6508,6 +12940,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6523,6 +12970,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6538,6 +13000,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6553,6 +13030,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6568,6 +13060,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6583,6 +13090,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6598,6 +13120,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6613,6 +13150,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6628,6 +13180,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6643,6 +13210,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6658,6 +13240,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6673,6 +13270,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6688,6 +13300,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6703,6 +13330,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6718,6 +13360,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6733,6 +13390,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6748,6 +13420,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6763,6 +13450,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6778,6 +13480,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6793,6 +13510,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6808,6 +13540,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6823,6 +13570,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6838,6 +13600,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6853,6 +13630,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6868,6 +13660,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6883,6 +13690,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6898,6 +13720,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6913,6 +13750,21 @@ TEST(bidi, bidi_118_010)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -6920,6 +13772,7 @@ TEST(bidi, bidi_118_011)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO AN PDF CS; 3 ('auto') (line 118276)
@@ -6934,6 +13787,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6949,6 +13817,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6964,6 +13847,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6979,6 +13877,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -6994,6 +13907,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7009,6 +13937,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7024,6 +13967,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7039,6 +13997,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7054,6 +14027,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7069,6 +14057,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7084,6 +14087,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7099,6 +14117,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7114,6 +14147,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7129,6 +14177,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7144,6 +14207,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7159,6 +14237,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7174,6 +14267,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7189,6 +14297,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7204,6 +14327,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7219,6 +14357,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7234,6 +14387,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7249,6 +14417,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7264,6 +14447,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7279,6 +14477,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7294,6 +14507,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7309,6 +14537,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7324,6 +14567,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7339,6 +14597,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7354,6 +14627,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7369,6 +14657,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7384,6 +14687,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7399,6 +14717,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7414,6 +14747,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7429,6 +14777,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7444,6 +14807,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7459,6 +14837,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7474,6 +14867,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7489,6 +14897,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7504,6 +14927,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7519,6 +14957,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7534,6 +14987,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7549,6 +15017,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7564,6 +15047,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7579,6 +15077,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7594,6 +15107,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7609,6 +15137,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7624,6 +15167,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7639,6 +15197,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7654,6 +15227,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7669,6 +15257,21 @@ TEST(bidi, bidi_118_011)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -7676,6 +15279,7 @@ TEST(bidi, bidi_118_012)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO CS LRO WS; 3 ('auto') (line 118301)
@@ -7690,6 +15294,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7705,6 +15324,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7720,6 +15354,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7735,6 +15384,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7750,6 +15414,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7765,6 +15444,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7780,6 +15474,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7795,6 +15504,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7810,6 +15534,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7825,6 +15564,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7840,6 +15594,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7855,6 +15624,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7870,6 +15654,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7885,6 +15684,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7900,6 +15714,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7915,6 +15744,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7930,6 +15774,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7945,6 +15804,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7960,6 +15834,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7975,6 +15864,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -7990,6 +15894,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8005,6 +15924,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8020,6 +15954,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8035,6 +15984,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8050,6 +16014,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8065,6 +16044,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8080,6 +16074,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8095,6 +16104,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8110,6 +16134,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8125,6 +16164,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8140,6 +16194,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8155,6 +16224,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8170,6 +16254,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8185,6 +16284,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8200,6 +16314,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8215,6 +16344,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8230,6 +16374,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8245,6 +16404,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8260,6 +16434,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8275,6 +16464,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8290,6 +16494,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8305,6 +16524,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8320,6 +16554,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8335,6 +16584,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8350,6 +16614,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8365,6 +16644,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8380,6 +16674,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8395,6 +16704,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8410,6 +16734,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8425,6 +16764,21 @@ TEST(bidi, bidi_118_012)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -8432,6 +16786,7 @@ TEST(bidi, bidi_118_013)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO CS PDF WS; 3 ('auto') (line 118326)
@@ -8446,6 +16801,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8461,6 +16831,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8476,6 +16861,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8491,6 +16891,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8506,6 +16921,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8521,6 +16951,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8536,6 +16981,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8551,6 +17011,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8566,6 +17041,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8581,6 +17071,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8596,6 +17101,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8611,6 +17131,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8626,6 +17161,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8641,6 +17191,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8656,6 +17221,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8671,6 +17251,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8686,6 +17281,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8701,6 +17311,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8716,6 +17341,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8731,6 +17371,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8746,6 +17401,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8761,6 +17431,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8776,6 +17461,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8791,6 +17491,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8806,6 +17521,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8821,6 +17551,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8836,6 +17581,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8851,6 +17611,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8866,6 +17641,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8881,6 +17671,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8896,6 +17701,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8911,6 +17731,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8926,6 +17761,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8941,6 +17791,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8956,6 +17821,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8971,6 +17851,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -8986,6 +17881,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9001,6 +17911,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9016,6 +17941,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9031,6 +17971,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9046,6 +18001,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9061,6 +18031,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9076,6 +18061,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9091,6 +18091,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9106,6 +18121,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9121,6 +18151,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9136,6 +18181,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9151,6 +18211,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9166,6 +18241,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9181,6 +18271,21 @@ TEST(bidi, bidi_118_013)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -9188,6 +18293,7 @@ TEST(bidi, bidi_118_014)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO NSM LRO FSI; 3 ('auto') (line 118351)
@@ -9202,6 +18308,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9217,6 +18338,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9232,6 +18368,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9247,6 +18398,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9262,6 +18428,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9277,6 +18458,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9292,6 +18488,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9307,6 +18518,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9322,6 +18548,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9337,6 +18578,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9352,6 +18608,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9367,6 +18638,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9382,6 +18668,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9397,6 +18698,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9412,6 +18728,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9427,6 +18758,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9442,6 +18788,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9457,6 +18818,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9472,6 +18848,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9487,6 +18878,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9502,6 +18908,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9517,6 +18938,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9532,6 +18968,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9547,6 +18998,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9562,6 +19028,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9577,6 +19058,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9592,6 +19088,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9607,6 +19118,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9622,6 +19148,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9637,6 +19178,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9652,6 +19208,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9667,6 +19238,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9682,6 +19268,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9697,6 +19298,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9712,6 +19328,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9727,6 +19358,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9742,6 +19388,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9757,6 +19418,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9772,6 +19448,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9787,6 +19478,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9802,6 +19508,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9817,6 +19538,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9832,6 +19568,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9847,6 +19598,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9862,6 +19628,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9877,6 +19658,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9892,6 +19688,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9907,6 +19718,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9922,6 +19748,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9937,6 +19778,21 @@ TEST(bidi, bidi_118_014)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -9944,6 +19800,7 @@ TEST(bidi, bidi_118_015)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO NSM PDF RLI; 3 ('auto') (line 118376)
@@ -9958,6 +19815,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9973,6 +19845,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -9988,6 +19875,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10003,6 +19905,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10018,6 +19935,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10033,6 +19965,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10048,6 +19995,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10063,6 +20025,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10078,6 +20055,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10093,6 +20085,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10108,6 +20115,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10123,6 +20145,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10138,6 +20175,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10153,6 +20205,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10168,6 +20235,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10183,6 +20265,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10198,6 +20295,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10213,6 +20325,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10228,6 +20355,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10243,6 +20385,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10258,6 +20415,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10273,6 +20445,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10288,6 +20475,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10303,6 +20505,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10318,6 +20535,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10333,6 +20565,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10348,6 +20595,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10363,6 +20625,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10378,6 +20655,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10393,6 +20685,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10408,6 +20715,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10423,6 +20745,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10438,6 +20775,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10453,6 +20805,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10468,6 +20835,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10483,6 +20865,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10498,6 +20895,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10513,6 +20925,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10528,6 +20955,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10543,6 +20985,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10558,6 +21015,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10573,6 +21045,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10588,6 +21075,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10603,6 +21105,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10618,6 +21135,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10633,6 +21165,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10648,6 +21195,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10663,6 +21225,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10678,6 +21255,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10693,6 +21285,21 @@ TEST(bidi, bidi_118_015)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -10700,6 +21307,7 @@ TEST(bidi, bidi_118_016)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO ON LRO LRI; 3 ('auto') (line 118401)
@@ -10714,6 +21322,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10729,6 +21352,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10744,6 +21382,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10759,6 +21412,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10774,6 +21442,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10789,6 +21472,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10804,6 +21502,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10819,6 +21532,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10834,6 +21562,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10849,6 +21592,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10864,6 +21622,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10879,6 +21652,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10894,6 +21682,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10909,6 +21712,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10924,6 +21742,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10939,6 +21772,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10954,6 +21802,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10969,6 +21832,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10984,6 +21862,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -10999,6 +21892,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11014,6 +21922,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11029,6 +21952,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11044,6 +21982,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11059,6 +22012,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11074,6 +22042,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11089,6 +22072,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11104,6 +22102,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11119,6 +22132,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11134,6 +22162,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11149,6 +22192,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11164,6 +22222,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11179,6 +22252,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11194,6 +22282,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11209,6 +22312,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11224,6 +22342,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11239,6 +22372,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11254,6 +22402,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11269,6 +22432,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11284,6 +22462,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11299,6 +22492,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11314,6 +22522,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11329,6 +22552,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11344,6 +22582,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11359,6 +22612,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11374,6 +22642,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11389,6 +22672,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11404,6 +22702,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11419,6 +22732,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11434,6 +22762,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11449,6 +22792,21 @@ TEST(bidi, bidi_118_016)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -11456,6 +22814,7 @@ TEST(bidi, bidi_118_017)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // RLO ON PDF ON; 3 ('auto') (line 118426)
@@ -11470,6 +22829,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11485,6 +22859,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11500,6 +22889,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11515,6 +22919,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11530,6 +22949,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11545,6 +22979,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11560,6 +23009,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11575,6 +23039,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11590,6 +23069,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11605,6 +23099,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11620,6 +23129,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11635,6 +23159,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11650,6 +23189,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11665,6 +23219,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11680,6 +23249,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11695,6 +23279,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11710,6 +23309,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11725,6 +23339,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11740,6 +23369,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11755,6 +23399,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11770,6 +23429,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11785,6 +23459,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11800,6 +23489,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11815,6 +23519,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11830,6 +23549,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11845,6 +23579,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11860,6 +23609,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11875,6 +23639,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11890,6 +23669,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11905,6 +23699,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11920,6 +23729,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11935,6 +23759,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11950,6 +23789,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11965,6 +23819,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11980,6 +23849,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -11995,6 +23879,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12010,6 +23909,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12025,6 +23939,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12040,6 +23969,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12055,6 +23999,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12070,6 +24029,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12085,6 +24059,21 @@ TEST(bidi, bidi_118_017)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -12092,6 +24081,7 @@ TEST(bidi, bidi_118_018)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // PDF R LRO S; 2 ('LTR') (line 118451)
@@ -12106,6 +24096,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12121,6 +24126,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12136,6 +24156,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12151,6 +24186,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12166,6 +24216,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12181,6 +24246,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12196,6 +24276,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12211,6 +24306,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12226,6 +24336,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12241,6 +24366,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12256,6 +24396,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12271,6 +24426,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12286,6 +24456,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12301,6 +24486,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12316,6 +24516,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12331,6 +24546,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12346,6 +24576,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12361,6 +24606,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12376,6 +24636,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12391,6 +24666,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12406,6 +24696,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12421,6 +24726,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12436,6 +24756,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12451,6 +24786,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12466,6 +24816,21 @@ TEST(bidi, bidi_118_018)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -12473,6 +24838,7 @@ TEST(bidi, bidi_118_019)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // PDF R PDF S; 2 ('LTR') (line 118476)
@@ -12487,6 +24853,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12502,6 +24883,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12517,6 +24913,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12532,6 +24943,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12547,6 +24973,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12562,6 +25003,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12577,6 +25033,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12592,6 +25063,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12607,6 +25093,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12622,6 +25123,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12637,6 +25153,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12652,6 +25183,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12667,6 +25213,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12682,6 +25243,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12697,6 +25273,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12712,6 +25303,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12727,6 +25333,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12742,6 +25363,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12757,6 +25393,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12772,6 +25423,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12787,6 +25453,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12802,6 +25483,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12817,6 +25513,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12832,6 +25543,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12847,6 +25573,21 @@ TEST(bidi, bidi_118_019)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -12854,6 +25595,7 @@ TEST(bidi, bidi_118_020)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // PDF AL LRE PDI; 2 ('LTR') (line 118501)
@@ -12868,6 +25610,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12883,6 +25640,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12898,6 +25670,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12913,6 +25700,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12928,6 +25730,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12943,6 +25760,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12958,6 +25790,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12973,6 +25820,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -12988,6 +25850,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13003,6 +25880,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13018,6 +25910,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13033,6 +25940,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13048,6 +25970,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13063,6 +26000,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13078,6 +26030,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13093,6 +26060,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13108,6 +26090,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13123,6 +26120,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13138,6 +26150,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13153,6 +26180,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13168,6 +26210,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13183,6 +26240,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13198,6 +26270,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13213,6 +26300,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13228,6 +26330,21 @@ TEST(bidi, bidi_118_020)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -13235,6 +26352,7 @@ TEST(bidi, bidi_118_021)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // PDF AL PDF CS; 2 ('LTR') (line 118526)
@@ -13249,6 +26367,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13264,6 +26397,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13279,6 +26427,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13294,6 +26457,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13309,6 +26487,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13324,6 +26517,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13339,6 +26547,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13354,6 +26577,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13369,6 +26607,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13384,6 +26637,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13399,6 +26667,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13414,6 +26697,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13429,6 +26727,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13444,6 +26757,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13459,6 +26787,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13474,6 +26817,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13489,6 +26847,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13504,6 +26877,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13519,6 +26907,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13534,6 +26937,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13549,6 +26967,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13564,6 +26997,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13579,6 +27027,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13594,6 +27057,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13609,6 +27087,21 @@ TEST(bidi, bidi_118_021)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -13616,6 +27109,7 @@ TEST(bidi, bidi_118_022)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // BN R LRE RLI; 2 ('LTR') (line 118551)
@@ -13630,6 +27124,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13645,6 +27154,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13660,6 +27184,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13675,6 +27214,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13690,6 +27244,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13705,6 +27274,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13720,6 +27304,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13735,6 +27334,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13750,6 +27364,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13765,6 +27394,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13780,6 +27424,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13795,6 +27454,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13810,6 +27484,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13825,6 +27514,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13840,6 +27544,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13855,6 +27574,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13870,6 +27604,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13885,6 +27634,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13900,6 +27664,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13915,6 +27694,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13930,6 +27724,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13945,6 +27754,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13960,6 +27784,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13975,6 +27814,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -13990,6 +27844,21 @@ TEST(bidi, bidi_118_022)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -13997,6 +27866,7 @@ TEST(bidi, bidi_118_023)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // BN R PDF ES; 2 ('LTR') (line 118576)
@@ -14011,6 +27881,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14026,6 +27911,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14041,6 +27941,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14056,6 +27971,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14071,6 +28001,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14086,6 +28031,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14101,6 +28061,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14116,6 +28091,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14131,6 +28121,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14146,6 +28151,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14161,6 +28181,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14176,6 +28211,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14191,6 +28241,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14206,6 +28271,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14221,6 +28301,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14236,6 +28331,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14251,6 +28361,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14266,6 +28391,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14281,6 +28421,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14296,6 +28451,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14311,6 +28481,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14326,6 +28511,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14341,6 +28541,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14356,6 +28571,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14371,6 +28601,21 @@ TEST(bidi, bidi_118_023)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -14378,6 +28623,7 @@ TEST(bidi, bidi_118_024)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // BN AL LRE WS; 2 ('LTR') (line 118601)
@@ -14392,6 +28638,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14407,6 +28668,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14422,6 +28698,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14437,6 +28728,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14452,6 +28758,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14467,6 +28788,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14482,6 +28818,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14497,6 +28848,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14512,6 +28878,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14527,6 +28908,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14542,6 +28938,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14557,6 +28968,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14572,6 +28998,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14587,6 +29028,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14602,6 +29058,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14617,6 +29088,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14632,6 +29118,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14647,6 +29148,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14662,6 +29178,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14677,6 +29208,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14692,6 +29238,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14707,6 +29268,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14722,6 +29298,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14737,6 +29328,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14752,6 +29358,21 @@ TEST(bidi, bidi_118_024)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -14759,6 +29380,7 @@ TEST(bidi, bidi_118_025)
 {
 
     expected_levels = { -1, 1, -1, 0 };
+    expected_reordered_indices = { 1, 3 };
 
     {
         // BN AL RLO PDI; 2 ('LTR') (line 118626)
@@ -14773,6 +29395,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14788,6 +29425,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14803,6 +29455,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14818,6 +29485,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14833,6 +29515,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14848,6 +29545,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14863,6 +29575,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14878,6 +29605,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14893,6 +29635,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14908,6 +29665,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14923,6 +29695,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14938,6 +29725,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14953,6 +29755,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14968,6 +29785,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14983,6 +29815,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -14998,6 +29845,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15013,6 +29875,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15028,6 +29905,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15043,6 +29935,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15058,6 +29965,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15073,6 +29995,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15088,6 +30025,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15103,6 +30055,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15118,6 +30085,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15133,6 +30115,21 @@ TEST(bidi, bidi_118_025)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -15140,6 +30137,7 @@ TEST(bidi, bidi_118_026)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE S LRE B; 4 ('RTL') (line 118656)
@@ -15154,6 +30152,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15169,6 +30182,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15184,6 +30212,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15199,6 +30242,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15214,6 +30272,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15229,6 +30302,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15244,6 +30332,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15259,6 +30362,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15274,6 +30392,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15289,6 +30422,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15304,6 +30452,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15319,6 +30482,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15334,6 +30512,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15349,6 +30542,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15364,6 +30572,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15379,6 +30602,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15394,6 +30632,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15409,6 +30662,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15424,6 +30692,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15439,6 +30722,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15454,6 +30752,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15469,6 +30782,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15484,6 +30812,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15499,6 +30842,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15514,6 +30872,21 @@ TEST(bidi, bidi_118_026)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -15521,6 +30894,7 @@ TEST(bidi, bidi_118_027)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE S RLO RLI; 4 ('RTL') (line 118681)
@@ -15535,6 +30909,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15550,6 +30939,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15565,6 +30969,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15580,6 +30999,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15595,6 +31029,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15610,6 +31059,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15625,6 +31089,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15640,6 +31119,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15655,6 +31149,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15670,6 +31179,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15685,6 +31209,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15700,6 +31239,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15715,6 +31269,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15730,6 +31299,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15745,6 +31329,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15760,6 +31359,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15775,6 +31389,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15790,6 +31419,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15805,6 +31449,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15820,6 +31479,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15835,6 +31509,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15850,6 +31539,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15865,6 +31569,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15880,6 +31599,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15895,6 +31629,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15910,6 +31659,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15925,6 +31689,21 @@ TEST(bidi, bidi_118_027)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -15932,6 +31711,7 @@ TEST(bidi, bidi_118_028)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE WS LRE WS; 4 ('RTL') (line 118706)
@@ -15946,6 +31726,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15961,6 +31756,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15976,6 +31786,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -15991,6 +31816,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16006,6 +31846,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16021,6 +31876,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16036,6 +31906,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16051,6 +31936,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16066,6 +31966,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16081,6 +31996,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16096,6 +32026,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16111,6 +32056,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16126,6 +32086,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16141,6 +32116,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16156,6 +32146,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16171,6 +32176,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16186,6 +32206,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16201,6 +32236,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16216,6 +32266,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16231,6 +32296,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16246,6 +32326,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16261,6 +32356,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16276,6 +32386,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16291,6 +32416,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16306,6 +32446,21 @@ TEST(bidi, bidi_118_028)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -16313,6 +32468,7 @@ TEST(bidi, bidi_118_029)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE WS RLO PDI; 4 ('RTL') (line 118731)
@@ -16327,6 +32483,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16342,6 +32513,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16357,6 +32543,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16372,6 +32573,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16387,6 +32603,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16402,6 +32633,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16417,6 +32663,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16432,6 +32693,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16447,6 +32723,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16462,6 +32753,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16477,6 +32783,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16492,6 +32813,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16507,6 +32843,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16522,6 +32873,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16537,6 +32903,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16552,6 +32933,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16567,6 +32963,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16582,6 +32993,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16597,6 +33023,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16612,6 +33053,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16627,6 +33083,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16642,6 +33113,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16657,6 +33143,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16672,6 +33173,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16687,6 +33203,21 @@ TEST(bidi, bidi_118_029)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -16694,6 +33225,7 @@ TEST(bidi, bidi_118_030)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE LRI LRO LRI; 4 ('RTL') (line 118756)
@@ -16708,6 +33240,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16723,6 +33270,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16738,6 +33300,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16753,6 +33330,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16768,6 +33360,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16783,6 +33390,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16798,6 +33420,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16813,6 +33450,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16828,6 +33480,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16843,6 +33510,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16858,6 +33540,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16873,6 +33570,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16888,6 +33600,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16903,6 +33630,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16918,6 +33660,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16933,6 +33690,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16948,6 +33720,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16963,6 +33750,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16978,6 +33780,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -16993,6 +33810,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17008,6 +33840,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17023,6 +33870,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17038,6 +33900,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17053,6 +33930,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17068,6 +33960,21 @@ TEST(bidi, bidi_118_030)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -17075,6 +33982,7 @@ TEST(bidi, bidi_118_031)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE LRI BN B; 4 ('RTL') (line 118781)
@@ -17089,6 +33997,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17104,6 +34027,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17119,6 +34057,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17134,6 +34087,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17149,6 +34117,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17164,6 +34147,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17179,6 +34177,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17194,6 +34207,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17209,6 +34237,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17224,6 +34267,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17239,6 +34297,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17254,6 +34327,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17269,6 +34357,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17284,6 +34387,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17299,6 +34417,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17314,6 +34447,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17329,6 +34477,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17344,6 +34507,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17359,6 +34537,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17374,6 +34567,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17389,6 +34597,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17404,6 +34627,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17419,6 +34657,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17434,6 +34687,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17449,6 +34717,21 @@ TEST(bidi, bidi_118_031)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -17456,6 +34739,7 @@ TEST(bidi, bidi_118_032)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE RLI RLE RLI; 4 ('RTL') (line 118806)
@@ -17470,6 +34754,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17485,6 +34784,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17500,6 +34814,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17515,6 +34844,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17530,6 +34874,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17545,6 +34904,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17560,6 +34934,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17575,6 +34964,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17590,6 +34994,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17605,6 +35024,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17620,6 +35054,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17635,6 +35084,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17650,6 +35114,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17665,6 +35144,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17680,6 +35174,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17695,6 +35204,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17710,6 +35234,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17725,6 +35264,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17740,6 +35294,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17755,6 +35324,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17770,6 +35354,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17785,6 +35384,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17800,6 +35414,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17815,6 +35444,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17830,6 +35474,21 @@ TEST(bidi, bidi_118_032)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -17837,6 +35496,7 @@ TEST(bidi, bidi_118_033)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE FSI LRE S; 4 ('RTL') (line 118831)
@@ -17851,6 +35511,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17866,6 +35541,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17881,6 +35571,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17896,6 +35601,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17911,6 +35631,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17926,6 +35661,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17941,6 +35691,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17956,6 +35721,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17971,6 +35751,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -17986,6 +35781,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18001,6 +35811,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18016,6 +35841,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18031,6 +35871,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18046,6 +35901,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18061,6 +35931,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18076,6 +35961,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18091,6 +35991,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18106,6 +36021,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18121,6 +36051,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18136,6 +36081,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18151,6 +36111,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18166,6 +36141,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18181,6 +36171,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18196,6 +36201,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18211,6 +36231,21 @@ TEST(bidi, bidi_118_033)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -18218,6 +36253,7 @@ TEST(bidi, bidi_118_034)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE FSI RLO FSI; 4 ('RTL') (line 118856)
@@ -18232,6 +36268,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18247,6 +36298,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18262,6 +36328,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18277,6 +36358,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18292,6 +36388,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18307,6 +36418,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18322,6 +36448,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18337,6 +36478,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18352,6 +36508,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18367,6 +36538,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18382,6 +36568,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18397,6 +36598,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18412,6 +36628,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18427,6 +36658,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18442,6 +36688,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18457,6 +36718,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18472,6 +36748,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18487,6 +36778,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18502,6 +36808,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18517,6 +36838,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18532,6 +36868,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18547,6 +36898,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18562,6 +36928,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18577,6 +36958,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18592,6 +36988,21 @@ TEST(bidi, bidi_118_034)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -18599,6 +37010,7 @@ TEST(bidi, bidi_118_035)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE PDI LRO WS; 4 ('RTL') (line 118881)
@@ -18613,6 +37025,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18628,6 +37055,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18643,6 +37085,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18658,6 +37115,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18673,6 +37145,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18688,6 +37175,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18703,6 +37205,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18718,6 +37235,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18733,6 +37265,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18748,6 +37295,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18763,6 +37325,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18778,6 +37355,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18793,6 +37385,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18808,6 +37415,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18823,6 +37445,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18838,6 +37475,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18853,6 +37505,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18868,6 +37535,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18883,6 +37565,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18898,6 +37595,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18913,6 +37625,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18928,6 +37655,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18943,6 +37685,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18958,6 +37715,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -18973,6 +37745,21 @@ TEST(bidi, bidi_118_035)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -18980,6 +37767,7 @@ TEST(bidi, bidi_118_036)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRE PDI PDF PDI; 4 ('RTL') (line 118906)
@@ -18994,6 +37782,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19009,6 +37812,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19024,6 +37842,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19039,6 +37872,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19054,6 +37902,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19069,6 +37932,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19084,6 +37962,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19099,6 +37992,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19114,6 +38022,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19129,6 +38052,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19144,6 +38082,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19159,6 +38112,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19174,6 +38142,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19189,6 +38172,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19204,6 +38202,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19219,6 +38232,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19234,6 +38262,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19249,6 +38292,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19264,6 +38322,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19279,6 +38352,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19294,6 +38382,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19309,6 +38412,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19324,6 +38442,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19339,6 +38472,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19354,6 +38502,21 @@ TEST(bidi, bidi_118_036)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -19361,6 +38524,7 @@ TEST(bidi, bidi_118_037)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRO S RLE LRI; 4 ('RTL') (line 118931)
@@ -19375,6 +38539,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19390,6 +38569,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19405,6 +38599,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19420,6 +38629,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19435,6 +38659,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19450,6 +38689,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19465,6 +38719,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19480,6 +38749,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19495,6 +38779,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19510,6 +38809,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19525,6 +38839,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19540,6 +38869,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19555,6 +38899,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19570,6 +38929,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19585,6 +38959,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19600,6 +38989,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19615,6 +39019,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19630,6 +39049,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19645,6 +39079,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19660,6 +39109,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19675,6 +39139,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19690,6 +39169,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19705,6 +39199,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19720,6 +39229,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19735,6 +39259,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19750,6 +39289,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19765,6 +39319,21 @@ TEST(bidi, bidi_118_037)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -19772,6 +39341,7 @@ TEST(bidi, bidi_118_038)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRO S BN S; 4 ('RTL') (line 118956)
@@ -19786,6 +39356,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19801,6 +39386,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19816,6 +39416,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19831,6 +39446,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19846,6 +39476,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19861,6 +39506,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19876,6 +39536,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19891,6 +39566,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19906,6 +39596,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19921,6 +39626,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19936,6 +39656,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19951,6 +39686,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19966,6 +39716,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19981,6 +39746,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -19996,6 +39776,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20011,6 +39806,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20026,6 +39836,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20041,6 +39866,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20056,6 +39896,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20071,6 +39926,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20086,6 +39956,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20101,6 +39986,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20116,6 +40016,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20131,6 +40046,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20146,6 +40076,21 @@ TEST(bidi, bidi_118_038)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 }
 
@@ -20153,6 +40098,7 @@ TEST(bidi, bidi_118_039)
 {
 
     expected_levels = { -1, 1, -1, 1 };
+    expected_reordered_indices = { 3, 1 };
 
     {
         // LRO WS RLE FSI; 4 ('RTL') (line 118981)
@@ -20167,6 +40113,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20182,6 +40143,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20197,6 +40173,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20212,6 +40203,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20227,6 +40233,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20242,6 +40263,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20257,6 +40293,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20272,6 +40323,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20287,6 +40353,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20302,6 +40383,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20317,6 +40413,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20332,6 +40443,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20347,6 +40473,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20362,6 +40503,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20377,6 +40533,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20392,6 +40563,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20407,6 +40593,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20422,6 +40623,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20437,6 +40653,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
     {
@@ -20452,6 +40683,21 @@ TEST(bidi, bidi_118_039)
             }
         }
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+        i = 0;
+        for (int idx : expected_reordered_indices) {
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
     }
 
 }

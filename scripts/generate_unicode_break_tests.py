@@ -76,6 +76,7 @@ bidi_test_file_form = decls = '''\
 
 
 std::vector<int> expected_levels;
+std::vector<int> expected_reordered_indices;
 
 TEST(bidi, bidi_{1:03}_000)
 {{
@@ -98,6 +99,21 @@ bidi_test_form = '''
             }}
         }}
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), {4});
+        i = 0;
+        for (int idx : expected_reordered_indices) {{
+            // Skip FSI, LRI, RLI, and PDI.
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {{
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }}
+            ++i;
+        }}
     }}
 '''
 
@@ -124,7 +140,8 @@ bidi_character_test_form = '''
     {{
         // line {4}
         std::vector<uint32_t> const cps = {{ {0} }};
-        std::vector<int> const expected_levels = {{ {2} }};
+        std::vector<int> const expected_levels =
+            {{ {2} }};
         std::vector<int> const levels =
             bidi_levels(&*cps.begin(), &*cps.end(), {1});
         int i = 0;
@@ -135,6 +152,20 @@ bidi_character_test_form = '''
             }}
         }}
         EXPECT_EQ((int)levels.size(), i);
+
+        std::vector<uint32_t> const expected_reordered_indices =
+            {{ {3} }};
+        std::vector<int> const reordered =
+            bidi_reordered_indices(&*cps.begin(), &*cps.end(), {1});
+        i = 0;
+        for (int idx : expected_reordered_indices) {{
+            EXPECT_EQ(reordered[i], cps[idx])
+                << std::hex
+                << " 0x" << reordered[i]
+                << " 0x" << cps[idx]
+                << std::dec << " i=" << i;
+            ++i;
+        }}
     }}
 '''
 
@@ -452,13 +483,6 @@ def generate_bidi_tests(filename, batch_size):
                 curr_levels = line[len('@Levels:'):].strip().split(' ')
             elif line.startswith('@Reorder:'):
                 curr_reorder = line[len('@Reorder:'):].strip().split(' ')
-                lvl_i = 0
-                rdr_i = 0
-                while lvl_i < len(curr_levels):
-                    if curr_levels[lvl_i] == 'x':
-                        curr_reorder = curr_reorder[0:rdr_i] + ['x'] + curr_reorder[rdr_i:]
-                    lvl_i += 1
-                    rdr_i += 1
             elif line.startswith('@'):
                 pass
             else:
@@ -496,9 +520,11 @@ TEST(bidi, bidi_{:03}_{:03})
                 continue
             if test[1] != curr_levels:
                 levels = ', '.join(map(lambda x: x == 'x' and '-1' or x, test[1]))
+                indices = ', '.join(test[2])
                 tests += '''
     expected_levels = {{ {} }};
-'''.format(levels)
+    expected_reordered_indices = {{ {} }};
+'''.format(levels, indices)
                 curr_levels = test[1]
             cps = ', '.join(map(lambda x: bidi_property_cps[x], test[0]))
             if test[3]['auto']:
@@ -559,7 +585,8 @@ TEST(bidi_character, bidi_character_{:03}_{:03})
             tests += bidi_character_test_form.format(
                 ', '.join(map(lambda x: '0x' + x, test[0])), test[1],
                 ', '.join(map(lambda x: x == 'x' and '-1' or x, test[2])),
-                ', '.join(test[3]), test[4]
+                ', '.join(test[3]),
+                test[4]
             )
         cpp_file.write(bidi_character_test_file_form.format(tests, i))
         i += 1
