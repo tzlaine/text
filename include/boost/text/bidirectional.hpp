@@ -460,16 +460,6 @@ namespace boost { namespace text {
             props_and_embeddings_t<CPIter> & paes,
             int paragraph_embedding_level)
         {
-#if 0
-            std::cout << "find_sos_eos:\n";
-            for (auto rs : run_sequences) {
-                std::cout << "run seq (embedding=" << rs.embedding_ << "):\n";
-                for (auto pae : rs) {
-                    std::cout << pae << "\n";
-                }
-            }
-            std::cout << std::endl;
-#endif
             if (run_sequences.empty())
                 return;
 
@@ -488,13 +478,7 @@ namespace boost { namespace text {
                 auto next_embedding = paragraph_embedding_level;
                 auto const run_seq_back_pae_it =
                     std::prev(it->runs_.back().end());
-#if 0
-                auto const back_pae = *run_seq_back_pae_it;
-                std::cout << "back_pae=" << back_pae << "\n";
-                std::cout << "isolate_initiator(run_seq_back_pae_it->prop_)="
-                          << isolate_initiator(run_seq_back_pae_it->prop_)
-                          << "\n";
-#endif
+
                 if (!isolate_initiator(run_seq_back_pae_it->prop_) ||
                     has_matching_pdi(run_seq_back_pae_it, paes.end())) {
                     auto const next_it = it->runs_.back().end();
@@ -537,14 +521,6 @@ namespace boost { namespace text {
             bidi_property trigger,
             bidi_property replacement) noexcept
         {
-#if 0
-            std::cout << "line:" << __LINE__ << "\n";
-            std::cout << "sos=" << seq.sos_ << "\n";
-            for (auto it = seq.begin(), end = seq.end(); it != end; ++it) {
-                std::cout << *it << "\n";
-            }
-            std::cout << std::endl;
-#endif
             auto en = [](prop_and_embedding_t<CPIter> pae) {
                 return pae.prop_ == bidi_property::EN;
             };
@@ -558,9 +534,6 @@ namespace boost { namespace text {
                 if ((pred_it == from_it && seq.sos_ == trigger) ||
                     pred_it->prop_ == trigger) {
                     from_it->prop_ = replacement;
-#if 0
-                    std::cout << "replacing!\n";
-#endif
                 }
                 // TODO: it = from_it; if (it != first)
                 --it;
@@ -873,21 +846,12 @@ namespace boost { namespace text {
                     transform_end,
                     pair.last_,
                     set_prop<CPIter>(prop));
-#if 0
-                std::cout << "transforming "
-                          << std::distance(pair.last_, transform_end)
-                          << " elements to " << prop << "\n";
-#endif
             };
 
             auto strong = [](bidi_property prop) {
                 return prop == bidi_property::L || prop == bidi_property::R ||
                        prop == bidi_property::AN || prop == bidi_property::EN;
             };
-
-#if 0
-            std::cout << "N0\n";
-#endif
 
             auto bracket_it = bracket_pairs.begin();
             for (auto it = seq.begin(), end = seq.end();
@@ -903,9 +867,6 @@ namespace boost { namespace text {
                         pair.last_,
                         [&seq, &strong_found, strong](
                             prop_and_embedding_t<CPIter> pae) {
-#if 0
-                            std::cout << "examining " << pae << "\n";
-#endif
                             bool const strong_ = strong(pae.prop_);
                             if (!strong_)
                                 return false;
@@ -920,9 +881,6 @@ namespace boost { namespace text {
                                               ? bidi_property::L
                                               : bidi_property::R;
                         set_props(pair, seq.end(), prop);
-#if 0
-                        std::cout << "N0 b\n";
-#endif
                     } else if (strong_found) {
                         auto const prev_strong_embedding =
                             prev_strong_prop == bidi_property::L ? 0 : 1;
@@ -932,18 +890,12 @@ namespace boost { namespace text {
                                                   ? bidi_property::R
                                                   : bidi_property::L;
                             set_props(pair, seq.end(), prop);
-#if 0
-                            std::cout << "N0 c1\n";
-#endif
                         } else {
                             // https://unicode.org/reports/tr9/#N0 c2
                             auto const prop = even(seq.embedding_)
                                                   ? bidi_property::L
                                                   : bidi_property::R;
                             set_props(pair, seq.end(), prop);
-#if 0
-                            std::cout << "N0 c2\n";
-#endif
                         }
                         // https://unicode.org/reports/tr9/#N0 d (do nothing)
                     }
@@ -962,20 +914,6 @@ namespace boost { namespace text {
                 return pae.prop_;
             };
 
-#if 0
-            std::cout << "N1\n"
-                      << "seq size=" << std::distance(seq.begin(), seq.end())
-                      << "\n";
-            std::cout << std::hex;
-            std::cout << "sos=" << seq.sos_ << "\n";
-            for (auto x : seq) {
-                std::cout << x << "\n";
-            }
-            std::cout << "eos=" << seq.eos_ << "\n";
-            std::cout << std::dec;
-            std::cout << "\n";
-#endif
-
             using iter_t = decltype(seq.begin());
             foreach_subrange_if(
                 seq.begin(),
@@ -989,21 +927,8 @@ namespace boost { namespace text {
                     if (r.end() != seq.end())
                         next_prop = num_to_r(*r.end());
 
-#if 0
-                    std::cout << "r size=" << std::distance(r.begin(), r.end())
-                              << "\n";
-                    std::cout << std::hex;
-                    for (auto x : r) {
-                        std::cout << x << "\n";
-                    }
-                    std::cout << std::dec;
-#endif
-
                     if (prev_prop == bidi_property::L &&
                         next_prop == bidi_property::L) {
-#if 0
-                        std::cout << "n1 changing NIs to bidi_property::L\n";
-#endif
                         std::transform(
                             r.begin(),
                             r.end(),
@@ -1012,21 +937,12 @@ namespace boost { namespace text {
                     } else if (
                         prev_prop == bidi_property::R &&
                         next_prop == bidi_property::R) {
-#if 0
-                        std::cout << "n1 changing NIs to bidi_property::R\n";
-#endif
                         std::transform(
                             r.begin(),
                             r.end(),
                             r.begin(),
                             set_prop<CPIter>(bidi_property::R));
                     }
-#if 0
-                    else {
-                        std::cout << "no change; prev_prop=" << prev_prop
-                                  << " and next_prop=" << next_prop << "\n";
-                    }
-#endif
                 });
         }
 
@@ -1041,13 +957,8 @@ namespace boost { namespace text {
                 seq.end(),
                 seq.begin(),
                 [seq_embedding_prop](prop_and_embedding_t<CPIter> pae) {
-                    if (neutral_or_isolate(pae)) {
-#if 0
-                        std::cout << "n2 changing " << pae.prop_ << " to "
-                                  << seq_embedding_prop << "\n";
-#endif
+                    if (neutral_or_isolate(pae))
                         pae.prop_ = seq_embedding_prop;
-                    }
                     return pae;
                 });
         }
@@ -1091,14 +1002,6 @@ namespace boost { namespace text {
                 }
             }
 
-#if 0
-            std::cout << "line:\n";
-            for (auto it = line.begin(), end = line.end(); it != end; ++it) {
-                std::cout << it.it_->prop_ << "\n";
-            }
-            std::cout << std::endl;
-#endif
-
             // L1.3, L1.4
             using iter_t = decltype(line.begin().it_);
             auto const last = line.end().it_;
@@ -1115,30 +1018,13 @@ namespace boost { namespace text {
                 },
                 [paragraph_embedding_level,
                  last](foreach_subrange_range<iter_t> r) {
-#if 0
-                    std::cout << "subrange:\n";
-                    for (auto pae : r) {
-                        std::cout << pae << "\n";
-                    }
-                    std::cout << std::endl;
-#endif
-
-
                     bool reset = r.end() == last;
                     if (!reset) {
                         auto const original_next_prop =
                             boost::text::bidi_prop(r.end()->cp());
                         reset = original_next_prop == bidi_property::S ||
                                 original_next_prop == bidi_property::B;
-#if 0
-                        std::cout << "original_next_prop=" << original_next_prop
-                                  << "\n";
-#endif
                     }
-#if 0
-                    else
-                        std::cout << "subrange at end\n";
-#endif
 
                     if (reset) {
                         std::transform(
@@ -1147,9 +1033,6 @@ namespace boost { namespace text {
                             r.begin(),
                             [paragraph_embedding_level](
                                 prop_and_embedding_t<CPIter> pae) {
-#if 0
-                                std::cout << "resetting to pel\n";
-#endif
                                 pae.embedding_ = paragraph_embedding_level;
                                 return pae;
                             });
@@ -1627,10 +1510,6 @@ namespace boost { namespace text {
                 if (paragraph_embedding_level < 0)
                     paragraph_embedding_level = p2_p3(para_first, para_last);
 
-#if 0
-                std::cout << "initial pel=" << paragraph_embedding_level << "\n";
-#endif
-
                 // https://unicode.org/reports/tr9/#X1
                 stack_t stack;
                 stack.push(bidi_state_t{paragraph_embedding_level,
@@ -1708,20 +1587,12 @@ namespace boost { namespace text {
                         // https://unicode.org/reports/tr9/#X5c
                         if (p2_p3(std::next(it), matching_pdi(it, para_last)) ==
                             1) {
-#if 0
-                            std::cout << "fsi pel=" << p2_p3(it, para_last)
-                                      << " (x5a)\n";
-#endif
                             x5a(stack,
                                 props_and_embeddings,
                                 overflow_isolates,
                                 overflow_embedding,
                                 valid_isolates);
                         } else {
-#if 0
-                            std::cout << "fsi pel=" << p2_p3(it, para_last)
-                                      << " (x5b)\n";
-#endif
                             x5b(stack,
                                 props_and_embeddings,
                                 overflow_isolates,
@@ -1776,14 +1647,6 @@ namespace boost { namespace text {
                         prop_from_top(stack, props_and_embeddings);
                         break;
                     }
-
-#if 0
-                    std::cout << "after X8 (line " << __LINE__ << ")\n";
-                    for (auto pae : props_and_embeddings) {
-                        std::cout << pae << "\n";
-                    }
-                    std::cout << std::endl;
-#endif
                 }
 
                 // https://unicode.org/reports/tr9/#X9
@@ -1801,14 +1664,6 @@ namespace boost { namespace text {
                         }),
                     props_and_embeddings.end());
 
-#if 0
-                std::cout << "after X9 (line " << __LINE__ << ")\n";
-                for (auto pae : props_and_embeddings) {
-                    std::cout << pae << "\n";
-                }
-                std::cout << std::endl;
-#endif
-
                 // https://unicode.org/reports/tr9/#X10
                 auto all_runs = find_all_runs<CPIter>(
                     props_and_embeddings.begin(),
@@ -1816,14 +1671,6 @@ namespace boost { namespace text {
                     false);
                 auto run_sequences =
                     find_run_sequences(props_and_embeddings, all_runs);
-
-#if 0
-                std::cout << "after X10 (line " << __LINE__ << ")\n";
-                for (auto pae : props_and_embeddings) {
-                    std::cout << pae << "\n";
-                }
-                std::cout << std::endl;
-#endif
 
                 find_sos_eos(
                     run_sequences,
@@ -1838,50 +1685,13 @@ namespace boost { namespace text {
                     w6(run_sequence);
                     w7(run_sequence);
 
-#if 0
-                    std::cout << "after W7 (line " << __LINE__ << ")\n";
-                    for (auto pae : props_and_embeddings) {
-                        std::cout << pae << "\n";
-                    }
-                    std::cout << std::endl;
-#endif
-
                     auto const bracket_pairs = find_bracket_pairs(run_sequence);
                     n0(run_sequence, bracket_pairs);
-#if 0
-                    std::cout << "after N0 (line " << __LINE__ << ")\n";
-                    for (auto pae : props_and_embeddings) {
-                        std::cout << pae << "\n";
-                    }
-                    std::cout << std::endl;
-#endif
                     n1(run_sequence);
-#if 0
-                    std::cout << "after N1 (line " << __LINE__ << ")\n";
-                    for (auto pae : props_and_embeddings) {
-                        std::cout << pae << "\n";
-                    }
-                    std::cout << std::endl;
-#endif
                     n2(run_sequence);
 
-#if 0
-                    std::cout << "after N2 (line " << __LINE__ << ")\n";
-                    for (auto pae : props_and_embeddings) {
-                        std::cout << pae << "\n";
-                    }
-                    std::cout << std::endl;
-#endif
                     i1_i2(run_sequence);
                 }
-
-#if 0
-                std::cout << "after I2 (line " << __LINE__ << ")\n";
-                for (auto pae : props_and_embeddings) {
-                    std::cout << pae << "\n";
-                }
-                std::cout << std::endl;
-#endif
 
                 out = emit(
                     props_and_embeddings,
