@@ -1358,6 +1358,59 @@ namespace boost { namespace text {
             Impl impl_;
         };
 
+        template<typename CPIter>
+        void l3(reordered_runs_t<CPIter> & reordered_runs)
+        {
+            using pae_cp_iterator = props_and_embeddings_cp_iterator<CPIter>;
+
+            auto reorderd_runs_it = reordered_runs.begin();
+            auto const reorderd_runs_last = reordered_runs.end();
+            while (reorderd_runs_it != reorderd_runs_last) {
+                if (reorderd_runs_it->reversed()) {
+                    reordered_runs_t<CPIter> local_reordered_runs;
+                    auto pae_it = reorderd_runs_it->begin();
+
+                    for (auto grapheme : graphemes(
+                             pae_cp_iterator{reorderd_runs_it->begin()},
+                             pae_cp_iterator{reorderd_runs_it->end()})) {
+                        if (1 < std::distance(
+                                    grapheme.begin().base(),
+                                    grapheme.end().base())) {
+                            if (pae_it != grapheme.begin().base()) {
+                                local_reordered_runs.push_back(
+                                    reordered_run<CPIter>{
+                                        pae_it, grapheme.begin().base(), true});
+                            }
+                            local_reordered_runs.push_back(
+                                reordered_run<CPIter>{grapheme.begin().base(),
+                                                      grapheme.end().base(),
+                                                      false});
+                        }
+                    }
+
+                    if (pae_it != reorderd_runs_it->end()) {
+                        local_reordered_runs.push_back(reordered_run<CPIter>{
+                            pae_it, reorderd_runs_it->end(), true});
+                    }
+
+                    if (1u < local_reordered_runs.size()) {
+                        ++reorderd_runs_it;
+                    } else {
+                        reorderd_runs_it =
+                            reordered_runs.erase(reorderd_runs_it);
+                        reorderd_runs_it = reordered_runs.insert(
+                            reorderd_runs_it,
+                            local_reordered_runs.begin(),
+                            local_reordered_runs.end());
+                        std::advance(
+                            reorderd_runs_it, local_reordered_runs.size());
+                    }
+                } else {
+                    ++reorderd_runs_it;
+                }
+            }
+        }
+
         template<typename CPIter, typename OutIter, typename NextLineBreakFunc>
         OutIter emit_bidi_subranges(
             props_and_embeddings_t<CPIter> & props_and_embeddings,
@@ -1391,6 +1444,8 @@ namespace boost { namespace text {
                     line.begin().base(), line.end().base(), true);
                 auto reordered_runs = l2(all_runs);
 
+                l3(reordered_runs);
+
                 // Output the reordered subranges.
                 for (auto run : reordered_runs) {
                     auto const cp_first = run.begin()->it_;
@@ -1399,24 +1454,12 @@ namespace boost { namespace text {
                             ? cp_first
                             : std::next(std::prev(run.end())->it_);
                     if (run.reversed()) {
-                    // TODO: l3(line); // l3() reverses each sequence of {ccc=0
-                    // followed by ccc!=0} that falls within an odd sequence.
-
-#if 1
-                        auto out_value = bidirectional_subrange<CPIter>{
-                            boost::text::detail::make_reverse_iterator(cp_last),
-                            boost::text::detail::make_reverse_iterator(
-                                cp_first)};
-                        *out = out_value;
-                        ++out;
-#else
                         // https://unicode.org/reports/tr9/#L4
 
                         auto out_value = bidirectional_subrange<CPIter>{
-                            boost::text::detail::make_reverse_iterator(
-                                run.end()->it_),
-                            boost::text::detail::make_reverse_iterator(
-                                run.begin()->it_)};
+                            text::detail::make_reverse_iterator(cp_last),
+                            text::detail::make_reverse_iterator(cp_first)};
+
                         auto out_first = out_value.begin();
                         auto out_last = out_value.end();
 
@@ -1465,7 +1508,6 @@ namespace boost { namespace text {
                             *out = out_value;
                             ++out;
                         }
-#endif
                     } else {
                         auto out_value =
                             bidirectional_subrange<CPIter>{cp_first, cp_last};
