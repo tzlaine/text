@@ -1827,6 +1827,8 @@ namespace boost { namespace text {
 
         TODO: Document that results will not contain RLE, LRE, RLO, LRO, PDF,
         BN, FSI, LRI, RLI, and PDI
+
+        TODO: Document that empty ranges are produced to indicate line breaks.
     */
     template<
         typename CPIter,
