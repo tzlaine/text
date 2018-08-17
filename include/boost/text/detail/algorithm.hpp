@@ -4,6 +4,7 @@
 #include <boost/text/detail/iterator.hpp>
 
 #include <type_traits>
+#include <utility>
 
 #include <cassert>
 
