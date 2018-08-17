@@ -48,7 +48,7 @@ inline std::vector<int> bidi_levels(
                 detail::l1(line, paragraph_embedding_level);
                 for (auto it = line.begin(), end = line.end(); it != end;
                      ++it) {
-                    *out = it.it_->embedding_;
+                    *out = it.base()->embedding_;
                     ++out;
                 }
             }
@@ -105,7 +105,7 @@ inline std::vector<int> bidi_reordered_indices(
 
                 // https://unicode.org/reports/tr9/#L2
                 all_runs = detail::find_all_runs<str_iter_t>(
-                    line.begin().it_, line.end().it_, true);
+                    line.begin().base(), line.end().base(), true);
                 auto reordered_runs = detail::l2(all_runs);
 
                 // Output the reordered subranges.

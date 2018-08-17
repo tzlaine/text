@@ -114,6 +114,23 @@ bidi_test_form = '''
             }}
             ++i;
         }}
+
+        std::vector<int> reordered_2;
+        boost::text::bidirectional_transform(
+            cps, std::back_inserter(reordered_2),
+            boost::text::next_hard_line_break_callable{{}}, {4});
+        i = 0;
+        for (int idx : expected_reordered_indices) {{
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {{
+                EXPECT_EQ(reordered_2[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered_2[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }}
+            ++i;
+        }}
+        EXPECT_EQ(i, (int)reordered_2.size());
     }}
 '''
 
@@ -610,6 +627,6 @@ generate_break_tests_2(sentence_cps_and_breaks, 'sentence')
 line_cps_and_breaks = extract_cps_and_breaks('LineBreakTest.txt', 100)
 generate_break_tests_2(line_cps_and_breaks, 'line', 'possible_', '.iter')
 
-generate_bidi_tests('BidiTest.txt', 1000)
+generate_bidi_tests('BidiTest.txt', 700)
 
 generate_bidi_character_tests('BidiCharacterTest.txt', 1000)
