@@ -699,6 +699,66 @@ TEST(break_apis, line_break_sentinel)
         }
         EXPECT_EQ(i, line_bounds.size());
     }
+
+
+
+    // TODO
+#if 0
+    {
+        auto const _80_column_lines =
+            boost::text::lines(begin, end, 80, [](uint32_t cp) { return 1; });
+
+        std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 3}}};
+
+        int i = 0;
+        for (auto line : _80_column_lines) {
+            EXPECT_EQ(std::distance(begin, line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(begin, line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
+    }
+    {
+        auto const _2_column_lines =
+            boost::text::lines(begin, end, 2, [](uint32_t cp) { return 1; });
+
+        std::array<std::pair<int, int>, 2> const line_bounds = {
+            {{0, 2}, {2, 3}}};
+
+        int i = 0;
+        for (auto line : _2_column_lines) {
+            EXPECT_EQ(std::distance(begin, line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(begin, line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
+    }
+        // TODO: Other break cases.
+        // TODO: Overlong lines case.
+#if 0
+    // Range API
+    {
+        auto const all_lines = boost::text::possible_lines(cp_range);
+
+        std::array<std::pair<int, int>, 2> const line_bounds = {
+            {{0, 2}, {2, 3}}};
+
+        int i = 0;
+        for (auto line : all_lines) {
+            EXPECT_EQ(std::distance(begin, line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(begin, line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
+    }
+#endif
+#endif
 }
 
 TEST(break_apis, paragraph_break)

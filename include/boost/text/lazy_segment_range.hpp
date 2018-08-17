@@ -47,6 +47,7 @@ namespace boost { namespace text {
             CPIter prev_;
             CPIter it_;
             Sentinel last_;
+            NextFunc * next_;
 
         public:
             using value_type = CPRange;
@@ -55,16 +56,20 @@ namespace boost { namespace text {
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::forward_iterator_tag;
 
-            const_lazy_segment_iterator(CPIter it, Sentinel last) noexcept :
+            const_lazy_segment_iterator(
+                CPIter it, Sentinel last, NextFunc & next) noexcept :
                 prev_(it),
                 it_(NextFunc{}(it, last)),
-                last_(last)
+                last_(last),
+                next_(&next)
             {}
 
-            const_lazy_segment_iterator(Sentinel last) noexcept :
+            const_lazy_segment_iterator(
+                Sentinel last, NextFunc & next) noexcept :
                 prev_(),
                 it_(),
-                last_(last)
+                last_(last),
+                next_(&next)
             {}
 
             reference operator*() const noexcept

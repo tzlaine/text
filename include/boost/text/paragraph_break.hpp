@@ -126,7 +126,8 @@ namespace boost { namespace text {
         detail::next_paragraph_callable<CPIter, Sentinel>>
     paragraphs(CPIter first, Sentinel last) noexcept
     {
-        return {{first, last}, {last}};
+        detail::next_paragraph_callable<CPIter, Sentinel> next;
+        return {{first, last, next}, {last, next}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting paragraphs in
@@ -139,7 +140,12 @@ namespace boost { namespace text {
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        return {{std::begin(range), std::end(range)}, {std::end(range)}};
+        detail::next_paragraph_callable<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>>
+            next;
+        return {{std::begin(range), std::end(range), next},
+                {std::end(range), next}};
     }
 
 }}
