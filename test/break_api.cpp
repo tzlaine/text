@@ -778,18 +778,43 @@ TEST(break_apis, line_break_sentinel)
         EXPECT_EQ(i, line_bounds.size());
     }
 
-        // TODO: Other break cases.
-        // TODO: More overlong lines cases.
-#if 0
-    // Range API
+    // Exercise detail::skip_forward() code.
     {
-        auto const all_lines = boost::text::possible_lines(cp_range);
+        // × 0024 × 0308 × 0020 ÷ 002D ÷
+        // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HYPHEN-MINUS (HY) ÷ [0.3]
+    }
 
-        std::array<std::pair<int, int>, 2> const line_bounds = {
-            {{0, 2}, {2, 3}}};
+    // Exercise detail::skip_forward_spaces_between() code.
+    {
+        // LB13/LB16
+        // × 007D × 0020 × 17D6 ÷ 0061 ÷
+        // × [0.3] RIGHT CURLY BRACKET (CL) × [7.01] SPACE (SP) × [16.0] KHMER SIGN CAMNUC PII KUUH (NS) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
+
+        // LB14
+        // × 0028 × 0020 × FFFC ÷ 0061 ÷
+        // × [0.3] LEFT PARENTHESIS (OP) × [7.01] SPACE (SP) × [14.0] OBJECT REPLACEMENT CHARACTER (CB) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
+
+        // LB15
+        // × 0061 × 006D × 0062 × 0069 × 0067 × 0075 × 0028 × 00AB × 0020 ÷ 0308 × 0020 ÷ 00BB × 0029 ÷ 0028 × 0065 × 0308 × 0029 ÷
+        // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [7.01] SPACE (SP) ÷ [18.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
+
+        // LB16
+        // × 2014 × 0020 × 2014 ÷ 0061 ÷
+        // × [0.3] EM DASH (B2) × [7.01] SPACE (SP) × [17.0] EM DASH (B2) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
+    }
+
+    // TODO: More overlong checks, using the LB15 string above.
+
+    // Range API
+    // 80 columns -> don't take the possible break in the middle.
+    {
+        auto const _80_column_lines =
+            boost::text::lines(cp_range, 80, [](uint32_t cp) { return 1; });
+
+        std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 3}}};
 
         int i = 0;
-        for (auto line : all_lines) {
+        for (auto line : _80_column_lines) {
             EXPECT_EQ(std::distance(begin, line.begin()), line_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(std::distance(begin, line.end()), line_bounds[i].second)
@@ -798,7 +823,6 @@ TEST(break_apis, line_break_sentinel)
         }
         EXPECT_EQ(i, line_bounds.size());
     }
-#endif
 }
 
 TEST(break_apis, paragraph_break)

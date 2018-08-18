@@ -1453,27 +1453,30 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         break will end in a possible break that does not exceed max_extent,
         using the code point extents derived from CPExtentFunc.  When a line
         has no possible breaks before it would exceed max_extent, if will be
-        broken only if break_overlong_lines is true. */
+        broken only if break_overlong_lines is true.  If break_overlong_lines
+        is false, such an unbreakable line will exceed max_extent. */
     template<
         typename CPIter,
         typename Sentinel,
         typename Extent,
         typename CPExtentFunc>
-    lazy_segment_range<
-        line_break_result<CPIter>,
-        Sentinel,
-        detail::next_possible_line_break_within_extent_callable<
-            line_break_result<CPIter>,
-            Sentinel,
-            Extent,
-            CPExtentFunc>,
-        line_break_cp_range<CPIter>>
-    lines(
+    auto lines(
         CPIter first,
         Sentinel last,
         Extent max_extent,
         CPExtentFunc && cp_extent,
         bool break_overlong_lines = true) noexcept
+        -> detail::cp_iter_ret_t<
+            lazy_segment_range<
+                line_break_result<CPIter>,
+                Sentinel,
+                detail::next_possible_line_break_within_extent_callable<
+                    line_break_result<CPIter>,
+                    Sentinel,
+                    Extent,
+                    CPExtentFunc>,
+                line_break_cp_range<CPIter>>,
+            CPIter>
     {
         detail::next_possible_line_break_within_extent_callable<
             line_break_result<CPIter>,
@@ -1486,7 +1489,41 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             {last}};
     }
 
-    // TODO: Range overload of the above.
+    /** Returns a lazy range of the code point ranges in range delimiting lines.
+       A line that does not end in a hard break will end in a possible break
+       that does not exceed max_extent, using the code point extents derived
+       from CPExtentFunc.  When a line has no possible breaks before it would
+       exceed max_extent, if will be broken only if break_overlong_lines is
+       true.  If break_overlong_lines is false, such an unbreakable line will
+       exceed max_extent. */
+    template<typename CPRange, typename Extent, typename CPExtentFunc>
+    auto lines(
+        CPRange & range,
+        Extent max_extent,
+        CPExtentFunc && cp_extent,
+        bool break_overlong_lines = true) noexcept
+        -> lazy_segment_range<
+            line_break_result<detail::iterator_t<CPRange>>,
+            detail::sentinel_t<CPRange>,
+            detail::next_possible_line_break_within_extent_callable<
+                line_break_result<detail::iterator_t<CPRange>>,
+                detail::sentinel_t<CPRange>,
+                Extent,
+                CPExtentFunc>,
+            line_break_cp_range<detail::iterator_t<CPRange>>>
+    {
+        detail::next_possible_line_break_within_extent_callable<
+            line_break_result<detail::iterator_t<CPRange>>,
+            detail::sentinel_t<CPRange>,
+            Extent,
+            CPExtentFunc>
+            next{max_extent, cp_extent, break_overlong_lines};
+        return {{line_break_result<detail::iterator_t<CPRange>>{
+                     std::begin(range), false},
+                 std::end(range),
+                 std::move(next)},
+                {std::end(range)}};
+    }
 
     /** Returns the bounds of the smallest chunk of text that could be broken
         off into a line, searching from <code>it</code> in either
