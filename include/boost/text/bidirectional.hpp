@@ -1422,6 +1422,11 @@ namespace boost { namespace text {
 
             all_runs_t<CPIter> all_runs;
 
+            next_line_break_t<
+                NextLineBreakFunc,
+                line_break_result<pae_cp_iterator>,
+                pae_cp_iterator>
+                next;
             lazy_segment_range<
                 line_break_result<pae_cp_iterator>,
                 pae_cp_iterator,
@@ -1433,7 +1438,8 @@ namespace boost { namespace text {
                 lines{
                     {line_break_result<pae_cp_iterator>{
                          pae_cp_iterator{props_and_embeddings.begin()}, false},
-                     pae_cp_iterator{props_and_embeddings.end()}},
+                     pae_cp_iterator{props_and_embeddings.end()},
+                     next},
                     {pae_cp_iterator{props_and_embeddings.end()}}};
 
             for (auto line : lines) {

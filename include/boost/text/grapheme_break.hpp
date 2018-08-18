@@ -404,7 +404,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     graphemes(CPIter first, Sentinel last) noexcept
     {
         detail::next_grapheme_callable<CPIter, Sentinel> next;
-        return {{first, last, next}, {last, next}};
+        return {{first, last, next}, {last}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
@@ -421,8 +421,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>
             next;
-        return {{std::begin(range), std::end(range), next},
-                {std::end(range), next}};
+        return {{std::begin(range), std::end(range), next}, {std::end(range)}};
     }
 
 }}

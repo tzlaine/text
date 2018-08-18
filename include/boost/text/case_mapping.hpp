@@ -277,8 +277,9 @@ namespace boost { namespace text {
         Sentinel last,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
+        NextWordBreakFunc next;
         lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
-            {first, last}, {last}};
+            {first, last, next}, {last}};
         for (auto r : words) {
             auto it = r.begin();
             if (detail::changes_when_titled(*it))
@@ -316,8 +317,9 @@ namespace boost { namespace text {
         case_language lang = case_language::other,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
     {
+        NextWordBreakFunc next;
         lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
-            {it, last}, {last}};
+            {it, last, next}, {last}};
 
         for (auto r : words) {
             out = map_case(

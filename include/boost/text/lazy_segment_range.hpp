@@ -44,10 +44,10 @@ namespace boost { namespace text {
         struct const_lazy_segment_iterator
         {
         private:
+            NextFunc * next_func_;
             CPIter prev_;
             CPIter it_;
             Sentinel last_;
-            NextFunc * next_;
 
         public:
             using value_type = CPRange;
@@ -58,18 +58,17 @@ namespace boost { namespace text {
 
             const_lazy_segment_iterator(
                 CPIter it, Sentinel last, NextFunc & next) noexcept :
+                next_func_(&next),
                 prev_(it),
-                it_(NextFunc{}(it, last)),
-                last_(last),
-                next_(&next)
+                it_((*next_func_)(it, last)),
+                last_(last)
             {}
 
-            const_lazy_segment_iterator(
-                Sentinel last, NextFunc & next) noexcept :
+            const_lazy_segment_iterator(Sentinel last) noexcept :
+                next_func_(nullptr),
                 prev_(),
                 it_(),
-                last_(last),
-                next_(&next)
+                last_(last)
             {}
 
             reference operator*() const noexcept
@@ -81,7 +80,7 @@ namespace boost { namespace text {
 
             const_lazy_segment_iterator & operator++() noexcept
             {
-                auto const next_it = NextFunc{}(it_, last_);
+                auto const next_it = (*next_func_)(it_, last_);
                 prev_ = it_;
                 it_ = next_it;
                 return *this;

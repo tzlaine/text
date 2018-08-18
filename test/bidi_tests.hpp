@@ -21,7 +21,7 @@ inline std::vector<int> bidi_levels(
         paragraph_embedding_level,
         [](detail::props_and_embeddings_t<str_iter_t> & props_and_embeddings,
            int paragraph_embedding_level,
-           next_hard_line_break_callable & next_line_break,
+           next_hard_line_break_callable &,
            std::back_insert_iterator<std::vector<int>> out) {
 
             // Do L1, but not the rest of the line-based processing, to get
@@ -30,6 +30,11 @@ inline std::vector<int> bidi_levels(
             using pae_cp_iterator =
                 detail::props_and_embeddings_cp_iterator<str_iter_t>;
 
+            detail::next_line_break_t<
+                next_hard_line_break_callable,
+                line_break_result<pae_cp_iterator>,
+                pae_cp_iterator>
+                next;
             lazy_segment_range<
                 line_break_result<pae_cp_iterator>,
                 pae_cp_iterator,
@@ -41,7 +46,8 @@ inline std::vector<int> bidi_levels(
                 lines{
                     {line_break_result<pae_cp_iterator>{
                          pae_cp_iterator{props_and_embeddings.begin()}, false},
-                     pae_cp_iterator{props_and_embeddings.end()}},
+                     pae_cp_iterator{props_and_embeddings.end()},
+                     next},
                     {pae_cp_iterator{props_and_embeddings.end()}}};
 
             for (auto line : lines) {
@@ -75,7 +81,7 @@ inline std::vector<int> bidi_reordered_indices(
         paragraph_embedding_level,
         [](detail::props_and_embeddings_t<str_iter_t> & props_and_embeddings,
            int paragraph_embedding_level,
-           next_hard_line_break_callable & next_line_break,
+           next_hard_line_break_callable &,
            bidirectional_subrange_copy_iterator<
                std::back_insert_iterator<std::vector<int>>> out) {
 
@@ -86,6 +92,11 @@ inline std::vector<int> bidi_reordered_indices(
 
             detail::all_runs_t<str_iter_t> all_runs;
 
+            detail::next_line_break_t<
+                next_hard_line_break_callable,
+                line_break_result<pae_cp_iterator>,
+                pae_cp_iterator>
+                next;
             lazy_segment_range<
                 line_break_result<pae_cp_iterator>,
                 pae_cp_iterator,
@@ -97,7 +108,8 @@ inline std::vector<int> bidi_reordered_indices(
                 lines{
                     {line_break_result<pae_cp_iterator>{
                          pae_cp_iterator{props_and_embeddings.begin()}, false},
-                     pae_cp_iterator{props_and_embeddings.end()}},
+                     pae_cp_iterator{props_and_embeddings.end()},
+                     next},
                     {pae_cp_iterator{props_and_embeddings.end()}}};
 
             for (auto line : lines) {
