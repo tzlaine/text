@@ -85,12 +85,6 @@ namespace boost { namespace text {
                 it_ = next_it;
                 return *this;
             }
-            const_lazy_segment_iterator operator++(int)noexcept
-            {
-                auto const retval = *this;
-                ++*this;
-                return retval;
-            }
 
             friend bool operator==(
                 const_lazy_segment_iterator lhs,
