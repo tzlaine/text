@@ -694,7 +694,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     words(CPIter first, Sentinel last) noexcept
     {
         detail::next_word_callable<CPIter, Sentinel> next;
-        return {{first, last, next}, {last}};
+        return {{first, last, std::move(next)}, {last}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting words in
@@ -711,7 +711,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>
             next;
-        return {{std::begin(range), std::end(range), next}, {std::end(range)}};
+        return {{std::begin(range), std::end(range), std::move(next)},
+                {std::end(range)}};
     }
 
 }}

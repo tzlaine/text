@@ -279,7 +279,7 @@ namespace boost { namespace text {
     {
         NextWordBreakFunc next;
         lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
-            {first, last, next}, {last}};
+            {first, last, std::move(next)}, {last}};
         for (auto r : words) {
             auto it = r.begin();
             if (detail::changes_when_titled(*it))
@@ -319,7 +319,7 @@ namespace boost { namespace text {
     {
         NextWordBreakFunc next;
         lazy_segment_range<CPIter, Sentinel, NextWordBreakFunc> words{
-            {it, last, next}, {last}};
+            {it, last, std::move(next)}, {last}};
 
         for (auto r : words) {
             out = map_case(

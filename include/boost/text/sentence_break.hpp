@@ -679,7 +679,7 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     sentences(CPIter first, Sentinel last) noexcept
     {
         detail::next_sentence_callable<CPIter, Sentinel> next;
-        return {{first, last, next}, {last}};
+        return {{first, last, std::move(next)}, {last}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
@@ -696,7 +696,8 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>
             next;
-        return {{std::begin(range), std::end(range), next}, {std::end(range)}};
+        return {{std::begin(range), std::end(range), std::move(next)},
+                {std::end(range)}};
     }
 
 }}

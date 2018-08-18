@@ -4,8 +4,11 @@
 #include <boost/text/algorithm.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
+#include <boost/optional.hpp>
+
 #include <algorithm>
 #include <array>
+#include <numeric>
 
 #include <cassert>
 #include <stdint.h>
@@ -355,6 +358,20 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             }
             return state;
         }
+
+        template<typename Extent>
+        struct scoped_next_extent
+        {
+            scoped_next_extent(Extent & extent, Extent & next_extent) :
+                extent_(extent),
+                next_extent_(next_extent)
+            {}
+            ~scoped_next_extent() { extent_ += next_extent_; }
+
+        private:
+            Extent & extent_;
+            Extent & next_extent_;
+        };
 
         template<typename CPIter>
         struct scoped_emoji_state
@@ -801,6 +818,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             return result_t{first, false};
         }
 
+        // TODO: This should actually take an iterator pair, so that the width
+        // of CP sequences like Emoji or whatever can be handled properly.
         template<typename CPIter, typename Extent>
         struct no_op_cp_extent
         {
@@ -822,8 +841,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         {
             using result_t = line_break_result<CPIter>;
 
-            // TODO: Use extent, etc.
-
             if (first == last)
                 return result_t{first, true};
 
@@ -844,11 +861,37 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                                     ? line_break_emoji_state_t::first_emoji
                                     : line_break_emoji_state_t::none;
 
+            Extent extent = cp_extent(*first);
+
+            optional<result_t> latest_result;
+
+            auto exceeds = [max_extent, &extent](Extent next_cp_extent) {
+                return max_extent < extent + next_cp_extent;
+            };
+
+            auto update_extents =
+                [&cp_extent, &extent, last](
+                    CPIter initial_it, CPIter it, Extent & next_cp_extent) {
+                    if (it != initial_it) {
+                        auto const f = std::next(initial_it);
+                        auto const l = std::next(it);
+                        extent = std::accumulate(f, l, Extent{});
+                        next_cp_extent = l == last ? Extent{} : cp_extent(*l);
+                    }
+                };
+
             for (; state.it != last; state = next(state)) {
-                if (std::next(state.it) != last)
+                auto next_cp_extent = Extent{};
+
+                if (std::next(state.it) != last) {
                     state.next_prop = line_prop(*std::next(state.it));
-                else
+                    next_cp_extent = cp_extent(*std::next(state.it));
+                } else {
                     state.next_prop = line_property::AL;
+                }
+
+                scoped_next_extent<Extent> next_extent_setter(
+                    extent, next_cp_extent);
 
                 scoped_emoji_state<CPIter> emoji_state_setter(state);
 
@@ -890,6 +933,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 if (lb6(state.prop))
                     continue;
 
+                if (break_overlong_lines &&
+                    (extent == max_extent || exceeds(next_cp_extent))) {
+                    return result_t{state.it, false};
+                }
+
                 // LB7
                 // Even though a space means no break, we need to defer our
                 // early return until after we've seen if the space will be
@@ -899,8 +947,15 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     continue;
 
                 // LB8
-                if (state.prev_prop == line_property::ZW && !lb7_space)
-                    return result_t{state.it, false};
+                if (state.prev_prop == line_property::ZW && !lb7_space) {
+                    auto const result = result_t{state.it, false};
+                    auto const exceeds_ = exceeds(next_cp_extent);
+                    if ((exceeds_ && !latest_result) || extent == max_extent)
+                        return result;
+                    if (exceeds_)
+                        return *latest_result;
+                    latest_result = result;
+                }
                 if (state.prev_prop == line_property::ZW &&
                     state.prop == line_property::SP) {
                     auto it = find_if_not(state.it, last, [](uint32_t cp) {
@@ -909,8 +964,17 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     if (it == last)
                         return result_t{it, true};
                     auto const prop = line_prop(*it);
-                    if (!lb6(prop) && prop != line_property::ZW)
-                        return result_t{it, false};
+                    if (!lb6(prop) && prop != line_property::ZW) {
+                        auto const result = result_t{it, false};
+                        auto const exceeds_ = exceeds(next_cp_extent);
+                        if ((exceeds_ && !latest_result) ||
+                            extent == max_extent) {
+                            return result;
+                        }
+                        if (exceeds_)
+                            return *latest_result;
+                        latest_result = result;
+                    }
                 }
 
                 // LB8a
@@ -925,9 +989,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 // Puting this here means not having to do it explicitly below
                 // between prop and next_prop (and transitively, between
                 // prev_prop and prop).
-                state = skip_forward(state, first, last);
-                if (state.it == last)
-                    return result_t{state.it, true};
+                {
+                    auto const initial_it = state.it;
+                    state = skip_forward(state, first, last);
+                    if (state.it == last)
+                        return result_t{state.it, true};
+                    update_extents(initial_it, state.it, next_cp_extent);
+                }
 
                 // LB10
                 // Inexplicably, implementing this (as required in TR14)
@@ -988,8 +1056,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
                         if (new_state.it == last)
                             return result_t{new_state.it, true};
-                        if (new_state.it != next_state.it)
+                        if (new_state.it != next_state.it) {
+                            update_extents(
+                                state.it, new_state.it, next_cp_extent);
                             state = new_state;
+                        }
                     }
                     continue;
                 }
@@ -1023,7 +1094,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                         },
                         [](line_property prop) { return true; });
                     if (new_state.it != state.it) {
+                        auto const initial_it = state.it;
                         state = prev(new_state);
+                        update_extents(initial_it, state.it, next_cp_extent);
                         continue;
                     }
                 }
@@ -1042,6 +1115,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     if (new_state.it == last)
                         return result_t{new_state.it, true};
                     if (new_state.it != state.it) {
+                        update_extents(state.it, new_state.it, next_cp_extent);
                         state = new_state;
                         continue;
                     }
@@ -1063,6 +1137,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     if (new_state.it == last)
                         return result_t{new_state.it, true};
                     if (new_state.it != state.it) {
+                        update_extents(state.it, new_state.it, next_cp_extent);
                         state = new_state;
                         continue;
                     }
@@ -1082,6 +1157,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     if (new_state.it == last)
                         return result_t{new_state.it, true};
                     if (new_state.it != state.it) {
+                        update_extents(state.it, new_state.it, next_cp_extent);
                         state = new_state;
                         continue;
                     }
@@ -1122,8 +1198,15 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     state.emoji_state = line_break_emoji_state_t::first_emoji;
                 }
 
-                if (table_line_break(state.prev_prop, state.prop))
-                    return result_t{state.it, false};
+                if (table_line_break(state.prev_prop, state.prop)) {
+                    auto const result = result_t{state.it, false};
+                    auto const exceeds_ = exceeds(next_cp_extent);
+                    if ((exceeds_ && !latest_result) || extent == max_extent)
+                        return result;
+                    if (exceeds_)
+                        return *latest_result;
+                    latest_result = result;
+                }
             }
 
             return result_t{state.it, false};
@@ -1166,7 +1249,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         detail::no_op_cp_extent<CPIter, int> no_op;
-        return detail::next_line_break_impl(first, last, true, -1, no_op, false)
+        return detail::next_line_break_impl(first, last, true, 0, no_op, false)
             .iter;
     }
 
@@ -1181,7 +1264,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     {
         detail::no_op_cp_extent<CPIter, int> no_op;
         return detail::next_line_break_impl(
-            first, last, false, -1, no_op, false);
+            first, last, false, 0, no_op, false);
     }
 
     /** Finds the nearest hard line break at or before before <code>it</code>.
@@ -1260,6 +1343,21 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             typename CPExtentFunc>
         struct next_possible_line_break_within_extent_callable
         {
+            next_possible_line_break_within_extent_callable() :
+                extent_(),
+                cp_extent_(nullptr),
+                break_overlong_lines_(true)
+            {}
+
+            next_possible_line_break_within_extent_callable(
+                Extent extent,
+                CPExtentFunc & cp_extent,
+                bool break_overlong_lines) :
+                extent_(extent),
+                cp_extent_(&cp_extent),
+                break_overlong_lines_(break_overlong_lines)
+            {}
+
             BreakResult operator()(BreakResult result, Sentinel last) noexcept
             {
                 return detail::next_line_break_impl(
@@ -1271,6 +1369,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     break_overlong_lines_);
             }
 
+        private:
             Extent extent_;
             CPExtentFunc * cp_extent_;
             bool break_overlong_lines_;
@@ -1306,7 +1405,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     lines(CPIter first, Sentinel last) noexcept
     {
         detail::next_hard_line_break_callable<CPIter, Sentinel> next;
-        return {{first, last, next}, {last}};
+        return {{first, last, std::move(next)}, {last}};
     }
 
     /** Returns a lazy range of the code point ranges (using hard line breaks)
@@ -1323,7 +1422,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>
             next;
-        return {{std::begin(range), std::end(range), next}, {std::end(range)}};
+        return {{std::begin(range), std::end(range), std::move(next)},
+                {std::end(range)}};
     }
 
     /** A range of code points elements that delimit a pair of line break
@@ -1380,8 +1480,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             Sentinel,
             Extent,
             CPExtentFunc>
-            next{max_extent, &cp_extent, break_overlong_lines};
-        return {{line_break_result<CPIter>{first, false}, last, next}, {last}};
+            next{max_extent, cp_extent, break_overlong_lines};
+        return {
+            {line_break_result<CPIter>{first, false}, last, std::move(next)},
+            {last}};
     }
 
     // TODO: Range overload of the above.
@@ -1427,7 +1529,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_result<CPIter>,
             Sentinel>
             next;
-        return {{line_break_result<CPIter>{first, false}, last, next}, {last}};
+        return {
+            {line_break_result<CPIter>{first, false}, last, std::move(next)},
+            {last}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting possible
@@ -1448,7 +1552,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return {{line_break_result<detail::iterator_t<CPRange>>{
                      std::begin(range), false},
                  std::end(range),
-                 next},
+                 std::move(next)},
                 {std::end(range)}};
     }
 

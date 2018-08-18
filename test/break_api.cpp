@@ -701,9 +701,7 @@ TEST(break_apis, line_break_sentinel)
     }
 
 
-
-    // TODO
-#if 0
+    // 80 columns -> don't take the possible break in the middle.
     {
         auto const _80_column_lines =
             boost::text::lines(begin, end, 80, [](uint32_t cp) { return 1; });
@@ -720,6 +718,8 @@ TEST(break_apis, line_break_sentinel)
         }
         EXPECT_EQ(i, line_bounds.size());
     }
+
+    // 2 columns -> take the possible break in the middle.
     {
         auto const _2_column_lines =
             boost::text::lines(begin, end, 2, [](uint32_t cp) { return 1; });
@@ -737,8 +737,49 @@ TEST(break_apis, line_break_sentinel)
         }
         EXPECT_EQ(i, line_bounds.size());
     }
+
+    // 1 column -> break after every character, since overlong sequences are
+    // broken by default.
+    {
+        auto const _1_column_lines =
+            boost::text::lines(begin, end, 1, [](uint32_t cp) { return 1; });
+
+        std::array<std::pair<int, int>, 3> const line_bounds = {
+            {{0, 1}, {1, 2}, {2, 3}}};
+
+        int i = 0;
+        for (auto line : _1_column_lines) {
+            EXPECT_EQ(std::distance(begin, line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(begin, line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
+    }
+
+    // 1 column -> ignore the overlong lines, and so only take the possible
+    // break in the middle.
+    {
+        auto const _1_column_lines = boost::text::lines(
+            begin, end, 1, [](uint32_t cp) { return 1; }, false);
+
+        std::array<std::pair<int, int>, 2> const line_bounds = {
+            {{0, 2}, {2, 3}}};
+
+        int i = 0;
+        for (auto line : _1_column_lines) {
+            EXPECT_EQ(std::distance(begin, line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(std::distance(begin, line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
+    }
+
         // TODO: Other break cases.
-        // TODO: Overlong lines case.
+        // TODO: More overlong lines cases.
 #if 0
     // Range API
     {
@@ -757,7 +798,6 @@ TEST(break_apis, line_break_sentinel)
         }
         EXPECT_EQ(i, line_bounds.size());
     }
-#endif
 #endif
 }
 
