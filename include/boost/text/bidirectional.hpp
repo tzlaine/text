@@ -1320,8 +1320,12 @@ namespace boost { namespace text {
         {}
 #ifndef BOOST_TEXT_DOXYGEN
         bidirectional_subrange(detail::bidi_line_break_kind kind) noexcept :
+            first_(),
+            last_(first_),
             break_(kind)
-        {}
+        {
+            assert(empty());
+        }
 #endif
 
         bool line_break() const noexcept
