@@ -701,10 +701,14 @@ TEST(break_apis, line_break_sentinel)
     }
 
 
+    using begin_t = decltype(begin);
+
     // 80 columns -> don't take the possible break in the middle.
     {
         auto const _80_column_lines =
-            boost::text::lines(begin, end, 80, [](uint32_t cp) { return 1; });
+            boost::text::lines(begin, end, 80, [](begin_t it, begin_t last) {
+                return distance(it, last);
+            });
 
         std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 3}}};
 
@@ -722,7 +726,9 @@ TEST(break_apis, line_break_sentinel)
     // 2 columns -> take the possible break in the middle.
     {
         auto const _2_column_lines =
-            boost::text::lines(begin, end, 2, [](uint32_t cp) { return 1; });
+            boost::text::lines(begin, end, 2, [](begin_t it, begin_t last) {
+                return distance(it, last);
+            });
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -742,7 +748,9 @@ TEST(break_apis, line_break_sentinel)
     // broken by default.
     {
         auto const _1_column_lines =
-            boost::text::lines(begin, end, 1, [](uint32_t cp) { return 1; });
+            boost::text::lines(begin, end, 1, [](begin_t it, begin_t last) {
+                return distance(it, last);
+            });
 
         std::array<std::pair<int, int>, 3> const line_bounds = {
             {{0, 1}, {1, 2}, {2, 3}}};
@@ -762,7 +770,11 @@ TEST(break_apis, line_break_sentinel)
     // break in the middle.
     {
         auto const _1_column_lines = boost::text::lines(
-            begin, end, 1, [](uint32_t cp) { return 1; }, false);
+            begin,
+            end,
+            1,
+            [](begin_t it, begin_t last) { return distance(it, last); },
+            false);
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -778,10 +790,35 @@ TEST(break_apis, line_break_sentinel)
         EXPECT_EQ(i, line_bounds.size());
     }
 
+    std::array<uint32_t, 17> lb15_cps = {{0x0061, 0x006D, 0x0062, 0x0069, 0x0067, 0x0075, 0x0028, 0x00AB, 0x0020, 0x0308, 0x0020, 0x00BB, 0x0029, 0x0028, 0x0065, 0x0308, 0x0029}};
+
     // Exercise detail::skip_forward() code.
     {
-        // × 0024 × 0308 × 0020 ÷ 002D ÷
-        // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HYPHEN-MINUS (HY) ÷ [0.3]
+        // × 0024 × 0308 × 0020 ÷ 002D ÷ 0061 ÷
+        // × [0.3] DOLLAR SIGN (PR) × [9.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] HYPHEN-MINUS (HY) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
+        std::array<uint32_t, 5> cps = {{0x0024, 0x0308, 0x0020, 0x002D, 0x0061}};
+
+        using cp_iter_t = decltype(cps)::iterator;
+        auto const _5_column_lines =
+            boost::text::lines(cps, 5, [](cp_iter_t it, cp_iter_t last) {
+                return std::distance(it, last);
+            });
+
+        // The first break opportunity is skipped due to the 5-column line
+        // width.
+        std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 5}}};
+
+        int i = 0;
+        for (auto line : _5_column_lines) {
+            EXPECT_EQ(
+                std::distance(cps.begin(), line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(cps.begin(), line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
     }
 
     // Exercise detail::skip_forward_spaces_between() code.
@@ -789,27 +826,191 @@ TEST(break_apis, line_break_sentinel)
         // LB13/LB16
         // × 007D × 0020 × 17D6 ÷ 0061 ÷
         // × [0.3] RIGHT CURLY BRACKET (CL) × [7.01] SPACE (SP) × [16.0] KHMER SIGN CAMNUC PII KUUH (NS) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
+        std::array<uint32_t, 4> cps = {{0x007D, 0x0020, 0x17D6, 0x0061}};
 
+        using cp_iter_t = decltype(cps)::iterator;
+        auto const _4_column_lines =
+            boost::text::lines(cps, 4, [](cp_iter_t it, cp_iter_t last) {
+                return std::distance(it, last);
+            });
+
+        // The first break opportunity is skipped due to the 4-column line
+        // width.
+        std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 4}}};
+
+        int i = 0;
+        for (auto line : _4_column_lines) {
+            EXPECT_EQ(
+                std::distance(cps.begin(), line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(cps.begin(), line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
+    }
+    {
         // LB14
         // × 0028 × 0020 × FFFC ÷ 0061 ÷
         // × [0.3] LEFT PARENTHESIS (OP) × [7.01] SPACE (SP) × [14.0] OBJECT REPLACEMENT CHARACTER (CB) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
+        std::array<uint32_t, 4> cps = {{0x0028, 0x0020, 0xFFFC, 0x0061}};
 
+        using cp_iter_t = decltype(cps)::iterator;
+        auto const _4_column_lines =
+            boost::text::lines(cps, 4, [](cp_iter_t it, cp_iter_t last) {
+                return std::distance(it, last);
+            });
+
+        // The first break opportunity is skipped due to the 4-column line
+        // width.
+        std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 4}}};
+
+        int i = 0;
+        for (auto line : _4_column_lines) {
+            EXPECT_EQ(
+                std::distance(cps.begin(), line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(cps.begin(), line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
+    }
+    {
         // LB15
         // × 0061 × 006D × 0062 × 0069 × 0067 × 0075 × 0028 × 00AB × 0020 ÷ 0308 × 0020 ÷ 00BB × 0029 ÷ 0028 × 0065 × 0308 × 0029 ÷
         // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [7.01] SPACE (SP) ÷ [18.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
 
+        using cp_iter_t = decltype(lb15_cps)::iterator;
+        auto const _17_column_lines =
+            boost::text::lines(lb15_cps, 17, [](cp_iter_t it, cp_iter_t last) {
+                return std::distance(it, last);
+            });
+
+        // The first break opportunity is skipped due to the 17-column line
+        // width.
+        std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 17}}};
+
+        int i = 0;
+        for (auto line : _17_column_lines) {
+            EXPECT_EQ(
+                std::distance(lb15_cps.begin(), line.begin()),
+                line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(lb15_cps.begin(), line.end()),
+                line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
+    }
+    {
         // LB16
         // × 2014 × 0020 × 2014 ÷ 0061 ÷
         // × [0.3] EM DASH (B2) × [7.01] SPACE (SP) × [17.0] EM DASH (B2) ÷ [0.3] LATIN SMALL LETTER A (AL) ÷ [0.3]
+        std::array<uint32_t, 4> cps = {{0x2014, 0x0020, 0x2014, 0x0061}};
+
+        using cp_iter_t = decltype(cps)::iterator;
+        auto const _4_column_lines =
+            boost::text::lines(cps, 4, [](cp_iter_t it, cp_iter_t last) {
+                return std::distance(it, last);
+            });
+
+        // The first break opportunity is skipped due to the 4-column line
+        // width.
+        std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 4}}};
+
+        int i = 0;
+        for (auto line : _4_column_lines) {
+            EXPECT_EQ(
+                std::distance(cps.begin(), line.begin()), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(cps.begin(), line.end()), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
     }
 
-    // TODO: More overlong checks, using the LB15 string above.
+    {
+        // × 0061 × 006D × 0062    × 0069 × 0067 × 0075 ×    0028 × 00AB × 0020 ÷    0308 × 0020 ÷    00BB × 0029 ÷    0028 × 0065 × 0308 ×    0029 ÷
+        using cp_iter_t = decltype(lb15_cps)::iterator;
+        auto const _3_column_lines =
+            boost::text::lines(lb15_cps, 3, [](cp_iter_t it, cp_iter_t last) {
+                return std::distance(it, last);
+            });
+
+        std::array<std::pair<int, int>, 7> const line_bounds = {{
+            {0, 3},
+            {3, 6},
+            {6, 9},
+            {9, 11},
+            {11, 13},
+            {13, 16},
+            {16, 17},
+        }};
+
+        int i = 0;
+        for (auto line : _3_column_lines) {
+            EXPECT_EQ(
+                std::distance(lb15_cps.begin(), line.begin()),
+                line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(lb15_cps.begin(), line.end()),
+                line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
+    }
+
+    {
+        // × 0061 × 006D ×    0062 × 0069 ×    0067 × 0075 ×    0028 × 00AB ×    0020 ÷    0308 × 0020 ÷    00BB × 0029 ÷    0028 × 0065 ×    0308 × 0029 ÷
+        using cp_iter_t = decltype(lb15_cps)::iterator;
+        auto const _3_column_lines =
+            boost::text::lines(lb15_cps, 5, [](cp_iter_t it, cp_iter_t last) {
+                return 2 * std::distance(it, last);
+            });
+
+        std::array<std::pair<int, int>, 9> const line_bounds = {{
+            {0, 2},
+            {2, 4},
+            {4, 6},
+            {6, 8},
+            {8, 9},
+            {9, 11},
+            {11, 13},
+            {13, 15},
+            {15, 17},
+        }};
+
+        int i = 0;
+        for (auto line : _3_column_lines) {
+            EXPECT_EQ(
+                std::distance(lb15_cps.begin(), line.begin()),
+                line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(lb15_cps.begin(), line.end()),
+                line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, line_bounds.size());
+    }
 
     // Range API
     // 80 columns -> don't take the possible break in the middle.
     {
         auto const _80_column_lines =
-            boost::text::lines(cp_range, 80, [](uint32_t cp) { return 1; });
+            boost::text::lines(cp_range, 80, [](u32_iter it, u32_iter last) {
+                return distance(it, last);
+            });
 
         std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 3}}};
 
