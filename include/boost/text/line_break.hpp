@@ -1230,8 +1230,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
     }
 
-    // TODO: These all should use the line_break_range return type!
-
     /** Finds the nearest hard line break at or before before
         <code>it</code>. If <code>it == first</code>, that is returned.
         Otherwise, the first code point of the line that <code>it</code> is
@@ -1426,7 +1424,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     lines(CPIter first, Sentinel last) noexcept
     {
         detail::next_hard_line_break_callable<CPIter, Sentinel> next;
-        return {{first, last, std::move(next)}, {last}};
+        return {{first, last}, {last}};
     }
 
     /** Returns a lazy range of the code point ranges (using hard line breaks)
@@ -1443,7 +1441,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>
             next;
-        return {{std::begin(range), std::end(range), std::move(next)},
+        return {std::move(next),
+                {std::begin(range), std::end(range)},
                 {std::end(range)}};
     }
 
@@ -1503,9 +1502,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             Extent,
             CPExtentFunc>
             next{max_extent, cp_extent, break_overlong_lines};
-        return {
-            {line_break_result<CPIter>{first, false}, last, std::move(next)},
-            {last}};
+        return {std::move(next),
+                {line_break_result<CPIter>{first, false}, last},
+                {last}};
     }
 
     /** Returns a lazy range of the code point ranges in range delimiting
@@ -1537,10 +1536,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             Extent,
             CPExtentFunc>
             next{max_extent, cp_extent, break_overlong_lines};
-        return {{line_break_result<detail::iterator_t<CPRange>>{
+        return {std::move(next),
+                {line_break_result<detail::iterator_t<CPRange>>{
                      std::begin(range), false},
-                 std::end(range),
-                 std::move(next)},
+                 std::end(range)},
                 {std::end(range)}};
     }
 
@@ -1585,9 +1584,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_result<CPIter>,
             Sentinel>
             next;
-        return {
-            {line_break_result<CPIter>{first, false}, last, std::move(next)},
-            {last}};
+        return {std::move(next),
+                {line_break_result<CPIter>{first, false}, last},
+                {last}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting possible
@@ -1605,10 +1604,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_result<detail::iterator_t<CPRange>>,
             detail::sentinel_t<CPRange>>
             next;
-        return {{line_break_result<detail::iterator_t<CPRange>>{
+        return {std::move(next),
+                {line_break_result<detail::iterator_t<CPRange>>{
                      std::begin(range), false},
-                 std::end(range),
-                 std::move(next)},
+                 std::end(range)},
                 {std::end(range)}};
     }
 

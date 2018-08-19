@@ -6,6 +6,13 @@
 
 namespace boost { namespace text {
 
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename NextFunc,
+        typename CPRange = cp_range<CPIter>>
+    struct lazy_segment_range;
+
     namespace detail {
         template<
             typename CPIter,
@@ -44,10 +51,23 @@ namespace boost { namespace text {
         struct const_lazy_segment_iterator
         {
         private:
-            NextFunc next_func_;
             CPIter prev_;
             CPIter it_;
             Sentinel last_;
+            NextFunc * next_func_;
+
+            void set_next_func(NextFunc * next_func) noexcept
+            {
+                next_func_ = next_func;
+                it_ = (*next_func_)(prev_, last_);
+            }
+
+            template<
+                typename CPIter2,
+                typename Sentinel2,
+                typename NextFunc2,
+                typename CPRange2>
+            friend struct ::boost::text::lazy_segment_range;
 
         public:
             using value_type = CPRange;
@@ -56,11 +76,10 @@ namespace boost { namespace text {
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::forward_iterator_tag;
 
-            const_lazy_segment_iterator(
-                CPIter it, Sentinel last, NextFunc && next) noexcept :
-                next_func_(std::move(next)),
+            const_lazy_segment_iterator(CPIter it, Sentinel last) noexcept :
+                next_func_(),
                 prev_(it),
-                it_(next_func_(it, last)),
+                it_(),
                 last_(last)
             {}
 
@@ -80,7 +99,7 @@ namespace boost { namespace text {
 
             const_lazy_segment_iterator & operator++() noexcept
             {
-                auto const next_it = next_func_(it_, last_);
+                auto const next_it = (*next_func_)(it_, last_);
                 prev_ = it_;
                 it_ = next_it;
                 return *this;
@@ -103,31 +122,36 @@ namespace boost { namespace text {
 
     /** Represents a range of non-overlapping ranges.  Each range represents
         some semantically significant segment, the semantics of which are
-        controlled by the <code>Func</code> template parameter.  For instance,
-        if <code>Func</code> is <code>next_paragraph_break</code>, the ranges
-        produced by <code>lazy_segment_range</code> will be paragraphs.  Each
-        range is lazily produced; an output range is not produced until the
-        point at which one of the lazy range's iterators is dereferenced. */
+        controlled by the NextFunc template parameter.  For instance, if
+        NextFunc is next_paragraph_break, the ranges produced by
+        lazy_segment_range will be paragraphs.  Each range is lazily produced;
+        an output range-element is not produced until one of the lazy range's
+        iterators is dereferenced. */
     template<
         typename CPIter,
         typename Sentinel,
-        typename Func,
-        typename CPRange = cp_range<CPIter>>
+        typename NextFunc,
+        typename CPRange>
     struct lazy_segment_range
     {
         using iterator = detail::
-            const_lazy_segment_iterator<CPIter, Sentinel, Func, CPRange>;
+            const_lazy_segment_iterator<CPIter, Sentinel, NextFunc, CPRange>;
 
         lazy_segment_range() noexcept {}
-        lazy_segment_range(iterator first, iterator last) noexcept :
+        lazy_segment_range(
+            NextFunc && next_func, iterator first, iterator last) noexcept :
+            next_func_(std::move(next_func)),
             first_(first),
             last_(last)
-        {}
+        {
+            first_.set_next_func(&next_func_);
+        }
 
         iterator begin() const noexcept { return first_; }
         iterator end() const noexcept { return last_; }
 
     private:
+        NextFunc next_func_;
         iterator first_;
         iterator last_;
     };

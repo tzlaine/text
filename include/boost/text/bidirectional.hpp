@@ -1440,10 +1440,10 @@ namespace boost { namespace text {
                     pae_cp_iterator>,
                 line_break_cp_range<pae_cp_iterator>>
                 lines{
+                    std::move(next),
                     {line_break_result<pae_cp_iterator>{
                          pae_cp_iterator{props_and_embeddings.begin()}, false},
-                     pae_cp_iterator{props_and_embeddings.end()},
-                     std::move(next)},
+                     pae_cp_iterator{props_and_embeddings.end()}},
                     {pae_cp_iterator{props_and_embeddings.end()}}};
 
             for (auto line : lines) {
