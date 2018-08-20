@@ -610,6 +610,8 @@ TEST(break_apis, line_break_sentinel)
     using u32_iter =
         boost::text::utf8::to_utf32_iterator<char const *, char const *>;
 
+    // TODO: Add test that stateful line breaks work.
+
     // × 200B × 0020 ÷ 0030 ÷	
     // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU) ÷ [0.3]
     boost::text::string s;
@@ -1204,3 +1206,5 @@ TEST(break_apis, paragraph_break_sentinel)
         EXPECT_EQ(i, paragraph_bounds.size());
     }
 }
+
+// TODO: Add bidi tests.  Include test that stateful line breaks work.

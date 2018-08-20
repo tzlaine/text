@@ -47,9 +47,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -94,9 +97,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -141,9 +147,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -188,9 +197,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -235,9 +247,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -282,9 +297,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -329,9 +347,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -376,9 +397,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -423,9 +447,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -470,9 +497,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -517,9 +547,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -564,9 +597,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -611,9 +647,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -658,9 +697,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -705,9 +747,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -752,9 +797,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -799,9 +847,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -846,9 +897,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -893,9 +947,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -940,9 +997,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -987,9 +1047,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1034,9 +1097,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1081,9 +1147,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1128,9 +1197,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1175,9 +1247,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1222,9 +1297,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1269,9 +1347,12 @@ TEST(bidi, bidi_465_000)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1323,9 +1404,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1370,9 +1454,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1417,9 +1504,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1464,9 +1554,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1511,9 +1604,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1558,9 +1654,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1605,9 +1704,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1652,9 +1754,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1699,9 +1804,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1746,9 +1854,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1793,9 +1904,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1840,9 +1954,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1887,9 +2004,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1934,9 +2054,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -1981,9 +2104,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2028,9 +2154,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2075,9 +2204,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2122,9 +2254,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2169,9 +2304,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2216,9 +2354,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2263,9 +2404,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2310,9 +2454,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2357,9 +2504,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2404,9 +2554,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2451,9 +2604,12 @@ TEST(bidi, bidi_465_001)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2505,9 +2661,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2552,9 +2711,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2599,9 +2761,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2646,9 +2811,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2693,9 +2861,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2740,9 +2911,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2787,9 +2961,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2834,9 +3011,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2881,9 +3061,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2928,9 +3111,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -2975,9 +3161,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3022,9 +3211,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3069,9 +3261,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3116,9 +3311,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3163,9 +3361,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3210,9 +3411,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3257,9 +3461,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3304,9 +3511,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3351,9 +3561,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3398,9 +3611,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3445,9 +3661,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3492,9 +3711,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3539,9 +3761,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3586,9 +3811,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3633,9 +3861,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3680,9 +3911,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3727,9 +3961,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3774,9 +4011,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3821,9 +4061,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3868,9 +4111,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3915,9 +4161,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -3962,9 +4211,12 @@ TEST(bidi, bidi_465_002)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4016,9 +4268,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4063,9 +4318,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4110,9 +4368,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4157,9 +4418,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4204,9 +4468,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4251,9 +4518,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4298,9 +4568,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4345,9 +4618,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4392,9 +4668,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4439,9 +4718,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4486,9 +4768,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4533,9 +4818,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4580,9 +4868,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4627,9 +4918,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4674,9 +4968,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4721,9 +5018,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4768,9 +5068,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4815,9 +5118,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4862,9 +5168,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4909,9 +5218,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -4956,9 +5268,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5003,9 +5318,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5050,9 +5368,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5097,9 +5418,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5144,9 +5468,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5191,9 +5518,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5238,9 +5568,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5285,9 +5618,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5332,9 +5668,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5379,9 +5718,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5426,9 +5768,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5473,9 +5818,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5520,9 +5868,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5567,9 +5918,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5614,9 +5968,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5661,9 +6018,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5708,9 +6068,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5755,9 +6118,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5802,9 +6168,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5849,9 +6218,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5896,9 +6268,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5943,9 +6318,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -5990,9 +6368,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6037,9 +6418,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6084,9 +6468,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6131,9 +6518,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6178,9 +6568,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6225,9 +6618,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6272,9 +6668,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6319,9 +6718,12 @@ TEST(bidi, bidi_465_003)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6373,9 +6775,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6420,9 +6825,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6467,9 +6875,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6514,9 +6925,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6561,9 +6975,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6608,9 +7025,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6655,9 +7075,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6702,9 +7125,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6749,9 +7175,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6796,9 +7225,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6843,9 +7275,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6890,9 +7325,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6937,9 +7375,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -6984,9 +7425,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7031,9 +7475,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7078,9 +7525,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7125,9 +7575,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7172,9 +7625,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7219,9 +7675,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7266,9 +7725,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7313,9 +7775,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7360,9 +7825,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7407,9 +7875,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7454,9 +7925,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7501,9 +7975,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7548,9 +8025,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7595,9 +8075,12 @@ TEST(bidi, bidi_465_004)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7649,9 +8132,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7696,9 +8182,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7743,9 +8232,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7790,9 +8282,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7837,9 +8332,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7884,9 +8382,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7931,9 +8432,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -7978,9 +8482,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8025,9 +8532,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8072,9 +8582,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8119,9 +8632,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8166,9 +8682,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8213,9 +8732,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8260,9 +8782,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8307,9 +8832,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8354,9 +8882,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8401,9 +8932,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8448,9 +8982,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8495,9 +9032,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8542,9 +9082,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8589,9 +9132,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8636,9 +9182,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8683,9 +9232,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8730,9 +9282,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8777,9 +9332,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8824,9 +9382,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8871,9 +9432,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8918,9 +9482,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -8965,9 +9532,12 @@ TEST(bidi, bidi_465_005)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9019,9 +9589,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9066,9 +9639,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9113,9 +9689,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9160,9 +9739,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9207,9 +9789,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9254,9 +9839,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9301,9 +9889,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9348,9 +9939,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9395,9 +9989,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9442,9 +10039,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9489,9 +10089,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9536,9 +10139,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9583,9 +10189,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9630,9 +10239,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9677,9 +10289,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9724,9 +10339,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9771,9 +10389,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9818,9 +10439,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9865,9 +10489,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9912,9 +10539,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -9959,9 +10589,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10006,9 +10639,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10053,9 +10689,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10100,9 +10739,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10147,9 +10789,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10194,9 +10839,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10241,9 +10889,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10288,9 +10939,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10335,9 +10989,12 @@ TEST(bidi, bidi_465_006)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10389,9 +11046,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10436,9 +11096,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10483,9 +11146,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10530,9 +11196,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10577,9 +11246,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10624,9 +11296,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10671,9 +11346,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10718,9 +11396,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10765,9 +11446,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10812,9 +11496,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10859,9 +11546,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10906,9 +11596,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -10953,9 +11646,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11000,9 +11696,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11047,9 +11746,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11094,9 +11796,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11141,9 +11846,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11188,9 +11896,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11235,9 +11946,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11282,9 +11996,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11329,9 +12046,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11376,9 +12096,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11423,9 +12146,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11470,9 +12196,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11517,9 +12246,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11564,9 +12296,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11611,9 +12346,12 @@ TEST(bidi, bidi_465_007)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11665,9 +12403,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11712,9 +12453,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11759,9 +12503,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11806,9 +12553,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11853,9 +12603,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11900,9 +12653,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11947,9 +12703,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -11994,9 +12753,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12041,9 +12803,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12088,9 +12853,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12135,9 +12903,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12182,9 +12953,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12229,9 +13003,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12276,9 +13053,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12323,9 +13103,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12370,9 +13153,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12417,9 +13203,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12464,9 +13253,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12511,9 +13303,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12558,9 +13353,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12605,9 +13403,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12652,9 +13453,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12699,9 +13503,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12746,9 +13553,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12793,9 +13603,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12840,9 +13653,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12887,9 +13703,12 @@ TEST(bidi, bidi_465_008)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12941,9 +13760,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -12988,9 +13810,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13035,9 +13860,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13082,9 +13910,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13129,9 +13960,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13176,9 +14010,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13223,9 +14060,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13270,9 +14110,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13317,9 +14160,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13364,9 +14210,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13411,9 +14260,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13458,9 +14310,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13505,9 +14360,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13552,9 +14410,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13599,9 +14460,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13646,9 +14510,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13693,9 +14560,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13740,9 +14610,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13787,9 +14660,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13834,9 +14710,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13881,9 +14760,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13928,9 +14810,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -13975,9 +14860,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14022,9 +14910,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14069,9 +14960,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14116,9 +15010,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14163,9 +15060,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14210,9 +15110,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14257,9 +15160,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14304,9 +15210,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14351,9 +15260,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14398,9 +15310,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14445,9 +15360,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14492,9 +15410,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14539,9 +15460,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14586,9 +15510,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14633,9 +15560,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14680,9 +15610,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14727,9 +15660,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14774,9 +15710,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14821,9 +15760,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14868,9 +15810,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14915,9 +15860,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -14962,9 +15910,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15009,9 +15960,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15056,9 +16010,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15103,9 +16060,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15150,9 +16110,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15197,9 +16160,12 @@ TEST(bidi, bidi_465_009)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15251,9 +16217,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15298,9 +16267,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15345,9 +16317,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15392,9 +16367,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15439,9 +16417,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15486,9 +16467,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15533,9 +16517,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15580,9 +16567,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15627,9 +16617,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15674,9 +16667,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15721,9 +16717,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15768,9 +16767,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15815,9 +16817,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15862,9 +16867,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15909,9 +16917,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -15956,9 +16967,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16003,9 +17017,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16050,9 +17067,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16097,9 +17117,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16144,9 +17167,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16191,9 +17217,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16238,9 +17267,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16285,9 +17317,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16332,9 +17367,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16379,9 +17417,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16426,9 +17467,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16473,9 +17517,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16520,9 +17567,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16567,9 +17617,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16614,9 +17667,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16661,9 +17717,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16708,9 +17767,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16755,9 +17817,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16802,9 +17867,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16849,9 +17917,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16896,9 +17967,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16943,9 +18017,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -16990,9 +18067,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17037,9 +18117,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17084,9 +18167,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17131,9 +18217,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17178,9 +18267,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17225,9 +18317,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17272,9 +18367,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17319,9 +18417,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17366,9 +18467,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17413,9 +18517,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17460,9 +18567,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17507,9 +18617,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17554,9 +18667,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17601,9 +18717,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17648,9 +18767,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17695,9 +18817,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17742,9 +18867,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17789,9 +18917,12 @@ TEST(bidi, bidi_465_010)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17843,9 +18974,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17890,9 +19024,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17937,9 +19074,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -17984,9 +19124,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18031,9 +19174,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18078,9 +19224,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18125,9 +19274,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18172,9 +19324,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18219,9 +19374,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18266,9 +19424,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18313,9 +19474,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18360,9 +19524,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18407,9 +19574,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18454,9 +19624,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18501,9 +19674,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18548,9 +19724,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18595,9 +19774,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18642,9 +19824,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18689,9 +19874,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18736,9 +19924,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18783,9 +19974,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18830,9 +20024,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18877,9 +20074,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18924,9 +20124,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -18971,9 +20174,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19018,9 +20224,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19065,9 +20274,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19112,9 +20324,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19159,9 +20374,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19206,9 +20424,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19253,9 +20474,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19300,9 +20524,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19347,9 +20574,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19394,9 +20624,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19441,9 +20674,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19488,9 +20724,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19535,9 +20774,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19582,9 +20824,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19629,9 +20874,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19676,9 +20924,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19723,9 +20974,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19770,9 +21024,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19817,9 +21074,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19864,9 +21124,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19911,9 +21174,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -19958,9 +21224,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20005,9 +21274,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20052,9 +21324,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20099,9 +21374,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20146,9 +21424,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20193,9 +21474,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20240,9 +21524,12 @@ TEST(bidi, bidi_465_011)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20294,9 +21581,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20341,9 +21631,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20388,9 +21681,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20435,9 +21731,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20482,9 +21781,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20529,9 +21831,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20576,9 +21881,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20623,9 +21931,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20670,9 +21981,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20717,9 +22031,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20764,9 +22081,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20811,9 +22131,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20858,9 +22181,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20905,9 +22231,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20952,9 +22281,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -20999,9 +22331,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21046,9 +22381,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21093,9 +22431,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21140,9 +22481,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21187,9 +22531,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21234,9 +22581,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21281,9 +22631,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21328,9 +22681,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21375,9 +22731,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21422,9 +22781,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21469,9 +22831,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21516,9 +22881,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21563,9 +22931,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21610,9 +22981,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21657,9 +23031,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21704,9 +23081,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21751,9 +23131,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21798,9 +23181,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21845,9 +23231,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21892,9 +23281,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21939,9 +23331,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -21986,9 +23381,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22033,9 +23431,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22080,9 +23481,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22127,9 +23531,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22174,9 +23581,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22221,9 +23631,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22268,9 +23681,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22315,9 +23731,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22362,9 +23781,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22409,9 +23831,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22456,9 +23881,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22503,9 +23931,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22550,9 +23981,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22597,9 +24031,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22644,9 +24081,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22691,9 +24131,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22738,9 +24181,12 @@ TEST(bidi, bidi_465_012)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22792,9 +24238,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22839,9 +24288,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22886,9 +24338,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22933,9 +24388,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -22980,9 +24438,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23027,9 +24488,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23074,9 +24538,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23121,9 +24588,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23168,9 +24638,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23215,9 +24688,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23262,9 +24738,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23309,9 +24788,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23356,9 +24838,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23403,9 +24888,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23450,9 +24938,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23497,9 +24988,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23544,9 +25038,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23591,9 +25088,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23638,9 +25138,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23685,9 +25188,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23732,9 +25238,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23779,9 +25288,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23826,9 +25338,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23873,9 +25388,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23920,9 +25438,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -23967,9 +25488,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24014,9 +25538,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24061,9 +25588,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24108,9 +25638,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24155,9 +25688,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24202,9 +25738,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24249,9 +25788,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24296,9 +25838,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24343,9 +25888,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24390,9 +25938,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24437,9 +25988,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24484,9 +26038,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24531,9 +26088,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24578,9 +26138,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24625,9 +26188,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24672,9 +26238,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24719,9 +26288,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24766,9 +26338,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24813,9 +26388,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24860,9 +26438,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24907,9 +26488,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -24954,9 +26538,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25001,9 +26588,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25048,9 +26638,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25095,9 +26688,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25142,9 +26738,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25189,9 +26788,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25236,9 +26838,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25283,9 +26888,12 @@ TEST(bidi, bidi_465_013)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25337,9 +26945,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25384,9 +26995,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25431,9 +27045,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25478,9 +27095,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25525,9 +27145,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25572,9 +27195,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25619,9 +27245,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25666,9 +27295,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25713,9 +27345,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25760,9 +27395,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25807,9 +27445,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25854,9 +27495,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25901,9 +27545,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25948,9 +27595,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -25995,9 +27645,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26042,9 +27695,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26089,9 +27745,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26136,9 +27795,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26183,9 +27845,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26230,9 +27895,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26277,9 +27945,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26324,9 +27995,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26371,9 +28045,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26418,9 +28095,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26465,9 +28145,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26512,9 +28195,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26559,9 +28245,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26606,9 +28295,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26653,9 +28345,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26700,9 +28395,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26747,9 +28445,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26794,9 +28495,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26841,9 +28545,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26888,9 +28595,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26935,9 +28645,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -26982,9 +28695,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27029,9 +28745,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27076,9 +28795,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27123,9 +28845,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27170,9 +28895,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27217,9 +28945,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27264,9 +28995,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27311,9 +29045,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27358,9 +29095,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27405,9 +29145,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27452,9 +29195,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27499,9 +29245,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27546,9 +29295,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27593,9 +29345,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27640,9 +29395,12 @@ TEST(bidi, bidi_465_014)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27694,9 +29452,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27741,9 +29502,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27788,9 +29552,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27835,9 +29602,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27882,9 +29652,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27929,9 +29702,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -27976,9 +29752,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28023,9 +29802,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28070,9 +29852,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28117,9 +29902,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28164,9 +29952,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28211,9 +30002,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28258,9 +30052,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28305,9 +30102,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28352,9 +30152,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28399,9 +30202,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28446,9 +30252,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28493,9 +30302,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28540,9 +30352,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28587,9 +30402,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28634,9 +30452,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28681,9 +30502,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28728,9 +30552,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28775,9 +30602,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28822,9 +30652,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28869,9 +30702,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28916,9 +30752,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -28963,9 +30802,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29010,9 +30852,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29057,9 +30902,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29104,9 +30952,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29151,9 +31002,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29198,9 +31052,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29245,9 +31102,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29292,9 +31152,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29339,9 +31202,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29386,9 +31252,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29433,9 +31302,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29480,9 +31352,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29527,9 +31402,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29574,9 +31452,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29621,9 +31502,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29668,9 +31552,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29715,9 +31602,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29762,9 +31652,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29809,9 +31702,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29856,9 +31752,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29903,9 +31802,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29950,9 +31852,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -29997,9 +31902,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30044,9 +31952,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30091,9 +32002,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30138,9 +32052,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30185,9 +32102,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30232,9 +32152,12 @@ TEST(bidi, bidi_465_015)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30286,9 +32209,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30333,9 +32259,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30380,9 +32309,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30427,9 +32359,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30474,9 +32409,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30521,9 +32459,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30568,9 +32509,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30615,9 +32559,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30662,9 +32609,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30709,9 +32659,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30756,9 +32709,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30803,9 +32759,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30850,9 +32809,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30897,9 +32859,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30944,9 +32909,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -30991,9 +32959,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31038,9 +33009,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31085,9 +33059,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31132,9 +33109,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31179,9 +33159,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31226,9 +33209,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31273,9 +33259,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31320,9 +33309,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31367,9 +33359,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31414,9 +33409,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31461,9 +33459,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31508,9 +33509,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31555,9 +33559,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31602,9 +33609,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31649,9 +33659,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31696,9 +33709,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31743,9 +33759,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31790,9 +33809,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31837,9 +33859,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31884,9 +33909,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31931,9 +33959,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -31978,9 +34009,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32025,9 +34059,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32072,9 +34109,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32119,9 +34159,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32166,9 +34209,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32213,9 +34259,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32260,9 +34309,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32307,9 +34359,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32354,9 +34409,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32401,9 +34459,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32448,9 +34509,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32495,9 +34559,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32542,9 +34609,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32589,9 +34659,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32636,9 +34709,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32683,9 +34759,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32730,9 +34809,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32777,9 +34859,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32824,9 +34909,12 @@ TEST(bidi, bidi_465_016)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32878,9 +34966,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32925,9 +35016,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -32972,9 +35066,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33019,9 +35116,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33066,9 +35166,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33113,9 +35216,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33160,9 +35266,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33207,9 +35316,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33254,9 +35366,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33301,9 +35416,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33348,9 +35466,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33395,9 +35516,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33442,9 +35566,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33489,9 +35616,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33536,9 +35666,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33583,9 +35716,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33630,9 +35766,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33677,9 +35816,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33724,9 +35866,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33771,9 +35916,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33818,9 +35966,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33865,9 +36016,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33912,9 +36066,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -33959,9 +36116,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34006,9 +36166,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34053,9 +36216,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34100,9 +36266,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34147,9 +36316,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34194,9 +36366,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34241,9 +36416,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34288,9 +36466,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34335,9 +36516,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34382,9 +36566,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34429,9 +36616,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34476,9 +36666,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34523,9 +36716,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34570,9 +36766,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34617,9 +36816,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34664,9 +36866,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34711,9 +36916,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34758,9 +36966,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34805,9 +37016,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34852,9 +37066,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34899,9 +37116,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34946,9 +37166,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -34993,9 +37216,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35040,9 +37266,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35087,9 +37316,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35134,9 +37366,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35181,9 +37416,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35228,9 +37466,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35275,9 +37516,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35322,9 +37566,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35369,9 +37616,12 @@ TEST(bidi, bidi_465_017)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35423,9 +37673,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35470,9 +37723,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35517,9 +37773,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35564,9 +37823,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35611,9 +37873,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35658,9 +37923,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35705,9 +37973,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35752,9 +38023,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35799,9 +38073,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35846,9 +38123,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35893,9 +38173,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35940,9 +38223,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -35987,9 +38273,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36034,9 +38323,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36081,9 +38373,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36128,9 +38423,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36175,9 +38473,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36222,9 +38523,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36269,9 +38573,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36316,9 +38623,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36363,9 +38673,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36410,9 +38723,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36457,9 +38773,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36504,9 +38823,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36551,9 +38873,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36598,9 +38923,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36645,9 +38973,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36692,9 +39023,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36739,9 +39073,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36786,9 +39123,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36833,9 +39173,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36880,9 +39223,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36927,9 +39273,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -36974,9 +39323,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37021,9 +39373,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37068,9 +39423,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37115,9 +39473,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37162,9 +39523,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37209,9 +39573,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37256,9 +39623,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37303,9 +39673,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37350,9 +39723,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37397,9 +39773,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37444,9 +39823,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37491,9 +39873,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37538,9 +39923,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37585,9 +39973,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37632,9 +40023,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37679,9 +40073,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37726,9 +40123,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37773,9 +40173,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37820,9 +40223,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37867,9 +40273,12 @@ TEST(bidi, bidi_465_018)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37921,9 +40330,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -37968,9 +40380,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38015,9 +40430,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38062,9 +40480,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38109,9 +40530,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38156,9 +40580,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38203,9 +40630,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38250,9 +40680,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38297,9 +40730,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38344,9 +40780,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38391,9 +40830,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38438,9 +40880,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38485,9 +40930,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38532,9 +40980,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38579,9 +41030,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38626,9 +41080,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38673,9 +41130,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38720,9 +41180,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38767,9 +41230,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38814,9 +41280,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38861,9 +41330,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38908,9 +41380,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -38955,9 +41430,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39002,9 +41480,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39049,9 +41530,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39096,9 +41580,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39143,9 +41630,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39190,9 +41680,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39237,9 +41730,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39284,9 +41780,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39331,9 +41830,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39378,9 +41880,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39425,9 +41930,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39472,9 +41980,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39519,9 +42030,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39566,9 +42080,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39613,9 +42130,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39660,9 +42180,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39707,9 +42230,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39754,9 +42280,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39801,9 +42330,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39848,9 +42380,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39895,9 +42430,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39942,9 +42480,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -39989,9 +42530,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40036,9 +42580,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40083,9 +42630,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40130,9 +42680,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40177,9 +42730,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40224,9 +42780,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40271,9 +42830,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40318,9 +42880,12 @@ TEST(bidi, bidi_465_019)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40372,9 +42937,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40419,9 +42987,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40466,9 +43037,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40513,9 +43087,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40560,9 +43137,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40607,9 +43187,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40654,9 +43237,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40701,9 +43287,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40748,9 +43337,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40795,9 +43387,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40842,9 +43437,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40889,9 +43487,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40936,9 +43537,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -40983,9 +43587,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41030,9 +43637,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41077,9 +43687,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41124,9 +43737,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41171,9 +43787,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41218,9 +43837,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41265,9 +43887,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41312,9 +43937,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41359,9 +43987,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41406,9 +44037,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41453,9 +44087,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41500,9 +44137,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41547,9 +44187,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41594,9 +44237,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41641,9 +44287,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41688,9 +44337,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41735,9 +44387,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41782,9 +44437,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41829,9 +44487,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41876,9 +44537,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41923,9 +44587,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -41970,9 +44637,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42017,9 +44687,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42064,9 +44737,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42111,9 +44787,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42158,9 +44837,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42205,9 +44887,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42252,9 +44937,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42299,9 +44987,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42346,9 +45037,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42393,9 +45087,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42440,9 +45137,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42487,9 +45187,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42534,9 +45237,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42581,9 +45287,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42628,9 +45337,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42675,9 +45387,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42722,9 +45437,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42769,9 +45487,12 @@ TEST(bidi, bidi_465_020)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42823,9 +45544,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42870,9 +45594,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42917,9 +45644,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -42964,9 +45694,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43011,9 +45744,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43058,9 +45794,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43105,9 +45844,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43152,9 +45894,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43199,9 +45944,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43246,9 +45994,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43293,9 +46044,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43340,9 +46094,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43387,9 +46144,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43434,9 +46194,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43481,9 +46244,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43528,9 +46294,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43575,9 +46344,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43622,9 +46394,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43669,9 +46444,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43716,9 +46494,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43763,9 +46544,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43810,9 +46594,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43857,9 +46644,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43904,9 +46694,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43951,9 +46744,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -43998,9 +46794,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44045,9 +46844,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44092,9 +46894,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44139,9 +46944,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44186,9 +46994,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44233,9 +47044,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44280,9 +47094,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44327,9 +47144,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 0);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44374,9 +47194,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44421,9 +47244,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44468,9 +47294,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44515,9 +47344,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44562,9 +47394,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44609,9 +47444,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44656,9 +47494,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44703,9 +47544,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44750,9 +47594,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44797,9 +47644,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44844,9 +47694,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44891,9 +47744,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44938,9 +47794,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -44985,9 +47844,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45032,9 +47894,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45079,9 +47944,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45126,9 +47994,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45173,9 +48044,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45220,9 +48094,12 @@ TEST(bidi, bidi_465_021)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45274,9 +48151,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45321,9 +48201,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45368,9 +48251,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45415,9 +48301,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45462,9 +48351,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45509,9 +48401,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45556,9 +48451,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45603,9 +48501,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45650,9 +48551,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45697,9 +48601,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45744,9 +48651,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45791,9 +48701,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45838,9 +48751,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45885,9 +48801,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45932,9 +48851,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -45979,9 +48901,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46026,9 +48951,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46073,9 +49001,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46120,9 +49051,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46167,9 +49101,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46214,9 +49151,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46261,9 +49201,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46308,9 +49251,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46355,9 +49301,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46402,9 +49351,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46449,9 +49401,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46496,9 +49451,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46543,9 +49501,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46590,9 +49551,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46637,9 +49601,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46684,9 +49651,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46731,9 +49701,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46778,9 +49751,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46825,9 +49801,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46872,9 +49851,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46919,9 +49901,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -46966,9 +49951,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47013,9 +50001,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47060,9 +50051,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47107,9 +50101,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47154,9 +50151,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47201,9 +50201,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47248,9 +50251,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47295,9 +50301,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47342,9 +50351,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47389,9 +50401,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47436,9 +50451,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47483,9 +50501,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47530,9 +50551,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47577,9 +50601,12 @@ TEST(bidi, bidi_465_022)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47631,9 +50658,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47678,9 +50708,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47725,9 +50758,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47772,9 +50808,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47819,9 +50858,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47866,9 +50908,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47913,9 +50958,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -47960,9 +51008,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48007,9 +51058,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48054,9 +51108,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48101,9 +51158,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48148,9 +51208,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48195,9 +51258,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48242,9 +51308,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48289,9 +51358,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48336,9 +51408,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48383,9 +51458,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48430,9 +51508,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48477,9 +51558,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48524,9 +51608,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48571,9 +51658,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48618,9 +51708,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48665,9 +51758,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48712,9 +51808,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48759,9 +51858,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48806,9 +51908,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48853,9 +51958,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48900,9 +52008,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48947,9 +52058,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -48994,9 +52108,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49041,9 +52158,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49088,9 +52208,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49135,9 +52258,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49182,9 +52308,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49229,9 +52358,12 @@ TEST(bidi, bidi_465_023)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49283,9 +52415,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49330,9 +52465,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49377,9 +52515,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49424,9 +52565,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49471,9 +52615,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49518,9 +52665,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49565,9 +52715,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49612,9 +52765,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49659,9 +52815,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49706,9 +52865,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49753,9 +52915,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49800,9 +52965,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49847,9 +53015,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49894,9 +53065,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49941,9 +53115,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -49988,9 +53165,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50035,9 +53215,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50082,9 +53265,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50129,9 +53315,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50176,9 +53365,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50223,9 +53415,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50270,9 +53465,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50317,9 +53515,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50364,9 +53565,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50411,9 +53615,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50458,9 +53665,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50505,9 +53715,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50552,9 +53765,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50599,9 +53815,12 @@ TEST(bidi, bidi_465_024)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50653,9 +53872,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50700,9 +53922,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50747,9 +53972,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50794,9 +54022,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50841,9 +54072,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50888,9 +54122,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50935,9 +54172,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -50982,9 +54222,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51029,9 +54272,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51076,9 +54322,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51123,9 +54372,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51170,9 +54422,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51217,9 +54472,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51264,9 +54522,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51311,9 +54572,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51358,9 +54622,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51405,9 +54672,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51452,9 +54722,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51499,9 +54772,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51546,9 +54822,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51593,9 +54872,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51640,9 +54922,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51687,9 +54972,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51734,9 +55022,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51781,9 +55072,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51828,9 +55122,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51875,9 +55172,12 @@ TEST(bidi, bidi_465_025)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51929,9 +55229,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -51976,9 +55279,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52023,9 +55329,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52070,9 +55379,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52117,9 +55429,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52164,9 +55479,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52211,9 +55529,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52258,9 +55579,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52305,9 +55629,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52352,9 +55679,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52399,9 +55729,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52446,9 +55779,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52493,9 +55829,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52540,9 +55879,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52587,9 +55929,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52634,9 +55979,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52681,9 +56029,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52728,9 +56079,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52775,9 +56129,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52822,9 +56179,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, -1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, -1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52869,9 +56229,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52916,9 +56279,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -52963,9 +56329,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53010,9 +56379,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53057,9 +56429,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53104,9 +56479,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53151,9 +56529,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53198,9 +56579,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53245,9 +56629,12 @@ TEST(bidi, bidi_465_026)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53299,9 +56686,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53346,9 +56736,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53393,9 +56786,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53440,9 +56836,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53487,9 +56886,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53534,9 +56936,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53581,9 +56986,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53628,9 +57036,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53675,9 +57086,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53722,9 +57136,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53769,9 +57186,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53816,9 +57236,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53863,9 +57286,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53910,9 +57336,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -53957,9 +57386,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -54004,9 +57436,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -54051,9 +57486,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -54098,9 +57536,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -54145,9 +57586,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -54192,9 +57636,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -54239,9 +57686,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -54286,9 +57736,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -54333,9 +57786,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -54380,9 +57836,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
@@ -54427,9 +57886,12 @@ TEST(bidi, bidi_465_027)
         }
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{}, 1);
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, 1)) {
+            for (auto cp : subrange) {
+                reordered_2.push_back(cp);
+            }
+        }
         i = 0;
         for (int idx : expected_reordered_indices) {
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {

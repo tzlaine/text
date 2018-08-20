@@ -116,9 +116,12 @@ bidi_test_form = '''
         }}
 
         std::vector<int> reordered_2;
-        boost::text::bidirectional_transform(
-            cps, std::back_inserter(reordered_2),
-            boost::text::next_hard_line_break_callable{{}}, {4});
+        for (auto subrange :
+            boost::text::bidirectional_subranges(cps, {4})) {{
+            for (auto cp : subrange) {{
+                reordered_2.push_back(cp);
+            }}
+        }}
         i = 0;
         for (int idx : expected_reordered_indices) {{
             if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {{

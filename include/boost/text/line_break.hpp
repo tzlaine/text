@@ -1355,11 +1355,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             }
         };
 
-        template<
-            typename BreakResult,
-            typename Sentinel,
-            typename Extent,
-            typename CPExtentFunc>
+        template<typename Extent, typename CPExtentFunc>
         struct next_possible_line_break_within_extent_callable
         {
             next_possible_line_break_within_extent_callable() :
@@ -1377,6 +1373,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 break_overlong_lines_(break_overlong_lines)
             {}
 
+            template<typename BreakResult, typename Sentinel>
             BreakResult operator()(BreakResult result, Sentinel last) noexcept
             {
                 return detail::next_line_break_impl(
@@ -1484,8 +1481,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         line_break_result<CPIter>,
         Sentinel,
         detail::next_possible_line_break_within_extent_callable<
-            line_break_result<CPIter>,
-            Sentinel,
             Extent,
             CPExtentFunc>,
         line_break_cp_range<CPIter>>
@@ -1497,8 +1492,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         bool break_overlong_lines = true) noexcept
     {
         detail::next_possible_line_break_within_extent_callable<
-            line_break_result<CPIter>,
-            Sentinel,
             Extent,
             CPExtentFunc>
             next{max_extent, cp_extent, break_overlong_lines};
@@ -1519,8 +1512,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         line_break_result<detail::iterator_t<CPRange>>,
         detail::sentinel_t<CPRange>,
         detail::next_possible_line_break_within_extent_callable<
-            line_break_result<detail::iterator_t<CPRange>>,
-            detail::sentinel_t<CPRange>,
             Extent,
             CPExtentFunc>,
         line_break_cp_range<detail::iterator_t<CPRange>>>
@@ -1531,11 +1522,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         bool break_overlong_lines = true) noexcept
     {
         detail::next_possible_line_break_within_extent_callable<
-            line_break_result<detail::iterator_t<CPRange>>,
-            detail::sentinel_t<CPRange>,
             Extent,
             CPExtentFunc>
-            next{max_extent, cp_extent, break_overlong_lines};
+            next{max_extent,
+                 cp_extent /* TODO: Reference to temporary! */,
+                 break_overlong_lines};
         return {std::move(next),
                 {line_break_result<detail::iterator_t<CPRange>>{
                      std::begin(range), false},

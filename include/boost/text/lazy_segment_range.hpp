@@ -51,10 +51,10 @@ namespace boost { namespace text {
         struct const_lazy_segment_iterator
         {
         private:
+            NextFunc * next_func_;
             CPIter prev_;
             CPIter it_;
             Sentinel last_;
-            NextFunc * next_func_;
 
             void set_next_func(NextFunc * next_func) noexcept
             {
@@ -75,6 +75,13 @@ namespace boost { namespace text {
             using reference = value_type;
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::forward_iterator_tag;
+
+            const_lazy_segment_iterator() noexcept :
+                next_func_(),
+                prev_(),
+                it_(),
+                last_()
+            {}
 
             const_lazy_segment_iterator(CPIter it, Sentinel last) noexcept :
                 next_func_(),
@@ -139,7 +146,7 @@ namespace boost { namespace text {
 
         lazy_segment_range() noexcept {}
         lazy_segment_range(
-            NextFunc && next_func, iterator first, iterator last) noexcept :
+            NextFunc next_func, iterator first, iterator last) noexcept :
             next_func_(std::move(next_func)),
             first_(first),
             last_(last)
@@ -149,6 +156,8 @@ namespace boost { namespace text {
 
         iterator begin() const noexcept { return first_; }
         iterator end() const noexcept { return last_; }
+
+        NextFunc && next_func() && noexcept { return std::move(next_func_); }
 
     private:
         NextFunc next_func_;

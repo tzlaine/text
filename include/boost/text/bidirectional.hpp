@@ -1282,19 +1282,17 @@ namespace boost { namespace text {
         };
 
         enum class bidi_line_break_kind { none, hard, possible };
-    }
 
-    /** A callable type that returns the next hard line break in [first,
-        last).  This is the default line break callable type used with
-        bidirectional_order(). */
-    struct next_hard_line_break_callable
-    {
-        template<typename BreakResult, typename Sentinel>
-        BreakResult operator()(BreakResult result, Sentinel last) noexcept
+        struct bidi_next_hard_line_break_callable
         {
-            return BreakResult{next_hard_line_break(result.iter, last), true};
-        }
-    };
+            template<typename BreakResult, typename Sentinel>
+            BreakResult operator()(BreakResult result, Sentinel last) noexcept
+            {
+                return BreakResult{next_hard_line_break(result.iter, last),
+                                   true};
+            }
+        };
+    }
 
     /** Represents either a subrange of code points ordered by the Unicode
         bidirectional algorithm, or a line break; the line break may be a hard
@@ -1313,20 +1311,15 @@ namespace boost { namespace text {
         bidirectional_subrange() noexcept :
             break_(detail::bidi_line_break_kind::none)
         {}
-        bidirectional_subrange(iterator first, iterator last) noexcept :
+        bidirectional_subrange(
+            iterator first,
+            iterator last,
+            detail::bidi_line_break_kind b =
+                detail::bidi_line_break_kind::none) noexcept :
             first_(first),
             last_(last),
-            break_(detail::bidi_line_break_kind::none)
+            break_(b)
         {}
-#ifndef BOOST_TEXT_DOXYGEN
-        bidirectional_subrange(detail::bidi_line_break_kind kind) noexcept :
-            first_(),
-            last_(first_),
-            break_(kind)
-        {
-            assert(empty());
-        }
-#endif
 
         bool line_break() const noexcept
         {
@@ -1354,11 +1347,15 @@ namespace boost { namespace text {
         template<typename Impl, typename BreakResult, typename Sentinel>
         struct next_line_break_t
         {
+            next_line_break_t() : impl_() {}
+            next_line_break_t(Impl && impl) : impl_(std::move(impl)) {}
+
             BreakResult operator()(BreakResult result, Sentinel last) noexcept
             {
                 return impl_(result, last);
             }
 
+        private:
             Impl impl_;
         };
 
@@ -1415,232 +1412,172 @@ namespace boost { namespace text {
             }
         }
 
-        template<typename CPIter, typename OutIter, typename NextLineBreakFunc>
-        OutIter emit_bidi_subranges(
-            props_and_embeddings_t<CPIter> & props_and_embeddings,
-            int paragraph_embedding_level,
-            NextLineBreakFunc & next_line_break,
-            OutIter out)
-        {
-            using pae_cp_iterator = props_and_embeddings_cp_iterator<CPIter>;
-
-            all_runs_t<CPIter> all_runs;
-
-            next_line_break_t<
-                NextLineBreakFunc,
-                line_break_result<pae_cp_iterator>,
-                pae_cp_iterator>
-                next;
-            lazy_segment_range<
-                line_break_result<pae_cp_iterator>,
-                pae_cp_iterator,
-                next_line_break_t<
-                    NextLineBreakFunc,
-                    line_break_result<pae_cp_iterator>,
-                    pae_cp_iterator>,
-                line_break_cp_range<pae_cp_iterator>>
-                lines{
-                    std::move(next),
-                    {line_break_result<pae_cp_iterator>{
-                         pae_cp_iterator{props_and_embeddings.begin()}, false},
-                     pae_cp_iterator{props_and_embeddings.end()}},
-                    {pae_cp_iterator{props_and_embeddings.end()}}};
-
-            for (auto line : lines) {
-                l1(line, paragraph_embedding_level);
-
-                // https://unicode.org/reports/tr9/#L2
-                all_runs = find_all_runs<CPIter>(
-                    line.begin().base(), line.end().base(), true);
-                auto reordered_runs = l2(all_runs);
-
-                l3(reordered_runs);
-
-                // Output the reordered subranges.
-                for (auto run : reordered_runs) {
-                    auto const cp_first = run.begin()->it_;
-                    auto const cp_last =
-                        run.begin() == run.end()
-                            ? cp_first
-                            : std::next(std::prev(run.end())->it_);
-                    if (run.reversed()) {
-                        // https://unicode.org/reports/tr9/#L4
-
-                        auto out_value = bidirectional_subrange<CPIter>{
-                            text::detail::make_reverse_iterator(cp_last),
-                            text::detail::make_reverse_iterator(cp_first)};
-
-                        auto out_first = out_value.begin();
-                        auto out_last = out_value.end();
-
-                        // If this run's directionality is R (aka odd, aka
-                        // reversed), produce 1-code-point ranges for the
-                        // mirrored characters in the run, if any.
-                        while (out_first != out_last) {
-                            int mirror_index = -1;
-                            auto it = std::find_if(
-                                out_first,
-                                out_last,
-                                [&mirror_index](uint32_t cp) {
-                                    mirror_index = bidi_mirroring(cp);
-                                    return mirror_index != -1;
-                                });
-                            if (it == out_last)
-                                break;
-
-                            // If we found a reversible CP, emit any
-                            // preceding CPs first.
-                            if (it != out_first) {
-                                auto prev_subrange =
-                                    bidirectional_subrange<CPIter>{out_first,
-                                                                   it};
-                                *out = prev_subrange;
-                                ++out;
-                            }
-
-                            // Emit the reversed CP.
-                            *out = bidirectional_subrange<CPIter>{
-                                fwd_rev_cp_iter<CPIter>{
-                                    bidi_mirroreds().begin() + mirror_index,
-                                    fwd_rev_cp_iter_kind::mirror_array_it},
-                                fwd_rev_cp_iter<CPIter>{
-                                    bidi_mirroreds().begin() + mirror_index + 1,
-                                    fwd_rev_cp_iter_kind::mirror_array_it}};
-                            ++out;
-
-                            // Increment for the next iteration.
-                            out_value =
-                                bidirectional_subrange<CPIter>{++it, out_last};
-                            out_first = out_value.begin();
-                        }
-
-                        if (!out_value.empty()) {
-                            *out = out_value;
-                            ++out;
-                        }
-                    } else {
-                        auto out_value =
-                            bidirectional_subrange<CPIter>{cp_first, cp_last};
-                        *out = out_value;
-                        ++out;
-                    }
-                }
-
-                bidirectional_subrange<CPIter> const line_break_range{
-                    line.hard_break() ? bidi_line_break_kind::hard
-                                      : bidi_line_break_kind::possible};
-                *out = line_break_range;
-                ++out;
-            }
-
-            return out;
-        }
+        enum class bidi_mode { general, level_test, reorder_test };
 
         template<
             typename CPIter,
             typename Sentinel,
-            typename OutIter,
             typename NextLineBreakFunc,
-            typename EmitResultsFunc>
-        OutIter bidirectional_order_impl(
-            CPIter first,
-            Sentinel last,
-            OutIter out,
-            NextLineBreakFunc && next_line_break,
-            int paragraph_embedding_level,
-            EmitResultsFunc emit)
-        {
-            // https://unicode.org/reports/tr9/#Basic_Display_Algorithm
+            typename OutValueType,
+            bidi_mode Mode>
+        struct next_line_impl;
 
-            using prop_and_embedding_t = prop_and_embedding_t<CPIter>;
-            using props_and_embeddings_t = props_and_embeddings_t<CPIter>;
+        template<
+            typename CPIter,
+            typename Sentinel,
+            typename NextLineBreakFunc,
+            typename OutValueType,
+            bidi_mode Mode>
+        struct next_reordered_run_impl;
+
+        template<
+            typename CPIter,
+            typename Sentinel,
+            typename NextLineBreakFunc,
+            typename OutValueType,
+            bidi_mode Mode = bidi_mode::general>
+        struct bidi_subrange_state
+        {
+            bidi_subrange_state(
+                CPIter first,
+                Sentinel last,
+                int paragraph_embedding_level,
+                NextLineBreakFunc next) noexcept :
+                paragraph_embedding_level_(paragraph_embedding_level),
+                paragraphs_(paragraphs(first, last)),
+                paragraphs_it_(paragraphs_.begin()),
+                paragraphs_last_(paragraphs_.end()),
+                next_line_(std::move(next))
+            {
+                next_paragraph(true);
+                next_line();
+                next_reordered_run();
+            }
 
             using vec_t =
                 container::static_vector<bidi_state_t, bidi_max_depth + 2>;
             using stack_t = std::stack<bidi_state_t, vec_t>;
 
-            auto next_odd = [](stack_t const & stack) {
-                auto retval = stack.top().embedding_ + 1;
-                if (even(retval))
-                    ++retval;
-                return retval;
-            };
-            auto next_even = [](stack_t const & stack) {
-                auto retval = stack.top().embedding_ + 1;
-                if (odd(retval))
-                    ++retval;
-                return retval;
-            };
+            using paragraphs_t = lazy_segment_range<
+                CPIter,
+                Sentinel,
+                next_paragraph_callable<CPIter, Sentinel>>;
 
-            auto prop_from_top =
-                [](stack_t const & stack,
-                   props_and_embeddings_t & props_and_embeddings) {
-                    if (stack.top().directional_override_ ==
-                        directional_override_t::left_to_right) {
-                        props_and_embeddings.back().prop_ = bidi_property::L;
-                    } else if (
-                        stack.top().directional_override_ ==
-                        directional_override_t::right_to_left) {
-                        props_and_embeddings.back().prop_ = bidi_property::R;
+            using pae_cp_iterator = props_and_embeddings_cp_iterator<CPIter>;
+            using next_t = next_line_break_t<
+                NextLineBreakFunc,
+                line_break_result<pae_cp_iterator>,
+                pae_cp_iterator>;
+
+            using lines_t = lazy_segment_range<
+                line_break_result<pae_cp_iterator>,
+                pae_cp_iterator,
+                next_t,
+                line_break_cp_range<pae_cp_iterator>>;
+
+            using out_values_t = container::small_vector<OutValueType, 16>;
+
+            bool at_end() const noexcept
+            {
+                return paragraphs_it_ == paragraphs_last_ &&
+                       lines_it_ == lines_last_ &&
+                       reordered_runs_it_ == reordered_runs_last_ &&
+                       out_values_it_ == out_values_last_;
+            }
+
+            void next_paragraph(bool initial_call = false)
+            {
+                using props_and_embeddings_type =
+                    props_and_embeddings_t<CPIter>;
+
+                auto next_odd = [](stack_t const & stack) {
+                    auto retval = stack.top().embedding_ + 1;
+                    if (even(retval))
+                        ++retval;
+                    return retval;
+                };
+                auto next_even = [](stack_t const & stack) {
+                    auto retval = stack.top().embedding_ + 1;
+                    if (odd(retval))
+                        ++retval;
+                    return retval;
+                };
+
+                auto prop_from_top =
+                    [](stack_t const & stack,
+                       props_and_embeddings_type & props_and_embeddings) {
+                        if (stack.top().directional_override_ ==
+                            directional_override_t::left_to_right) {
+                            props_and_embeddings.back().prop_ =
+                                bidi_property::L;
+                        } else if (
+                            stack.top().directional_override_ ==
+                            directional_override_t::right_to_left) {
+                            props_and_embeddings.back().prop_ =
+                                bidi_property::R;
+                        }
+                    };
+
+                // https://unicode.org/reports/tr9/#X5a
+                auto x5a = [&](stack_t & stack,
+                               props_and_embeddings_type & props_and_embeddings,
+                               int & overflow_isolates,
+                               int overflow_embedding,
+                               int & valid_isolates) {
+                    prop_from_top(stack, props_and_embeddings);
+                    auto const next_odd_embedding_level = next_odd(stack);
+                    if (next_odd_embedding_level <= bidi_max_depth &&
+                        !overflow_isolates && !overflow_embedding) {
+                        ++valid_isolates;
+                        stack.push(bidi_state_t{next_odd_embedding_level,
+                                                directional_override_t::neutral,
+                                                true});
+                    } else {
+                        ++overflow_isolates;
                     }
                 };
 
-            // https://unicode.org/reports/tr9/#X5a
-            auto x5a = [&](stack_t & stack,
-                           props_and_embeddings_t & props_and_embeddings,
-                           int & overflow_isolates,
-                           int overflow_embedding,
-                           int & valid_isolates) {
-                prop_from_top(stack, props_and_embeddings);
-                auto const next_odd_embedding_level = next_odd(stack);
-                if (next_odd_embedding_level <= bidi_max_depth &&
-                    !overflow_isolates && !overflow_embedding) {
-                    ++valid_isolates;
-                    stack.push(bidi_state_t{next_odd_embedding_level,
-                                            directional_override_t::neutral,
-                                            true});
-                } else {
-                    ++overflow_isolates;
-                }
-            };
+                // https://unicode.org/reports/tr9/#X5b
+                auto x5b = [&](stack_t & stack,
+                               props_and_embeddings_type & props_and_embeddings,
+                               int & overflow_isolates,
+                               int overflow_embedding,
+                               int & valid_isolates) {
+                    prop_from_top(stack, props_and_embeddings);
+                    auto const next_even_embedding_level = next_even(stack);
+                    if (next_even_embedding_level <= bidi_max_depth &&
+                        !overflow_isolates && !overflow_embedding) {
+                        ++valid_isolates;
+                        stack.push(bidi_state_t{next_even_embedding_level,
+                                                directional_override_t::neutral,
+                                                true});
+                    } else {
+                        ++overflow_isolates;
+                    }
+                };
 
-            // https://unicode.org/reports/tr9/#X5b
-            auto x5b = [&](stack_t & stack,
-                           props_and_embeddings_t & props_and_embeddings,
-                           int & overflow_isolates,
-                           int overflow_embedding,
-                           int & valid_isolates) {
-                prop_from_top(stack, props_and_embeddings);
-                auto const next_even_embedding_level = next_even(stack);
-                if (next_even_embedding_level <= bidi_max_depth &&
-                    !overflow_isolates && !overflow_embedding) {
-                    ++valid_isolates;
-                    stack.push(bidi_state_t{next_even_embedding_level,
-                                            directional_override_t::neutral,
-                                            true});
-                } else {
-                    ++overflow_isolates;
-                }
-            };
+                if (!initial_call)
+                    next_line_ = std::move(lines_).next_func();
 
-            // https://unicode.org/reports/tr9/#P1
-            for (auto paragraph : paragraphs(first, last)) {
+                props_and_embeddings_.clear();
+
+                auto paragraph = *paragraphs_it_;
+                ++paragraphs_it_;
+
                 auto const para_first = paragraph.begin();
                 auto const para_last = paragraph.end();
 
-                if (paragraph_embedding_level < 0)
-                    paragraph_embedding_level = p2_p3(para_first, para_last);
+                if (paragraph_embedding_level_ < 0)
+                    paragraph_embedding_level_ = p2_p3(para_first, para_last);
 
                 // https://unicode.org/reports/tr9/#X1
                 stack_t stack;
-                stack.push(bidi_state_t{paragraph_embedding_level,
+                stack.push(bidi_state_t{paragraph_embedding_level_,
                                         directional_override_t::neutral,
                                         false});
                 int overflow_isolates = 0;
                 int overflow_embedding = 0;
                 int valid_isolates = 0;
-
-                props_and_embeddings_t props_and_embeddings;
 
                 // https://unicode.org/reports/tr9/#X2 through #X5
                 auto explicits =
@@ -1658,8 +1595,9 @@ namespace boost { namespace text {
 
                 for (auto it = para_first; it != para_last; ++it) {
                     auto const prop = boost::text::bidi_prop(*it);
-                    props_and_embeddings.push_back(prop_and_embedding_t{
-                        it, stack.top().embedding_, prop, false, false});
+                    props_and_embeddings_.push_back(
+                        prop_and_embedding_t<CPIter>{
+                            it, stack.top().embedding_, prop, false, false});
 
                     switch (prop) {
                     case bidi_property::RLE:
@@ -1691,7 +1629,7 @@ namespace boost { namespace text {
                     case bidi_property::RLI:
                         // https://unicode.org/reports/tr9/#X5a
                         x5a(stack,
-                            props_and_embeddings,
+                            props_and_embeddings_,
                             overflow_isolates,
                             overflow_embedding,
                             valid_isolates);
@@ -1699,7 +1637,7 @@ namespace boost { namespace text {
                     case bidi_property::LRI:
                         // https://unicode.org/reports/tr9/#X5b
                         x5b(stack,
-                            props_and_embeddings,
+                            props_and_embeddings_,
                             overflow_isolates,
                             overflow_embedding,
                             valid_isolates);
@@ -1709,13 +1647,13 @@ namespace boost { namespace text {
                         if (p2_p3(std::next(it), matching_pdi(it, para_last)) ==
                             1) {
                             x5a(stack,
-                                props_and_embeddings,
+                                props_and_embeddings_,
                                 overflow_isolates,
                                 overflow_embedding,
                                 valid_isolates);
                         } else {
                             x5b(stack,
-                                props_and_embeddings,
+                                props_and_embeddings_,
                                 overflow_isolates,
                                 overflow_embedding,
                                 valid_isolates);
@@ -1727,7 +1665,7 @@ namespace boost { namespace text {
                         if (0 < overflow_isolates) {
                             --overflow_isolates;
                         } else if (!valid_isolates) {
-                            props_and_embeddings.back().unmatched_pdi_ = true;
+                            props_and_embeddings_.back().unmatched_pdi_ = true;
                         } else {
                             overflow_embedding = 0;
                             while (!stack.top().directional_isolate_) {
@@ -1738,9 +1676,9 @@ namespace boost { namespace text {
                             --valid_isolates;
                         }
                         assert(!stack.empty());
-                        props_and_embeddings.back().embedding_ =
+                        props_and_embeddings_.back().embedding_ =
                             stack.top().embedding_;
-                        prop_from_top(stack, props_and_embeddings);
+                        prop_from_top(stack, props_and_embeddings_);
                         break;
 
                     case bidi_property::PDF:
@@ -1757,25 +1695,25 @@ namespace boost { namespace text {
                         break;
 
                     case bidi_property::B:
-                        props_and_embeddings.back().embedding_ =
-                            paragraph_embedding_level;
+                        props_and_embeddings_.back().embedding_ =
+                            paragraph_embedding_level_;
                         break;
 
                     case bidi_property::BN: break;
 
                     default:
                         // https://unicode.org/reports/tr9/#X6
-                        prop_from_top(stack, props_and_embeddings);
+                        prop_from_top(stack, props_and_embeddings_);
                         break;
                     }
                 }
 
                 // https://unicode.org/reports/tr9/#X9
-                props_and_embeddings.erase(
+                props_and_embeddings_.erase(
                     std::remove_if(
-                        props_and_embeddings.begin(),
-                        props_and_embeddings.end(),
-                        [](prop_and_embedding_t pae) {
+                        props_and_embeddings_.begin(),
+                        props_and_embeddings_.end(),
+                        [](prop_and_embedding_t<CPIter> pae) {
                             return pae.prop_ == bidi_property::RLE ||
                                    pae.prop_ == bidi_property::LRE ||
                                    pae.prop_ == bidi_property::RLO ||
@@ -1783,20 +1721,20 @@ namespace boost { namespace text {
                                    pae.prop_ == bidi_property::PDF ||
                                    pae.prop_ == bidi_property::BN;
                         }),
-                    props_and_embeddings.end());
+                    props_and_embeddings_.end());
 
                 // https://unicode.org/reports/tr9/#X10
                 auto all_runs = find_all_runs<CPIter>(
-                    props_and_embeddings.begin(),
-                    props_and_embeddings.end(),
+                    props_and_embeddings_.begin(),
+                    props_and_embeddings_.end(),
                     false);
                 auto run_sequences =
-                    find_run_sequences(props_and_embeddings, all_runs);
+                    find_run_sequences(props_and_embeddings_, all_runs);
 
                 find_sos_eos(
                     run_sequences,
-                    props_and_embeddings,
-                    paragraph_embedding_level);
+                    props_and_embeddings_,
+                    paragraph_embedding_level_);
                 for (auto & run_sequence : run_sequences) {
                     w1(run_sequence);
                     w2(run_sequence);
@@ -1814,21 +1752,468 @@ namespace boost { namespace text {
                     i1_i2(run_sequence);
                 }
 
-                out = emit(
-                    props_and_embeddings,
-                    paragraph_embedding_level,
-                    next_line_break,
-                    out);
+                lines_ = lines_t{
+                    std::move(next_line_),
+                    {line_break_result<pae_cp_iterator>{
+                         pae_cp_iterator{props_and_embeddings_.begin()}, false},
+                     pae_cp_iterator{props_and_embeddings_.end()}},
+                    {pae_cp_iterator{props_and_embeddings_.end()}}};
+                lines_it_ = lines_.begin();
+                lines_last_ = lines_.end();
             }
 
-            return out;
-        }
+            void next_line()
+            {
+                if (lines_it_ == lines_last_)
+                    next_paragraph();
+
+                next_line_impl<
+                    CPIter,
+                    Sentinel,
+                    NextLineBreakFunc,
+                    OutValueType,
+                    Mode>::run(*this);
+            }
+
+            void next_reordered_run()
+            {
+                next_reordered_run_impl<
+                    CPIter,
+                    Sentinel,
+                    NextLineBreakFunc,
+                    OutValueType,
+                    Mode>::run(*this);
+            }
+
+            OutValueType get_value()
+            {
+                if (out_values_it_ == out_values_last_) {
+                    if (Mode == bidi_mode::level_test)
+                        next_line();
+                    else
+                        next_reordered_run();
+                }
+                return *out_values_it_++;
+            }
+
+            int paragraph_embedding_level_;
+
+            paragraphs_t paragraphs_;
+            typename paragraphs_t::iterator paragraphs_it_;
+            typename paragraphs_t::iterator paragraphs_last_;
+
+            next_t next_line_;
+            lines_t lines_;
+            bidi_line_break_kind line_break_;
+            typename lines_t::iterator lines_it_;
+            typename lines_t::iterator lines_last_;
+
+            reordered_runs_t<CPIter> reordered_runs_;
+            typename reordered_runs_t<CPIter>::iterator reordered_runs_it_;
+            typename reordered_runs_t<CPIter>::iterator reordered_runs_last_;
+
+            out_values_t out_values_;
+            typename out_values_t::iterator out_values_it_;
+            typename out_values_t::iterator out_values_last_;
+
+            // Reused to prevent reallocations.
+            props_and_embeddings_t<CPIter> props_and_embeddings_;
+            all_runs_t<CPIter> line_all_runs_;
+        };
+
+        template<
+            typename CPIter,
+            typename Sentinel,
+            typename NextLineBreakFunc,
+            typename OutValueType>
+        struct next_line_impl<
+            CPIter,
+            Sentinel,
+            NextLineBreakFunc,
+            OutValueType,
+            bidi_mode::general>
+        {
+            using state_t = bidi_subrange_state<
+                CPIter,
+                Sentinel,
+                NextLineBreakFunc,
+                OutValueType,
+                bidi_mode::general>;
+
+            static void run(state_t & state)
+            {
+                auto line = *state.lines_it_;
+                ++state.lines_it_;
+
+                l1(line, state.paragraph_embedding_level_);
+
+                // https://unicode.org/reports/tr9/#L2
+                state.line_all_runs_ = find_all_runs<CPIter>(
+                    line.begin().base(), line.end().base(), true);
+                state.reordered_runs_ = l2(state.line_all_runs_);
+
+                l3(state.reordered_runs_);
+
+                state.line_break_ = line.hard_break()
+                                        ? bidi_line_break_kind::hard
+                                        : bidi_line_break_kind::possible;
+
+                state.reordered_runs_it_ = state.reordered_runs_.begin();
+                state.reordered_runs_last_ = state.reordered_runs_.end();
+            }
+        };
+
+        template<
+            typename CPIter,
+            typename Sentinel,
+            typename NextLineBreakFunc,
+            typename OutValueType>
+        struct next_line_impl<
+            CPIter,
+            Sentinel,
+            NextLineBreakFunc,
+            OutValueType,
+            bidi_mode::level_test>
+        {
+            using state_t = bidi_subrange_state<
+                CPIter,
+                Sentinel,
+                NextLineBreakFunc,
+                OutValueType,
+                bidi_mode::level_test>;
+
+            static void run(state_t & state)
+            {
+                auto line = *state.lines_it_;
+                ++state.lines_it_;
+
+                // The level test requires L1 only, and produces int embedding
+                // values instead of reordered_runs, so jsut produce output
+                // values here directly.
+                l1(line, state.paragraph_embedding_level_);
+
+                state.out_values_.clear();
+
+                for (auto it = line.begin(), end = line.end(); it != end;
+                     ++it) {
+                    state.out_values_.push_back(it.base()->embedding_);
+                }
+
+                state.out_values_it_ = state.out_values_.begin();
+                state.out_values_last_ = state.out_values_.end();
+            }
+        };
+
+        template<
+            typename CPIter,
+            typename Sentinel,
+            typename NextLineBreakFunc,
+            typename OutValueType>
+        struct next_line_impl<
+            CPIter,
+            Sentinel,
+            NextLineBreakFunc,
+            OutValueType,
+            bidi_mode::reorder_test>
+        {
+            using state_t = bidi_subrange_state<
+                CPIter,
+                Sentinel,
+                NextLineBreakFunc,
+                OutValueType,
+                bidi_mode::reorder_test>;
+
+            static void run(state_t & state)
+            {
+                auto line = *state.lines_it_;
+                ++state.lines_it_;
+
+                l1(line, state.paragraph_embedding_level_);
+
+                // https://unicode.org/reports/tr9/#L2
+                state.line_all_runs_ = find_all_runs<CPIter>(
+                    line.begin().base(), line.end().base(), true);
+                state.reordered_runs_ = l2(state.line_all_runs_);
+
+                state.line_break_ = line.hard_break()
+                                        ? bidi_line_break_kind::hard
+                                        : bidi_line_break_kind::possible;
+
+                state.reordered_runs_it_ = state.reordered_runs_.begin();
+                state.reordered_runs_last_ = state.reordered_runs_.end();
+            }
+        };
+
+        template<
+            typename CPIter,
+            typename Sentinel,
+            typename NextLineBreakFunc,
+            typename OutValueType>
+        struct next_reordered_run_impl<
+            CPIter,
+            Sentinel,
+            NextLineBreakFunc,
+            OutValueType,
+            bidi_mode::general>
+        {
+            using state_t = bidi_subrange_state<
+                CPIter,
+                Sentinel,
+                NextLineBreakFunc,
+                OutValueType,
+                bidi_mode::general>;
+
+            static void run(state_t & state)
+            {
+                if (state.reordered_runs_it_ == state.reordered_runs_last_)
+                    state.next_line();
+                auto run = *state.reordered_runs_it_;
+                ++state.reordered_runs_it_;
+
+                auto const cp_first = run.begin()->it_;
+                auto const cp_last = run.begin() == run.end()
+                                         ? cp_first
+                                         : std::next(std::prev(run.end())->it_);
+
+                state.out_values_.clear();
+
+                if (run.reversed()) {
+                    // https://unicode.org/reports/tr9/#L4
+
+                    auto out_value = bidirectional_subrange<CPIter>{
+                        text::detail::make_reverse_iterator(cp_last),
+                        text::detail::make_reverse_iterator(cp_first)};
+
+                    auto out_first = out_value.begin();
+                    auto out_last = out_value.end();
+
+                    // If this run's directionality is R (aka odd, aka
+                    // reversed), produce 1-code-point ranges for the
+                    // mirrored characters in the run, if any.
+                    while (out_first != out_last) {
+                        int mirror_index = -1;
+                        auto it = std::find_if(
+                            out_first, out_last, [&mirror_index](uint32_t cp) {
+                                mirror_index = bidi_mirroring(cp);
+                                return mirror_index != -1;
+                            });
+                        if (it == out_last)
+                            break;
+
+                        // If we found a reversible CP, emit any
+                        // preceding CPs first.
+                        if (it != out_first) {
+                            auto prev_subrange =
+                                bidirectional_subrange<CPIter>{out_first, it};
+                            state.out_values_.push_back(prev_subrange);
+                        }
+
+                        auto const break_ = std::next(it) == out_last
+                                                ? state.line_break_
+                                                : bidi_line_break_kind::none;
+
+                        // Emit the reversed CP.
+                        state.out_values_.push_back(
+                            bidirectional_subrange<CPIter>{
+                                fwd_rev_cp_iter<CPIter>{
+                                    bidi_mirroreds().begin() + mirror_index,
+                                    fwd_rev_cp_iter_kind::mirror_array_it},
+                                fwd_rev_cp_iter<CPIter>{
+                                    bidi_mirroreds().begin() + mirror_index + 1,
+                                    fwd_rev_cp_iter_kind::mirror_array_it},
+                                break_});
+
+                        // Increment for the next iteration.
+                        out_value =
+                            bidirectional_subrange<CPIter>{++it, out_last};
+                        out_first = out_value.begin();
+                    }
+
+                    if (!out_value.empty()) {
+                        out_value =
+                            bidirectional_subrange<CPIter>{out_value.begin(),
+                                                           out_value.end(),
+                                                           state.line_break_};
+                        state.out_values_.push_back(out_value);
+                    }
+                } else {
+                    auto const out_value = bidirectional_subrange<CPIter>{
+                        cp_first, cp_last, state.line_break_};
+                    state.out_values_.push_back(out_value);
+                }
+
+                state.out_values_it_ = state.out_values_.begin();
+                state.out_values_last_ = state.out_values_.end();
+            }
+        };
+
+        template<
+            typename CPIter,
+            typename Sentinel,
+            typename NextLineBreakFunc,
+            typename OutValueType>
+        struct next_reordered_run_impl<
+            CPIter,
+            Sentinel,
+            NextLineBreakFunc,
+            OutValueType,
+            bidi_mode::level_test>
+        {
+            using state_t = bidi_subrange_state<
+                CPIter,
+                Sentinel,
+                NextLineBreakFunc,
+                OutValueType,
+                bidi_mode::level_test>;
+
+            static void run(state_t & state)
+            {
+                // The level test just outputs a level value for each CP left
+                // at the end of L1, so it produces values in next_line().
+                // Nothing to do here.
+            }
+        };
+
+        template<
+            typename CPIter,
+            typename Sentinel,
+            typename NextLineBreakFunc,
+            typename OutValueType>
+        struct next_reordered_run_impl<
+            CPIter,
+            Sentinel,
+            NextLineBreakFunc,
+            OutValueType,
+            bidi_mode::reorder_test>
+        {
+            using state_t = bidi_subrange_state<
+                CPIter,
+                Sentinel,
+                NextLineBreakFunc,
+                OutValueType,
+                bidi_mode::reorder_test>;
+
+            static void run(state_t & state)
+            {
+                if (state.reordered_runs_it_ == state.reordered_runs_last_)
+                    state.next_line();
+                auto run = *state.reordered_runs_it_;
+                ++state.reordered_runs_it_;
+
+                // The reorder test does not use L3 or L4.
+
+                auto const cp_first = run.begin()->it_;
+                auto const cp_last = run.begin() == run.end()
+                                         ? cp_first
+                                         : std::next(std::prev(run.end())->it_);
+
+                state.out_values_.clear();
+
+                if (run.reversed()) {
+                    auto const out_value = bidirectional_subrange<CPIter>{
+                        detail::make_reverse_iterator(cp_last),
+                        detail::make_reverse_iterator(cp_first),
+                        state.line_break_};
+                    state.out_values_.push_back(out_value);
+                } else {
+                    auto const out_value = bidirectional_subrange<CPIter>{
+                        cp_first, cp_last, state.line_break_};
+                    state.out_values_.push_back(out_value);
+                }
+
+                state.out_values_it_ = state.out_values_.begin();
+                state.out_values_last_ = state.out_values_.end();
+            }
+        };
     }
 
-    /** TODO
+    namespace detail {
+        template<typename CPIter, typename Sentinel, typename NextLineBreakFunc>
+        struct const_lazy_bidi_segment_iterator
+        {
+            using value_type = bidirectional_subrange<CPIter>;
+            using pointer = value_type;
+            using reference = value_type;
+            using difference_type = std::ptrdiff_t;
+            using iterator_category = std::forward_iterator_tag;
 
-        TODO: Document that NextLineBreakFunc must be polymorphic, taking an
-        iterator whose value_type is uint32_t
+            const_lazy_bidi_segment_iterator() noexcept : state_(nullptr) {}
+            const_lazy_bidi_segment_iterator(
+                bidi_subrange_state<
+                    CPIter,
+                    Sentinel,
+                    NextLineBreakFunc,
+                    bidirectional_subrange<CPIter>> & state) noexcept :
+                state_(&state)
+            {}
+
+            reference operator*() const noexcept { return state_->get_value(); }
+
+            const_lazy_bidi_segment_iterator & operator++() noexcept
+            {
+                return *this;
+            }
+
+            friend bool operator==(
+                const_lazy_bidi_segment_iterator lhs,
+                const_lazy_bidi_segment_iterator rhs) noexcept
+            {
+                return lhs.state_->at_end();
+            }
+            friend bool operator!=(
+                const_lazy_bidi_segment_iterator lhs,
+                const_lazy_bidi_segment_iterator rhs) noexcept
+            {
+                return !(lhs == rhs);
+            }
+
+        private:
+            bidi_subrange_state<
+                CPIter,
+                Sentinel,
+                NextLineBreakFunc,
+                bidirectional_subrange<CPIter>> * state_;
+        };
+    }
+
+    /** TODO */
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename NextLineBreakFunc = detail::bidi_next_hard_line_break_callable>
+    struct lazy_bidi_segment_range
+    {
+        using iterator = detail::const_lazy_bidi_segment_iterator<
+            CPIter,
+            Sentinel,
+            NextLineBreakFunc>;
+
+        lazy_bidi_segment_range() noexcept {}
+        lazy_bidi_segment_range(
+            CPIter first,
+            Sentinel last,
+            int paragraph_embedding_level,
+            NextLineBreakFunc next = NextLineBreakFunc{}) noexcept :
+            state_(first, last, paragraph_embedding_level, std::move(next)),
+            first_(state_),
+            last_()
+        {}
+
+        iterator begin() const noexcept { return first_; }
+        iterator end() const noexcept { return last_; }
+
+    private:
+        detail::bidi_subrange_state<
+            CPIter,
+            Sentinel,
+            NextLineBreakFunc,
+            bidirectional_subrange<CPIter>>
+            state_;
+        iterator first_;
+        iterator last_;
+    };
+
+    /** TODO
 
         TODO: Document that specifying a paragraph_embedding_level applies to
         *all* paragraphs found int the text.
@@ -1837,163 +2222,91 @@ namespace boost { namespace text {
 
         TODO: Document that results will not contain RLE, LRE, RLO, LRO, PDF,
         BN, FSI, LRI, RLI, and PDI
-
-        TODO: Document that empty ranges are produced to indicate line breaks.
     */
-    template<
-        typename CPIter,
-        typename Sentinel,
-        typename OutIter,
-        typename NextLineBreakFunc = next_hard_line_break_callable>
+    template<typename CPIter, typename Sentinel>
     auto bidirectional_subranges(
-        CPIter first,
-        Sentinel last,
-        OutIter out,
-        NextLineBreakFunc && next_line_break = NextLineBreakFunc{},
-        int paragraph_embedding_level = -1)
-        -> detail::cp_iter_ret_t<OutIter, CPIter>
+        CPIter first, Sentinel last, int paragraph_embedding_level = -1)
+        -> lazy_bidi_segment_range<CPIter, Sentinel>
     {
-        return detail::bidirectional_order_impl(
-            first,
-            last,
-            out,
-            std::forward<NextLineBreakFunc>(next_line_break),
-            paragraph_embedding_level,
-            [](detail::props_and_embeddings_t<CPIter> & props_and_embeddings,
-               int paragraph_embedding_level,
-               NextLineBreakFunc & next_line_break,
-               OutIter out) {
-                return emit_bidi_subranges(
-                    props_and_embeddings,
-                    paragraph_embedding_level,
-                    next_line_break,
-                    out);
-            });
+        return lazy_bidi_segment_range<CPIter, Sentinel>{
+            first, last, paragraph_embedding_level};
     }
 
     /** TODO */
-    template<
-        typename CPRange,
-        typename OutIter,
-        typename NextLineBreakFunc = next_hard_line_break_callable>
-    auto bidirectional_subranges(
-        CPRange const & range,
-        OutIter out,
-        NextLineBreakFunc && next_line_break = NextLineBreakFunc{},
-        int paragraph_embedding_level = -1)
-        -> detail::cp_iter_ret_t<OutIter, decltype(std::begin(range))>
+    template<typename CPRange>
+    auto
+    bidirectional_subranges(CPRange & range, int paragraph_embedding_level = -1)
+        -> lazy_bidi_segment_range<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>>
     {
-        using cp_iter_t = decltype(std::begin(range));
-        return detail::bidirectional_order_impl(
-            std::begin(range),
-            std::end(range),
-            out,
-            std::forward<NextLineBreakFunc>(next_line_break),
-            paragraph_embedding_level,
-            [](detail::props_and_embeddings_t<cp_iter_t> & props_and_embeddings,
-               int paragraph_embedding_level,
-               NextLineBreakFunc & next_line_break,
-               OutIter out) {
-                return emit_bidi_subranges(
-                    props_and_embeddings,
-                    paragraph_embedding_level,
-                    next_line_break,
-                    out);
-            });
-    }
-
-    /** TODO */
-    template<typename CPIter>
-    struct bidirectional_subrange_copy_iterator
-    {
-        using value_type = void;
-        using difference_type = void;
-        using pointer = void;
-        using reference = void;
-        using iterator_category = std::output_iterator_tag;
-
-        bidirectional_subrange_copy_iterator(CPIter it) noexcept : it_(it) {}
-
-        CPIter base() const noexcept { return it_; }
-
-        template<typename CPIter2>
-        bidirectional_subrange_copy_iterator &
-        operator=(bidirectional_subrange<CPIter2> r) noexcept
-        {
-            it_ = std::copy(r.begin(), r.end(), it_);
-            if (r.possible_line_break()) {
-                *it_ = '\n';
-                ++it_;
-            }
-            return *this;
-        }
-
-        bidirectional_subrange_copy_iterator & operator*() noexcept
-        {
-            return *this;
-        }
-        bidirectional_subrange_copy_iterator & operator++() noexcept
-        {
-            return *this;
-        }
-        bidirectional_subrange_copy_iterator operator++(int)noexcept
-        {
-            return *this;
-        }
-
-    private:
-        CPIter it_;
-    };
-
-    /** TODO */
-    template<typename CPIter>
-    bidirectional_subrange_copy_iterator<CPIter>
-    bidirectional_subrange_copier(CPIter it) noexcept
-    {
-        return bidirectional_subrange_copy_iterator<CPIter>(it);
+        return lazy_bidi_segment_range<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>>{
+            std::begin(range), std::end(range), paragraph_embedding_level};
     }
 
     /** TODO */
     template<
         typename CPIter,
         typename Sentinel,
-        typename OutIter,
-        typename NextLineBreakFunc = next_hard_line_break_callable>
-    auto bidirectional_transform(
+        typename Extent,
+        typename CPExtentFunc>
+    auto bidirectional_subranges(
         CPIter first,
         Sentinel last,
-        OutIter out,
-        NextLineBreakFunc && next_line_break = NextLineBreakFunc{},
-        int paragraph_embedding_level = -1)
-        -> detail::cp_iter_ret_t<OutIter, CPIter>
+        Extent max_extent,
+        CPExtentFunc cp_extent,
+        int paragraph_embedding_level = -1,
+        bool break_overlong_lines = true)
+        -> lazy_bidi_segment_range<
+            CPIter,
+            Sentinel,
+            detail::next_possible_line_break_within_extent_callable<
+                Extent,
+                CPExtentFunc>>
     {
-        auto retval = bidirectional_subranges(
-            first,
-            last,
-            bidirectional_subrange_copier(out),
-            std::forward<NextLineBreakFunc>(next_line_break),
-            paragraph_embedding_level);
-        return retval.base();
+        detail::next_possible_line_break_within_extent_callable<
+            Extent,
+            CPExtentFunc>
+            next{max_extent, std::move(cp_extent), break_overlong_lines};
+        return lazy_bidi_segment_range<
+            CPIter,
+            Sentinel,
+            detail::next_possible_line_break_within_extent_callable<
+                Extent,
+                CPExtentFunc>>{
+            first, last, paragraph_embedding_level, std::move(next)};
     }
 
     /** TODO */
-    template<
-        typename CPRange,
-        typename OutIter,
-        typename NextLineBreakFunc = next_hard_line_break_callable>
-    auto bidirectional_transform(
-        CPRange const & range,
-        OutIter out,
-        NextLineBreakFunc && next_line_break = NextLineBreakFunc{},
-        int paragraph_embedding_level = -1)
-        -> detail::cp_iter_ret_t<OutIter, decltype(std::begin(range))>
+    template<typename CPRange, typename Extent, typename CPExtentFunc>
+    auto bidirectional_subranges(
+        CPRange & range,
+        Extent max_extent,
+        CPExtentFunc cp_extent,
+        int paragraph_embedding_level = -1,
+        bool break_overlong_lines = true)
+        -> lazy_bidi_segment_range<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>,
+            detail::next_possible_line_break_within_extent_callable<
+                Extent,
+                CPExtentFunc>>
     {
-        auto retval = bidirectional_subranges(
-            range,
-            bidirectional_subrange_copier(out),
-            std::forward<NextLineBreakFunc>(next_line_break),
-            paragraph_embedding_level);
-        return retval.base();
+        detail::next_possible_line_break_within_extent_callable<
+            Extent,
+            CPExtentFunc>
+            next{max_extent, std::move(cp_extent), break_overlong_lines};
+        return lazy_bidi_segment_range<
+            detail::iterator_t<CPRange>,
+            detail::sentinel_t<CPRange>,
+            detail::next_possible_line_break_within_extent_callable<
+                Extent,
+                CPExtentFunc>>{std::begin(range),
+                               std::end(range),
+                               paragraph_embedding_level,
+                               std::move(next)};
     }
 
 }}
