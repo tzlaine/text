@@ -2,7 +2,6 @@
 #define BOOST_TEXT_LINE_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
-#include <boost/text/grapheme_break.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <boost/optional.hpp>
@@ -1360,16 +1359,16 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         {
             next_possible_line_break_within_extent_callable() :
                 extent_(),
-                cp_extent_(nullptr),
+                cp_extent_(),
                 break_overlong_lines_(true)
             {}
 
             next_possible_line_break_within_extent_callable(
                 Extent extent,
-                CPExtentFunc & cp_extent,
+                CPExtentFunc cp_extent,
                 bool break_overlong_lines) :
                 extent_(extent),
-                cp_extent_(&cp_extent),
+                cp_extent_(std::move(cp_extent)),
                 break_overlong_lines_(break_overlong_lines)
             {}
 
@@ -1387,7 +1386,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         private:
             Extent extent_;
-            CPExtentFunc * cp_extent_;
+            optional<CPExtentFunc> cp_extent_;
             bool break_overlong_lines_;
         };
     }
@@ -1488,13 +1487,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         CPIter first,
         Sentinel last,
         Extent max_extent,
-        CPExtentFunc && cp_extent,
+        CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept
     {
         detail::next_possible_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>
-            next{max_extent, cp_extent, break_overlong_lines};
+            next{max_extent, std::move(cp_extent), break_overlong_lines};
         return {std::move(next),
                 {line_break_result<CPIter>{first, false}, last},
                 {last}};
@@ -1518,15 +1517,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     lines(
         CPRange & range,
         Extent max_extent,
-        CPExtentFunc && cp_extent,
+        CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept
     {
         detail::next_possible_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>
-            next{max_extent,
-                 cp_extent /* TODO: Reference to temporary! */,
-                 break_overlong_lines};
+            next{max_extent, std::move(cp_extent), break_overlong_lines};
         return {std::move(next),
                 {line_break_result<detail::iterator_t<CPRange>>{
                      std::begin(range), false},

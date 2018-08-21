@@ -51,12 +51,12 @@ namespace boost { namespace text {
         struct const_lazy_segment_iterator
         {
         private:
-            NextFunc * next_func_;
+            mutable NextFunc * next_func_;
             CPIter prev_;
-            CPIter it_;
+            mutable CPIter it_;
             Sentinel last_;
 
-            void set_next_func(NextFunc * next_func) noexcept
+            void set_next_func(NextFunc * next_func) const noexcept
             {
                 next_func_ = next_func;
                 it_ = (*next_func_)(prev_, last_);
@@ -127,13 +127,13 @@ namespace boost { namespace text {
         };
     }
 
-    /** Represents a range of non-overlapping ranges.  Each range represents
-        some semantically significant segment, the semantics of which are
-        controlled by the NextFunc template parameter.  For instance, if
-        NextFunc is next_paragraph_break, the ranges produced by
-        lazy_segment_range will be paragraphs.  Each range is lazily produced;
-        an output range-element is not produced until one of the lazy range's
-        iterators is dereferenced. */
+    /** Represents a range of non-overlapping subranges.  Each subrange
+        represents some semantically significant segment, the semantics of
+        which are controlled by the NextFunc template parameter.  For
+        instance, if NextFunc is next_paragraph_break, the subranges produced
+        by lazy_segment_range will be paragraphs.  Each subrange is lazily
+        produced; an output subrange is not produced until a lazy range
+        iterator is dereferenced. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -150,11 +150,13 @@ namespace boost { namespace text {
             next_func_(std::move(next_func)),
             first_(first),
             last_(last)
-        {
-            first_.set_next_func(&next_func_);
-        }
+        {}
 
-        iterator begin() const noexcept { return first_; }
+        iterator begin() const noexcept
+        {
+            first_.set_next_func(const_cast<NextFunc *>(&next_func_));
+            return first_;
+        }
         iterator end() const noexcept { return last_; }
 
         NextFunc && next_func() && noexcept { return std::move(next_func_); }

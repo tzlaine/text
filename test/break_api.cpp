@@ -3,6 +3,7 @@
 #include <boost/text/sentence_break.hpp>
 #include <boost/text/line_break.hpp>
 #include <boost/text/paragraph_break.hpp>
+#include <boost/text/bidirectional.hpp>
 
 #include <boost/text/utf8.hpp>
 
@@ -65,7 +66,7 @@ TEST(break_apis, grapheme_break)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, grapheme_bounds.size());
+        EXPECT_EQ(i, (int)grapheme_bounds.size());
     }
     // Range API
     {
@@ -82,7 +83,7 @@ TEST(break_apis, grapheme_break)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, grapheme_bounds.size());
+        EXPECT_EQ(i, (int)grapheme_bounds.size());
     }
 }
 
@@ -165,7 +166,7 @@ TEST(break_apis, grapheme_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, grapheme_bounds.size());
+        EXPECT_EQ(i, (int)grapheme_bounds.size());
     }
     // Range API
     {
@@ -184,7 +185,7 @@ TEST(break_apis, grapheme_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, grapheme_bounds.size());
+        EXPECT_EQ(i, (int)grapheme_bounds.size());
     }
 }
 
@@ -243,7 +244,7 @@ TEST(break_apis, word_break)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, word_bounds.size());
+        EXPECT_EQ(i, (int)word_bounds.size());
     }
     // Range API
     {
@@ -260,7 +261,7 @@ TEST(break_apis, word_break)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, word_bounds.size());
+        EXPECT_EQ(i, (int)word_bounds.size());
     }
 }
 
@@ -348,7 +349,7 @@ TEST(break_apis, word_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, word_bounds.size());
+        EXPECT_EQ(i, (int)word_bounds.size());
     }
     // Range API
     {
@@ -365,7 +366,7 @@ TEST(break_apis, word_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, word_bounds.size());
+        EXPECT_EQ(i, (int)word_bounds.size());
     }
 }
 
@@ -418,7 +419,7 @@ TEST(break_apis, sentence_break)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, sentence_bounds.size());
+        EXPECT_EQ(i, (int)sentence_bounds.size());
     }
     // Range API
     {
@@ -435,7 +436,7 @@ TEST(break_apis, sentence_break)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, sentence_bounds.size());
+        EXPECT_EQ(i, (int)sentence_bounds.size());
     }
 }
 
@@ -514,7 +515,7 @@ TEST(break_apis, sentence_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, sentence_bounds.size());
+        EXPECT_EQ(i, (int)sentence_bounds.size());
     }
     // Range API
     {
@@ -531,7 +532,7 @@ TEST(break_apis, sentence_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, sentence_bounds.size());
+        EXPECT_EQ(i, (int)sentence_bounds.size());
     }
 }
 
@@ -584,7 +585,7 @@ TEST(break_apis, line_break)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
     // Range API
     {
@@ -601,16 +602,37 @@ TEST(break_apis, line_break)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
 }
+
+struct line_stateful_cp_extent
+{
+    line_stateful_cp_extent() : i(0) {}
+
+    template<typename Iter, typename Sentinel>
+    int operator()(Iter first, Sentinel last) const noexcept
+    {
+        if ((int)index_counts.size() <= i)
+            index_counts.resize(i + 1);
+        ++index_counts[i];
+        ++i;
+        return std::distance(first, last);
+    }
+
+    mutable int i;
+
+    // Unused; here just to check that moves are done properly.
+    std::unique_ptr<int> ptr;
+
+    static std::vector<int> index_counts;
+};
+std::vector<int> line_stateful_cp_extent::index_counts;
 
 TEST(break_apis, line_break_sentinel)
 {
     using u32_iter =
         boost::text::utf8::to_utf32_iterator<char const *, char const *>;
-
-    // TODO: Add test that stateful line breaks work.
 
     // × 200B × 0020 ÷ 0030 ÷	
     // × [0.3] ZERO WIDTH SPACE (ZW) × [7.01] SPACE (SP) ÷ [8.0] DIGIT ZERO (NU) ÷ [0.3]
@@ -682,7 +704,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
     // Range API
     {
@@ -699,7 +721,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
 
 
@@ -722,7 +744,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
 
     // 2 columns -> take the possible break in the middle.
@@ -743,7 +765,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
 
     // 1 column -> break after every character, since overlong sequences are
@@ -765,7 +787,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
 
     // 1 column -> ignore the overlong lines, and so only take the possible
@@ -789,7 +811,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
 
     std::array<uint32_t, 17> lb15_cps = {{0x0061, 0x006D, 0x0062, 0x0069, 0x0067, 0x0075, 0x0028, 0x00AB, 0x0020, 0x0308, 0x0020, 0x00BB, 0x0029, 0x0028, 0x0065, 0x0308, 0x0029}};
@@ -820,7 +842,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
 
     // Exercise detail::skip_forward_spaces_between() code.
@@ -850,7 +872,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
     {
         // LB14
@@ -878,7 +900,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
     {
         // LB15
@@ -907,7 +929,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
     {
         // LB16
@@ -935,7 +957,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
 
     {
@@ -968,7 +990,47 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
+    }
+
+    // Same test as above, but with a stateful cp_extent.
+    {
+        line_stateful_cp_extent::index_counts.clear();
+
+        // × 0061 × 006D × 0062    × 0069 × 0067 × 0075 ×    0028 × 00AB × 0020 ÷    0308 × 0020 ÷    00BB × 0029 ÷    0028 × 0065 × 0308 ×    0029 ÷
+        auto const _3_column_lines =
+            boost::text::lines(lb15_cps, 3, line_stateful_cp_extent{});
+
+        std::array<std::pair<int, int>, 7> const line_bounds = {{
+            {0, 3},
+            {3, 6},
+            {6, 9},
+            {9, 11},
+            {11, 13},
+            {13, 16},
+            {16, 17},
+        }};
+
+        int i = 0;
+        for (auto line : _3_column_lines) {
+            EXPECT_EQ(
+                std::distance(lb15_cps.begin(), line.begin()),
+                line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(
+                std::distance(lb15_cps.begin(), line.end()),
+                line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)line_bounds.size());
+
+        EXPECT_EQ(
+            std::count(
+                line_stateful_cp_extent::index_counts.begin(),
+                line_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)line_stateful_cp_extent::index_counts.size());
     }
 
     {
@@ -1003,7 +1065,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
 
     // Range API
@@ -1024,7 +1086,7 @@ TEST(break_apis, line_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, line_bounds.size());
+        EXPECT_EQ(i, (int)line_bounds.size());
     }
 }
 
@@ -1082,7 +1144,7 @@ TEST(break_apis, paragraph_break)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, paragraph_bounds.size());
+        EXPECT_EQ(i, (int)paragraph_bounds.size());
     }
     // Range API
     {
@@ -1099,7 +1161,7 @@ TEST(break_apis, paragraph_break)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, paragraph_bounds.size());
+        EXPECT_EQ(i, (int)paragraph_bounds.size());
     }
 }
 
@@ -1186,7 +1248,7 @@ TEST(break_apis, paragraph_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, paragraph_bounds.size());
+        EXPECT_EQ(i, (int)paragraph_bounds.size());
     }
     // Range API
     {
@@ -1203,8 +1265,493 @@ TEST(break_apis, paragraph_break_sentinel)
                 << "i=" << i;
             ++i;
         }
-        EXPECT_EQ(i, paragraph_bounds.size());
+        EXPECT_EQ(i, (int)paragraph_bounds.size());
     }
 }
 
-// TODO: Add bidi tests.  Include test that stateful line breaks work.
+struct bidi_stateful_cp_extent
+{
+    bidi_stateful_cp_extent() : i(0) {}
+
+    template<typename Iter, typename Sentinel>
+    int operator()(Iter first, Sentinel last) const noexcept
+    {
+        if ((int)index_counts.size() <= i)
+            index_counts.resize(i + 1);
+        ++index_counts[i];
+        ++i;
+        return std::distance(first, last);
+    }
+
+    mutable int i;
+
+    // Unused; here just to check that moves are done properly.
+    std::unique_ptr<int> ptr;
+
+    static std::vector<int> index_counts;
+};
+std::vector<int> bidi_stateful_cp_extent::index_counts;
+
+TEST(break_apis, bidi)
+{
+    // ON RLE ON FSI ON R RLO L PDF ON PDI ON PDF ON; 3 ('LTR') (line 496999)
+    std::vector<uint32_t> const cps = { 0x0021, 0x202B, 0x0021, 0x2068, 0x0021, 0x05BE, 0x202E, 0x0041, 0x202C, 0x0021, 0x2069, 0x0021, 0x202C, 0x0021 };
+    std::vector<uint32_t> const expected_reordered_indices = { 0, 11, 10, 9, 7, 5, 4, 3, 2, 13 };
+
+    {
+        std::vector<uint32_t> reordered;
+        for (auto subrange :
+             boost::text::bidirectional_subranges(cps.begin(), cps.end(), 0)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+    }
+
+    {
+        std::vector<uint32_t> reordered;
+        for (auto subrange :
+             boost::text::bidirectional_subranges(cps.begin(), cps.end())) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+    }
+
+    // Range API
+    {
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+    }
+
+    {
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(cps)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+    }
+
+    // Extent-limited.
+    {
+        bidi_stateful_cp_extent::index_counts.clear();
+
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(
+                 cps.begin(), cps.end(), 80, bidi_stateful_cp_extent{}, 0)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+
+        EXPECT_EQ(
+            std::count(
+                bidi_stateful_cp_extent::index_counts.begin(),
+                bidi_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)bidi_stateful_cp_extent::index_counts.size());
+    }
+
+    {
+        bidi_stateful_cp_extent::index_counts.clear();
+
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(
+                 cps.begin(), cps.end(), 80, bidi_stateful_cp_extent{})) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+
+        EXPECT_EQ(
+            std::count(
+                bidi_stateful_cp_extent::index_counts.begin(),
+                bidi_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)bidi_stateful_cp_extent::index_counts.size());
+    }
+
+    // Extent-limited, range API.
+    {
+        bidi_stateful_cp_extent::index_counts.clear();
+
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(
+                 cps, 80, bidi_stateful_cp_extent{}, 0)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+
+        EXPECT_EQ(
+            std::count(
+                bidi_stateful_cp_extent::index_counts.begin(),
+                bidi_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)bidi_stateful_cp_extent::index_counts.size());
+    }
+
+    {
+        bidi_stateful_cp_extent::index_counts.clear();
+
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(
+                 cps, 80, bidi_stateful_cp_extent{})) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+
+        EXPECT_EQ(
+            std::count(
+                bidi_stateful_cp_extent::index_counts.begin(),
+                bidi_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)bidi_stateful_cp_extent::index_counts.size());
+    }
+}
+
+TEST(break_apis, bidi_sentinel)
+{
+    using u32_iter =
+        boost::text::utf8::to_utf32_iterator<char const *, char const *>;
+
+    boost::text::string s;
+
+    // ON RLE ON FSI ON R RLO L PDF ON PDI ON PDF ON; 3 ('LTR') (line 496999)
+    std::vector<uint32_t> const cps = { 0x0021, 0x202B, 0x0021, 0x2068, 0x0021, 0x05BE, 0x202E, 0x0041, 0x202C, 0x0021, 0x2069, 0x0021, 0x202C, 0x0021 };
+    std::vector<uint32_t> const expected_reordered_indices = { 0, 11, 10, 9, 7, 5, 4, 3, 2, 13 };
+    {
+        s = boost::text::string(
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.begin(), cps.end()),
+            boost::text::utf8::make_from_utf32_iterator(
+                cps.begin(), cps.end(), cps.end()));
+        assert(boost::algorithm::equal(
+            cps.begin(),
+            cps.end(),
+            u32_iter(s.begin(), s.begin(), s.end()),
+            u32_iter(s.begin(), s.end(), s.end())));
+    }
+
+    char const * c_str = s.begin();
+
+    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> cp_range{
+        u32_iter(c_str, c_str, s.end()), boost::text::utf8::null_sentinel{}};
+
+    auto const begin = cp_range.begin();
+    auto const end = cp_range.end();
+
+    {
+        std::vector<uint32_t> reordered;
+        for (auto subrange :
+             boost::text::bidirectional_subranges(begin, end, 0)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+    }
+
+    {
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(begin, end)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+    }
+
+    // Range API
+    {
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(cp_range, 0)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+    }
+
+    {
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(cp_range)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+    }
+
+    // Extent-limited.
+    {
+        bidi_stateful_cp_extent::index_counts.clear();
+
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(
+                 begin, end, 80, bidi_stateful_cp_extent{}, 0)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+
+        EXPECT_EQ(
+            std::count(
+                bidi_stateful_cp_extent::index_counts.begin(),
+                bidi_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)bidi_stateful_cp_extent::index_counts.size());
+    }
+
+    {
+        bidi_stateful_cp_extent::index_counts.clear();
+
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(
+                 begin, end, 80, bidi_stateful_cp_extent{})) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+
+        EXPECT_EQ(
+            std::count(
+                bidi_stateful_cp_extent::index_counts.begin(),
+                bidi_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)bidi_stateful_cp_extent::index_counts.size());
+    }
+
+    // Extent-limited, range API.
+    {
+        bidi_stateful_cp_extent::index_counts.clear();
+
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(
+                 cp_range, 80, bidi_stateful_cp_extent{}, 0)) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+
+        EXPECT_EQ(
+            std::count(
+                bidi_stateful_cp_extent::index_counts.begin(),
+                bidi_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)bidi_stateful_cp_extent::index_counts.size());
+    }
+
+    {
+        bidi_stateful_cp_extent::index_counts.clear();
+
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(
+                 cp_range, 80, bidi_stateful_cp_extent{})) {
+            for (auto cp : subrange) {
+                reordered.push_back(cp);
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cps[idx] < 0x2066 || 0x2069 < cps[idx]) {
+                EXPECT_EQ(reordered[i], cps[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cps[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+
+        EXPECT_EQ(
+            std::count(
+                bidi_stateful_cp_extent::index_counts.begin(),
+                bidi_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)bidi_stateful_cp_extent::index_counts.size());
+    }
+}

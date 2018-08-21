@@ -72,7 +72,7 @@ namespace boost { namespace text {
             using value_type =
                 typename std::iterator_traits<CPIter>::value_type;
 
-            value_type const & cp() const { return *it_; }
+            value_type cp() const { return *it_; }
 
             CPIter it_;
             int embedding_;
@@ -192,7 +192,7 @@ namespace boost { namespace text {
         {
             using value_type = uint32_t const;
             using pointer = value_type *;
-            using reference = value_type &;
+            using reference = value_type;
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::bidirectional_iterator_tag;
 
@@ -204,7 +204,6 @@ namespace boost { namespace text {
             iterator_t base() const noexcept { return it_; }
 
             reference operator*() const noexcept { return it_->cp(); }
-            pointer operator->() const noexcept { return &**this; }
 
             props_and_embeddings_cp_iterator & operator++() noexcept
             {
@@ -324,7 +323,7 @@ namespace boost { namespace text {
             }
 
             reference operator*() const noexcept { return *it_; }
-            pointer operator->() const noexcept { return std::addressof(*it_); }
+            pointer operator->() const noexcept { return &*it_; }
 
             typename level_run<CPIter>::iterator base() const { return it_; }
 
@@ -2176,7 +2175,13 @@ namespace boost { namespace text {
         };
     }
 
-    /** TODO */
+    /** Represents a range of non-overlapping subranges.  Each subrange
+        represents some semantically significant segment, the semantics of
+        which are controlled by the NextFunc template parameter.  For
+        instance, if NextFunc is next_paragraph_break, the subranges produced
+        by lazy_segment_range will be paragraphs.  Each subrange is lazily
+        produced; an output subrange is not produced until a lazy range
+        iterator is dereferenced. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -2188,19 +2193,17 @@ namespace boost { namespace text {
             Sentinel,
             NextLineBreakFunc>;
 
-        lazy_bidi_segment_range() noexcept {}
+        lazy_bidi_segment_range() noexcept : state_() {}
         lazy_bidi_segment_range(
             CPIter first,
             Sentinel last,
             int paragraph_embedding_level,
             NextLineBreakFunc next = NextLineBreakFunc{}) noexcept :
-            state_(first, last, paragraph_embedding_level, std::move(next)),
-            first_(state_),
-            last_()
+            state_(first, last, paragraph_embedding_level, std::move(next))
         {}
 
-        iterator begin() const noexcept { return first_; }
-        iterator end() const noexcept { return last_; }
+        iterator begin() noexcept { return iterator(state_); }
+        iterator end() noexcept { return iterator(); }
 
     private:
         detail::bidi_subrange_state<
@@ -2209,20 +2212,29 @@ namespace boost { namespace text {
             NextLineBreakFunc,
             bidirectional_subrange<CPIter>>
             state_;
-        iterator first_;
-        iterator last_;
     };
 
-    /** TODO
+    /** Returns a lazy range of code point subranges in [first, last); each
+        subrange is one of three kinds: a forward-subrange; a
+        reverse-subrange; or a one-code-point subrange used to subtitute a
+        reversed bracketing code point (e.g. '[') for its couterpart
+        (e.g. ']').  There is a single iterator type used in the resulting
+        subranges, so this distinction is not visible in the subrange API.
 
-        TODO: Document that specifying a paragraph_embedding_level applies to
-        *all* paragraphs found int the text.
+        Line breaks are determined by calling lines(first, last); only hard
+        line breaks are considered.
 
-        TODO: Document the value_type requirement for OutIter.
+        If a non-negative paragraph_embedding_level is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        [first, last).
 
-        TODO: Document that results will not contain RLE, LRE, RLO, LRO, PDF,
-        BN, FSI, LRI, RLI, and PDI
-    */
+        Code points that are used to control the left-to-right or
+        right-to-left direction of code points within the text will not appear
+        in the output.  The Unicode Bidirectional Algorithm specifies that
+        ccode points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear
+        in the output; this implementation additionally removes code points
+        with classes FSI, LRI, RLI, and PDI.*/
     template<typename CPIter, typename Sentinel>
     auto bidirectional_subranges(
         CPIter first, Sentinel last, int paragraph_embedding_level = -1)
@@ -2232,7 +2244,27 @@ namespace boost { namespace text {
             first, last, paragraph_embedding_level};
     }
 
-    /** TODO */
+    /** Returns a lazy range of code point subranges in range; each subrange
+        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-code-point subrange used to subtitute a reversed bracketing code
+        point (e.g. '[') for its couterpart (e.g. ']').  There is a single
+        iterator type used in the resulting subranges, so this distinction is
+        not visible in the subrange API.
+
+        Line breaks are determined by calling lines(first, last); only hard
+        line breaks are considered.
+
+        If a non-negative paragraph_embedding_level is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        range.
+
+        Code points that are used to control the left-to-right or
+        right-to-left direction of code points within the text will not appear
+        in the output.  The Unicode Bidirectional Algorithm specifies that
+        ccode points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear
+        in the output; this implementation additionally removes code points
+        with classes FSI, LRI, RLI, and PDI.*/
     template<typename CPRange>
     auto
     bidirectional_subranges(CPRange & range, int paragraph_embedding_level = -1)
@@ -2246,7 +2278,27 @@ namespace boost { namespace text {
             std::begin(range), std::end(range), paragraph_embedding_level};
     }
 
-    /** TODO */
+    /** Returns a lazy range of code point subranges in [first, last); each
+        subrange is one of three kinds: a forward-subrange; a
+        reverse-subrange; or a one-code-point subrange used to subtitute a
+        reversed bracketing code point (e.g. '[') for its couterpart
+        (e.g. ']').  There is a single iterator type used in the resulting
+        subranges, so this distinction is not visible in the subrange API.
+
+        Line breaks are determined by calling lines(first, last, max_extent,
+        cp_extent, break_overlong_lines).
+
+        If a non-negative paragraph_embedding_level is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        [first, last).
+
+        Code points that are used to control the left-to-right or
+        right-to-left direction of code points within the text will not appear
+        in the output.  The Unicode Bidirectional Algorithm specifies that
+        ccode points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear
+        in the output; this implementation additionally removes code points
+        with classes FSI, LRI, RLI, and PDI.*/
     template<
         typename CPIter,
         typename Sentinel,
@@ -2279,7 +2331,27 @@ namespace boost { namespace text {
             first, last, paragraph_embedding_level, std::move(next)};
     }
 
-    /** TODO */
+    /** Returns a lazy range of code point subranges in range; each subrange
+        is one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-code-point subrange used to subtitute a reversed bracketing code
+        point (e.g. '[') for its couterpart (e.g. ']').  There is a single
+        iterator type used in the resulting subranges, so this distinction is
+        not visible in the subrange API.
+
+        Line breaks are determined by calling lines(first, last, max_extent,
+        cp_extent, break_overlong_lines).
+
+        If a non-negative paragraph_embedding_level is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        range.
+
+        Code points that are used to control the left-to-right or
+        right-to-left direction of code points within the text will not appear
+        in the output.  The Unicode Bidirectional Algorithm specifies that
+        ccode points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear
+        in the output; this implementation additionally removes code points
+        with classes FSI, LRI, RLI, and PDI.*/
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     auto bidirectional_subranges(
         CPRange & range,
