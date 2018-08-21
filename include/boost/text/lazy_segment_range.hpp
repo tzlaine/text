@@ -37,8 +37,7 @@ namespace boost { namespace text {
                 typename CPRange_>
             friend struct const_lazy_segment_iterator;
 
-            segment_arrow_proxy(CPRange value) : value_(value)
-            {}
+            explicit segment_arrow_proxy(CPRange value) : value_(value) {}
 
             CPRange value_;
         };

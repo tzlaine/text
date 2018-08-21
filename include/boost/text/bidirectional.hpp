@@ -2132,11 +2132,22 @@ namespace boost { namespace text {
     }
 
     namespace detail {
+        template<typename T>
+        struct arrow_proxy
+        {
+            T * operator->() const noexcept { return &value_; }
+
+            explicit arrow_proxy(T value) : value_(std::move(value)) {}
+
+        private:
+            T value_;
+        };
+
         template<typename CPIter, typename Sentinel, typename NextLineBreakFunc>
         struct const_lazy_bidi_segment_iterator
         {
             using value_type = bidirectional_subrange<CPIter>;
-            using pointer = value_type;
+            using pointer = arrow_proxy<value_type>;
             using reference = value_type;
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::forward_iterator_tag;
@@ -2152,6 +2163,8 @@ namespace boost { namespace text {
             {}
 
             reference operator*() const noexcept { return state_->get_value(); }
+
+            pointer operator->() const noexcept { return pointer(**this); }
 
             const_lazy_bidi_segment_iterator & operator++() noexcept
             {
