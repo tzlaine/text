@@ -496,11 +496,7 @@ TEST(break_apis, word_tailoring_MidLetter)
         boost::text::string const expected_words[7] = {
             "multi-part", " ", "words", " ", "with", " ", "dashes"};
         int i = 0;
-        for (auto word : boost::text::words(cp_range, [](uint32_t cp) {
-                 if (cp == 0x002d)
-                     return boost::text::word_property::MidLetter;
-                 return boost::text::word_prop(cp);
-             })) {
+        for (auto word : boost::text::words(cp_range, midletter_dash)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
                 word.begin(), word.end(), expected.begin(), expected.end()))
@@ -509,6 +505,104 @@ TEST(break_apis, word_tailoring_MidLetter)
             ++i;
         }
         EXPECT_EQ(i, 7);
+    }
+}
+
+TEST(break_apis, word_tailoring_cp_break)
+{
+    using u32_iter =
+        boost::text::utf8::to_utf32_iterator<char const *, char const *>;
+
+    boost::text::string const s = "snake_case camelCase";
+
+    char const * c_str = s.begin();
+
+    boost::text::cp_range<u32_iter, boost::text::utf8::null_sentinel> const
+        cp_range{u32_iter(c_str, c_str, s.end()),
+                 boost::text::utf8::null_sentinel{}};
+
+    auto const begin = cp_range.begin();
+    auto const end = cp_range.end();
+
+    auto const midletter_dash = [](uint32_t cp) {
+        if (cp == 0x002d)
+            return boost::text::word_property::MidLetter;
+        return boost::text::word_prop(cp);
+    };
+
+    auto const identifier_break = [](uint32_t prev_prev,
+                                     uint32_t prev,
+                                     uint32_t curr,
+                                     uint32_t next,
+                                     uint32_t next_next) {
+        if ((prev == '_') != (curr == '_'))
+            return true;
+        if (0x61 <= prev && prev <= 0x7a && 0x41 <= curr && curr <= 0x5a)
+            return true;
+        return false;
+    };
+
+    // Default breaks.
+    {
+        boost::text::string const expected_words[3] = {
+            "snake_case", " ", "camelCase"};
+        int i = 0;
+        for (auto word : boost::text::words(begin, end)) {
+            auto const expected = utf32_range(expected_words[i]);
+            EXPECT_TRUE(boost::algorithm::equal(
+                word.begin(), word.end(), expected.begin(), expected.end()))
+                << "i=" << i << " '" << boost::text::string(word) << "' != '"
+                << boost::text::string(expected) << "'";
+            ++i;
+        }
+        EXPECT_EQ(i, 3);
+    }
+    // MidLetter tailoring with identifier break.
+    {
+        boost::text::string const expected_words[6] = {
+            "snake", "_", "case", " ", "camel", "Case"};
+        int i = 0;
+        for (auto word :
+             boost::text::words(begin, end, midletter_dash, identifier_break)) {
+            auto const expected = utf32_range(expected_words[i]);
+            EXPECT_TRUE(boost::algorithm::equal(
+                word.begin(), word.end(), expected.begin(), expected.end()))
+                << "i=" << i << " '" << boost::text::string(word) << "' != '"
+                << boost::text::string(expected) << "'";
+            ++i;
+        }
+        EXPECT_EQ(i, 6);
+    }
+    // Default breaks, range API.
+    {
+        boost::text::string const expected_words[3] = {
+            "snake_case", " ", "camelCase"};
+        int i = 0;
+        for (auto word : boost::text::words(cp_range)) {
+            auto const expected = utf32_range(expected_words[i]);
+            EXPECT_TRUE(boost::algorithm::equal(
+                word.begin(), word.end(), expected.begin(), expected.end()))
+                << "i=" << i << " '" << boost::text::string(word) << "' != '"
+                << boost::text::string(expected) << "'";
+            ++i;
+        }
+        EXPECT_EQ(i, 3);
+    }
+    // MidLetter tailoring with identifier break, range API.
+    {
+        boost::text::string const expected_words[6] = {
+            "snake", "_", "case", " ", "camel", "Case"};
+        int i = 0;
+        for (auto word :
+             boost::text::words(cp_range, midletter_dash, identifier_break)) {
+            auto const expected = utf32_range(expected_words[i]);
+            EXPECT_TRUE(boost::algorithm::equal(
+                word.begin(), word.end(), expected.begin(), expected.end()))
+                << "i=" << i << " '" << boost::text::string(word) << "' != '"
+                << boost::text::string(expected) << "'";
+            ++i;
+        }
+        EXPECT_EQ(i, 6);
     }
 }
 
