@@ -77,6 +77,14 @@ namespace boost { namespace text {
     }
 
     namespace detail {
+        struct default_word_prop
+        {
+            word_property operator()(uint32_t cp) const noexcept
+            {
+                return word_prop(cp);
+            }
+        };
+
         inline bool skippable(word_property prop) noexcept
         {
             return prop == word_property::Extend ||
@@ -201,15 +209,19 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
         // WB4: Except after line breaks, ignore/skip (Extend | Format |
         // ZWJ)*
-        template<typename CPIter, typename Sentinel>
+        template<typename CPIter, typename Sentinel, typename WordPropFunc>
         word_break_state<CPIter> skip_forward(
-            word_break_state<CPIter> state, CPIter first, Sentinel last)
+            word_break_state<CPIter> state,
+            CPIter first,
+            Sentinel last,
+            WordPropFunc word_prop)
         {
             if (state.it != first && !skippable(state.prev_prop) &&
                 skippable(state.prop)) {
-                auto temp_it = find_if_not(state.it, last, [](uint32_t cp) {
-                    return skippable(word_prop(cp));
-                });
+                auto temp_it =
+                    find_if_not(state.it, last, [word_prop](uint32_t cp) {
+                        return skippable(word_prop(cp));
+                    });
                 if (temp_it == last)
                     --temp_it;
                 auto const temp_prop = word_prop(*temp_it);
@@ -227,14 +239,103 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             }
             return state;
         }
+
+        template<typename T>
+        using word_prop_func_ =
+            decltype(std::declval<T>()(std::declval<uint32_t>()));
+
+        template<
+            typename T,
+            typename F,
+            bool FIsWordPropFunc = std::
+                is_same<detected_t<word_prop_func_, F>, word_property>::value>
+        struct word_prop_func_ret
+        {
+        };
+
+        template<typename T, typename F>
+        struct word_prop_func_ret<T, F, true>
+        {
+            using type = T;
+        };
+
+        template<typename T, typename F>
+        using word_prop_func_ret_t = typename word_prop_func_ret<T, F>::type;
+
+        template<typename T, typename U>
+        using comparable_ = decltype(std::declval<T>() == std::declval<U>());
+
+        template<
+            typename T,
+            typename CPIter,
+            typename Sentinel,
+            bool FIsWordPropFunc = is_cp_iter<CPIter>::value &&
+                is_detected<comparable_, CPIter, Sentinel>::value>
+        struct cp_iter_sntl_ret
+        {
+        };
+
+        template<typename T, typename CPIter, typename Sentinel>
+        struct cp_iter_sntl_ret<T, CPIter, Sentinel, true>
+        {
+            using type = T;
+        };
+
+        template<typename T, typename CPIter, typename Sentinel>
+        using cp_iter_sntl_ret_t =
+            typename cp_iter_sntl_ret<T, CPIter, Sentinel>::type;
     }
+
+    // TODO: Document WordPropFunc, including that it must be stateless.
+
+    /* TODO: For docs on how to use WordPropFunc:
+       Some or all of the following characters may be tailored to be in
+       MidLetter, depending on the environment:
+
+        U+002D ( - ) HYPHEN-MINUS
+        U+055A ( ՚ ) ARMENIAN APOSTROPHE
+        U+058A ( ֊ ) ARMENIAN HYPHEN
+        U+0F0B ( ་ ) TIBETAN MARK INTERSYLLABIC TSHEG
+        U+1806 ( ᠆ ) MONGOLIAN TODO SOFT HYPHEN
+        U+2010 ( ‐ ) HYPHEN
+        U+2011 ( ‑ ) NON-BREAKING HYPHEN
+        U+201B ( ‛ ) SINGLE HIGH-REVERSED-9 QUOTATION MARK
+        U+30A0 ( ゠ ) KATAKANA-HIRAGANA DOUBLE HYPHEN
+        U+30FB ( ・ ) KATAKANA MIDDLE DOT
+        U+FE63 ( ﹣ ) SMALL HYPHEN-MINUS
+        U+FF0D ( － ) FULLWIDTH HYPHEN-MINUS
+
+       For example, some writing systems use a hyphen character between
+       syllables within a word. An example is the Iu Mien language written
+       with the Thai script. Such words should behave as single words for the
+       purpose of selection (“double-click”), indexing, and so forth, meaning
+       that they should not word-break on the hyphen.
+
+       Some or all of the following characters may be tailored to be in
+       MidNum, depending on the environment, to allow for languages that use
+       spaces as thousands separators, such as €1 234,56.
+
+        U+0020 SPACE
+        U+00A0 NO-BREAK SPACE
+        U+2007 FIGURE SPACE
+        U+2008 PUNCTUATION SPACE
+        U+2009 THIN SPACE
+        U+202F NARROW NO-BREAK SPACE
+    */
 
     /** Finds the nearest word break at or before before <code>it</code>.  If
         <code>it == first</code>, that is returned.  Otherwise, the first code
         point of the word that <code>it</code> is within is returned (even if
         <code>it</code> is already at the first code point of a word). */
-    template<typename CPIter, typename Sentinel>
-    auto prev_word_break(CPIter first, CPIter it, Sentinel last) noexcept
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = detail::default_word_prop>
+    auto prev_word_break(
+        CPIter first,
+        CPIter it,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{}) noexcept
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         if (it == first)
@@ -252,9 +353,10 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         // Special case: If state.prop is skippable, we need to skip backward
         // until we find a non-skippable.
         if (detail::skippable(state.prop)) {
-            state.it = find_if_not_backward(first, it, [](uint32_t cp) {
-                return detail::skippable(word_prop(cp));
-            });
+            state.it =
+                find_if_not_backward(first, it, [word_prop](uint32_t cp) {
+                    return detail::skippable(word_prop(cp));
+                });
             state.next_prop = word_prop(*std::next(state.it));
             state.prop = word_prop(*state.it);
 
@@ -287,7 +389,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             if (std::next(state.it) != last) {
                 auto temp_state = state;
                 temp_state = next(temp_state);
-                temp_state = detail::skip_forward(temp_state, first, last);
+                temp_state =
+                    detail::skip_forward(temp_state, first, last, word_prop);
                 if (temp_state.it == last) {
                     state.next_prop = word_property::Other;
                     state.next_next_prop = word_property::Other;
@@ -295,8 +398,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                     state.next_prop = temp_state.prop;
                     if (std::next(temp_state.it) != last) {
                         temp_state = next(temp_state);
-                        temp_state =
-                            detail::skip_forward(temp_state, first, last);
+                        temp_state = detail::skip_forward(
+                            temp_state, first, last, word_prop);
                         if (temp_state.it == last)
                             state.next_next_prop = word_property::Other;
                         else
@@ -310,10 +413,11 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
         // WB4: Except after line breaks, ignore/skip (Extend | Format |
         // ZWJ)*
-        auto skip = [](detail::word_break_state<CPIter> state, CPIter first) {
+        auto skip = [word_prop](
+                        detail::word_break_state<CPIter> state, CPIter first) {
             if (detail::skippable(state.prev_prop)) {
-                auto temp_it =
-                    find_if_not_backward(first, state.it, [](uint32_t cp) {
+                auto temp_it = find_if_not_backward(
+                    first, state.it, [word_prop](uint32_t cp) {
                         return detail::skippable(word_prop(cp));
                     });
                 if (temp_it == state.it)
@@ -488,8 +592,14 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         next word exists.
 
         \pre <code>first</code> is at the beginning of a word. */
-    template<typename CPIter, typename Sentinel>
-    auto next_word_break(CPIter first, Sentinel last) noexcept
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = detail::default_word_prop>
+    auto next_word_break(
+        CPIter first,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{}) noexcept
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         if (first == last)
@@ -552,7 +662,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             // Puting this here means not having to do it explicitly below
             // between prop and next_prop (and transitively, between prev_prop
             // and prop).
-            state = detail::skip_forward(state, first, last);
+            state = detail::skip_forward(state, first, last, word_prop);
             if (state.it == last)
                 return state.it;
 
@@ -560,7 +670,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             if (detail::ah_letter(state.prev_prop) &&
                 detail::mid_ah(state.prop) && std::next(state.it) != last) {
                 auto const temp_state =
-                    detail::skip_forward(next(state), first, last);
+                    detail::skip_forward(next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
                 if (detail::ah_letter(temp_state.prop))
@@ -579,7 +689,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 state.prop == word_property::Double_Quote &&
                 std::next(state.it) != last) {
                 auto const temp_state =
-                    detail::skip_forward(next(state), first, last);
+                    detail::skip_forward(next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
                 if (temp_state.prop == word_property::Hebrew_Letter)
@@ -604,7 +714,7 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             if (state.prev_prop == word_property::Numeric &&
                 detail::mid_num(state.prop) && std::next(state.it) != last) {
                 auto const temp_state =
-                    detail::skip_forward(next(state), first, last);
+                    detail::skip_forward(next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
                 if (temp_state.prop == word_property::Numeric)
@@ -636,11 +746,18 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         first code point of the word that <code>it</code> is within is
         returned (even if <code>it</code> is already at the first code point
         of a word). */
-    template<typename CPRange, typename CPIter>
-    auto prev_word_break(CPRange & range, CPIter it) noexcept
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = detail::default_word_prop>
+    auto prev_word_break(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{}) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return prev_word_break(std::begin(range), it, std::end(range));
+        return prev_word_break(
+            std::begin(range), it, std::end(range), word_prop);
     }
 
     /** Finds the next word break after <code>range.begin()</code>.  This will
@@ -648,69 +765,107 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         <code>range.end()</code> if no next word exists.
 
         \pre <code>range.begin()</code> is at the beginning of a word. */
-    template<typename CPRange>
-    auto next_word_break(CPRange & range) noexcept
+    template<
+        typename CPRange,
+        typename WordPropFunc = detail::default_word_prop>
+    auto next_word_break(
+        CPRange & range, WordPropFunc word_prop = WordPropFunc{}) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return next_word_break(std::begin(range), std::end(range));
+        return next_word_break(std::begin(range), std::end(range), word_prop);
     }
 
     namespace detail {
-        template<typename CPIter, typename Sentinel>
+        template<typename CPIter, typename Sentinel, typename WordPropFunc>
         struct next_word_callable
         {
-            auto operator()(CPIter it, Sentinel last) noexcept
+            auto operator()(CPIter it, Sentinel last) const noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return next_word_break(it, last);
+                return next_word_break(it, last, word_prop_);
             }
+
+            WordPropFunc word_prop_;
         };
     }
 
     /** Returns the bounds of the word that <code>it</code> lies within. */
-    template<typename CPIter, typename Sentinel>
-    cp_range<CPIter> word(CPIter first, CPIter it, Sentinel last) noexcept
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = detail::default_word_prop>
+    cp_range<CPIter> word(
+        CPIter first,
+        CPIter it,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{}) noexcept
     {
-        first = prev_word_break(first, it, last);
-        return cp_range<CPIter>{first, next_word_break(first, last)};
+        first = prev_word_break(first, it, last, word_prop);
+        return cp_range<CPIter>{first, next_word_break(first, last, word_prop)};
     }
 
     /** Returns the bounds of the word that <code>it</code> lies within. */
-    template<typename CPRange, typename CPIter>
-    auto word(CPRange & range, CPIter it) noexcept
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = detail::default_word_prop>
+    auto word(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{}) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        auto first = prev_word_break(std::begin(range), it, std::end(range));
-        return cp_range<CPIter>{first, next_word_break(first, std::end(range))};
+        auto first =
+            prev_word_break(std::begin(range), it, std::end(range), word_prop);
+        return cp_range<CPIter>{
+            first, next_word_break(first, std::end(range), word_prop)};
     }
 
     /** Returns a lazy range of the code point ranges delimiting words in
         <code>[first, last)</code>. */
-    template<typename CPIter, typename Sentinel>
-    lazy_segment_range<
-        CPIter,
-        Sentinel,
-        detail::next_word_callable<CPIter, Sentinel>>
-    words(CPIter first, Sentinel last) noexcept
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = detail::default_word_prop>
+    auto words(
+        CPIter first,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{}) noexcept
+        -> detail::cp_iter_sntl_ret_t<
+            lazy_segment_range<
+                CPIter,
+                Sentinel,
+                detail::next_word_callable<CPIter, Sentinel, WordPropFunc>>,
+            CPIter,
+            Sentinel>
     {
-        detail::next_word_callable<CPIter, Sentinel> next;
+        detail::next_word_callable<CPIter, Sentinel, WordPropFunc> next{
+            std::move(word_prop)};
         return {std::move(next), {first, last}, {last}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting words in
         <code>range</code>. */
-    template<typename CPRange>
-    auto words(CPRange & range) noexcept -> lazy_segment_range<
-        detail::iterator_t<CPRange>,
-        detail::sentinel_t<CPRange>,
-        detail::next_word_callable<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>>>
+    template<
+        typename CPRange,
+        typename WordPropFunc = detail::default_word_prop>
+    auto
+    words(CPRange & range, WordPropFunc word_prop = WordPropFunc{}) noexcept
+        -> detail::word_prop_func_ret_t<
+            lazy_segment_range<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>,
+                detail::next_word_callable<
+                    detail::iterator_t<CPRange>,
+                    detail::sentinel_t<CPRange>,
+                    WordPropFunc>>,
+            WordPropFunc>
     {
         detail::next_word_callable<
             detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>>
-            next;
+            detail::sentinel_t<CPRange>,
+            WordPropFunc>
+            next{std::move(word_prop)};
         return {std::move(next),
                 {std::begin(range), std::end(range)},
                 {std::end(range)}};

@@ -1373,7 +1373,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             {}
 
             template<typename BreakResult, typename Sentinel>
-            BreakResult operator()(BreakResult result, Sentinel last) noexcept
+            BreakResult operator()(BreakResult result, Sentinel last) const
+                noexcept
             {
                 return detail::next_line_break_impl(
                     result.iter,
