@@ -561,7 +561,7 @@ namespace boost { namespace text {
                     return !case_ignorable(cp);
                 });
                 if (find_it != last && cased(*find_it))
-                    return final_sigma_state_t::none; // TODO: Return bool.
+                    return final_sigma_state_t::none;
 
                 find_it = find_if_backward(
                     first, it, [](uint32_t cp) { return !case_ignorable(cp); });
@@ -908,10 +908,6 @@ namespace boost { namespace text {
             lang,
             next_word_break);
     }
-
-    // TODO: is_upper() et al are probably broken if they are not
-    // language-aware; they need to pump the state machine in the same way as
-    // to_upper(), etc.
 
     /** Returns true if no code point in [first, last) would change in a call
         to to_upper(), and false otherwise. */
