@@ -1578,13 +1578,6 @@ TEST(case_mapping, 016)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0399, 0x0308, 0x0301});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 017)
@@ -1670,13 +1663,6 @@ TEST(case_mapping, 017)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0301});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -2322,13 +2308,6 @@ TEST(case_mapping, 024)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A5, 0x0313});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 025)
@@ -2414,13 +2393,6 @@ TEST(case_mapping, 025)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A5, 0x0313, 0x0300});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -2508,13 +2480,6 @@ TEST(case_mapping, 026)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A5, 0x0313, 0x0301});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 027)
@@ -2600,13 +2565,6 @@ TEST(case_mapping, 027)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A5, 0x0313, 0x0342});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -2694,13 +2652,6 @@ TEST(case_mapping, 028)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0391, 0x0342});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 029)
@@ -2786,13 +2737,6 @@ TEST(case_mapping, 029)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0397, 0x0342});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -2880,13 +2824,6 @@ TEST(case_mapping, 030)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0399, 0x0308, 0x0300});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 031)
@@ -2972,13 +2909,6 @@ TEST(case_mapping, 031)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0399, 0x0308, 0x0301});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -3066,13 +2996,6 @@ TEST(case_mapping, 032)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0399, 0x0342});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 033)
@@ -3158,13 +3081,6 @@ TEST(case_mapping, 033)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0399, 0x0308, 0x0342});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -3252,13 +3168,6 @@ TEST(case_mapping, 034)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0300});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 035)
@@ -3344,13 +3253,6 @@ TEST(case_mapping, 035)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0301});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -3438,13 +3340,6 @@ TEST(case_mapping, 036)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A1, 0x0313});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 037)
@@ -3530,13 +3425,6 @@ TEST(case_mapping, 037)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A5, 0x0342});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -3624,13 +3512,6 @@ TEST(case_mapping, 038)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A5, 0x0308, 0x0342});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 039)
@@ -3716,13 +3597,6 @@ TEST(case_mapping, 039)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A9, 0x0342});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -3810,13 +3684,6 @@ TEST(case_mapping, 040)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F08, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 041)
@@ -3902,13 +3769,6 @@ TEST(case_mapping, 041)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F09, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -3996,13 +3856,6 @@ TEST(case_mapping, 042)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0A, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 043)
@@ -4088,13 +3941,6 @@ TEST(case_mapping, 043)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0B, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -4182,13 +4028,6 @@ TEST(case_mapping, 044)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0C, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 045)
@@ -4274,13 +4113,6 @@ TEST(case_mapping, 045)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0D, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -4368,13 +4200,6 @@ TEST(case_mapping, 046)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0E, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 047)
@@ -4460,13 +4285,6 @@ TEST(case_mapping, 047)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0F, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -4554,13 +4372,6 @@ TEST(case_mapping, 048)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F08, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 049)
@@ -4646,13 +4457,6 @@ TEST(case_mapping, 049)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F09, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -4740,13 +4544,6 @@ TEST(case_mapping, 050)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0A, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 051)
@@ -4832,13 +4629,6 @@ TEST(case_mapping, 051)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0B, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -4926,13 +4716,6 @@ TEST(case_mapping, 052)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0C, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 053)
@@ -5018,13 +4801,6 @@ TEST(case_mapping, 053)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0D, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -5112,13 +4888,6 @@ TEST(case_mapping, 054)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0E, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 055)
@@ -5204,13 +4973,6 @@ TEST(case_mapping, 055)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F0F, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -5298,13 +5060,6 @@ TEST(case_mapping, 056)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F28, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 057)
@@ -5390,13 +5145,6 @@ TEST(case_mapping, 057)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F29, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -5484,13 +5232,6 @@ TEST(case_mapping, 058)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2A, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 059)
@@ -5576,13 +5317,6 @@ TEST(case_mapping, 059)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2B, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -5670,13 +5404,6 @@ TEST(case_mapping, 060)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2C, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 061)
@@ -5762,13 +5489,6 @@ TEST(case_mapping, 061)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2D, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -5856,13 +5576,6 @@ TEST(case_mapping, 062)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2E, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 063)
@@ -5948,13 +5661,6 @@ TEST(case_mapping, 063)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2F, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -6042,13 +5748,6 @@ TEST(case_mapping, 064)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F28, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 065)
@@ -6134,13 +5833,6 @@ TEST(case_mapping, 065)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F29, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -6228,13 +5920,6 @@ TEST(case_mapping, 066)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2A, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 067)
@@ -6320,13 +6005,6 @@ TEST(case_mapping, 067)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2B, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -6414,13 +6092,6 @@ TEST(case_mapping, 068)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2C, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 069)
@@ -6506,13 +6177,6 @@ TEST(case_mapping, 069)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2D, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -6600,13 +6264,6 @@ TEST(case_mapping, 070)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2E, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 071)
@@ -6692,13 +6349,6 @@ TEST(case_mapping, 071)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F2F, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -6786,13 +6436,6 @@ TEST(case_mapping, 072)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F68, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 073)
@@ -6878,13 +6521,6 @@ TEST(case_mapping, 073)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F69, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -6972,13 +6608,6 @@ TEST(case_mapping, 074)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6A, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 075)
@@ -7064,13 +6693,6 @@ TEST(case_mapping, 075)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6B, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -7158,13 +6780,6 @@ TEST(case_mapping, 076)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6C, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 077)
@@ -7250,13 +6865,6 @@ TEST(case_mapping, 077)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6D, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -7344,13 +6952,6 @@ TEST(case_mapping, 078)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6E, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 079)
@@ -7436,13 +7037,6 @@ TEST(case_mapping, 079)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6F, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -7530,13 +7124,6 @@ TEST(case_mapping, 080)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F68, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 081)
@@ -7622,13 +7209,6 @@ TEST(case_mapping, 081)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F69, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -7716,13 +7296,6 @@ TEST(case_mapping, 082)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6A, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 083)
@@ -7808,13 +7381,6 @@ TEST(case_mapping, 083)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6B, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -7902,13 +7468,6 @@ TEST(case_mapping, 084)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6C, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 085)
@@ -7994,13 +7553,6 @@ TEST(case_mapping, 085)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6D, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -8088,13 +7640,6 @@ TEST(case_mapping, 086)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6E, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 087)
@@ -8180,13 +7725,6 @@ TEST(case_mapping, 087)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1F6F, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -8274,13 +7812,6 @@ TEST(case_mapping, 088)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0391, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 089)
@@ -8366,13 +7897,6 @@ TEST(case_mapping, 089)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0391, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -8460,13 +7984,6 @@ TEST(case_mapping, 090)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0397, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 091)
@@ -8552,13 +8069,6 @@ TEST(case_mapping, 091)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0397, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -8646,13 +8156,6 @@ TEST(case_mapping, 092)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A9, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 093)
@@ -8738,13 +8241,6 @@ TEST(case_mapping, 093)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A9, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -8832,13 +8328,6 @@ TEST(case_mapping, 094)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1FBA, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 095)
@@ -8924,13 +8413,6 @@ TEST(case_mapping, 095)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0386, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -9018,13 +8500,6 @@ TEST(case_mapping, 096)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1FCA, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 097)
@@ -9110,13 +8585,6 @@ TEST(case_mapping, 097)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0389, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -9204,13 +8672,6 @@ TEST(case_mapping, 098)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x1FFA, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 099)
@@ -9296,13 +8757,6 @@ TEST(case_mapping, 099)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x038F, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -9390,13 +8844,6 @@ TEST(case_mapping, 100)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0391, 0x0342, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 101)
@@ -9483,13 +8930,6 @@ TEST(case_mapping, 101)
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
     }
-    { // to_upper
-        std::vector<uint32_t> upper({0x0397, 0x0342, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
-    }
 }
 
 TEST(case_mapping, 102)
@@ -9575,13 +9015,6 @@ TEST(case_mapping, 102)
 
         to_title(from, std::back_inserter(result));
         EXPECT_EQ(result, title);
-    }
-    { // to_upper
-        std::vector<uint32_t> upper({0x03A9, 0x0342, 0x0399});
-        std::vector<uint32_t> result;
-
-        to_upper(cp, std::back_inserter(result));
-        EXPECT_EQ(result, upper);
     }
 }
 
@@ -10420,838 +9853,6 @@ TEST(case_mapping, 103)
 
         to_lower(from, std::back_inserter(result));
         EXPECT_NE(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0069, 0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x0345, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 1;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x1DFE, 0x1DFE, 0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 2;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 0;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3, 0x0345, 0x0345});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 0;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 0;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x1dfe});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 0;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 0;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 0;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3, 0x0345, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 0;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
-    }
-    { // to_upper
-        std::vector<uint32_t> from({0x03A3, 0x1dfe, 0x0069});
-        std::vector<uint32_t> expected;
-        std::vector<uint32_t> result;
-        int const prefix_size = 0;
-
-        to_upper(from.begin(), from.begin(), from.begin() + prefix_size, std::back_inserter(expected));
-        expected.insert(expected.end(), {0x03A3});
-        to_upper(from.begin(), from.begin() + prefix_size + 1, from.end(), std::back_inserter(expected));
-
-        to_upper(from, std::back_inserter(result));
-        EXPECT_EQ(result, expected);
     }
 }
 

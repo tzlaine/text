@@ -273,7 +273,8 @@ def case_mapping_tests(special_casing):
                             checks('from', 'title'),
                             ''
                         )
-            if len(upper):
+            # Greek uppercasing is tested separately.
+            if len(upper) and 'GREEK' not in line:
                 if len(conditions_):
                     blocks = condition_case('upper', upper, cp, conditions_, blocks)
                 else:

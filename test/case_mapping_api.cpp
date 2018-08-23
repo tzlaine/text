@@ -175,3 +175,238 @@ TEST(case_mapping_api, all)
         EXPECT_EQ(result, upper);
     }
 }
+
+TEST(case_mapping_api, dutch_special_casing)
+{
+    char const input_ascii[] = "ijssel iJssel Ijssel IJMUIDEN";
+    std::vector<uint32_t> const input(
+        std::begin(input_ascii), std::end(input_ascii) - 1);
+
+    // lower
+    {
+        char const default_expected_ascii[] = "ijssel ijssel ijssel ijmuiden";
+        std::vector<uint32_t> const default_expected(
+            std::begin(default_expected_ascii),
+            std::end(default_expected_ascii) - 1);
+
+        char const dutch_expected_ascii[] = "ijssel ijssel ijssel ijmuiden";
+        std::vector<uint32_t> const dutch_expected(
+            std::begin(dutch_expected_ascii),
+            std::end(dutch_expected_ascii) - 1);
+
+        {
+            std::vector<uint32_t> result;
+            to_lower(input, std::back_inserter(result));
+            EXPECT_EQ(result, default_expected);
+        }
+        {
+            std::vector<uint32_t> result;
+            to_lower(input, std::back_inserter(result), case_language::dutch);
+            EXPECT_EQ(result, dutch_expected);
+        }
+    }
+
+    // title
+    {
+        char const default_expected_ascii[] = "Ijssel Ijssel Ijssel Ijmuiden";
+        std::vector<uint32_t> const default_expected(
+            std::begin(default_expected_ascii),
+            std::end(default_expected_ascii) - 1);
+
+        char const dutch_expected_ascii[] = "IJssel IJssel IJssel IJmuiden";
+        std::vector<uint32_t> const dutch_expected(
+            std::begin(dutch_expected_ascii),
+            std::end(dutch_expected_ascii) - 1);
+
+        {
+            std::vector<uint32_t> result;
+            to_title(input, std::back_inserter(result));
+            EXPECT_EQ(result, default_expected);
+        }
+        {
+            std::vector<uint32_t> result;
+            to_title(input, std::back_inserter(result), case_language::dutch);
+            EXPECT_EQ(result, dutch_expected);
+        }
+    }
+
+    // upper
+    {
+        char const default_expected_ascii[] = "IJSSEL IJSSEL IJSSEL IJMUIDEN";
+        std::vector<uint32_t> const default_expected(
+            std::begin(default_expected_ascii),
+            std::end(default_expected_ascii) - 1);
+
+        char const dutch_expected_ascii[] = "IJSSEL IJSSEL IJSSEL IJMUIDEN";
+        std::vector<uint32_t> const dutch_expected(
+            std::begin(dutch_expected_ascii),
+            std::end(dutch_expected_ascii) - 1);
+
+        {
+            std::vector<uint32_t> result;
+            to_upper(input, std::back_inserter(result));
+            EXPECT_EQ(result, default_expected);
+        }
+        {
+            std::vector<uint32_t> result;
+            to_upper(input, std::back_inserter(result), case_language::dutch);
+            EXPECT_EQ(result, dutch_expected);
+        }
+    }
+}
+
+TEST(case_mapping_api, greek_special_casing)
+{
+    {
+        string const from = u8"άδικος, κείμενο, ίριδα";
+        string const to = u8"ΑΔΙΚΟΣ, ΚΕΙΜΕΝΟ, ΙΡΙΔΑ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"Πατάτα";
+        string const to = u8"ΠΑΤΑΤΑ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"Αέρας, Μυστήριο, Ωραίο";
+        string const to = u8"ΑΕΡΑΣ, ΜΥΣΤΗΡΙΟ, ΩΡΑΙΟ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"Μαΐου, Πόρος, Ρύθμιση";
+        string const to = u8"ΜΑΪΟΥ, ΠΟΡΟΣ, ΡΥΘΜΙΣΗ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"ΰ, Τηρώ, Μάιος";
+        string const to = u8"Ϋ, ΤΗΡΩ, ΜΑΪΟΣ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"άυλος";
+        string const to = u8"ΑΫΛΟΣ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"ΑΫΛΟΣ";
+        string const to = u8"ΑΫΛΟΣ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"Άκλιτα ρήματα ή άκλιτες μετοχές";
+        string const to = u8"ΑΚΛΙΤΑ ΡΗΜΑΤΑ Ή ΑΚΛΙΤΕΣ ΜΕΤΟΧΕΣ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"Επειδή η αναγνώριση της αξιοπρέπειας";
+        string const to = u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ ΤΗΣ ΑΞΙΟΠΡΕΠΕΙΑΣ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"νομικού ή διεθνούς";
+        string const to = u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"Ἐπειδὴ ἡ ἀναγνώριση";
+        string const to = u8"ΕΠΕΙΔΗ Η ΑΝΑΓΝΩΡΙΣΗ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"νομικοῦ ἢ διεθνοῦς";
+        string const to = u8"ΝΟΜΙΚΟΥ Ή ΔΙΕΘΝΟΥΣ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"Νέο, Δημιουργία";
+        string const to = u8"ΝΕΟ, ΔΗΜΙΟΥΡΓΙΑ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"Ελάτε να φάτε τα καλύτερα παϊδάκια!";
+        string const to = u8"ΕΛΑΤΕ ΝΑ ΦΑΤΕ ΤΑ ΚΑΛΥΤΕΡΑ ΠΑΪΔΑΚΙΑ!";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"Μαΐου, τρόλεϊ";
+        string const to = u8"ΜΑΪΟΥ, ΤΡΟΛΕΪ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"Το ένα ή το άλλο.";
+        string const to = u8"ΤΟ ΕΝΑ Ή ΤΟ ΑΛΛΟ.";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+
+    {
+        string const from = u8"ρωμέικα";
+        string const to = u8"ΡΩΜΕΪΚΑ";
+        string result;
+        to_upper(
+            utf32_range(from), utf8::from_utf32_inserter(result, result.end()));
+        EXPECT_EQ(result, to) << result << " != " << to;
+    }
+}

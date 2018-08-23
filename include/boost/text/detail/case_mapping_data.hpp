@@ -63,7 +63,7 @@ namespace boost { namespace text { namespace detail {
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_cased_cps();
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_case_ignorable_cps();
     BOOST_TEXT_DECL std::array<uint32_t, 2849> make_case_cps();
-    BOOST_TEXT_DECL std::array<case_mapping_to, 2761> make_case_mapping_to();
+    BOOST_TEXT_DECL std::array<case_mapping_to, 2768> make_case_mapping_to();
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_changes_when_uppered_cps();
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_changes_when_lowered_cps();
     BOOST_TEXT_DECL std::unordered_set<uint32_t> make_changes_when_titled_cps();
