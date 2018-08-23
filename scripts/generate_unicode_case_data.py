@@ -194,7 +194,7 @@ def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_prop
     changes_when_t = []
 
     def init_dict_elem(k, m):
-        if k not in m or (len(m[k]) and m[k][0][2] == 'from_unicode_data'):
+        if k not in m:
             m[k] = []
 
     lines = open(unicode_data, 'r').readlines()
