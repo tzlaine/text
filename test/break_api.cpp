@@ -85,6 +85,63 @@ TEST(break_apis, grapheme_break)
         }
         EXPECT_EQ(i, (int)grapheme_bounds.size());
     }
+
+
+    // Emoji handling
+    {
+        // woman ZWJ woman ZWJ man ZWJ man
+        std::vector<uint32_t> const cps = {
+            0x01f469,
+            0x200d,
+            0x01f469,
+            0x200d,
+            0x01f466,
+            0x200d,
+            0x01f466,
+        };
+
+        auto const all_graphemes = boost::text::graphemes(cps);
+
+        std::array<std::pair<int, int>, 1> const grapheme_bounds = {{{0, 7}}};
+
+        int i = 0;
+        for (auto grapheme : all_graphemes) {
+            EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)grapheme_bounds.size());
+    }
+    {
+        // ghost woman ZWJ woman ZWJ man ZWJ man
+        std::vector<uint32_t> const cps = {
+            0x01f478,
+            0x01f469,
+            0x200d,
+            0x01f469,
+            0x200d,
+            0x01f466,
+            0x200d,
+            0x01f466,
+        };
+
+        auto const all_graphemes = boost::text::graphemes(cps);
+
+        std::array<std::pair<int, int>, 2> const grapheme_bounds = {
+            {{0, 1}, {1, 8}}};
+
+        int i = 0;
+        for (auto grapheme : all_graphemes) {
+            EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)grapheme_bounds.size());
+    }
 }
 
 TEST(break_apis, grapheme_break_sentinel)
