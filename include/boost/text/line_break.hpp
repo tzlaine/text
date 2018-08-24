@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <array>
 #include <numeric>
+#include <unordered_map>
 
 #include <cassert>
 #include <stdint.h>

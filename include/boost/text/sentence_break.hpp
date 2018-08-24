@@ -5,6 +5,7 @@
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <array>
+#include <unordered_map>
 
 #include <cassert>
 #include <stdint.h>

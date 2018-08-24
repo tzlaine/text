@@ -6,6 +6,7 @@
 #include <boost/text/utility.hpp>
 
 #include <array>
+#include <unordered_map>
 
 #include <cassert>
 #include <stdint.h>
