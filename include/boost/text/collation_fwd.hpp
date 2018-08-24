@@ -115,7 +115,7 @@ namespace boost { namespace text {
     inline constexpr collation_flags
     operator|(collation_flags lhs, collation_flags rhs)
     {
-#ifndef BOOST_TEXT_NO_CXX14_CONSTEXPR
+#if !defined(BOOST_TEXT_NO_CXX14_CONSTEXPR) && defined(DEBUG)
         auto const lhs_ = static_cast<unsigned int>(lhs);
         auto const rhs_ = static_cast<unsigned int>(rhs);
 
