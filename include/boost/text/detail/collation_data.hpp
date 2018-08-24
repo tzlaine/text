@@ -97,7 +97,7 @@ namespace boost { namespace text { namespace detail {
     }
 
     BOOST_TEXT_DECL void
-    make_collation_elements(std::array<collation_element, 39258> &);
+        make_collation_elements(std::array<collation_element, 39258> &);
 
     inline std::array<collation_element, 39258> const & collation_elements_()
     {
@@ -179,8 +179,8 @@ namespace boost { namespace text { namespace detail {
 
         iterator insert(iterator at, uint32_t cp) noexcept
         {
-            assert(at == end());
-            assert(size_ < N);
+            BOOST_ASSERT(at == end());
+            BOOST_ASSERT(size_ < N);
             *at = cp;
             ++size_;
             return at;

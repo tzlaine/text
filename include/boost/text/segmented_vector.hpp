@@ -89,8 +89,8 @@ namespace boost { namespace text {
             \pre 0 <= i && i < size() */
         T const & operator[](size_type n) const noexcept
         {
-            assert(ptr_);
-            assert(n < size());
+            BOOST_ASSERT(ptr_);
+            BOOST_ASSERT(n < size());
             detail::found_element<T> found;
             find_element(ptr_, n, found);
             return *found.element_;
@@ -174,7 +174,7 @@ namespace boost { namespace text {
         /** Inserts t into *this at offset at by moving t. */
         const_iterator insert(const_iterator at, T t)
         {
-            assert(begin() <= at && at <= end());
+            BOOST_ASSERT(begin() <= at && at <= end());
 
             int const offset = at - begin();
 
@@ -206,7 +206,7 @@ namespace boost { namespace text {
         template<typename Iter, typename Sentinel>
         const_iterator insert(const_iterator at, Iter first, Sentinel last)
         {
-            assert(begin() <= at && at <= end());
+            BOOST_ASSERT(begin() <= at && at <= end());
 
             if (first == last)
                 return at;
@@ -229,7 +229,7 @@ namespace boost { namespace text {
             \pre begin() <= at && at < end() */
         const_iterator erase(const_iterator at)
         {
-            assert(begin() <= at && at < end());
+            BOOST_ASSERT(begin() <= at && at < end());
 
             int const offset = at - begin();
 
@@ -251,8 +251,8 @@ namespace boost { namespace text {
             \pre first <= last */
         const_iterator erase(const_iterator first, const_iterator last)
         {
-            assert(first <= last);
-            assert(begin() <= first && last <= end());
+            BOOST_ASSERT(first <= last);
+            BOOST_ASSERT(begin() <= first && last <= end());
 
             if (first == last)
                 return first;
@@ -280,7 +280,7 @@ namespace boost { namespace text {
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         segmented_vector & replace(const_iterator at, T t)
         {
-            assert(begin() <= at && at <= end());
+            BOOST_ASSERT(begin() <= at && at <= end());
 
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, 0, would_allocate)) {
@@ -379,7 +379,7 @@ namespace boost { namespace text {
         const_iterator
         insert_impl(iterator at, U && u, allocation_note_t allocation_note)
         {
-            assert(begin() <= at && at <= end());
+            BOOST_ASSERT(begin() <= at && at <= end());
 
             if (u.empty())
                 return at;

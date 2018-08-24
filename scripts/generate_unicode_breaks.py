@@ -6,6 +6,8 @@ cpp_file_form = decls = '''\
 #include <boost/text/{3}.hpp>
 #include <boost/text/detail/break_prop_iter.hpp>
 
+#include <boost/assert.hpp>
+
 #include <algorithm>
 #include <array>
 #include <unordered_map>
@@ -32,8 +34,8 @@ std::copy(
     compressed.begin(),
     compressed.end(),
     lzw_to_break_prop_iter<{0}erty>(retval, buf));
-assert(buf.empty());
-assert(retval.size() == {6});
+BOOST_ASSERT(buf.empty());
+BOOST_ASSERT(retval.size() == {6});
 return retval;
 }}
 

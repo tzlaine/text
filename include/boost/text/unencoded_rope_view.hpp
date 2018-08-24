@@ -109,8 +109,8 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= rsv.size()
             \pre 0 <= hi && lhi <= rsv.size()
             \pre lo <= hi
-            \post size() == rsv.size() && begin() == rsv.begin() + lo && end() ==
-            rsv.begin() + hi */
+            \post size() == rsv.size() && begin() == rsv.begin() + lo && end()
+           == rsv.begin() + hi */
         unencoded_rope_view(
             repeated_string_view rsv, size_type lo, size_type hi);
 
@@ -191,8 +191,8 @@ namespace boost { namespace text {
                 lo = cut + size();
                 hi = size();
             }
-            assert(0 <= lo && lo <= size());
-            assert(0 <= hi && hi <= size());
+            BOOST_ASSERT(0 <= lo && lo <= size());
+            BOOST_ASSERT(0 <= hi && hi <= size());
             return operator()(lo, hi);
         }
 

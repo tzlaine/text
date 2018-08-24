@@ -17,7 +17,7 @@ namespace boost { namespace text {
             Iter last,
             container::static_vector<int, Capacity> & cccs) noexcept
         {
-            assert(first != last);
+            BOOST_ASSERT(first != last);
 
             std::transform(first, last, cccs.begin(), ccc);
 
@@ -127,8 +127,8 @@ namespace boost { namespace text {
             container::static_vector<uint32_t, Capacity> & buffer,
             container::static_vector<int, Capacity> & cccs)
         {
-            assert(buffer.size() == cccs.size());
-            assert(2 <= buffer.size());
+            BOOST_ASSERT(buffer.size() == cccs.size());
+            BOOST_ASSERT(2 <= buffer.size());
 
             auto starter_it = buffer.begin();
             auto it = std::next(buffer.begin());

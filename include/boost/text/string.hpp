@@ -7,14 +7,13 @@
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/utility.hpp>
 
+#include <boost/assert.hpp>
 #include <boost/algorithm/cxx14/equal.hpp>
 
 #include <algorithm>
 #include <array>
 #include <list>
 #include <memory>
-
-#include <cassert>
 
 
 namespace boost { namespace text {
@@ -223,7 +222,7 @@ namespace boost { namespace text {
             if (i < 0)
                 i += size_;
 #ifndef BOOST_TEXT_TESTING
-            assert(0 <= i && i < size_);
+            BOOST_ASSERT(0 <= i && i < size_);
 #endif
             return ptr()[i];
         }
@@ -274,7 +273,7 @@ namespace boost { namespace text {
             if (i < 0)
                 i += size_;
 #ifndef BOOST_TEXT_TESTING
-            assert(0 <= i && i < size_);
+            BOOST_ASSERT(0 <= i && i < size_);
 #endif
             return ptr()[i];
         }
@@ -360,7 +359,7 @@ namespace boost { namespace text {
         auto insert(int at, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<string &, CharIter>
         {
-            assert(0 <= at && at <= size_);
+            BOOST_ASSERT(0 <= at && at <= size_);
 
             if (first == last)
                 return *this;
@@ -374,7 +373,7 @@ namespace boost { namespace text {
         auto insert(iterator at, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<iterator, CharIter>
         {
-            assert(begin() <= at && at <= end());
+            BOOST_ASSERT(begin() <= at && at <= end());
 
             if (first == last)
                 return at;
@@ -403,8 +402,8 @@ namespace boost { namespace text {
             \pre first <= last */
         iterator erase(iterator first, iterator last) noexcept
         {
-            assert(first <= last);
-            assert(begin() <= first && last <= end());
+            BOOST_ASSERT(first <= last);
+            BOOST_ASSERT(begin() <= first && last <= end());
 
             auto const offset = first - begin();
             std::copy(last, end(), first);
@@ -484,8 +483,8 @@ namespace boost { namespace text {
             CharIter new_first,
             Sentinel new_last) -> detail::char_iter_ret_t<string &, CharIter>
         {
-            assert(begin() <= old_first && old_last <= end());
-            assert(old_first <= old_last);
+            BOOST_ASSERT(begin() <= old_first && old_last <= end());
+            BOOST_ASSERT(old_first <= old_last);
 
             char stack_buf[1024];
             std::list<heap_t> heap_bufs;
@@ -526,7 +525,7 @@ namespace boost { namespace text {
             \post size() == new_size */
         void resize(int new_size, char c)
         {
-            assert(0 <= new_size);
+            BOOST_ASSERT(0 <= new_size);
 
             int const prev_size = size_;
             int const delta = new_size - prev_size;
@@ -554,7 +553,7 @@ namespace boost { namespace text {
             \post capacity() >= new_size + 1 */
         void reserve(int new_size)
         {
-            assert(0 <= new_size);
+            BOOST_ASSERT(0 <= new_size);
             int const new_cap = new_size + 1;
             if (new_cap <= cap())
                 return;
@@ -672,7 +671,7 @@ namespace boost { namespace text {
 
         int grow_cap(int min_new_cap) const
         {
-            assert(0 < min_new_cap);
+            BOOST_ASSERT(0 < min_new_cap);
             int retval = cap();
             while (retval < min_new_cap) {
                 retval = retval / 2 * 3;
@@ -878,7 +877,7 @@ namespace boost { namespace text {
         /** Creates a string from a char string literal. */
         inline string operator"" _s(char const * str, std::size_t len)
         {
-            assert(len < INT_MAX / 2);
+            BOOST_ASSERT(len < INT_MAX / 2);
             return string(string_view(str, len));
         }
     }
@@ -977,7 +976,7 @@ namespace boost { namespace text {
 
     inline string & string::operator=(repeated_string_view rsv)
     {
-        assert(0 <= rsv.size());
+        BOOST_ASSERT(0 <= rsv.size());
         bool const self_ref = self_reference(rsv.view());
         if (!self_ref && rsv.size() <= size()) {
             clear();
@@ -1032,8 +1031,8 @@ namespace boost { namespace text {
 
     inline string & string::insert(int at, string_view sv)
     {
-        assert(0 <= at && at <= size_);
-        assert(0 <= sv.size());
+        BOOST_ASSERT(0 <= at && at <= size_);
+        BOOST_ASSERT(0 <= sv.size());
 
         bool const sv_null_terminated = !sv.empty() && sv.end()[-1] == '\0';
         if (sv_null_terminated)
@@ -1074,8 +1073,8 @@ namespace boost { namespace text {
 
     inline string & string::insert(int at, repeated_string_view rsv)
     {
-        assert(0 <= at && at <= size_);
-        assert(0 <= rsv.size());
+        BOOST_ASSERT(0 <= at && at <= size_);
+        BOOST_ASSERT(0 <= rsv.size());
 
         bool const rsv_null_terminated =
             !rsv.view().empty() && rsv.view().end()[-1] == '\0';
@@ -1138,13 +1137,13 @@ namespace boost { namespace text {
 
     inline string & string::erase(string_view sv) noexcept
     {
-        assert(0 <= sv.size());
+        BOOST_ASSERT(0 <= sv.size());
 
         bool const sv_null_terminated = !sv.empty() && sv.end()[-1] == '\0';
         if (sv_null_terminated)
             sv = sv(0, -1);
 
-        assert(self_reference(sv));
+        BOOST_ASSERT(self_reference(sv));
 
         char * first = const_cast<char *>(sv.begin());
         erase(first, first + sv.size());
@@ -1154,22 +1153,23 @@ namespace boost { namespace text {
     inline string &
     string::replace(string_view old_substr, string_view new_substr)
     {
-        assert(0 <= old_substr.size());
-        assert(0 <= new_substr.size());
+        BOOST_ASSERT(0 <= old_substr.size());
+        BOOST_ASSERT(0 <= new_substr.size());
 
         bool const old_substr_null_terminated =
             !old_substr.empty() && old_substr.end()[-1] == '\0';
         if (old_substr_null_terminated)
             old_substr = old_substr(0, -1);
 
-        assert(self_reference(old_substr));
+        BOOST_ASSERT(self_reference(old_substr));
 
         bool const new_substr_null_terminated =
             !new_substr.empty() && new_substr.end()[-1] == '\0';
         if (new_substr_null_terminated)
             new_substr = new_substr(0, -1);
 
-        assert(begin() <= old_substr.begin() && old_substr.end() <= end());
+        BOOST_ASSERT(
+            begin() <= old_substr.begin() && old_substr.end() <= end());
 
         bool const late_self_ref =
             self_reference(new_substr) && old_substr.begin() < new_substr.end();
@@ -1204,22 +1204,23 @@ namespace boost { namespace text {
     inline string &
     string::replace(string_view old_substr, repeated_string_view new_substr)
     {
-        assert(0 <= old_substr.size());
-        assert(0 <= new_substr.size());
+        BOOST_ASSERT(0 <= old_substr.size());
+        BOOST_ASSERT(0 <= new_substr.size());
 
         bool const old_substr_null_terminated =
             !old_substr.empty() && old_substr.end()[-1] == '\0';
         if (old_substr_null_terminated)
             old_substr = old_substr(0, -1);
 
-        assert(self_reference(old_substr));
+        BOOST_ASSERT(self_reference(old_substr));
 
         bool const new_substr_null_terminated =
             !new_substr.view().empty() && new_substr.view().end()[-1] == '\0';
         if (new_substr_null_terminated)
             new_substr = repeat(new_substr.view()(0, -1), new_substr.count());
 
-        assert(begin() <= old_substr.begin() && old_substr.end() <= end());
+        BOOST_ASSERT(
+            begin() <= old_substr.begin() && old_substr.end() <= end());
 
         bool const late_self_ref = self_reference(new_substr.view()) &&
                                    old_substr.begin() < new_substr.view().end();
@@ -1268,14 +1269,14 @@ namespace boost { namespace text {
     auto string::replace(string_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<string &, CharIter>
     {
-        assert(0 <= old_substr.size());
+        BOOST_ASSERT(0 <= old_substr.size());
 
         bool const old_substr_null_terminated =
             !old_substr.empty() && old_substr.end()[-1] == '\0';
         if (old_substr_null_terminated)
             old_substr = old_substr(0, -1);
 
-        assert(self_reference(old_substr));
+        BOOST_ASSERT(self_reference(old_substr));
 
         char * old_first = const_cast<char *>(old_substr.begin());
         return replace(old_first, old_first + old_substr.size(), first, last);
@@ -1295,7 +1296,7 @@ namespace boost { namespace text {
 
     inline string & string::operator+=(repeated_string_view rsv)
     {
-        assert(0 <= rsv.size());
+        BOOST_ASSERT(0 <= rsv.size());
         reserve(size() + rsv.size());
         for (std::ptrdiff_t i = 0; i < rsv.count(); ++i) {
             insert(size(), rsv.view());

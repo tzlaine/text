@@ -4,10 +4,11 @@
 #include <boost/text/algorithm.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
+#include <boost/assert.hpp>
+
 #include <array>
 #include <unordered_map>
 
-#include <cassert>
 #include <stdint.h>
 
 

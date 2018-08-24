@@ -156,7 +156,7 @@ namespace boost { namespace text { namespace detail {
         friend difference_type
         operator-(const_vector_iterator lhs, const_vector_iterator rhs) noexcept
         {
-            assert(lhs.vec_ == rhs.vec_);
+            BOOST_ASSERT(lhs.vec_ == rhs.vec_);
             return lhs.n_ - rhs.n_;
         }
 
@@ -172,7 +172,7 @@ namespace boost { namespace text { namespace detail {
         T const & deref() const
         {
             switch (leaf_->which_) {
-            default: assert(!"unhandled leaf node case");
+            default: BOOST_ASSERT(!"unhandled leaf node case");
             case leaf_node_t<T>::which::vec: {
                 std::vector<T> const * v =
                     static_cast<std::vector<T> *>(leaf_->buf_ptr_);

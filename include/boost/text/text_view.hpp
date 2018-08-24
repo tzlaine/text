@@ -4,8 +4,9 @@
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/utf8.hpp>
 
+#include <boost/assert.hpp>
+
 #include <iterator>
-#include <cassert>
 
 
 namespace boost { namespace text {
@@ -46,7 +47,8 @@ namespace boost { namespace text {
         {}
 
         /** Constructs a text_view from a pair of const_text_iterators. */
-        text_view(const_text_iterator first, const_text_iterator last) noexcept :
+        text_view(
+            const_text_iterator first, const_text_iterator last) noexcept :
             first_(first),
             last_(last)
         {}

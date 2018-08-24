@@ -18,7 +18,7 @@
     do {                                                                       \
         string str2(str_);                                                     \
         normalize_to_fcc(str2);                                                \
-        assert(str_ == str2);                                                  \
+        BOOST_ASSERT(str_ == str2);                                            \
     } while (false)
 #else
 #define BOOST_TEXT_CHECK_TEXT_NORMALIZATION()
@@ -202,7 +202,7 @@ namespace boost { namespace text {
         int storage_bytes() const noexcept { return str_.size(); }
 
         /** Returns the number of bytes of storage currently in use by
-            *this. */
+         *this. */
         int bytes_capacity() const noexcept { return str_.capacity(); }
 
         /** Returns the number of graphemes in *this.  This operation is
@@ -452,7 +452,8 @@ namespace boost { namespace text {
         }
 
         template<typename Iter>
-        static detail::reverse_iterator<Iter> make_reverse_iter(Iter it) noexcept
+        static detail::reverse_iterator<Iter>
+        make_reverse_iter(Iter it) noexcept
         {
             return detail::reverse_iterator<Iter>{it};
         }
@@ -541,7 +542,7 @@ namespace boost { namespace text {
         /** Creates a text from a char string literal. */
         inline text operator"" _t(char const * str, std::size_t len)
         {
-            assert(len < INT_MAX / 2);
+            BOOST_ASSERT(len < INT_MAX / 2);
             return text(str, str + len);
         }
     }

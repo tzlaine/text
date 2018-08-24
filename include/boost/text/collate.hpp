@@ -179,7 +179,7 @@ namespace boost { namespace text {
 
                     uint32_t const primary_weight_low_bits =
                         seg.primary_offset_ + (cp - seg.first_) * spacing;
-                    assert(
+                    BOOST_ASSERT(
                         (primary_weight_low_bits & 0xfffff) ==
                         primary_weight_low_bits);
                     uint32_t const bytes[4] = {
@@ -528,7 +528,7 @@ namespace boost { namespace text {
             level_sort_key_bytes_t const & bytes,
             level_sort_key_values_t & values)
         {
-            assert(bytes.size() % 4 == 0);
+            BOOST_ASSERT(bytes.size() % 4 == 0);
 
             values.resize(bytes.size() / 4);
 
@@ -724,7 +724,7 @@ namespace boost { namespace text {
                     }
                 }
             }
-            assert(it == bytes.end());
+            BOOST_ASSERT(it == bytes.end());
         }
 
         template<typename CPIter, typename Sentinel>

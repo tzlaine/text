@@ -106,7 +106,7 @@ namespace boost { namespace text { namespace detail {
             }
             total *= subsegments[i].size();
         }
-        assert(total);
+        BOOST_ASSERT(total);
 
         return canonical_closure_combinations(subsegments, total, out);
     }
@@ -115,7 +115,7 @@ namespace boost { namespace text { namespace detail {
     OutIter
     segment_canonical_closure(CPIter first, CPIter last, OutIter out) noexcept
     {
-        assert(first != last);
+        BOOST_ASSERT(first != last);
 
         // 3 For each segment enumerate canonically equivalent forms, as
         // follows:
@@ -243,7 +243,7 @@ namespace boost { namespace text { namespace detail {
     {
         // https://www.unicode.org/notes/tn5/#Enumerating_Equivalent_Strings
 
-        assert(first != last);
+        BOOST_ASSERT(first != last);
 
         // 1 Transform the input string into its NFD form.
         canonical_closure_buffer_t nfd;
@@ -278,7 +278,7 @@ namespace boost { namespace text { namespace detail {
             seg.erase(std::unique(seg.begin(), seg.end()), seg.end());
             total *= seg.size();
         }
-        assert(total);
+        BOOST_ASSERT(total);
 
         return canonical_closure_combinations(segment_results, total, out);
     }

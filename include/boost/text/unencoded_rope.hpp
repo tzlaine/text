@@ -183,10 +183,10 @@ namespace boost { namespace text {
             \pre 0 <= i && i <= size() || 0 <= -i && -i <= size()  */
         char operator[](size_type i) const noexcept
         {
-            assert(ptr_);
+            BOOST_ASSERT(ptr_);
             if (i < 0)
                 i += size();
-            assert(0 <= i && i < size());
+            BOOST_ASSERT(0 <= i && i < size());
             detail::found_char found;
             find_char(ptr_, i, found);
             return found.c_;
@@ -237,7 +237,7 @@ namespace boost { namespace text {
                     case detail::which::ref:
                         f(leaf->as_reference().ref_);
                         break;
-                    default: assert(!"unhandled rope node case"); break;
+                    default: BOOST_ASSERT(!"unhandled rope node case"); break;
                     }
                     return true;
                 });
@@ -565,7 +565,7 @@ namespace boost { namespace text {
         unencoded_rope &
         insert_impl(size_type at, T && t, allocation_note_t allocation_note)
         {
-            assert(0 <= at && at <= size());
+            BOOST_ASSERT(0 <= at && at <= size());
 
             if (t.empty())
                 return *this;
@@ -651,7 +651,7 @@ namespace boost { namespace text {
     inline unencoded_rope &
     unencoded_rope::insert(size_type at, unencoded_rope_view rv)
     {
-        assert(0 <= at && at <= size());
+        BOOST_ASSERT(0 <= at && at <= size());
 
         if (rv.empty())
             return *this;
@@ -803,7 +803,7 @@ namespace boost { namespace text {
     auto unencoded_rope::insert(size_type at, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
     {
-        assert(0 <= at && at <= size());
+        BOOST_ASSERT(0 <= at && at <= size());
 
         if (first == last)
             return *this;
@@ -819,7 +819,7 @@ namespace boost { namespace text {
     unencoded_rope::insert(const_iterator at, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<const_iterator, CharIter>
     {
-        assert(begin() <= at && at <= end());
+        BOOST_ASSERT(begin() <= at && at <= end());
 
         if (first == last)
             return at;
@@ -832,13 +832,13 @@ namespace boost { namespace text {
 
     inline unencoded_rope & unencoded_rope::erase(unencoded_rope_view rv)
     {
-        assert(self_reference(rv));
+        BOOST_ASSERT(self_reference(rv));
 
         unencoded_rope_view::rope_ref rope_ref = rv.ref_.r_;
 
-        assert(0 <= rope_ref.lo_ && rope_ref.lo_ <= size());
-        assert(0 <= rope_ref.hi_ && rope_ref.hi_ <= size());
-        assert(rope_ref.lo_ <= rope_ref.hi_);
+        BOOST_ASSERT(0 <= rope_ref.lo_ && rope_ref.lo_ <= size());
+        BOOST_ASSERT(0 <= rope_ref.hi_ && rope_ref.hi_ <= size());
+        BOOST_ASSERT(rope_ref.lo_ <= rope_ref.hi_);
 
         if (rope_ref.lo_ == rope_ref.hi_)
             return *this;
@@ -863,8 +863,8 @@ namespace boost { namespace text {
     inline unencoded_rope::const_iterator
     unencoded_rope::erase(const_iterator first, const_iterator last)
     {
-        assert(first <= last);
-        assert(begin() <= first && last <= end());
+        BOOST_ASSERT(first <= last);
+        BOOST_ASSERT(begin() <= first && last <= end());
 
         if (first == last)
             return first;
@@ -895,7 +895,7 @@ namespace boost { namespace text {
     inline unencoded_rope & unencoded_rope::replace(
         unencoded_rope_view old_substr, unencoded_rope_view rv)
     {
-        assert(self_reference(old_substr));
+        BOOST_ASSERT(self_reference(old_substr));
 
         detail::node_ptr<detail::rope_tag> extra_ref;
         unencoded_rope extra_rope;
@@ -932,8 +932,8 @@ namespace boost { namespace text {
         unencoded_rope_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
     {
-        assert(self_reference(old_substr));
-        assert(0 <= old_substr.size());
+        BOOST_ASSERT(self_reference(old_substr));
+        BOOST_ASSERT(0 <= old_substr.size());
         const_iterator const old_first = old_substr.begin().as_rope_iter();
         return replace(old_first, old_first + old_substr.size(), first, last);
     }
@@ -946,8 +946,8 @@ namespace boost { namespace text {
         Sentinel new_last)
         -> detail::char_iter_ret_t<unencoded_rope &, CharIter>
     {
-        assert(old_first <= old_last);
-        assert(begin() <= old_first && old_last <= end());
+        BOOST_ASSERT(old_first <= old_last);
+        BOOST_ASSERT(begin() <= old_first && old_last <= end());
         auto const it = erase(old_first, old_last);
         insert(it, new_first, new_last);
         return *this;
@@ -1016,9 +1016,9 @@ namespace boost { namespace text {
             lo += size();
         if (hi < 0)
             hi += size();
-        assert(0 <= lo && lo <= size());
-        assert(0 <= hi && hi <= size());
-        assert(lo <= hi);
+        BOOST_ASSERT(0 <= lo && lo <= size());
+        BOOST_ASSERT(0 <= hi && hi <= size());
+        BOOST_ASSERT(lo <= hi);
         return unencoded_rope_view(*this, lo, hi);
     }
 
@@ -1030,8 +1030,8 @@ namespace boost { namespace text {
             lo = cut + size();
             hi = size();
         }
-        assert(0 <= lo && lo <= size());
-        assert(0 <= hi && hi <= size());
+        BOOST_ASSERT(0 <= lo && lo <= size());
+        BOOST_ASSERT(0 <= hi && hi <= size());
         return unencoded_rope_view(*this, lo, hi);
     }
 
@@ -1457,7 +1457,7 @@ namespace boost { namespace text {
     {
         if (i < 0)
             i += size();
-        assert(0 <= i && i < size());
+        BOOST_ASSERT(0 <= i && i < size());
         return begin()[i];
     }
 
@@ -1468,9 +1468,9 @@ namespace boost { namespace text {
             lo += size();
         if (hi < 0)
             hi += size();
-        assert(0 <= lo && lo <= size());
-        assert(0 <= hi && hi <= size());
-        assert(lo <= hi);
+        BOOST_ASSERT(0 <= lo && lo <= size());
+        BOOST_ASSERT(0 <= hi && hi <= size());
+        BOOST_ASSERT(lo <= hi);
         switch (which_) {
         case which::r:
             return unencoded_rope_view(
@@ -1502,7 +1502,7 @@ namespace boost { namespace text {
             case detail::which::ref:
                 f(leaf->as_reference().ref_(lo, hi));
                 break;
-            default: assert(!"unhandled rope node case"); break;
+            default: BOOST_ASSERT(!"unhandled rope node case"); break;
             }
         }
     }

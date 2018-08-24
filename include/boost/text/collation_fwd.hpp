@@ -3,8 +3,9 @@
 
 #include <boost/text/config.hpp>
 
+#include <boost/assert.hpp>
+
 #include <cstdint>
-#include <cassert>
 
 
 namespace boost { namespace text {
@@ -31,16 +32,19 @@ namespace boost { namespace text {
         backward. */
     enum class l2_weight_order { forward, backward };
 
-    /** Controls whether a notional case level used in a tailored collation table.
+    /** Controls whether a notional case level used in a tailored collation
+       table.
 
-        \see https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
+        \see
+       https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
     */
     enum class case_level { on, off };
 
     /** Controls whether a preference is given to upper- or lower-case code
         points in a tailored collation table.
 
-        \see https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
+        \see
+       https://www.unicode.org/reports/tr35/tr35-collation.html#Case_Parameters
     */
     enum class case_first { upper, lower, off };
 
@@ -141,13 +145,13 @@ namespace boost { namespace text {
         bool const lower_first =
             (lhs_ & lower_first_uint) || (rhs_ & lower_first_uint);
 
-        assert(
+        BOOST_ASSERT(
             (!ignore_punct || !punct_last) && "Incompatible collation_flags");
-        assert(
+        BOOST_ASSERT(
             (!upper_first || !lower_first) && "Incompatible collation_flags");
-        assert(
+        BOOST_ASSERT(
             (!upper_first || !ignore_case) && "Incompatible collation_flags");
-        assert(
+        BOOST_ASSERT(
             (!lower_first || !ignore_case) && "Incompatible collation_flags");
 #endif
 
@@ -182,17 +186,17 @@ namespace boost { namespace text {
         {
             unsigned int const flags = static_cast<unsigned int>(flags_);
 
-            assert(
+            BOOST_ASSERT(
                 (!(flags & to_uint(collation_flags::ignore_punctuation)) ||
                  !(flags & to_uint(collation_flags::punctuation_last))) &&
                 "These flags are mutually incompatible.");
 
-            assert(
+            BOOST_ASSERT(
                 (!(flags & to_uint(collation_flags::lower_case_first)) ||
                  !(flags & to_uint(collation_flags::ignore_case))) &&
                 "These flags are mutually incompatible.");
 
-            assert(
+            BOOST_ASSERT(
                 (!(flags & to_uint(collation_flags::upper_case_first)) ||
                  !(flags & to_uint(collation_flags::ignore_case))) &&
                 "These flags are mutually incompatible.");
@@ -224,7 +228,7 @@ namespace boost { namespace text {
         {
             unsigned int const flags = static_cast<unsigned int>(flags_);
 
-            assert(
+            BOOST_ASSERT(
                 (!(flags & to_uint(collation_flags::lower_case_first)) ||
                  !(flags & to_uint(collation_flags::upper_case_first))) &&
                 "These flags are mutually incompatible.");

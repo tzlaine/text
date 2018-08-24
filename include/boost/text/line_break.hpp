@@ -4,6 +4,7 @@
 #include <boost/text/algorithm.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
+#include <boost/assert.hpp>
 #include <boost/optional.hpp>
 
 #include <algorithm>
@@ -11,7 +12,6 @@
 #include <numeric>
 #include <unordered_map>
 
-#include <cassert>
 #include <stdint.h>
 
 
@@ -524,14 +524,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     state.prev_prev_prop = line_property::AL;
 
                 // LB1 (These should have been handled in data generation.)
-                assert(state.prev_prop != line_property::AI);
-                assert(state.prop != line_property::AI);
-                assert(state.prev_prop != line_property::XX);
-                assert(state.prop != line_property::XX);
-                assert(state.prev_prop != line_property::SA);
-                assert(state.prop != line_property::SA);
-                assert(state.prev_prop != line_property::CJ);
-                assert(state.prop != line_property::CJ);
+                BOOST_ASSERT(state.prev_prop != line_property::AI);
+                BOOST_ASSERT(state.prop != line_property::AI);
+                BOOST_ASSERT(state.prev_prop != line_property::XX);
+                BOOST_ASSERT(state.prop != line_property::XX);
+                BOOST_ASSERT(state.prev_prop != line_property::SA);
+                BOOST_ASSERT(state.prop != line_property::SA);
+                BOOST_ASSERT(state.prev_prop != line_property::CJ);
+                BOOST_ASSERT(state.prop != line_property::CJ);
 
                 // When we see an RI, back up to the first RI so we can see what
                 // emoji state we're supposed to be in here.
@@ -869,40 +869,38 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             optional<result_t> latest_result;
             Extent latest_extent = Extent{};
 
-            auto break_overlong =
-                [&cp_extent,
-                 &latest_result,
-                 &latest_extent,
-                 first,
-                 last,
-                 break_overlong_lines,
-                 max_extent](result_t result) {
-                    if (break_overlong_lines) {
-                        CPIter const latest_extent_it =
-                            latest_result ? latest_result->iter : first;
-                        auto const extent =
-                            cp_extent(latest_extent_it, result.iter);
-                        auto const exceeds =
-                            max_extent < latest_extent + extent;
-                        if (exceeds) {
-                            if (latest_result) {
-                                result = *latest_result;
-                                return result;
-                            }
+            auto break_overlong = [&cp_extent,
+                                   &latest_result,
+                                   &latest_extent,
+                                   first,
+                                   last,
+                                   break_overlong_lines,
+                                   max_extent](result_t result) {
+                if (break_overlong_lines) {
+                    CPIter const latest_extent_it =
+                        latest_result ? latest_result->iter : first;
+                    auto const extent =
+                        cp_extent(latest_extent_it, result.iter);
+                    auto const exceeds = max_extent < latest_extent + extent;
+                    if (exceeds) {
+                        if (latest_result) {
+                            result = *latest_result;
+                            return result;
+                        }
 
-                            Extent last_extent{};
-                            auto it = prefix_lower_bound(
-                                first,
-                                result.iter,
-                                max_extent,
-                                [&cp_extent, &last_extent](CPIter f, CPIter l) {
-                                    return last_extent = cp_extent(f, l);
-                                });
+                        Extent last_extent{};
+                        auto it = prefix_lower_bound(
+                            first,
+                            result.iter,
+                            max_extent,
+                            [&cp_extent, &last_extent](CPIter f, CPIter l) {
+                                return last_extent = cp_extent(f, l);
+                            });
 
 #if 0 // TODO: Necessary?
-                            // If it is in the middle of a grapheme, include
-                            // all same-extent CPs up to the end of the
-                            // current grapheme.
+      // If it is in the middle of a grapheme, include
+      // all same-extent CPs up to the end of the
+      // current grapheme.
                             auto const range = grapheme(first, it, last);
                             if (range.begin() != it && range.end() != it) {
                                 auto const grapheme_extent =
@@ -912,11 +910,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                             }
 #endif
 
-                            result.iter = it;
-                        }
+                        result.iter = it;
                     }
-                    return result;
-                };
+                }
+                return result;
+            };
 
             auto break_here = [&cp_extent,
                                &break_overlong,
@@ -946,14 +944,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 scoped_emoji_state<CPIter> emoji_state_setter(state);
 
                 // LB1 (These should have been handled in data generation.)
-                assert(state.prev_prop != line_property::AI);
-                assert(state.prop != line_property::AI);
-                assert(state.prev_prop != line_property::XX);
-                assert(state.prop != line_property::XX);
-                assert(state.prev_prop != line_property::SA);
-                assert(state.prop != line_property::SA);
-                assert(state.prev_prop != line_property::CJ);
-                assert(state.prop != line_property::CJ);
+                BOOST_ASSERT(state.prev_prop != line_property::AI);
+                BOOST_ASSERT(state.prop != line_property::AI);
+                BOOST_ASSERT(state.prev_prop != line_property::XX);
+                BOOST_ASSERT(state.prop != line_property::XX);
+                BOOST_ASSERT(state.prev_prop != line_property::SA);
+                BOOST_ASSERT(state.prop != line_property::SA);
+                BOOST_ASSERT(state.prev_prop != line_property::CJ);
+                BOOST_ASSERT(state.prop != line_property::CJ);
 
                 // LB4
                 if (state.prev_prop == line_property::BK)

@@ -499,7 +499,7 @@ namespace boost { namespace text { namespace detail {
         collation_tailoring_interface & tailoring)
     {
         if (!require(it, end, token_kind::and_)) {
-            assert(!"Something has gone horribly wrong.");
+            BOOST_ASSERT(!"Something has gone horribly wrong.");
         }
 
         auto const strength = before_strength(it, end);
@@ -534,7 +534,7 @@ namespace boost { namespace text { namespace detail {
     {
         auto const open_bracket_it = it;
         if (!require(it, end, token_kind::open_bracket)) {
-            assert(!"Something has gone horribly wrong.");
+            BOOST_ASSERT(!"Something has gone horribly wrong.");
         }
 
         auto require_close_bracket = [&](token_iter prev_it) {

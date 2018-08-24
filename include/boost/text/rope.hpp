@@ -14,7 +14,7 @@
     do {                                                                       \
         string str(rope_);                                                     \
         normalize_to_fcc(str);                                                 \
-        assert(rope_ == str);                                                  \
+        BOOST_ASSERT(rope_ == str);                                            \
     } while (false)
 #else
 #define BOOST_TEXT_CHECK_ROPE_NORMALIZATION()

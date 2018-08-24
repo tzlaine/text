@@ -7,6 +7,8 @@ cp_props_file_form = decls = '''\
 
 #include <boost/text/detail/lzw.hpp>
 
+#include <boost/assert.hpp>
+
 #include <unordered_map>
 
 
@@ -44,8 +46,8 @@ return {{{{
             compressed.begin(),
             compressed.end(),
             lzw_to_cp_props_iter(retval, buf));
-        assert(buf.empty());
-        assert(retval.size() == {6});
+        BOOST_ASSERT(buf.empty());
+        BOOST_ASSERT(retval.size() == {6});
         return retval;
     }}
 

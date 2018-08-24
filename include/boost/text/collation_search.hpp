@@ -141,7 +141,7 @@ namespace boost { namespace text {
                 }
 
                 for (auto i = 0; i < curr_size; ++i, ++first) {
-                    assert(first != last);
+                    BOOST_ASSERT(first != last);
                     auto ce = adjust_ce_for_search(*first, strength, case_lvl);
                     if (ce.l1_ || ce.l2_ || ce.l3_ || ce.l4_) {
                         *out++ = ce;
@@ -288,7 +288,7 @@ namespace boost { namespace text {
                 weighting,
                 &ce_size_it);
 
-            assert(buf.size() == ce_sizes.size() - old_ce_sizes_size);
+            BOOST_ASSERT(buf.size() == ce_sizes.size() - old_ce_sizes_size);
 
 #if BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION
 #if 0
@@ -344,7 +344,7 @@ namespace boost { namespace text {
             IteratorCategory,
             SentinelCategory)
         {
-            assert(0 <= n);
+            BOOST_ASSERT(0 <= n);
             while (n && it != last) {
                 --n;
                 ++it;
@@ -1128,9 +1128,9 @@ namespace boost { namespace text {
             retval[0] = 0;
             std::size_t k = 0;
             for (std::size_t i = 1, end = retval.size(); i < end; ++i) {
-                assert(k < end);
+                BOOST_ASSERT(k < end);
                 while (0 < k && first[k] != first[i]) {
-                    assert(k < end);
+                    BOOST_ASSERT(k < end);
                     k = retval[k - 1];
                 }
                 if (first[k] == first[i])

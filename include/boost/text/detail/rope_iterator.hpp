@@ -28,7 +28,8 @@ namespace boost { namespace text { namespace detail {
             leaf_start_(-1)
         {}
 
-        const_rope_iterator(unencoded_rope const & r, difference_type n) noexcept :
+        const_rope_iterator(
+            unencoded_rope const & r, difference_type n) noexcept :
             rope_(&r),
             n_(n),
             leaf_(nullptr),
@@ -142,12 +143,13 @@ namespace boost { namespace text { namespace detail {
         friend difference_type
         operator-(const_rope_iterator lhs, const_rope_iterator rhs) noexcept
         {
-            assert(lhs.rope_ == rhs.rope_);
+            BOOST_ASSERT(lhs.rope_ == rhs.rope_);
             return lhs.n_ - rhs.n_;
         }
 
     private:
-        const_rope_iterator(unencoded_rope const * r, difference_type n) noexcept :
+        const_rope_iterator(
+            unencoded_rope const * r, difference_type n) noexcept :
             rope_(r),
             n_(n),
             leaf_(nullptr),
@@ -171,7 +173,7 @@ namespace boost { namespace text { namespace detail {
                     static_cast<detail::reference<rope_tag> *>(leaf_->buf_ptr_);
                 return *(ref->ref_.begin() + (n_ - leaf_start_));
             }
-            default: assert(!"unhandled rope node case"); break;
+            default: BOOST_ASSERT(!"unhandled rope node case"); break;
             }
             return '\0'; // This should never execute.
         }
@@ -210,7 +212,7 @@ namespace boost { namespace text { namespace detail {
 
         const_rope_iterator as_rope_iter() const
         {
-            assert(which_ == which::r);
+            BOOST_ASSERT(which_ == which::r);
             return r_;
         }
 

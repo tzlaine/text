@@ -7,7 +7,7 @@
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/utility.hpp>
 
-#include <cassert>
+#include <boost/assert.hpp>
 
 
 namespace boost { namespace text {
@@ -40,7 +40,7 @@ namespace boost { namespace text {
             data_(c_str),
             size_(detail::strlen(c_str))
         {
-            assert(detail::strlen(c_str) <= max_size());
+            BOOST_ASSERT(detail::strlen(c_str) <= max_size());
         }
 
         /** Constructs a string_view from an array of char.
@@ -50,7 +50,7 @@ namespace boost { namespace text {
             data_(c_str),
             size_(len)
         {
-            assert(0 <= len);
+            BOOST_ASSERT(0 <= len);
         }
 
         /** Constructs a string_view from a string.
@@ -204,7 +204,7 @@ namespace boost { namespace text {
         {
             if (i < 0)
                 i += size_;
-            assert(i < size_);
+            BOOST_ASSERT(i < size_);
             return data_[i];
         }
 
@@ -227,9 +227,9 @@ namespace boost { namespace text {
                 lo += size_;
             if (hi < 0)
                 hi += size_;
-            assert(0 <= lo && lo <= size_);
-            assert(0 <= hi && hi <= size_);
-            assert(lo <= hi);
+            BOOST_ASSERT(0 <= lo && lo <= size_);
+            BOOST_ASSERT(0 <= hi && hi <= size_);
+            BOOST_ASSERT(lo <= hi);
             return string_view(data_ + lo, hi - lo);
         }
 
@@ -247,8 +247,8 @@ namespace boost { namespace text {
                 lo = cut + size_;
                 hi = size_;
             }
-            assert(0 <= lo && lo <= size_);
-            assert(0 <= hi && hi <= size_);
+            BOOST_ASSERT(0 <= lo && lo <= size_);
+            BOOST_ASSERT(0 <= hi && hi <= size_);
             return string_view(data_ + lo, hi - lo);
         }
 
@@ -301,7 +301,7 @@ namespace boost { namespace text {
         inline BOOST_TEXT_CXX14_CONSTEXPR string_view
         operator"" _sv(char const * str, std::size_t len) noexcept
         {
-            assert(len < INT_MAX);
+            BOOST_ASSERT(len < INT_MAX);
             return string_view(str, len);
         }
     }

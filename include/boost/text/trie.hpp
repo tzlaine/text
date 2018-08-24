@@ -39,7 +39,7 @@ namespace boost { namespace trie {
         auto operator=(U && u)
             -> decltype(*this->t_ = static_cast<U &&>(u), *this)
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             *t_ = static_cast<U &&>(u);
             return *this;
         }
@@ -49,48 +49,48 @@ namespace boost { namespace trie {
 
         T const & operator*() const noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return *t_;
         }
         T const * operator->() const noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return t_;
         }
 
         operator T const &() const & noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return *t_;
         }
 
         operator T const &() const && noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return *t_;
         }
 
         T & operator*() noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return *t_;
         }
 
         T * operator->() noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return t_;
         }
 
         operator T &() & noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return *t_;
         }
 
         operator T &() && noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return *t_;
         }
     };
@@ -109,7 +109,7 @@ namespace boost { namespace trie {
         auto operator=(U && u)
             -> decltype(*this->t_ = static_cast<U &&>(u), *this)
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             *t_ = static_cast<U &&>(u);
             return *this;
         }
@@ -119,24 +119,24 @@ namespace boost { namespace trie {
 
         bool const & operator*() const noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return *t_;
         }
         bool const * operator->() const noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return t_;
         }
 
         bool & operator*() noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return *t_;
         }
 
         bool * operator->() noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return t_;
         }
     };
@@ -150,7 +150,7 @@ namespace boost { namespace trie {
         {
             std::size_t value() const noexcept
             {
-                assert(!"This should never be called.");
+                BOOST_ASSERT(!"This should never be called.");
                 return 0;
             }
 
@@ -417,7 +417,7 @@ namespace boost { namespace trie {
         }
 
         /** Returns the longest matching subsequence of \a key found in
-            *this. */
+         *this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
@@ -452,7 +452,7 @@ namespace boost { namespace trie {
         match_result extend_match(match_result prev, KeyElementT e) const
             noexcept
         {
-            assert(prev.match);
+            BOOST_ASSERT(prev.match);
             auto e_ptr = &e;
             auto const retval = extend_subsequence_impl(prev, e_ptr, e_ptr + 1);
             return back_up_to_match(retval);
@@ -467,7 +467,7 @@ namespace boost { namespace trie {
         extend_match(match_result prev, KeyIter first, Sentinel last) const
             noexcept
         {
-            assert(prev.match);
+            BOOST_ASSERT(prev.match);
             auto const retval = extend_subsequence_impl(prev, first, last);
             return back_up_to_match(retval);
         }
@@ -764,7 +764,7 @@ namespace boost { namespace trie {
             }
             trie_node_t & operator=(trie_node_t const & rhs)
             {
-                assert(
+                BOOST_ASSERT(
                     parent_ == nullptr &&
                     "Assignment of trie_node_ts are defined only for the "
                     "header node.");
@@ -774,7 +774,7 @@ namespace boost { namespace trie {
             }
             trie_node_t & operator=(trie_node_t && rhs)
             {
-                assert(
+                BOOST_ASSERT(
                     parent_ == nullptr &&
                     "Move assignments of trie_node_ts are defined only for the "
                     "header node.");
@@ -869,7 +869,7 @@ namespace boost { namespace trie {
 
             void swap(trie_node_t & other)
             {
-                assert(
+                BOOST_ASSERT(
                     parent_ == nullptr &&
                     "Swaps of trie_node_ts are defined only for the header "
                     "node.");
@@ -896,7 +896,7 @@ namespace boost { namespace trie {
                 Compare const & comp,
                 std::unique_ptr<trie_node_t> && child)
             {
-                assert(child->empty());
+                BOOST_ASSERT(child->empty());
                 auto it = std::lower_bound(keys_.begin(), keys_.end(), e, comp);
                 it = keys_.insert(it, e);
                 auto const offset = it - keys_.begin();
@@ -907,7 +907,7 @@ namespace boost { namespace trie {
             }
             iterator insert(std::unique_ptr<trie_node_t> && child)
             {
-                assert(empty());
+                BOOST_ASSERT(empty());
                 index_within_parent_.insert_ptr(child);
                 return children_.insert(children_.begin(), std::move(child));
             }
@@ -927,7 +927,7 @@ namespace boost { namespace trie {
                     [child](std::unique_ptr<trie_node_t> const & ptr) {
                         return child == ptr.get();
                     });
-                assert(it != children_.end());
+                BOOST_ASSERT(it != children_.end());
                 erase(it - children_.begin());
             }
 

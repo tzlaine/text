@@ -2,6 +2,8 @@
 #include <boost/text/sentence_break.hpp>
 #include <boost/text/detail/break_prop_iter.hpp>
 
+#include <boost/assert.hpp>
+
 #include <algorithm>
 #include <array>
 #include <unordered_map>
@@ -3228,8 +3230,8 @@ std::copy(
     compressed.begin(),
     compressed.end(),
     lzw_to_break_prop_iter<sentence_property>(retval, buf));
-assert(buf.empty());
-assert(retval.size() == 14274);
+BOOST_ASSERT(buf.empty());
+BOOST_ASSERT(retval.size() == 14274);
 return retval;
 }
 

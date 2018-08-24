@@ -175,7 +175,7 @@ namespace boost { namespace text { namespace detail {
             which_(which::vec)
         {
             auto at = placement_address<std::vector<T>>(buf_, sizeof(buf_));
-            assert(at);
+            BOOST_ASSERT(at);
             buf_ptr_ = new (at) std::vector<T>(t);
         }
 
@@ -185,7 +185,7 @@ namespace boost { namespace text { namespace detail {
             which_(which::vec)
         {
             auto at = placement_address<std::vector<T>>(buf_, sizeof(buf_));
-            assert(at);
+            BOOST_ASSERT(at);
             buf_ptr_ = new (at) std::vector<T>(std::move(t));
         }
 
@@ -197,17 +197,17 @@ namespace boost { namespace text { namespace detail {
             switch (which_) {
             case which::vec: {
                 auto at = placement_address<std::vector<T>>(buf_, sizeof(buf_));
-                assert(at);
+                BOOST_ASSERT(at);
                 buf_ptr_ = new (at) std::vector<T>(rhs.as_vec());
                 break;
             }
             case which::ref: {
                 auto at = placement_address<reference<T>>(buf_, sizeof(buf_));
-                assert(at);
+                BOOST_ASSERT(at);
                 buf_ptr_ = new (at) reference<T>(rhs.as_reference());
                 break;
             }
-            default: assert(!"unhandled leaf node case"); break;
+            default: BOOST_ASSERT(!"unhandled leaf node case"); break;
             }
         }
 
@@ -223,7 +223,7 @@ namespace boost { namespace text { namespace detail {
             switch (which_) {
             case which::vec: as_vec().~vector(); break;
             case which::ref: as_reference().~reference(); break;
-            default: assert(!"unhandled leaf node case"); break;
+            default: BOOST_ASSERT(!"unhandled leaf node case"); break;
             }
         }
 
@@ -234,32 +234,32 @@ namespace boost { namespace text { namespace detail {
             case which::ref:
                 return as_reference().hi_ - as_reference().lo_;
                 break;
-            default: assert(!"unhandled leaf node case"); break;
+            default: BOOST_ASSERT(!"unhandled leaf node case"); break;
             }
             return -(1 << 30); // This should never execute.
         }
 
         std::vector<T> const & as_vec() const noexcept
         {
-            assert(which_ == which::vec);
+            BOOST_ASSERT(which_ == which::vec);
             return *static_cast<std::vector<T> *>(buf_ptr_);
         }
 
         reference<T> const & as_reference() const noexcept
         {
-            assert(which_ == which::ref);
+            BOOST_ASSERT(which_ == which::ref);
             return *static_cast<reference<T> *>(buf_ptr_);
         }
 
         std::vector<T> & as_vec() noexcept
         {
-            assert(which_ == which::vec);
+            BOOST_ASSERT(which_ == which::vec);
             return *static_cast<std::vector<T> *>(buf_ptr_);
         }
 
         reference<T> & as_reference() noexcept
         {
-            assert(which_ == which::ref);
+            BOOST_ASSERT(which_ == which::ref);
             return *static_cast<reference<T> *>(buf_ptr_);
         }
 
@@ -277,32 +277,32 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     inline leaf_node_t<T> * mutable_node_ptr<T>::as_leaf() noexcept
     {
-        assert(ptr_);
-        assert(ptr_->leaf_);
+        BOOST_ASSERT(ptr_);
+        BOOST_ASSERT(ptr_->leaf_);
         return static_cast<leaf_node_t<T> *>(ptr_);
     }
 
     template<typename T>
     inline interior_node_t<T> * mutable_node_ptr<T>::as_interior() noexcept
     {
-        assert(ptr_);
-        assert(!ptr_->leaf_);
+        BOOST_ASSERT(ptr_);
+        BOOST_ASSERT(!ptr_->leaf_);
         return static_cast<interior_node_t<T> *>(ptr_);
     }
 
     template<typename T>
     inline leaf_node_t<T> const * node_ptr<T>::as_leaf() const noexcept
     {
-        assert(ptr_);
-        assert(ptr_->leaf_);
+        BOOST_ASSERT(ptr_);
+        BOOST_ASSERT(ptr_->leaf_);
         return static_cast<leaf_node_t<T> const *>(ptr_.get());
     }
 
     template<typename T>
     inline interior_node_t<T> const * node_ptr<T>::as_interior() const noexcept
     {
-        assert(ptr_);
-        assert(!ptr_->leaf_);
+        BOOST_ASSERT(ptr_);
+        BOOST_ASSERT(!ptr_->leaf_);
         return static_cast<interior_node_t<T> const *>(ptr_.get());
     }
 
@@ -450,8 +450,8 @@ namespace boost { namespace text { namespace detail {
     inline std::ptrdiff_t
     offset(interior_node_t<T> const * node, int i) noexcept
     {
-        assert(0 <= i);
-        assert(i <= (int)node->keys_.size());
+        BOOST_ASSERT(0 <= i);
+        BOOST_ASSERT(i <= (int)node->keys_.size());
         if (i == 0)
             return 0;
         return node->keys_[i - 1];
@@ -479,7 +479,7 @@ namespace boost { namespace text { namespace detail {
         while (i < sizes - 1 && node->keys_[i] <= n) {
             ++i;
         }
-        assert(i < sizes);
+        BOOST_ASSERT(i < sizes);
         return i;
     }
 
@@ -501,8 +501,8 @@ namespace boost { namespace text { namespace detail {
         LeafFunc const & leaf_func,
         IntFunc const & int_func) noexcept
     {
-        assert(node);
-        assert(n <= size(node.get()));
+        BOOST_ASSERT(node);
+        BOOST_ASSERT(n <= size(node.get()));
         if (node->leaf_) {
             leaf_func(node, n);
             return;
@@ -543,7 +543,7 @@ namespace boost { namespace text { namespace detail {
         std::ptrdiff_t n,
         found_element<T> & retval) noexcept
     {
-        assert(node);
+        BOOST_ASSERT(node);
         find_leaf(node, n, retval.leaf_);
 
         leaf_node_t<T> const * leaf = retval.leaf_.leaf_->as_leaf();
@@ -556,7 +556,7 @@ namespace boost { namespace text { namespace detail {
             e = &leaf->as_reference().vec_.as_leaf()->as_vec()
                      [leaf->as_reference().lo_ + retval.leaf_.offset_];
             break;
-        default: assert(!"unhandled leaf node case"); break;
+        default: BOOST_ASSERT(!"unhandled leaf node case"); break;
         }
         retval.element_ = e;
     }
@@ -570,9 +570,9 @@ namespace boost { namespace text { namespace detail {
         lo_(lo),
         hi_(hi)
     {
-        assert(vec_node);
-        assert(vec_node->leaf_);
-        assert(vec_node.as_leaf()->which_ == leaf_node_t<T>::which::vec);
+        BOOST_ASSERT(vec_node);
+        BOOST_ASSERT(vec_node->leaf_);
+        BOOST_ASSERT(vec_node.as_leaf()->which_ == leaf_node_t<T>::which::vec);
     }
 
     template<typename T>
@@ -591,13 +591,13 @@ namespace boost { namespace text { namespace detail {
     inline node_ptr<T>
     make_ref(leaf_node_t<T> const * v, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
-        assert(v->which_ == leaf_node_t<T>::which::vec);
+        BOOST_ASSERT(v->which_ == leaf_node_t<T>::which::vec);
         leaf_node_t<T> * leaf = nullptr;
         node_ptr<T> retval(leaf = new leaf_node_t<T>);
         leaf->which_ = leaf_node_t<T>::which::ref;
         auto at =
             placement_address<reference<T>>(leaf->buf_, sizeof(leaf->buf_));
-        assert(at);
+        BOOST_ASSERT(at);
         leaf->buf_ptr_ = new (at) reference<T>(node_ptr<T>(v), lo, hi);
         return retval;
     }
@@ -704,10 +704,10 @@ namespace boost { namespace text { namespace detail {
         std::ptrdiff_t hi,
         bool immutable)
     {
-        assert(node);
-        assert(0 <= lo && lo <= size(node.get()));
-        assert(0 <= hi && hi <= size(node.get()));
-        assert(lo < hi);
+        BOOST_ASSERT(node);
+        BOOST_ASSERT(0 <= lo && lo <= size(node.get()));
+        BOOST_ASSERT(0 <= hi && hi <= size(node.get()));
+        BOOST_ASSERT(lo < hi);
 
         bool const leaf_mutable = !immutable && node->refs_ == 1;
 
@@ -733,7 +733,7 @@ namespace boost { namespace text { namespace detail {
             }
             return node;
         }
-        default: assert(!"unhandled leaf node case"); break;
+        default: BOOST_ASSERT(!"unhandled leaf node case"); break;
         }
         return node_ptr<T>(); // This should never execute.
     }
@@ -749,10 +749,10 @@ namespace boost { namespace text { namespace detail {
     inline leaf_slices<T>
     erase_leaf(node_ptr<T> & node, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
-        assert(node);
-        assert(0 <= lo && lo <= size(node.get()));
-        assert(0 <= hi && hi <= size(node.get()));
-        assert(lo < hi);
+        BOOST_ASSERT(node);
+        BOOST_ASSERT(0 <= lo && lo <= size(node.get()));
+        BOOST_ASSERT(0 <= hi && hi <= size(node.get()));
+        BOOST_ASSERT(lo < hi);
 
         bool const leaf_mutable = node.as_leaf()->refs_ == 1;
         auto const leaf_size = size(node.get());
@@ -788,14 +788,15 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     inline node_ptr<T> btree_split_child(node_ptr<T> const & parent, int i)
     {
-        assert(0 <= i && i < num_children(parent));
-        assert(!full(parent));
-        assert(full(children(parent)[i]) || almost_full(children(parent)[i]));
+        BOOST_ASSERT(0 <= i && i < num_children(parent));
+        BOOST_ASSERT(!full(parent));
+        BOOST_ASSERT(
+            full(children(parent)[i]) || almost_full(children(parent)[i]));
 
         interior_node_t<T> * new_node = nullptr;
         node_ptr<T> new_node_ptr(new_node = new_interior_node<T>());
 
-        assert(!leaf_children(parent));
+        BOOST_ASSERT(!leaf_children(parent));
         node_ptr<T> const & child = children(parent)[i];
 
         {
@@ -848,9 +849,9 @@ namespace boost { namespace text { namespace detail {
     inline void
     btree_split_leaf(node_ptr<T> const & parent, int i, std::ptrdiff_t at)
     {
-        assert(0 <= i && i < num_children(parent));
-        assert(0 <= at && at <= size(parent.get()));
-        assert(!full(parent));
+        BOOST_ASSERT(0 <= i && i < num_children(parent));
+        BOOST_ASSERT(0 <= at && at <= size(parent.get()));
+        BOOST_ASSERT(!full(parent));
 
         node_ptr<T> const & child = children(parent)[i];
 
@@ -877,9 +878,9 @@ namespace boost { namespace text { namespace detail {
     inline node_ptr<T> btree_insert_nonfull(
         node_ptr<T> & parent, std::ptrdiff_t at, node_ptr<T> && node)
     {
-        assert(!parent->leaf_);
-        assert(0 <= at && at <= size(parent.get()));
-        assert(node->leaf_);
+        BOOST_ASSERT(!parent->leaf_);
+        BOOST_ASSERT(0 <= at && at <= size(parent.get()));
+        BOOST_ASSERT(node->leaf_);
 
         int i = find_child(parent.as_interior(), at);
         if (leaf_children(parent)) {
@@ -923,8 +924,8 @@ namespace boost { namespace text { namespace detail {
     inline node_ptr<T>
     btree_insert(node_ptr<T> & root, std::ptrdiff_t at, node_ptr<T> && node)
     {
-        assert(0 <= at && at <= size(root.get()));
-        assert(node->leaf_);
+        BOOST_ASSERT(0 <= at && at <= size(root.get()));
+        BOOST_ASSERT(node->leaf_);
 
         if (!root) {
             return node;
@@ -960,7 +961,7 @@ namespace boost { namespace text { namespace detail {
         std::ptrdiff_t at,
         leaf_node_t<T> const * leaf)
     {
-        assert(node);
+        BOOST_ASSERT(node);
 
         auto child_index = find_child(node.as_interior(), at);
 
@@ -968,7 +969,7 @@ namespace boost { namespace text { namespace detail {
             if (num_children(node) == 2)
                 return children(node)[child_index ? 0 : 1];
 
-            assert(children(node)[child_index].as_leaf() == leaf);
+            BOOST_ASSERT(children(node)[child_index].as_leaf() == leaf);
 
             {
                 auto mut_node = node.write();
@@ -985,7 +986,8 @@ namespace boost { namespace text { namespace detail {
         // work here.  As unsatisfying as it is, the minimium possible number of
         // children is actually min_children - 1.
         if (num_children(child) <= min_children) {
-            assert(child_index != 0 || child_index != num_children(node) - 1);
+            BOOST_ASSERT(
+                child_index != 0 || child_index != num_children(node) - 1);
 
             if (child_index != 0 &&
                 min_children + 1 <=
@@ -1113,12 +1115,12 @@ namespace boost { namespace text { namespace detail {
     inline node_ptr<T>
     btree_erase(node_ptr<T> & root, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
-        assert(root);
-        assert(0 <= lo && lo <= size(root.get()));
-        assert(0 <= hi && hi <= size(root.get()));
-        assert(lo < hi);
+        BOOST_ASSERT(root);
+        BOOST_ASSERT(0 <= lo && lo <= size(root.get()));
+        BOOST_ASSERT(0 <= hi && hi <= size(root.get()));
+        BOOST_ASSERT(lo < hi);
 
-        assert(root);
+        BOOST_ASSERT(root);
 
         if (lo == 0 && hi == size(root.get())) {
             return node_ptr<T>();
@@ -1168,13 +1170,14 @@ namespace boost { namespace text { namespace detail {
                 detail::find_leaf(root, lo, found_lo);
             }
 
-            assert(found_lo.offset_ == 0);
-            assert(found_hi.offset_ == 0 || found_hi.offset_ == hi_leaf_size);
+            BOOST_ASSERT(found_lo.offset_ == 0);
+            BOOST_ASSERT(
+                found_hi.offset_ == 0 || found_hi.offset_ == hi_leaf_size);
 
             leaf_node_t<T> const * leaf_lo = found_lo.leaf_->as_leaf();
             while (true) {
                 root = btree_erase(root, lo, leaf_lo);
-                assert(final_size <= size(root.get()));
+                BOOST_ASSERT(final_size <= size(root.get()));
                 if (size(root.get()) == final_size)
                     break;
                 found_leaf<T> found;
@@ -1213,7 +1216,7 @@ namespace boost { namespace text { namespace detail {
         if (children_size != size) {
             (void)0; // set breakpoint here
         }
-        assert(children_size == size);
+        BOOST_ASSERT(children_size == size);
 
         return children_size;
     }

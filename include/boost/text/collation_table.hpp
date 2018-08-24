@@ -830,7 +830,7 @@ namespace boost { namespace text {
                 auto const strength = ce_strength(ces[0]);
                 if (strength == collation_strength::primary) {
                     if (ces < logical_positions[first_variable]) {
-                        assert(
+                        BOOST_ASSERT(
                             (ces[0].l1_ & 0xff000000) ==
                             (logical_positions[first_variable][0].l1_ &
                              0xff000000));
@@ -965,7 +965,7 @@ namespace boost { namespace text {
                 reset_ces.push_back(ce);
                 auto it = std::lower_bound(
                     temp_table.begin(), temp_table.end(), reset_ces);
-                assert(it != temp_table.begin());
+                BOOST_ASSERT(it != temp_table.begin());
                 auto prev_it = temp_table.end();
                 while (it != temp_table.begin()) {
                     --it;
@@ -1081,7 +1081,7 @@ namespace boost { namespace text {
 
                 update_key_ces(reset_ces, logical_positions, tailoring_state);
 
-                assert(table_target_it != temp_table.end());
+                BOOST_ASSERT(table_target_it != temp_table.end());
 
                 // The checks in here only need to be performed if the increment
                 // above did not slot cleanly between two existing CEs.
@@ -1106,8 +1106,9 @@ namespace boost { namespace text {
                         }
                         element.tailored_ = true;
                         add_temp_tailoring(table, element.cps_, element.ces_);
-                        assert(well_formed_1(element.ces_));
-                        assert(well_formed_2(element.ces_, tailoring_state));
+                        BOOST_ASSERT(well_formed_1(element.ces_));
+                        BOOST_ASSERT(
+                            well_formed_2(element.ces_, tailoring_state));
                         update_key_ces(
                             element.ces_, logical_positions, tailoring_state);
                         temp_table.replace(temp_table.begin() + i, element);

@@ -39,7 +39,7 @@ namespace boost { namespace text { namespace detail {
         token_kind kind() const { return kind_; }
         uint32_t cp() const
         {
-            assert(kind_ == token_kind::code_point);
+            BOOST_ASSERT(kind_ == token_kind::code_point);
             return cp_;
         }
         string const & identifier() const { return identifier_; }
@@ -53,7 +53,7 @@ namespace boost { namespace text { namespace detail {
 
         friend bool operator==(token const & tok, token_kind kind)
         {
-            assert(
+            BOOST_ASSERT(
                 kind != token_kind::code_point &&
                 kind != token_kind::identifier);
             return tok.kind() == kind;
@@ -435,7 +435,7 @@ namespace boost { namespace text { namespace detail {
                 // indicated by
                 // http://www.unicode.org/reports/tr35/tr35-collation.html#Rules
                 char const c = consume_one("\\ at end of input");
-                assert(c != 'r' && c != 'n'); // Handled above.
+                BOOST_ASSERT(c != 'r' && c != 'n'); // Handled above.
                 switch (c) {
                 case 'u': {
                     auto buf_end = consume(

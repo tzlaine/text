@@ -4,11 +4,11 @@
 #include <boost/text/config.hpp>
 #include <boost/text/grapheme_break.hpp>
 
+#include <boost/assert.hpp>
+
 #include <iterator>
 #include <type_traits>
 #include <stdexcept>
-
-#include <cassert>
 
 
 namespace boost { namespace text {

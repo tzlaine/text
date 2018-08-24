@@ -66,7 +66,7 @@ namespace boost { namespace text { namespace detail {
         uint32_t const end_table_value = 1 << 16;
 
         uint16_t prev_code = *first++;
-        assert(prev_code < 256);
+        BOOST_ASSERT(prev_code < 256);
         unsigned char c = (unsigned char)prev_code;
         table_entry.push_back(c);
         *out++ = table_entry;
@@ -78,14 +78,10 @@ namespace boost { namespace text { namespace detail {
             if (reverse_table[code].value_ == no_value) {
                 table_entry.push_back(c);
                 copy_table_entry(
-                    reverse_table,
-                    prev_code,
-                    std::back_inserter(table_entry));
+                    reverse_table, prev_code, std::back_inserter(table_entry));
             } else {
                 copy_table_entry(
-                    reverse_table,
-                    code,
-                    std::back_inserter(table_entry));
+                    reverse_table, code, std::back_inserter(table_entry));
             }
 
             *out++ = table_entry;

@@ -109,7 +109,7 @@ namespace boost { namespace text {
                 return it;
 
             using ::boost::text::bidi_prop;
-            assert(isolate_initiator(bidi_prop(*it)));
+            BOOST_ASSERT(isolate_initiator(bidi_prop(*it)));
 
             int iis = 1;
             while (++it != last) {
@@ -1263,7 +1263,7 @@ namespace boost { namespace text {
                 fwd_rev_cp_iter const & lhs,
                 fwd_rev_cp_iter const & rhs) noexcept
             {
-                assert(lhs.kind_ == rhs.kind_);
+                BOOST_ASSERT(lhs.kind_ == rhs.kind_);
                 if (lhs.kind_ == kind_t::mirror_array_it)
                     return lhs.ait_ == rhs.ait_;
                 else
@@ -1675,11 +1675,11 @@ namespace boost { namespace text {
                             while (!stack.top().directional_isolate_) {
                                 stack.pop();
                             }
-                            assert(!stack.empty());
+                            BOOST_ASSERT(!stack.empty());
                             stack.pop();
                             --valid_isolates;
                         }
-                        assert(!stack.empty());
+                        BOOST_ASSERT(!stack.empty());
                         props_and_embeddings_.back().embedding_ =
                             stack.top().embedding_;
                         prop_from_top(stack, props_and_embeddings_);

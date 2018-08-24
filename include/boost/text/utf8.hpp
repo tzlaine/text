@@ -1,13 +1,12 @@
 #ifndef BOOST_TEXT_UTF8_HPP
 #define BOOST_TEXT_UTF8_HPP
 
+#include <boost/assert.hpp>
 #include <boost/text/config.hpp>
 
 #include <iterator>
 #include <type_traits>
 #include <stdexcept>
-
-#include <cassert>
 
 
 namespace boost { namespace text { namespace utf8 {
@@ -96,7 +95,7 @@ namespace boost { namespace text { namespace utf8 {
     namespace detail {
 
         // optional is not constexpr friendly.
-        template <typename Iter>
+        template<typename Iter>
         struct optional_iter
         {
             constexpr optional_iter() : it_(), valid_(false) {}
@@ -108,12 +107,12 @@ namespace boost { namespace text { namespace utf8 {
             }
             BOOST_TEXT_CXX14_CONSTEXPR Iter operator*() const noexcept
             {
-                assert(valid_);
+                BOOST_ASSERT(valid_);
                 return it_;
             }
             Iter & operator*() noexcept
             {
-                assert(valid_);
+                BOOST_ASSERT(valid_);
                 return it_;
             }
 
@@ -139,7 +138,7 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR optional_iter<Iter>
         end_of_invalid_utf8(Iter it) noexcept
         {
-            assert(!continuation(*it));
+            BOOST_ASSERT(!continuation(*it));
 
             using detail::in;
 

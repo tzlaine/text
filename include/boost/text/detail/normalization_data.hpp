@@ -121,7 +121,7 @@ namespace boost { namespace text { namespace detail {
     template<int Capacity>
     inline code_points<Capacity> decompose_hangul_syllable(uint32_t cp) noexcept
     {
-        assert(hangul_syllable(cp));
+        BOOST_ASSERT(hangul_syllable(cp));
 
         uint32_t const SBase = 0xAC00;
         uint32_t const LBase = 0x1100;

@@ -2,6 +2,8 @@
 #include <boost/text/detail/collation_constants.hpp>
 #include <boost/text/detail/collation_data.hpp>
 
+#include <boost/assert.hpp>
+
 #include <unordered_map>
 
 
@@ -494,7 +496,7 @@ lzw_decompress(
     compressed.begin(),
     compressed.end(),
     make_lzw_to_coll_elem_iter(retval.begin(), buf));
-assert(buf.empty());
+BOOST_ASSERT(buf.empty());
 }
 
 }}}
