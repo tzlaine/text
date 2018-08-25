@@ -648,6 +648,16 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 return next_sentence_break(it, last);
             }
         };
+
+        template<typename CPIter>
+        struct prev_sentence_callable
+        {
+            auto operator()(CPIter first, CPIter it, CPIter last) noexcept
+                -> detail::cp_iter_ret_t<CPIter, CPIter>
+            {
+                return prev_sentence_break(first, it, last);
+            }
+        };
     }
 
     /** Returns the bounds of the sentence that <code>it</code> lies
@@ -701,6 +711,39 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         return {std::move(next),
                 {std::begin(range), std::end(range)},
                 {std::end(range)}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting sentences in
+        <code>[first, last)</code>, in reverse. */
+    template<typename CPIter>
+    lazy_segment_range<
+        CPIter,
+        CPIter,
+        detail::prev_sentence_callable<CPIter>,
+        cp_range<CPIter>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    reversed_sentences(CPIter first, CPIter last) noexcept
+    {
+        detail::prev_sentence_callable<CPIter> prev;
+        return {std::move(prev), {first, last, last}, {first, first, last}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting sentences in
+        <code>range</code>, in reverse. */
+    template<typename CPRange>
+    auto reversed_sentences(CPRange & range) noexcept -> lazy_segment_range<
+        detail::iterator_t<CPRange>,
+        detail::sentinel_t<CPRange>,
+        detail::prev_sentence_callable<detail::iterator_t<CPRange>>,
+        cp_range<detail::iterator_t<CPRange>>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    {
+        detail::prev_sentence_callable<detail::iterator_t<CPRange>> prev;
+        return {std::move(prev),
+                {std::begin(range), std::end(range), std::end(range)},
+                {std::begin(range), std::begin(range), std::end(range)}};
     }
 
 }}

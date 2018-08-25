@@ -29,9 +29,9 @@ namespace boost { namespace text {
         struct const_lazy_segment_iterator
         {
         private:
-            mutable NextFunc * next_func_;
+            NextFunc * next_func_;
             CPIter prev_;
-            mutable CPIter it_;
+            CPIter it_;
             Sentinel last_;
 
         public:
@@ -77,7 +77,7 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            void set_next_func(NextFunc * next_func) const noexcept
+            void set_next_func(NextFunc * next_func) noexcept
             {
                 next_func_ = next_func;
                 it_ = (*next_func_)(prev_, last_);
@@ -97,13 +97,17 @@ namespace boost { namespace text {
             }
         };
 
-        template<typename CPIter, typename, typename PrevFunc, typename CPRange>
+        template<
+            typename CPIter,
+            typename ResultType,
+            typename PrevFunc,
+            typename CPRange>
         struct const_reverse_lazy_segment_iterator
         {
         private:
-            mutable PrevFunc * prev_func_;
+            PrevFunc * prev_func_;
             CPIter first_;
-            mutable CPIter it_;
+            ResultType it_;
             CPIter next_;
 
         public:
@@ -121,7 +125,7 @@ namespace boost { namespace text {
             {}
 
             const_reverse_lazy_segment_iterator(
-                CPIter first, CPIter it, CPIter last) noexcept :
+                CPIter first, ResultType it, CPIter last) noexcept :
                 prev_func_(),
                 first_(first),
                 it_(it),
@@ -144,7 +148,7 @@ namespace boost { namespace text {
                 return *this;
             }
 
-            void set_next_func(PrevFunc * prev_func) const noexcept
+            void set_next_func(PrevFunc * prev_func) noexcept
             {
                 prev_func_ = prev_func;
                 it_ = (*prev_func_)(first_, it_, next_);
@@ -194,7 +198,8 @@ namespace boost { namespace text {
 
         iterator begin() const noexcept
         {
-            first_.set_next_func(const_cast<NextFunc *>(&next_func_));
+            const_cast<iterator &>(first_).set_next_func(
+                const_cast<NextFunc *>(&next_func_));
             return first_;
         }
         iterator end() const noexcept { return last_; }

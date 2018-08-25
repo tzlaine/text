@@ -1389,6 +1389,26 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             optional<CPExtentFunc> cp_extent_;
             bool break_overlong_lines_;
         };
+
+        template<typename CPIter>
+        struct prev_hard_line_break_callable
+        {
+            auto operator()(CPIter first, CPIter it, CPIter last) noexcept
+                -> detail::cp_iter_ret_t<CPIter, CPIter>
+            {
+                return prev_hard_line_break(first, it, last);
+            }
+        };
+
+        template<typename BreakResult, typename CPIter>
+        struct prev_possible_line_break_callable
+        {
+            BreakResult
+            operator()(CPIter first, BreakResult result, CPIter last) noexcept
+            {
+                return prev_possible_line_break(first, result.iter, last);
+            }
+        };
     }
 
     /** Returns the bounds of the line (using hard line breaks) that
@@ -1406,8 +1426,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     auto line(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
-        auto first = prev_line_break(std::begin(range), it, std::end(range));
-        return cp_range<CPIter>{first, next_line_break(first, std::end(range))};
+        auto first =
+            prev_hard_line_break(std::begin(range), it, std::end(range));
+        return cp_range<CPIter>{first,
+                                next_hard_line_break(first, std::end(range))};
     }
 
     /** Returns a lazy range of the code point ranges delimiting lines (using
@@ -1420,7 +1442,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     lines(CPIter first, Sentinel last) noexcept
     {
         detail::next_hard_line_break_callable<CPIter, Sentinel> next;
-        return {{first, last}, {last}};
+        return {std::move(next), {first, last}, {last}};
     }
 
     /** Returns a lazy range of the code point ranges (using hard line breaks)
@@ -1440,6 +1462,39 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return {std::move(next),
                 {std::begin(range), std::end(range)},
                 {std::end(range)}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting lines (using
+        hard line breaks) in <code>[first, last)</code>, in reverse. */
+    template<typename CPIter>
+    lazy_segment_range<
+        CPIter,
+        CPIter,
+        detail::prev_hard_line_break_callable<CPIter>,
+        cp_range<CPIter>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    reversed_lines(CPIter first, CPIter last) noexcept
+    {
+        detail::prev_hard_line_break_callable<CPIter> prev;
+        return {std::move(prev), {first, last, last}, {first, first, last}};
+    }
+
+    /** Returns a lazy range of the code point ranges (using hard line breaks)
+        delimiting lines in <code>range</code>, in reverse. */
+    template<typename CPRange>
+    auto reversed_lines(CPRange & range) noexcept -> lazy_segment_range<
+        detail::iterator_t<CPRange>,
+        detail::sentinel_t<CPRange>,
+        detail::prev_hard_line_break_callable<detail::iterator_t<CPRange>>,
+        cp_range<detail::iterator_t<CPRange>>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    {
+        detail::prev_hard_line_break_callable<detail::iterator_t<CPRange>> prev;
+        return {std::move(prev),
+                {std::begin(range), std::end(range), std::end(range)},
+                {std::begin(range), std::begin(range), std::end(range)}};
     }
 
     /** A range of code points elements that delimit a pair of line break
@@ -1597,6 +1652,54 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                      std::begin(range), false},
                  std::end(range)},
                 {std::end(range)}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting possible
+        lines in <code>[first, last)</code>, in reverse. */
+    template<typename CPIter>
+    lazy_segment_range<
+        line_break_result<CPIter>,
+        CPIter,
+        detail::prev_possible_line_break_callable<
+            line_break_result<CPIter>,
+            CPIter>,
+        line_break_cp_range<CPIter>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    reversed_possible_lines(CPIter first, CPIter last) noexcept
+    {
+        detail::prev_possible_line_break_callable<
+            line_break_result<CPIter>,
+            CPIter>
+            prev;
+        return {std::move(prev),
+                {first, line_break_result<CPIter>{first, false}, last},
+                {first, first, last}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting possible
+        lines in <code>range</code>, in reverse. */
+    template<typename CPRange>
+    auto reversed_possible_lines(CPRange & range) noexcept -> lazy_segment_range<
+        line_break_result<detail::iterator_t<CPRange>>,
+        detail::sentinel_t<CPRange>,
+        detail::prev_possible_line_break_callable<
+            line_break_result<detail::iterator_t<CPRange>>,
+            detail::sentinel_t<CPRange>>,
+        line_break_cp_range<detail::iterator_t<CPRange>>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    {
+        detail::prev_possible_line_break_callable<
+            line_break_result<detail::iterator_t<CPRange>>,
+            detail::sentinel_t<CPRange>>
+            prev;
+        return {std::move(prev),
+                {std::begin(range),
+                 line_break_result<detail::iterator_t<CPRange>>{
+                     std::begin(range), false},
+                 std::end(range)},
+                {std::begin(range), std::begin(range), std::end(range)}};
     }
 
 }}

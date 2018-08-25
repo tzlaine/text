@@ -67,6 +67,18 @@ TEST(break_apis, grapheme_break)
             ++i;
         }
         EXPECT_EQ(i, (int)grapheme_bounds.size());
+
+        auto const all_graphemes_reversed =
+            boost::text::reversed_graphemes(cps.begin(), cps.end());
+        i = grapheme_bounds.size();
+        for (auto grapheme : all_graphemes_reversed) {
+            --i;
+            EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
     }
     // Range API
     {
@@ -84,6 +96,18 @@ TEST(break_apis, grapheme_break)
             ++i;
         }
         EXPECT_EQ(i, (int)grapheme_bounds.size());
+
+        auto const all_graphemes_reversed =
+            boost::text::reversed_graphemes(cps);
+        i = grapheme_bounds.size();
+        for (auto grapheme : all_graphemes_reversed) {
+            --i;
+            EXPECT_EQ(grapheme.begin() - cps.begin(), grapheme_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(grapheme.end() - cps.begin(), grapheme_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
     }
 
 
@@ -304,7 +328,7 @@ TEST(break_apis, word_break)
         EXPECT_EQ(i, (int)word_bounds.size());
 
         auto const all_words_reversed =
-            boost::text::reverse_words(cps.begin(), cps.end());
+            boost::text::reversed_words(cps.begin(), cps.end());
         i = word_bounds.size();
         for (auto word : all_words_reversed) {
             --i;
@@ -332,7 +356,7 @@ TEST(break_apis, word_break)
         }
         EXPECT_EQ(i, (int)word_bounds.size());
 
-        auto const all_words_reversed = boost::text::reverse_words(cps);
+        auto const all_words_reversed = boost::text::reversed_words(cps);
         i = word_bounds.size();
         for (auto word : all_words_reversed) {
             --i;
@@ -968,6 +992,18 @@ TEST(break_apis, sentence_break)
             ++i;
         }
         EXPECT_EQ(i, (int)sentence_bounds.size());
+
+        auto const all_sentences_reversed =
+            boost::text::reversed_sentences(cps.begin(), cps.end());
+        i = sentence_bounds.size();
+        for (auto sentence : all_sentences_reversed) {
+            --i;
+            EXPECT_EQ(sentence.begin() - cps.begin(), sentence_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(sentence.end() - cps.begin(), sentence_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
     }
     // Range API
     {
@@ -985,6 +1021,18 @@ TEST(break_apis, sentence_break)
             ++i;
         }
         EXPECT_EQ(i, (int)sentence_bounds.size());
+
+        auto const all_sentences_reversed =
+            boost::text::reversed_sentences(cps);
+        i = sentence_bounds.size();
+        for (auto sentence : all_sentences_reversed) {
+            --i;
+            EXPECT_EQ(sentence.begin() - cps.begin(), sentence_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(sentence.end() - cps.begin(), sentence_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
     }
 }
 
@@ -1151,6 +1199,101 @@ TEST(break_apis, line_break)
             ++i;
         }
         EXPECT_EQ(i, (int)line_bounds.size());
+    }
+}
+
+TEST(break_apis, line_break_hard)
+{
+    std::array<uint32_t, 5> cps = {{'a', ' ', 'b', '\n', 'c'}};
+
+    {
+        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_hard_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_hard_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 5);
+    }
+    // Range API
+    {
+        EXPECT_EQ(boost::text::prev_hard_line_break(cps, cps.begin() + 0) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_hard_line_break(cps) - cps.begin(), 4);
+    }
+
+    {
+        auto const range =
+            boost::text::line(cps.begin(), cps.begin() + 0, cps.end());
+        EXPECT_EQ(range.begin() - cps.begin(), 0);
+        EXPECT_EQ(range.end() - cps.begin(), 4);
+    }
+    // Range API
+    {
+        auto const range = boost::text::line(cps, cps.begin() + 4);
+        EXPECT_EQ(range.begin() - cps.begin(), 4);
+        EXPECT_EQ(range.end() - cps.begin(), 5);
+    }
+
+    {
+        auto const all_lines = boost::text::lines(cps.begin(), cps.end());
+
+        std::array<std::pair<int, int>, 2> const line_bounds = {
+            {{0, 4}, {4, 5}}};
+
+        int i = 0;
+        for (auto line : all_lines) {
+            EXPECT_EQ(line.begin() - cps.begin(), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)line_bounds.size());
+
+        auto const all_lines_reversed =
+            boost::text::reversed_lines(cps.begin(), cps.end());
+        i = line_bounds.size();
+        for (auto line : all_lines_reversed) {
+            --i;
+            EXPECT_EQ(line.begin() - cps.begin(), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
+    }
+    // Range API
+    {
+        auto const all_lines = boost::text::lines(cps);
+
+        std::array<std::pair<int, int>, 2> const line_bounds = {
+            {{0, 4}, {4, 5}}};
+
+        int i = 0;
+        for (auto line : all_lines) {
+            EXPECT_EQ(line.begin() - cps.begin(), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
+                << "i=" << i;
+            ++i;
+        }
+        EXPECT_EQ(i, (int)line_bounds.size());
+
+        auto const all_lines_reversed = boost::text::reversed_lines(cps);
+        i = line_bounds.size();
+        for (auto line : all_lines_reversed) {
+            --i;
+            EXPECT_EQ(line.begin() - cps.begin(), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
     }
 }
 
@@ -1686,13 +1829,27 @@ TEST(break_apis, paragraph_break)
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
-            EXPECT_EQ(paragraph.begin() - cps.begin(), paragraph_bounds[i].first)
+            EXPECT_EQ(
+                paragraph.begin() - cps.begin(), paragraph_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(paragraph.end() - cps.begin(), paragraph_bounds[i].second)
                 << "i=" << i;
             ++i;
         }
         EXPECT_EQ(i, (int)paragraph_bounds.size());
+
+        auto const all_paragraphs_reversed =
+            boost::text::reversed_paragraphs(cps.begin(), cps.end());
+        i = paragraph_bounds.size();
+        for (auto paragraph : all_paragraphs_reversed) {
+            --i;
+            EXPECT_EQ(
+                paragraph.begin() - cps.begin(), paragraph_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(paragraph.end() - cps.begin(), paragraph_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
     }
     // Range API
     {
@@ -1703,13 +1860,27 @@ TEST(break_apis, paragraph_break)
 
         int i = 0;
         for (auto paragraph : all_paragraphs) {
-            EXPECT_EQ(paragraph.begin() - cps.begin(), paragraph_bounds[i].first)
+            EXPECT_EQ(
+                paragraph.begin() - cps.begin(), paragraph_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(paragraph.end() - cps.begin(), paragraph_bounds[i].second)
                 << "i=" << i;
             ++i;
         }
         EXPECT_EQ(i, (int)paragraph_bounds.size());
+
+        auto const all_paragraphs_reversed =
+            boost::text::reversed_paragraphs(cps);
+        i = paragraph_bounds.size();
+        for (auto paragraph : all_paragraphs_reversed) {
+            --i;
+            EXPECT_EQ(
+                paragraph.begin() - cps.begin(), paragraph_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(paragraph.end() - cps.begin(), paragraph_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
     }
 }
 

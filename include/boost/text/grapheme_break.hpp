@@ -370,9 +370,19 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         template<typename CPIter, typename Sentinel>
         struct next_grapheme_callable
         {
-            CPIter operator()(CPIter it, Sentinel last) noexcept
+            CPIter operator()(CPIter it, Sentinel last) const noexcept
             {
                 return next_grapheme_break(it, last);
+            }
+        };
+
+        template<typename CPIter>
+        struct prev_grapheme_callable
+        {
+            CPIter operator()(CPIter first, CPIter it, CPIter last) const
+                noexcept
+            {
+                return prev_grapheme_break(first, it, last);
             }
         };
     }
@@ -426,6 +436,39 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         return {std::move(next),
                 {std::begin(range), std::end(range)},
                 {std::end(range)}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting graphemes in
+        <code>[first, last)</code>, in reverse. */
+    template<typename CPIter>
+    lazy_segment_range<
+        CPIter,
+        CPIter,
+        detail::prev_grapheme_callable<CPIter>,
+        cp_range<CPIter>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    reversed_graphemes(CPIter first, CPIter last) noexcept
+    {
+        detail::prev_grapheme_callable<CPIter> prev;
+        return {std::move(prev), {first, last, last}, {first, first, last}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting graphemes in
+        <code>range</code>, in reverse. */
+    template<typename CPRange>
+    auto reversed_graphemes(CPRange & range) noexcept -> lazy_segment_range<
+        detail::iterator_t<CPRange>,
+        detail::sentinel_t<CPRange>,
+        detail::prev_grapheme_callable<detail::iterator_t<CPRange>>,
+        cp_range<detail::iterator_t<CPRange>>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    {
+        detail::prev_grapheme_callable<detail::iterator_t<CPRange>> prev;
+        return {std::move(prev),
+                {std::begin(range), std::end(range), std::end(range)},
+                {std::begin(range), std::begin(range), std::end(range)}};
     }
 
 }}

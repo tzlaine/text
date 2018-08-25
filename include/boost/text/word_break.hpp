@@ -1036,12 +1036,12 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     }
 
     /** Returns a lazy range of the code point ranges delimiting words in
-        <code>[first, last)</code>, in reverse order. */
+        <code>[first, last)</code>, in reverse. */
     template<
         typename CPIter,
         typename WordPropFunc = word_prop_callable,
         typename CPBreakFunc = detail::default_cp_break>
-    auto reverse_words(
+    auto reversed_words(
         CPIter first,
         CPIter last,
         WordPropFunc word_prop = WordPropFunc{},
@@ -1063,12 +1063,12 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     }
 
     /** Returns a lazy range of the code point ranges delimiting words in
-        <code>range</code>. */
+        <code>range</code>, in reverse. */
     template<
         typename CPRange,
         typename WordPropFunc = word_prop_callable,
         typename CPBreakFunc = detail::default_cp_break>
-    auto reverse_words(
+    auto reversed_words(
         CPRange & range,
         WordPropFunc word_prop = WordPropFunc{},
         CPBreakFunc cp_break = CPBreakFunc{}) noexcept

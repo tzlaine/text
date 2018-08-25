@@ -88,10 +88,20 @@ namespace boost { namespace text {
         template<typename CPIter, typename Sentinel>
         struct next_paragraph_callable
         {
-            auto operator()(CPIter it, Sentinel last) noexcept
+            auto operator()(CPIter it, Sentinel last) const noexcept
                 -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
                 return next_paragraph_break(it, last);
+            }
+        };
+
+        template<typename CPIter>
+        struct prev_paragraph_callable
+        {
+            auto operator()(CPIter first, CPIter it, CPIter last) const noexcept
+                -> detail::cp_iter_ret_t<CPIter, CPIter>
+            {
+                return prev_paragraph_break(first, it, last);
             }
         };
     }
@@ -147,6 +157,39 @@ namespace boost { namespace text {
         return {std::move(next),
                 {std::begin(range), std::end(range)},
                 {std::end(range)}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting paragraphs in
+        <code>[first, last)</code>, in reverse. */
+    template<typename CPIter>
+    lazy_segment_range<
+        CPIter,
+        CPIter,
+        detail::prev_paragraph_callable<CPIter>,
+        cp_range<CPIter>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    reversed_paragraphs(CPIter first, CPIter last) noexcept
+    {
+        detail::prev_paragraph_callable<CPIter> prev;
+        return {std::move(prev), {first, last, last}, {first, first, last}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting paragraphs in
+        <code>range</code>, in reverse. */
+    template<typename CPRange>
+    auto reversed_paragraphs(CPRange & range) noexcept -> lazy_segment_range<
+        detail::iterator_t<CPRange>,
+        detail::sentinel_t<CPRange>,
+        detail::prev_paragraph_callable<detail::iterator_t<CPRange>>,
+        cp_range<detail::iterator_t<CPRange>>,
+        detail::const_reverse_lazy_segment_iterator,
+        true>
+    {
+        detail::prev_paragraph_callable<detail::iterator_t<CPRange>> prev;
+        return {std::move(prev),
+                {std::begin(range), std::end(range), std::end(range)},
+                {std::begin(range), std::begin(range), std::end(range)}};
     }
 
 }}
