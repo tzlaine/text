@@ -22,6 +22,7 @@ namespace boost { namespace text {
     struct repeated_string_view;
     struct unencoded_rope;
     struct unencoded_rope_view;
+    struct string_builder;
 
     /** A mutable contiguous null-terminated sequence of char.  Strongly
         exception safe. */
@@ -667,6 +668,14 @@ namespace boost { namespace text {
             local_t local_;
         };
 
+        string(std::unique_ptr<char[]> data, int size, int cap) noexcept :
+            storage_(),
+            size_(size),
+            heap_(true)
+        {
+            new (&storage_.heap_) heap_t{std::move(data), cap};
+        }
+
         bool self_reference(string_view tv) const;
 
         int grow_cap(int min_new_cap) const
@@ -819,6 +828,7 @@ namespace boost { namespace text {
             heap.local_.buf_ = tmp;
         }
 
+        friend struct string_builder;
 #endif // Doxygen
     };
 
