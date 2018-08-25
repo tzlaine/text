@@ -918,6 +918,19 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             WordPropFunc word_prop_;
             CPBreakFunc cp_break_;
         };
+
+        template<typename CPIter, typename WordPropFunc, typename CPBreakFunc>
+        struct prev_word_callable
+        {
+            auto operator()(CPIter first, CPIter it, CPIter last) const noexcept
+                -> detail::cp_iter_ret_t<CPIter, CPIter>
+            {
+                return prev_word_break(first, it, last, word_prop_, cp_break_);
+            }
+
+            WordPropFunc word_prop_;
+            CPBreakFunc cp_break_;
+        };
     }
 
     /** Returns the bounds of the word that <code>it</code> lies within. */
@@ -978,7 +991,10 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                     CPIter,
                     Sentinel,
                     WordPropFunc,
-                    CPBreakFunc>>,
+                    CPBreakFunc>,
+                cp_range<CPIter>,
+                detail::const_lazy_segment_iterator,
+                false>,
             CPIter,
             Sentinel>
     {
@@ -1017,6 +1033,66 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return {std::move(next),
                 {std::begin(range), std::end(range)},
                 {std::end(range)}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>[first, last)</code>, in reverse order. */
+    template<
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPBreakFunc = detail::default_cp_break>
+    auto reverse_words(
+        CPIter first,
+        CPIter last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        -> detail::cp_iter_sntl_ret_t<
+            lazy_segment_range<
+                CPIter,
+                CPIter,
+                detail::prev_word_callable<CPIter, WordPropFunc, CPBreakFunc>,
+                cp_range<CPIter>,
+                detail::const_reverse_lazy_segment_iterator,
+                true>,
+            CPIter,
+            CPIter>
+    {
+        detail::prev_word_callable<CPIter, WordPropFunc, CPBreakFunc> prev{
+            word_prop, cp_break};
+        return {std::move(prev), {first, last, last}, {first, first, last}};
+    }
+
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>range</code>. */
+    template<
+        typename CPRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPBreakFunc = detail::default_cp_break>
+    auto reverse_words(
+        CPRange & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        -> detail::word_prop_func_ret_t<
+            lazy_segment_range<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>,
+                detail::prev_word_callable<
+                    detail::iterator_t<CPRange>,
+                    WordPropFunc,
+                    CPBreakFunc>,
+                cp_range<detail::iterator_t<CPRange>>,
+                detail::const_reverse_lazy_segment_iterator,
+                true>,
+            WordPropFunc>
+    {
+        detail::prev_word_callable<
+            detail::iterator_t<CPRange>,
+            WordPropFunc,
+            CPBreakFunc>
+            prev{word_prop, cp_break};
+        return {std::move(prev),
+                {std::begin(range), std::end(range), std::end(range)},
+                {std::begin(range), std::begin(range), std::end(range)}};
     }
 
 }}

@@ -6,39 +6,18 @@
 
 namespace boost { namespace text {
 
-    template<
-        typename CPIter,
-        typename Sentinel,
-        typename NextFunc,
-        typename CPRange = cp_range<CPIter>>
-    struct lazy_segment_range;
-
     namespace detail {
-        template<
-            typename CPIter,
-            typename Sentinel,
-            typename NextFunc,
-            typename CPRange>
-        struct const_lazy_segment_iterator;
-
         template<typename CPIter, typename CPRange>
         struct segment_arrow_proxy
         {
+            explicit segment_arrow_proxy(CPRange value) : value_(value) {}
+
             CPRange * operator->() const noexcept
             {
                 return &value_;
             }
 
         private:
-            template<
-                typename CPIter_,
-                typename Sentinel_,
-                typename NextFunc_,
-                typename CPRange_>
-            friend struct const_lazy_segment_iterator;
-
-            explicit segment_arrow_proxy(CPRange value) : value_(value) {}
-
             CPRange value_;
         };
 
@@ -54,19 +33,6 @@ namespace boost { namespace text {
             CPIter prev_;
             mutable CPIter it_;
             Sentinel last_;
-
-            void set_next_func(NextFunc * next_func) const noexcept
-            {
-                next_func_ = next_func;
-                it_ = (*next_func_)(prev_, last_);
-            }
-
-            template<
-                typename CPIter2,
-                typename Sentinel2,
-                typename NextFunc2,
-                typename CPRange2>
-            friend struct ::boost::text::lazy_segment_range;
 
         public:
             using value_type = CPRange;
@@ -111,6 +77,12 @@ namespace boost { namespace text {
                 return *this;
             }
 
+            void set_next_func(NextFunc * next_func) const noexcept
+            {
+                next_func_ = next_func;
+                it_ = (*next_func_)(prev_, last_);
+            }
+
             friend bool operator==(
                 const_lazy_segment_iterator lhs,
                 const_lazy_segment_iterator rhs) noexcept
@@ -120,6 +92,73 @@ namespace boost { namespace text {
             friend bool operator!=(
                 const_lazy_segment_iterator lhs,
                 const_lazy_segment_iterator rhs) noexcept
+            {
+                return !(lhs == rhs);
+            }
+        };
+
+        template<typename CPIter, typename, typename PrevFunc, typename CPRange>
+        struct const_reverse_lazy_segment_iterator
+        {
+        private:
+            mutable PrevFunc * prev_func_;
+            CPIter first_;
+            mutable CPIter it_;
+            CPIter next_;
+
+        public:
+            using value_type = CPRange;
+            using pointer = detail::segment_arrow_proxy<CPIter, CPRange>;
+            using reference = value_type;
+            using difference_type = std::ptrdiff_t;
+            using iterator_category = std::forward_iterator_tag;
+
+            const_reverse_lazy_segment_iterator() noexcept :
+                prev_func_(),
+                first_(),
+                it_(),
+                next_()
+            {}
+
+            const_reverse_lazy_segment_iterator(
+                CPIter first, CPIter it, CPIter last) noexcept :
+                prev_func_(),
+                first_(first),
+                it_(it),
+                next_(last)
+            {}
+
+            reference operator*() const noexcept
+            {
+                return value_type{it_, next_};
+            }
+
+            pointer operator->() const noexcept { return pointer(**this); }
+
+            const_reverse_lazy_segment_iterator & operator++() noexcept
+            {
+                auto const prev_it =
+                    (*prev_func_)(first_, std::prev(it_), next_);
+                next_ = it_;
+                it_ = prev_it;
+                return *this;
+            }
+
+            void set_next_func(PrevFunc * prev_func) const noexcept
+            {
+                prev_func_ = prev_func;
+                it_ = (*prev_func_)(first_, it_, next_);
+            }
+
+            friend bool operator==(
+                const_reverse_lazy_segment_iterator lhs,
+                const_reverse_lazy_segment_iterator rhs) noexcept
+            {
+                return lhs.next_ == rhs.first_;
+            }
+            friend bool operator!=(
+                const_reverse_lazy_segment_iterator lhs,
+                const_reverse_lazy_segment_iterator rhs) noexcept
             {
                 return !(lhs == rhs);
             }
@@ -137,11 +176,13 @@ namespace boost { namespace text {
         typename CPIter,
         typename Sentinel,
         typename NextFunc,
-        typename CPRange>
+        typename CPRange = cp_range<CPIter>,
+        template<class, class, class, class> class IteratorTemplate =
+            detail::const_lazy_segment_iterator,
+        bool Reverse = false>
     struct lazy_segment_range
     {
-        using iterator = detail::
-            const_lazy_segment_iterator<CPIter, Sentinel, NextFunc, CPRange>;
+        using iterator = IteratorTemplate<CPIter, Sentinel, NextFunc, CPRange>;
 
         lazy_segment_range() noexcept {}
         lazy_segment_range(
