@@ -69,7 +69,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        struct prev_grapheme_callable
+        struct coll_search_prev_grapheme_callable
         {
             template<typename CPIter, typename Sentinel>
             CPIter operator()(CPIter first, CPIter it, Sentinel last) const
@@ -762,7 +762,7 @@ namespace boost { namespace text {
         simple_collation_searcher<
             CPIter,
             Sentinel,
-            detail::prev_grapheme_callable>>::type
+            detail::coll_search_prev_grapheme_callable>>::type
     make_simple_collation_searcher(
         CPIter first,
         Sentinel last,
@@ -772,10 +772,10 @@ namespace boost { namespace text {
         return simple_collation_searcher<
             CPIter,
             Sentinel,
-            detail::prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             first,
             last,
-            detail::prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
             detail::to_case_level(flags),
@@ -815,17 +815,17 @@ namespace boost { namespace text {
         -> simple_collation_searcher<
             decltype(std::begin(r)),
             decltype(std::end(r)),
-            detail::prev_grapheme_callable>
+            detail::coll_search_prev_grapheme_callable>
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
         return simple_collation_searcher<
             r_iter,
             r_sntl,
-            detail::prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             std::begin(r),
             std::end(r),
-            detail::prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
             detail::to_case_level(flags),
@@ -945,7 +945,7 @@ namespace boost { namespace text {
     boyer_moore_horspool_collation_searcher<
         CPIter,
         Sentinel,
-        detail::prev_grapheme_callable>
+        detail::coll_search_prev_grapheme_callable>
     make_boyer_moore_horspool_collation_searcher(
         CPIter first,
         Sentinel last,
@@ -955,10 +955,10 @@ namespace boost { namespace text {
         return boyer_moore_horspool_collation_searcher<
             CPIter,
             Sentinel,
-            detail::prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             first,
             last,
-            detail::prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
             detail::to_case_level(flags),
@@ -1001,17 +1001,17 @@ namespace boost { namespace text {
         -> boyer_moore_horspool_collation_searcher<
             decltype(std::begin(r)),
             decltype(std::end(r)),
-            detail::prev_grapheme_callable>
+            detail::coll_search_prev_grapheme_callable>
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
         return boyer_moore_horspool_collation_searcher<
             r_iter,
             r_sntl,
-            detail::prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             std::begin(r),
             std::end(r),
-            detail::prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
             detail::to_case_level(flags),
@@ -1185,7 +1185,7 @@ namespace boost { namespace text {
     boyer_moore_collation_searcher<
         CPIter,
         Sentinel,
-        detail::prev_grapheme_callable>
+        detail::coll_search_prev_grapheme_callable>
     make_boyer_moore_collation_searcher(
         CPIter first,
         Sentinel last,
@@ -1195,10 +1195,10 @@ namespace boost { namespace text {
         return boyer_moore_collation_searcher<
             CPIter,
             Sentinel,
-            detail::prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             first,
             last,
-            detail::prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
             detail::to_case_level(flags),
@@ -1238,17 +1238,17 @@ namespace boost { namespace text {
         -> boyer_moore_collation_searcher<
             decltype(std::begin(r)),
             decltype(std::end(r)),
-            detail::prev_grapheme_callable>
+            detail::coll_search_prev_grapheme_callable>
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
         return boyer_moore_collation_searcher<
             r_iter,
             r_sntl,
-            detail::prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             std::begin(r),
             std::end(r),
-            detail::prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
             detail::to_strength(flags),
             detail::to_case_level(flags),
@@ -1351,7 +1351,7 @@ namespace boost { namespace text {
         auto const s = make_simple_collation_searcher(
             pattern_first,
             pattern_last,
-            detail::prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
         return collation_search(first, last, s);
@@ -1370,7 +1370,10 @@ namespace boost { namespace text {
         -> cp_range<decltype(std::begin(str))>
     {
         auto const s = make_simple_collation_searcher(
-            pattern, detail::prev_grapheme_callable{}, table, flags);
+            pattern,
+            detail::coll_search_prev_grapheme_callable{},
+            table,
+            flags);
         return collation_search(std::begin(str), std::end(str), s);
     }
 
