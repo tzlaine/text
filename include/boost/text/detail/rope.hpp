@@ -394,27 +394,6 @@ namespace boost { namespace text { namespace detail {
         std::ostream & os_;
     };
 
-    template<typename Segment>
-    bool encoded(Segment const & segment)
-    {
-        return utf8::encoded(segment.begin(), segment.end());
-    }
-
-    inline bool encoded(repeated_string_view rtv)
-    {
-        return utf8::encoded(rtv.view().begin(), rtv.view().end());
-    }
-
-    struct segment_encoding_checker
-    {
-        template<typename Segment>
-        void operator()(Segment const & s) const
-        {
-            if (!encoded(s))
-                throw std::invalid_argument("Invalid UTF-8 encoding");
-        }
-    };
-
     struct repeated_range
     {
         repeated_string_view::const_iterator first, last;
