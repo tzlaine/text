@@ -126,7 +126,7 @@ TEST(sentinel_apis, nfd)
 
 TEST(sentinel_apis, collation)
 {
-    // Taken from relative_collation_test_non_ignorable).cpp, first iteration.
+    // Taken from relative_collation_test_non_ignorable.cpp, first iteration.
 
     string cps_;
     sentinel_cp_range_t cps;
@@ -144,4 +144,8 @@ TEST(sentinel_apis, collation)
         case_first::off,
         case_level::off,
         variable_weighting::non_ignorable);
+
+    collation_sort_key(cps, default_collation_table(), collation_flags{});
+
+    collate(cps, other_cps, default_collation_table(), collation_flags{});
 }
