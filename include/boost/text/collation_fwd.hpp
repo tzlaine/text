@@ -54,7 +54,7 @@ namespace boost { namespace text {
     struct collation_table;
 
     /** The flags taken by most functions in the collation search API, plus
-        other functins that compare collated text or created collation keys.
+        other functions that compare collated text or created collation keys.
         These flags are used to indicate desired properties for
         collation-aware comparisons. */
     enum class collation_flags : unsigned int {
