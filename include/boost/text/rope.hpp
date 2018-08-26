@@ -310,10 +310,7 @@ namespace boost { namespace text {
         /** Appends the char range r to *this.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept.
-
-            \throw std::invalid_argument if the ends of the range are not
-            valid UTF-8. */
+            CharRange models the CharRange concept. */
         template<typename CharRange>
         rope & operator+=(CharRange const & r);
 
@@ -925,20 +922,14 @@ namespace boost { namespace text {
     /** Creates a new rope object that is the concatenation of r and r2.
 
         This function only participates in overload resolution if CharRange
-        models the CharRange concept.
-
-        \throw std::invalid_argument if the ends of the range are not valid
-        UTF-8. */
+        models the CharRange concept. */
     template<typename CharRange>
     rope operator+(rope r, CharRange const & r2);
 
     /** Creates a new rope object that is the concatenation of r and r2.
 
         This function only participates in overload resolution if CharRange
-        models the CharRange concept.
-
-        \throw std::invalid_argument if the ends of the range are not valid
-        UTF-8. */
+        models the CharRange concept. */
     template<typename CharRange>
     rope operator+(CharRange const & r, rope const & r2);
 

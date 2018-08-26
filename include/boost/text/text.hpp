@@ -404,10 +404,7 @@ namespace boost { namespace text {
         /** Appends the char range r to *this.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept.
-
-            \throw std::invalid_argument if the ends of the range are not
-            valid UTF-8. */
+            CharRange models the CharRange concept. */
         template<typename CharRange>
         text & operator+=(CharRange const & r);
 
@@ -1009,20 +1006,14 @@ namespace boost { namespace text {
     /** Creates a new text object that is the concatenation of t and r.
 
         This function only participates in overload resolution if CharRange
-        models the CharRange concept.
-
-        \throw std::invalid_argument if the ends of the range are not valid
-        UTF-8. */
+        models the CharRange concept. */
     template<typename CharRange>
     text operator+(text t, CharRange const & r);
 
     /** Creates a new text object that is the concatenation of r and t.
 
         This function only participates in overload resolution if CharRange
-        models the CharRange concept.
-
-        \throw std::invalid_argument if the ends of the range are not valid
-        UTF-8. */
+        models the CharRange concept. */
     template<typename CharRange>
     text operator+(CharRange const & r, text const & t);
 
