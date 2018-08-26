@@ -721,7 +721,9 @@ namespace boost { namespace text {
                 }
             } catch (std::bad_alloc const &) {
                 ptr()[size_] = '\0';
+#ifndef BOOST_NO_EXCEPTIONS
                 throw;
+#endif
             }
 
             std::rotate(begin() + at, begin() + initial_size, end());

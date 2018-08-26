@@ -4,6 +4,8 @@
 #include <boost/assert.hpp>
 #include <boost/text/config.hpp>
 
+#include <boost/throw_exception.hpp>
+
 #include <iterator>
 #include <type_traits>
 #include <stdexcept>
@@ -440,7 +442,7 @@ namespace boost { namespace text { namespace utf8 {
     {
         uint32_t operator()(char const * msg)
         {
-            throw std::logic_error(msg);
+            boost::throw_exception(std::logic_error(msg));
             return 0;
         }
     };

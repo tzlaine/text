@@ -6,6 +6,8 @@
 #include <boost/text/utf8.hpp>
 #include <boost/text/utility.hpp>
 
+#include <boost/throw_exception.hpp>
+
 #include <sstream>
 #include <iomanip>
 
@@ -214,7 +216,7 @@ namespace boost { namespace text { namespace detail {
                     retval.line_starts_,
                     filename));
             }
-            throw parse_error(msg, line, column);
+            boost::throw_exception(parse_error(msg, line, column));
         };
 
         auto check_not_at_end = [&](string_view msg) {

@@ -7,6 +7,8 @@
 #include <boost/text/detail/collation_data.hpp>
 #include <boost/text/detail/parser.hpp>
 
+#include <boost/throw_exception.hpp>
+
 #include <numeric>
 #include <vector>
 
@@ -460,9 +462,9 @@ namespace boost { namespace text {
             w += 1;
             uint32_t const lead_byte = w & 0xff000000;
             if (lead_byte != initial_lead_byte && is_primary) {
-                throw tailoring_error(
+                boost::throw_exception(tailoring_error(
                     "Unable to increment collation element value "
-                    "without changing its lead bytes");
+                    "without changing its lead bytes"));
             }
 
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
@@ -987,9 +989,9 @@ namespace boost { namespace text {
                     }
                 }
                 if (prev_it == temp_table.end()) {
-                    throw tailoring_error(
+                    boost::throw_exception(tailoring_error(
                         "Could not find the collation table element before the "
-                        "one requested here");
+                        "one requested here"));
                 }
                 reset_ces.assign(prev_it->ces_.begin(), prev_it->ces_.end());
 
@@ -1065,18 +1067,18 @@ namespace boost { namespace text {
                 // "Weights must be allocated in accordance with the UCA
                 // well-formedness conditions."
                 if (!well_formed_1(reset_ces)) {
-                    throw tailoring_error(
+                    boost::throw_exception(tailoring_error(
                         "Unable to implement this tailoring rule, because it "
                         "was not possible to meet UCA well-formedness "
                         "condition 1; see "
-                        "http://www.unicode.org/reports/tr10/#WF1");
+                        "http://www.unicode.org/reports/tr10/#WF1"));
                 }
                 if (!well_formed_2(reset_ces, tailoring_state)) {
-                    throw tailoring_error(
+                    boost::throw_exception(tailoring_error(
                         "Unable to implement this tailoring rule, because it "
                         "was not possible to meet UCA well-formedness "
                         "condition 2; see "
-                        "http://www.unicode.org/reports/tr10/#WF2");
+                        "http://www.unicode.org/reports/tr10/#WF2"));
                 }
 
                 update_key_ces(reset_ces, logical_positions, tailoring_state);
@@ -1546,11 +1548,11 @@ namespace boost { namespace text {
 
                     if ((detail::implicit_weights_final_lead_byte << 24) <
                         curr_reorder_lead_byte) {
-                        throw tailoring_error(
+                        boost::throw_exception(tailoring_error(
                             "It was not possible to tailor the "
                             "collation in the way you requested.  "
                             "Try using fewer groups in '[reorder "
-                            "...]'.");
+                            "...]'."));
                     }
 
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
