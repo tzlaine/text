@@ -132,12 +132,6 @@ namespace boost { namespace text {
             return matching_pdi(it, last) != last;
         }
 
-        inline bool embedding_initiator(bidi_property prop) noexcept
-        {
-            return prop == bidi_property::LRE || prop == bidi_property::RLE ||
-                   prop == bidi_property::LRO || prop == bidi_property::RLO;
-        }
-
         enum class directional_override_t {
             neutral,
             right_to_left,
@@ -261,8 +255,6 @@ namespace boost { namespace text {
             {}
 
             bool used() const noexcept { return used_; }
-            int embedding() const noexcept { return first_->embedding_; }
-            bool empty() const noexcept { return first_ == last_; }
 
             const_iterator begin() const noexcept { return first_; }
             const_iterator end() const noexcept { return last_; }
@@ -619,12 +611,6 @@ namespace boost { namespace text {
                 if (elem.prop() == bidi_property::AL)
                     elem.prop_ = (uint8_t)bidi_property::R;
             }
-        }
-
-        template<typename CPIter>
-        inline bool not_bn(prop_and_embedding_t<CPIter> pae) noexcept
-        {
-            return pae.prop() != bidi_property::BN;
         }
 
         // https://unicode.org/reports/tr9/#W4
@@ -1229,23 +1215,6 @@ namespace boost { namespace text {
             {
                 fwd_rev_cp_iter retval = *this;
                 ++*this;
-                return retval;
-            }
-
-            fwd_rev_cp_iter & operator--() noexcept
-            {
-                if (kind_ == kind_t::user_it)
-                    --it_;
-                else if (kind_ == kind_t::rev_user_it)
-                    ++it_;
-                else
-                    --ait_;
-                return *this;
-            }
-            fwd_rev_cp_iter operator--(int)noexcept
-            {
-                fwd_rev_cp_iter retval = *this;
-                --*this;
                 return retval;
             }
 

@@ -160,13 +160,6 @@ namespace boost { namespace text {
                    prop != line_property::SP && prop != line_property::ZW;
         }
 
-        inline line_property lb10(line_property prop) noexcept
-        {
-            if (prop == line_property::CM || prop == line_property::ZWJ)
-                return line_property::AL;
-            return prop;
-        }
-
         enum class line_break_emoji_state_t {
             none,
             first_emoji, // Indicates that prop points to an odd-count emoji.
