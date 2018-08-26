@@ -524,7 +524,7 @@ def generate_bidi_tests(filename, batch_size):
         test_case_idx = 0
         test_idx = 0
         for test in batch:
-            if test_case_idx == 25:
+            if test_case_idx == 10:
                 test_idx += 1
                 tests += '''\
 }}
@@ -590,7 +590,7 @@ def generate_bidi_character_tests(filename, batch_size):
         test_case_idx = 0
         test_idx = 0
         for test in batch:
-            if test_case_idx == 25:
+            if test_case_idx == 10:
                 test_idx += 1
                 tests += '''\
 }}
@@ -630,6 +630,6 @@ generate_break_tests_2(sentence_cps_and_breaks, 'sentence')
 line_cps_and_breaks = extract_cps_and_breaks('LineBreakTest.txt', 100)
 generate_break_tests_2(line_cps_and_breaks, 'line', 'possible_', '.iter')
 
-generate_bidi_tests('BidiTest.txt', 700)
+generate_bidi_tests('BidiTest.txt', 500)
 
-generate_bidi_character_tests('BidiCharacterTest.txt', 1000)
+generate_bidi_character_tests('BidiCharacterTest.txt', 700)
