@@ -23,6 +23,7 @@ namespace boost { namespace text {
         using pointer = value_type const *;
         using reference = value_type;
         using iterator_category = std::bidirectional_iterator_tag;
+        using iterator_type = CPIter;
 
         static_assert(
             detail::is_cp_iter<CPIter>::value,
@@ -47,8 +48,9 @@ namespace boost { namespace text {
 
         template<typename CPIter2, typename Sentinel2>
         grapheme_iterator(grapheme_iterator<CPIter2, Sentinel2> const & other) :
-            first_(other.begin()),
-            last_(other.end())
+            grapheme_(other.grapheme_.begin(), other.grapheme_.end()),
+            first_(other.first_),
+            last_(other.last_)
         {}
 
         reference operator*() const noexcept { return grapheme_; }
@@ -93,6 +95,9 @@ namespace boost { namespace text {
         value_type grapheme_;
         CPIter first_;
         Sentinel last_;
+
+        template<typename CPIter2, typename Sentinel2>
+        friend struct grapheme_iterator;
     };
 
     template<
