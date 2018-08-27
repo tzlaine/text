@@ -894,3 +894,61 @@ TEST(utf_8, test_end_of_invalid_utf8)
         EXPECT_EQ(text::utf8::detail::end_of_invalid_utf8(utf8 + 6), none);
     }
 }
+
+TEST(utf_8, iterator_covnersions)
+{
+    uint32_t utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
+    uint16_t utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};
+    char utf8[] = {0x4d,
+                   char(0xd0),
+                   char(0xb0),
+                   char(0xe4),
+                   char(0xba),
+                   char(0x8c),
+                   char(0xf0),
+                   char(0x90),
+                   char(0x8c),
+                   char(0x82),
+                   0};
+
+    {
+        text::utf8::to_utf32_iterator<char *, text::utf8::null_sentinel> const it =
+            text::utf8::to_utf32_iterator<char *, text::utf8::null_sentinel>(
+                utf8, utf8, text::utf8::null_sentinel{});
+
+        text::utf8::to_utf32_iterator<
+            char const *,
+            text::utf8::null_sentinel> const it_const = it;
+
+        EXPECT_EQ(it_const, it);
+    }
+
+    {
+        text::utf8::from_utf32_iterator<uint32_t *> const it =
+            text::utf8::from_utf32_iterator<uint32_t *>(
+                utf32, utf32, utf32 + 4);
+
+        text::utf8::from_utf32_iterator<uint32_t const *> const it_const = it;
+
+        EXPECT_EQ(it_const, it);
+    }
+
+    {
+        text::utf8::to_utf16_iterator<char *> it =
+            text::utf8::to_utf16_iterator<char *>(
+                utf8, utf8, utf8 + sizeof(utf8));
+
+        text::utf8::to_utf16_iterator<char const *> it_const = it;
+
+        EXPECT_EQ(it_const, it);
+    }
+    {
+        text::utf8::from_utf16_iterator<uint16_t *> const it =
+            text::utf8::from_utf16_iterator<uint16_t *>(
+                utf16, utf16, utf16 + 5);
+
+        text::utf8::from_utf16_iterator<uint16_t const *> const it_const = it;
+
+        EXPECT_EQ(it_const, it);
+    }
+}
