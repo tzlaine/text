@@ -2,6 +2,7 @@
 #define BOOST_TEXT_WORD_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
+#include <boost/text/grapheme_range.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <array>
@@ -263,20 +264,46 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         template<
             typename T,
             typename F,
+            typename R,
+            bool RIsCPRange = is_cp_iter<iterator_t<R>>::value,
             bool FIsWordPropFunc = std::
                 is_same<detected_t<word_prop_func_, F>, word_property>::value>
         struct word_prop_func_ret
         {
         };
 
-        template<typename T, typename F>
-        struct word_prop_func_ret<T, F, true>
+        template<typename T, typename F, typename R>
+        struct word_prop_func_ret<T, F, R, true, true>
         {
             using type = T;
         };
 
-        template<typename T, typename F>
-        using word_prop_func_ret_t = typename word_prop_func_ret<T, F>::type;
+        template<
+            typename T,
+            typename F,
+            typename R = ::boost::text::cp_range<uint32_t *>>
+        using word_prop_func_ret_t = typename word_prop_func_ret<T, F, R>::type;
+
+        template<
+            typename T,
+            typename F,
+            typename R,
+            bool RIsCPRange = is_grapheme_char_range<R>::value,
+            bool FIsWordPropFunc = std::
+                is_same<detected_t<word_prop_func_, F>, word_property>::value>
+        struct graph_word_prop_func_ret
+        {
+        };
+
+        template<typename T, typename F, typename R>
+        struct graph_word_prop_func_ret<T, F, R, true, true>
+        {
+            using type = T;
+        };
+
+        template<typename T, typename F, typename R>
+        using graph_word_prop_func_ret_t =
+            typename graph_word_prop_func_ret<T, F, R>::type;
 
         template<typename T, typename U>
         using comparable_ = decltype(std::declval<T>() == std::declval<U>());
@@ -875,11 +902,41 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         CPRange & range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
-        -> detail::iterator_t<CPRange>
+        CPBreakFunc cp_break = CPBreakFunc{}) noexcept -> detail::
+        word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
         return prev_word_break(
             std::begin(range), it, std::end(range), word_prop, cp_break);
+    }
+
+    /** Returns a grapheme_iterator to the nearest word break at or before
+        before 'it'.  If it == range.begin(), that is returned.  Otherwise,
+        the first grapheme of the word that 'it' is within is returned (even
+        if 'it' is already at the first grapheme of a word). */
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPBreakFunc = detail::default_cp_break>
+    auto prev_word_break(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<
+            detail::iterator_t<GraphemeRange const>,
+            WordPropFunc,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        return {range.begin().base(),
+                prev_word_break(
+                    range.begin().base(),
+                    static_cast<cp_iter_t>(it.base()),
+                    range.end().base(),
+                    word_prop,
+                    cp_break),
+                range.end().base()};
     }
 
     /** Finds the next word break after <code>range.begin()</code>.  This will
@@ -894,11 +951,41 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
     auto next_word_break(
         CPRange & range,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
-        -> detail::iterator_t<CPRange>
+        CPBreakFunc cp_break = CPBreakFunc{}) noexcept -> detail::
+        word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
         return next_word_break(
             std::begin(range), std::end(range), word_prop, cp_break);
+    }
+
+    /** Returns a grapheme_iterator to the next word break after 'it'.  This
+        will be the first grapheme after the current word, or range.end() if
+        no next word exists.
+
+        \pre 'it' is at the beginning of a word. */
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPBreakFunc = detail::default_cp_break>
+    auto next_word_break(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<
+            detail::iterator_t<GraphemeRange const>,
+            WordPropFunc,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        return {range.begin().base(),
+                next_word_break(
+                    static_cast<cp_iter_t>(it.base()),
+                    range.end().base(),
+                    word_prop,
+                    cp_break),
+                range.end().base()};
     }
 
     namespace detail {
@@ -962,13 +1049,45 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPBreakFunc cp_break = CPBreakFunc{}) noexcept
-        -> cp_range<detail::iterator_t<CPRange>>
+        -> detail::word_prop_func_ret_t<
+            cp_range<detail::iterator_t<CPRange>>,
+            WordPropFunc,
+            CPRange>
     {
         auto first = prev_word_break(
             std::begin(range), it, std::end(range), word_prop, cp_break);
         return cp_range<CPIter>{
             first,
             next_word_break(first, std::end(range), word_prop, cp_break)};
+    }
+
+    /** Returns grapheme range delimiting the bounds of the word that 'it'
+        lies within. */
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPBreakFunc = detail::default_cp_break>
+    auto word(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<
+            grapheme_range<decltype(range.begin().base())>,
+            WordPropFunc,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        auto first = prev_word_break(
+            range.begin().base(),
+            static_cast<cp_iter_t>(it.base()),
+            range.end().base(),
+            word_prop,
+            cp_break);
+        return {
+            first,
+            next_word_break(first, range.end().base(), word_prop, cp_break)};
     }
 
     /** Returns a lazy range of the code point ranges delimiting words in
@@ -1022,7 +1141,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                     detail::sentinel_t<CPRange>,
                     WordPropFunc,
                     CPBreakFunc>>,
-            WordPropFunc>
+            WordPropFunc,
+            CPRange>
     {
         detail::next_word_callable<
             detail::iterator_t<CPRange>,
@@ -1033,6 +1153,38 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return {std::move(next),
                 {std::begin(range), std::end(range)},
                 {std::end(range)}};
+    }
+
+    /** Returns a lazy range of the grapheme ranges delimiting words in
+        range. */
+    template<
+        typename GraphemeRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPBreakFunc = detail::default_cp_break>
+    auto words(
+        GraphemeRange const & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<
+            lazy_segment_range<
+                decltype(range.begin().base()),
+                decltype(range.begin().base()),
+                detail::next_word_callable<
+                    decltype(range.begin().base()),
+                    decltype(range.begin().base()),
+                    WordPropFunc,
+                    CPBreakFunc>,
+                grapheme_range<decltype(range.begin().base())>>,
+            WordPropFunc,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        detail::
+            next_word_callable<cp_iter_t, cp_iter_t, WordPropFunc, CPBreakFunc>
+                next{word_prop, cp_break};
+        return {std::move(next),
+                {range.begin().base(), range.end().base()},
+                {range.end().base()}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting words in
@@ -1083,7 +1235,8 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 cp_range<detail::iterator_t<CPRange>>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
-            WordPropFunc>
+            WordPropFunc,
+            CPRange>
     {
         detail::prev_word_callable<
             detail::iterator_t<CPRange>,
@@ -1093,6 +1246,39 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         return {std::move(prev),
                 {std::begin(range), std::end(range), std::end(range)},
                 {std::begin(range), std::begin(range), std::end(range)}};
+    }
+
+    /** Returns a lazy range of the grapheme ranges delimiting words in range,
+        in reverse. */
+    template<
+        typename GraphemeRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPBreakFunc = detail::default_cp_break>
+    auto reversed_words(
+        GraphemeRange const & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<
+            lazy_segment_range<
+                decltype(range.begin().base()),
+                decltype(range.begin().base()),
+                detail::prev_word_callable<
+                    decltype(range.begin().base()),
+                    WordPropFunc,
+                    CPBreakFunc>,
+                grapheme_range<decltype(range.begin().base())>,
+                detail::const_reverse_lazy_segment_iterator,
+                true>,
+            WordPropFunc,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        detail::prev_word_callable<cp_iter_t, WordPropFunc, CPBreakFunc> prev{
+            word_prop, cp_break};
+        return {
+            std::move(prev),
+            {range.begin().base(), range.end().base(), range.end().base()},
+            {range.begin().base(), range.begin().base(), range.end().base()}};
     }
 
 }}

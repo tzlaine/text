@@ -866,7 +866,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                                    &latest_result,
                                    &latest_extent,
                                    first,
-                                   last,
                                    break_overlong_lines,
                                    max_extent](result_t result) {
                 if (break_overlong_lines) {

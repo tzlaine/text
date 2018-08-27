@@ -145,6 +145,7 @@ foreach(test ${globbed_tests})
 endforeach()
 
 add_test_executable(break_api)
+add_test_executable(text_algorithm)
 add_test_executable(normalization_idempotence)
 add_test_executable(relative_collation_test_non_ignorable_0)
 add_test_executable(relative_collation_test_non_ignorable_1)
