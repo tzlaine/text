@@ -97,17 +97,13 @@ namespace boost { namespace text {
             }
         };
 
-        template<
-            typename CPIter,
-            typename ResultType,
-            typename PrevFunc,
-            typename CPRange>
+        template<typename CPIter, typename, typename PrevFunc, typename CPRange>
         struct const_reverse_lazy_segment_iterator
         {
         private:
             PrevFunc * prev_func_;
             CPIter first_;
-            ResultType it_;
+            CPIter it_;
             CPIter next_;
 
         public:
@@ -125,7 +121,7 @@ namespace boost { namespace text {
             {}
 
             const_reverse_lazy_segment_iterator(
-                CPIter first, ResultType it, CPIter last) noexcept :
+                CPIter first, CPIter it, CPIter last) noexcept :
                 prev_func_(),
                 first_(first),
                 it_(it),

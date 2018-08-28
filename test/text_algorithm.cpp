@@ -199,21 +199,18 @@ TEST(break_apis, line_break)
         }
         EXPECT_EQ(i, (int)line_bounds.size());
 
-#if 0
-        auto const all_lines_reversed = boost::text::reversed_possible_lines(cps);
+        auto const all_lines_reversed =
+            boost::text::reversed_possible_lines(cps);
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
-// TODO            int j = line.begin();
-#if 0
             EXPECT_EQ(std::distance(cps.cbegin(), line.begin()), line_bounds[i].first)
                 << "i=" << i;
             EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
                 << "i=" << i;
-#endif
+            EXPECT_EQ(line.hard_break(), i == 1);
         }
         EXPECT_EQ(i, 0);
-#endif
     }
 
     // 80 columns -> don't take the possible break in the middle.

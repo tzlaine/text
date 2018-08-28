@@ -1480,13 +1480,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             }
         };
 
-        template<typename BreakResult, typename CPIter>
+        template<typename CPIter, typename BreakResult>
         struct prev_possible_line_break_callable
         {
             BreakResult
-            operator()(CPIter first, BreakResult result, CPIter last) noexcept
+            operator()(CPIter first, CPIter result, CPIter last) noexcept
             {
-                return prev_possible_line_break(first, result.iter, last);
+                return prev_possible_line_break(first, result, last);
             }
         };
     }
@@ -1724,7 +1724,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
         return {std::move(next),
-                {line_break_result<CPIter>{first, false}, last},
+                {line_break_result<CPIter>{first, true}, last},
                 {last}};
     }
 
@@ -1757,7 +1757,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             next{max_extent, std::move(cp_extent), break_overlong_lines};
         return {std::move(next),
                 {line_break_result<detail::iterator_t<CPRange>>{
-                     std::begin(range), false},
+                     std::begin(range), true},
                  std::end(range)},
                 {std::end(range)}};
     }
@@ -1791,7 +1791,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
         return {std::move(next),
-                {line_break_result<cp_iter_t>{range.begin().base(), false},
+                {line_break_result<cp_iter_t>{range.begin().base(), true},
                  range.end().base()},
                 {range.end().base()}};
     }
@@ -1852,7 +1852,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             Sentinel>
             next;
         return {std::move(next),
-                {line_break_result<CPIter>{first, false}, last},
+                {line_break_result<CPIter>{first, true}, last},
                 {last}};
     }
 
@@ -1875,7 +1875,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             next;
         return {std::move(next),
                 {line_break_result<detail::iterator_t<CPRange>>{
-                     std::begin(range), false},
+                     std::begin(range), true},
                  std::end(range)},
                 {std::end(range)}};
     }
@@ -1900,32 +1900,106 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             cp_iter_t>
             next;
         return {std::move(next),
-                {line_break_result<cp_iter_t>{range.begin().base(), false},
+                {line_break_result<cp_iter_t>{range.begin().base(), true},
                  range.end().base()},
                 {range.end().base()}};
+    }
+
+    namespace detail {
+        template<
+            typename CPIter,
+            typename ResultType,
+            typename PrevFunc,
+            typename CPRange>
+        struct const_reverse_possible_line_iterator
+        {
+        private:
+            PrevFunc * prev_func_;
+            CPIter first_;
+            ResultType it_;
+            ResultType next_;
+
+        public:
+            using value_type = CPRange;
+            using pointer = detail::segment_arrow_proxy<CPIter, CPRange>;
+            using reference = value_type;
+            using difference_type = std::ptrdiff_t;
+            using iterator_category = std::forward_iterator_tag;
+
+            const_reverse_possible_line_iterator() noexcept :
+                prev_func_(),
+                first_(),
+                it_(),
+                next_()
+            {}
+
+            const_reverse_possible_line_iterator(
+                CPIter first, ResultType it, ResultType last) noexcept :
+                prev_func_(),
+                first_(first),
+                it_(it),
+                next_(last)
+            {}
+
+            reference operator*() const noexcept
+            {
+                return value_type{it_, next_};
+            }
+
+            pointer operator->() const noexcept { return pointer(**this); }
+
+            const_reverse_possible_line_iterator & operator++() noexcept
+            {
+                auto const prev_it =
+                    (*prev_func_)(first_, std::prev(it_.iter), next_.iter);
+                next_ = it_;
+                it_ = prev_it;
+                return *this;
+            }
+
+            void set_next_func(PrevFunc * prev_func) noexcept
+            {
+                prev_func_ = prev_func;
+                it_ = (*prev_func_)(first_, it_.iter, next_.iter);
+            }
+
+            friend bool operator==(
+                const_reverse_possible_line_iterator lhs,
+                const_reverse_possible_line_iterator rhs) noexcept
+            {
+                return lhs.next_ == rhs.first_;
+            }
+            friend bool operator!=(
+                const_reverse_possible_line_iterator lhs,
+                const_reverse_possible_line_iterator rhs) noexcept
+            {
+                return !(lhs == rhs);
+            }
+        };
     }
 
     /** Returns a lazy range of the code point ranges delimiting possible
         lines in <code>[first, last)</code>, in reverse. */
     template<typename CPIter>
     lazy_segment_range<
-        line_break_result<CPIter>,
         CPIter,
+        line_break_result<CPIter>,
         detail::prev_possible_line_break_callable<
-            line_break_result<CPIter>,
-            CPIter>,
+            CPIter,
+            line_break_result<CPIter>>,
         line_break_cp_range<CPIter>,
-        detail::const_reverse_lazy_segment_iterator,
+        detail::const_reverse_possible_line_iterator,
         true>
     reversed_possible_lines(CPIter first, CPIter last) noexcept
     {
-        detail::prev_possible_line_break_callable<
-            line_break_result<CPIter>,
-            CPIter>
-            prev;
+        detail::
+            prev_possible_line_break_callable<CPIter, line_break_result<CPIter>>
+                prev;
+        auto const first_result = line_break_result<CPIter>{first, true};
+        auto const last_result = line_break_result<CPIter>{last, true};
         return {std::move(prev),
-                {first, line_break_result<CPIter>{first, false}, last},
-                {first, first, last}};
+                {first, last_result, last_result},
+                {first, first_result, last_result}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting possible
@@ -1934,29 +2008,30 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     auto reversed_possible_lines(CPRange & range) noexcept
         -> detail::cp_rng_alg_ret_t<
             lazy_segment_range<
+                detail::iterator_t<CPRange>,
                 line_break_result<detail::iterator_t<CPRange>>,
-                detail::sentinel_t<CPRange>,
                 detail::prev_possible_line_break_callable<
-                    line_break_result<detail::iterator_t<CPRange>>,
-                    detail::sentinel_t<CPRange>>,
+                    detail::iterator_t<CPRange>,
+                    line_break_result<detail::iterator_t<CPRange>>>,
                 line_break_cp_range<detail::iterator_t<CPRange>>,
-                detail::const_reverse_lazy_segment_iterator,
+                detail::const_reverse_possible_line_iterator,
                 true>,
             CPRange>
     {
         detail::prev_possible_line_break_callable<
-            line_break_result<detail::iterator_t<CPRange>>,
-            detail::sentinel_t<CPRange>>
+            detail::iterator_t<CPRange>,
+            line_break_result<detail::iterator_t<CPRange>>>
             prev;
+        auto const begin = std::begin(range);
+        auto const begin_result =
+            line_break_result<detail::iterator_t<CPRange>>{begin, true};
+        auto const end_result = line_break_result<detail::iterator_t<CPRange>>{
+            std::end(range), true};
         return {std::move(prev),
-                {std::begin(range),
-                 line_break_result<detail::iterator_t<CPRange>>{
-                     std::begin(range), false},
-                 std::end(range)},
-                {std::begin(range), std::begin(range), std::end(range)}};
+                {begin, end_result, end_result},
+                {begin, begin_result, end_result}};
     }
 
-#if 0
     /** Returns a lazy range of the grapheme ranges delimiting possible lines
         in <code>range</code>, in reverse. */
     template<typename GraphemeRange>
@@ -1966,47 +2041,26 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 decltype(range.begin().base()),
                 line_break_result<decltype(range.begin().base())>,
                 detail::prev_possible_line_break_callable<
-                    line_break_result<decltype(range.begin().base())>,
-                    decltype(range.begin().base())>,
+                    decltype(range.begin().base()),
+                    line_break_result<decltype(range.begin().base())>>,
                 line_break_grapheme_range<decltype(range.begin().base())>,
-                detail::const_reverse_lazy_segment_iterator,
+                detail::const_reverse_possible_line_iterator,
                 true>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
         detail::prev_possible_line_break_callable<
-            line_break_result<cp_iter_t>,
-            cp_iter_t>
+            cp_iter_t,
+            line_break_result<cp_iter_t>>
             prev;
-#if 0
-        using next_t = detail::prev_possible_line_break_callable<
-            line_break_result<decltype(range.begin().base())>,
-            decltype(range.begin().base())>;
-        using iterator = detail::const_reverse_lazy_segment_iterator<
-            decltype(range.begin().base()),
-            line_break_result<decltype(range.begin().base())>,
-            next_t,
-            line_break_grapheme_range<decltype(range.begin().base())>>;
-        iterator first{
-            range.begin().base(),
-            line_break_result<cp_iter_t>{range.begin().base(), false},
-            range.end().base()};
-        iterator last{range.begin().base(),
-                      line_break_result<cp_iter_t>{range.begin().base(), false},
-                      range.end().base()};
-        return {std::move(prev), first, last};
-#endif
-#if 1
+        auto const begin_result =
+            line_break_result<cp_iter_t>{range.begin().base(), true};
+        auto const end_result =
+            line_break_result<cp_iter_t>{range.end().base(), true};
         return {std::move(prev),
-                {range.begin().base(),
-                 line_break_result<cp_iter_t>{range.begin().base(), false},
-                 range.end().base()},
-                {range.begin().base(),
-                 line_break_result<cp_iter_t>{range.begin().base(), false},
-                 range.end().base()}};
-#endif
+                {range.begin().base(), end_result, end_result},
+                {range.begin().base(), begin_result, end_result}};
     }
-#endif
 
 }}
 
