@@ -12,6 +12,8 @@
 
 namespace boost { namespace text {
 
+    // TODO: GraphemeRange overloads.
+
     /** The list of languages handled specially in the case mapping
         functions. */
     enum class case_language : uint16_t {

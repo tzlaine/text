@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_PARAGRAPH_BREAK_HPP
 #define BOOST_TEXT_PARAGRAPH_BREAK_HPP
 
+#include <boost/text/grapheme_range.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 
@@ -67,9 +68,30 @@ namespace boost { namespace text {
         of a paragraph). */
     template<typename CPRange, typename CPIter>
     auto prev_paragraph_break(CPRange & range, CPIter it) noexcept
-        -> detail::iterator_t<CPRange>
+        -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return prev_paragraph_break(std::begin(range), it, std::end(range));
+    }
+
+    /** Returns a grapheme_iterator to the nearest paragraph break at or
+        before before 'it'.  If it == range.begin(), that is returned.
+        Otherwise, the first grapheme of the paragraph that 'it' is within is
+        returned (even if 'it' is already at the first grapheme of a
+        paragraph). */
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto
+    prev_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept
+        -> detail::graph_rng_alg_ret_t<
+            detail::iterator_t<GraphemeRange const>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        return {range.begin().base(),
+                prev_paragraph_break(
+                    range.begin().base(),
+                    static_cast<cp_iter_t>(it.base()),
+                    range.end().base()),
+                range.end().base()};
     }
 
     /** Finds the next paragraph break after <code>range.begin()</code>.  This
@@ -79,9 +101,28 @@ namespace boost { namespace text {
         \pre <code>range.begin()</code> is at the beginning of a paragraph. */
     template<typename CPRange>
     auto next_paragraph_break(CPRange & range) noexcept
-        -> detail::iterator_t<CPRange>
+        -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return next_paragraph_break(std::begin(range), std::end(range));
+    }
+
+    /** Returns a grapheme_iterator to the next paragraph break after 'it'.
+        This will be the first grapheme after the current paragraph, or
+        range.end() if no next paragraph exists.
+
+        \pre 'it' is at the beginning of a paragraph. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto
+    next_paragraph_break(GraphemeRange const & range, GraphemeIter it) noexcept
+        -> detail::graph_rng_alg_ret_t<
+            detail::iterator_t<GraphemeRange const>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        return {range.begin().base(),
+                next_paragraph_break(
+                    static_cast<cp_iter_t>(it.base()), range.end().base()),
+                range.end().base()};
     }
 
     namespace detail {
@@ -109,8 +150,8 @@ namespace boost { namespace text {
     /** Returns the bounds of the paragraph that <code>it</code> lies
         within. */
     template<typename CPRange, typename CPIter>
-    auto paragraph(CPRange & range, CPIter it) noexcept
-        -> cp_range<detail::iterator_t<CPRange>>
+    auto paragraph(CPRange & range, CPIter it) noexcept -> detail::
+        cp_rng_alg_ret_t<cp_range<detail::iterator_t<CPRange>>, CPRange>
     {
         auto first =
             prev_paragraph_break(std::begin(range), it, std::end(range));
@@ -125,6 +166,22 @@ namespace boost { namespace text {
     {
         first = prev_paragraph_break(first, it, last);
         return cp_range<CPIter>{first, next_paragraph_break(first, last)};
+    }
+
+    /** Returns grapheme range delimiting the bounds of the paragraph that
+        'it' lies within. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto paragraph(GraphemeRange const & range, GraphemeIter it) noexcept
+        -> detail::graph_rng_alg_ret_t<
+            grapheme_range<decltype(range.begin().base())>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        auto first = prev_paragraph_break(
+            range.begin().base(),
+            static_cast<cp_iter_t>(it.base()),
+            range.end().base());
+        return {first, next_paragraph_break(first, range.end().base())};
     }
 
     /** Returns a lazy range of the code point ranges delimiting paragraphs in
@@ -143,12 +200,14 @@ namespace boost { namespace text {
     /** Returns a lazy range of the code point ranges delimiting paragraphs in
         <code>range</code>. */
     template<typename CPRange>
-    auto paragraphs(CPRange & range) noexcept -> lazy_segment_range<
-        detail::iterator_t<CPRange>,
-        detail::sentinel_t<CPRange>,
-        detail::next_paragraph_callable<
+    auto paragraphs(CPRange & range) noexcept -> detail::cp_rng_alg_ret_t<
+        lazy_segment_range<
             detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>>>
+            detail::sentinel_t<CPRange>,
+            detail::next_paragraph_callable<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>>>,
+        CPRange>
     {
         detail::next_paragraph_callable<
             detail::iterator_t<CPRange>,
@@ -157,6 +216,27 @@ namespace boost { namespace text {
         return {std::move(next),
                 {std::begin(range), std::end(range)},
                 {std::end(range)}};
+    }
+
+    /** Returns a lazy range of the grapheme ranges delimiting paragraphs in
+        range. */
+    template<typename GraphemeRange>
+    auto paragraphs(GraphemeRange const & range) noexcept
+        -> detail::graph_rng_alg_ret_t<
+            lazy_segment_range<
+                decltype(range.begin().base()),
+                decltype(range.begin().base()),
+                detail::next_paragraph_callable<
+                    decltype(range.begin().base()),
+                    decltype(range.begin().base())>,
+                grapheme_range<decltype(range.begin().base())>>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        detail::next_paragraph_callable<cp_iter_t, cp_iter_t> next;
+        return {std::move(next),
+                {range.begin().base(), range.end().base()},
+                {range.end().base()}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting paragraphs in
@@ -178,18 +258,43 @@ namespace boost { namespace text {
     /** Returns a lazy range of the code point ranges delimiting paragraphs in
         <code>range</code>, in reverse. */
     template<typename CPRange>
-    auto reversed_paragraphs(CPRange & range) noexcept -> lazy_segment_range<
-        detail::iterator_t<CPRange>,
-        detail::sentinel_t<CPRange>,
-        detail::prev_paragraph_callable<detail::iterator_t<CPRange>>,
-        cp_range<detail::iterator_t<CPRange>>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
+    auto reversed_paragraphs(CPRange & range) noexcept
+        -> detail::cp_rng_alg_ret_t<
+            lazy_segment_range<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>,
+                detail::prev_paragraph_callable<detail::iterator_t<CPRange>>,
+                cp_range<detail::iterator_t<CPRange>>,
+                detail::const_reverse_lazy_segment_iterator,
+                true>,
+            CPRange>
     {
         detail::prev_paragraph_callable<detail::iterator_t<CPRange>> prev;
         return {std::move(prev),
                 {std::begin(range), std::end(range), std::end(range)},
                 {std::begin(range), std::begin(range), std::end(range)}};
+    }
+
+    /** Returns a lazy range of the grapheme ranges delimiting paragraphs in
+        range, in reverse. */
+    template<typename GraphemeRange>
+    auto reversed_paragraphs(GraphemeRange const & range) noexcept
+        -> detail::graph_rng_alg_ret_t<
+            lazy_segment_range<
+                decltype(range.begin().base()),
+                decltype(range.begin().base()),
+                detail::prev_paragraph_callable<decltype(range.begin().base())>,
+                grapheme_range<decltype(range.begin().base())>,
+                detail::const_reverse_lazy_segment_iterator,
+                true>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        detail::prev_paragraph_callable<cp_iter_t> prev;
+        return {
+            std::move(prev),
+            {range.begin().base(), range.end().base(), range.end().base()},
+            {range.begin().base(), range.begin().base(), range.end().base()}};
     }
 
 }}

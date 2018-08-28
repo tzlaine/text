@@ -1182,6 +1182,20 @@ TEST(break_apis, line_break)
             ++i;
         }
         EXPECT_EQ(i, (int)line_bounds.size());
+
+#if 0 // TODO
+        auto const all_lines_reversed =
+            boost::text::reversed_possible_lines(cps.begin(), cps.end());
+        i = line_bounds.size();
+        for (auto line : all_lines_reversed) {
+            --i;
+            EXPECT_EQ(line.begin() - cps.begin(), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
+#endif
     }
     // Range API
     {
@@ -1199,6 +1213,20 @@ TEST(break_apis, line_break)
             ++i;
         }
         EXPECT_EQ(i, (int)line_bounds.size());
+
+#if 0 // TODO
+        auto const all_lines_reversed =
+            boost::text::reversed_possible_lines(cps);
+        i = line_bounds.size();
+        for (auto line : all_lines_reversed) {
+            --i;
+            EXPECT_EQ(line.begin() - cps.begin(), line_bounds[i].first)
+                << "i=" << i;
+            EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
+                << "i=" << i;
+        }
+        EXPECT_EQ(i, 0);
+#endif
     }
 }
 

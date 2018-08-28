@@ -2,6 +2,7 @@
 #define BOOST_TEXT_SENTENCE_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
+#include <boost/text/grapheme_range.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <boost/assert.hpp>
@@ -621,9 +622,29 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         of a sentence). */
     template<typename CPRange, typename CPIter>
     auto prev_sentence_break(CPRange & range, CPIter it) noexcept
-        -> detail::iterator_t<CPRange>
+        -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return prev_sentence_break(std::begin(range), it, std::end(range));
+    }
+
+    /** Returns a grapheme_iterator to the nearest sentence break at or before
+        before 'it'.  If it == range.begin(), that is returned.  Otherwise,
+        the first grapheme of the sentence that 'it' is within is returned
+        (even if 'it' is already at the first grapheme of a sentence). */
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto
+    prev_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept
+        -> detail::graph_rng_alg_ret_t<
+            detail::iterator_t<GraphemeRange const>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        return {range.begin().base(),
+                prev_sentence_break(
+                    range.begin().base(),
+                    static_cast<cp_iter_t>(it.base()),
+                    range.end().base()),
+                range.end().base()};
     }
 
     /** Finds the next sentence break after <code>range.begin()</code>.  This
@@ -633,9 +654,28 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         \pre <code>range.begin()</code> is at the beginning of a sentence. */
     template<typename CPRange>
     auto next_sentence_break(CPRange & range) noexcept
-        -> detail::iterator_t<CPRange>
+        -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
         return next_sentence_break(std::begin(range), std::end(range));
+    }
+
+    /** Returns a grapheme_iterator to the next sentence break after 'it'.  This
+        will be the first grapheme after the current sentence, or range.end() if
+        no next sentence exists.
+
+        \pre 'it' is at the beginning of a sentence. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto
+    next_sentence_break(GraphemeRange const & range, GraphemeIter it) noexcept
+        -> detail::graph_rng_alg_ret_t<
+            detail::iterator_t<GraphemeRange const>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        return {range.begin().base(),
+                next_sentence_break(
+                    static_cast<cp_iter_t>(it.base()), range.end().base()),
+                range.end().base()};
     }
 
     namespace detail {
@@ -672,13 +712,29 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     /** Returns the bounds of the sentence that <code>it</code> lies
         within. */
     template<typename CPRange, typename CPIter>
-    auto sentence(CPRange & range, CPIter it) noexcept
-        -> cp_range<detail::iterator_t<CPRange>>
+    auto sentence(CPRange & range, CPIter it) noexcept -> detail::
+        cp_rng_alg_ret_t<cp_range<detail::iterator_t<CPRange>>, CPRange>
     {
         auto first =
             prev_sentence_break(std::begin(range), it, std::end(range));
         return cp_range<CPIter>{first,
                                 next_sentence_break(first, std::end(range))};
+    }
+
+    /** Returns grapheme range delimiting the bounds of the sentence that 'it'
+        lies within. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto sentence(GraphemeRange const & range, GraphemeIter it) noexcept
+        -> detail::graph_rng_alg_ret_t<
+            grapheme_range<decltype(range.begin().base())>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        auto first = prev_sentence_break(
+            range.begin().base(),
+            static_cast<cp_iter_t>(it.base()),
+            range.end().base());
+        return {first, next_sentence_break(first, range.end().base())};
     }
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
@@ -697,12 +753,14 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     /** Returns a lazy range of the code point ranges delimiting sentences in
         <code>range</code>. */
     template<typename CPRange>
-    auto sentences(CPRange & range) noexcept -> lazy_segment_range<
-        detail::iterator_t<CPRange>,
-        detail::sentinel_t<CPRange>,
-        detail::next_sentence_callable<
+    auto sentences(CPRange & range) noexcept -> detail::cp_rng_alg_ret_t<
+        lazy_segment_range<
             detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>>>
+            detail::sentinel_t<CPRange>,
+            detail::next_sentence_callable<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>>>,
+        CPRange>
     {
         detail::next_sentence_callable<
             detail::iterator_t<CPRange>,
@@ -711,6 +769,27 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
         return {std::move(next),
                 {std::begin(range), std::end(range)},
                 {std::end(range)}};
+    }
+
+    /** Returns a lazy range of the grapheme ranges delimiting sentences in
+        range. */
+    template<typename GraphemeRange>
+    auto sentences(GraphemeRange const & range) noexcept
+        -> detail::graph_rng_alg_ret_t<
+            lazy_segment_range<
+                decltype(range.begin().base()),
+                decltype(range.begin().base()),
+                detail::next_sentence_callable<
+                    decltype(range.begin().base()),
+                    decltype(range.begin().base())>,
+                grapheme_range<decltype(range.begin().base())>>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        detail::next_sentence_callable<cp_iter_t, cp_iter_t> next;
+        return {std::move(next),
+                {range.begin().base(), range.end().base()},
+                {range.end().base()}};
     }
 
     /** Returns a lazy range of the code point ranges delimiting sentences in
@@ -732,18 +811,43 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
     /** Returns a lazy range of the code point ranges delimiting sentences in
         <code>range</code>, in reverse. */
     template<typename CPRange>
-    auto reversed_sentences(CPRange & range) noexcept -> lazy_segment_range<
-        detail::iterator_t<CPRange>,
-        detail::sentinel_t<CPRange>,
-        detail::prev_sentence_callable<detail::iterator_t<CPRange>>,
-        cp_range<detail::iterator_t<CPRange>>,
-        detail::const_reverse_lazy_segment_iterator,
-        true>
+    auto reversed_sentences(CPRange & range) noexcept
+        -> detail::cp_rng_alg_ret_t<
+            lazy_segment_range<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>,
+                detail::prev_sentence_callable<detail::iterator_t<CPRange>>,
+                cp_range<detail::iterator_t<CPRange>>,
+                detail::const_reverse_lazy_segment_iterator,
+                true>,
+            CPRange>
     {
         detail::prev_sentence_callable<detail::iterator_t<CPRange>> prev;
         return {std::move(prev),
                 {std::begin(range), std::end(range), std::end(range)},
                 {std::begin(range), std::begin(range), std::end(range)}};
+    }
+
+    /** Returns a lazy range of the grapheme ranges delimiting sentences in
+        range, in reverse. */
+    template<typename GraphemeRange>
+    auto reversed_sentences(GraphemeRange const & range) noexcept
+        -> detail::graph_rng_alg_ret_t<
+            lazy_segment_range<
+                decltype(range.begin().base()),
+                decltype(range.begin().base()),
+                detail::prev_sentence_callable<decltype(range.begin().base())>,
+                grapheme_range<decltype(range.begin().base())>,
+                detail::const_reverse_lazy_segment_iterator,
+                true>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        detail::prev_sentence_callable<cp_iter_t> prev;
+        return {
+            std::move(prev),
+            {range.begin().base(), range.end().base(), range.end().base()},
+            {range.begin().base(), range.begin().base(), range.end().base()}};
     }
 
 }}

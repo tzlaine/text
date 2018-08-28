@@ -19,6 +19,8 @@
 
 namespace boost { namespace text {
 
+    // TODO: GraphemeRange overloads.
+
     namespace detail {
         struct bidi_prop_interval
         {

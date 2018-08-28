@@ -18,6 +18,8 @@
 
 namespace boost { namespace text {
 
+    // TODO: GraphemeRange overloads.
+
     // TODO: Document that "a\u0300\u0301" -- an 'a' followed by an grave
     // accent followed by an acute accent -- will not always be matched
     // correctly by pattern "a\u0300" (or "a\u0301"), due to the arbitrary
@@ -676,9 +678,9 @@ namespace boost { namespace text {
     }
 
 
-    /** A callable type that detects code point boundaries (essentially a
-        no-op).  This is suitable for use as the break function used in the
-        collation search API. */
+    /** A callable type that detects code point boundaries (a no-op).  This is
+        suitable for use as the break function used in the collation search
+        API. */
     struct cp_break
     {
         template<typename CPIter, typename Sentinel>

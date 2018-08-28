@@ -295,6 +295,39 @@ namespace boost { namespace text { namespace detail {
 
 
 
+    template<typename T, typename U>
+    using comparable_ = decltype(std::declval<T>() == std::declval<U>());
+
+    template<
+        typename T,
+        typename CPIter,
+        typename Sentinel,
+        bool FIsWordPropFunc = is_cp_iter<CPIter>::value &&
+            is_detected<comparable_, CPIter, Sentinel>::value>
+    struct cp_iter_sntl_ret
+    {
+    };
+
+    template<typename T, typename CPIter, typename Sentinel>
+    struct cp_iter_sntl_ret<T, CPIter, Sentinel, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename CPIter, typename Sentinel>
+    using cp_iter_sntl_ret_t =
+        typename cp_iter_sntl_ret<T, CPIter, Sentinel>::type;
+
+
+
+    template<typename T, typename R1>
+    using cp_rng_alg_ret_t = cp_iter_sntl_ret_t<
+        T,
+        decltype(std::declval<R1>().begin()),
+        decltype(std::declval<R1>().end())>;
+
+
+
     template<typename T>
     using is_grapheme_char_range = std::integral_constant<
         bool,

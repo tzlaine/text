@@ -304,29 +304,6 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         template<typename T, typename F, typename R>
         using graph_word_prop_func_ret_t =
             typename graph_word_prop_func_ret<T, F, R>::type;
-
-        template<typename T, typename U>
-        using comparable_ = decltype(std::declval<T>() == std::declval<U>());
-
-        template<
-            typename T,
-            typename CPIter,
-            typename Sentinel,
-            bool FIsWordPropFunc = is_cp_iter<CPIter>::value &&
-                is_detected<comparable_, CPIter, Sentinel>::value>
-        struct cp_iter_sntl_ret
-        {
-        };
-
-        template<typename T, typename CPIter, typename Sentinel>
-        struct cp_iter_sntl_ret<T, CPIter, Sentinel, true>
-        {
-            using type = T;
-        };
-
-        template<typename T, typename CPIter, typename Sentinel>
-        using cp_iter_sntl_ret_t =
-            typename cp_iter_sntl_ret<T, CPIter, Sentinel>::type;
     }
 
     /** A callable type that returns the next word_property for the given code
