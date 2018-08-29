@@ -3,6 +3,7 @@
 
 #include <boost/text/collate.hpp>
 #include <boost/text/grapheme_break.hpp>
+#include <boost/text/grapheme_range.hpp>
 #include <boost/text/detail/algorithm.hpp>
 
 #include <boost/algorithm/cxx14/mismatch.hpp>
@@ -18,8 +19,6 @@
 
 namespace boost { namespace text {
 
-    // TODO: GraphemeRange overloads.
-
     // TODO: Document that "a\u0300\u0301" -- an 'a' followed by an grave
     // accent followed by an acute accent -- will not always be matched
     // correctly by pattern "a\u0300" (or "a\u0301"), due to the arbitrary
@@ -29,9 +28,9 @@ namespace boost { namespace text {
     // graphemes as in the collation_search("a\u0300", "a\u0300\u0301")
     // example.
 
-    /** Returns the subrange within [first, last) in which the given searcher
-        finds its pattern.  If the pattern is not found, the resulting range
-        will be empty. */
+    /** Returns the code point subrange within [first, last) in which the
+        given searcher finds its pattern.  If the pattern is not found, the
+        resulting range will be empty. */
     template<typename CPIter, typename Sentinel, typename Searcher>
     auto
     collation_search(CPIter first, Sentinel last, Searcher const & searcher)
@@ -40,14 +39,30 @@ namespace boost { namespace text {
         return searcher(first, last);
     }
 
-    /** Returns the subrange within r in which the given searcher finds its
-        pattern.  If the pattern is not found, the resulting range will be
-        empty. */
+    /** Returns the code point subrange within r in which the given searcher
+        finds its pattern.  If the pattern is not found, the resulting range
+        will be empty. */
     template<typename CPRange, typename Searcher>
-    auto collation_search(CPRange r, Searcher const & searcher)
-        -> decltype(searcher(std::begin(r), std::end(r)))
+    auto collation_search(CPRange & r, Searcher const & searcher)
+        -> detail::cp_rng_alg_ret_t<
+            decltype(searcher(std::begin(r), std::end(r))),
+            CPRange>
     {
         return searcher(std::begin(r), std::end(r));
+    }
+
+    /** Returns the grapheme subrange within r in which the given searcher
+        finds its pattern.  If the pattern is not found, the resulting range
+        will be empty. */
+    template<typename GraphemeRange, typename Searcher>
+    auto collation_search(GraphemeRange const & r, Searcher const & searcher)
+        -> detail::graph_rng_alg_ret_t<
+            grapheme_range<decltype(r.begin().base())>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(r.begin().base());
+        auto const cp_result = searcher(r.begin().base(), r.end().base());
+        return grapheme_range<cp_iter_t>{cp_result.begin(), cp_result.end()};
     }
 
 }}
@@ -180,7 +195,7 @@ namespace boost { namespace text {
             variable_weighting weighting)
         {
             ces.clear();
-            std::ptrdiff_t const n = text::distance(first, last);
+            std::ptrdiff_t const n = ::boost::text::distance(first, last);
             container::small_vector<uint32_t, 1024> buf(n);
             {
                 auto buf_it = buf.begin();
@@ -238,7 +253,7 @@ namespace boost { namespace text {
             case_level case_lvl,
             variable_weighting weighting)
         {
-            std::ptrdiff_t n = text::distance(get_first, get_last);
+            std::ptrdiff_t n = ::boost::text::distance(get_first, get_last);
 
             // Add safe stream format-sized slop to the end, to make sure, as
             // much as we can efficiently do, that we do not slice
@@ -444,7 +459,7 @@ namespace boost { namespace text {
             typename AtBreakFunc,
             typename PopFrontFunc,
             typename PopsFunc>
-        text::cp_range<CPIter> search_mismatch_impl(
+        ::boost::text::cp_range<CPIter> search_mismatch_impl(
             CPIter it,
             container::small_vector<collation_element, N> const & pattern_ces,
             std::deque<collation_element> const & str_ces,
@@ -491,7 +506,7 @@ namespace boost { namespace text {
                     }
                 }
                 if (match_end != it && at_break(match_end))
-                    return text::cp_range<CPIter>(it, match_end);
+                    return ::boost::text::cp_range<CPIter>(it, match_end);
                 else
                     pop_front(str_ce_sizes.front());
             } else {
@@ -502,7 +517,7 @@ namespace boost { namespace text {
                 pop_front(ces_to_pop);
             }
 
-            return text::cp_range<CPIter>(it, it);
+            return ::boost::text::cp_range<CPIter>(it, it);
         }
 
         enum class mismatch_dir { fwd, rev };
@@ -516,7 +531,7 @@ namespace boost { namespace text {
                 typename AtBreakFunc,
                 typename PopFrontFunc,
                 typename PopsFunc>
-            text::cp_range<CPIter> operator()(
+            ::boost::text::cp_range<CPIter> operator()(
                 CPIter it,
                 container::small_vector<collation_element, N> const &
                     pattern_ces,
@@ -549,7 +564,7 @@ namespace boost { namespace text {
                 typename AtBreakFunc,
                 typename PopFrontFunc,
                 typename PopsFunc>
-            text::cp_range<CPIter> operator()(
+            ::boost::text::cp_range<CPIter> operator()(
                 CPIter it,
                 container::small_vector<collation_element, N> const &
                     pattern_ces,
@@ -580,7 +595,7 @@ namespace boost { namespace text {
             typename BreakFunc,
             std::size_t N,
             typename PopsFunc>
-        text::cp_range<CPIter> search_impl(
+        ::boost::text::cp_range<CPIter> search_impl(
             CPIter first,
             Sentinel last,
             container::small_vector<collation_element, N> const & pattern_ces,
@@ -592,7 +607,7 @@ namespace boost { namespace text {
             PopsFunc pops_on_mismatch)
         {
             if (first == last || pattern_ces.empty())
-                return text::cp_range<CPIter>(first, first);
+                return ::boost::text::cp_range<CPIter>(first, first);
 
             std::deque<collation_element> str_ces;
             std::deque<int> str_ce_sizes;
@@ -652,7 +667,7 @@ namespace boost { namespace text {
                         while (it != last) {
                             ++it;
                         }
-                        return text::cp_range<CPIter>(it, it);
+                        return ::boost::text::cp_range<CPIter>(it, it);
                     }
                     search_mismatch_t<MismatchDir> search_mismatch;
                     auto const result = search_mismatch(
@@ -673,7 +688,7 @@ namespace boost { namespace text {
                 }
             }
 
-            return text::cp_range<CPIter>(it, it);
+            return ::boost::text::cp_range<CPIter>(it, it);
         }
     }
 
@@ -724,7 +739,8 @@ namespace boost { namespace text {
         }
 
         template<typename CPIter2, typename Sentinel2>
-        text::cp_range<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
+        ::boost::text::cp_range<CPIter2>
+        operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_iterator,
@@ -759,17 +775,17 @@ namespace boost { namespace text {
     /** Returns a simple_collation_searcher that will find the pattern [first,
         last).  A match must begin and end at a grapheme boundary. */
     template<typename CPIter, typename Sentinel>
-    typename std::enable_if<
-        detail::is_cp_iter<CPIter>::value,
-        simple_collation_searcher<
-            CPIter,
-            Sentinel,
-            detail::coll_search_prev_grapheme_callable>>::type
-    make_simple_collation_searcher(
+    auto make_simple_collation_searcher(
         CPIter first,
         Sentinel last,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
+        -> detail::cp_iter_ret_t<
+            simple_collation_searcher<
+                CPIter,
+                Sentinel,
+                detail::coll_search_prev_grapheme_callable>,
+            CPIter>
     {
         return simple_collation_searcher<
             CPIter,
@@ -785,17 +801,19 @@ namespace boost { namespace text {
     }
 
     /** Returns a simple_collation_searcher that will find the pattern
-        [first, last).  Any occurance of the pattern must be found starting at
+        [first, last).  Any occurence of the pattern must be found starting at
         and ending at a boundary found by break_fn (e.g. a grapheme cluster or
         word boundary). */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
-    simple_collation_searcher<CPIter, Sentinel, BreakFunc>
-    make_simple_collation_searcher(
+    auto make_simple_collation_searcher(
         CPIter first,
         Sentinel last,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
+        -> detail::cp_iter_ret_t<
+            simple_collation_searcher<CPIter, Sentinel, BreakFunc>,
+            CPIter>
     {
         return simple_collation_searcher<CPIter, Sentinel, BreakFunc>(
             first,
@@ -811,13 +829,15 @@ namespace boost { namespace text {
         match must begin and end at a grapheme boundary. */
     template<typename CPRange>
     auto make_simple_collation_searcher(
-        CPRange r,
+        CPRange & r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
-        -> simple_collation_searcher<
-            decltype(std::begin(r)),
-            decltype(std::end(r)),
-            detail::coll_search_prev_grapheme_callable>
+        -> detail::cp_rng_alg_ret_t<
+            simple_collation_searcher<
+                decltype(std::begin(r)),
+                decltype(std::end(r)),
+                detail::coll_search_prev_grapheme_callable>,
+            CPRange>
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
@@ -834,28 +854,84 @@ namespace boost { namespace text {
             detail::to_weighting(flags));
     }
 
+    /** Returns a simple_collation_searcher that will find the pattern r.  A
+        match must begin and end at a grapheme boundary. */
+    template<typename GraphemeRange>
+    auto make_simple_collation_searcher(
+        GraphemeRange const & r,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::graph_rng_alg_ret_t<
+            simple_collation_searcher<
+                decltype(r.begin().base()),
+                decltype(r.end().base()),
+                detail::coll_search_prev_grapheme_callable>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(r.begin().base());
+        return simple_collation_searcher<
+            cp_iter_t,
+            cp_iter_t,
+            detail::coll_search_prev_grapheme_callable>(
+            r.begin().base(),
+            r.end().base(),
+            detail::coll_search_prev_grapheme_callable{},
+            table,
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
+    }
+
     /** Returns a simple_collation_searcher that will find the pattern r.
-        Any occurance of the pattern must be found starting at and ending at a
+        Any occurence of the pattern must be found starting at and ending at a
         boundary found by break_fn (e.g. a grapheme cluster or word
         boundary). */
     template<typename CPRange, typename BreakFunc>
     auto make_simple_collation_searcher(
-        CPRange r,
+        CPRange & r,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_flags flags = collation_flags::none) ->
-        typename std::enable_if<
-            !detail::is_cp_iter<CPRange>::value,
+        collation_flags flags = collation_flags::none)
+        -> detail::cp_rng_alg_ret_t<
             simple_collation_searcher<
                 decltype(std::begin(r)),
                 decltype(std::end(r)),
-                BreakFunc>>::type
+                BreakFunc>,
+            CPRange>
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
         return simple_collation_searcher<r_iter, r_sntl, BreakFunc>(
             std::begin(r),
             std::end(r),
+            break_fn,
+            table,
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
+    }
+
+    /** Returns a simple_collation_searcher that will find the pattern r.
+        Any occurence of the pattern must be found starting at and ending at a
+        boundary found by break_fn (e.g. a grapheme cluster or word
+        boundary). */
+    template<typename GraphemeRange, typename BreakFunc>
+    auto make_simple_collation_searcher(
+        GraphemeRange const & r,
+        BreakFunc break_fn,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::graph_rng_alg_ret_t<
+            simple_collation_searcher<
+                decltype(r.begin().base()),
+                decltype(r.end().base()),
+                BreakFunc>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(r.begin().base());
+        return simple_collation_searcher<cp_iter_t, cp_iter_t, BreakFunc>(
+            r.begin().base(),
+            r.end().base(),
             break_fn,
             table,
             detail::to_strength(flags),
@@ -907,7 +983,8 @@ namespace boost { namespace text {
         }
 
         template<typename CPIter2, typename Sentinel2>
-        text::cp_range<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
+        ::boost::text::cp_range<CPIter2>
+        operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_reverse_iterator,
@@ -944,15 +1021,17 @@ namespace boost { namespace text {
         pattern [first, last).  A match must begin and end at a grapheme
         boundary. */
     template<typename CPIter, typename Sentinel>
-    boyer_moore_horspool_collation_searcher<
-        CPIter,
-        Sentinel,
-        detail::coll_search_prev_grapheme_callable>
-    make_boyer_moore_horspool_collation_searcher(
+    auto make_boyer_moore_horspool_collation_searcher(
         CPIter first,
         Sentinel last,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
+        -> detail::cp_iter_ret_t<
+            boyer_moore_horspool_collation_searcher<
+                CPIter,
+                Sentinel,
+                detail::coll_search_prev_grapheme_callable>,
+            CPIter>
     {
         return boyer_moore_horspool_collation_searcher<
             CPIter,
@@ -968,17 +1047,22 @@ namespace boost { namespace text {
     }
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
-        pattern [first, last).  Any occurance of the pattern must be found
+        pattern [first, last).  Any occurence of the pattern must be found
         starting at and ending at a boundary found by break_fn (e.g. a
         grapheme cluster or word boundary). */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
-    boyer_moore_horspool_collation_searcher<CPIter, Sentinel, BreakFunc>
-    make_boyer_moore_horspool_collation_searcher(
+    auto make_boyer_moore_horspool_collation_searcher(
         CPIter first,
         Sentinel last,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
+        -> detail::cp_iter_ret_t<
+            boyer_moore_horspool_collation_searcher<
+                CPIter,
+                Sentinel,
+                BreakFunc>,
+            CPIter>
     {
         return boyer_moore_horspool_collation_searcher<
             CPIter,
@@ -997,13 +1081,15 @@ namespace boost { namespace text {
         pattern r.  A match must begin and end at a grapheme boundary. */
     template<typename CPRange>
     auto make_boyer_moore_horspool_collation_searcher(
-        CPRange r,
+        CPRange & r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
-        -> boyer_moore_horspool_collation_searcher<
-            decltype(std::begin(r)),
-            decltype(std::end(r)),
-            detail::coll_search_prev_grapheme_callable>
+        -> detail::cp_rng_alg_ret_t<
+            boyer_moore_horspool_collation_searcher<
+                decltype(std::begin(r)),
+                decltype(std::end(r)),
+                detail::coll_search_prev_grapheme_callable>,
+            CPRange>
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
@@ -1021,19 +1107,49 @@ namespace boost { namespace text {
     }
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
-        pattern r.  Any occurance of the pattern must be found starting at and
+        pattern r.  A match must begin and end at a grapheme boundary. */
+    template<typename GraphemeRange>
+    auto make_boyer_moore_horspool_collation_searcher(
+        GraphemeRange const & r,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::graph_rng_alg_ret_t<
+            boyer_moore_horspool_collation_searcher<
+                decltype(r.begin().base()),
+                decltype(r.end().base()),
+                detail::coll_search_prev_grapheme_callable>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(r.begin().base());
+        return boyer_moore_horspool_collation_searcher<
+            cp_iter_t,
+            cp_iter_t,
+            detail::coll_search_prev_grapheme_callable>(
+            r.begin().base(),
+            r.end().base(),
+            detail::coll_search_prev_grapheme_callable{},
+            table,
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
+    }
+
+    /** Returns a boyer_moore_horspool_collation_searcher that will find the
+        pattern r.  Any occurence of the pattern must be found starting at and
         ending at a boundary found by break_fn (e.g. a grapheme cluster or
         word boundary). */
     template<typename CPRange, typename BreakFunc>
     auto make_boyer_moore_horspool_collation_searcher(
-        CPRange r,
+        CPRange & r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
-        -> boyer_moore_horspool_collation_searcher<
-            decltype(std::begin(r)),
-            decltype(std::end(r)),
-            BreakFunc>
+        -> detail::cp_rng_alg_ret_t<
+            boyer_moore_horspool_collation_searcher<
+                decltype(std::begin(r)),
+                decltype(std::end(r)),
+                BreakFunc>,
+            CPRange>
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
@@ -1043,6 +1159,37 @@ namespace boost { namespace text {
             BreakFunc>(
             std::begin(r),
             std::end(r),
+            break_fn,
+            table,
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
+    }
+
+    /** Returns a boyer_moore_horspool_collation_searcher that will find the
+        pattern r.  Any occurence of the pattern must be found starting at and
+        ending at a boundary found by break_fn (e.g. a grapheme cluster or
+        word boundary). */
+    template<typename GraphemeRange, typename BreakFunc>
+    auto make_boyer_moore_horspool_collation_searcher(
+        GraphemeRange const & r,
+        BreakFunc break_fn,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::graph_rng_alg_ret_t<
+            boyer_moore_horspool_collation_searcher<
+                decltype(r.begin().base()),
+                decltype(r.end().base()),
+                BreakFunc>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(r.begin().base());
+        return boyer_moore_horspool_collation_searcher<
+            cp_iter_t,
+            cp_iter_t,
+            BreakFunc>(
+            r.begin().base(),
+            r.end().base(),
             break_fn,
             table,
             detail::to_strength(flags),
@@ -1089,7 +1236,8 @@ namespace boost { namespace text {
         }
 
         template<typename CPIter2, typename Sentinel2>
-        text::cp_range<CPIter2> operator()(CPIter2 first, Sentinel2 last) const
+        ::boost::text::cp_range<CPIter2>
+        operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
                 std::deque<detail::collation_element>::const_reverse_iterator,
@@ -1184,15 +1332,17 @@ namespace boost { namespace text {
     /** Returns a boyer_moore_collation_searcher that will find the pattern
         [first, last).  A match must begin and end at a grapheme boundary. */
     template<typename CPIter, typename Sentinel>
-    boyer_moore_collation_searcher<
-        CPIter,
-        Sentinel,
-        detail::coll_search_prev_grapheme_callable>
-    make_boyer_moore_collation_searcher(
+    auto make_boyer_moore_collation_searcher(
         CPIter first,
         Sentinel last,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
+        -> detail::cp_iter_ret_t<
+            boyer_moore_collation_searcher<
+                CPIter,
+                Sentinel,
+                detail::coll_search_prev_grapheme_callable>,
+            CPIter>
     {
         return boyer_moore_collation_searcher<
             CPIter,
@@ -1208,17 +1358,19 @@ namespace boost { namespace text {
     }
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern
-        [first, last).  Any occurance of the pattern must be found starting at
+        [first, last).  Any occurence of the pattern must be found starting at
         and ending at a boundary found by break_fn (e.g. a grapheme cluster or
         word boundary). */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
-    boyer_moore_collation_searcher<CPIter, Sentinel, BreakFunc>
-    make_boyer_moore_collation_searcher(
+    auto make_boyer_moore_collation_searcher(
         CPIter first,
         Sentinel last,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
+        -> detail::cp_iter_ret_t<
+            boyer_moore_collation_searcher<CPIter, Sentinel, BreakFunc>,
+            CPIter>
     {
         return boyer_moore_collation_searcher<CPIter, Sentinel, BreakFunc>(
             first,
@@ -1234,13 +1386,15 @@ namespace boost { namespace text {
         A match must begin and end at a grapheme boundary. */
     template<typename CPRange>
     auto make_boyer_moore_collation_searcher(
-        CPRange r,
+        CPRange & r,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
-        -> boyer_moore_collation_searcher<
-            decltype(std::begin(r)),
-            decltype(std::end(r)),
-            detail::coll_search_prev_grapheme_callable>
+        -> detail::cp_rng_alg_ret_t<
+            boyer_moore_collation_searcher<
+                decltype(std::begin(r)),
+                decltype(std::end(r)),
+                detail::coll_search_prev_grapheme_callable>,
+            CPRange>
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
@@ -1258,19 +1412,49 @@ namespace boost { namespace text {
     }
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern r.
-        Any occurance of the pattern must be found starting at and ending at a
+        A match must begin and end at a grapheme boundary. */
+    template<typename GraphemeRange>
+    auto make_boyer_moore_collation_searcher(
+        GraphemeRange const & r,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::graph_rng_alg_ret_t<
+            boyer_moore_collation_searcher<
+                decltype(r.begin().base()),
+                decltype(r.end().base()),
+                detail::coll_search_prev_grapheme_callable>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(r.begin().base());
+        return boyer_moore_collation_searcher<
+            cp_iter_t,
+            cp_iter_t,
+            detail::coll_search_prev_grapheme_callable>(
+            r.begin().base(),
+            r.end().base(),
+            detail::coll_search_prev_grapheme_callable{},
+            table,
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
+    }
+
+    /** Returns a boyer_moore_collation_searcher that will find the pattern r.
+        Any occurence of the pattern must be found starting at and ending at a
         boundary found by break_fn (e.g. a grapheme cluster or word
         boundary). */
     template<typename CPRange, typename BreakFunc>
     auto make_boyer_moore_collation_searcher(
-        CPRange r,
+        CPRange & r,
         BreakFunc break_fn,
         collation_table const & table,
         collation_flags flags = collation_flags::none)
-        -> boyer_moore_collation_searcher<
-            decltype(std::begin(r)),
-            decltype(std::end(r)),
-            BreakFunc>
+        -> detail::cp_rng_alg_ret_t<
+            boyer_moore_collation_searcher<
+                decltype(std::begin(r)),
+                decltype(std::end(r)),
+                BreakFunc>,
+            CPRange>
     {
         using r_iter = decltype(std::begin(r));
         using r_sntl = decltype(std::end(r));
@@ -1284,14 +1468,43 @@ namespace boost { namespace text {
             detail::to_weighting(flags));
     }
 
+    /** Returns a boyer_moore_collation_searcher that will find the pattern r.
+        Any occurence of the pattern must be found starting at and ending at a
+        boundary found by break_fn (e.g. a grapheme cluster or word
+        boundary). */
+    template<typename GraphemeRange, typename BreakFunc>
+    auto make_boyer_moore_collation_searcher(
+        GraphemeRange const & r,
+        BreakFunc break_fn,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::graph_rng_alg_ret_t<
+            boyer_moore_collation_searcher<
+                decltype(r.begin().base()),
+                decltype(r.end().base()),
+                BreakFunc>,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(r.begin().base());
+        return boyer_moore_collation_searcher<cp_iter_t, cp_iter_t, BreakFunc>(
+            r.begin().base(),
+            r.end().base(),
+            break_fn,
+            table,
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
+    }
+
     // Convenience overloads
 
-    /** Returns a range indicating the first occurrence of the subsequence
-        [pattern_first, pattern_last) in the range [first, last), or an empty
-        range if no such occurrence is found.  Any occurance of the pattern
-        must be found starting at and ending at a boundary found by break_fn
-        (e.g. a grapheme cluster or word boundary).  This function uses the
-        same simple brute-force matching approach as std::search(). */
+    /** Returns a code point range indicating the first occurrence of the
+        subsequence [pattern_first, pattern_last) in the range [first, last),
+        or an empty range if no such occurrence is found.  Any occurence of
+        the pattern must be found starting at and ending at a boundary found
+        by break_fn (e.g. a grapheme cluster or word boundary).  This function
+        uses the same simple brute-force matching approach as
+        std::search(). */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -1312,11 +1525,11 @@ namespace boost { namespace text {
         return collation_search(first, last, s);
     }
 
-    /** Returns a range indicating the first occurrence of pattern in str, or
-        an empty range if no such occurrence is found.  Any occurance of the
-        pattern must be found starting at and ending at a boundary found by
-        break_fn (e.g. a grapheme cluster or word boundary).  This function
-        uses the same simple brute-force matching approach as
+    /** Returns a code point range indicating the first occurrence of pattern
+        in str, or an empty range if no such occurrence is found.  Any
+        occurence of the pattern must be found starting at and ending at a
+        boundary found by break_fn (e.g. a grapheme cluster or word boundary).
+        This function uses the same simple brute-force matching approach as
         std::search(). */
     template<typename CPRange1, typename CPRange2, typename BreakFunc>
     auto collation_search(
@@ -1324,19 +1537,51 @@ namespace boost { namespace text {
         CPRange2 & pattern,
         BreakFunc break_fn,
         collation_table const & table,
-        collation_flags flags = collation_flags::none)
-        -> cp_range<decltype(std::begin(str))>
+        collation_flags flags = collation_flags::none) -> detail::
+        cp_rng_alg_ret_t<cp_range<decltype(std::begin(str))>, CPRange1>
     {
         auto const s =
             make_simple_collation_searcher(pattern, break_fn, table, flags);
         return collation_search(std::begin(str), std::end(str), s);
     }
 
-    /** Returns a range indicating the first occurrence of the subsequence
-        [pattern_first, pattern_last) in the range [first, last), or an empty
-        range if no such occurrence is found.  A match must begin and end at a
-        grapheme boundary.  This function uses the same simple brute-force
-        matching approach as std::search(). */
+    /** Returns a grapheme range indicating the first occurrence of pattern in
+        str, or an empty range if no such occurrence is found.  Any occurence
+        of the pattern must be found starting at and ending at a boundary
+        found by break_fn (e.g. a grapheme cluster or word boundary).  This
+        function uses the same simple brute-force matching approach as
+        std::search(). */
+    template<
+        typename GraphemeRange1,
+        typename GraphemeRange2,
+        typename BreakFunc>
+    auto collation_search(
+        GraphemeRange1 const & str,
+        GraphemeRange2 const & pattern,
+        BreakFunc break_fn,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::graph_rng_alg_ret_t<
+            grapheme_range<decltype(str.begin().base())>,
+            GraphemeRange1>
+    {
+        using cp_iter_t = decltype(str.begin().base());
+        auto const s = make_simple_collation_searcher(
+            pattern.begin().base(),
+            pattern.end().base(),
+            break_fn,
+            table,
+            flags);
+        auto const cp_result =
+            collation_search(str.begin().base(), str.end().base(), s);
+        return grapheme_range<cp_iter_t>{cp_result.begin(), cp_result.end()};
+    }
+
+    /** Returns a code point range indicating the first occurrence of the
+        subsequence [pattern_first, pattern_last) in the range [first, last),
+        or an empty range if no such occurrence is found.  A match must begin
+        and end at a grapheme boundary.  This function uses the same simple
+        brute-force matching approach as std::search(). */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -1359,17 +1604,17 @@ namespace boost { namespace text {
         return collation_search(first, last, s);
     }
 
-    /** Returns a range indicating the first occurrence of pattern in str, or
-        an empty range if no such occurrence is found.  A match must begin and
-        end at a grapheme boundary.  This function uses the same simple
-        brute-force matching approach as std::search(). */
+    /** Returns a code point range indicating the first occurrence of pattern
+        in str, or an empty range if no such occurrence is found.  A match
+        must begin and end at a grapheme boundary.  This function uses the
+        same simple brute-force matching approach as std::search(). */
     template<typename CPRange1, typename CPRange2>
     auto collation_search(
         CPRange1 & str,
         CPRange2 & pattern,
         collation_table const & table,
-        collation_flags flags = collation_flags::none)
-        -> cp_range<decltype(std::begin(str))>
+        collation_flags flags = collation_flags::none) -> detail::
+        cp_rng_alg_ret_t<cp_range<decltype(std::begin(str))>, CPRange1>
     {
         auto const s = make_simple_collation_searcher(
             pattern,
@@ -1377,6 +1622,32 @@ namespace boost { namespace text {
             table,
             flags);
         return collation_search(std::begin(str), std::end(str), s);
+    }
+
+    /** Returns a code point range indicating the first occurrence of pattern
+        in str, or an empty range if no such occurrence is found.  A match
+        must begin and end at a grapheme boundary.  This function uses the
+        same simple brute-force matching approach as std::search(). */
+    template<typename GraphemeRange1, typename GraphemeRange2>
+    auto collation_search(
+        GraphemeRange1 const & str,
+        GraphemeRange2 const & pattern,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::graph_rng_alg_ret_t<
+            grapheme_range<decltype(str.begin().base())>,
+            GraphemeRange1>
+    {
+        using cp_iter_t = decltype(str.begin().base());
+        auto const s = make_simple_collation_searcher(
+            pattern.begin().base(),
+            pattern.end().base(),
+            detail::coll_search_prev_grapheme_callable{},
+            table,
+            flags);
+        auto const cp_result =
+            collation_search(str.begin().base(), str.end().base(), s);
+        return grapheme_range<cp_iter_t>{cp_result.begin(), cp_result.end()};
     }
 
 }}
