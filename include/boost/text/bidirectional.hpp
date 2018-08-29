@@ -1040,7 +1040,8 @@ namespace boost { namespace text {
         // https://unicode.org/reports/tr9/#L1
         template<typename CPIter>
         inline void
-        l1(text::cp_range<props_and_embeddings_cp_iterator<CPIter>> line,
+        l1(::boost::text::cp_range<props_and_embeddings_cp_iterator<CPIter>>
+               line,
            int paragraph_embedding_level)
         {
             // L1.1, L1.2
@@ -1267,12 +1268,12 @@ namespace boost { namespace text {
     }
 
     /** Represents either a subrange of code points ordered by the Unicode
-        bidirectional algorithm, or a line break; the line break may be a hard
-        line break, or a possible line break, according to the Unicode line
-        break algorithm.  This is the output type for
-        bidirectional_order(). */
+        bidirectional algorithm, with or without a line break; the line break
+        may be a hard line break, or a possible line break, according to the
+        Unicode line break algorithm.  This is the output type for the code
+        point overloads of bidirectional_order(). */
     template<typename CPIter>
-    struct bidirectional_subrange
+    struct bidirectional_cp_subrange
     {
         using iterator = detail::fwd_rev_cp_iter<CPIter>;
 
@@ -1280,10 +1281,10 @@ namespace boost { namespace text {
             detail::is_cp_iter<CPIter>::value,
             "CPIter must be a code point iterator");
 
-        bidirectional_subrange() noexcept :
+        bidirectional_cp_subrange() noexcept :
             break_(detail::bidi_line_break_kind::none)
         {}
-        bidirectional_subrange(
+        bidirectional_cp_subrange(
             iterator first,
             iterator last,
             detail::bidi_line_break_kind b =
@@ -1955,9 +1956,9 @@ namespace boost { namespace text {
                 if (run.reversed()) {
                     // https://unicode.org/reports/tr9/#L4
 
-                    auto out_value = bidirectional_subrange<CPIter>{
-                        text::detail::make_reverse_iterator(cp_last),
-                        text::detail::make_reverse_iterator(cp_first)};
+                    auto out_value = bidirectional_cp_subrange<CPIter>{
+                        ::boost::text::detail::make_reverse_iterator(cp_last),
+                        ::boost::text::detail::make_reverse_iterator(cp_first)};
 
                     auto out_first = out_value.begin();
                     auto out_last = out_value.end();
@@ -1979,7 +1980,8 @@ namespace boost { namespace text {
                         // preceding CPs first.
                         if (it != out_first) {
                             auto prev_subrange =
-                                bidirectional_subrange<CPIter>{out_first, it};
+                                bidirectional_cp_subrange<CPIter>{out_first,
+                                                                  it};
                             state.out_values_.push_back(prev_subrange);
                         }
 
@@ -1989,7 +1991,7 @@ namespace boost { namespace text {
 
                         // Emit the reversed CP.
                         state.out_values_.push_back(
-                            bidirectional_subrange<CPIter>{
+                            bidirectional_cp_subrange<CPIter>{
                                 fwd_rev_cp_iter<CPIter>{
                                     bidi_mirroreds().begin() + mirror_index,
                                     fwd_rev_cp_iter_kind::mirror_array_it},
@@ -2000,19 +2002,19 @@ namespace boost { namespace text {
 
                         // Increment for the next iteration.
                         out_value =
-                            bidirectional_subrange<CPIter>{++it, out_last};
+                            bidirectional_cp_subrange<CPIter>{++it, out_last};
                         out_first = out_value.begin();
                     }
 
                     if (!out_value.empty()) {
-                        out_value =
-                            bidirectional_subrange<CPIter>{out_value.begin(),
-                                                           out_value.end(),
-                                                           state.line_break_};
+                        out_value = bidirectional_cp_subrange<CPIter>{
+                            out_value.begin(),
+                            out_value.end(),
+                            state.line_break_};
                         state.out_values_.push_back(out_value);
                     }
                 } else {
-                    auto const out_value = bidirectional_subrange<CPIter>{
+                    auto const out_value = bidirectional_cp_subrange<CPIter>{
                         cp_first, cp_last, state.line_break_};
                     state.out_values_.push_back(out_value);
                 }
@@ -2085,13 +2087,13 @@ namespace boost { namespace text {
                 state.out_values_.clear();
 
                 if (run.reversed()) {
-                    auto const out_value = bidirectional_subrange<CPIter>{
+                    auto const out_value = bidirectional_cp_subrange<CPIter>{
                         detail::make_reverse_iterator(cp_last),
                         detail::make_reverse_iterator(cp_first),
                         state.line_break_};
                     state.out_values_.push_back(out_value);
                 } else {
-                    auto const out_value = bidirectional_subrange<CPIter>{
+                    auto const out_value = bidirectional_cp_subrange<CPIter>{
                         cp_first, cp_last, state.line_break_};
                     state.out_values_.push_back(out_value);
                 }
@@ -2117,7 +2119,7 @@ namespace boost { namespace text {
         template<typename CPIter, typename Sentinel, typename NextLineBreakFunc>
         struct const_lazy_bidi_segment_iterator
         {
-            using value_type = bidirectional_subrange<CPIter>;
+            using value_type = bidirectional_cp_subrange<CPIter>;
             using pointer = arrow_proxy<value_type>;
             using reference = value_type;
             using difference_type = std::ptrdiff_t;
@@ -2129,7 +2131,7 @@ namespace boost { namespace text {
                     CPIter,
                     Sentinel,
                     NextLineBreakFunc,
-                    bidirectional_subrange<CPIter>> & state) noexcept :
+                    bidirectional_cp_subrange<CPIter>> & state) noexcept :
                 state_(&state)
             {}
 
@@ -2160,7 +2162,7 @@ namespace boost { namespace text {
                 CPIter,
                 Sentinel,
                 NextLineBreakFunc,
-                bidirectional_subrange<CPIter>> * state_;
+                bidirectional_cp_subrange<CPIter>> * state_;
         };
     }
 
@@ -2199,7 +2201,7 @@ namespace boost { namespace text {
             CPIter,
             Sentinel,
             NextLineBreakFunc,
-            bidirectional_subrange<CPIter>>
+            bidirectional_cp_subrange<CPIter>>
             state_;
     };
 
@@ -2221,9 +2223,9 @@ namespace boost { namespace text {
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
         in the output.  The Unicode Bidirectional Algorithm specifies that
-        ccode points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear
-        in the output; this implementation additionally removes code points
-        with classes FSI, LRI, RLI, and PDI.*/
+        code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
+        the output; this implementation additionally removes code points with
+        classes FSI, LRI, RLI, and PDI.*/
     template<typename CPIter, typename Sentinel>
     auto bidirectional_subranges(
         CPIter first, Sentinel last, int paragraph_embedding_level = -1)
@@ -2251,21 +2253,63 @@ namespace boost { namespace text {
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
         in the output.  The Unicode Bidirectional Algorithm specifies that
-        ccode points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear
-        in the output; this implementation additionally removes code points
-        with classes FSI, LRI, RLI, and PDI.*/
+        code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
+        the output; this implementation additionally removes code points with
+        classes FSI, LRI, RLI, and PDI.*/
     template<typename CPRange>
     auto
     bidirectional_subranges(CPRange & range, int paragraph_embedding_level = -1)
-        -> lazy_bidi_segment_range<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>>
+        -> detail::cp_rng_alg_ret_t<
+            lazy_bidi_segment_range<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>>,
+            CPRange>
     {
         return lazy_bidi_segment_range<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>{
             std::begin(range), std::end(range), paragraph_embedding_level};
     }
+
+#if 0
+    /** Returns a lazy range of grapheme subranges in range; each subrange is
+        one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-grapheme subrange used to subtitute a reversed bracketing grapheme
+        (e.g. '[') for its couterpart (e.g. ']').  There is a single iterator
+        type used in the resulting subranges, so this distinction is not
+        visible in the subrange API.
+
+        Line breaks are determined by calling lines(first, last); only hard
+        line breaks are considered.
+
+        If a non-negative paragraph_embedding_level is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        range.
+
+        Graphemes that are used to control the left-to-right or right-to-left
+        direction of graphemes within the text will not appear in the output.
+        The Unicode Bidirectional Algorithm specifies that graphemes with
+        classes RLE, LRE, RLO, LRO, PDF, and BN not appear in the output; this
+        implementation additionally removes graphemes with classes FSI, LRI,
+        RLI, and PDI.*/
+    template<typename GraphemeRange>
+    auto bidirectional_subranges(
+        GraphemeRange const & range, int paragraph_embedding_level = -1)
+        -> detail::graph_rng_alg_ret_t<
+            lazy_bidi_segment_range<
+                detail::iterator_t<GraphemeRange const>,
+                detail::iterator_t<GraphemeRange const>>,
+            GraphemeRange>
+    {
+        // TODO
+        return lazy_bidi_segment_range<
+            detail::iterator_t<GraphemeRange const>,
+            detail::iterator_t<GraphemeRange const>>{range.begin().base(),
+                                                     range.end().base(),
+                                                     paragraph_embedding_level};
+    }
+#endif
 
     /** Returns a lazy range of code point subranges in [first, last); each
         subrange is one of three kinds: a forward-subrange; a
@@ -2285,9 +2329,9 @@ namespace boost { namespace text {
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
         in the output.  The Unicode Bidirectional Algorithm specifies that
-        ccode points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear
-        in the output; this implementation additionally removes code points
-        with classes FSI, LRI, RLI, and PDI.*/
+        code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
+        the output; this implementation additionally removes code points with
+        classes FSI, LRI, RLI, and PDI.*/
     template<
         typename CPIter,
         typename Sentinel,
@@ -2338,9 +2382,9 @@ namespace boost { namespace text {
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
         in the output.  The Unicode Bidirectional Algorithm specifies that
-        ccode points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear
-        in the output; this implementation additionally removes code points
-        with classes FSI, LRI, RLI, and PDI.*/
+        code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
+        the output; this implementation additionally removes code points with
+        classes FSI, LRI, RLI, and PDI.*/
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     auto bidirectional_subranges(
         CPRange & range,
@@ -2348,12 +2392,14 @@ namespace boost { namespace text {
         CPExtentFunc cp_extent,
         int paragraph_embedding_level = -1,
         bool break_overlong_lines = true)
-        -> lazy_bidi_segment_range<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>,
-            detail::next_possible_line_break_within_extent_callable<
-                Extent,
-                CPExtentFunc>>
+        -> detail::cp_rng_alg_ret_t<
+            lazy_bidi_segment_range<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>,
+                detail::next_possible_line_break_within_extent_callable<
+                    Extent,
+                    CPExtentFunc>>,
+            CPRange>
     {
         detail::next_possible_line_break_within_extent_callable<
             Extent,
@@ -2369,6 +2415,61 @@ namespace boost { namespace text {
                                paragraph_embedding_level,
                                std::move(next)};
     }
+
+#if 0
+    /** Returns a lazy range of grapheme subranges in range; each subrange is
+        one of three kinds: a forward-subrange; a reverse-subrange; or a
+        one-grapheme subrange used to subtitute a reversed bracketing grapheme
+        (e.g. '[') for its couterpart (e.g. ']').  There is a single iterator
+        type used in the resulting subranges, so this distinction is not
+        visible in the subrange API.
+
+        Line breaks are determined by calling lines(first, last, max_extent,
+        cp_extent, break_overlong_lines).
+
+        If a non-negative paragraph_embedding_level is provided, it will be
+        used instead of the initial paragraph embedding level computed by the
+        bidirectional algorithm.  This applies to all paragraphs found in
+        range.
+
+        Graphemes that are used to control the left-to-right or right-to-left
+        direction of graphemes within the text will not appear in the output.
+        The Unicode Bidirectional Algorithm specifies that graphemes with
+        classes RLE, LRE, RLO, LRO, PDF, and BN not appear in the output; this
+        implementation additionally removes graphemes with classes FSI, LRI,
+        RLI, and PDI.*/
+    template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
+    auto bidirectional_subranges(
+        GraphemeRange const & range,
+        Extent max_extent,
+        CPExtentFunc cp_extent,
+        int paragraph_embedding_level = -1,
+        bool break_overlong_lines = true)
+        -> detail::graph_rng_alg_ret_t<
+            lazy_bidi_segment_range<
+                detail::iterator_t<GraphemeRange>,
+                detail::iterator_t<GraphemeRange>,
+                detail::next_possible_line_break_within_extent_callable<
+                    Extent,
+                    CPExtentFunc>>,
+            GraphemeRange>
+    {
+        // TODO
+        detail::next_possible_line_break_within_extent_callable<
+            Extent,
+            CPExtentFunc>
+            next{max_extent, std::move(cp_extent), break_overlong_lines};
+        return lazy_bidi_segment_range<
+            detail::iterator_t<GraphemeRange>,
+            detail::iterator_t<GraphemeRange>,
+            detail::next_possible_line_break_within_extent_callable<
+                Extent,
+                CPExtentFunc>>{std::begin(range),
+                               std::end(range),
+                               paragraph_embedding_level,
+                               std::move(next)};
+    }
+#endif
 
 }}
 
