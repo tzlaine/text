@@ -32,7 +32,13 @@ if (LIMIT_TESTING_FOR_CI)
     endif ()
 endif ()
 
-set(coverage_gcda_files)
+set(coverage_gcda_files_0)
+set(coverage_gcda_files_1)
+set(coverage_gcda_files_2)
+set(coverage_gcda_files_3)
+set(coverage_gcda_files_4)
+set(coverage_gcda_files_5)
+set(coverage_gcda_files_6)
 
 # This is used to generate some of the test files.  It is not a test.
 add_executable(generate_tailoring_rule_tests generate_tailoring_rule_tests.cpp)
@@ -43,23 +49,24 @@ if (clang_on_linux)
     target_link_libraries(generate_tailoring_rule_tests c++)
 endif ()
 
-macro(add_test_executable name)
-    add_executable(${name} ${name}.cpp)
-    target_compile_options(${name} PRIVATE ${warnings_flag})
-    target_link_libraries(${name} text gtest gtest_main)
+macro(add_test_executable name group)
+    set(local_name ${name}_g${group})
+    add_executable(${local_name} ${name}.cpp)
+    target_compile_options(${local_name} PRIVATE ${warnings_flag})
+    target_link_libraries(${local_name} text gtest gtest_main)
     if (NOT MSVC AND NOT LIMIT_TESTING_FOR_CI) # Boost auto-linking handles this with MSVC.
-        target_link_libraries(${name} boost_system boost_filesystem)
+        target_link_libraries(${local_name} boost_system boost_filesystem)
     endif ()
-    set_property(TARGET ${name} PROPERTY CXX_STANDARD ${CXX_STD})
-    add_test(${name} ${CMAKE_CURRENT_BINARY_DIR}/${name} --gtest_catch_exceptions=1)
+    set_property(TARGET ${local_name} PROPERTY CXX_STANDARD ${CXX_STD})
+    add_test(${local_name} ${CMAKE_CURRENT_BINARY_DIR}/${local_name} --gtest_catch_exceptions=1)
     if (clang_on_linux)
-        target_link_libraries(${name} c++)
+        target_link_libraries(${local_name} c++)
     endif ()
-    list(APPEND coverage_gcda_files ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${name}.dir/${name}.cpp.gcda)
+    list(APPEND coverage_gcda_files_${group} ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${local_name}.dir/${local_name}.cpp.gcda)
     if (NOT "${ARGN}" STREQUAL "")
         foreach(arg ${ARGN})
             add_custom_command(
-                TARGET ${name}
+                TARGET ${local_name}
                 POST_BUILD
                 COMMAND
                     ${CMAKE_COMMAND} -E copy
@@ -70,32 +77,64 @@ macro(add_test_executable name)
     endif ()
 endmacro()
 
-add_test_executable(detail_utility)
-add_test_executable(detail_iterator)
-add_test_executable(utf8)
-add_test_executable(string_view)
-add_test_executable(string)
-add_test_executable(string_builder)
-add_test_executable(text_)
-add_test_executable(rope)
-add_test_executable(detail_btree_util)
-add_test_executable(detail_btree)
-add_test_executable(detail_btree_2)
-add_test_executable(detail_rope)
-add_test_executable(detail_rope_btree)
-add_test_executable(detail_rope_iterator)
-add_test_executable(detail_vector_iterator)
-add_test_executable(unencoded_rope_view)
-add_test_executable(unencoded_rope)
-add_test_executable(segmented_vector)
-add_test_executable(common_op)
-add_test_executable(trie_map_0)
-add_test_executable(trie_map_1)
-add_test_executable(detail_bidi)
-add_test_executable(case_mapping)
-add_test_executable(case_mapping_api)
-add_test_executable(normalization_collation_api)
-add_test_executable(canonical_closure)
+add_test_executable(detail_utility 0)
+add_test_executable(detail_iterator 0)
+add_test_executable(utf8 0)
+add_test_executable(string_view 0)
+add_test_executable(string 0)
+add_test_executable(string_builder 0)
+add_test_executable(text_ 0)
+add_test_executable(rope 0)
+add_test_executable(detail_btree_util 0)
+add_test_executable(detail_btree 0)
+add_test_executable(detail_btree_2 0)
+add_test_executable(detail_rope 0)
+add_test_executable(detail_rope_btree 0)
+add_test_executable(detail_rope_iterator 0)
+add_test_executable(detail_vector_iterator 0)
+add_test_executable(unencoded_rope_view 0)
+add_test_executable(unencoded_rope 0)
+add_test_executable(segmented_vector 0)
+add_test_executable(common_op 0)
+add_test_executable(trie_map_0 0)
+add_test_executable(trie_map_1 0)
+add_test_executable(detail_bidi 0)
+add_test_executable(case_mapping 0)
+add_test_executable(case_mapping_api 0)
+add_test_executable(normalization_collation_api 0)
+add_test_executable(canonical_closure 0)
+
+add_test_executable(break_api 0)
+add_test_executable(text_algorithm 0)
+add_test_executable(text_view_algorithm 0)
+add_test_executable(rope_algorithm 0)
+add_test_executable(rope_view_algorithm 0)
+add_test_executable(normalization_idempotence 0)
+add_test_executable(relative_collation_test_non_ignorable_0 0)
+add_test_executable(relative_collation_test_non_ignorable_1 0)
+add_test_executable(relative_collation_test_non_ignorable_2 0)
+add_test_executable(relative_collation_test_non_ignorable_3 0)
+add_test_executable(relative_collation_test_non_ignorable_4 0)
+add_test_executable(relative_collation_test_non_ignorable_5 0)
+add_test_executable(relative_collation_test_non_ignorable_6 0)
+add_test_executable(relative_collation_test_shifted_0 0)
+add_test_executable(relative_collation_test_shifted_1 0)
+add_test_executable(relative_collation_test_shifted_2 0)
+add_test_executable(relative_collation_test_shifted_3 0)
+add_test_executable(relative_collation_test_shifted_4 0)
+add_test_executable(relative_collation_test_shifted_5 0)
+add_test_executable(relative_collation_test_shifted_6 0)
+add_test_executable(relative_collation_test_shifted_7 0)
+
+add_test_executable(lexer 0)
+add_test_executable(lexer_data 0)
+add_test_executable(parser 0)
+add_test_executable(parser_data 0)
+add_test_executable(tailoring 0 riwords.txt)
+add_test_executable(tailoring_reorderings 0)
+add_test_executable(tailoring_suppressions 0)
+# add_test_executable(tailoring_data 0) # TODO: Probably not very useful.
+add_test_executable(collation_search 0)
 
 if (LIMIT_TESTING_FOR_CI)
     file(GLOB grapheme_break_tests grapheme_break_00.cpp)
@@ -108,7 +147,7 @@ if (LIMIT_TESTING_FOR_CI)
     file(GLOB normalize_to_nfc_tests normalize_to_nfc_000.cpp)
     file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_000.cpp)
     file(GLOB tailoring_rule_tests tailoring_rule_test_gu_standard_000.cpp)
-    file(GLOB bidi_tests bidi_test_000.cpp)
+    file(GLOB bidi_tests_a bidi_test_000.cpp)
     file(GLOB bidi_character_tests bidi_character_test_000.cpp)
 else()
     file(GLOB grapheme_break_tests grapheme_break_??.cpp)
@@ -116,7 +155,8 @@ else()
     file(GLOB word_break_tests word_break_??.cpp)
     file(GLOB sentence_break_tests sentence_break_??.cpp)
     file(GLOB line_break_tests line_break_??.cpp)
-    file(GLOB bidi_tests bidi_test_???.cpp)
+    file(GLOB bidi_tests_a bidi_test_[0-4]??.cpp)
+    file(GLOB bidi_tests_b bidi_test_[5-9]??.cpp)
     file(GLOB bidi_character_tests bidi_character_test_???.cpp)
     file(GLOB normalize_to_nfd_tests normalize_to_nfd_???.cpp)
     file(GLOB normalize_to_nfkd_tests normalize_to_nfkd_???.cpp)
@@ -124,69 +164,73 @@ else()
     file(GLOB normalize_to_nfkc_tests normalize_to_nfkc_???.cpp)
     file(GLOB tailoring_rule_tests tailoring_rule_test_*.cpp)
 endif()
+
 set(globbed_tests
     ${grapheme_break_tests}
     ${grapheme_iterator_tests}
     ${word_break_tests}
     ${sentence_break_tests}
     ${line_break_tests}
-    ${bidi_tests}
-    ${bidi_character_tests}
-    ${normalize_to_nfd_tests}
-    ${normalize_to_nfkd_tests}
-    ${normalize_to_nfc_tests}
-    ${normalize_to_nfkc_tests}
-    ${tailoring_rule_tests}
 )
 
 foreach(test ${globbed_tests})
     get_filename_component(test_name ${test} NAME_WE)
-    add_test_executable(${test_name})
+    add_test_executable(${test_name} 1)
 endforeach()
 
-add_test_executable(break_api)
-add_test_executable(text_algorithm)
-add_test_executable(text_view_algorithm)
-add_test_executable(rope_algorithm)
-add_test_executable(rope_view_algorithm)
-add_test_executable(normalization_idempotence)
-add_test_executable(relative_collation_test_non_ignorable_0)
-add_test_executable(relative_collation_test_non_ignorable_1)
-add_test_executable(relative_collation_test_non_ignorable_2)
-add_test_executable(relative_collation_test_non_ignorable_3)
-add_test_executable(relative_collation_test_non_ignorable_4)
-add_test_executable(relative_collation_test_non_ignorable_5)
-add_test_executable(relative_collation_test_non_ignorable_6)
-add_test_executable(relative_collation_test_shifted_0)
-add_test_executable(relative_collation_test_shifted_1)
-add_test_executable(relative_collation_test_shifted_2)
-add_test_executable(relative_collation_test_shifted_3)
-add_test_executable(relative_collation_test_shifted_4)
-add_test_executable(relative_collation_test_shifted_5)
-add_test_executable(relative_collation_test_shifted_6)
-add_test_executable(relative_collation_test_shifted_7)
+foreach(test ${bidi_tests_a})
+    get_filename_component(test_name ${test} NAME_WE)
+    add_test_executable(${test_name} 2)
+endforeach()
 
-add_test_executable(lexer)
-add_test_executable(lexer_data)
-add_test_executable(parser)
-add_test_executable(parser_data)
-add_test_executable(tailoring riwords.txt)
-add_test_executable(tailoring_reorderings)
-add_test_executable(tailoring_suppressions)
-# add_test_executable(tailoring_data) # TODO: Probably not very useful.
-add_test_executable(collation_search)
+foreach(test ${bidi_tests_b})
+    get_filename_component(test_name ${test} NAME_WE)
+    add_test_executable(${test_name} 3)
+endforeach()
+
+foreach(test ${bidi_character_tests})
+    get_filename_component(test_name ${test} NAME_WE)
+    add_test_executable(${test_name} 4)
+endforeach()
+
+set(globbed_tests
+    ${normalize_to_nfd_tests}
+    ${normalize_to_nfkd_tests}
+    ${normalize_to_nfc_tests}
+    ${normalize_to_nfkc_tests}
+)
+
+foreach(test ${globbed_tests})
+    get_filename_component(test_name ${test} NAME_WE)
+    add_test_executable(${test_name} 5)
+endforeach()
+
+foreach(test ${tailoring_rule_tests})
+    get_filename_component(test_name ${test} NAME_WE)
+    add_test_executable(${test_name} 6)
+endforeach()
+
+set(all_coverage_gcda_files
+    ${coverage_gcda_files_0}
+    ${coverage_gcda_files_1}
+    ${coverage_gcda_files_2}
+    ${coverage_gcda_files_3}
+    ${coverage_gcda_files_4}
+    ${coverage_gcda_files_5}
+    ${coverage_gcda_files_6}
+)
 
 if (BUILD_COVERAGE AND UNIX)
     if (APPLE)
         add_custom_target(
             coverage
-            rm -rf ${coverage_gcda_files} lcov-all.info lcov.info output
+            rm -rf lcov-all.info lcov.info output ${all_coverage_gcda_files}
             COMMAND
                 ${CMAKE_CTEST_COMMAND} -VV -C ${CMAKE_CFG_INTDIR}
             COMMAND
                 cd ${CMAKE_BINARY_DIR}
             COMMAND
-                llvm-cov gcov -f -b ${coverage_gcda_files}
+                llvm-cov gcov -f -b ${call_overage_gcda_files}
             COMMAND
                 lcov --directory . --base-directory . --gcov-tool ${CMAKE_SOURCE_DIR}/llvm-gcov.sh --capture -o lcov-all.info
             COMMAND
@@ -197,17 +241,75 @@ if (BUILD_COVERAGE AND UNIX)
     else ()
         add_custom_target(
             coverage
-            rm -rf ${coverage_gcda_files} lcov-all.info lcov.info output
+            rm -rf lcov-all.info lcov.info output ${all_coverage_gcda_files}
             COMMAND
-                ${CMAKE_CTEST_COMMAND} -j4 -VV -C ${CMAKE_CFG_INTDIR}
+                echo "Group 0 ..."
+            COMMAND
+                ${CMAKE_CTEST_COMMAND} -j4 -VV -C ${CMAKE_CFG_INTDIR} -R _g0
+            COMMAND
+                echo "Group 1 ..."
+            COMMAND
+                ${CMAKE_CTEST_COMMAND} -j4 -VV -C ${CMAKE_CFG_INTDIR} -R _g1
+            COMMAND
+                echo "Group 2 ..."
+            COMMAND
+                ${CMAKE_CTEST_COMMAND} -j4 -VV -C ${CMAKE_CFG_INTDIR} -R _g2
+            COMMAND
+                echo "Group 3 ..."
+            COMMAND
+                ${CMAKE_CTEST_COMMAND} -j4 -VV -C ${CMAKE_CFG_INTDIR} -R _g3
+            COMMAND
+                echo "Group 4 ..."
+            COMMAND
+                ${CMAKE_CTEST_COMMAND} -j4 -VV -C ${CMAKE_CFG_INTDIR} -R _g4
+            COMMAND
+                echo "Group 5 ..."
+            COMMAND
+                ${CMAKE_CTEST_COMMAND} -j4 -VV -C ${CMAKE_CFG_INTDIR} -R _g5
+            COMMAND
+                echo "Group 6 ..."
+            COMMAND
+                ${CMAKE_CTEST_COMMAND} -j4 -VV -C ${CMAKE_CFG_INTDIR} -R _g6
             COMMAND
                 cd ${CMAKE_BINARY_DIR}
             COMMAND
-                gcov -f -b ${coverage_gcda_files}
+                echo "gcov Group 0 ..."
+            COMMAND
+                gcov -f -b ${coverage_gcda_files_0}
+            COMMAND
+                echo "gcov Group 1 ..."
+            COMMAND
+                gcov -f -b ${coverage_gcda_files_1}
+            COMMAND
+                echo "gcov Group 2 ..."
+            COMMAND
+                gcov -f -b ${coverage_gcda_files_2}
+            COMMAND
+                echo "gcov Group 3 ..."
+            COMMAND
+                gcov -f -b ${coverage_gcda_files_3}
+            COMMAND
+                echo "gcov Group 4 ..."
+            COMMAND
+                gcov -f -b ${coverage_gcda_files_4}
+            COMMAND
+                echo "gcov Group 5 ..."
+            COMMAND
+                gcov -f -b ${coverage_gcda_files_5}
+            COMMAND
+                echo "gcov Group 6 ..."
+            COMMAND
+                gcov -f -b ${coverage_gcda_files_6}
+            COMMAND
+                echo "lcov 0 ..."
             COMMAND
                 lcov --directory . --base-directory . --capture -o lcov-all.info
             COMMAND
+                echo "lcov 1 ..."
+            COMMAND
                 lcov -e lcov-all.info ${CMAKE_SOURCE_DIR}/include/boost/text/* ${CMAKE_SOURCE_DIR}/include/boost/text/detail/* -o lcov.info
+            COMMAND
+                echo "genhtml ..."
             COMMAND
                 genhtml lcov.info -o output
         )
