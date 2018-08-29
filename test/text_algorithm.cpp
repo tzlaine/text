@@ -6,6 +6,7 @@
 #include <boost/text/bidirectional.hpp>
 #include <boost/text/collation_search.hpp>
 #include <boost/text/data/da.hpp>
+#include <boost/text/case_mapping.hpp>
 
 #include <gtest/gtest.h>
 
@@ -1152,4 +1153,45 @@ TEST(text_algorithm, coll_search_word_boundaries)
     do_simple_word_search_not_found(table, u8"unresume", u8"resume", __LINE__);
 }
 
-// TODO: case mapping
+TEST(text_algorithm, case_mapping_)
+{
+    // Taken from case_mapping.cpp case 000.
+
+    // 00DF; 00DF; 0053 0073; 0053 0053; # LATIN SMALL LETTER SHARP S
+    text cp("\xc3\x9f"); // 00DF
+
+    EXPECT_TRUE(is_lower(cp));
+    EXPECT_FALSE(is_title(cp));
+    EXPECT_FALSE(is_upper(cp));
+
+    { // to_lower
+        std::vector<uint32_t> lower({0x00DF});
+        std::vector<uint32_t> result;
+
+        to_lower(cp, std::back_inserter(result));
+        EXPECT_EQ(result, lower);
+    }
+    { // to_title
+        text from("\x61\x61\x61\xc3\x9f");
+        std::vector<uint32_t> title({0x0041, 0x0061, 0x0061, 0x00DF});
+        std::vector<uint32_t> result;
+
+        EXPECT_FALSE(is_lower(title));
+        EXPECT_TRUE(is_title(title));
+        EXPECT_FALSE(is_upper(title));
+
+        to_title(from, std::back_inserter(result));
+        EXPECT_EQ(result, title);
+    }
+    { // to_upper
+        std::vector<uint32_t> upper({0x0053, 0x0053});
+        std::vector<uint32_t> result;
+
+        EXPECT_FALSE(is_lower(upper));
+        EXPECT_FALSE(is_title(upper));
+        EXPECT_TRUE(is_upper(upper));
+
+        to_upper(cp, std::back_inserter(result));
+        EXPECT_EQ(result, upper);
+    }
+}

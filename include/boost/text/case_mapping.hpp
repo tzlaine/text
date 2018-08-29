@@ -12,8 +12,6 @@
 
 namespace boost { namespace text {
 
-    // TODO: GraphemeRange overloads.
-
     /** The list of languages handled specially in the case mapping
         functions. */
     enum class case_language : uint16_t {
@@ -520,9 +518,6 @@ namespace boost { namespace text {
             after        // Any subsequent CP.
         };
 
-        // TODO: Figure out how to make the results of this API (and others?)
-        // FCC.
-
         enum class map_case_mode { lower, title, upper };
         enum class final_sigma_state_t { none, after, before_after };
 
@@ -784,13 +779,24 @@ namespace boost { namespace text {
     /** Returns true if no code point in range would change in a call to
         to_lower(), and false otherwise. */
     template<typename CPRange>
-    bool is_lower(CPRange const & range) noexcept
+    auto is_lower(CPRange const & range) noexcept
+        -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return is_lower(std::begin(range), std::end(range));
     }
 
-    /** Writes the lower-case form of [first, last) to output iterator out,
-        using language-specific handling as indicated by lang. */
+    /** Returns true if no grapheme in range would change in a call to
+        to_lower(), and false otherwise. */
+    template<typename GraphemeRange>
+    auto is_lower(GraphemeRange const & range) noexcept
+        -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
+    {
+        return is_lower(range.begin().base(), range.end().base());
+    }
+
+    /** Writes the code point sequence comprising the lower-case form of
+        [first, last) to output iterator out, using language-specific handling
+        as indicated by lang.  The normalization of the result is undefined. */
     template<typename CPIter, typename Sentinel, typename OutIter>
     OutIter to_lower(
         CPIter first,
@@ -809,16 +815,36 @@ namespace boost { namespace text {
             detail::map_case_mode::lower);
     }
 
-    /** Writes the lower-case form of range to output iterator out, using
-        language-specific handling as indicated by lang. */
+    /** Writes the code point sequence comprising the lower-case form of range
+        to output iterator out, using language-specific handling as indicated
+        by lang.  The normalization of the result is undefined. */
     template<typename CPRange, typename OutIter>
-    OutIter to_lower(
+    auto to_lower(
         CPRange const & range,
         OutIter out,
         case_language lang = case_language::other) noexcept
+        -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return to_lower(
             std::begin(range), std::begin(range), std::end(range), out, lang);
+    }
+
+    /** Writes the code point sequence comprising the lower-case form of range
+        to output iterator out, using language-specific handling as indicated
+        by lang.  The normalization of the result is undefined. */
+    template<typename GraphemeRange, typename OutIter>
+    auto to_lower(
+        GraphemeRange const & range,
+        OutIter out,
+        case_language lang = case_language::other) noexcept
+        -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
+    {
+        return to_lower(
+            range.begin().base(),
+            range.begin().base(),
+            range.end().base(),
+            out,
+            lang);
     }
 
     /** Returns true if no code point in [first, last) would change in a call
@@ -850,15 +876,32 @@ namespace boost { namespace text {
     template<
         typename CPRange,
         typename NextWordBreakFunc = next_word_break_callable>
-    bool is_title(
+    auto is_title(
         CPRange const & range,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return is_title(std::begin(range), std::end(range), next_word_break);
     }
 
-    /** Writes the title-case form of [first, last) to output iterator out,
-        using language-specific handling as indicated by lang. */
+    /** Returns true if no grapheme in range would change in a call to
+        to_title(), and false otherwise. */
+    template<
+        typename GraphemeRange,
+        typename NextWordBreakFunc = next_word_break_callable>
+    auto is_title(
+        GraphemeRange const & range,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
+    {
+        return is_title(
+            range.begin().base(), range.end().base(), next_word_break);
+    }
+
+    /** Writes the code point sequence comprising the title-case form of
+        [first, last) to output iterator out, using language-specific handling
+        as indicated by lang.  The normalization of the result is
+        undefined. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -890,22 +933,47 @@ namespace boost { namespace text {
         return out;
     }
 
-    /** Writes the title-case form of range to output iterator out, using
-        language-specific handling as indicated by lang. */
+    /** Writes the code point sequence comprising the title-case form of range
+        to output iterator out, using language-specific handling as indicated
+        by lang.  The normalization of the result is undefined. */
     template<
         typename CPRange,
         typename OutIter,
         typename NextWordBreakFunc = next_word_break_callable>
-    OutIter to_title(
+    auto to_title(
         CPRange const & range,
         OutIter out,
         case_language lang = case_language::other,
         NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return to_title(
             std::begin(range),
             std::begin(range),
             std::end(range),
+            out,
+            lang,
+            next_word_break);
+    }
+
+    /** Writes the code point sequence comprising the title-case form of range
+        to output iterator out, using language-specific handling as indicated
+        by lang.  The normalization of the result is undefined. */
+    template<
+        typename GraphemeRange,
+        typename OutIter,
+        typename NextWordBreakFunc = next_word_break_callable>
+    auto to_title(
+        GraphemeRange const & range,
+        OutIter out,
+        case_language lang = case_language::other,
+        NextWordBreakFunc next_word_break = NextWordBreakFunc{}) noexcept
+        -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
+    {
+        return to_title(
+            range.begin().base(),
+            range.begin().base(),
+            range.end().base(),
             out,
             lang,
             next_word_break);
@@ -924,13 +992,25 @@ namespace boost { namespace text {
     /** Returns true if no code point in range would change in a call to
         to_upper(), and false otherwise. */
     template<typename CPRange>
-    bool is_upper(CPRange const & range) noexcept
+    auto is_upper(CPRange const & range) noexcept
+        -> detail::cp_rng_alg_ret_t<bool, CPRange>
     {
         return is_upper(std::begin(range), std::end(range));
     }
 
-    /** Writes the upper-case form of [first, last) to output iterator out,
-        using language-specific handling as indicated by lang. */
+    /** Returns true if no grapheme in range would change in a call to
+        to_upper(), and false otherwise. */
+    template<typename GraphemeRange>
+    auto is_upper(GraphemeRange const & range) noexcept
+        -> detail::graph_rng_alg_ret_t<bool, GraphemeRange>
+    {
+        return is_upper(range.begin().base(), range.end().base());
+    }
+
+    /** Writes code point sequence comprising the the upper-case form of
+        [first, last) to output iterator out, using language-specific handling
+        as indicated by lang.  The normalization of the result is
+        undefined. */
     template<typename CPIter, typename Sentinel, typename OutIter>
     OutIter to_upper(
         CPIter first,
@@ -949,16 +1029,36 @@ namespace boost { namespace text {
             detail::map_case_mode::upper);
     }
 
-    /** Writes the upper-case form of range to output iterator out, using
-        language-specific handling as indicated by lang. */
+    /** Writes code point sequence comprising the the upper-case form of range
+        to output iterator out, using language-specific handling as indicated
+        by lang.  The normalization of the result is undefined. */
     template<typename CPRange, typename OutIter>
-    OutIter to_upper(
+    auto to_upper(
         CPRange const & range,
         OutIter out,
         case_language lang = case_language::other) noexcept
+        -> detail::cp_rng_alg_ret_t<OutIter, CPRange>
     {
         return to_upper(
             std::begin(range), std::begin(range), std::end(range), out, lang);
+    }
+
+    /** Writes the code point sequence comprising the upper-case form of range
+        to output iterator out, using language-specific handling as indicated
+        by lang.  The normalization of the result is undefined. */
+    template<typename GraphemeRange, typename OutIter>
+    auto to_upper(
+        GraphemeRange const & range,
+        OutIter out,
+        case_language lang = case_language::other) noexcept
+        -> detail::graph_rng_alg_ret_t<OutIter, GraphemeRange>
+    {
+        return to_upper(
+            range.begin().base(),
+            range.begin().base(),
+            range.end().base(),
+            out,
+            lang);
     }
 
 }}
