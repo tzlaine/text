@@ -3,17 +3,23 @@
 
 #include <boost/text/utility.hpp>
 
+#include <boost/algorithm/cxx14/equal.hpp>
 #include <boost/container/small_vector.hpp>
 
 
 namespace boost { namespace text {
 
-    template<typename CPIter = grapheme::const_iterator>
+    namespace detail {
+        using grapheme_storage_t = container::small_vector<uint32_t, 4>;
+    }
+
+    template<typename CPIter = detail::grapheme_storage_t::const_iterator>
     struct grapheme_view;
 
+    /** TODO */
     struct grapheme
     {
-        using storage_t = container::small_vector<uint32_t, 4>;
+        using storage_t = detail::grapheme_storage_t;
         using iterator = storage_t::iterator;
         using const_iterator = storage_t::const_iterator;
 
@@ -44,6 +50,7 @@ namespace boost { namespace text {
         container::small_vector<uint32_t, 4> cps_;
     };
 
+    /** TODO */
     template<typename CPIter>
     struct grapheme_view
     {
@@ -58,7 +65,7 @@ namespace boost { namespace text {
             first_(r.begin()),
             last_(r.end())
         {}
-        grapheme_view(grapheme const & g) noexcept :
+        grapheme_view(struct grapheme const & g) noexcept :
             first_(g.begin()),
             last_(g.end())
         {}
@@ -72,10 +79,65 @@ namespace boost { namespace text {
         iterator last_;
     };
 
-    // TODO: operator== between grapheme/grapheme_view/cp_range and
-    // grapheme/grapheme_view/cp_range, with different CPIter params
+    template<typename CPIter1, typename CPIter2>
+    bool operator==(grapheme_view<CPIter1> lhs, grapheme_view<CPIter2> rhs)
+    {
+        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
 
-    // TODO: Tests with the standard algorithms and Boost.StringAlgo
+    template<typename CPIter1, typename CPIter2>
+    bool operator!=(grapheme_view<CPIter1> lhs, grapheme_view<CPIter2> rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    template<typename CPIter1, typename CPIter2>
+    bool operator==(cp_range<CPIter1> lhs, grapheme_view<CPIter2> rhs)
+    {
+        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+
+    template<typename CPIter1, typename CPIter2>
+    bool operator==(grapheme_view<CPIter1> lhs, cp_range<CPIter2> rhs)
+    {
+        return rhs == lhs;
+    }
+
+    template<typename CPIter1, typename CPIter2>
+    bool operator!=(cp_range<CPIter1> lhs, cp_range<CPIter2> rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    template<typename CPIter1, typename CPIter2>
+    bool operator!=(grapheme_view<CPIter1> lhs, cp_range<CPIter2> rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    template<typename CPIter>
+    bool operator==(struct grapheme const & lhs, grapheme_view<CPIter> rhs)
+    {
+        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+
+    template<typename CPIter>
+    bool operator==(grapheme_view<CPIter> lhs, struct grapheme const & rhs)
+    {
+        return rhs == lhs;
+    }
+
+    template<typename CPIter>
+    bool operator!=(struct grapheme const & lhs, grapheme_view<CPIter> rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    template<typename CPIter>
+    bool operator!=(grapheme_view<CPIter> rhs, struct grapheme const & lhs)
+    {
+        return !(lhs == rhs);
+    }
 
 }}
 

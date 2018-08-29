@@ -211,6 +211,11 @@ namespace boost { namespace text {
 
 #endif
 
+        /** Inserts the sequence [first, last) into *this starting at position
+            at. */
+        const_iterator
+        insert(const_iterator at, const_iterator first, const_iterator last);
+
         /** Erases the portion of *this delimited by rv.
 
             \pre !std::less(rv.begin().base().base(), begin().base().base()) &&
@@ -283,6 +288,15 @@ namespace boost { namespace text {
             -> detail::char_iter_ret_t<rope &, CharIter>;
 
 #endif
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence [first, last).
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
+        rope & replace(
+            rope_view old_substr, const_iterator first, const_iterator last);
 
         /** Swaps *this with rhs. */
         void swap(rope & rhs) noexcept;
@@ -567,6 +581,12 @@ namespace boost { namespace text {
         return insert_impl(at, string(first, last), false);
     }
 
+    inline rope::const_iterator
+    rope::insert(const_iterator at, const_iterator first, const_iterator last)
+    {
+        return insert(at, rope_view(first, last));
+    }
+
     inline rope & rope::erase(rope_view rv)
     {
         rope_view const this_rv(*this);
@@ -645,6 +665,12 @@ namespace boost { namespace text {
         -> detail::char_iter_ret_t<rope &, CharIter>
     {
         return replace_impl(old_substr, string(first, last), false);
+    }
+
+    inline rope & rope::replace(
+        rope_view old_substr, const_iterator first, const_iterator last)
+    {
+        return replace(old_substr, rope_view(first, last));
     }
 
     inline void rope::swap(rope & rhs) noexcept { rope_.swap(rhs.rope_); }

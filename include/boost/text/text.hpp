@@ -271,6 +271,10 @@ namespace boost { namespace text {
 
 #endif
 
+        /** Inserts the sequence [first, last) into *this starting at position
+            at. */
+        iterator insert(iterator at, const_iterator first, const_iterator last);
+
         /** Erases the portion of *this delimited by tv.
 
             \pre !std::less(tv.begin().base().base(), begin().base().base()) &&
@@ -367,6 +371,15 @@ namespace boost { namespace text {
             -> detail::char_iter_ret_t<text &, CharIter>;
 
 #endif
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence [first, last).
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
+        text & replace(
+            text_view old_substr, const_iterator first, const_iterator last);
 
         /** Reserves storage enough for a string of at least new_size
             bytes.
@@ -703,6 +716,12 @@ namespace boost { namespace text {
         return *this;
     }
 
+    inline text::iterator
+    text::insert(iterator at, const_iterator first, const_iterator last)
+    {
+        return insert(at, text_view(first, last));
+    }
+
     inline text::iterator text::erase(iterator first, iterator last) noexcept
     {
         int const offset = first.base().base() - str_.begin();
@@ -753,6 +772,12 @@ namespace boost { namespace text {
         -> detail::char_iter_ret_t<text &, CharIter>
     {
         return replace_impl(old_substr, first, last, false);
+    }
+
+    inline text & text::replace(
+        text_view old_substr, const_iterator first, const_iterator last)
+    {
+        return replace(old_substr, text_view(first, last));
     }
 
     inline text & text::operator+=(char const * c_str)

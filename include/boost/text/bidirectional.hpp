@@ -2023,8 +2023,7 @@ namespace boost { namespace text {
                 }
 
                 template<typename CPIter2>
-                bool operator()(::boost::text::cp_range<CPIter2> grapheme) const
-                    noexcept
+                bool operator()(grapheme_view<CPIter2> grapheme) const noexcept
                 {
                     BOOST_ASSERT(!grapheme.empty());
                     if (std::next(grapheme.begin()) != grapheme.end())

@@ -2,6 +2,7 @@
 #define BOOST_TEXT_GRAPHEME_ITERATOR_HPP
 
 #include <boost/text/config.hpp>
+#include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_break.hpp>
 
 #include <boost/assert.hpp>
@@ -18,7 +19,7 @@ namespace boost { namespace text {
     template<typename CPIter, typename Sentinel = CPIter>
     struct grapheme_iterator
     {
-        using value_type = cp_range<CPIter>;
+        using value_type = grapheme_view<CPIter>;
         using difference_type = std::ptrdiff_t;
         using pointer = value_type const *;
         using reference = value_type;
