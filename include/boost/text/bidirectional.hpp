@@ -19,8 +19,6 @@
 
 namespace boost { namespace text {
 
-    // TODO: GraphemeRange overloads.
-
     namespace detail {
         struct bidi_prop_interval
         {
@@ -1179,7 +1177,7 @@ namespace boost { namespace text {
             using reference = uint32_t;
             using difference_type =
                 typename std::iterator_traits<CPIter>::difference_type;
-            using iterator_category = std::forward_iterator_tag;
+            using iterator_category = std::bidirectional_iterator_tag;
 
             using mirrors_array_t = remove_cv_ref_t<decltype(bidi_mirroreds())>;
             using kind_t = fwd_rev_cp_iter_kind;
@@ -1214,10 +1212,27 @@ namespace boost { namespace text {
                     ++ait_;
                 return *this;
             }
+            fwd_rev_cp_iter & operator--() noexcept
+            {
+                if (kind_ == kind_t::user_it)
+                    --it_;
+                else if (kind_ == kind_t::rev_user_it)
+                    ++it_;
+                else
+                    --ait_;
+                return *this;
+            }
+
             fwd_rev_cp_iter operator++(int)noexcept
             {
                 fwd_rev_cp_iter retval = *this;
                 ++*this;
+                return retval;
+            }
+            fwd_rev_cp_iter operator--(int)noexcept
+            {
+                fwd_rev_cp_iter retval = *this;
+                --*this;
                 return retval;
             }
 
@@ -1267,11 +1282,11 @@ namespace boost { namespace text {
         };
     }
 
-    /** Represents either a subrange of code points ordered by the Unicode
-        bidirectional algorithm, with or without a line break; the line break
-        may be a hard line break, or a possible line break, according to the
-        Unicode line break algorithm.  This is the output type for the code
-        point overloads of bidirectional_order(). */
+    /** Represents a subrange of code points ordered by the Unicode
+        bidirectional algorithm, with or without a line break at the end; the
+        line break may be a hard line break, or a possible line break,
+        according to the Unicode line break algorithm.  This is the output
+        type for the code point overloads of bidirectional_order(). */
     template<typename CPIter>
     struct bidirectional_cp_subrange
     {
@@ -1291,6 +1306,64 @@ namespace boost { namespace text {
                 detail::bidi_line_break_kind::none) noexcept :
             first_(first),
             last_(last),
+            break_(b)
+        {}
+
+        bool line_break() const noexcept
+        {
+            return hard_line_break() || possible_line_break();
+        }
+        bool hard_line_break() const noexcept
+        {
+            return break_ == detail::bidi_line_break_kind::hard;
+        }
+        bool possible_line_break() const noexcept
+        {
+            return break_ == detail::bidi_line_break_kind::possible;
+        }
+        bool empty() const noexcept { return first_ == last_; }
+        iterator begin() const noexcept { return first_; }
+        iterator end() const noexcept { return last_; }
+
+    private:
+        iterator first_;
+        iterator last_;
+        detail::bidi_line_break_kind break_;
+    };
+
+    /** Represents a subrange of graphemes ordered by the Unicode
+        bidirectional algorithm, with or without a line break at the end; the
+        line break may be a hard line break, or a possible line break,
+        according to the Unicode line break algorithm.  This is the output
+        type for the grapheme overloads of bidirectional_order(). */
+    template<typename CPIter>
+    struct bidirectional_grapheme_subrange
+    {
+        using iterator = grapheme_iterator<detail::fwd_rev_cp_iter<CPIter>>;
+
+        static_assert(
+            detail::is_cp_iter<CPIter>::value,
+            "CPIter must be a code point iterator");
+
+        bidirectional_grapheme_subrange() noexcept :
+            break_(detail::bidi_line_break_kind::none)
+        {}
+        bidirectional_grapheme_subrange(
+            iterator first,
+            iterator last,
+            detail::bidi_line_break_kind b =
+                detail::bidi_line_break_kind::none) noexcept :
+            first_(first),
+            last_(last),
+            break_(b)
+        {}
+        bidirectional_grapheme_subrange(
+            detail::fwd_rev_cp_iter<CPIter> first,
+            detail::fwd_rev_cp_iter<CPIter> last,
+            detail::bidi_line_break_kind b =
+                detail::bidi_line_break_kind::none) noexcept :
+            first_(first, first, last),
+            last_(first, last, last),
             break_(b)
         {}
 
@@ -1939,6 +2012,30 @@ namespace boost { namespace text {
                 OutValueType,
                 bidi_mode::general>;
 
+            struct mirrored
+            {
+                mirrored(int & mirror_index) : mirror_index_(mirror_index) {}
+
+                bool operator()(uint32_t cp) const noexcept
+                {
+                    mirror_index_ = bidi_mirroring(cp);
+                    return mirror_index_ != -1;
+                }
+
+                template<typename CPIter2>
+                bool operator()(::boost::text::cp_range<CPIter2> grapheme) const
+                    noexcept
+                {
+                    BOOST_ASSERT(!grapheme.empty());
+                    if (std::next(grapheme.begin()) != grapheme.end())
+                        return false;
+                    mirror_index_ = bidi_mirroring(*grapheme.begin());
+                    return mirror_index_ != -1;
+                }
+
+                int & mirror_index_;
+            };
+
             static void run(state_t & state)
             {
                 if (state.reordered_runs_it_ == state.reordered_runs_last_)
@@ -1956,7 +2053,7 @@ namespace boost { namespace text {
                 if (run.reversed()) {
                     // https://unicode.org/reports/tr9/#L4
 
-                    auto out_value = bidirectional_cp_subrange<CPIter>{
+                    auto out_value = OutValueType{
                         ::boost::text::detail::make_reverse_iterator(cp_last),
                         ::boost::text::detail::make_reverse_iterator(cp_first)};
 
@@ -1969,19 +2066,14 @@ namespace boost { namespace text {
                     while (out_first != out_last) {
                         int mirror_index = -1;
                         auto it = std::find_if(
-                            out_first, out_last, [&mirror_index](uint32_t cp) {
-                                mirror_index = bidi_mirroring(cp);
-                                return mirror_index != -1;
-                            });
+                            out_first, out_last, mirrored(mirror_index));
                         if (it == out_last)
                             break;
 
                         // If we found a reversible CP, emit any
                         // preceding CPs first.
                         if (it != out_first) {
-                            auto prev_subrange =
-                                bidirectional_cp_subrange<CPIter>{out_first,
-                                                                  it};
+                            auto prev_subrange = OutValueType{out_first, it};
                             state.out_values_.push_back(prev_subrange);
                         }
 
@@ -1990,32 +2082,29 @@ namespace boost { namespace text {
                                                 : bidi_line_break_kind::none;
 
                         // Emit the reversed CP.
-                        state.out_values_.push_back(
-                            bidirectional_cp_subrange<CPIter>{
-                                fwd_rev_cp_iter<CPIter>{
-                                    bidi_mirroreds().begin() + mirror_index,
-                                    fwd_rev_cp_iter_kind::mirror_array_it},
-                                fwd_rev_cp_iter<CPIter>{
-                                    bidi_mirroreds().begin() + mirror_index + 1,
-                                    fwd_rev_cp_iter_kind::mirror_array_it},
-                                break_});
+                        state.out_values_.push_back(OutValueType{
+                            fwd_rev_cp_iter<CPIter>{
+                                bidi_mirroreds().begin() + mirror_index,
+                                fwd_rev_cp_iter_kind::mirror_array_it},
+                            fwd_rev_cp_iter<CPIter>{
+                                bidi_mirroreds().begin() + mirror_index + 1,
+                                fwd_rev_cp_iter_kind::mirror_array_it},
+                            break_});
 
                         // Increment for the next iteration.
-                        out_value =
-                            bidirectional_cp_subrange<CPIter>{++it, out_last};
+                        out_value = OutValueType{++it, out_last};
                         out_first = out_value.begin();
                     }
 
                     if (!out_value.empty()) {
-                        out_value = bidirectional_cp_subrange<CPIter>{
-                            out_value.begin(),
-                            out_value.end(),
-                            state.line_break_};
+                        out_value = OutValueType{out_value.begin(),
+                                                 out_value.end(),
+                                                 state.line_break_};
                         state.out_values_.push_back(out_value);
                     }
                 } else {
-                    auto const out_value = bidirectional_cp_subrange<CPIter>{
-                        cp_first, cp_last, state.line_break_};
+                    auto const out_value =
+                        OutValueType{cp_first, cp_last, state.line_break_};
                     state.out_values_.push_back(out_value);
                 }
 
@@ -2087,14 +2176,14 @@ namespace boost { namespace text {
                 state.out_values_.clear();
 
                 if (run.reversed()) {
-                    auto const out_value = bidirectional_cp_subrange<CPIter>{
-                        detail::make_reverse_iterator(cp_last),
-                        detail::make_reverse_iterator(cp_first),
-                        state.line_break_};
+                    auto const out_value =
+                        OutValueType{detail::make_reverse_iterator(cp_last),
+                                     detail::make_reverse_iterator(cp_first),
+                                     state.line_break_};
                     state.out_values_.push_back(out_value);
                 } else {
-                    auto const out_value = bidirectional_cp_subrange<CPIter>{
-                        cp_first, cp_last, state.line_break_};
+                    auto const out_value =
+                        OutValueType{cp_first, cp_last, state.line_break_};
                     state.out_values_.push_back(out_value);
                 }
 
@@ -2116,22 +2205,25 @@ namespace boost { namespace text {
             T value_;
         };
 
-        template<typename CPIter, typename Sentinel, typename NextLineBreakFunc>
+        template<
+            typename CPIter,
+            typename Sentinel,
+            typename ResultType,
+            typename NextLineBreakFunc>
         struct const_lazy_bidi_segment_iterator
         {
-            using value_type = bidirectional_cp_subrange<CPIter>;
+            using value_type = ResultType;
             using pointer = arrow_proxy<value_type>;
             using reference = value_type;
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::forward_iterator_tag;
 
             const_lazy_bidi_segment_iterator() noexcept : state_(nullptr) {}
-            const_lazy_bidi_segment_iterator(
-                bidi_subrange_state<
-                    CPIter,
-                    Sentinel,
-                    NextLineBreakFunc,
-                    bidirectional_cp_subrange<CPIter>> & state) noexcept :
+            const_lazy_bidi_segment_iterator(bidi_subrange_state<
+                                             CPIter,
+                                             Sentinel,
+                                             NextLineBreakFunc,
+                                             ResultType> & state) noexcept :
                 state_(&state)
             {}
 
@@ -2162,7 +2254,7 @@ namespace boost { namespace text {
                 CPIter,
                 Sentinel,
                 NextLineBreakFunc,
-                bidirectional_cp_subrange<CPIter>> * state_;
+                ResultType> * state_;
         };
     }
 
@@ -2176,12 +2268,14 @@ namespace boost { namespace text {
     template<
         typename CPIter,
         typename Sentinel,
+        typename ResultType,
         typename NextLineBreakFunc = detail::bidi_next_hard_line_break_callable>
     struct lazy_bidi_segment_range
     {
         using iterator = detail::const_lazy_bidi_segment_iterator<
             CPIter,
             Sentinel,
+            ResultType,
             NextLineBreakFunc>;
 
         lazy_bidi_segment_range() noexcept : state_() {}
@@ -2197,12 +2291,9 @@ namespace boost { namespace text {
         iterator end() noexcept { return iterator(); }
 
     private:
-        detail::bidi_subrange_state<
-            CPIter,
-            Sentinel,
-            NextLineBreakFunc,
-            bidirectional_cp_subrange<CPIter>>
-            state_;
+        detail::
+            bidi_subrange_state<CPIter, Sentinel, NextLineBreakFunc, ResultType>
+                state_;
     };
 
     /** Returns a lazy range of code point subranges in [first, last); each
@@ -2229,10 +2320,12 @@ namespace boost { namespace text {
     template<typename CPIter, typename Sentinel>
     auto bidirectional_subranges(
         CPIter first, Sentinel last, int paragraph_embedding_level = -1)
-        -> lazy_bidi_segment_range<CPIter, Sentinel>
+        -> lazy_bidi_segment_range<
+            CPIter,
+            Sentinel,
+            bidirectional_cp_subrange<CPIter>>
     {
-        return lazy_bidi_segment_range<CPIter, Sentinel>{
-            first, last, paragraph_embedding_level};
+        return {first, last, paragraph_embedding_level};
     }
 
     /** Returns a lazy range of code point subranges in range; each subrange
@@ -2262,16 +2355,13 @@ namespace boost { namespace text {
         -> detail::cp_rng_alg_ret_t<
             lazy_bidi_segment_range<
                 detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>>,
+                detail::sentinel_t<CPRange>,
+                bidirectional_cp_subrange<detail::iterator_t<CPRange>>>,
             CPRange>
     {
-        return lazy_bidi_segment_range<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>>{
-            std::begin(range), std::end(range), paragraph_embedding_level};
+        return {std::begin(range), std::end(range), paragraph_embedding_level};
     }
 
-#if 0
     /** Returns a lazy range of grapheme subranges in range; each subrange is
         one of three kinds: a forward-subrange; a reverse-subrange; or a
         one-grapheme subrange used to subtitute a reversed bracketing grapheme
@@ -2298,18 +2388,16 @@ namespace boost { namespace text {
         GraphemeRange const & range, int paragraph_embedding_level = -1)
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
-                detail::iterator_t<GraphemeRange const>,
-                detail::iterator_t<GraphemeRange const>>,
+                typename detail::iterator_t<GraphemeRange const>::iterator_type,
+                typename detail::iterator_t<GraphemeRange const>::iterator_type,
+                bidirectional_grapheme_subrange<typename detail::iterator_t<
+                    GraphemeRange const>::iterator_type>>,
             GraphemeRange>
     {
-        // TODO
-        return lazy_bidi_segment_range<
-            detail::iterator_t<GraphemeRange const>,
-            detail::iterator_t<GraphemeRange const>>{range.begin().base(),
-                                                     range.end().base(),
-                                                     paragraph_embedding_level};
+        return {range.begin().base(),
+                range.end().base(),
+                paragraph_embedding_level};
     }
-#endif
 
     /** Returns a lazy range of code point subranges in [first, last); each
         subrange is one of three kinds: a forward-subrange; a
@@ -2347,6 +2435,7 @@ namespace boost { namespace text {
         -> lazy_bidi_segment_range<
             CPIter,
             Sentinel,
+            bidirectional_cp_subrange<CPIter>,
             detail::next_possible_line_break_within_extent_callable<
                 Extent,
                 CPExtentFunc>>
@@ -2355,13 +2444,7 @@ namespace boost { namespace text {
             Extent,
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
-        return lazy_bidi_segment_range<
-            CPIter,
-            Sentinel,
-            detail::next_possible_line_break_within_extent_callable<
-                Extent,
-                CPExtentFunc>>{
-            first, last, paragraph_embedding_level, std::move(next)};
+        return {first, last, paragraph_embedding_level, std::move(next)};
     }
 
     /** Returns a lazy range of code point subranges in range; each subrange
@@ -2396,6 +2479,7 @@ namespace boost { namespace text {
             lazy_bidi_segment_range<
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>,
+                bidirectional_cp_subrange<detail::iterator_t<CPRange>>,
                 detail::next_possible_line_break_within_extent_callable<
                     Extent,
                     CPExtentFunc>>,
@@ -2405,18 +2489,12 @@ namespace boost { namespace text {
             Extent,
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
-        return lazy_bidi_segment_range<
-            detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>,
-            detail::next_possible_line_break_within_extent_callable<
-                Extent,
-                CPExtentFunc>>{std::begin(range),
-                               std::end(range),
-                               paragraph_embedding_level,
-                               std::move(next)};
+        return {std::begin(range),
+                std::end(range),
+                paragraph_embedding_level,
+                std::move(next)};
     }
 
-#if 0
     /** Returns a lazy range of grapheme subranges in range; each subrange is
         one of three kinds: a forward-subrange; a reverse-subrange; or a
         one-grapheme subrange used to subtitute a reversed bracketing grapheme
@@ -2447,29 +2525,24 @@ namespace boost { namespace text {
         bool break_overlong_lines = true)
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
-                detail::iterator_t<GraphemeRange>,
-                detail::iterator_t<GraphemeRange>,
+                typename detail::iterator_t<GraphemeRange const>::iterator_type,
+                typename detail::iterator_t<GraphemeRange const>::iterator_type,
+                bidirectional_grapheme_subrange<typename detail::iterator_t<
+                    GraphemeRange const>::iterator_type>,
                 detail::next_possible_line_break_within_extent_callable<
                     Extent,
                     CPExtentFunc>>,
             GraphemeRange>
     {
-        // TODO
         detail::next_possible_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
-        return lazy_bidi_segment_range<
-            detail::iterator_t<GraphemeRange>,
-            detail::iterator_t<GraphemeRange>,
-            detail::next_possible_line_break_within_extent_callable<
-                Extent,
-                CPExtentFunc>>{std::begin(range),
-                               std::end(range),
-                               paragraph_embedding_level,
-                               std::move(next)};
+        return {range.begin().base(),
+                range.end().base(),
+                paragraph_embedding_level,
+                std::move(next)};
     }
-#endif
 
 }}
 

@@ -3,6 +3,7 @@
 #include <boost/text/sentence_break.hpp>
 #include <boost/text/line_break.hpp>
 #include <boost/text/paragraph_break.hpp>
+#include <boost/text/bidirectional.hpp>
 
 #include <gtest/gtest.h>
 
@@ -290,4 +291,148 @@ TEST(text_algorithm, paragraph_break)
     }
 }
 
-// TODO: bidi, case mapping, search
+struct bidi_stateful_cp_extent
+{
+    bidi_stateful_cp_extent() : i(0) {}
+
+    template<typename Iter, typename Sentinel>
+    int operator()(Iter first, Sentinel last) const noexcept
+    {
+        if ((int)index_counts.size() <= i)
+            index_counts.resize(i + 1);
+        ++index_counts[i];
+        ++i;
+        return std::distance(first, last);
+    }
+
+    mutable int i;
+
+    // Unused; here just to check that moves are done properly.
+    std::unique_ptr<int> ptr;
+
+    static std::vector<int> index_counts;
+};
+std::vector<int> bidi_stateful_cp_extent::index_counts;
+
+TEST(text_algorithm, bidi)
+{
+    // ON RLE ON FSI ON R RLO L PDF ON PDI ON PDF ON; 3 ('LTR') (line 496999)
+    std::vector<uint32_t> const cp_vec = { 0x0021, 0x202B, 0x0021, 0x2068, 0x0021, 0x05BE, 0x202E, 0x0041, 0x202C, 0x0021, 0x2069, 0x0021, 0x202C, 0x0021 };
+    text cps(to_string(cp_vec.begin(), cp_vec.end()));
+    std::vector<uint32_t> const expected_reordered_indices = { 0, 11, 10, 9, 7, 5, 4, 3, 2, 13 };
+
+    {
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(cps, 0)) {
+            for (auto grapheme : subrange) {
+                for (auto cp : grapheme) {
+                    reordered.push_back(cp);
+                }
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cp_vec[idx] < 0x2066 || 0x2069 < cp_vec[idx]) {
+                EXPECT_EQ(reordered[i], cp_vec[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cp_vec[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+    }
+
+    {
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(cps)) {
+            for (auto grapheme : subrange) {
+                for (auto cp : grapheme) {
+                    reordered.push_back(cp);
+                }
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cp_vec[idx] < 0x2066 || 0x2069 < cp_vec[idx]) {
+                EXPECT_EQ(reordered[i], cp_vec[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cp_vec[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+    }
+
+    // Extent-limited.
+    {
+        bidi_stateful_cp_extent::index_counts.clear();
+
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(
+                 cps, 80, bidi_stateful_cp_extent{}, 0)) {
+            for (auto grapheme : subrange) {
+                for (auto cp : grapheme) {
+                    reordered.push_back(cp);
+                }
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cp_vec[idx] < 0x2066 || 0x2069 < cp_vec[idx]) {
+                EXPECT_EQ(reordered[i], cp_vec[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cp_vec[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+
+        EXPECT_EQ(
+            std::count(
+                bidi_stateful_cp_extent::index_counts.begin(),
+                bidi_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)bidi_stateful_cp_extent::index_counts.size());
+    }
+
+    {
+        bidi_stateful_cp_extent::index_counts.clear();
+
+        std::vector<uint32_t> reordered;
+        for (auto subrange : boost::text::bidirectional_subranges(
+                 cps, 80, bidi_stateful_cp_extent{})) {
+            for (auto grapheme : subrange) {
+                for (auto cp : grapheme) {
+                    reordered.push_back(cp);
+                }
+            }
+        }
+        int i = 0;
+        for (int idx : expected_reordered_indices) {
+            if (cp_vec[idx] < 0x2066 || 0x2069 < cp_vec[idx]) {
+                EXPECT_EQ(reordered[i], cp_vec[idx])
+                    << std::hex
+                    << " 0x" << reordered[i]
+                    << " 0x" << cp_vec[idx]
+                    << std::dec << " i=" << i;
+            }
+            ++i;
+        }
+        EXPECT_EQ(i, (int)reordered.size());
+
+        EXPECT_EQ(
+            std::count(
+                bidi_stateful_cp_extent::index_counts.begin(),
+                bidi_stateful_cp_extent::index_counts.end(),
+                1),
+            (std::ptrdiff_t)bidi_stateful_cp_extent::index_counts.size());
+    }
+}
+
+// TODO: search, case mapping

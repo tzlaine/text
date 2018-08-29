@@ -44,7 +44,7 @@ inline std::vector<int> bidi_reordered_indices(
         str_iter_t,
         str_iter_t,
         detail::bidi_next_hard_line_break_callable,
-        bidirectional_subrange<str_iter_t>,
+        bidirectional_cp_subrange<str_iter_t>,
         detail::bidi_mode::reorder_test>
         state{first,
               last,
