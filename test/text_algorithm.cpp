@@ -23,17 +23,17 @@ TEST(text_algorithm, word_break)
     text cps("\x61\x5f\x61\x2e\x3a\x61");
 
     {
-        EXPECT_EQ(std::distance(cps.cbegin(), boost::text::prev_word_break(cps, std::next(cps.begin(), 2))), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), boost::text::next_word_break(cps, std::next(cps.begin(), 5))), 6);
+        EXPECT_EQ(std::distance(cps.cbegin(), prev_word_break(cps, std::next(cps.begin(), 2))), 0);
+        EXPECT_EQ(std::distance(cps.cbegin(), next_word_break(cps, std::next(cps.begin(), 5))), 6);
     }
     {
-        auto const range = boost::text::word(cps, std::next(cps.begin(), 1));
+        auto const range = word(cps, std::next(cps.begin(), 1));
         EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
         EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 3);
     }
 
     {
-        auto const all_words = boost::text::words(cps);
+        auto const all_words = words(cps);
 
         std::array<std::pair<int, int>, 4> const word_bounds = {
             {{0, 3}, {3, 4}, {4, 5}, {5, 6}}};
@@ -50,7 +50,7 @@ TEST(text_algorithm, word_break)
         }
         EXPECT_EQ(i, (int)word_bounds.size());
 
-        auto const all_words_reversed = boost::text::reversed_words(cps);
+        auto const all_words_reversed = reversed_words(cps);
         i = word_bounds.size();
         for (auto word : all_words_reversed) {
             --i;
@@ -72,18 +72,18 @@ TEST(text_algorithm, sentence_break)
     text cps("\x65\x74\x63\x2e\xe5\xae\x83");
 
     {
-        EXPECT_EQ(std::distance(cps.cbegin(), boost::text::prev_sentence_break(cps, std::next(cps.begin(), 2))), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), boost::text::next_sentence_break(cps, std::next(cps.begin(), 0))), 4);
+        EXPECT_EQ(std::distance(cps.cbegin(), prev_sentence_break(cps, std::next(cps.begin(), 2))), 0);
+        EXPECT_EQ(std::distance(cps.cbegin(), next_sentence_break(cps, std::next(cps.begin(), 0))), 4);
     }
     {
         auto const range =
-            boost::text::sentence(cps, std::next(cps.begin(), 1));
+            sentence(cps, std::next(cps.begin(), 1));
         EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
         EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 4);
     }
 
     {
-        auto const all_sentences = boost::text::sentences(cps);
+        auto const all_sentences = sentences(cps);
 
         std::array<std::pair<int, int>, 2> const sentence_bounds = {
             {{0, 4}, {4, 5}}};
@@ -102,7 +102,7 @@ TEST(text_algorithm, sentence_break)
         }
         EXPECT_EQ(i, (int)sentence_bounds.size());
 
-        auto const all_sentences_reversed = boost::text::reversed_sentences(cps);
+        auto const all_sentences_reversed = reversed_sentences(cps);
         i = sentence_bounds.size();
         for (auto sentence : all_sentences_reversed) {
             --i;
@@ -129,39 +129,39 @@ TEST(break_apis, line_break)
 
     {
         auto const prev =
-            boost::text::prev_hard_line_break(cps, std::next(cps.begin(), 1));
+            prev_hard_line_break(cps, std::next(cps.begin(), 1));
         EXPECT_EQ(std::distance(cps.cbegin(), prev), 0);
 
         auto const next =
-            boost::text::next_hard_line_break(cps, std::next(cps.begin(), 0));
+            next_hard_line_break(cps, std::next(cps.begin(), 0));
         EXPECT_EQ(std::distance(cps.cbegin(), next), 3);
     }
     {
-        auto const prev = boost::text::prev_possible_line_break(
+        auto const prev = prev_possible_line_break(
             cps, std::next(cps.begin(), 1));
         EXPECT_EQ(std::distance(cps.cbegin(), prev.iter), 0);
         EXPECT_TRUE(prev.hard_break);
 
-        auto const next = boost::text::next_possible_line_break(
+        auto const next = next_possible_line_break(
             cps, std::next(cps.begin(), 0));
         EXPECT_EQ(std::distance(cps.cbegin(), next.iter), 2);
         EXPECT_FALSE(next.hard_break);
     }
 
     {
-        auto const range = boost::text::line(cps, begin);
+        auto const range = line(cps, begin);
         EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
         EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 3);
     }
     {
-        auto const range = boost::text::possible_line(cps, begin);
+        auto const range = possible_line(cps, begin);
         EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
         EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 2);
         EXPECT_FALSE(range.hard_break());
     }
 
     {
-        auto const all_lines = boost::text::lines(cps);
+        auto const all_lines = lines(cps);
 
         std::array<std::pair<int, int>, 1> const line_bounds = {{{0, 3}}};
 
@@ -175,7 +175,7 @@ TEST(break_apis, line_break)
         }
         EXPECT_EQ(i, (int)line_bounds.size());
 
-        auto const all_lines_reversed = boost::text::reversed_lines(cps);
+        auto const all_lines_reversed = reversed_lines(cps);
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -188,7 +188,7 @@ TEST(break_apis, line_break)
     }
 
     {
-        auto const all_lines = boost::text::possible_lines(cps);
+        auto const all_lines = possible_lines(cps);
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -205,7 +205,7 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            boost::text::reversed_possible_lines(cps);
+            reversed_possible_lines(cps);
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -220,7 +220,7 @@ TEST(break_apis, line_break)
 
     // 80 columns -> don't take the possible break in the middle.
     {
-        auto const _80_column_lines = boost::text::lines(
+        auto const _80_column_lines = lines(
             cps,
             80,
             [](text::const_iterator::iterator_type it,
@@ -249,18 +249,18 @@ TEST(text_algorithm, paragraph_break)
     text cps("\x65\x74\x63\x2e\xe5\xae\x83");
 
     {
-        EXPECT_EQ(std::distance(cps.cbegin(), boost::text::prev_paragraph_break(cps, std::next(cps.begin(), 2))), 0);
-        EXPECT_EQ(std::distance(cps.cbegin(), boost::text::next_paragraph_break(cps, std::next(cps.begin(), 0))), 5);
+        EXPECT_EQ(std::distance(cps.cbegin(), prev_paragraph_break(cps, std::next(cps.begin(), 2))), 0);
+        EXPECT_EQ(std::distance(cps.cbegin(), next_paragraph_break(cps, std::next(cps.begin(), 0))), 5);
     }
     {
         auto const range =
-            boost::text::paragraph(cps, std::next(cps.begin(), 1));
+            paragraph(cps, std::next(cps.begin(), 1));
         EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
         EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 5);
     }
 
     {
-        auto const all_paragraphs = boost::text::paragraphs(cps);
+        auto const all_paragraphs = paragraphs(cps);
 
         std::array<std::pair<int, int>, 1> const paragraph_bounds = {{{0, 5}}};
 
@@ -278,7 +278,7 @@ TEST(text_algorithm, paragraph_break)
         }
         EXPECT_EQ(i, (int)paragraph_bounds.size());
 
-        auto const all_paragraphs_reversed = boost::text::reversed_paragraphs(cps);
+        auto const all_paragraphs_reversed = reversed_paragraphs(cps);
         i = paragraph_bounds.size();
         for (auto paragraph : all_paragraphs_reversed) {
             --i;
@@ -327,7 +327,7 @@ TEST(text_algorithm, bidi)
 
     {
         std::vector<uint32_t> reordered;
-        for (auto subrange : boost::text::bidirectional_subranges(cps, 0)) {
+        for (auto subrange : bidirectional_subranges(cps, 0)) {
             for (auto grapheme : subrange) {
                 for (auto cp : grapheme) {
                     reordered.push_back(cp);
@@ -350,7 +350,7 @@ TEST(text_algorithm, bidi)
 
     {
         std::vector<uint32_t> reordered;
-        for (auto subrange : boost::text::bidirectional_subranges(cps)) {
+        for (auto subrange : bidirectional_subranges(cps)) {
             for (auto grapheme : subrange) {
                 for (auto cp : grapheme) {
                     reordered.push_back(cp);
@@ -376,7 +376,7 @@ TEST(text_algorithm, bidi)
         bidi_stateful_cp_extent::index_counts.clear();
 
         std::vector<uint32_t> reordered;
-        for (auto subrange : boost::text::bidirectional_subranges(
+        for (auto subrange : bidirectional_subranges(
                  cps, 80, bidi_stateful_cp_extent{}, 0)) {
             for (auto grapheme : subrange) {
                 for (auto cp : grapheme) {
@@ -409,7 +409,7 @@ TEST(text_algorithm, bidi)
         bidi_stateful_cp_extent::index_counts.clear();
 
         std::vector<uint32_t> reordered;
-        for (auto subrange : boost::text::bidirectional_subranges(
+        for (auto subrange : bidirectional_subranges(
                  cps, 80, bidi_stateful_cp_extent{})) {
             for (auto grapheme : subrange) {
                 for (auto cp : grapheme) {
