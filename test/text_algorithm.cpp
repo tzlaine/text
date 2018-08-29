@@ -7,6 +7,7 @@
 #include <boost/text/collation_search.hpp>
 #include <boost/text/data/da.hpp>
 #include <boost/text/case_mapping.hpp>
+#include <boost/text/in_place_case_mapping.hpp>
 
 #include <gtest/gtest.h>
 
@@ -1193,5 +1194,42 @@ TEST(text_algorithm, case_mapping_)
 
         to_upper(cp, std::back_inserter(result));
         EXPECT_EQ(result, upper);
+    }
+}
+
+TEST(text_algorithm, in_place_case_mapping)
+{
+    { // to_lower
+        text from("\x53\x53");
+        text const lower("\x73\x73");
+
+        EXPECT_TRUE(is_lower(lower));
+        EXPECT_FALSE(is_title(lower));
+        EXPECT_FALSE(is_upper(lower));
+
+        in_place_to_lower(from);
+        EXPECT_EQ(from, lower);
+    }
+    { // to_title
+        text from("\x61\x61\x61\xc3\x9f");
+        text const title("\x41\x61\x61\xc3\x9f");
+
+        EXPECT_FALSE(is_lower(title));
+        EXPECT_TRUE(is_title(title));
+        EXPECT_FALSE(is_upper(title));
+
+        in_place_to_title(from);
+        EXPECT_EQ(from, title);
+    }
+    { // to_upper
+        text from("\xc3\x9f");
+        text const upper("\x53\x53");
+
+        EXPECT_FALSE(is_lower(upper));
+        EXPECT_FALSE(is_title(upper));
+        EXPECT_TRUE(is_upper(upper));
+
+        in_place_to_upper(from);
+        EXPECT_EQ(from, upper);
     }
 }
