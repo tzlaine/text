@@ -137,6 +137,10 @@ namespace boost { namespace text {
 
             const_reverse_lazy_segment_iterator & operator++() noexcept
             {
+                if (it_ == first_) {
+                    next_ = first_;
+                    return *this;
+                }
                 auto const prev_it =
                     (*prev_func_)(first_, std::prev(it_), next_);
                 next_ = it_;
@@ -147,7 +151,7 @@ namespace boost { namespace text {
             void set_next_func(PrevFunc * prev_func) noexcept
             {
                 prev_func_ = prev_func;
-                it_ = (*prev_func_)(first_, it_, next_);
+                ++*this;
             }
 
             friend bool operator==(

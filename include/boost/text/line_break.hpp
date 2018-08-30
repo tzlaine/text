@@ -1950,6 +1950,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
             const_reverse_possible_line_iterator & operator++() noexcept
             {
+                if (it_ == first_) {
+                    next_.iter = first_;
+                    return *this;
+                }
                 auto const prev_it =
                     (*prev_func_)(first_, std::prev(it_.iter), next_.iter);
                 next_ = it_;
@@ -1960,7 +1964,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             void set_next_func(PrevFunc * prev_func) noexcept
             {
                 prev_func_ = prev_func;
-                it_ = (*prev_func_)(first_, it_.iter, next_.iter);
+                ++*this;
             }
 
             friend bool operator==(
