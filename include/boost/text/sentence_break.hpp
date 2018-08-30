@@ -647,16 +647,16 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
                 range.end().base()};
     }
 
-    /** Finds the next sentence break after <code>range.begin()</code>.  This
-        will be the first code point after the current sentence, or
+    /** Finds the next sentence break after <code>it</code>.  This will be the
+        first code point after the current sentence, or
         <code>range.end()</code> if no next sentence exists.
 
-        \pre <code>range.begin()</code> is at the beginning of a sentence. */
-    template<typename CPRange>
-    auto next_sentence_break(CPRange & range) noexcept
+        \pre <code>it</code> is at the beginning of a sentence. */
+    template<typename CPRange, typename CPIter>
+    auto next_sentence_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return next_sentence_break(std::begin(range), std::end(range));
+        return next_sentence_break(it, std::end(range));
     }
 
     /** Returns a grapheme_iterator to the next sentence break after 'it'.  This

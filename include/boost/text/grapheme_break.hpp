@@ -354,16 +354,16 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         return prev_grapheme_break(std::begin(range), it, std::end(range));
     }
 
-    /** Finds the next grapheme break after <code>range.begin()</code>.  This
-        will be the first code point after the current grapheme, or
+    /** Finds the next grapheme break after <code>it</code>.  This will be the
+        first code point after the current grapheme, or
         <code>range.end()</code> if no next grapheme exists.
 
-        \pre <code>range.begin()</code> is at the beginning of a grapheme. */
-    template<typename CPRange>
-    auto next_grapheme_break(CPRange & range) noexcept
+        \pre <code>it</code> is at the beginning of a grapheme. */
+    template<typename CPRange, typename CPIter>
+    auto next_grapheme_break(CPRange & range, CPIter it) noexcept
         -> detail::iterator_t<CPRange>
     {
-        return next_grapheme_break(std::begin(range), std::end(range));
+        return next_grapheme_break(it, std::end(range));
     }
 
     namespace detail {

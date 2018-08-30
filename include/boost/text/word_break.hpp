@@ -916,23 +916,24 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
                 range.end().base()};
     }
 
-    /** Finds the next word break after <code>range.begin()</code>.  This will
-        be the first code point after the current word, or
-        <code>range.end()</code> if no next word exists.
+    /** Finds the next word break after <code>it</code>.  This will be the
+        first code point after the current word, or <code>range.end()</code>
+        if no next word exists.
 
-        \pre <code>range.begin()</code> is at the beginning of a word. */
+        \pre <code>it</code> is at the beginning of a word. */
     template<
         typename CPRange,
+        typename CPIter,
         typename WordPropFunc = word_prop_callable,
         typename CPBreakFunc = detail::default_cp_break>
     auto next_word_break(
         CPRange & range,
+        CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
         CPBreakFunc cp_break = CPBreakFunc{}) noexcept -> detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
-        return next_word_break(
-            std::begin(range), std::end(range), word_prop, cp_break);
+        return next_word_break(it, std::end(range), word_prop, cp_break);
     }
 
     /** Returns a grapheme_iterator to the next word break after 'it'.  This

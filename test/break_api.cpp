@@ -35,7 +35,7 @@ TEST(break_apis, grapheme_break)
     // Range API
     {
         EXPECT_EQ(boost::text::prev_grapheme_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps, cps.begin() + 0) - cps.begin(), 2);
     }
 
     {
@@ -216,7 +216,7 @@ TEST(break_apis, grapheme_break_sentinel)
     // Range API
     {
         EXPECT_EQ(std::distance(begin, boost::text::prev_grapheme_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_grapheme_break(cp_range)), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::next_grapheme_break(cp_range, begin)), 2);
     }
 
     {
@@ -295,7 +295,7 @@ TEST(break_apis, word_break)
     // Range API
     {
         EXPECT_EQ(boost::text::prev_word_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps, cps.begin() + 0) - cps.begin(), 3);
     }
 
     {
@@ -424,7 +424,7 @@ TEST(break_apis, word_break_sentinel)
     // Range API
     {
         EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cp_range)), 3);
+        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cp_range, begin)), 3);
     }
 
     {
@@ -492,13 +492,13 @@ TEST(break_apis, word_tailoring_MidLetter)
     {
         EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cps, begin)), 0);
         EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cps, std::next(begin, 4))), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cps)), 5);
+        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cps, begin)), 5);
     }
     // MidLetter tailoring.
     {
         EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cps, begin, midletter_dash)), 0);
         EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cps, std::next(begin, 9), midletter_dash)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cps, midletter_dash)), 10);
+        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cps, begin, midletter_dash)), 10);
     }
 
     // Default breaks.
@@ -642,13 +642,13 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
     {
         EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cp_range, begin)), 0);
         EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cp_range, std::next(begin, 4))), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cp_range)), 5);
+        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cp_range, begin)), 5);
     }
     // MidLetter tailoring.
     {
         EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cp_range, begin, midletter_dash)), 0);
         EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cp_range, std::next(begin, 9), midletter_dash)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cp_range, midletter_dash)), 10);
+        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cp_range, begin, midletter_dash)), 10);
     }
 
     // Default breaks.
@@ -961,7 +961,7 @@ TEST(break_apis, sentence_break)
     // Range API
     {
         EXPECT_EQ(boost::text::prev_sentence_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_sentence_break(cps) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_sentence_break(cps, cps.begin() + 0) - cps.begin(), 2);
     }
 
     {
@@ -1082,7 +1082,7 @@ TEST(break_apis, sentence_break_sentinel)
     // Range API
     {
         EXPECT_EQ(std::distance(begin, boost::text::prev_sentence_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_sentence_break(cp_range)), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::next_sentence_break(cp_range, begin)), 2);
     }
 
     {
@@ -1151,7 +1151,7 @@ TEST(break_apis, line_break)
     // Range API
     {
         EXPECT_EQ(boost::text::prev_possible_line_break(cps, cps.begin() + 0).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_possible_line_break(cps, cps.begin() + 0).iter - cps.begin(), 2);
     }
 
     {
@@ -1249,7 +1249,7 @@ TEST(break_apis, line_break_hard)
     // Range API
     {
         EXPECT_EQ(boost::text::prev_hard_line_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_hard_line_break(cps) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_hard_line_break(cps, cps.begin() + 0) - cps.begin(), 4);
     }
 
     {
@@ -1392,7 +1392,7 @@ TEST(break_apis, line_break_sentinel)
     // Range API
     {
         EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(cp_range, begin).iter), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(cp_range).iter), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(cp_range, begin).iter), 2);
     }
 
     {
@@ -1831,7 +1831,7 @@ TEST(break_apis, paragraph_break)
     // Range API
     {
         EXPECT_EQ(boost::text::prev_paragraph_break(cps, cps.begin() + 0) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_paragraph_break(cps) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_paragraph_break(cps, cps.begin() + 0) - cps.begin(), 3);
     }
 
     {
@@ -1964,7 +1964,7 @@ TEST(break_apis, paragraph_break_sentinel)
     // Range API
     {
         EXPECT_EQ(std::distance(begin, boost::text::prev_paragraph_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(cp_range)), 3);
+        EXPECT_EQ(std::distance(begin, boost::text::next_paragraph_break(cp_range, begin)), 3);
     }
 
     {

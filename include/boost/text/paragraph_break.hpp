@@ -94,16 +94,16 @@ namespace boost { namespace text {
                 range.end().base()};
     }
 
-    /** Finds the next paragraph break after <code>range.begin()</code>.  This
-        will be the first code point after the current paragraph, or
+    /** Finds the next paragraph break after <code>it</code>.  This will be
+        the first code point after the current paragraph, or
         <code>range.end()</code> if no next paragraph exists.
 
-        \pre <code>range.begin()</code> is at the beginning of a paragraph. */
-    template<typename CPRange>
-    auto next_paragraph_break(CPRange & range) noexcept
+        \pre <code>it</code> is at the beginning of a paragraph. */
+    template<typename CPRange, typename CPIter>
+    auto next_paragraph_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
     {
-        return next_paragraph_break(std::begin(range), std::end(range));
+        return next_paragraph_break(it, std::end(range));
     }
 
     /** Returns a grapheme_iterator to the next paragraph break after 'it'.
