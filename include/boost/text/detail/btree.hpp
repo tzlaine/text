@@ -3,8 +3,8 @@
 
 #include <boost/text/detail/utility.hpp>
 
-#ifndef BOOST_TEXT_THREAD_UNSAFE
-#include <boost/atomic.hpp>
+#if !BOOST_TEXT_THREAD_UNSAFE
+#include <atomic>
 #endif
 #include <boost/align/align.hpp>
 #include <boost/align/aligned_alloc.hpp>
@@ -102,14 +102,14 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     struct node_t
     {
-        explicit node_t(bool leaf) noexcept : refs_(0), leaf_(leaf) {}
-        node_t(node_t const & rhs) noexcept : refs_(0), leaf_(rhs.leaf_) {}
+        explicit node_t(bool leaf) noexcept : leaf_(leaf) { refs_ = 0; }
+        node_t(node_t const & rhs) noexcept : leaf_(rhs.leaf_) { refs_ = 0; }
         node_t & operator=(node_t const & rhs) = delete;
 
-#ifdef BOOST_TEXT_THREAD_UNSAFE
+#if BOOST_TEXT_THREAD_UNSAFE
         mutable int refs_;
 #else
-        mutable atomic<int> refs_;
+        mutable std::atomic<int> refs_;
 #endif
         bool leaf_;
     };
@@ -321,7 +321,7 @@ namespace boost { namespace text { namespace detail {
                 this_ref, new_interior_node(*as_interior()));
     }
 
-#ifdef BOOST_TEXT_THREAD_UNSAFE
+#if BOOST_TEXT_THREAD_UNSAFE
 
     template<typename T>
     inline void intrusive_ptr_add_ref(node_t<T> const * node)
@@ -348,14 +348,14 @@ namespace boost { namespace text { namespace detail {
     template<typename T>
     inline void intrusive_ptr_add_ref(node_t<T> const * node)
     {
-        node->refs_.fetch_add(1, boost::memory_order_relaxed);
+        node->refs_.fetch_add(1, std::memory_order_relaxed);
     }
 
     template<typename T>
     inline void intrusive_ptr_release(node_t<T> const * node)
     {
-        if (node->refs_.fetch_sub(1, boost::memory_order_release) == 1) {
-            boost::atomic_thread_fence(boost::memory_order_acquire);
+        if (node->refs_.fetch_sub(1, std::memory_order_release) == 1) {
+            std::atomic_thread_fence(std::memory_order_acquire);
             if (node->leaf_)
                 delete static_cast<leaf_node_t<T> const *>(node);
             else

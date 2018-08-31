@@ -85,7 +85,6 @@ endif ()
 # Tests and examples
 ##################################################
 # Built conditionally, because it relies on TSan.
-# NOTE: TSan is currently confused by atomic operations, and so this test is useless atm.
 set(BUILD_ROPE_THREADSAFETY_TEST false CACHE BOOL "Set to true to build rope the threadsafety test.")
 # Built conditionally, because it relies on libFuzzer.
 set(BUILD_FUZZ_TESTS false CACHE BOOL "Set to true to build fuzz tests.")

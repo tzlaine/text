@@ -6,7 +6,7 @@
 
 std::atomic<bool> done(false);
 
-void thread_function(boost::text::unencoded_rope const & r)
+void thread_function(boost::text::unencoded_rope r)
 {
     boost::text::unencoded_rope local_r = r;
 
@@ -16,20 +16,18 @@ void thread_function(boost::text::unencoded_rope const & r)
 
 int main()
 {
-    std::unique_ptr<boost::text::unencoded_rope> r(
-        new boost::text::unencoded_rope("some text"));
+    boost::text::unencoded_rope r("some text");
 
-    std::thread thread_0(thread_function, *r);
-    std::thread thread_1(thread_function, *r);
-    std::thread thread_2(thread_function, *r);
-    std::thread thread_3(thread_function, *r);
+    std::thread thread_0(thread_function, r);
+    std::thread thread_1(thread_function, r);
+    std::thread thread_2(thread_function, r);
+    std::thread thread_3(thread_function, r);
 
-    std::thread thread_4(thread_function, *r);
-    std::thread thread_5(thread_function, *r);
-    std::thread thread_6(thread_function, *r);
-    std::thread thread_7(thread_function, *r);
+    std::thread thread_4(thread_function, r);
+    std::thread thread_5(thread_function, r);
+    std::thread thread_6(thread_function, r);
+    std::thread thread_7(thread_function, r);
 
-    r.release();
     done = true;
 
     thread_0.join();
