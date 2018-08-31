@@ -811,7 +811,7 @@ namespace boost { namespace text {
         auto const first =
             mutable_utf32_iter(str_.begin(), str_.begin(), str_.end());
         auto const it =
-            find_if_backward(first, last, detail::stable_fcc_code_point);
+            find_if_backward(first, last, detail_::stable_fcc_code_point);
         if (it == last)
             return first;
         return it;
@@ -822,7 +822,7 @@ namespace boost { namespace text {
     {
         auto const last =
             mutable_utf32_iter(str_.begin(), str_.end(), str_.end());
-        auto const it = find_if(first, last, detail::stable_fcc_code_point);
+        auto const it = find_if(first, last, detail_::stable_fcc_code_point);
         return it;
     }
 

@@ -11,7 +11,7 @@ using namespace boost::text;
 // https://unicode.org/reports/tr9/#BD13
 TEST(detail_bidi, find_run_sequences_)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     auto run_used = [](level_run<uint32_t *> r) { return r.used(); };
 
@@ -222,7 +222,7 @@ TEST(detail_bidi, find_run_sequences_)
 
 TEST(detail_bidi, W1)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     // W1
     {
@@ -332,7 +332,7 @@ TEST(detail_bidi, W1)
 
 TEST(detail_bidi, W2)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     // W2
     {
@@ -448,7 +448,7 @@ TEST(detail_bidi, W2)
 
 TEST(detail_bidi, W4)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     // W4
     {
@@ -593,7 +593,7 @@ TEST(detail_bidi, W4)
 
 TEST(detail_bidi, W5)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     // W5
     {
@@ -784,7 +784,7 @@ TEST(detail_bidi, W5)
 
 TEST(detail_bidi, W6)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     // W6
     {
@@ -984,7 +984,7 @@ TEST(detail_bidi, W6)
 
 TEST(detail_bidi, W7)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     // W7
     {
@@ -1089,7 +1089,7 @@ TEST(detail_bidi, W7)
 
 TEST(detail_bidi, find_bracket_pairs_)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     {
         uint32_t cps[] = {'a', ')', 'b', '(', 'c'};
@@ -1308,7 +1308,7 @@ TEST(detail_bidi, find_bracket_pairs_)
 
 TEST(detail_bidi, n0_)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     {
         uint32_t cps[] = {'A', 'B', '(', 'C', 'D', '[', '&', 'e', 'f', ']', '!', ')', 'g', 'h'};
@@ -1646,7 +1646,7 @@ TEST(detail_bidi, n0_)
 
 TEST(detail_bidi, n1_)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     {
         props_and_embeddings_t<uint32_t *> paes = {
@@ -1872,7 +1872,7 @@ TEST(detail_bidi, n1_)
 
 TEST(detail_bidi, l2_)
 {
-    using namespace boost::text::detail;
+    using namespace boost::text::detail_;
 
     {
         uint32_t cps_[] = {'c', 'a', 'r', ' ', 'm', 'e', 'a', 'n', 's', ' ', 'C', 'A', 'R', '.'};

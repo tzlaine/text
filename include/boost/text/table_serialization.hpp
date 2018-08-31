@@ -5,7 +5,7 @@
 #include <boost/text/detail/serialization.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace unicode_10 {
 
     template<typename CharIter>
     CharIter write_table(collation_table const & table, CharIter out) noexcept;
@@ -25,7 +25,7 @@ namespace boost { namespace text {
     template<typename CharIter>
     read_table_result<CharIter> read_table(CharIter it);
 
-    namespace detail {
+    namespace detail_ {
 
         template<typename CharIter, typename T>
         void read_bytes(CharIter & it, T & x, iterator_tag_t)
@@ -100,6 +100,6 @@ namespace boost { namespace text {
         return read_table_result<CharIter>{std::move(retval), it};
     }
 
-}}
+}}}
 
 #endif

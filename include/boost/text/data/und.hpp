@@ -5,7 +5,7 @@
 #include <boost/text/string_view.hpp>
 
 
-namespace boost { namespace text { namespace data { namespace und {
+namespace boost { namespace text { inline namespace unicode_10 { namespace data { namespace und {
 
 // Note: The ICU version of emoji tailoring starts with:
 // &[before 1]\XFDD1€
@@ -988,6 +988,6 @@ u8R"(
 }
 
 
-}}}}
+}}}}}
 
 #endif

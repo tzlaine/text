@@ -5,7 +5,7 @@
 #include <boost/text/string.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace unicode_10 {
 
     /** Puts the contents of \a s in Unicode normalization form NFD.
         Normalization is not performed if \a s passes a normalization
@@ -13,10 +13,10 @@ namespace boost { namespace text {
     inline void normalize_to_nfd(string & s)
     {
         utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
+        if (detail_::normalized_quick_check(
                 as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfd_code_point(cp);
-                }) == detail::quick_check::yes) {
+                    return detail_::quick_check_nfd_code_point(cp);
+                }) == detail_::quick_check::yes) {
             return;
         }
 
@@ -40,10 +40,10 @@ namespace boost { namespace text {
     inline void normalize_to_nfkd(string & s)
     {
         utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
+        if (detail_::normalized_quick_check(
                 as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfkd_code_point(cp);
-                }) == detail::quick_check::yes) {
+                    return detail_::quick_check_nfkd_code_point(cp);
+                }) == detail_::quick_check::yes) {
             return;
         }
 
@@ -67,10 +67,10 @@ namespace boost { namespace text {
     inline void normalize_to_nfc(string & s)
     {
         utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
+        if (detail_::normalized_quick_check(
                 as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfc_code_point(cp);
-                }) == detail::quick_check::yes) {
+                    return detail_::quick_check_nfc_code_point(cp);
+                }) == detail_::quick_check::yes) {
             return;
         }
 
@@ -94,10 +94,10 @@ namespace boost { namespace text {
     inline void normalize_to_nfkc(string & s)
     {
         utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
+        if (detail_::normalized_quick_check(
                 as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfkc_code_point(cp);
-                }) == detail::quick_check::yes) {
+                    return detail_::quick_check_nfkc_code_point(cp);
+                }) == detail_::quick_check::yes) {
             return;
         }
 
@@ -138,6 +138,6 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-}}
+}}}
 
 #endif

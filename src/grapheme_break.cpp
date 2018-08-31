@@ -9,7 +9,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
 
 std::array<grapheme_prop_interval, 3> const & make_grapheme_prop_intervals()
 {
@@ -3142,10 +3142,10 @@ container::small_vector<unsigned char, 256> buf;
 std::copy(
     compressed.begin(),
     compressed.end(),
-    lzw_to_break_prop_iter<grapheme_property>(retval, buf));
+    detail::lzw_to_break_prop_iter<grapheme_property>(retval, buf));
 BOOST_ASSERT(buf.empty());
 BOOST_ASSERT(retval.size() == 13992);
 return retval;
 }
 
-}}}
+}}}}

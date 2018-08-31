@@ -72,7 +72,7 @@ int main()
         for (; it != end; ++it) {
             char const * const str_begin = *it;
             char const * const str_end = str_begin + strlen(str_begin);
-            auto const lines_and_tokens = boost::text::detail::lex(
+            auto const lines_and_tokens = boost::text::detail_::lex(
                 str_begin,
                 str_end,
                 [](boost::text::string const & s) { std::cout << s << "\n"; },
@@ -93,7 +93,7 @@ int main()
             char const * const str_begin = *it;
             char const * const str_end = str_begin + strlen(str_begin);
             try {
-                auto const lines_and_tokens = boost::text::detail::lex(
+                auto const lines_and_tokens = boost::text::detail_::lex(
                     str_begin,
                     str_end,
                     [](boost::text::string const & s) {
@@ -114,7 +114,7 @@ int main()
 
     {
         boost::text::string_view sv = "a-b";
-        auto const lines_and_tokens = boost::text::detail::lex(
+        auto const lines_and_tokens = boost::text::detail_::lex(
             sv.begin(),
             sv.end(),
             [](boost::text::string const & s) { std::cout << s << "\n"; },
@@ -129,7 +129,7 @@ int main()
 
     {
         boost::text::string_view sv = "'a-b'";
-        auto const lines_and_tokens = boost::text::detail::lex(
+        auto const lines_and_tokens = boost::text::detail_::lex(
             sv.begin(),
             sv.end(),
             [](boost::text::string const & s) { std::cout << s << "\n"; },
@@ -144,7 +144,7 @@ int main()
 
     {
         boost::text::string_view sv = "a\\-b";
-        auto const lines_and_tokens = boost::text::detail::lex(
+        auto const lines_and_tokens = boost::text::detail_::lex(
             sv.begin(),
             sv.end(),
             [](boost::text::string const & s) { std::cout << s << "\n"; },

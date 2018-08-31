@@ -393,9 +393,9 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename Iter>
-    detail::reverse_iterator<Iter> make_reverse_iterator(Iter it)
+    reverse_iterator<Iter> make_reverse_iterator(Iter it)
     {
-        return detail::reverse_iterator<Iter>(it);
+        return reverse_iterator<Iter>(it);
     }
 
 }}}

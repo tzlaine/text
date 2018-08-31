@@ -11,7 +11,7 @@
 #include <unordered_set>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
 
     template<int Capacity>
     struct code_points
@@ -153,13 +153,13 @@ namespace boost { namespace text { namespace detail {
     {
         static std::unordered_multimap<uint32_t, uint32_t> retval;
         if (retval.empty()) {
-            auto const & map = detail::cp_props_map();
+            auto const & map = cp_props_map();
             for (auto const & pair : map) {
                 auto const decomp_it =
-                    detail::all_canonical_decompositions_ptr() +
+                    all_canonical_decompositions_ptr() +
                     pair.second.canonical_decomposition_.first_;
                 auto const decomp_end =
-                    detail::all_canonical_decompositions_ptr() +
+                    all_canonical_decompositions_ptr() +
                     pair.second.canonical_decomposition_.last_;
                 if (decomp_it != decomp_end) {
                     retval.insert(
@@ -168,7 +168,7 @@ namespace boost { namespace text { namespace detail {
             }
 
             for (uint32_t cp = 0xAC00, end = 0xD7A3 + 1; cp < end; ++cp) {
-                auto const decomp = detail::decompose_hangul_syllable<4>(cp);
+                auto const decomp = decompose_hangul_syllable<4>(cp);
                 retval.insert(
                     std::pair<uint32_t, uint32_t>(*decomp.begin(), cp));
             }
@@ -181,20 +181,20 @@ namespace boost { namespace text { namespace detail {
     {
         static std::unordered_set<uint32_t> retval;
         if (retval.empty()) {
-            auto const & map = detail::cp_props_map();
+            auto const & map = cp_props_map();
             for (auto const & pair : map) {
                 auto const decomp_it =
-                    detail::all_canonical_decompositions_ptr() +
+                    all_canonical_decompositions_ptr() +
                     pair.second.canonical_decomposition_.first_;
                 auto const decomp_end =
-                    detail::all_canonical_decompositions_ptr() +
+                    all_canonical_decompositions_ptr() +
                     pair.second.canonical_decomposition_.last_;
                 if (2 <= decomp_end - decomp_it)
                     retval.insert(*std::next(decomp_it));
             }
 
             for (uint32_t cp = 0xAC00, end = 0xD7A3 + 1; cp < end; ++cp) {
-                auto const decomp = detail::decompose_hangul_syllable<4>(cp);
+                auto const decomp = decompose_hangul_syllable<4>(cp);
                 if (2 <= decomp.size_)
                     retval.insert(*std::next(decomp.begin()));
             }
@@ -209,10 +209,10 @@ namespace boost { namespace text { namespace detail {
 
     inline canonical_decomposition canonical_decompose(uint32_t cp) noexcept
     {
-        if (detail::hangul_syllable(cp))
-            return detail::decompose_hangul_syllable<4>(cp);
+        if (hangul_syllable(cp))
+            return decompose_hangul_syllable<4>(cp);
 
-        auto const & map = detail::cp_props_map();
+        auto const & map = cp_props_map();
         auto const it = map.find(cp);
         if (it == map.end() || it->second.canonical_decomposition_.last_ ==
                                    it->second.canonical_decomposition_.first_) {
@@ -224,9 +224,9 @@ namespace boost { namespace text { namespace detail {
             it->second.canonical_decomposition_.last_ -
                 it->second.canonical_decomposition_.first_};
         std::copy(
-            detail::all_canonical_decompositions_ptr() +
+            all_canonical_decompositions_ptr() +
                 it->second.canonical_decomposition_.first_,
-            detail::all_canonical_decompositions_ptr() +
+            all_canonical_decompositions_ptr() +
                 it->second.canonical_decomposition_.last_,
             retval.storage_.begin());
 
@@ -235,10 +235,10 @@ namespace boost { namespace text { namespace detail {
 
     inline compatible_decomposition compatible_decompose(uint32_t cp) noexcept
     {
-        if (detail::hangul_syllable(cp))
-            return detail::decompose_hangul_syllable<18>(cp);
+        if (hangul_syllable(cp))
+            return decompose_hangul_syllable<18>(cp);
 
-        auto const & map = detail::cp_props_map();
+        auto const & map = cp_props_map();
         auto const it = map.find(cp);
         if (it == map.end() ||
             it->second.compatible_decomposition_.last_ ==
@@ -251,9 +251,9 @@ namespace boost { namespace text { namespace detail {
             it->second.compatible_decomposition_.last_ -
                 it->second.compatible_decomposition_.first_};
         std::copy(
-            detail::all_compatible_decompositions_ptr() +
+            all_compatible_decompositions_ptr() +
                 it->second.compatible_decomposition_.first_,
-            detail::all_compatible_decompositions_ptr() +
+            all_compatible_decompositions_ptr() +
                 it->second.compatible_decomposition_.last_,
             retval.storage_.begin());
 
@@ -287,8 +287,8 @@ namespace boost { namespace text { namespace detail {
 
     inline uint32_t compose_unblocked(uint32_t cp0, uint32_t cp1) noexcept
     {
-        auto const & map = detail::composition_map();
-        auto const it = map.find(detail::key(cp0, cp1));
+        auto const & map = composition_map();
+        auto const it = map.find(key(cp0, cp1));
         if (it == map.end())
             return 0;
         return it->second;
@@ -296,7 +296,7 @@ namespace boost { namespace text { namespace detail {
 
     inline int ccc(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
+        auto const & map = cp_props_map();
         auto const it = map.find(cp);
         if (it == map.end())
             return 0;
@@ -307,7 +307,7 @@ namespace boost { namespace text { namespace detail {
         sequence in which it is found is normalized NFD. */
     inline quick_check quick_check_nfd_code_point(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
+        auto const & map = cp_props_map();
         auto const it = map.find(cp);
         if (it == map.end())
             return quick_check::yes;
@@ -318,7 +318,7 @@ namespace boost { namespace text { namespace detail {
         sequence in which it is found is normalized NFKD. */
     inline quick_check quick_check_nfkd_code_point(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
+        auto const & map = cp_props_map();
         auto const it = map.find(cp);
         if (it == map.end())
             return quick_check::yes;
@@ -329,7 +329,7 @@ namespace boost { namespace text { namespace detail {
         sequence in which it is found is normalized NFC. */
     inline quick_check quick_check_nfc_code_point(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
+        auto const & map = cp_props_map();
         auto const it = map.find(cp);
         if (it == map.end())
             return quick_check::yes;
@@ -340,7 +340,7 @@ namespace boost { namespace text { namespace detail {
         sequence in which it is found is normalized NFKC. */
     inline quick_check quick_check_nfkc_code_point(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
+        auto const & map = cp_props_map();
         auto const it = map.find(cp);
         if (it == map.end())
             return quick_check::yes;
@@ -353,7 +353,7 @@ namespace boost { namespace text { namespace detail {
         \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */
     inline bool stable_fcc_code_point(uint32_t cp) noexcept
     {
-        auto const & map = detail::cp_props_map();
+        auto const & map = cp_props_map();
         auto const it = map.find(cp);
         if (it == map.end())
             return true;
@@ -387,17 +387,17 @@ namespace boost { namespace text { namespace detail {
                  it += element_bytes) {
                 unsigned char * ptr = &*it;
 
-                uint32_t const cp = bytes_to_cp(ptr);
+                uint32_t const cp = detail::bytes_to_cp(ptr);
                 ptr += 3;
 
                 cp_props props;
-                props.canonical_decomposition_.first_ = bytes_to_uint16_t(ptr);
+                props.canonical_decomposition_.first_ = detail::bytes_to_uint16_t(ptr);
                 ptr += 2;
-                props.canonical_decomposition_.last_ = bytes_to_uint16_t(ptr);
+                props.canonical_decomposition_.last_ = detail::bytes_to_uint16_t(ptr);
                 ptr += 2;
-                props.compatible_decomposition_.first_ = bytes_to_uint16_t(ptr);
+                props.compatible_decomposition_.first_ = detail::bytes_to_uint16_t(ptr);
                 ptr += 2;
-                props.compatible_decomposition_.last_ = bytes_to_uint16_t(ptr);
+                props.compatible_decomposition_.last_ = detail::bytes_to_uint16_t(ptr);
                 ptr += 2;
                 props.ccc_ = *ptr++;
                 unsigned char c = *ptr++;
@@ -421,6 +421,6 @@ namespace boost { namespace text { namespace detail {
         buffer_t * buf_;
     };
 
-}}}
+}}}}
 
 #endif

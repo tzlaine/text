@@ -40,13 +40,13 @@ TEST(break_apis, grapheme_break)
 
     {
         auto const range =
-            boost::text::grapheme(cps.begin(), cps.begin() + 0, cps.end());
+            boost::text::grapheme_at(cps.begin(), cps.begin() + 0, cps.end());
         EXPECT_EQ(range.begin() - cps.begin(), 0);
         EXPECT_EQ(range.end() - cps.begin(), 2);
     }
     // Range API
     {
-        auto const range = boost::text::grapheme(cps, cps.begin() + 0);
+        auto const range = boost::text::grapheme_at(cps, cps.begin() + 0);
         EXPECT_EQ(range.begin() - cps.begin(), 0);
         EXPECT_EQ(range.end() - cps.begin(), 2);
     }
@@ -220,13 +220,13 @@ TEST(break_apis, grapheme_break_sentinel)
     }
 
     {
-        auto const range = boost::text::grapheme(begin, begin, end);
+        auto const range = boost::text::grapheme_at(begin, begin, end);
         EXPECT_EQ(std::distance(begin, range.begin()), 0);
         EXPECT_EQ(std::distance(begin, range.end()), 2);
     }
     // Range API
     {
-        auto const range = boost::text::grapheme(cp_range, begin);
+        auto const range = boost::text::grapheme_at(cp_range, begin);
         EXPECT_EQ(std::distance(begin, range.begin()), 0);
         EXPECT_EQ(std::distance(begin, range.end()), 2);
     }

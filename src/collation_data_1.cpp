@@ -4,7 +4,7 @@
 #include <boost/assert.hpp>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
 
 namespace {
 
@@ -746,7 +746,7 @@ trie_values_()
     {
         auto const & compressed = compressed_trie_keys();
         container::small_vector<unsigned char, 256> buf;
-        lzw_decompress(
+        detail::lzw_decompress(
             compressed.begin(),
             compressed.end(),
             make_lzw_to_trie_key_iter(retval.begin(), buf));
@@ -759,4 +759,4 @@ trie_values_()
         std::copy(values.begin(), values.end(), retval.begin());
     }
 
-}}}
+}}}}

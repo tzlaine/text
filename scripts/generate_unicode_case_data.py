@@ -11,13 +11,13 @@ constants_header_form = '''\
 #include <cstdint>
 
 
-namespace boost {{ namespace text {{ namespace detail {{
+namespace boost {{ namespace text {{ inline namespace unicode_10 {{ namespace detail_ {{
 
     enum class case_condition : uint16_t {{
 {0}
     }};
 
-}}}}}}
+}}}}}}}}
 
 #endif
 '''
@@ -29,7 +29,7 @@ case_impl_file_form = '''\
 #include <boost/text/detail/case_mapping_data.hpp>
 
 
-namespace boost {{ namespace text {{ namespace detail {{
+namespace boost {{ namespace text {{ inline namespace unicode_10 {{ namespace detail_ {{
 
     std::array<uint32_t, {1}> make_case_cps()
     {{
@@ -178,7 +178,7 @@ return {{{{
         return std::unordered_set<uint32_t>(cps.begin(), cps.end());
     }}
 
-}}}}}}
+}}}}}}}}
 '''
 
 def get_case_mappings(unicode_data, special_casing, prop_list, derived_core_props):

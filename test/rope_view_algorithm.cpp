@@ -495,7 +495,7 @@ void do_boyer_moore_search(
             str,
             make_boyer_moore_collation_searcher(
                 substr,
-                detail::coll_search_prev_grapheme_callable{},
+                detail_::coll_search_prev_grapheme_callable{},
                 table,
                 flags));
         EXPECT_EQ(std::distance(str.cbegin(), r.begin()), expected_first)
@@ -528,7 +528,7 @@ void do_boyer_moore_horspool_search(
             str,
             make_boyer_moore_horspool_collation_searcher(
                 substr,
-                detail::coll_search_prev_grapheme_callable{},
+                detail_::coll_search_prev_grapheme_callable{},
                 table,
                 flags));
         EXPECT_EQ(std::distance(str.cbegin(), r.begin()), expected_first)

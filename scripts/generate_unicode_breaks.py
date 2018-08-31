@@ -13,7 +13,7 @@ cpp_file_form = decls = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{ namespace detail {{
+namespace boost {{ namespace text {{ inline namespace unicode_10 {{ namespace detail_ {{
 
 std::array<{0}_interval, {1}> const & make_{0}_intervals()
 {{
@@ -33,13 +33,13 @@ container::small_vector<unsigned char, 256> buf;
 std::copy(
     compressed.begin(),
     compressed.end(),
-    lzw_to_break_prop_iter<{0}erty>(retval, buf));
+    detail::lzw_to_break_prop_iter<{0}erty>(retval, buf));
 BOOST_ASSERT(buf.empty());
 BOOST_ASSERT(retval.size() == {6});
 return retval;
 }}
 
-}}}}}}
+}}}}}}}}
 '''
 
 bidi_header_form = decls = '''\
@@ -55,7 +55,7 @@ bidi_header_form = decls = '''\
 #include <stdint.h>
 
 
-namespace boost {{ namespace text {{ namespace detail {{
+namespace boost {{ namespace text {{ inline namespace unicode_10 {{ namespace detail_ {{
 
 enum class bidi_bracket_type {{
     open,
@@ -117,7 +117,7 @@ inline std::array<uint32_t, {3}> const & bidi_mirroreds() noexcept
     return retval;
 }}
 
-}}}}}}
+}}}}}}}}
 
 #endif
 '''

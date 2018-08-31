@@ -18,7 +18,7 @@
 #endif
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace unicode_10 {
 
     /** A collation sort key.  Consists of a sequence of 32-bit values. */
     struct text_sort_key
@@ -78,7 +78,7 @@ namespace boost { namespace text {
     // The code in this file implements the UCA as described in
     // http://www.unicode.org/reports/tr10/#Main_Algorithm .  The numbering
     // and some variable naming comes from there.
-    namespace detail {
+    namespace detail_ {
 
         // http://www.unicode.org/reports/tr10/#Derived_Collation_Elements
         template<typename OutIter, typename LeadByteFunc>
@@ -86,7 +86,7 @@ namespace boost { namespace text {
             uint32_t cp,
             variable_weighting weighting,
             OutIter out,
-            detail::collation_trie_t const & trie,
+            detail_::collation_trie_t const & trie,
             collation_element const * collation_elements_first,
             LeadByteFunc const & lead_byte,
             collation_strength strength,
@@ -313,7 +313,7 @@ namespace boost { namespace text {
         s2(CPIter first,
            CPIter last,
            CPOutIter out,
-           detail::collation_trie_t const & trie,
+           detail_::collation_trie_t const & trie,
            collation_element const * collation_elements_first,
            LeadByteFunc const & lead_byte,
            collation_strength strength,
@@ -797,7 +797,7 @@ namespace boost { namespace text {
         l2_weight_order l2_order = l2_weight_order::forward)
         -> detail::cp_iter_ret_t<text_sort_key, CPIter>
     {
-        return detail::collation_sort_key(
+        return detail_::collation_sort_key(
             first,
             last,
             strength,
@@ -819,14 +819,14 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags) -> detail::cp_iter_ret_t<text_sort_key, CPIter>
     {
-        return detail::collation_sort_key(
+        return detail_::collation_sort_key(
             first,
             last,
-            detail::to_strength(flags),
-            detail::to_case_first(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags),
-            detail::to_l2_order(flags),
+            detail_::to_strength(flags),
+            detail_::to_case_first(flags),
+            detail_::to_case_level(flags),
+            detail_::to_weighting(flags),
+            detail_::to_l2_order(flags),
             table);
     }
 
@@ -842,11 +842,11 @@ namespace boost { namespace text {
             std::begin(r),
             std::end(r),
             table,
-            detail::to_strength(flags),
-            detail::to_case_first(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags),
-            detail::to_l2_order(flags));
+            detail_::to_strength(flags),
+            detail_::to_case_first(flags),
+            detail_::to_case_level(flags),
+            detail_::to_weighting(flags),
+            detail_::to_l2_order(flags));
     }
 
 
@@ -873,7 +873,7 @@ namespace boost { namespace text {
         l2_weight_order l2_order = l2_weight_order::forward)
         -> detail::cp_iter_ret_t<int, CPIter1>
     {
-        return detail::collate(
+        return detail_::collate(
             lhs_first,
             lhs_last,
             rhs_first,
@@ -904,16 +904,16 @@ namespace boost { namespace text {
         collation_table const & table,
         collation_flags flags) -> detail::cp_iter_ret_t<int, CPIter1>
     {
-        return detail::collate(
+        return detail_::collate(
             lhs_first,
             lhs_last,
             rhs_first,
             rhs_last,
-            detail::to_strength(flags),
-            detail::to_case_first(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags),
-            detail::to_l2_order(flags),
+            detail_::to_strength(flags),
+            detail_::to_case_first(flags),
+            detail_::to_case_level(flags),
+            detail_::to_weighting(flags),
+            detail_::to_l2_order(flags),
             table);
     }
 
@@ -934,18 +934,18 @@ namespace boost { namespace text {
             std::begin(r2),
             std::end(r2),
             table,
-            detail::to_strength(flags),
-            detail::to_case_first(flags),
-            detail::to_case_level(flags),
-            detail::to_weighting(flags),
-            detail::to_l2_order(flags));
+            detail_::to_strength(flags),
+            detail_::to_case_first(flags),
+            detail_::to_case_level(flags),
+            detail_::to_weighting(flags),
+            detail_::to_l2_order(flags));
     }
 
-}}
+}}}
 
 #include <boost/text/collation_table.hpp>
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
 
     template<typename CPIter, typename Sentinel>
     auto collation_sort_key(
@@ -1029,6 +1029,6 @@ namespace boost { namespace text { namespace detail {
         return text_sort_key(std::move(bytes));
     }
 
-}}}
+}}}}
 
 #endif

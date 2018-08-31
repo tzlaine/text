@@ -9,7 +9,7 @@
 #include <cstdint>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
 
     enum collation_constants : uint32_t {
         min_variable_collation_weight = 0x03040000,
@@ -82,6 +82,6 @@ namespace boost { namespace text { namespace detail {
     BOOST_TEXT_DECL std::array<implicit_weights_segment, 10>
     make_implicit_weights_segments();
 
-}}}
+}}}}
 
 #endif

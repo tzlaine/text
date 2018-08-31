@@ -22,7 +22,7 @@ constants_header_form = '''\
 #include <cstdint>
 
 
-namespace boost {{ namespace text {{ namespace detail {{
+namespace boost {{ namespace text {{ inline namespace unicode_10 {{ namespace detail_ {{
 
     enum collation_constants : uint32_t {{
         min_variable_collation_weight = 0x03040000,
@@ -95,7 +95,7 @@ namespace boost {{ namespace text {{ namespace detail {{
     BOOST_TEXT_DECL extern std::array<implicit_weights_segment, 10>
     make_implicit_weights_segments();
 
-}}}}}}
+}}}}}}}}
 
 #endif
 '''
@@ -110,7 +110,7 @@ collation_data_0_file_form = '''\
 #include <unordered_map>
 
 
-namespace boost {{ namespace text {{ namespace detail {{
+namespace boost {{ namespace text {{ inline namespace unicode_10 {{ namespace detail_ {{
 
 std::array<implicit_weights_segment, {1}> make_implicit_weights_segments()
 {{
@@ -155,14 +155,14 @@ void make_collation_elements(std::array<collation_element, {6}> & retval)
 {{
 container::small_vector<unsigned char, 256> buf;
 auto const & compressed = compressed_collation_elements();
-lzw_decompress(
+detail::lzw_decompress(
     compressed.begin(),
     compressed.end(),
     make_lzw_to_coll_elem_iter(retval.begin(), buf));
 BOOST_ASSERT(buf.empty());
 }}
 
-}}}}}}
+}}}}}}}}
 '''
 
 trie_file_form = '''\
@@ -172,7 +172,7 @@ trie_file_form = '''\
 #include <boost/assert.hpp>
 
 
-namespace boost {{ namespace text {{ namespace detail {{
+namespace boost {{ namespace text {{ inline namespace unicode_10 {{ namespace detail_ {{
 
 namespace {{
 
@@ -224,7 +224,7 @@ trie_values_()
     {{
         auto const & compressed = compressed_trie_keys();
         container::small_vector<unsigned char, 256> buf;
-        lzw_decompress(
+        detail::lzw_decompress(
             compressed.begin(),
             compressed.end(),
             make_lzw_to_trie_key_iter(retval.begin(), buf));
@@ -237,7 +237,7 @@ trie_values_()
         std::copy(values.begin(), values.end(), retval.begin());
     }}
 
-}}}}}}
+}}}}}}}}
 '''
 
 def ccc(cccs_dict, cp):

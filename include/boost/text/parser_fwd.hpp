@@ -11,7 +11,7 @@
 #include <functional>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace unicode_10 {
 
     /** The type of callback used to report errors and warnings encountered
         during parsing. */
@@ -46,7 +46,7 @@ namespace boost { namespace text {
         int column_;
     };
 
-    namespace detail {
+    namespace detail_ {
         enum class token_kind {
             primary_before = static_cast<int>(collation_strength::primary),
             secondary_before = static_cast<int>(collation_strength::secondary),
@@ -167,6 +167,6 @@ namespace boost { namespace text {
             string_view filename);
     }
 
-}}
+}}}
 
 #endif

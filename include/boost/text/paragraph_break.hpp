@@ -5,9 +5,9 @@
 #include <boost/text/lazy_segment_range.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace unicode_10 {
 
-    namespace detail {
+    namespace detail_ {
         // The logic below is derived from Bidi_Class=Paragraph_Separator in
         // DerivedBidiClass.txt.
         inline bool paragraph_break(uint32_t cp)
@@ -33,7 +33,7 @@ namespace boost { namespace text {
         // CRLF special case.
         if (it != first && it != last && *std::prev(it) == 0xd && *it == 0xa)
             --it;
-        auto prev_it = find_if_backward(first, it, detail::paragraph_break);
+        auto prev_it = find_if_backward(first, it, detail_::paragraph_break);
         if (prev_it == it)
             return first;
         return ++prev_it;
@@ -50,7 +50,7 @@ namespace boost { namespace text {
     {
         if (first == last)
             return first;
-        first = find_if(std::next(first), last, detail::paragraph_break);
+        first = find_if(std::next(first), last, detail_::paragraph_break);
         if (first == last)
             return first;
         // Eat LF after CR.
@@ -125,7 +125,7 @@ namespace boost { namespace text {
                 range.end().base()};
     }
 
-    namespace detail {
+    namespace detail_ {
         template<typename CPIter, typename Sentinel>
         struct next_paragraph_callable
         {
@@ -190,10 +190,10 @@ namespace boost { namespace text {
     lazy_segment_range<
         CPIter,
         Sentinel,
-        detail::next_paragraph_callable<CPIter, Sentinel>>
+        detail_::next_paragraph_callable<CPIter, Sentinel>>
     paragraphs(CPIter first, Sentinel last) noexcept
     {
-        detail::next_paragraph_callable<CPIter, Sentinel> next;
+        detail_::next_paragraph_callable<CPIter, Sentinel> next;
         return {std::move(next), {first, last}, {last}};
     }
 
@@ -204,12 +204,12 @@ namespace boost { namespace text {
         lazy_segment_range<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
-            detail::next_paragraph_callable<
+            detail_::next_paragraph_callable<
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>>>,
         CPRange>
     {
-        detail::next_paragraph_callable<
+        detail_::next_paragraph_callable<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>
             next;
@@ -226,14 +226,14 @@ namespace boost { namespace text {
             lazy_segment_range<
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
-                detail::next_paragraph_callable<
+                detail_::next_paragraph_callable<
                     decltype(range.begin().base()),
                     decltype(range.begin().base())>,
                 grapheme_range<decltype(range.begin().base())>>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        detail::next_paragraph_callable<cp_iter_t, cp_iter_t> next;
+        detail_::next_paragraph_callable<cp_iter_t, cp_iter_t> next;
         return {std::move(next),
                 {range.begin().base(), range.end().base()},
                 {range.end().base()}};
@@ -245,13 +245,13 @@ namespace boost { namespace text {
     lazy_segment_range<
         CPIter,
         CPIter,
-        detail::prev_paragraph_callable<CPIter>,
+        detail_::prev_paragraph_callable<CPIter>,
         cp_range<CPIter>,
         detail::const_reverse_lazy_segment_iterator,
         true>
     reversed_paragraphs(CPIter first, CPIter last) noexcept
     {
-        detail::prev_paragraph_callable<CPIter> prev;
+        detail_::prev_paragraph_callable<CPIter> prev;
         return {std::move(prev), {first, last, last}, {first, first, last}};
     }
 
@@ -263,13 +263,13 @@ namespace boost { namespace text {
             lazy_segment_range<
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>,
-                detail::prev_paragraph_callable<detail::iterator_t<CPRange>>,
+                detail_::prev_paragraph_callable<detail::iterator_t<CPRange>>,
                 cp_range<detail::iterator_t<CPRange>>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             CPRange>
     {
-        detail::prev_paragraph_callable<detail::iterator_t<CPRange>> prev;
+        detail_::prev_paragraph_callable<detail::iterator_t<CPRange>> prev;
         return {std::move(prev),
                 {std::begin(range), std::end(range), std::end(range)},
                 {std::begin(range), std::begin(range), std::end(range)}};
@@ -283,20 +283,20 @@ namespace boost { namespace text {
             lazy_segment_range<
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
-                detail::prev_paragraph_callable<decltype(range.begin().base())>,
+                detail_::prev_paragraph_callable<decltype(range.begin().base())>,
                 grapheme_range<decltype(range.begin().base())>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        detail::prev_paragraph_callable<cp_iter_t> prev;
+        detail_::prev_paragraph_callable<cp_iter_t> prev;
         return {
             std::move(prev),
             {range.begin().base(), range.end().base(), range.end().base()},
             {range.begin().base(), range.begin().base(), range.end().base()}};
     }
 
-}}
+    }}}
 
 #endif

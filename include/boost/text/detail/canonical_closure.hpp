@@ -8,7 +8,7 @@
 #include <algorithm>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
 
     inline bool appears_at_noninitial_position_of_decomp(uint32_t cp) noexcept
     {
@@ -24,17 +24,6 @@ namespace boost { namespace text { namespace detail {
         boost::container::small_vector<canonical_closure_string_t, 8>;
     using canonical_closure_subsegments_t = boost::container::
         small_vector<canonical_closure_subsegments_elem_t, 32>;
-
-#if 0
-        template<typename Seq>
-        void dump_(Seq s)
-        {
-            for (auto cp : s) {
-                std::cout << std::hex << std::setw(4) << std::setfill('0') << cp
-                          << " ";
-            }
-        }
-#endif
 
     inline bool canonical_closure_starter(uint32_t cp) noexcept
     {
@@ -283,6 +272,6 @@ namespace boost { namespace text { namespace detail {
         return canonical_closure_combinations(segment_results, total, out);
     }
 
-}}}
+}}}}
 
 #endif

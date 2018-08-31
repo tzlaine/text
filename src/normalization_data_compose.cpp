@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
 
     namespace {
         struct data_t { uint64_t key_; uint32_t value_; };
@@ -966,4 +966,4 @@ namespace boost { namespace text { namespace detail {
         return retval;
     }
 
-}}}
+}}}}

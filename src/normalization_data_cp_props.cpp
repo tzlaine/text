@@ -8,7 +8,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
 
     std::array<uint32_t, 3404> make_all_canonical_decompositions()
     {
@@ -17171,7 +17171,7 @@ return {{
         std::unordered_map<uint32_t, cp_props> retval;
         container::small_vector<unsigned char, 256> buf;
         auto const & compressed = data();
-        lzw_decompress(
+        detail::lzw_decompress(
             compressed.begin(),
             compressed.end(),
             lzw_to_cp_props_iter(retval, buf));
@@ -17180,4 +17180,4 @@ return {{
         return retval;
     }
 
-}}}
+}}}}
