@@ -6,7 +6,7 @@ import shutil
 import os
 
 parser = argparse.ArgumentParser(description='Downloads data files necessary for building Boost.Text\'s Unicode data, and generates those data.')
-parser.add_argument('unicode_version', type=str, help='The X.Y.Z Unicode version from which the data should be generated.  Available versions can be viewed at https://www.unicode.org/Public .')
+parser.add_argument('unicode_version', type=str, help='The X[.Y[.Z]] Unicode version from which the data should be generated.  Available versions can be viewed at https://www.unicode.org/Public .')
 parser.add_argument('cldr_version', type=str, help='The X[.Y[.Z]] CLDR version from which the data should be generated.  Available versions can be viewed at https://www.unicode.org/Public/cldr .')
 parser.add_argument('--icu-dir', type=str, default='', help='The path to icu4c/source/data/coll containing ICU\'s tailoring data.  Without this, the include/boost/text/data headers will not be generated.')
 parser.add_argument('--tests', action='store_true', help='Generate the test files associated with the generated Unicode data.')
@@ -138,3 +138,35 @@ print 'Generating text collation data.'
 os.system('./generate_unicode_collation_data.py')
 print 'Generating text case mapping data.'
 os.system('./generate_unicode_case_data.py')
+
+
+print 'Generating version file.'
+
+def version_element(s):
+    elements = s.split('.')
+    if len(elements) < 2:
+        elements.append('0')
+    if len(elements) < 3:
+        elements.append('0')
+    return elements
+
+unicode_major, unicode_minor, unicode_patch = version_element(args.unicode_version)
+cldr_major, cldr_minor, cldr_patch = version_element(args.cldr_version)
+
+version_cpp_form = '''\
+#include <boost/text/data_versions.hpp>
+
+
+namespace boost {{ namespace text {{
+
+    library_version unicode_version() {{ return {{ {}, {}, {} }}; }}
+
+    library_version cldr_version() {{ return {{ {}, {}, {} }}; }}
+
+}}}}
+'''
+
+open('data_versions.cpp', 'w').write(version_cpp_form.format(
+    unicode_major, unicode_minor, unicode_patch,
+    cldr_major, cldr_minor, cldr_patch
+))
