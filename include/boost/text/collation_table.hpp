@@ -22,9 +22,9 @@ namespace boost { namespace filesystem {
     class path;
 }}
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
-    namespace detail_ {
+    namespace detail {
 
         struct nonsimple_script_reorder
         {
@@ -57,7 +57,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
             auto const it = std::find_if(
                 nonsimple_reorders.begin(),
                 nonsimple_reorders.end(),
-                [cce](detail_::nonsimple_script_reorder reorder) {
+                [cce](detail::nonsimple_script_reorder reorder) {
                     return reorder.first_ <= cce && cce < reorder.last_;
                 });
             if (it != nonsimple_reorders.end())
@@ -174,10 +174,10 @@ namespace boost { namespace text { inline namespace unicode_10 {
 
         inline void add_temp_tailoring(
             collation_table_data & table,
-            detail_::cp_seq_t const & cps,
-            detail_::temp_table_element::ces_t const & ces)
+            detail::cp_seq_t const & cps,
+            detail::temp_table_element::ces_t const & ces)
         {
-            detail_::collation_elements value{
+            detail::collation_elements value{
                 static_cast<uint16_t>(table.collation_element_vec_.size())};
             table.collation_element_vec_.insert(
                 table.collation_element_vec_.end(), ces.begin(), ces.end());
@@ -278,10 +278,10 @@ namespace boost { namespace text { inline namespace unicode_10 {
 
     private:
         collation_table() :
-            data_(std::make_shared<detail_::collation_table_data>())
+            data_(std::make_shared<detail::collation_table_data>())
         {}
 
-        detail_::collation_element const * collation_elements_begin() const
+        detail::collation_element const * collation_elements_begin() const
             noexcept
         {
             return data_->collation_elements_
@@ -289,7 +289,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                        : &data_->collation_element_vec_[0];
         }
 
-        std::shared_ptr<detail_::collation_table_data> data_;
+        std::shared_ptr<detail::collation_table_data> data_;
 
         friend collation_table default_collation_table();
 
@@ -331,11 +331,11 @@ namespace boost { namespace text { inline namespace unicode_10 {
 
         collation_compare(collation_table table, collation_flags flags) :
             table_(std::move(table)),
-            strength_(detail_::to_strength(flags)),
-            case_first_(detail_::to_case_first(flags)),
-            case_level_(detail_::to_case_level(flags)),
-            weighting_(detail_::to_weighting(flags)),
-            l2_order_(detail_::to_l2_order(flags))
+            strength_(detail::to_strength(flags)),
+            case_first_(detail::to_case_first(flags)),
+            case_level_(detail::to_case_level(flags)),
+            weighting_(detail::to_weighting(flags)),
+            l2_order_(detail::to_l2_order(flags))
         {}
 
         template<typename CPRange1, typename CPRange2>
@@ -350,7 +350,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         l2_weight_order l2_order_;
     };
 
-    namespace detail_ {
+    namespace detail {
         inline temp_table_t make_temp_table()
         {
             temp_table_t retval;
@@ -898,11 +898,11 @@ namespace boost { namespace text { inline namespace unicode_10 {
         {
             temp_table_element::ces_t reset_ces;
             if (reset.size() == 1u &&
-                detail_::first_tertiary_ignorable <= reset[0] &&
-                reset[0] <= detail_::first_implicit) {
+                detail::first_tertiary_ignorable <= reset[0] &&
+                reset[0] <= detail::first_implicit) {
                 reset_ces = logical_positions[reset[0]];
             } else {
-                reset_ces = detail_::get_ces(reset, table);
+                reset_ces = detail::get_ces(reset, table);
             }
 
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
@@ -1145,17 +1145,17 @@ namespace boost { namespace text { inline namespace unicode_10 {
             }
 
             boost::container::
-                small_vector<detail_::canonical_closure_string_t, 64>
+                small_vector<detail::canonical_closure_string_t, 64>
                     relation_closure;
 #define DO_CANONICAL_CLOSURE 0
 #if DO_CANONICAL_CLOSURE
-            detail_::canonical_closure(
+            detail::canonical_closure(
                 relation.begin(),
                 relation.end(),
                 std::back_inserter(relation_closure));
 
             for (auto & rel : relation_closure) {
-                detail_::canonical_closure_string_t str;
+                detail::canonical_closure_string_t str;
                 normalize_to_fcc(rel, std::back_inserter(str));
                 rel = std::move(str);
             }
@@ -1208,13 +1208,13 @@ namespace boost { namespace text { inline namespace unicode_10 {
             suppress_impl(table, first_cp_subseq, true);
         }
     }
-}}}
+}}
 
 namespace std {
     template<>
-    struct hash<boost::text::detail_::temp_table_element::ces_t>
+    struct hash<boost::text::detail::temp_table_element::ces_t>
     {
-        using argument_type = boost::text::detail_::temp_table_element::ces_t;
+        using argument_type = boost::text::detail::temp_table_element::ces_t;
         using result_type = std::size_t;
         result_type operator()(argument_type const & ces) const noexcept
         {
@@ -1235,9 +1235,9 @@ namespace std {
     };
 }
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
-    namespace detail_ {
+    namespace detail {
 
         struct cp_rng
         {
@@ -1286,8 +1286,8 @@ namespace boost { namespace text { inline namespace unicode_10 {
     inline collation_table default_collation_table()
     {
         collation_table retval;
-        retval.data_->collation_elements_ = detail_::collation_elements_ptr();
-        retval.data_->trie_ = detail_::make_default_trie();
+        retval.data_->collation_elements_ = detail::collation_elements_ptr();
+        retval.data_->trie_ = detail::make_default_trie();
         return retval;
     }
 
@@ -1309,11 +1309,11 @@ namespace boost { namespace text { inline namespace unicode_10 {
         parser_diagnostic_callback report_warnings =
             parser_diagnostic_callback());
 
-}}}
+}}
 
 #include <boost/text/collate.hpp>
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
     inline collation_compare collation_table::compare(
         collation_strength strength,
@@ -1351,16 +1351,16 @@ namespace boost { namespace text { inline namespace unicode_10 {
             case_lvl = *data_->case_level_;
         auto const retain_case_bits =
             case_1st != case_first::off || case_lvl != case_level::off
-                ? detail_::retain_case_bits_t::yes
-                : detail_::retain_case_bits_t::no;
-        return detail_::s2(
+                ? detail::retain_case_bits_t::yes
+                : detail::retain_case_bits_t::no;
+        return detail::s2(
             first,
             last,
             out,
             data_->trie_,
             collation_elements_begin(),
-            [&](detail_::collation_element ce) {
-                return detail_::lead_byte(
+            [&](detail::collation_element ce) {
+                return detail::lead_byte(
                     ce, data_->nonsimple_reorders_, data_->simple_reorders_);
             },
             strength,
@@ -1392,85 +1392,85 @@ namespace boost { namespace text { inline namespace unicode_10 {
         parser_diagnostic_callback report_errors,
         parser_diagnostic_callback report_warnings)
     {
-        detail_::temp_table_t temp_table = detail_::make_temp_table();
+        detail::temp_table_t temp_table = detail::make_temp_table();
 
         collation_table table;
-        table.data_->trie_ = detail_::make_default_trie();
+        table.data_->trie_ = detail::make_default_trie();
         table.data_->collation_element_vec_.assign(
-            detail_::collation_elements_ptr(),
-            detail_::collation_elements_ptr() +
-                detail_::collation_elements_().size());
+            detail::collation_elements_ptr(),
+            detail::collation_elements_ptr() +
+                detail::collation_elements_().size());
 
         uint32_t const symbol_lookup[] = {
-            detail_::initial_first_tertiary_ignorable,
-            detail_::initial_last_tertiary_ignorable,
-            detail_::initial_first_secondary_ignorable,
-            detail_::initial_last_secondary_ignorable,
-            detail_::initial_first_primary_ignorable,
-            detail_::initial_last_primary_ignorable,
-            detail_::initial_first_variable,
-            detail_::initial_last_variable,
-            detail_::initial_first_regular,
-            detail_::initial_last_regular,
-            detail_::initial_first_implicit,
-            detail_::initial_first_trailing};
+            detail::initial_first_tertiary_ignorable,
+            detail::initial_last_tertiary_ignorable,
+            detail::initial_first_secondary_ignorable,
+            detail::initial_last_secondary_ignorable,
+            detail::initial_first_primary_ignorable,
+            detail::initial_last_primary_ignorable,
+            detail::initial_first_variable,
+            detail::initial_last_variable,
+            detail::initial_first_regular,
+            detail::initial_last_regular,
+            detail::initial_first_implicit,
+            detail::initial_first_trailing};
 
-        detail_::logical_positions_t logical_positions;
+        detail::logical_positions_t logical_positions;
         {
             auto lookup_and_assign = [&](uint32_t symbol) {
                 auto const cp =
-                    symbol_lookup[symbol - detail_::first_tertiary_ignorable];
-                auto const elems = table.data_->trie_[detail_::cp_rng{cp}];
+                    symbol_lookup[symbol - detail::first_tertiary_ignorable];
+                auto const elems = table.data_->trie_[detail::cp_rng{cp}];
                 logical_positions[symbol].assign(
-                    elems->begin(detail_::collation_elements_ptr()),
-                    elems->end(detail_::collation_elements_ptr()));
+                    elems->begin(detail::collation_elements_ptr()),
+                    elems->end(detail::collation_elements_ptr()));
             };
-            lookup_and_assign(detail_::first_tertiary_ignorable);
-            lookup_and_assign(detail_::last_tertiary_ignorable);
+            lookup_and_assign(detail::first_tertiary_ignorable);
+            lookup_and_assign(detail::last_tertiary_ignorable);
             // These magic numbers come from "{first,last} secondary ignorable"
             // in FractionalUCA.txt.
-            logical_positions[detail_::first_secondary_ignorable].push_back(
-                detail_::collation_element{0, 0, 0x3d02, 0});
-            logical_positions[detail_::last_secondary_ignorable].push_back(
-                detail_::collation_element{0, 0, 0x3d02, 0});
-            lookup_and_assign(detail_::first_primary_ignorable);
-            lookup_and_assign(detail_::last_primary_ignorable);
-            lookup_and_assign(detail_::first_variable);
-            lookup_and_assign(detail_::last_variable);
-            lookup_and_assign(detail_::first_regular);
-            lookup_and_assign(detail_::last_regular);
+            logical_positions[detail::first_secondary_ignorable].push_back(
+                detail::collation_element{0, 0, 0x3d02, 0});
+            logical_positions[detail::last_secondary_ignorable].push_back(
+                detail::collation_element{0, 0, 0x3d02, 0});
+            lookup_and_assign(detail::first_primary_ignorable);
+            lookup_and_assign(detail::last_primary_ignorable);
+            lookup_and_assign(detail::first_variable);
+            lookup_and_assign(detail::last_variable);
+            lookup_and_assign(detail::first_regular);
+            lookup_and_assign(detail::last_regular);
 
-            detail_::add_derived_elements(
+            detail::add_derived_elements(
                 symbol_lookup
-                    [detail_::first_implicit - detail_::first_tertiary_ignorable],
+                    [detail::first_implicit - detail::first_tertiary_ignorable],
                 variable_weighting::non_ignorable,
-                std::back_inserter(logical_positions[detail_::first_implicit]),
+                std::back_inserter(logical_positions[detail::first_implicit]),
                 table.data_->trie_,
                 table.collation_elements_begin(),
-                [&table](detail_::collation_element ce) {
-                    return detail_::lead_byte(
+                [&table](detail::collation_element ce) {
+                    return detail::lead_byte(
                         ce,
                         table.data_->nonsimple_reorders_,
                         table.data_->simple_reorders_);
                 },
                 collation_strength::tertiary,
-                detail_::retain_case_bits_t::yes);
+                detail::retain_case_bits_t::yes);
 
-            lookup_and_assign(detail_::first_trailing);
+            lookup_and_assign(detail::first_trailing);
         }
 
-        detail_::tailoring_state_t tailoring_state;
+        detail::tailoring_state_t tailoring_state;
 
-        detail_::cp_seq_t curr_reset;
+        detail::cp_seq_t curr_reset;
         bool reset_is_before = false;
 
-        detail_::collation_tailoring_interface callbacks = {
-            [&](detail_::cp_seq_t const & reset, bool before) {
+        detail::collation_tailoring_interface callbacks = {
+            [&](detail::cp_seq_t const & reset, bool before) {
                 curr_reset = reset;
                 reset_is_before = before;
             },
-            [&](detail_::relation_t const & rel) {
-                detail_::modify_table(
+            [&](detail::relation_t const & rel) {
+                detail::modify_table(
                     *table.data_,
                     temp_table,
                     logical_positions,
@@ -1497,27 +1497,27 @@ namespace boost { namespace text { inline namespace unicode_10 {
             },
             [&](case_level cl) { table.data_->case_level_ = cl; },
             [&](case_first cf) { table.data_->case_first_ = cf; },
-            [&](detail_::cp_seq_t const & suppressions_) {
+            [&](detail::cp_seq_t const & suppressions_) {
                 for (auto cp : suppressions_) {
-                    detail_::suppress(*table.data_, cp);
+                    detail::suppress(*table.data_, cp);
                 }
             },
-            [&](std::vector<detail_::reorder_group> const & reorder_groups) {
+            [&](std::vector<detail::reorder_group> const & reorder_groups) {
                 uint32_t curr_reorder_lead_byte =
-                    (detail_::reorder_groups()[0].first_.l1_ & 0xff000000) -
+                    (detail::reorder_groups()[0].first_.l1_ & 0xff000000) -
                     0x01000000;
                 bool prev_group_compressible = false;
-                detail_::collation_element prev_group_first = {
+                detail::collation_element prev_group_first = {
                     0xffffffff, 0, 0, 0};
-                detail_::collation_element prev_group_last = {
+                detail::collation_element prev_group_last = {
                     0xffffffff, 0, 0, 0};
                 bool first = true;
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
                 std::cerr << std::hex;
 #endif
-                auto compressible = [](detail_::collation_element prev_first,
-                                       detail_::collation_element prev_last,
-                                       detail_::collation_element curr_first) {
+                auto compressible = [](detail::collation_element prev_first,
+                                       detail::collation_element prev_last,
+                                       detail::collation_element curr_first) {
                     // The end of the previous group must stay in the same
                     // lead byte as the beginning of that group.
                     if ((prev_first.l1_ & 0xff000000) !=
@@ -1546,7 +1546,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                         curr_reorder_lead_byte += 0x01000000;
                     }
 
-                    if ((detail_::implicit_weights_final_lead_byte << 24) <
+                    if ((detail::implicit_weights_final_lead_byte << 24) <
                         curr_reorder_lead_byte) {
                         boost::throw_exception(tailoring_error(
                             "It was not possible to tailor the "
@@ -1564,7 +1564,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                         for (uint32_t byte = group_first,
                                       end = group.last_.l1_ & 0xff000000;
                              byte < end &&
-                             byte < (detail_::implicit_weights_final_lead_byte
+                             byte < (detail::implicit_weights_final_lead_byte
                                      << 24);
                              byte += 0x01000000) {
                             table.data_->simple_reorders_[byte >> 24] =
@@ -1580,7 +1580,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                         curr_reorder_lead_byte -= 0x01000000;
                     } else {
                         table.data_->nonsimple_reorders_.push_back(
-                            detail_::nonsimple_script_reorder{
+                            detail::nonsimple_script_reorder{
                                 group.first_,
                                 group.last_,
                                 curr_reorder_lead_byte >> 24});
@@ -1607,13 +1607,13 @@ namespace boost { namespace text { inline namespace unicode_10 {
             report_errors,
             report_warnings};
 
-        detail_::parse(
+        detail::parse(
             tailoring.begin(), tailoring.end(), callbacks, tailoring_filename);
 
         for (auto & ce : table.data_->collation_element_vec_) {
-            ce.l1_ = detail_::replace_lead_byte(
+            ce.l1_ = detail::replace_lead_byte(
                 ce.l1_,
-                detail_::lead_byte(
+                detail::lead_byte(
                     ce,
                     table.data_->nonsimple_reorders_,
                     table.data_->simple_reorders_));
@@ -1622,7 +1622,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         return table;
     }
 
-    namespace detail_ {
+    namespace detail {
 
         inline bool less(
             temp_table_element::ces_t const & lhs,
@@ -1676,20 +1676,20 @@ namespace boost { namespace text { inline namespace unicode_10 {
         {
             temp_table_element::ces_t retval;
 
-            detail_::s2(
+            detail::s2(
                 cps.begin(),
                 cps.end(),
                 std::back_inserter(retval),
                 table.trie_,
                 table.collation_elements_ ? table.collation_elements_
                                           : &table.collation_element_vec_[0],
-                [&table](detail_::collation_element ce) {
-                    return detail_::lead_byte(
+                [&table](detail::collation_element ce) {
+                    return detail::lead_byte(
                         ce, table.nonsimple_reorders_, table.simple_reorders_);
                 },
                 collation_strength::tertiary,
                 variable_weighting::non_ignorable,
-                detail_::retain_case_bits_t::yes);
+                detail::retain_case_bits_t::yes);
 
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
             {
@@ -1717,6 +1717,6 @@ namespace boost { namespace text { inline namespace unicode_10 {
         }
     }
 
-}}}
+}}
 
 #endif

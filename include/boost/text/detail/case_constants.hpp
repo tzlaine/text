@@ -7,7 +7,7 @@
 #include <cstdint>
 
 
-namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
+namespace boost { namespace text { namespace detail {
 
     enum class case_condition : uint16_t {
         After_I = 1,
@@ -20,6 +20,6 @@ namespace boost { namespace text { inline namespace unicode_10 { namespace detai
         tr = 128,
     };
 
-}}}}
+}}}
 
 #endif

@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
     /** The grapheme properties outlined in Unicode 10. */
     enum class grapheme_property {
@@ -37,7 +37,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         E_Base_GAZ
     };
 
-    namespace detail_ {
+    namespace detail {
         struct grapheme_prop_interval
         {
             uint32_t lo_;
@@ -60,15 +60,15 @@ namespace boost { namespace text { inline namespace unicode_10 {
     /** Returns the grapheme property associated with code point \a cp. */
     inline grapheme_property grapheme_prop(uint32_t cp) noexcept
     {
-        static auto const map = detail_::make_grapheme_prop_map();
-        static auto const intervals = detail_::make_grapheme_prop_intervals();
+        static auto const map = detail::make_grapheme_prop_map();
+        static auto const intervals = detail::make_grapheme_prop_intervals();
 
         auto const it = map.find(cp);
         if (it == map.end()) {
             auto const it2 = std::lower_bound(
                 intervals.begin(),
                 intervals.end(),
-                detail_::grapheme_prop_interval{cp, cp + 1});
+                detail::grapheme_prop_interval{cp, cp + 1});
             if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
                 return grapheme_property::Other;
             return it2->prop_;
@@ -76,7 +76,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         return it->second;
     }
 
-    namespace detail_ {
+    namespace detail {
         inline bool skippable(grapheme_property prop) noexcept
         {
             return prop == grapheme_property::Extend;
@@ -198,20 +198,20 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         if (it == last && --it == first)
             return it;
 
-        detail_::grapheme_break_state<CPIter> state;
+        detail::grapheme_break_state<CPIter> state;
         state.it = it;
         state.prop = grapheme_prop(*state.it);
         state.prev_prop = grapheme_prop(*std::prev(state.it));
-        state.emoji_state = detail_::grapheme_break_emoji_state_t::none;
+        state.emoji_state = detail::grapheme_break_emoji_state_t::none;
 
         // GB10
-        auto skip = [](detail_::grapheme_break_state<CPIter> state,
+        auto skip = [](detail::grapheme_break_state<CPIter> state,
                        CPIter first) {
             if (state.prop == grapheme_property::E_Modifier &&
-                detail_::skippable(state.prev_prop)) {
+                detail::skippable(state.prev_prop)) {
                 auto temp_it =
                     find_if_not_backward(first, state.it, [](uint32_t cp) {
-                        return detail_::skippable(grapheme_prop(cp));
+                        return detail::skippable(grapheme_prop(cp));
                     });
                 if (temp_it == state.it)
                     return state;
@@ -232,7 +232,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
             // When we see an RI, back up to the first RI so we can see what
             // emoji state we're supposed to be in here.
             if (state.emoji_state ==
-                    detail_::grapheme_break_emoji_state_t::none &&
+                    detail::grapheme_break_emoji_state_t::none &&
                 state.prop == grapheme_property::Regional_Indicator) {
                 int ris_before = 0;
                 find_if_not_backward(
@@ -245,8 +245,8 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
                     });
                 state.emoji_state =
                     (ris_before % 2 == 0)
-                        ? detail_::grapheme_break_emoji_state_t::first_emoji
-                        : detail_::grapheme_break_emoji_state_t::second_emoji;
+                        ? detail::grapheme_break_emoji_state_t::first_emoji
+                        : detail::grapheme_break_emoji_state_t::second_emoji;
             }
 
             // If we end up breaking durign this iteration, we want the break
@@ -261,25 +261,25 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
             state = skip(state, first);
 
             if (state.emoji_state ==
-                detail_::grapheme_break_emoji_state_t::first_emoji) {
+                detail::grapheme_break_emoji_state_t::first_emoji) {
                 if (state.prev_prop == grapheme_property::Regional_Indicator) {
                     state.emoji_state =
-                        detail_::grapheme_break_emoji_state_t::second_emoji;
+                        detail::grapheme_break_emoji_state_t::second_emoji;
                     return after_skip_it;
                 } else {
                     state.emoji_state =
-                        detail_::grapheme_break_emoji_state_t::none;
+                        detail::grapheme_break_emoji_state_t::none;
                 }
             } else if (
                 state.emoji_state ==
-                    detail_::grapheme_break_emoji_state_t::second_emoji &&
+                    detail::grapheme_break_emoji_state_t::second_emoji &&
                 state.prev_prop == grapheme_property::Regional_Indicator) {
                 state.emoji_state =
-                    detail_::grapheme_break_emoji_state_t::first_emoji;
+                    detail::grapheme_break_emoji_state_t::first_emoji;
                 continue;
             }
 
-            if (detail_::table_grapheme_break(state.prev_prop, state.prop))
+            if (detail::table_grapheme_break(state.prev_prop, state.prop))
                 return after_skip_it;
         }
 
@@ -298,7 +298,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         if (first == last)
             return first;
 
-        detail_::grapheme_break_state<CPIter> state;
+        detail::grapheme_break_state<CPIter> state;
         state.it = first;
 
         if (++state.it == last)
@@ -309,33 +309,33 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 
         state.emoji_state =
             state.prev_prop == grapheme_property::Regional_Indicator
-                ? detail_::grapheme_break_emoji_state_t::first_emoji
-                : detail_::grapheme_break_emoji_state_t::none;
+                ? detail::grapheme_break_emoji_state_t::first_emoji
+                : detail::grapheme_break_emoji_state_t::none;
 
         for (; state.it != last; state = next(state)) {
             state.prop = grapheme_prop(*state.it);
 
             // GB10
-            state = detail_::skip_forward(state, first, last);
+            state = detail::skip_forward(state, first, last);
             if (state.it == last)
                 return state.it;
 
             if (state.emoji_state ==
-                detail_::grapheme_break_emoji_state_t::first_emoji) {
+                detail::grapheme_break_emoji_state_t::first_emoji) {
                 if (state.prop == grapheme_property::Regional_Indicator) {
                     state.emoji_state =
-                        detail_::grapheme_break_emoji_state_t::none;
+                        detail::grapheme_break_emoji_state_t::none;
                     continue;
                 } else {
                     state.emoji_state =
-                        detail_::grapheme_break_emoji_state_t::none;
+                        detail::grapheme_break_emoji_state_t::none;
                 }
             } else if (state.prop == grapheme_property::Regional_Indicator) {
                 state.emoji_state =
-                    detail_::grapheme_break_emoji_state_t::first_emoji;
+                    detail::grapheme_break_emoji_state_t::first_emoji;
             }
 
-            if (detail_::table_grapheme_break(state.prev_prop, state.prop))
+            if (detail::table_grapheme_break(state.prev_prop, state.prop))
                 return state.it;
         }
 
@@ -366,7 +366,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         return next_grapheme_break(it, std::end(range));
     }
 
-    namespace detail_ {
+    namespace detail {
         template<typename CPIter, typename Sentinel>
         struct next_grapheme_callable
         {
@@ -389,7 +389,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
 
     /** Returns the bounds of the grapheme that <code>it</code> lies within. */
     template<typename CPIter, typename Sentinel>
-    cp_range<CPIter> grapheme_at(CPIter first, CPIter it, Sentinel last) noexcept
+    cp_range<CPIter> grapheme(CPIter first, CPIter it, Sentinel last) noexcept
     {
         first = prev_grapheme_break(first, it, last);
         return cp_range<CPIter>{first, next_grapheme_break(first, last)};
@@ -398,7 +398,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     /** Returns the bounds of the grapheme that <code>it</code> lies
         within. */
     template<typename CPRange, typename CPIter>
-    auto grapheme_at(CPRange & range, CPIter it) noexcept
+    auto grapheme(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
     {
         auto first =
@@ -412,10 +412,10 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     lazy_segment_range<
         CPIter,
         Sentinel,
-        detail_::next_grapheme_callable<CPIter, Sentinel>>
+        detail::next_grapheme_callable<CPIter, Sentinel>>
     graphemes(CPIter first, Sentinel last) noexcept
     {
-        detail_::next_grapheme_callable<CPIter, Sentinel> next;
+        detail::next_grapheme_callable<CPIter, Sentinel> next;
         return {std::move(next), {first, last}, {last}};
     }
 
@@ -425,11 +425,11 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     auto graphemes(CPRange & range) noexcept -> lazy_segment_range<
         detail::iterator_t<CPRange>,
         detail::sentinel_t<CPRange>,
-        detail_::next_grapheme_callable<
+        detail::next_grapheme_callable<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>>
     {
-        detail_::next_grapheme_callable<
+        detail::next_grapheme_callable<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>
             next;
@@ -444,13 +444,13 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     lazy_segment_range<
         CPIter,
         CPIter,
-        detail_::prev_grapheme_callable<CPIter>,
+        detail::prev_grapheme_callable<CPIter>,
         cp_range<CPIter>,
         detail::const_reverse_lazy_segment_iterator,
         true>
     reversed_graphemes(CPIter first, CPIter last) noexcept
     {
-        detail_::prev_grapheme_callable<CPIter> prev;
+        detail::prev_grapheme_callable<CPIter> prev;
         return {std::move(prev), {first, last, last}, {first, first, last}};
     }
 
@@ -460,17 +460,17 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
     auto reversed_graphemes(CPRange & range) noexcept -> lazy_segment_range<
         detail::iterator_t<CPRange>,
         detail::sentinel_t<CPRange>,
-        detail_::prev_grapheme_callable<detail::iterator_t<CPRange>>,
+        detail::prev_grapheme_callable<detail::iterator_t<CPRange>>,
         cp_range<detail::iterator_t<CPRange>>,
         detail::const_reverse_lazy_segment_iterator,
         true>
     {
-        detail_::prev_grapheme_callable<detail::iterator_t<CPRange>> prev;
+        detail::prev_grapheme_callable<detail::iterator_t<CPRange>> prev;
         return {std::move(prev),
                 {std::begin(range), std::end(range), std::end(range)},
                 {std::begin(range), std::begin(range), std::end(range)}};
     }
 
-}}}
+}}
 
 #endif

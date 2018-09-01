@@ -8,7 +8,7 @@
 #include <cstdint>
 
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
     /** Collation strength.
 
@@ -159,7 +159,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
             static_cast<unsigned int>(lhs) | static_cast<unsigned int>(rhs));
     }
 
-    namespace detail_ {
+    namespace detail {
 
         enum class retain_case_bits_t { no, yes };
 
@@ -262,6 +262,6 @@ namespace boost { namespace text { inline namespace unicode_10 {
         }
     }
 
-}}}
+}}
 
 #endif

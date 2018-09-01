@@ -5,7 +5,7 @@
 
 using namespace boost::text;
 
-using string_t = detail_::canonical_closure_string_t;
+using string_t = detail::canonical_closure_string_t;
 
 void print(string_t s)
 {
@@ -37,7 +37,7 @@ TEST(detail, canonical_closure)
 
         std::vector<string_t> results[N];
         for (int i = 0; i < N; ++i) {
-            detail_::canonical_closure(
+            detail::canonical_closure(
                 equivalent_strings[i].begin(),
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
@@ -78,7 +78,7 @@ TEST(detail, canonical_closure)
 
         std::vector<string_t> results[N];
         for (int i = 0; i < N; ++i) {
-            detail_::canonical_closure(
+            detail::canonical_closure(
                 equivalent_strings[i].begin(),
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
@@ -110,7 +110,7 @@ TEST(detail, canonical_closure)
 
         std::vector<string_t> results[N];
         for (int i = 0; i < N; ++i) {
-            detail_::canonical_closure(
+            detail::canonical_closure(
                 equivalent_strings[i].begin(),
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
@@ -140,7 +140,7 @@ TEST(detail, canonical_closure)
 
         std::vector<string_t> results[N];
         for (int i = 0; i < N; ++i) {
-            detail_::canonical_closure(
+            detail::canonical_closure(
                 equivalent_strings[i].begin(),
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
@@ -173,7 +173,7 @@ TEST(detail, canonical_closure)
 
         std::vector<string_t> results[N];
         for (int i = 0; i < N; ++i) {
-            detail_::canonical_closure(
+            detail::canonical_closure(
                 equivalent_strings[i].begin(),
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));
@@ -207,7 +207,7 @@ TEST(detail, canonical_closure)
 
         std::vector<string_t> results[N];
         for (int i = 0; i < N; ++i) {
-            detail_::canonical_closure(
+            detail::canonical_closure(
                 equivalent_strings[i].begin(),
                 equivalent_strings[i].end(),
                 std::back_inserter(results[i]));

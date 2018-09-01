@@ -17,9 +17,9 @@
 #include <stack>
 
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
-    namespace detail_ {
+    namespace detail {
         struct bidi_prop_interval
         {
             uint32_t lo_;
@@ -43,15 +43,15 @@ namespace boost { namespace text { inline namespace unicode_10 {
         code point \a cp. */
     inline bidi_property bidi_prop(uint32_t cp) noexcept
     {
-        static auto const map = detail_::make_bidi_prop_map();
-        static auto const intervals = detail_::make_bidi_prop_intervals();
+        static auto const map = detail::make_bidi_prop_map();
+        static auto const intervals = detail::make_bidi_prop_intervals();
 
         auto const it = map.find(cp);
         if (it == map.end()) {
             auto const it2 = std::lower_bound(
                 intervals.begin(),
                 intervals.end(),
-                detail_::bidi_prop_interval{cp, cp + 1});
+                detail::bidi_prop_interval{cp, cp + 1});
             if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
                 return bidi_property::L;
             return it2->prop_;
@@ -59,7 +59,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         return it->second;
     }
 
-    namespace detail_ {
+    namespace detail {
         inline bool isolate_initiator(bidi_property prop) noexcept
         {
             return prop == bidi_property::LRI || prop == bidi_property::RLI ||
@@ -1111,11 +1111,11 @@ namespace boost { namespace text { inline namespace unicode_10 {
             iterator end() const noexcept { return last_; }
             reverse_iterator rbegin() const noexcept
             {
-                return detail::make_reverse_iterator(last_);
+                return make_reverse_iterator(last_);
             }
             reverse_iterator rend() const noexcept
             {
-                return detail::make_reverse_iterator(first_);
+                return make_reverse_iterator(first_);
             }
 
         private:
@@ -1179,7 +1179,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 typename std::iterator_traits<CPIter>::difference_type;
             using iterator_category = std::bidirectional_iterator_tag;
 
-            using mirrors_array_t = detail::remove_cv_ref_t<decltype(bidi_mirroreds())>;
+            using mirrors_array_t = remove_cv_ref_t<decltype(bidi_mirroreds())>;
             using kind_t = fwd_rev_cp_iter_kind;
 
             fwd_rev_cp_iter() noexcept : it_(), ait_(), kind_(kind_t::user_it)
@@ -1290,20 +1290,20 @@ namespace boost { namespace text { inline namespace unicode_10 {
     template<typename CPIter>
     struct bidirectional_cp_subrange
     {
-        using iterator = detail_::fwd_rev_cp_iter<CPIter>;
+        using iterator = detail::fwd_rev_cp_iter<CPIter>;
 
         static_assert(
             detail::is_cp_iter<CPIter>::value,
             "CPIter must be a code point iterator");
 
         bidirectional_cp_subrange() noexcept :
-            break_(detail_::bidi_line_break_kind::none)
+            break_(detail::bidi_line_break_kind::none)
         {}
         bidirectional_cp_subrange(
             iterator first,
             iterator last,
-            detail_::bidi_line_break_kind b =
-                detail_::bidi_line_break_kind::none) noexcept :
+            detail::bidi_line_break_kind b =
+                detail::bidi_line_break_kind::none) noexcept :
             first_(first),
             last_(last),
             break_(b)
@@ -1315,11 +1315,11 @@ namespace boost { namespace text { inline namespace unicode_10 {
         }
         bool hard_line_break() const noexcept
         {
-            return break_ == detail_::bidi_line_break_kind::hard;
+            return break_ == detail::bidi_line_break_kind::hard;
         }
         bool possible_line_break() const noexcept
         {
-            return break_ == detail_::bidi_line_break_kind::possible;
+            return break_ == detail::bidi_line_break_kind::possible;
         }
         bool empty() const noexcept { return first_ == last_; }
         iterator begin() const noexcept { return first_; }
@@ -1328,7 +1328,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
     private:
         iterator first_;
         iterator last_;
-        detail_::bidi_line_break_kind break_;
+        detail::bidi_line_break_kind break_;
     };
 
     /** Represents a subrange of graphemes ordered by the Unicode
@@ -1339,29 +1339,29 @@ namespace boost { namespace text { inline namespace unicode_10 {
     template<typename CPIter>
     struct bidirectional_grapheme_subrange
     {
-        using iterator = grapheme_iterator<detail_::fwd_rev_cp_iter<CPIter>>;
+        using iterator = grapheme_iterator<detail::fwd_rev_cp_iter<CPIter>>;
 
         static_assert(
             detail::is_cp_iter<CPIter>::value,
             "CPIter must be a code point iterator");
 
         bidirectional_grapheme_subrange() noexcept :
-            break_(detail_::bidi_line_break_kind::none)
+            break_(detail::bidi_line_break_kind::none)
         {}
         bidirectional_grapheme_subrange(
             iterator first,
             iterator last,
-            detail_::bidi_line_break_kind b =
-                detail_::bidi_line_break_kind::none) noexcept :
+            detail::bidi_line_break_kind b =
+                detail::bidi_line_break_kind::none) noexcept :
             first_(first),
             last_(last),
             break_(b)
         {}
         bidirectional_grapheme_subrange(
-            detail_::fwd_rev_cp_iter<CPIter> first,
-            detail_::fwd_rev_cp_iter<CPIter> last,
-            detail_::bidi_line_break_kind b =
-                detail_::bidi_line_break_kind::none) noexcept :
+            detail::fwd_rev_cp_iter<CPIter> first,
+            detail::fwd_rev_cp_iter<CPIter> last,
+            detail::bidi_line_break_kind b =
+                detail::bidi_line_break_kind::none) noexcept :
             first_(first, first, last),
             last_(first, last, last),
             break_(b)
@@ -1373,11 +1373,11 @@ namespace boost { namespace text { inline namespace unicode_10 {
         }
         bool hard_line_break() const noexcept
         {
-            return break_ == detail_::bidi_line_break_kind::hard;
+            return break_ == detail::bidi_line_break_kind::hard;
         }
         bool possible_line_break() const noexcept
         {
-            return break_ == detail_::bidi_line_break_kind::possible;
+            return break_ == detail::bidi_line_break_kind::possible;
         }
         bool empty() const noexcept { return first_ == last_; }
         iterator begin() const noexcept { return first_; }
@@ -1386,10 +1386,10 @@ namespace boost { namespace text { inline namespace unicode_10 {
     private:
         iterator first_;
         iterator last_;
-        detail_::bidi_line_break_kind break_;
+        detail::bidi_line_break_kind break_;
     };
 
-    namespace detail_ {
+    namespace detail {
         template<typename Impl, typename BreakResult, typename Sentinel>
         struct next_line_break_t
         {
@@ -2175,10 +2175,10 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 state.out_values_.clear();
 
                 if (run.reversed()) {
-                    auto const out_value = OutValueType{
-                        ::boost::text::detail::make_reverse_iterator(cp_last),
-                        ::boost::text::detail::make_reverse_iterator(cp_first),
-                        state.line_break_};
+                    auto const out_value =
+                        OutValueType{detail::make_reverse_iterator(cp_last),
+                                     detail::make_reverse_iterator(cp_first),
+                                     state.line_break_};
                     state.out_values_.push_back(out_value);
                 } else {
                     auto const out_value =
@@ -2192,7 +2192,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         };
     }
 
-    namespace detail_ {
+    namespace detail {
         template<typename T>
         struct arrow_proxy
         {
@@ -2268,11 +2268,10 @@ namespace boost { namespace text { inline namespace unicode_10 {
         typename CPIter,
         typename Sentinel,
         typename ResultType,
-        typename NextLineBreakFunc =
-            detail_::bidi_next_hard_line_break_callable>
+        typename NextLineBreakFunc = detail::bidi_next_hard_line_break_callable>
     struct lazy_bidi_segment_range
     {
-        using iterator = detail_::const_lazy_bidi_segment_iterator<
+        using iterator = detail::const_lazy_bidi_segment_iterator<
             CPIter,
             Sentinel,
             ResultType,
@@ -2291,7 +2290,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         iterator end() noexcept { return iterator(); }
 
     private:
-        detail_::
+        detail::
             bidi_subrange_state<CPIter, Sentinel, NextLineBreakFunc, ResultType>
                 state_;
     };
@@ -2436,11 +2435,11 @@ namespace boost { namespace text { inline namespace unicode_10 {
             CPIter,
             Sentinel,
             bidirectional_cp_subrange<CPIter>,
-            detail_::next_possible_line_break_within_extent_callable<
+            detail::next_possible_line_break_within_extent_callable<
                 Extent,
                 CPExtentFunc>>
     {
-        detail_::next_possible_line_break_within_extent_callable<
+        detail::next_possible_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
@@ -2480,12 +2479,12 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>,
                 bidirectional_cp_subrange<detail::iterator_t<CPRange>>,
-                detail_::next_possible_line_break_within_extent_callable<
+                detail::next_possible_line_break_within_extent_callable<
                     Extent,
                     CPExtentFunc>>,
             CPRange>
     {
-        detail_::next_possible_line_break_within_extent_callable<
+        detail::next_possible_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
@@ -2529,12 +2528,12 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 typename detail::iterator_t<GraphemeRange const>::iterator_type,
                 bidirectional_grapheme_subrange<typename detail::iterator_t<
                     GraphemeRange const>::iterator_type>,
-                detail_::next_possible_line_break_within_extent_callable<
+                detail::next_possible_line_break_within_extent_callable<
                     Extent,
                     CPExtentFunc>>,
             GraphemeRange>
     {
-        detail_::next_possible_line_break_within_extent_callable<
+        detail::next_possible_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
@@ -2544,6 +2543,6 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 std::move(next)};
     }
 
-}}}
+}}
 
 #endif

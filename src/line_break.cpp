@@ -9,7 +9,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
+namespace boost { namespace text { namespace detail {
 
 std::array<line_prop_interval, 49> const & make_line_prop_intervals()
 {
@@ -7177,10 +7177,10 @@ container::small_vector<unsigned char, 256> buf;
 std::copy(
     compressed.begin(),
     compressed.end(),
-    detail::lzw_to_break_prop_iter<line_property>(retval, buf));
+    lzw_to_break_prop_iter<line_property>(retval, buf));
 BOOST_ASSERT(buf.empty());
 BOOST_ASSERT(retval.size() == 31945);
 return retval;
 }
 
-}}}}
+}}}

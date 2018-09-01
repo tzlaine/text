@@ -7,7 +7,7 @@
 #include <boost/text/detail/lexer.hpp>
 
 
-namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
+namespace boost { namespace text { namespace detail {
 
     // code-point = ? A valid Unicode code point not in the range
     // U+FFFD..U+FFFF ? ; nfd-inert-cp = ? A valid Unicode code point not in
@@ -908,6 +908,6 @@ namespace boost { namespace text { inline namespace unicode_10 { namespace detai
         }
     }
 
-}}}}
+}}}
 
 #endif

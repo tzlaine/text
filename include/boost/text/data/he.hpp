@@ -5,7 +5,7 @@
 #include <boost/text/string_view.hpp>
 
 
-namespace boost { namespace text { inline namespace unicode_10 { namespace data { namespace he {
+namespace boost { namespace text { namespace data { namespace he {
 
 inline string_view search_collation_tailoring()
 {
@@ -146,6 +146,6 @@ u8R"(
 }
 
 
-}}}}}
+}}}}
 
 #endif

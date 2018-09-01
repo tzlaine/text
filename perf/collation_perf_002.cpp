@@ -4,9 +4,9 @@
 
 #include <benchmark/benchmark.h>
 
-boost::text::detail_::collation_trie_t const & trie()
+boost::text::detail::collation_trie_t const & trie()
 {
-    static auto const retval = boost::text::detail_::make_default_trie();
+    static auto const retval = boost::text::detail::make_default_trie();
     return retval;
 }
 

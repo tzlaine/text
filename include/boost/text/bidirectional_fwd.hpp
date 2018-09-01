@@ -2,7 +2,7 @@
 #define BOOST_TEXT_BIDIRECTIONAL_FWD_HPP
 
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
     /** The bidirectional algorithm character properties outlined in Unicode
         10. */
@@ -67,6 +67,6 @@ namespace boost { namespace text { inline namespace unicode_10 {
     }
 #endif
 
-}}}
+}}
 
 #endif

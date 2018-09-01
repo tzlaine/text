@@ -5,7 +5,7 @@
 #include <boost/text/string_view.hpp>
 
 
-namespace boost { namespace text { inline namespace unicode_10 { namespace data { namespace sv {
+namespace boost { namespace text { namespace data { namespace sv {
 
 inline string_view reformed_collation_tailoring()
 {
@@ -164,6 +164,6 @@ u8R"(
 }
 
 
-}}}}}
+}}}}
 
 #endif

@@ -10,7 +10,7 @@
 #include <numeric>
 
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
     /** The list of languages handled specially in the case mapping
         functions. */
@@ -35,7 +35,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         }
     };
 
-    namespace detail_ {
+    namespace detail {
         // Data and algorithm for handling Greek special-casing comes from
         // http://site.icu-project.org/design/case/greek-upper .
         enum greek_case_flags {
@@ -495,11 +495,11 @@ namespace boost { namespace text { inline namespace unicode_10 {
         {
             switch (lang) {
             case case_language::azerbaijani:
-                return (uint16_t)detail_::case_condition::az;
+                return (uint16_t)detail::case_condition::az;
             case case_language::lithuanian:
-                return (uint16_t)detail_::case_condition::lt;
+                return (uint16_t)detail::case_condition::lt;
             case case_language::turkish:
-                return (uint16_t)detail_::case_condition::tr;
+                return (uint16_t)detail::case_condition::tr;
             default: return 0;
             }
             return 0;
@@ -772,7 +772,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
     bool is_lower(CPIter first, Sentinel last) noexcept
     {
         return all_of(first, last, [](uint32_t cp) {
-            return !detail_::changes_when_lowered(cp);
+            return !detail::changes_when_lowered(cp);
         });
     }
 
@@ -811,8 +811,8 @@ namespace boost { namespace text { inline namespace unicode_10 {
             last,
             out,
             lang,
-            detail_::to_lower_map(),
-            detail_::map_case_mode::lower);
+            detail::to_lower_map(),
+            detail::map_case_mode::lower);
     }
 
     /** Writes the code point sequence comprising the lower-case form of range
@@ -863,7 +863,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
             std::move(next), {first, last}, {last}};
         for (auto r : words) {
             auto it = r.begin();
-            if (detail_::changes_when_titled(*it))
+            if (detail::changes_when_titled(*it))
                 return false;
             if (!is_lower(++it, r.end()))
                 return false;
@@ -926,8 +926,8 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 r.end(),
                 out,
                 lang,
-                detail_::to_title_map(),
-                detail_::map_case_mode::title);
+                detail::to_title_map(),
+                detail::map_case_mode::title);
         }
 
         return out;
@@ -985,7 +985,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
     bool is_upper(CPIter first, Sentinel last) noexcept
     {
         return all_of(first, last, [](uint32_t cp) {
-            return !detail_::changes_when_uppered(cp);
+            return !detail::changes_when_uppered(cp);
         });
     }
 
@@ -1025,8 +1025,8 @@ namespace boost { namespace text { inline namespace unicode_10 {
             last,
             out,
             lang,
-            detail_::to_upper_map(),
-            detail_::map_case_mode::upper);
+            detail::to_upper_map(),
+            detail::map_case_mode::upper);
     }
 
     /** Writes code point sequence comprising the the upper-case form of range
@@ -1061,6 +1061,6 @@ namespace boost { namespace text { inline namespace unicode_10 {
             lang);
     }
 
-}}}
+}}
 
 #endif

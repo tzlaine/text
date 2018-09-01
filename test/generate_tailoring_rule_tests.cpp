@@ -53,8 +53,8 @@ int g_test_subfile_count = 0;
 int g_test_subtest_count = 0;
 string g_this_test;
 
-detail_::cp_seq_t g_reset;
-detail_::cp_seq_t g_curr_reset;
+detail::cp_seq_t g_reset;
+detail::cp_seq_t g_curr_reset;
 bool g_before = false;
 bool g_just_after_reset = false;
 
@@ -64,16 +64,16 @@ string g_tailoring;
 std::ofstream g_ofs;
 
 std::map<int, int> const g_logical_positions{
-    {detail_::first_tertiary_ignorable,
-     detail_::initial_first_tertiary_ignorable},
-    {detail_::last_tertiary_ignorable, detail_::initial_last_tertiary_ignorable},
-    {detail_::first_primary_ignorable, detail_::initial_first_primary_ignorable},
-    {detail_::last_primary_ignorable, detail_::initial_last_primary_ignorable},
-    {detail_::first_variable, detail_::initial_first_variable},
-    {detail_::last_variable, detail_::initial_last_variable},
-    {detail_::first_regular, detail_::initial_first_regular},
-    {detail_::last_regular, detail_::initial_last_regular},
-    {detail_::first_implicit, detail_::initial_first_implicit},
+    {detail::first_tertiary_ignorable,
+     detail::initial_first_tertiary_ignorable},
+    {detail::last_tertiary_ignorable, detail::initial_last_tertiary_ignorable},
+    {detail::first_primary_ignorable, detail::initial_first_primary_ignorable},
+    {detail::last_primary_ignorable, detail::initial_last_primary_ignorable},
+    {detail::first_variable, detail::initial_first_variable},
+    {detail::last_variable, detail::initial_last_variable},
+    {detail::first_regular, detail::initial_first_regular},
+    {detail::last_regular, detail::initial_last_regular},
+    {detail::first_implicit, detail::initial_first_implicit},
 };
 
 void write_file_prefix(string const & this_test)
@@ -131,7 +131,7 @@ collation_table const & table()
 )Q";
 }
 
-string vector_of(detail_::cp_seq_t cps)
+string vector_of(detail::cp_seq_t cps)
 {
     std::stringstream ss;
     ss << std::hex << std::setfill('0') << "std::vector<uint32_t>";
@@ -156,15 +156,15 @@ string vector_of(detail_::cp_seq_t cps)
 }
 
 void print_rule_test(
-    detail_::cp_seq_t relation,
+    detail::cp_seq_t relation,
     collation_strength strength,
-    detail_::optional_cp_seq_t prefix,
-    detail_::optional_cp_seq_t extension)
+    detail::optional_cp_seq_t prefix,
+    detail::optional_cp_seq_t extension)
 {
     auto symbolic_ignorable = [](uint32_t cp) {
-        return cp == detail_::first_secondary_ignorable ||
-               cp == detail_::last_secondary_ignorable ||
-               cp == detail_::first_primary_ignorable;
+        return cp == detail::first_secondary_ignorable ||
+               cp == detail::last_secondary_ignorable ||
+               cp == detail::first_primary_ignorable;
     };
     if (std::any_of(
             g_curr_reset.begin(), g_curr_reset.end(), symbolic_ignorable) ||
@@ -248,14 +248,14 @@ string new_test(bool first_test = false)
     return this_test;
 }
 
-detail_::collation_tailoring_interface g_callbacks = {
-    [](detail_::cp_seq_t const & reset, bool before) {
+detail::collation_tailoring_interface g_callbacks = {
+    [](detail::cp_seq_t const & reset, bool before) {
         g_curr_reset = g_reset = reset;
         g_before = before;
         g_just_after_reset = true;
         ++g_count;
     },
-    [](detail_::relation_t const & rel) {
+    [](detail::relation_t const & rel) {
         if (50 < g_count) {
             g_count = 0;
             new_test();
@@ -280,8 +280,8 @@ detail_::collation_tailoring_interface g_callbacks = {
     [](l2_weight_order order) {},
     [](case_level) {},
     [](case_first) {},
-    [](detail_::cp_seq_t const & suppressions) {},
-    [](std::vector<detail_::reorder_group> const & reorder_groups) {},
+    [](detail::cp_seq_t const & suppressions) {},
+    [](std::vector<detail::reorder_group> const & reorder_groups) {},
     [](string const & s) { std::cout << s; },
     [](string const & s) {}};
 
@@ -296,7 +296,7 @@ void make_test()
     g_ofs.open(filename.begin());
     write_file_prefix(g_this_test);
     new_test(true);
-    detail_::parse(
+    detail::parse(
         g_tailoring.begin(), g_tailoring.end(), g_callbacks, g_this_test);
     g_ofs << "}\n";
     g_ofs.close();

@@ -8,7 +8,7 @@
 #include <unordered_set>
 
 
-namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
+namespace boost { namespace text { namespace detail {
 
     struct case_mapping_to
     {
@@ -139,6 +139,6 @@ namespace boost { namespace text { inline namespace unicode_10 { namespace detai
         return cps.find(cp) != cps.end();
     }
 
-}}}}
+}}}
 
 #endif

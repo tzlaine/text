@@ -13,16 +13,16 @@ inline std::vector<int> bidi_levels(
 
     std::vector<int> retval;
 
-    detail_::bidi_subrange_state<
+    detail::bidi_subrange_state<
         str_iter_t,
         str_iter_t,
-        detail_::bidi_next_hard_line_break_callable,
+        detail::bidi_next_hard_line_break_callable,
         int,
-        detail_::bidi_mode::level_test>
+        detail::bidi_mode::level_test>
         state{first,
               last,
               paragraph_embedding_level,
-              detail_::bidi_next_hard_line_break_callable{}};
+              detail::bidi_next_hard_line_break_callable{}};
 
     auto out = std::back_inserter(retval);
     while (!state.at_end()) {
@@ -40,16 +40,16 @@ inline std::vector<int> bidi_reordered_indices(
 
     std::vector<int> retval;
 
-    detail_::bidi_subrange_state<
+    detail::bidi_subrange_state<
         str_iter_t,
         str_iter_t,
-        detail_::bidi_next_hard_line_break_callable,
+        detail::bidi_next_hard_line_break_callable,
         bidirectional_cp_subrange<str_iter_t>,
-        detail_::bidi_mode::reorder_test>
+        detail::bidi_mode::reorder_test>
         state{first,
               last,
               paragraph_embedding_level,
-              detail_::bidi_next_hard_line_break_callable{}};
+              detail::bidi_next_hard_line_break_callable{}};
 
     while (!state.at_end()) {
         auto const subrange = state.get_value();

@@ -16,7 +16,7 @@
 #include <stdint.h>
 
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
     /** The line properties outlined in Unicode 10. */
     enum class line_property {
@@ -64,7 +64,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         CJ
     };
 
-    namespace detail_ {
+    namespace detail {
         struct line_prop_interval
         {
             uint32_t lo_;
@@ -87,15 +87,15 @@ namespace boost { namespace text { inline namespace unicode_10 {
     /** Returns the line property associated with code point \a cp. */
     inline line_property line_prop(uint32_t cp) noexcept
     {
-        static auto const map = detail_::make_line_prop_map();
-        static auto const intervals = detail_::make_line_prop_intervals();
+        static auto const map = detail::make_line_prop_map();
+        static auto const intervals = detail::make_line_prop_intervals();
 
         auto const it = map.find(cp);
         if (it == map.end()) {
             auto const it2 = std::lower_bound(
                 intervals.begin(),
                 intervals.end(),
-                detail_::line_prop_interval{cp, cp + 1});
+                detail::line_prop_interval{cp, cp + 1});
             if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
                 return line_property::AL; // AL in place of XX, due to Rule LB1
             return it2->prop_;
@@ -143,7 +143,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         return result.iter != s;
     }
 
-    namespace detail_ {
+    namespace detail {
         // Note that whereas the other kinds of breaks have an 'Other', line
         // break has 'XX'.  However, due to Rule LB1, XX is replaced with AL,
         // so you'll see a lot of initializations from AL in this file.
@@ -388,7 +388,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             if (it == last && --it == first)
                 return result_t{it, true};
 
-            detail_::line_break_state<CPIter> state;
+            detail::line_break_state<CPIter> state;
 
             state.it = it;
 
@@ -399,10 +399,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             // the space-skipping rules (LB14-LB17), back up to the start of
             // it.
             if (state.prop == line_property::SP ||
-                detail_::skippable(state.prop)) {
+                detail::skippable(state.prop)) {
                 auto space_or_skip = [](uint32_t cp) {
                     auto const prop = line_prop(cp);
-                    return prop == line_property::SP || detail_::skippable(prop);
+                    return prop == line_property::SP || detail::skippable(prop);
                 };
                 auto it_ = find_if_not_backward(first, it, space_or_skip);
                 bool in_space_skipper = false;
@@ -439,9 +439,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     }
 
                     backed_up = in_space_skipper;
-                    if (!in_space_skipper && detail_::skippable(state.prop)) {
+                    if (!in_space_skipper && detail::skippable(state.prop)) {
                         it_ = find_if_not_backward(first, it, [](uint32_t cp) {
-                            return detail_::skippable(line_prop(cp));
+                            return detail::skippable(line_prop(cp));
                         });
                         backed_up = it_ != it;
                     }
@@ -456,8 +456,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 // If we end up on a non-skippable that should break before the
                 // skippable(s) we just moved over, break on the last skippable.
                 if (backed_up && !in_space_skipper &&
-                    !detail_::skippable(state.prop) &&
-                    detail_::table_line_break(state.prop, state.next_prop)) {
+                    !detail::skippable(state.prop) &&
+                    detail::table_line_break(state.prop, state.next_prop)) {
                     auto const hard = state.prop == line_property::BK ||
                                       state.prop == line_property::CR ||
                                       state.prop == line_property::LF ||
@@ -477,14 +477,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             if (std::next(state.it) != last)
                 state.next_prop = line_prop(*std::next(state.it));
 
-            state.emoji_state = detail_::line_break_emoji_state_t::none;
+            state.emoji_state = detail::line_break_emoji_state_t::none;
 
-            auto skip = [](detail_::line_break_state<CPIter> state,
+            auto skip = [](detail::line_break_state<CPIter> state,
                            CPIter first) {
-                if (detail_::skippable(state.prev_prop)) {
+                if (detail::skippable(state.prev_prop)) {
                     auto temp_it =
                         find_if_not_backward(first, state.it, [](uint32_t cp) {
-                            return detail_::skippable(line_prop(cp));
+                            return detail::skippable(line_prop(cp));
                         });
                     if (temp_it == state.it)
                         return state;
@@ -530,7 +530,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 // When we see an RI, back up to the first RI so we can see what
                 // emoji state we're supposed to be in here.
                 if (state.emoji_state ==
-                        detail_::line_break_emoji_state_t::none &&
+                        detail::line_break_emoji_state_t::none &&
                     state.prop == line_property::RI) {
                     auto temp_state = state;
                     int ris_before = 0;
@@ -558,8 +558,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                     }
                     state.emoji_state =
                         (ris_before % 2 == 0)
-                            ? detail_::line_break_emoji_state_t::first_emoji
-                            : detail_::line_break_emoji_state_t::second_emoji;
+                            ? detail::line_break_emoji_state_t::first_emoji
+                            : detail::line_break_emoji_state_t::second_emoji;
                 }
 
                 // LB4
@@ -774,25 +774,25 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 }
 
                 if (state.emoji_state ==
-                    detail_::line_break_emoji_state_t::first_emoji) {
+                    detail::line_break_emoji_state_t::first_emoji) {
                     if (state.prev_prop == line_property::RI) {
                         state.emoji_state =
-                            detail_::line_break_emoji_state_t::second_emoji;
+                            detail::line_break_emoji_state_t::second_emoji;
                         return result_t{after_skip_it, false};
                     } else {
                         state.emoji_state =
-                            detail_::line_break_emoji_state_t::none;
+                            detail::line_break_emoji_state_t::none;
                     }
                 } else if (
                     state.emoji_state ==
-                        detail_::line_break_emoji_state_t::second_emoji &&
+                        detail::line_break_emoji_state_t::second_emoji &&
                     state.prev_prop == line_property::RI) {
                     state.emoji_state =
-                        detail_::line_break_emoji_state_t::first_emoji;
+                        detail::line_break_emoji_state_t::first_emoji;
                     continue;
                 }
 
-                if (detail_::table_line_break(state.prev_prop, state.prop))
+                if (detail::table_line_break(state.prev_prop, state.prop))
                     return result_t{after_skip_it, false};
             }
 
@@ -1231,7 +1231,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     auto prev_hard_line_break(CPIter first, CPIter it, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
-        return detail_::prev_line_break_impl(first, it, last, true).iter;
+        return detail::prev_line_break_impl(first, it, last, true).iter;
     }
 
     /** Finds the nearest line break opportunity at or before before
@@ -1243,7 +1243,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     line_break_result<CPIter>
     prev_possible_line_break(CPIter first, CPIter it, Sentinel last) noexcept
     {
-        return detail_::prev_line_break_impl(first, it, last, false);
+        return detail::prev_line_break_impl(first, it, last, false);
     }
 
     /** Finds the next hard line break after <code>first</code>.  This will be
@@ -1256,8 +1256,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     auto next_hard_line_break(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
-        detail_::no_op_cp_extent<CPIter, int> no_op;
-        return detail_::next_line_break_impl(first, last, true, 0, no_op, false)
+        detail::no_op_cp_extent<CPIter, int> no_op;
+        return detail::next_line_break_impl(first, last, true, 0, no_op, false)
             .iter;
     }
 
@@ -1270,8 +1270,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     auto next_possible_line_break(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<line_break_result<CPIter>, CPIter>
     {
-        detail_::no_op_cp_extent<CPIter, int> no_op;
-        return detail_::next_line_break_impl(
+        detail::no_op_cp_extent<CPIter, int> no_op;
+        return detail::next_line_break_impl(
             first, last, false, 0, no_op, false);
     }
 
@@ -1412,7 +1412,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 next.hard_break};
     }
 
-    namespace detail_ {
+    namespace detail {
         template<typename CPIter, typename Sentinel>
         struct next_hard_line_break_callable
         {
@@ -1454,7 +1454,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             BreakResult operator()(BreakResult result, Sentinel last) const
                 noexcept
             {
-                return detail_::next_line_break_impl(
+                return detail::next_line_break_impl(
                     result.iter,
                     last,
                     false,
@@ -1533,10 +1533,10 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     lazy_segment_range<
         CPIter,
         Sentinel,
-        detail_::next_hard_line_break_callable<CPIter, Sentinel>>
+        detail::next_hard_line_break_callable<CPIter, Sentinel>>
     lines(CPIter first, Sentinel last) noexcept
     {
-        detail_::next_hard_line_break_callable<CPIter, Sentinel> next;
+        detail::next_hard_line_break_callable<CPIter, Sentinel> next;
         return {std::move(next), {first, last}, {last}};
     }
 
@@ -1547,12 +1547,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         lazy_segment_range<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
-            detail_::next_hard_line_break_callable<
+            detail::next_hard_line_break_callable<
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>>>,
         CPRange>
     {
-        detail_::next_hard_line_break_callable<
+        detail::next_hard_line_break_callable<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>>
             next;
@@ -1569,14 +1569,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             lazy_segment_range<
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
-                detail_::next_hard_line_break_callable<
+                detail::next_hard_line_break_callable<
                     decltype(range.begin().base()),
                     decltype(range.begin().base())>,
                 grapheme_range<decltype(range.begin().base())>>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        detail_::next_hard_line_break_callable<cp_iter_t, cp_iter_t> next;
+        detail::next_hard_line_break_callable<cp_iter_t, cp_iter_t> next;
         return {std::move(next),
                 {range.begin().base(), range.end().base()},
                 {range.end().base()}};
@@ -1588,13 +1588,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     lazy_segment_range<
         CPIter,
         CPIter,
-        detail_::prev_hard_line_break_callable<CPIter>,
+        detail::prev_hard_line_break_callable<CPIter>,
         cp_range<CPIter>,
         detail::const_reverse_lazy_segment_iterator,
         true>
     reversed_lines(CPIter first, CPIter last) noexcept
     {
-        detail_::prev_hard_line_break_callable<CPIter> prev;
+        detail::prev_hard_line_break_callable<CPIter> prev;
         return {std::move(prev), {first, last, last}, {first, first, last}};
     }
 
@@ -1605,13 +1605,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         lazy_segment_range<
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
-            detail_::prev_hard_line_break_callable<detail::iterator_t<CPRange>>,
+            detail::prev_hard_line_break_callable<detail::iterator_t<CPRange>>,
             cp_range<detail::iterator_t<CPRange>>,
             detail::const_reverse_lazy_segment_iterator,
             true>,
         CPRange>
     {
-        detail_::prev_hard_line_break_callable<detail::iterator_t<CPRange>> prev;
+        detail::prev_hard_line_break_callable<detail::iterator_t<CPRange>> prev;
         return {std::move(prev),
                 {std::begin(range), std::end(range), std::end(range)},
                 {std::begin(range), std::begin(range), std::end(range)}};
@@ -1625,7 +1625,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             lazy_segment_range<
                 decltype(range.begin().base()),
                 decltype(range.begin().base()),
-                detail_::prev_hard_line_break_callable<
+                detail::prev_hard_line_break_callable<
                     decltype(range.begin().base())>,
                 grapheme_range<decltype(range.begin().base())>,
                 detail::const_reverse_lazy_segment_iterator,
@@ -1633,7 +1633,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        detail_::prev_hard_line_break_callable<cp_iter_t> prev;
+        detail::prev_hard_line_break_callable<cp_iter_t> prev;
         return {
             std::move(prev),
             {range.begin().base(), range.end().base(), range.end().base()},
@@ -1707,7 +1707,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     lazy_segment_range<
         line_break_result<CPIter>,
         Sentinel,
-        detail_::next_possible_line_break_within_extent_callable<
+        detail::next_possible_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>,
         line_break_cp_range<CPIter>>
@@ -1718,7 +1718,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept
     {
-        detail_::next_possible_line_break_within_extent_callable<
+        detail::next_possible_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
@@ -1739,7 +1739,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         lazy_segment_range<
             line_break_result<detail::iterator_t<CPRange>>,
             detail::sentinel_t<CPRange>,
-            detail_::next_possible_line_break_within_extent_callable<
+            detail::next_possible_line_break_within_extent_callable<
                 Extent,
                 CPExtentFunc>,
             line_break_cp_range<detail::iterator_t<CPRange>>>,
@@ -1750,7 +1750,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         CPExtentFunc cp_extent,
         bool break_overlong_lines = true) noexcept
     {
-        detail_::next_possible_line_break_within_extent_callable<
+        detail::next_possible_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
@@ -1778,14 +1778,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             lazy_segment_range<
                 line_break_result<decltype(range.begin().base())>,
                 decltype(range.begin().base()),
-                detail_::next_possible_line_break_within_extent_callable<
+                detail::next_possible_line_break_within_extent_callable<
                     Extent,
                     CPExtentFunc>,
                 line_break_grapheme_range<decltype(range.begin().base())>>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        detail_::next_possible_line_break_within_extent_callable<
+        detail::next_possible_line_break_within_extent_callable<
             Extent,
             CPExtentFunc>
             next{max_extent, std::move(cp_extent), break_overlong_lines};
@@ -1840,13 +1840,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     lazy_segment_range<
         line_break_result<CPIter>,
         Sentinel,
-        detail_::next_possible_line_break_callable<
+        detail::next_possible_line_break_callable<
             line_break_result<CPIter>,
             Sentinel>,
         line_break_cp_range<CPIter>>
     possible_lines(CPIter first, Sentinel last) noexcept
     {
-        detail_::next_possible_line_break_callable<
+        detail::next_possible_line_break_callable<
             line_break_result<CPIter>,
             Sentinel>
             next;
@@ -1862,13 +1862,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         lazy_segment_range<
             line_break_result<detail::iterator_t<CPRange>>,
             detail::sentinel_t<CPRange>,
-            detail_::next_possible_line_break_callable<
+            detail::next_possible_line_break_callable<
                 line_break_result<detail::iterator_t<CPRange>>,
                 detail::sentinel_t<CPRange>>,
             line_break_cp_range<detail::iterator_t<CPRange>>>,
         CPRange>
     {
-        detail_::next_possible_line_break_callable<
+        detail::next_possible_line_break_callable<
             line_break_result<detail::iterator_t<CPRange>>,
             detail::sentinel_t<CPRange>>
             next;
@@ -1887,14 +1887,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             lazy_segment_range<
                 line_break_result<decltype(range.begin().base())>,
                 decltype(range.begin().base()),
-                detail_::next_possible_line_break_callable<
+                detail::next_possible_line_break_callable<
                     line_break_result<decltype(range.begin().base())>,
                     decltype(range.begin().base())>,
                 line_break_grapheme_range<decltype(range.begin().base())>>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        detail_::next_possible_line_break_callable<
+        detail::next_possible_line_break_callable<
             line_break_result<cp_iter_t>,
             cp_iter_t>
             next;
@@ -1904,7 +1904,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {range.end().base()}};
     }
 
-    namespace detail_ {
+    namespace detail {
         template<
             typename CPIter,
             typename ResultType,
@@ -1987,15 +1987,15 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
     lazy_segment_range<
         CPIter,
         line_break_result<CPIter>,
-        detail_::prev_possible_line_break_callable<
+        detail::prev_possible_line_break_callable<
             CPIter,
             line_break_result<CPIter>>,
         line_break_cp_range<CPIter>,
-        detail_::const_reverse_possible_line_iterator,
+        detail::const_reverse_possible_line_iterator,
         true>
     reversed_possible_lines(CPIter first, CPIter last) noexcept
     {
-        detail_::
+        detail::
             prev_possible_line_break_callable<CPIter, line_break_result<CPIter>>
                 prev;
         auto const first_result = line_break_result<CPIter>{first, true};
@@ -2013,15 +2013,15 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             lazy_segment_range<
                 detail::iterator_t<CPRange>,
                 line_break_result<detail::iterator_t<CPRange>>,
-                detail_::prev_possible_line_break_callable<
+                detail::prev_possible_line_break_callable<
                     detail::iterator_t<CPRange>,
                     line_break_result<detail::iterator_t<CPRange>>>,
                 line_break_cp_range<detail::iterator_t<CPRange>>,
-                detail_::const_reverse_possible_line_iterator,
+                detail::const_reverse_possible_line_iterator,
                 true>,
             CPRange>
     {
-        detail_::prev_possible_line_break_callable<
+        detail::prev_possible_line_break_callable<
             detail::iterator_t<CPRange>,
             line_break_result<detail::iterator_t<CPRange>>>
             prev;
@@ -2043,16 +2043,16 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             lazy_segment_range<
                 decltype(range.begin().base()),
                 line_break_result<decltype(range.begin().base())>,
-                detail_::prev_possible_line_break_callable<
+                detail::prev_possible_line_break_callable<
                     decltype(range.begin().base()),
                     line_break_result<decltype(range.begin().base())>>,
                 line_break_grapheme_range<decltype(range.begin().base())>,
-                detail_::const_reverse_possible_line_iterator,
+                detail::const_reverse_possible_line_iterator,
                 true>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        detail_::prev_possible_line_break_callable<
+        detail::prev_possible_line_break_callable<
             cp_iter_t,
             line_break_result<cp_iter_t>>
             prev;
@@ -2065,6 +2065,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {range.begin().base(), begin_result, end_result}};
     }
 
-}}}
+}}
 
 #endif

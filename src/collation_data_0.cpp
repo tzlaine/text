@@ -7,7 +7,7 @@
 #include <unordered_map>
 
 
-namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
+namespace boost { namespace text { namespace detail {
 
 std::array<implicit_weights_segment, 10> make_implicit_weights_segments()
 {
@@ -492,11 +492,11 @@ void make_collation_elements(std::array<collation_element, 39258> & retval)
 {
 container::small_vector<unsigned char, 256> buf;
 auto const & compressed = compressed_collation_elements();
-detail::lzw_decompress(
+lzw_decompress(
     compressed.begin(),
     compressed.end(),
     make_lzw_to_coll_elem_iter(retval.begin(), buf));
 BOOST_ASSERT(buf.empty());
 }
 
-}}}}
+}}}

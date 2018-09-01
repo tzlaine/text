@@ -94,16 +94,16 @@ parser_tests_form = '''\
 TEST(parser, data)
 {{
 
-    boost::text::detail_::collation_tailoring_interface callbacks = {{
-        [](boost::text::detail_::cp_seq_t const & reset_, bool before_) {{}},
-        [](boost::text::detail_::relation_t const & rel) {{}},
+    boost::text::detail::collation_tailoring_interface callbacks = {{
+        [](boost::text::detail::cp_seq_t const & reset_, bool before_) {{}},
+        [](boost::text::detail::relation_t const & rel) {{}},
         [](boost::text::collation_strength strength) {{}},
         [](boost::text::variable_weighting weighting) {{}},
         [](boost::text::l2_weight_order order) {{}},
         [](boost::text::case_level) {{}},
         [](boost::text::case_first) {{}},
-        [](boost::text::detail_::cp_seq_t const & suppressions) {{}},
-        [](std::vector<boost::text::detail_::reorder_group> const & reorder_groups) {{}},
+        [](boost::text::detail::cp_seq_t const & suppressions) {{}},
+        [](std::vector<boost::text::detail::reorder_group> const & reorder_groups) {{}},
         [](boost::text::string const & s) {{
             std::cout << s << std::endl;
             throw std::runtime_error("Parser produced an error!");
@@ -201,7 +201,7 @@ if args.tests:
     {{
         auto const str = {0};
         EXPECT_NO_THROW(
-            boost::text::detail_::lex(
+            boost::text::detail::lex(
                 str.begin(),
                 str.end(),
                 [](boost::text::string const & s) {{
@@ -216,7 +216,7 @@ if args.tests:
     {{
         auto const str = {0};
         EXPECT_NO_THROW(
-            boost::text::detail_::parse(
+            boost::text::detail::parse(
                 str.begin(),
                 str.end(),
                 callbacks,
@@ -262,10 +262,10 @@ header_form = '''\
 #include <boost/text/string_view.hpp>
 
 
-namespace boost {{ namespace text {{ inline namespace unicode_10 {{ namespace data {{ namespace {1} {{
+namespace boost {{ namespace text {{ namespace data {{ namespace {1} {{
 
 {2}
-}}}}}}}}}}
+}}}}}}}}
 
 #endif
 '''
@@ -373,7 +373,7 @@ def find_suppressed_contractions(suppressions):
             if 1 < len(k) and k[0] == s:
                 alternate_ces = []
                 for ki in k:
-                    alternate_ces += map(lambda x: 'text::detail_::collation_element' + ce_to_cpp(x), cet[(ki,)][0])
+                    alternate_ces += map(lambda x: 'text::detail::collation_element' + ce_to_cpp(x), cet[(ki,)][0])
                 retval.append((k, alternate_ces))
     return retval
 
@@ -409,17 +409,17 @@ TEST(tailoring, {0}_{1}_suppressions_{2})
         retval += '''\
     {{
         uint32_t cps[{1}] = {{ {0} }};
-        container::small_vector<text::detail_::collation_element, 1024> ces = {{
+        container::small_vector<text::detail::collation_element, 1024> ces = {{
             {2}
         }};
-        container::small_vector<text::detail_::collation_element, 1024> result;
+        container::small_vector<text::detail::collation_element, 1024> result;
         table.copy_collation_elements(
             cps, cps + {1}, std::back_inserter(result));
         // Ignore lead byte reorderings.  We just care if the contractions
         // happen.
         for (auto & ce : ces) {{
             ce.l1_ &= 0x00ffffff;
-            ce.l3_ &= text::detail_::disable_case_level_mask;
+            ce.l3_ &= text::detail::disable_case_level_mask;
         }}
         for (auto & ce : result) {{ ce.l1_ &= 0x00ffffff; }}
         EXPECT_EQ(result, ces);

@@ -20,7 +20,7 @@
 #endif
 
 
-namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
+namespace boost { namespace text { namespace detail {
 
     struct collation_element
     {
@@ -38,7 +38,7 @@ namespace boost { namespace text { inline namespace unicode_10 { namespace detai
     }
     inline std::ostream & operator<<(
         std::ostream & os,
-        container::small_vector<collation_element, 1024> const & ces)
+        container::small_vector<detail::collation_element, 1024> const & ces)
     {
         for (auto ce : ces) {
             os << ce << " ";
@@ -304,9 +304,9 @@ namespace boost { namespace text { inline namespace unicode_10 { namespace detai
                  it != end;
                  it += element_bytes) {
                 collation_element element;
-                element.l1_ = detail::bytes_to_uint32_t(&*it);
-                element.l2_ = detail::bytes_to_uint16_t(&*it + 4);
-                element.l3_ = detail::bytes_to_uint16_t(&*it + 6);
+                element.l1_ = bytes_to_uint32_t(&*it);
+                element.l2_ = bytes_to_uint16_t(&*it + 4);
+                element.l3_ = bytes_to_uint16_t(&*it + 6);
                 element.l4_ = 0;
                 *out_++ = element;
             }
@@ -356,7 +356,7 @@ namespace boost { namespace text { inline namespace unicode_10 { namespace detai
                 collation_trie_key<3> element;
                 for (int i = 1; i != element_bytes_; i += 3) {
                     element.insert(
-                        element.end(), detail::bytes_to_cp(buf_->data() + i));
+                        element.end(), bytes_to_cp(buf_->data() + i));
                 }
                 *out_++ = element;
                 buf_->erase(buf_->begin(), buf_->begin() + element_bytes_);
@@ -380,6 +380,6 @@ namespace boost { namespace text { inline namespace unicode_10 { namespace detai
         return lzw_to_trie_key_iter<OutIter>(out, buf);
     }
 
-}}}}
+}}}
 
 #endif

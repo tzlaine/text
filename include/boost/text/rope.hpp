@@ -603,13 +603,13 @@ namespace boost { namespace text {
         first = find_if_backward(
             mutable_utf32_view_iter(this_rv_first, this_rv_first, this_rv_last),
             first,
-            detail_::stable_fcc_code_point);
+            detail::stable_fcc_code_point);
         mutable_utf32_view_iter last(this_rv_first, rv_last, this_rv_last);
 
         last = find_if(
             last,
             mutable_utf32_view_iter(this_rv_last, this_rv_last, this_rv_last),
-            detail_::stable_fcc_code_point);
+            detail::stable_fcc_code_point);
 
         string str(first.base(), rv_first);
         str.insert(str.end(), rv_last, last.base());
@@ -736,7 +736,7 @@ namespace boost { namespace text {
         auto const first =
             mutable_utf32_iter(rope_.begin(), rope_.begin(), rope_.end());
         auto const it =
-            find_if_backward(first, last, detail_::stable_fcc_code_point);
+            find_if_backward(first, last, detail::stable_fcc_code_point);
         if (it == last)
             return first;
         return it;
@@ -747,7 +747,7 @@ namespace boost { namespace text {
     {
         auto const last =
             mutable_utf32_iter(rope_.begin(), rope_.end(), rope_.end());
-        auto const it = find_if(first, last, detail_::stable_fcc_code_point);
+        auto const it = find_if(first, last, detail::stable_fcc_code_point);
         return it;
     }
 
@@ -788,7 +788,7 @@ namespace boost { namespace text {
                     find_if_backward(
                         utf32_string_iter(str.begin(), str.begin(), str.end()),
                         utf32_string_iter(str.begin(), str_first, str.end()),
-                        detail_::stable_fcc_code_point)
+                        detail::stable_fcc_code_point)
                         .base();
                 auto const suffix = str(str_last - str.end()); // negative index
                 container::small_vector<char, 128> buf;
@@ -805,7 +805,7 @@ namespace boost { namespace text {
                     find_if(
                         utf32_string_iter(str.begin(), str_first, str.end()),
                         utf32_string_iter(str.begin(), str.end(), str.end()),
-                        detail_::stable_fcc_code_point)
+                        detail::stable_fcc_code_point)
                         .base();
                 auto const prefix = str(str_last - str.begin());
                 container::small_vector<char, 128> buf;

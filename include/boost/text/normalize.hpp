@@ -7,9 +7,9 @@
 #include <boost/container/static_vector.hpp>
 
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
-    namespace detail_ {
+    namespace detail {
 
         template<typename Iter, std::size_t Capacity>
         void order_canonically(
@@ -73,13 +73,13 @@ namespace boost { namespace text { inline namespace unicode_10 {
             while (first != last) {
                 auto const decomp = decompose(*first);
                 if (!ccc(decomp.storage_[0])) {
-                    if (!detail_::flush_buffer(buffer, flush))
+                    if (!detail::flush_buffer(buffer, flush))
                         return false;
                 }
                 buffer.insert(buffer.end(), decomp.begin(), decomp.end());
                 ++first;
             }
-            if (!detail_::flush_buffer(buffer, flush))
+            if (!detail::flush_buffer(buffer, flush))
                 return false;
             return true;
         }
@@ -239,7 +239,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 if (it != decomp.end() && !hangul_final_v(buffer, *it) &&
                     !hangul_final_t(buffer, *it)) {
                     buffer.insert(buffer.end(), decomp.begin(), it);
-                    if (!detail_::compose_and_flush_buffer<
+                    if (!detail::compose_and_flush_buffer<
                             DisallowDiscontiguous>(buffer, flush)) {
                         return false;
                     }
@@ -249,7 +249,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 }
                 ++first;
             }
-            if (!detail_::compose_and_flush_buffer<DisallowDiscontiguous>(
+            if (!detail::compose_and_flush_buffer<DisallowDiscontiguous>(
                     buffer, flush)) {
                 return false;
             }
@@ -409,9 +409,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
     inline auto normalize_to_nfd(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-        return detail_::normalize_to_decomposed(
+        return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
-                return detail_::canonical_decompose(cp);
+                return detail::canonical_decompose(cp);
             });
     }
 
@@ -428,9 +428,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
     inline auto normalize_to_nfkd(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-        return detail_::normalize_to_decomposed(
+        return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
-                return detail_::compatible_decompose(cp);
+                return detail::compatible_decompose(cp);
             });
     }
 
@@ -447,12 +447,12 @@ namespace boost { namespace text { inline namespace unicode_10 {
     inline auto normalize_to_nfc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-        return detail_::normalize_to_composed<false>(
+        return detail::normalize_to_composed<false>(
             first,
             last,
             out,
-            [](uint32_t cp) { return detail_::canonical_decompose(cp); },
-            [](uint32_t cp) { return detail_::quick_check_nfc_code_point(cp); });
+            [](uint32_t cp) { return detail::canonical_decompose(cp); },
+            [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
     /** Writes sequence \a r in Unicode normalization form NFC to \a out. */
@@ -468,13 +468,13 @@ namespace boost { namespace text { inline namespace unicode_10 {
     inline auto normalize_to_nfkc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-        return detail_::normalize_to_composed<false>(
+        return detail::normalize_to_composed<false>(
             first,
             last,
             out,
-            [](uint32_t cp) { return detail_::compatible_decompose(cp); },
+            [](uint32_t cp) { return detail::compatible_decompose(cp); },
             [](uint32_t cp) {
-                return detail_::quick_check_nfkc_code_point(cp);
+                return detail::quick_check_nfkc_code_point(cp);
             });
     }
 
@@ -494,11 +494,11 @@ namespace boost { namespace text { inline namespace unicode_10 {
     auto normalized_nfd(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-        return detail_::normalized_decomposed(
+        return detail::normalized_decomposed(
             first,
             last,
-            [](uint32_t cp) { return detail_::canonical_decompose(cp); },
-            [](uint32_t cp) { return detail_::quick_check_nfd_code_point(cp); });
+            [](uint32_t cp) { return detail::canonical_decompose(cp); },
+            [](uint32_t cp) { return detail::quick_check_nfd_code_point(cp); });
     }
 
     /** Returns true iff the given range of code points is normalized
@@ -515,12 +515,12 @@ namespace boost { namespace text { inline namespace unicode_10 {
     auto normalized_nfkd(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-        return detail_::normalized_decomposed(
+        return detail::normalized_decomposed(
             first,
             last,
-            [](uint32_t cp) { return detail_::compatible_decompose(cp); },
+            [](uint32_t cp) { return detail::compatible_decompose(cp); },
             [](uint32_t cp) {
-                return detail_::quick_check_nfkd_code_point(cp);
+                return detail::quick_check_nfkd_code_point(cp);
             });
     }
 
@@ -538,11 +538,11 @@ namespace boost { namespace text { inline namespace unicode_10 {
     auto normalized_nfc(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-        return detail_::normalized_composed(
+        return detail::normalized_composed(
             first,
             last,
-            [](uint32_t cp) { return detail_::canonical_decompose(cp); },
-            [](uint32_t cp) { return detail_::quick_check_nfc_code_point(cp); });
+            [](uint32_t cp) { return detail::canonical_decompose(cp); },
+            [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
     /** Returns true iff the given range of code points is normalized
@@ -559,12 +559,12 @@ namespace boost { namespace text { inline namespace unicode_10 {
     auto normalized_nfkc(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<bool, CPIter>
     {
-        return detail_::normalized_composed(
+        return detail::normalized_composed(
             first,
             last,
-            [](uint32_t cp) { return detail_::compatible_decompose(cp); },
+            [](uint32_t cp) { return detail::compatible_decompose(cp); },
             [](uint32_t cp) {
-                return detail_::quick_check_nfkc_code_point(cp);
+                return detail::quick_check_nfkc_code_point(cp);
             });
     }
 
@@ -586,12 +586,12 @@ namespace boost { namespace text { inline namespace unicode_10 {
         int prev_ccc = 0;
         while (first != last) {
             auto const cp = *first;
-            auto const decomp = detail_::canonical_decompose(cp);
-            auto const ccc = detail_::ccc(*decomp.begin());
+            auto const decomp = detail::canonical_decompose(cp);
+            auto const ccc = detail::ccc(*decomp.begin());
             if (ccc && ccc < prev_ccc)
                 return false;
             prev_ccc =
-                decomp.size_ == 1 ? ccc : detail_::ccc(*(decomp.end() - 1));
+                decomp.size_ == 1 ? ccc : detail::ccc(*(decomp.end() - 1));
             ++first;
         }
         return false;
@@ -613,12 +613,12 @@ namespace boost { namespace text { inline namespace unicode_10 {
     inline auto normalize_to_fcc(CPIter first, Sentinel last, OutIter out)
         -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
-        return detail_::normalize_to_composed<true>(
+        return detail::normalize_to_composed<true>(
             first,
             last,
             out,
-            [](uint32_t cp) { return detail_::canonical_decompose(cp); },
-            [](uint32_t cp) { return detail_::quick_check_nfc_code_point(cp); });
+            [](uint32_t cp) { return detail::canonical_decompose(cp); },
+            [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
     /** Writes sequence \a r in normalization form FCC to \a out.
@@ -631,6 +631,6 @@ namespace boost { namespace text { inline namespace unicode_10 {
         return normalize_to_fcc(std::begin(r), std::end(r), out);
     }
 
-}}}
+}}
 
 #endif

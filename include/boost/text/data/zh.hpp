@@ -5,7 +5,7 @@
 #include <boost/text/string_view.hpp>
 
 
-namespace boost { namespace text { inline namespace unicode_10 { namespace data { namespace zh {
+namespace boost { namespace text { namespace data { namespace zh {
 
 inline string big5han_collation_tailoring()
 {
@@ -4959,6 +4959,6 @@ inline string zhuyin_collation_tailoring()
 }
 
 
-}}}}}
+}}}}
 
 #endif

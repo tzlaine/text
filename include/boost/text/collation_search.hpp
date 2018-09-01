@@ -17,7 +17,7 @@
 #define BOOST_TEXT_COLLATION_SEARCH_INSTRUMENTATION 0
 #endif
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
     // TODO: Document that "a\u0300\u0301" -- an 'a' followed by an grave
     // accent followed by an acute accent -- will not always be matched
@@ -65,15 +65,15 @@ namespace boost { namespace text { inline namespace unicode_10 {
         return grapheme_range<cp_iter_t>{cp_result.begin(), cp_result.end()};
     }
 
-}}}
+}}
 
 // Le sigh.
 namespace std {
 
     template<>
-    struct hash<boost::text::detail_::collation_element>
+    struct hash<boost::text::detail::collation_element>
     {
-        using argument_type = boost::text::detail_::collation_element;
+        using argument_type = boost::text::detail::collation_element;
         using result_type = std::size_t;
         result_type operator()(argument_type ce) const noexcept
         {
@@ -82,9 +82,9 @@ namespace std {
     };
 }
 
-namespace boost { namespace text { inline namespace unicode_10 {
+namespace boost { namespace text {
 
-    namespace detail_ {
+    namespace detail {
 
         struct coll_search_prev_grapheme_callable
         {
@@ -375,7 +375,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
             std::ptrdiff_t n,
             Iter last,
             std::random_access_iterator_tag,
-            detail::non_sentinel_tag)
+            non_sentinel_tag)
         {
             return std::next(it, (std::min)(n, last - it));
         }
@@ -390,8 +390,8 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 typename std::iterator_traits<Iter>::iterator_category{},
                 typename std::conditional<
                     std::is_same<Iter, Sentinel>::value,
-                    detail::non_sentinel_tag,
-                    detail::sentinel_tag>::type());
+                    non_sentinel_tag,
+                    sentinel_tag>::type());
         }
 
         struct search_skip_table
@@ -728,7 +728,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
             weighting_(weighting),
             break_fn_(break_fn)
         {
-            detail_::get_pattern_ces(
+            detail::get_pattern_ces(
                 pattern_first,
                 pattern_last,
                 pattern_ces_,
@@ -743,10 +743,10 @@ namespace boost { namespace text { inline namespace unicode_10 {
         operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
-                std::deque<detail_::collation_element>::const_iterator,
-                container::small_vector<detail_::collation_element, 256>::
+                std::deque<detail::collation_element>::const_iterator,
+                container::small_vector<detail::collation_element, 256>::
                     const_iterator>;
-            return detail_::search_impl<detail_::mismatch_dir::fwd>(
+            return detail::search_impl<detail::mismatch_dir::fwd>(
                 first,
                 last,
                 pattern_ces_,
@@ -755,7 +755,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 strength_,
                 case_level_,
                 weighting_,
-                [](mismatch_t, std::deque<detail_::collation_element> const &) {
+                [](mismatch_t, std::deque<detail::collation_element> const &) {
                     return 1;
                 });
         }
@@ -765,7 +765,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         collation_strength strength_;
         case_level case_level_;
         variable_weighting weighting_;
-        container::small_vector<detail_::collation_element, 256> pattern_ces_;
+        container::small_vector<detail::collation_element, 256> pattern_ces_;
         BreakFunc break_fn_;
     };
 
@@ -784,20 +784,20 @@ namespace boost { namespace text { inline namespace unicode_10 {
             simple_collation_searcher<
                 CPIter,
                 Sentinel,
-                detail_::coll_search_prev_grapheme_callable>,
+                detail::coll_search_prev_grapheme_callable>,
             CPIter>
     {
         return simple_collation_searcher<
             CPIter,
             Sentinel,
-            detail_::coll_search_prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             first,
             last,
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a simple_collation_searcher that will find the pattern
@@ -820,9 +820,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
             last,
             break_fn,
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a simple_collation_searcher that will find the pattern r.  A
@@ -836,7 +836,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
             simple_collation_searcher<
                 decltype(std::begin(r)),
                 decltype(std::end(r)),
-                detail_::coll_search_prev_grapheme_callable>,
+                detail::coll_search_prev_grapheme_callable>,
             CPRange>
     {
         using r_iter = decltype(std::begin(r));
@@ -844,14 +844,14 @@ namespace boost { namespace text { inline namespace unicode_10 {
         return simple_collation_searcher<
             r_iter,
             r_sntl,
-            detail_::coll_search_prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             std::begin(r),
             std::end(r),
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a simple_collation_searcher that will find the pattern r.  A
@@ -865,21 +865,21 @@ namespace boost { namespace text { inline namespace unicode_10 {
             simple_collation_searcher<
                 decltype(r.begin().base()),
                 decltype(r.end().base()),
-                detail_::coll_search_prev_grapheme_callable>,
+                detail::coll_search_prev_grapheme_callable>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(r.begin().base());
         return simple_collation_searcher<
             cp_iter_t,
             cp_iter_t,
-            detail_::coll_search_prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             r.begin().base(),
             r.end().base(),
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a simple_collation_searcher that will find the pattern r.
@@ -906,9 +906,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
             std::end(r),
             break_fn,
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a simple_collation_searcher that will find the pattern r.
@@ -934,9 +934,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
             r.end().base(),
             break_fn,
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** A searcher for use with the collation_search() algorithm.  This
@@ -961,7 +961,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
             if (pattern_first == pattern_last)
                 return;
 
-            detail_::get_pattern_ces(
+            detail::get_pattern_ces(
                 pattern_first,
                 pattern_last,
                 pattern_ces_,
@@ -970,7 +970,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 case_level_,
                 weighting_);
 
-            skips_ = detail_::search_skip_table(
+            skips_ = detail::search_skip_table(
                 pattern_ces_.size(), pattern_ces_.size());
 
             std::ptrdiff_t i = 0;
@@ -987,9 +987,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
         operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
-                std::deque<detail_::collation_element>::const_reverse_iterator,
+                std::deque<detail::collation_element>::const_reverse_iterator,
                 ces_t::const_reverse_iterator>;
-            return detail_::search_impl<detail_::mismatch_dir::rev>(
+            return detail::search_impl<detail::mismatch_dir::rev>(
                 first,
                 last,
                 pattern_ces_,
@@ -1000,19 +1000,19 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 weighting_,
                 [this](
                     mismatch_t,
-                    std::deque<detail_::collation_element> const & str_ces) {
+                    std::deque<detail::collation_element> const & str_ces) {
                     return skips_[str_ces[pattern_ces_.size() - 1]];
                 });
         }
 
     private:
-        using ces_t = container::small_vector<detail_::collation_element, 256>;
+        using ces_t = container::small_vector<detail::collation_element, 256>;
 
         collation_table table_;
         collation_strength strength_;
         case_level case_level_;
         variable_weighting weighting_;
-        detail_::search_skip_table skips_;
+        detail::search_skip_table skips_;
         ces_t pattern_ces_;
         BreakFunc break_fn_;
     };
@@ -1030,20 +1030,20 @@ namespace boost { namespace text { inline namespace unicode_10 {
             boyer_moore_horspool_collation_searcher<
                 CPIter,
                 Sentinel,
-                detail_::coll_search_prev_grapheme_callable>,
+                detail::coll_search_prev_grapheme_callable>,
             CPIter>
     {
         return boyer_moore_horspool_collation_searcher<
             CPIter,
             Sentinel,
-            detail_::coll_search_prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             first,
             last,
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
@@ -1072,9 +1072,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
             last,
             break_fn,
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
@@ -1088,7 +1088,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
             boyer_moore_horspool_collation_searcher<
                 decltype(std::begin(r)),
                 decltype(std::end(r)),
-                detail_::coll_search_prev_grapheme_callable>,
+                detail::coll_search_prev_grapheme_callable>,
             CPRange>
     {
         using r_iter = decltype(std::begin(r));
@@ -1096,14 +1096,14 @@ namespace boost { namespace text { inline namespace unicode_10 {
         return boyer_moore_horspool_collation_searcher<
             r_iter,
             r_sntl,
-            detail_::coll_search_prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             std::begin(r),
             std::end(r),
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
@@ -1117,21 +1117,21 @@ namespace boost { namespace text { inline namespace unicode_10 {
             boyer_moore_horspool_collation_searcher<
                 decltype(r.begin().base()),
                 decltype(r.end().base()),
-                detail_::coll_search_prev_grapheme_callable>,
+                detail::coll_search_prev_grapheme_callable>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(r.begin().base());
         return boyer_moore_horspool_collation_searcher<
             cp_iter_t,
             cp_iter_t,
-            detail_::coll_search_prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             r.begin().base(),
             r.end().base(),
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
@@ -1161,9 +1161,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
             std::end(r),
             break_fn,
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_horspool_collation_searcher that will find the
@@ -1192,9 +1192,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
             r.end().base(),
             break_fn,
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** A searcher for use with the collation_search() algorithm.  A match
@@ -1216,7 +1216,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
             weighting_(weighting),
             break_fn_(break_fn)
         {
-            detail_::get_pattern_ces(
+            detail::get_pattern_ces(
                 pattern_first,
                 pattern_last,
                 pattern_ces_,
@@ -1225,7 +1225,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 case_level_,
                 weighting_);
 
-            skips_ = detail_::search_skip_table(pattern_ces_.size(), -1);
+            skips_ = detail::search_skip_table(pattern_ces_.size(), -1);
 
             std::ptrdiff_t i = 0;
             for (auto ce : pattern_ces_) {
@@ -1240,9 +1240,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
         operator()(CPIter2 first, Sentinel2 last) const
         {
             using mismatch_t = std::pair<
-                std::deque<detail_::collation_element>::const_reverse_iterator,
+                std::deque<detail::collation_element>::const_reverse_iterator,
                 ces_t::const_reverse_iterator>;
-            return detail_::search_impl<detail_::mismatch_dir::rev>(
+            return detail::search_impl<detail::mismatch_dir::rev>(
                 first,
                 last,
                 pattern_ces_,
@@ -1253,7 +1253,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
                 weighting_,
                 [this](
                     mismatch_t mismatch,
-                    std::deque<detail_::collation_element> const & str_ces) {
+                    std::deque<detail::collation_element> const & str_ces) {
                     auto const skip_lookup = skips_[*mismatch.first];
                     auto const mismatch_index = str_ces.rend() - mismatch.first;
                     auto const m = mismatch_index - skip_lookup - 1;
@@ -1267,7 +1267,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         }
 
     private:
-        using ces_t = container::small_vector<detail_::collation_element, 256>;
+        using ces_t = container::small_vector<detail::collation_element, 256>;
         using ces_iter = ces_t::iterator;
 
         template<typename CEIter>
@@ -1323,7 +1323,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         collation_strength strength_;
         case_level case_level_;
         variable_weighting weighting_;
-        detail_::search_skip_table skips_;
+        detail::search_skip_table skips_;
         std::vector<std::ptrdiff_t> suffixes_;
         ces_t pattern_ces_;
         BreakFunc break_fn_;
@@ -1341,20 +1341,20 @@ namespace boost { namespace text { inline namespace unicode_10 {
             boyer_moore_collation_searcher<
                 CPIter,
                 Sentinel,
-                detail_::coll_search_prev_grapheme_callable>,
+                detail::coll_search_prev_grapheme_callable>,
             CPIter>
     {
         return boyer_moore_collation_searcher<
             CPIter,
             Sentinel,
-            detail_::coll_search_prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             first,
             last,
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern
@@ -1377,9 +1377,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
             last,
             break_fn,
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern r.
@@ -1393,7 +1393,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
             boyer_moore_collation_searcher<
                 decltype(std::begin(r)),
                 decltype(std::end(r)),
-                detail_::coll_search_prev_grapheme_callable>,
+                detail::coll_search_prev_grapheme_callable>,
             CPRange>
     {
         using r_iter = decltype(std::begin(r));
@@ -1401,14 +1401,14 @@ namespace boost { namespace text { inline namespace unicode_10 {
         return boyer_moore_collation_searcher<
             r_iter,
             r_sntl,
-            detail_::coll_search_prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             std::begin(r),
             std::end(r),
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern r.
@@ -1422,21 +1422,21 @@ namespace boost { namespace text { inline namespace unicode_10 {
             boyer_moore_collation_searcher<
                 decltype(r.begin().base()),
                 decltype(r.end().base()),
-                detail_::coll_search_prev_grapheme_callable>,
+                detail::coll_search_prev_grapheme_callable>,
             GraphemeRange>
     {
         using cp_iter_t = decltype(r.begin().base());
         return boyer_moore_collation_searcher<
             cp_iter_t,
             cp_iter_t,
-            detail_::coll_search_prev_grapheme_callable>(
+            detail::coll_search_prev_grapheme_callable>(
             r.begin().base(),
             r.end().base(),
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern r.
@@ -1463,9 +1463,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
             std::end(r),
             break_fn,
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     /** Returns a boyer_moore_collation_searcher that will find the pattern r.
@@ -1491,9 +1491,9 @@ namespace boost { namespace text { inline namespace unicode_10 {
             r.end().base(),
             break_fn,
             table,
-            detail_::to_strength(flags),
-            detail_::to_case_level(flags),
-            detail_::to_weighting(flags));
+            detail::to_strength(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags));
     }
 
     // Convenience overloads
@@ -1598,7 +1598,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         auto const s = make_simple_collation_searcher(
             pattern_first,
             pattern_last,
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
         return collation_search(first, last, s);
@@ -1618,7 +1618,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
     {
         auto const s = make_simple_collation_searcher(
             pattern,
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
         return collation_search(std::begin(str), std::end(str), s);
@@ -1642,7 +1642,7 @@ namespace boost { namespace text { inline namespace unicode_10 {
         auto const s = make_simple_collation_searcher(
             pattern.begin().base(),
             pattern.end().base(),
-            detail_::coll_search_prev_grapheme_callable{},
+            detail::coll_search_prev_grapheme_callable{},
             table,
             flags);
         auto const cp_result =
@@ -1650,6 +1650,6 @@ namespace boost { namespace text { inline namespace unicode_10 {
         return grapheme_range<cp_iter_t>{cp_result.begin(), cp_result.end()};
     }
 
-}}}
+}}
 
 #endif
