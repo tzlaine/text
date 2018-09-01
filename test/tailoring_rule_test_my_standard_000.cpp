@@ -8143,6 +8143,7 @@ TEST(tailoring, my_standard_000_012)
         table(), collation_strength::primary),
         -1);
     }
+#if 0 // This test it optional.
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1021, 0x102d};
@@ -8159,6 +8160,7 @@ TEST(tailoring, my_standard_000_012)
         table(), collation_strength::secondary),
         0);
     }
+#endif
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>{0x1021, 0x102e};

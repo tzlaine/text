@@ -43,6 +43,7 @@ collation_table const & table()
 }
 TEST(tailoring, en_US_POSIX_standard_000_001)
 {
+#if 0 // 'A' actually gets moved to later in the tailoring later in the rule.
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0041);
@@ -53,6 +54,7 @@ TEST(tailoring, en_US_POSIX_standard_000_001)
         table(), collation_strength::primary),
         -1);
     }
+#endif
     {
     // greater than (or equal to, for =) preceeding cps
     auto const res = std::vector<uint32_t>(1, 0x0020);
