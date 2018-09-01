@@ -111,7 +111,7 @@ inline int bidi_mirroring(uint32_t cp) noexcept
 
 inline std::array<uint32_t, {3}> const & bidi_mirroreds() noexcept
 {{
-    static std::array<uint32_t, 364> const retval = {{{{
+    static std::array<uint32_t, {3}> const retval = {{{{
 {4}
     }}}};
     return retval;
@@ -123,8 +123,36 @@ inline std::array<uint32_t, {3}> const & bidi_mirroreds() noexcept
 '''
 
 
-def extract_break_properties(filename, prop_, prop_names):
+def extract_extended_pictographic(filename):
     intervals = []
+    lines = open(filename, 'r').readlines()
+    for line in lines:
+        line = line[:-1]
+        if not line.startswith('#') and len(line) != 0:
+            comment_start = line.find('#')
+            comment = ''
+            if comment_start != -1:
+                comment = line[comment_start + 1:].strip()
+                line = line[:comment_start]
+            fields = map(lambda x: x.strip(), line.split(';'))
+            prop = fields[1]
+            if prop != 'Extended_Pictographic':
+                continue
+            code_points = fields[0]
+            if '..' in code_points:
+                cps = code_points.split('.')
+                interval = (int(cps[0], 16), int(cps[2], 16) + 1, 'ExtPict')
+            else:
+                cp = int(code_points, 16)
+                interval = (cp, cp + 1, 'ExtPict')
+            intervals.append(interval)
+    return intervals
+
+
+def extract_break_properties(filename, prop_, prop_names, ext_pict_intervals):
+    intervals = []
+    for interval in ext_pict_intervals:
+        intervals.append(interval)
     prop_enum = prop_ + 'erty'
     break_prop_lines = open(filename, 'r').readlines()
     for line in break_prop_lines:
@@ -301,6 +329,7 @@ def compressed_prop_lines(cp_prop_pairs):
 
     return lzw.compressed_bytes_to_lines(compressed_bytes, values_per_line)
 
+ext_pict_intervals = extract_extended_pictographic('emoji-data.txt')
 
 grapheme_props = {
     'Other': 0,
@@ -308,23 +337,21 @@ grapheme_props = {
     'LF': 2,
     'Control': 3,
     'Extend': 4,
-    'Prepend': 5,
-    'SpacingMark': 6,
-    'L': 7,
-    'V': 8,
-    'T': 9,
-    'LV': 10,
-    'LVT': 11,
-    'Regional_Indicator': 12,
-    'E_Base': 13,
-    'E_Modifier': 14,
-    'ZWJ': 15,
-    'Glue_After_Zwj': 16,
-    'E_Base_GAZ': 17
+    'Regional_Indicator': 5,
+    'Prepend': 6,
+    'SpacingMark': 7,
+    'L': 8,
+    'V': 9,
+    'T': 10,
+    'LV': 11,
+    'LVT': 12,
+    'ExtPict': 13,
+    'ZWJ': 14
 }
 
 (grapheme_break_intervals, num_grapheme_intervals, grapheme_break_intervals_map) = \
-    extract_break_properties('GraphemeBreakProperty.txt', 'grapheme_prop', grapheme_props)
+    extract_break_properties('GraphemeBreakProperty.txt', 'grapheme_prop',
+                             grapheme_props, ext_pict_intervals)
 bytes_, num_bytes = uncompressed_prop_lines(grapheme_break_intervals_map)
 cpp_file = open('grapheme_break.cpp', 'w')
 cpp_file.write(cpp_file_form.format('grapheme_prop', num_grapheme_intervals, grapheme_break_intervals, 'grapheme_break', bytes_, num_bytes, len(grapheme_break_intervals_map)))
@@ -345,17 +372,16 @@ word_props = {
     'Hebrew_Letter': 12,
     'Double_Quote': 13,
     'Single_Quote': 14,
-    'E_Base': 15,
-    'E_Modifier': 16,
-    'Glue_After_Zwj': 17,
-    'E_Base_GAZ': 18,
-    'Format': 19,
-    'Extend': 20,
-    'ZWJ': 21
+    'ExtPict': 15,
+    'WSegSpace': 16,
+    'Format': 17,
+    'Extend': 18,
+    'ZWJ': 19
 }
 
 (word_break_intervals, num_word_intervals, word_break_intervals_map) = \
-    extract_break_properties('WordBreakProperty.txt', 'word_prop', word_props)
+    extract_break_properties('WordBreakProperty.txt', 'word_prop',
+                             word_props, ext_pict_intervals)
 bytes_, num_bytes = uncompressed_prop_lines(word_break_intervals_map)
 cpp_file = open('word_break.cpp', 'w')
 cpp_file.write(cpp_file_form.format('word_prop', num_word_intervals, word_break_intervals, 'word_break', bytes_, num_bytes, len(word_break_intervals_map)))
@@ -379,7 +405,7 @@ sentence_props = {
 }
 
 (sentence_break_intervals, num_sentence_intervals, sentence_break_intervals_map) = \
-    extract_break_properties('SentenceBreakProperty.txt', 'sentence_prop', sentence_props)
+    extract_break_properties('SentenceBreakProperty.txt', 'sentence_prop', sentence_props, [])
 bytes_, num_bytes = uncompressed_prop_lines(sentence_break_intervals_map)
 cpp_file = open('sentence_break.cpp', 'w')
 cpp_file.write(cpp_file_form.format('sentence_prop', num_sentence_intervals, sentence_break_intervals, 'sentence_break', bytes_, num_bytes, len(sentence_break_intervals_map)))
@@ -462,7 +488,7 @@ bidi_props = {
 }
 
 (bidi_intervals, num_bidi_intervals, bidi_intervals_map) = \
-    extract_break_properties('DerivedBidiClass.txt', 'bidi_prop', bidi_props)
+    extract_break_properties('DerivedBidiClass.txt', 'bidi_prop', bidi_props, [])
 bytes_, num_bytes = uncompressed_prop_lines(bidi_intervals_map)
 cpp_file = open('bidi.cpp', 'w')
 cpp_file.write(cpp_file_form.format('bidi_prop', num_bidi_intervals, bidi_intervals, 'bidirectional', bytes_, num_bytes, len(bidi_intervals_map)))

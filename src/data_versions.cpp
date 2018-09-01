@@ -3,8 +3,8 @@
 
 namespace boost { namespace text {
 
-    library_version unicode_version() { return { 10, 0, 0 }; }
+    library_version unicode_version() { return { 11, 0, 0 }; }
 
-    library_version cldr_version() { return { 32, 0, 1 }; }
+    library_version cldr_version() { return { 33, 1, 0 }; }
 
 }}

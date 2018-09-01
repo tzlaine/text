@@ -8,6 +8,62 @@
 
 TEST(grapheme, breaks_7)
 {
+    // ÷ 1160 ÷ 000D ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x1160, 0xd }};
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+    }
+
+
+    // ÷ 1160 × 0308 ÷ 000D ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0xd }};
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+    }
+
+
+    // ÷ 1160 ÷ 000A ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x1160, 0xa }};
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+    }
+
+
+    // ÷ 1160 × 0308 ÷ 000A ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0xa }};
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+    }
+
+
     // ÷ 1160 ÷ 0001 ÷	
     // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
@@ -22,7 +78,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 ÷ 0001 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x1 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -36,10 +92,10 @@ TEST(grapheme, breaks_7)
     }
 
 
-    // ÷ 1160 × 0300 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
+    // ÷ 1160 × 034F ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING GRAPHEME JOINER (Extend) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x1160, 0x300 }};
+        std::array<uint32_t, 2> cps = {{ 0x1160, 0x34f }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -49,10 +105,10 @@ TEST(grapheme, breaks_7)
     }
 
 
-    // ÷ 1160 × 0308 × 0300 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
+    // ÷ 1160 × 0308 × 034F ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.0] COMBINING GRAPHEME JOINER (Extend) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x300 }};
+        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x34f }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -61,6 +117,34 @@ TEST(grapheme, breaks_7)
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+    }
+
+
+    // ÷ 1160 ÷ 1F1E6 ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x1160, 0x1f1e6 }};
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+    }
+
+
+    // ÷ 1160 × 0308 ÷ 1F1E6 ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x1f1e6 }};
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -78,7 +162,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 ÷ 0600 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x600 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -106,7 +190,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 × 0903 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x903 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -134,7 +218,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 ÷ 1100 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x1100 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -162,7 +246,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 ÷ 1160 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x1160 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -190,7 +274,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 ÷ 11A8 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x11a8 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -218,7 +302,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 ÷ AC00 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0xac00 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -246,7 +330,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 ÷ AC01 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0xac01 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -260,10 +344,10 @@ TEST(grapheme, breaks_7)
     }
 
 
-    // ÷ 1160 ÷ 1F1E6 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    // ÷ 1160 ÷ 231A ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) ÷ [999.0] WATCH (ExtPict) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x1160, 0x1f1e6 }};
+        std::array<uint32_t, 2> cps = {{ 0x1160, 0x231a }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -273,10 +357,10 @@ TEST(grapheme, breaks_7)
     }
 
 
-    // ÷ 1160 × 0308 ÷ 1F1E6 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    // ÷ 1160 × 0308 ÷ 231A ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] WATCH (ExtPict) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x1f1e6 }};
+        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x231a }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -288,64 +372,36 @@ TEST(grapheme, breaks_7)
     }
 
 
-    // ÷ 1160 ÷ 261D ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
+    // ÷ 1160 × 0300 ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING GRAVE ACCENT (Extend_ExtCccZwj) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x1160, 0x261d }};
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-    }
-
-
-    // ÷ 1160 × 0308 ÷ 261D ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x261d }};
+        std::array<uint32_t, 2> cps = {{ 0x1160, 0x300 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-    }
-
-
-    // ÷ 1160 ÷ 1F3FB ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x1160, 0x1f3fb }};
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-    }
-
-
-    // ÷ 1160 × 0308 ÷ 1F3FB ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x1f3fb }};
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+    }
+
+
+    // ÷ 1160 × 0308 × 0300 ÷	
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.0] COMBINING GRAVE ACCENT (Extend_ExtCccZwj) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x300 }};
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
     }
 
 
     // ÷ 1160 × 200D ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] ZERO WIDTH JOINER (ZWJ_ExtCccZwj) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x1160, 0x200d }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -358,7 +414,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 × 200D ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.0] ZERO WIDTH JOINER (ZWJ_ExtCccZwj) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x200d }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -369,62 +425,6 @@ TEST(grapheme, breaks_7)
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-    }
-
-
-    // ÷ 1160 ÷ 2640 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x1160, 0x2640 }};
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-    }
-
-
-    // ÷ 1160 × 0308 ÷ 2640 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x2640 }};
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-    }
-
-
-    // ÷ 1160 ÷ 1F466 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) ÷ [999.0] BOY (EBG) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x1160, 0x1f466 }};
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-    }
-
-
-    // ÷ 1160 × 0308 ÷ 1F466 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x1f466 }};
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -442,7 +442,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 ÷ 0378 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0x378 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -470,7 +470,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 1160 × 0308 ÷ D800 ÷	
-    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
+    // ÷ [0.2] HANGUL JUNGSEONG FILLER (V) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x1160, 0x308, 0xd800 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -498,7 +498,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 11A8 × 0308 ÷ 0020 ÷	
-    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] SPACE (Other) ÷ [0.3]
+    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x11a8, 0x308, 0x20 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -526,7 +526,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 11A8 × 0308 ÷ 000D ÷	
-    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
+    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x11a8, 0x308, 0xd }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -554,7 +554,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 11A8 × 0308 ÷ 000A ÷	
-    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
+    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x11a8, 0x308, 0xa }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -582,7 +582,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 11A8 × 0308 ÷ 0001 ÷	
-    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
+    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x11a8, 0x308, 0x1 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -596,10 +596,10 @@ TEST(grapheme, breaks_7)
     }
 
 
-    // ÷ 11A8 × 0300 ÷	
-    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
+    // ÷ 11A8 × 034F ÷	
+    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING GRAPHEME JOINER (Extend) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x11a8, 0x300 }};
+        std::array<uint32_t, 2> cps = {{ 0x11a8, 0x34f }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -609,10 +609,10 @@ TEST(grapheme, breaks_7)
     }
 
 
-    // ÷ 11A8 × 0308 × 0300 ÷	
-    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
+    // ÷ 11A8 × 0308 × 034F ÷	
+    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.0] COMBINING GRAPHEME JOINER (Extend) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x11a8, 0x308, 0x300 }};
+        std::array<uint32_t, 3> cps = {{ 0x11a8, 0x308, 0x34f }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -621,6 +621,34 @@ TEST(grapheme, breaks_7)
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+    }
+
+
+    // ÷ 11A8 ÷ 1F1E6 ÷	
+    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    {
+        std::array<uint32_t, 2> cps = {{ 0x11a8, 0x1f1e6 }};
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+    }
+
+
+    // ÷ 11A8 × 0308 ÷ 1F1E6 ÷	
+    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x11a8, 0x308, 0x1f1e6 }};
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 
@@ -638,7 +666,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 11A8 × 0308 ÷ 0600 ÷	
-    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
+    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x11a8, 0x308, 0x600 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -666,7 +694,7 @@ TEST(grapheme, breaks_7)
 
 
     // ÷ 11A8 × 0308 × 0903 ÷	
-    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
+    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
         std::array<uint32_t, 3> cps = {{ 0x11a8, 0x308, 0x903 }};
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
@@ -677,34 +705,6 @@ TEST(grapheme, breaks_7)
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-    }
-
-
-    // ÷ 11A8 ÷ 1100 ÷	
-    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x11a8, 0x1100 }};
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-    }
-
-
-    // ÷ 11A8 × 0308 ÷ 1100 ÷	
-    // ÷ [0.2] HANGUL JONGSEONG KIYEOK (T) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x11a8, 0x308, 0x1100 }};
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_grapheme_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_grapheme_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
     }
 
 

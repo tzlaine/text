@@ -5,7 +5,16 @@ import zipfile
 import shutil
 import os
 
-parser = argparse.ArgumentParser(description='Downloads data files necessary for building Boost.Text\'s Unicode data, and generates those data.')
+
+################################################################################
+# NOTE: There is some manual intervention required in
+# generate_collation_data.py (marked with TODO).  Handle that before using
+# this script.
+################################################################################
+
+
+parser = argparse.ArgumentParser(description='Downloads data files necessary for building Boost.Text\'s Unicode data, and generates those data.  NOTE: There is some manual intervention required in
+generate_collation_data.py (marked with TODO).  Handle that before using this script.')
 parser.add_argument('unicode_version', type=str, help='The X.Y.Z Unicode version from which the data should be generated.  Available versions can be viewed at https://www.unicode.org/Public .')
 parser.add_argument('cldr_version', type=str, help='The X[.Y[.Z]] CLDR version from which the data should be generated.  Available versions can be viewed at https://www.unicode.org/Public/cldr .')
 parser.add_argument('--icu-dir', type=str, default='', help='The path to icu4c/source/data/coll containing ICU\'s tailoring data.  Without this, the include/boost/text/data headers will not be generated.')
@@ -13,6 +22,18 @@ parser.add_argument('--tests', action='store_true', help='Generate the test file
 parser.add_argument('--perf', action='store_true', help='Generate perf-test files instead of regular tests.  Ignored without --tests.')
 parser.add_argument('--skip-downloads', action='store_true', help='Don\'t download the data files; just use the ones in this directory.')
 args = parser.parse_args()
+
+
+def version_element(s):
+    elements = s.split('.')
+    if len(elements) < 2:
+        elements.append('0')
+    if len(elements) < 3:
+        elements.append('0')
+    return elements
+
+unicode_major, unicode_minor, unicode_patch = version_element(args.unicode_version)
+cldr_major, cldr_minor, cldr_patch = version_element(args.cldr_version)
 
 
 # Download data
@@ -66,6 +87,9 @@ if not args.skip_downloads:
         print 'Downloading {}.'.format(f)
         urllib.urlretrieve(
             'https://www.unicode.org/Public/{}/ucd/extracted/{}'.format(args.unicode_version, f), f)
+
+    print 'Downloading {}.'.format('emoji-data.txt')
+    urllib.urlretrieve('https://unicode.org/Public/emoji/{}.{}/emoji-data.txt'.format(unicode_major, unicode_minor), 'emoji-data.txt')
 
     zip_file = 'cldr-common-{}.zip'.format(args.cldr_version)
     print 'Downloading {}.'.format(zip_file)
@@ -149,17 +173,6 @@ os.system('./generate_unicode_case_data.py')
 
 
 print 'Generating version file.'
-
-def version_element(s):
-    elements = s.split('.')
-    if len(elements) < 2:
-        elements.append('0')
-    if len(elements) < 3:
-        elements.append('0')
-    return elements
-
-unicode_major, unicode_minor, unicode_patch = version_element(args.unicode_version)
-cldr_major, cldr_minor, cldr_patch = version_element(args.cldr_version)
 
 version_cpp_form = '''\
 #include <boost/text/data_versions.hpp>

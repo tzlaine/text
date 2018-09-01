@@ -13,7 +13,7 @@ namespace boost { namespace text { namespace detail {
 
     enum collation_constants : uint32_t {
         min_variable_collation_weight = 0x03040000,
-        max_variable_collation_weight = 0x0b6d4b00,
+        max_variable_collation_weight = 0x0b785900,
 
         OR_CJK_Compatibility_Ideographs = 0xfa3f,
         OR_CJK_Unified_Ideographs_Extension_D = 0x2bfff,

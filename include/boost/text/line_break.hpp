@@ -18,7 +18,7 @@
 
 namespace boost { namespace text {
 
-    /** The line properties outlined in Unicode 10. */
+    /** The line properties outlined in Unicode 11. */
     enum class line_property {
         AL,
         B2,
@@ -610,12 +610,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 }
 
                 // LB8a
-                if (state.prev_prop == line_property::ZWJ &&
-                    (state.prop == line_property::ID ||
-                     state.prop == line_property::EB ||
-                     state.prop == line_property::EM)) {
+                if (state.prev_prop == line_property::ZWJ)
                     continue;
-                }
 
                 // If we end up breaking durign this iteration, we want the
                 // break to show up after the skip, so that the skippable CPs go

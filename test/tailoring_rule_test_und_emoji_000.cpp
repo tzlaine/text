@@ -123,6 +123,78 @@ TEST(tailoring, und_emoji_000_001)
         table(), collation_strength::primary),
         0);
     }
+    {
+    // greater than (or equal to, for =) preceeding cps
+    auto const res = std::vector<uint32_t>(1, 0x1f3ff);
+    auto const rel = std::vector<uint32_t>(1, 0x1f9b0);
+    EXPECT_EQ(collate(
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+#if 0 // Optional.
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+#endif
+    }
+    {
+    // greater than (or equal to, for =) preceeding cps
+    auto const res = std::vector<uint32_t>(1, 0x1f9b0);
+    auto const rel = std::vector<uint32_t>(1, 0x1f9b1);
+    EXPECT_EQ(collate(
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+#if 0 // Optional.
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+#endif
+    }
+    {
+    // greater than (or equal to, for =) preceeding cps
+    auto const res = std::vector<uint32_t>(1, 0x1f9b1);
+    auto const rel = std::vector<uint32_t>(1, 0x1f9b3);
+    EXPECT_EQ(collate(
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+#if 0 // Optional.
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+#endif
+    }
+    {
+    // greater than (or equal to, for =) preceeding cps
+    auto const res = std::vector<uint32_t>(1, 0x1f9b3);
+    auto const rel = std::vector<uint32_t>(1, 0x1f9b2);
+    EXPECT_EQ(collate(
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
+        table(), collation_strength::secondary),
+        -1);
+#if 0 // Optional.
+    // equal to preceeding cps at next-lower strength
+    EXPECT_EQ(collate(
+        res.begin(), res.end(),
+        rel.begin(), rel.end(),
+        table(), collation_strength::primary),
+        0);
+#endif
+    }
 }
 
 TEST(tailoring, und_emoji_000_002)

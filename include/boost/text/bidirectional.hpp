@@ -33,7 +33,7 @@ namespace boost { namespace text {
             return lhs.hi_ <= rhs.lo_;
         }
 
-        BOOST_TEXT_DECL std::array<bidi_prop_interval, 53> const &
+        BOOST_TEXT_DECL std::array<bidi_prop_interval, 55> const &
         make_bidi_prop_intervals();
         BOOST_TEXT_DECL std::unordered_map<uint32_t, bidi_property>
         make_bidi_prop_map();

@@ -134,7 +134,7 @@ namespace boost { namespace text {
             auto it = std::next(buffer.begin());
             auto ccc_it = std::next(cccs.begin());
             while (it != buffer.end()) {
-                // Hangul composition as described in Unicode 10.0 Section 3.12.
+                // Hangul composition as described in Unicode 11.0 Section 3.12.
                 auto const hangul_cp0 = *starter_it;
                 auto const hangul_cp1 = *it;
                 if (it == starter_it + 1 && hangul_l(hangul_cp0) &&

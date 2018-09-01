@@ -8477,6 +8477,220 @@ TEST(normalization, nfkc_087_080)
 
 TEST(normalization, nfkc_087_081)
 {
+    // 0061 059A 0316 302A 07FD 0062;0061 302A 0316 07FD 059A 0062;0061 302A 0316 07FD 059A 0062;0061 302A 0316 07FD 059A 0062;0061 302A 0316 07FD 059A 0062; 
+    // (a◌֚◌̖◌〪◌߽b; a◌〪◌̖◌߽◌֚b; a◌〪◌̖◌߽◌֚b; a◌〪◌̖◌߽◌֚b; a◌〪◌̖◌߽◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, NKO DANTAYALAN, LATIN SMALL LETTER B
+    {
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x07FD, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x07FD, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x07FD, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x07FD, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x07FD, 0x059A, 0x0062 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfkc_087_082)
+{
+    // 0061 07FD 059A 0316 302A 0062;0061 302A 07FD 0316 059A 0062;0061 302A 07FD 0316 059A 0062;0061 302A 07FD 0316 059A 0062;0061 302A 07FD 0316 059A 0062; 
+    // (a◌߽◌֚◌̖◌〪b; a◌〪◌߽◌̖◌֚b; a◌〪◌߽◌̖◌֚b; a◌〪◌߽◌̖◌֚b; a◌〪◌߽◌̖◌֚b; ) LATIN SMALL LETTER A, NKO DANTAYALAN, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
+    {
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x07FD, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x07FD, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x07FD, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x07FD, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x07FD, 0x0316, 0x059A, 0x0062 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfkc_087_083)
+{
     // 0061 0315 0300 05AE 0816 0062;00E0 05AE 0816 0315 0062;0061 05AE 0300 0816 0315 0062;00E0 05AE 0816 0315 0062;0061 05AE 0300 0816 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠖb; à◌֮◌ࠖ◌̕b; a◌֮◌̀◌ࠖ◌̕b; à◌֮◌ࠖ◌̕b; a◌֮◌̀◌ࠖ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN MARK IN, LATIN SMALL LETTER B
     {
@@ -8574,7 +8788,7 @@ TEST(normalization, nfkc_087_081)
 }
 
 
-TEST(normalization, nfkc_087_082)
+TEST(normalization, nfkc_087_084)
 {
     // 0061 0816 0315 0300 05AE 0062;0061 05AE 0816 0300 0315 0062;0061 05AE 0816 0300 0315 0062;0061 05AE 0816 0300 0315 0062;0061 05AE 0816 0300 0315 0062; 
     // (a◌ࠖ◌̕◌̀◌֮b; a◌֮◌ࠖ◌̀◌̕b; a◌֮◌ࠖ◌̀◌̕b; a◌֮◌ࠖ◌̀◌̕b; a◌֮◌ࠖ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN MARK IN, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -8681,7 +8895,7 @@ TEST(normalization, nfkc_087_082)
 }
 
 
-TEST(normalization, nfkc_087_083)
+TEST(normalization, nfkc_087_085)
 {
     // 0061 0315 0300 05AE 0817 0062;00E0 05AE 0817 0315 0062;0061 05AE 0300 0817 0315 0062;00E0 05AE 0817 0315 0062;0061 05AE 0300 0817 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠗb; à◌֮◌ࠗ◌̕b; a◌֮◌̀◌ࠗ◌̕b; à◌֮◌ࠗ◌̕b; a◌֮◌̀◌ࠗ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN MARK IN-ALAF, LATIN SMALL LETTER B
@@ -8780,7 +8994,7 @@ TEST(normalization, nfkc_087_083)
 }
 
 
-TEST(normalization, nfkc_087_084)
+TEST(normalization, nfkc_087_086)
 {
     // 0061 0817 0315 0300 05AE 0062;0061 05AE 0817 0300 0315 0062;0061 05AE 0817 0300 0315 0062;0061 05AE 0817 0300 0315 0062;0061 05AE 0817 0300 0315 0062; 
     // (a◌ࠗ◌̕◌̀◌֮b; a◌֮◌ࠗ◌̀◌̕b; a◌֮◌ࠗ◌̀◌̕b; a◌֮◌ࠗ◌̀◌̕b; a◌֮◌ࠗ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN MARK IN-ALAF, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -8887,7 +9101,7 @@ TEST(normalization, nfkc_087_084)
 }
 
 
-TEST(normalization, nfkc_087_085)
+TEST(normalization, nfkc_087_087)
 {
     // 0061 0315 0300 05AE 0818 0062;00E0 05AE 0818 0315 0062;0061 05AE 0300 0818 0315 0062;00E0 05AE 0818 0315 0062;0061 05AE 0300 0818 0315 0062; 
     // (a◌̕◌̀◌֮◌࠘b; à◌֮◌࠘◌̕b; a◌֮◌̀◌࠘◌̕b; à◌֮◌࠘◌̕b; a◌֮◌̀◌࠘◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN MARK OCCLUSION, LATIN SMALL LETTER B
@@ -8986,7 +9200,7 @@ TEST(normalization, nfkc_087_085)
 }
 
 
-TEST(normalization, nfkc_087_086)
+TEST(normalization, nfkc_087_088)
 {
     // 0061 0818 0315 0300 05AE 0062;0061 05AE 0818 0300 0315 0062;0061 05AE 0818 0300 0315 0062;0061 05AE 0818 0300 0315 0062;0061 05AE 0818 0300 0315 0062; 
     // (a◌࠘◌̕◌̀◌֮b; a◌֮◌࠘◌̀◌̕b; a◌֮◌࠘◌̀◌̕b; a◌֮◌࠘◌̀◌̕b; a◌֮◌࠘◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN MARK OCCLUSION, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -9093,7 +9307,7 @@ TEST(normalization, nfkc_087_086)
 }
 
 
-TEST(normalization, nfkc_087_087)
+TEST(normalization, nfkc_087_089)
 {
     // 0061 0315 0300 05AE 0819 0062;00E0 05AE 0819 0315 0062;0061 05AE 0300 0819 0315 0062;00E0 05AE 0819 0315 0062;0061 05AE 0300 0819 0315 0062; 
     // (a◌̕◌̀◌֮◌࠙b; à◌֮◌࠙◌̕b; a◌֮◌̀◌࠙◌̕b; à◌֮◌࠙◌̕b; a◌֮◌̀◌࠙◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN MARK DAGESH, LATIN SMALL LETTER B
@@ -9192,7 +9406,7 @@ TEST(normalization, nfkc_087_087)
 }
 
 
-TEST(normalization, nfkc_087_088)
+TEST(normalization, nfkc_087_090)
 {
     // 0061 0819 0315 0300 05AE 0062;0061 05AE 0819 0300 0315 0062;0061 05AE 0819 0300 0315 0062;0061 05AE 0819 0300 0315 0062;0061 05AE 0819 0300 0315 0062; 
     // (a◌࠙◌̕◌̀◌֮b; a◌֮◌࠙◌̀◌̕b; a◌֮◌࠙◌̀◌̕b; a◌֮◌࠙◌̀◌̕b; a◌֮◌࠙◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN MARK DAGESH, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -9299,7 +9513,7 @@ TEST(normalization, nfkc_087_088)
 }
 
 
-TEST(normalization, nfkc_087_089)
+TEST(normalization, nfkc_087_091)
 {
     // 0061 0315 0300 05AE 081B 0062;00E0 05AE 081B 0315 0062;0061 05AE 0300 081B 0315 0062;00E0 05AE 081B 0315 0062;0061 05AE 0300 081B 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠛb; à◌֮◌ࠛ◌̕b; a◌֮◌̀◌ࠛ◌̕b; à◌֮◌ࠛ◌̕b; a◌֮◌̀◌ࠛ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN MARK EPENTHETIC YUT, LATIN SMALL LETTER B
@@ -9398,7 +9612,7 @@ TEST(normalization, nfkc_087_089)
 }
 
 
-TEST(normalization, nfkc_087_090)
+TEST(normalization, nfkc_087_092)
 {
     // 0061 081B 0315 0300 05AE 0062;0061 05AE 081B 0300 0315 0062;0061 05AE 081B 0300 0315 0062;0061 05AE 081B 0300 0315 0062;0061 05AE 081B 0300 0315 0062; 
     // (a◌ࠛ◌̕◌̀◌֮b; a◌֮◌ࠛ◌̀◌̕b; a◌֮◌ࠛ◌̀◌̕b; a◌֮◌ࠛ◌̀◌̕b; a◌֮◌ࠛ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN MARK EPENTHETIC YUT, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -9505,7 +9719,7 @@ TEST(normalization, nfkc_087_090)
 }
 
 
-TEST(normalization, nfkc_087_091)
+TEST(normalization, nfkc_087_093)
 {
     // 0061 0315 0300 05AE 081C 0062;00E0 05AE 081C 0315 0062;0061 05AE 0300 081C 0315 0062;00E0 05AE 081C 0315 0062;0061 05AE 0300 081C 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠜb; à◌֮◌ࠜ◌̕b; a◌֮◌̀◌ࠜ◌̕b; à◌֮◌ࠜ◌̕b; a◌֮◌̀◌ࠜ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN LONG E, LATIN SMALL LETTER B
@@ -9604,7 +9818,7 @@ TEST(normalization, nfkc_087_091)
 }
 
 
-TEST(normalization, nfkc_087_092)
+TEST(normalization, nfkc_087_094)
 {
     // 0061 081C 0315 0300 05AE 0062;0061 05AE 081C 0300 0315 0062;0061 05AE 081C 0300 0315 0062;0061 05AE 081C 0300 0315 0062;0061 05AE 081C 0300 0315 0062; 
     // (a◌ࠜ◌̕◌̀◌֮b; a◌֮◌ࠜ◌̀◌̕b; a◌֮◌ࠜ◌̀◌̕b; a◌֮◌ࠜ◌̀◌̕b; a◌֮◌ࠜ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN LONG E, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -9711,7 +9925,7 @@ TEST(normalization, nfkc_087_092)
 }
 
 
-TEST(normalization, nfkc_087_093)
+TEST(normalization, nfkc_087_095)
 {
     // 0061 0315 0300 05AE 081D 0062;00E0 05AE 081D 0315 0062;0061 05AE 0300 081D 0315 0062;00E0 05AE 081D 0315 0062;0061 05AE 0300 081D 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠝb; à◌֮◌ࠝ◌̕b; a◌֮◌̀◌ࠝ◌̕b; à◌֮◌ࠝ◌̕b; a◌֮◌̀◌ࠝ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN E, LATIN SMALL LETTER B
@@ -9810,7 +10024,7 @@ TEST(normalization, nfkc_087_093)
 }
 
 
-TEST(normalization, nfkc_087_094)
+TEST(normalization, nfkc_087_096)
 {
     // 0061 081D 0315 0300 05AE 0062;0061 05AE 081D 0300 0315 0062;0061 05AE 081D 0300 0315 0062;0061 05AE 081D 0300 0315 0062;0061 05AE 081D 0300 0315 0062; 
     // (a◌ࠝ◌̕◌̀◌֮b; a◌֮◌ࠝ◌̀◌̕b; a◌֮◌ࠝ◌̀◌̕b; a◌֮◌ࠝ◌̀◌̕b; a◌֮◌ࠝ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN E, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -9917,7 +10131,7 @@ TEST(normalization, nfkc_087_094)
 }
 
 
-TEST(normalization, nfkc_087_095)
+TEST(normalization, nfkc_087_097)
 {
     // 0061 0315 0300 05AE 081E 0062;00E0 05AE 081E 0315 0062;0061 05AE 0300 081E 0315 0062;00E0 05AE 081E 0315 0062;0061 05AE 0300 081E 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠞb; à◌֮◌ࠞ◌̕b; a◌֮◌̀◌ࠞ◌̕b; à◌֮◌ࠞ◌̕b; a◌֮◌̀◌ࠞ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN OVERLONG AA, LATIN SMALL LETTER B
@@ -10016,7 +10230,7 @@ TEST(normalization, nfkc_087_095)
 }
 
 
-TEST(normalization, nfkc_087_096)
+TEST(normalization, nfkc_087_098)
 {
     // 0061 081E 0315 0300 05AE 0062;0061 05AE 081E 0300 0315 0062;0061 05AE 081E 0300 0315 0062;0061 05AE 081E 0300 0315 0062;0061 05AE 081E 0300 0315 0062; 
     // (a◌ࠞ◌̕◌̀◌֮b; a◌֮◌ࠞ◌̀◌̕b; a◌֮◌ࠞ◌̀◌̕b; a◌֮◌ࠞ◌̀◌̕b; a◌֮◌ࠞ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN OVERLONG AA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -10123,7 +10337,7 @@ TEST(normalization, nfkc_087_096)
 }
 
 
-TEST(normalization, nfkc_087_097)
+TEST(normalization, nfkc_087_099)
 {
     // 0061 0315 0300 05AE 081F 0062;00E0 05AE 081F 0315 0062;0061 05AE 0300 081F 0315 0062;00E0 05AE 081F 0315 0062;0061 05AE 0300 081F 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠟb; à◌֮◌ࠟ◌̕b; a◌֮◌̀◌ࠟ◌̕b; à◌֮◌ࠟ◌̕b; a◌֮◌̀◌ࠟ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN LONG AA, LATIN SMALL LETTER B
@@ -10222,7 +10436,7 @@ TEST(normalization, nfkc_087_097)
 }
 
 
-TEST(normalization, nfkc_087_098)
+TEST(normalization, nfkc_087_100)
 {
     // 0061 081F 0315 0300 05AE 0062;0061 05AE 081F 0300 0315 0062;0061 05AE 081F 0300 0315 0062;0061 05AE 081F 0300 0315 0062;0061 05AE 081F 0300 0315 0062; 
     // (a◌ࠟ◌̕◌̀◌֮b; a◌֮◌ࠟ◌̀◌̕b; a◌֮◌ࠟ◌̀◌̕b; a◌֮◌ࠟ◌̀◌̕b; a◌֮◌ࠟ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN LONG AA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -10329,7 +10543,7 @@ TEST(normalization, nfkc_087_098)
 }
 
 
-TEST(normalization, nfkc_087_099)
+TEST(normalization, nfkc_087_101)
 {
     // 0061 0315 0300 05AE 0820 0062;00E0 05AE 0820 0315 0062;0061 05AE 0300 0820 0315 0062;00E0 05AE 0820 0315 0062;0061 05AE 0300 0820 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠠb; à◌֮◌ࠠ◌̕b; a◌֮◌̀◌ࠠ◌̕b; à◌֮◌ࠠ◌̕b; a◌֮◌̀◌ࠠ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN AA, LATIN SMALL LETTER B
@@ -10428,7 +10642,7 @@ TEST(normalization, nfkc_087_099)
 }
 
 
-TEST(normalization, nfkc_087_100)
+TEST(normalization, nfkc_087_102)
 {
     // 0061 0820 0315 0300 05AE 0062;0061 05AE 0820 0300 0315 0062;0061 05AE 0820 0300 0315 0062;0061 05AE 0820 0300 0315 0062;0061 05AE 0820 0300 0315 0062; 
     // (a◌ࠠ◌̕◌̀◌֮b; a◌֮◌ࠠ◌̀◌̕b; a◌֮◌ࠠ◌̀◌̕b; a◌֮◌ࠠ◌̀◌̕b; a◌֮◌ࠠ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN AA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -10535,7 +10749,7 @@ TEST(normalization, nfkc_087_100)
 }
 
 
-TEST(normalization, nfkc_087_101)
+TEST(normalization, nfkc_087_103)
 {
     // 0061 0315 0300 05AE 0821 0062;00E0 05AE 0821 0315 0062;0061 05AE 0300 0821 0315 0062;00E0 05AE 0821 0315 0062;0061 05AE 0300 0821 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠡb; à◌֮◌ࠡ◌̕b; a◌֮◌̀◌ࠡ◌̕b; à◌֮◌ࠡ◌̕b; a◌֮◌̀◌ࠡ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN OVERLONG A, LATIN SMALL LETTER B
@@ -10634,7 +10848,7 @@ TEST(normalization, nfkc_087_101)
 }
 
 
-TEST(normalization, nfkc_087_102)
+TEST(normalization, nfkc_087_104)
 {
     // 0061 0821 0315 0300 05AE 0062;0061 05AE 0821 0300 0315 0062;0061 05AE 0821 0300 0315 0062;0061 05AE 0821 0300 0315 0062;0061 05AE 0821 0300 0315 0062; 
     // (a◌ࠡ◌̕◌̀◌֮b; a◌֮◌ࠡ◌̀◌̕b; a◌֮◌ࠡ◌̀◌̕b; a◌֮◌ࠡ◌̀◌̕b; a◌֮◌ࠡ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN OVERLONG A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -10741,7 +10955,7 @@ TEST(normalization, nfkc_087_102)
 }
 
 
-TEST(normalization, nfkc_087_103)
+TEST(normalization, nfkc_087_105)
 {
     // 0061 0315 0300 05AE 0822 0062;00E0 05AE 0822 0315 0062;0061 05AE 0300 0822 0315 0062;00E0 05AE 0822 0315 0062;0061 05AE 0300 0822 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠢb; à◌֮◌ࠢ◌̕b; a◌֮◌̀◌ࠢ◌̕b; à◌֮◌ࠢ◌̕b; a◌֮◌̀◌ࠢ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN LONG A, LATIN SMALL LETTER B
@@ -10840,7 +11054,7 @@ TEST(normalization, nfkc_087_103)
 }
 
 
-TEST(normalization, nfkc_087_104)
+TEST(normalization, nfkc_087_106)
 {
     // 0061 0822 0315 0300 05AE 0062;0061 05AE 0822 0300 0315 0062;0061 05AE 0822 0300 0315 0062;0061 05AE 0822 0300 0315 0062;0061 05AE 0822 0300 0315 0062; 
     // (a◌ࠢ◌̕◌̀◌֮b; a◌֮◌ࠢ◌̀◌̕b; a◌֮◌ࠢ◌̀◌̕b; a◌֮◌ࠢ◌̀◌̕b; a◌֮◌ࠢ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN LONG A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -10947,7 +11161,7 @@ TEST(normalization, nfkc_087_104)
 }
 
 
-TEST(normalization, nfkc_087_105)
+TEST(normalization, nfkc_087_107)
 {
     // 0061 0315 0300 05AE 0823 0062;00E0 05AE 0823 0315 0062;0061 05AE 0300 0823 0315 0062;00E0 05AE 0823 0315 0062;0061 05AE 0300 0823 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠣb; à◌֮◌ࠣ◌̕b; a◌֮◌̀◌ࠣ◌̕b; à◌֮◌ࠣ◌̕b; a◌֮◌̀◌ࠣ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN A, LATIN SMALL LETTER B
@@ -11046,7 +11260,7 @@ TEST(normalization, nfkc_087_105)
 }
 
 
-TEST(normalization, nfkc_087_106)
+TEST(normalization, nfkc_087_108)
 {
     // 0061 0823 0315 0300 05AE 0062;0061 05AE 0823 0300 0315 0062;0061 05AE 0823 0300 0315 0062;0061 05AE 0823 0300 0315 0062;0061 05AE 0823 0300 0315 0062; 
     // (a◌ࠣ◌̕◌̀◌֮b; a◌֮◌ࠣ◌̀◌̕b; a◌֮◌ࠣ◌̀◌̕b; a◌֮◌ࠣ◌̀◌̕b; a◌֮◌ࠣ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -11153,7 +11367,7 @@ TEST(normalization, nfkc_087_106)
 }
 
 
-TEST(normalization, nfkc_087_107)
+TEST(normalization, nfkc_087_109)
 {
     // 0061 0315 0300 05AE 0825 0062;00E0 05AE 0825 0315 0062;0061 05AE 0300 0825 0315 0062;00E0 05AE 0825 0315 0062;0061 05AE 0300 0825 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠥb; à◌֮◌ࠥ◌̕b; a◌֮◌̀◌ࠥ◌̕b; à◌֮◌ࠥ◌̕b; a◌֮◌̀◌ࠥ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN SHORT A, LATIN SMALL LETTER B
@@ -11252,7 +11466,7 @@ TEST(normalization, nfkc_087_107)
 }
 
 
-TEST(normalization, nfkc_087_108)
+TEST(normalization, nfkc_087_110)
 {
     // 0061 0825 0315 0300 05AE 0062;0061 05AE 0825 0300 0315 0062;0061 05AE 0825 0300 0315 0062;0061 05AE 0825 0300 0315 0062;0061 05AE 0825 0300 0315 0062; 
     // (a◌ࠥ◌̕◌̀◌֮b; a◌֮◌ࠥ◌̀◌̕b; a◌֮◌ࠥ◌̀◌̕b; a◌֮◌ࠥ◌̀◌̕b; a◌֮◌ࠥ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN SHORT A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -11359,7 +11573,7 @@ TEST(normalization, nfkc_087_108)
 }
 
 
-TEST(normalization, nfkc_087_109)
+TEST(normalization, nfkc_087_111)
 {
     // 0061 0315 0300 05AE 0826 0062;00E0 05AE 0826 0315 0062;0061 05AE 0300 0826 0315 0062;00E0 05AE 0826 0315 0062;0061 05AE 0300 0826 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠦb; à◌֮◌ࠦ◌̕b; a◌֮◌̀◌ࠦ◌̕b; à◌֮◌ࠦ◌̕b; a◌֮◌̀◌ࠦ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN LONG U, LATIN SMALL LETTER B
@@ -11458,7 +11672,7 @@ TEST(normalization, nfkc_087_109)
 }
 
 
-TEST(normalization, nfkc_087_110)
+TEST(normalization, nfkc_087_112)
 {
     // 0061 0826 0315 0300 05AE 0062;0061 05AE 0826 0300 0315 0062;0061 05AE 0826 0300 0315 0062;0061 05AE 0826 0300 0315 0062;0061 05AE 0826 0300 0315 0062; 
     // (a◌ࠦ◌̕◌̀◌֮b; a◌֮◌ࠦ◌̀◌̕b; a◌֮◌ࠦ◌̀◌̕b; a◌֮◌ࠦ◌̀◌̕b; a◌֮◌ࠦ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN LONG U, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -11565,7 +11779,7 @@ TEST(normalization, nfkc_087_110)
 }
 
 
-TEST(normalization, nfkc_087_111)
+TEST(normalization, nfkc_087_113)
 {
     // 0061 0315 0300 05AE 0827 0062;00E0 05AE 0827 0315 0062;0061 05AE 0300 0827 0315 0062;00E0 05AE 0827 0315 0062;0061 05AE 0300 0827 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠧb; à◌֮◌ࠧ◌̕b; a◌֮◌̀◌ࠧ◌̕b; à◌֮◌ࠧ◌̕b; a◌֮◌̀◌ࠧ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN U, LATIN SMALL LETTER B
@@ -11664,7 +11878,7 @@ TEST(normalization, nfkc_087_111)
 }
 
 
-TEST(normalization, nfkc_087_112)
+TEST(normalization, nfkc_087_114)
 {
     // 0061 0827 0315 0300 05AE 0062;0061 05AE 0827 0300 0315 0062;0061 05AE 0827 0300 0315 0062;0061 05AE 0827 0300 0315 0062;0061 05AE 0827 0300 0315 0062; 
     // (a◌ࠧ◌̕◌̀◌֮b; a◌֮◌ࠧ◌̀◌̕b; a◌֮◌ࠧ◌̀◌̕b; a◌֮◌ࠧ◌̀◌̕b; a◌֮◌ࠧ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN U, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -11771,7 +11985,7 @@ TEST(normalization, nfkc_087_112)
 }
 
 
-TEST(normalization, nfkc_087_113)
+TEST(normalization, nfkc_087_115)
 {
     // 0061 0315 0300 05AE 0829 0062;00E0 05AE 0829 0315 0062;0061 05AE 0300 0829 0315 0062;00E0 05AE 0829 0315 0062;0061 05AE 0300 0829 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠩb; à◌֮◌ࠩ◌̕b; a◌֮◌̀◌ࠩ◌̕b; à◌֮◌ࠩ◌̕b; a◌֮◌̀◌ࠩ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN LONG I, LATIN SMALL LETTER B
@@ -11870,7 +12084,7 @@ TEST(normalization, nfkc_087_113)
 }
 
 
-TEST(normalization, nfkc_087_114)
+TEST(normalization, nfkc_087_116)
 {
     // 0061 0829 0315 0300 05AE 0062;0061 05AE 0829 0300 0315 0062;0061 05AE 0829 0300 0315 0062;0061 05AE 0829 0300 0315 0062;0061 05AE 0829 0300 0315 0062; 
     // (a◌ࠩ◌̕◌̀◌֮b; a◌֮◌ࠩ◌̀◌̕b; a◌֮◌ࠩ◌̀◌̕b; a◌֮◌ࠩ◌̀◌̕b; a◌֮◌ࠩ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN LONG I, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -11977,7 +12191,7 @@ TEST(normalization, nfkc_087_114)
 }
 
 
-TEST(normalization, nfkc_087_115)
+TEST(normalization, nfkc_087_117)
 {
     // 0061 0315 0300 05AE 082A 0062;00E0 05AE 082A 0315 0062;0061 05AE 0300 082A 0315 0062;00E0 05AE 082A 0315 0062;0061 05AE 0300 082A 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠪb; à◌֮◌ࠪ◌̕b; a◌֮◌̀◌ࠪ◌̕b; à◌֮◌ࠪ◌̕b; a◌֮◌̀◌ࠪ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN I, LATIN SMALL LETTER B
@@ -12076,7 +12290,7 @@ TEST(normalization, nfkc_087_115)
 }
 
 
-TEST(normalization, nfkc_087_116)
+TEST(normalization, nfkc_087_118)
 {
     // 0061 082A 0315 0300 05AE 0062;0061 05AE 082A 0300 0315 0062;0061 05AE 082A 0300 0315 0062;0061 05AE 082A 0300 0315 0062;0061 05AE 082A 0300 0315 0062; 
     // (a◌ࠪ◌̕◌̀◌֮b; a◌֮◌ࠪ◌̀◌̕b; a◌֮◌ࠪ◌̀◌̕b; a◌֮◌ࠪ◌̀◌̕b; a◌֮◌ࠪ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN I, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -12183,7 +12397,7 @@ TEST(normalization, nfkc_087_116)
 }
 
 
-TEST(normalization, nfkc_087_117)
+TEST(normalization, nfkc_087_119)
 {
     // 0061 0315 0300 05AE 082B 0062;00E0 05AE 082B 0315 0062;0061 05AE 0300 082B 0315 0062;00E0 05AE 082B 0315 0062;0061 05AE 0300 082B 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠫb; à◌֮◌ࠫ◌̕b; a◌֮◌̀◌ࠫ◌̕b; à◌֮◌ࠫ◌̕b; a◌֮◌̀◌ࠫ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN O, LATIN SMALL LETTER B
@@ -12282,7 +12496,7 @@ TEST(normalization, nfkc_087_117)
 }
 
 
-TEST(normalization, nfkc_087_118)
+TEST(normalization, nfkc_087_120)
 {
     // 0061 082B 0315 0300 05AE 0062;0061 05AE 082B 0300 0315 0062;0061 05AE 082B 0300 0315 0062;0061 05AE 082B 0300 0315 0062;0061 05AE 082B 0300 0315 0062; 
     // (a◌ࠫ◌̕◌̀◌֮b; a◌֮◌ࠫ◌̀◌̕b; a◌֮◌ࠫ◌̀◌̕b; a◌֮◌ࠫ◌̀◌̕b; a◌֮◌ࠫ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN O, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -12389,7 +12603,7 @@ TEST(normalization, nfkc_087_118)
 }
 
 
-TEST(normalization, nfkc_087_119)
+TEST(normalization, nfkc_087_121)
 {
     // 0061 0315 0300 05AE 082C 0062;00E0 05AE 082C 0315 0062;0061 05AE 0300 082C 0315 0062;00E0 05AE 082C 0315 0062;0061 05AE 0300 082C 0315 0062; 
     // (a◌̕◌̀◌֮◌ࠬb; à◌֮◌ࠬ◌̕b; a◌֮◌̀◌ࠬ◌̕b; à◌֮◌ࠬ◌̕b; a◌֮◌̀◌ࠬ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN VOWEL SIGN SUKUN, LATIN SMALL LETTER B
@@ -12488,7 +12702,7 @@ TEST(normalization, nfkc_087_119)
 }
 
 
-TEST(normalization, nfkc_087_120)
+TEST(normalization, nfkc_087_122)
 {
     // 0061 082C 0315 0300 05AE 0062;0061 05AE 082C 0300 0315 0062;0061 05AE 082C 0300 0315 0062;0061 05AE 082C 0300 0315 0062;0061 05AE 082C 0300 0315 0062; 
     // (a◌ࠬ◌̕◌̀◌֮b; a◌֮◌ࠬ◌̀◌̕b; a◌֮◌ࠬ◌̀◌̕b; a◌֮◌ࠬ◌̀◌̕b; a◌֮◌ࠬ◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN VOWEL SIGN SUKUN, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -12595,7 +12809,7 @@ TEST(normalization, nfkc_087_120)
 }
 
 
-TEST(normalization, nfkc_087_121)
+TEST(normalization, nfkc_087_123)
 {
     // 0061 0315 0300 05AE 082D 0062;00E0 05AE 082D 0315 0062;0061 05AE 0300 082D 0315 0062;00E0 05AE 082D 0315 0062;0061 05AE 0300 082D 0315 0062; 
     // (a◌̕◌̀◌֮◌࠭b; à◌֮◌࠭◌̕b; a◌֮◌̀◌࠭◌̕b; à◌֮◌࠭◌̕b; a◌֮◌̀◌࠭◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, SAMARITAN MARK NEQUDAA, LATIN SMALL LETTER B
@@ -12694,7 +12908,7 @@ TEST(normalization, nfkc_087_121)
 }
 
 
-TEST(normalization, nfkc_087_122)
+TEST(normalization, nfkc_087_124)
 {
     // 0061 082D 0315 0300 05AE 0062;0061 05AE 082D 0300 0315 0062;0061 05AE 082D 0300 0315 0062;0061 05AE 082D 0300 0315 0062;0061 05AE 082D 0300 0315 0062; 
     // (a◌࠭◌̕◌̀◌֮b; a◌֮◌࠭◌̀◌̕b; a◌֮◌࠭◌̀◌̕b; a◌֮◌࠭◌̀◌̕b; a◌֮◌࠭◌̀◌̕b; ) LATIN SMALL LETTER A, SAMARITAN MARK NEQUDAA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -12801,7 +13015,7 @@ TEST(normalization, nfkc_087_122)
 }
 
 
-TEST(normalization, nfkc_087_123)
+TEST(normalization, nfkc_087_125)
 {
     // 0061 059A 0316 302A 0859 0062;0061 302A 0316 0859 059A 0062;0061 302A 0316 0859 059A 0062;0061 302A 0316 0859 059A 0062;0061 302A 0316 0859 059A 0062; 
     // (a◌֚◌̖◌〪◌࡙b; a◌〪◌̖◌࡙◌֚b; a◌〪◌̖◌࡙◌֚b; a◌〪◌̖◌࡙◌֚b; a◌〪◌̖◌࡙◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, MANDAIC AFFRICATION MARK, LATIN SMALL LETTER B
@@ -12908,7 +13122,7 @@ TEST(normalization, nfkc_087_123)
 }
 
 
-TEST(normalization, nfkc_087_124)
+TEST(normalization, nfkc_087_126)
 {
     // 0061 0859 059A 0316 302A 0062;0061 302A 0859 0316 059A 0062;0061 302A 0859 0316 059A 0062;0061 302A 0859 0316 059A 0062;0061 302A 0859 0316 059A 0062; 
     // (a◌࡙◌֚◌̖◌〪b; a◌〪◌࡙◌̖◌֚b; a◌〪◌࡙◌̖◌֚b; a◌〪◌࡙◌̖◌֚b; a◌〪◌࡙◌̖◌֚b; ) LATIN SMALL LETTER A, MANDAIC AFFRICATION MARK, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
@@ -13015,7 +13229,7 @@ TEST(normalization, nfkc_087_124)
 }
 
 
-TEST(normalization, nfkc_087_125)
+TEST(normalization, nfkc_087_127)
 {
     // 0061 059A 0316 302A 085A 0062;0061 302A 0316 085A 059A 0062;0061 302A 0316 085A 059A 0062;0061 302A 0316 085A 059A 0062;0061 302A 0316 085A 059A 0062; 
     // (a◌֚◌̖◌〪◌࡚b; a◌〪◌̖◌࡚◌֚b; a◌〪◌̖◌࡚◌֚b; a◌〪◌̖◌࡚◌֚b; a◌〪◌̖◌࡚◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, MANDAIC VOCALIZATION MARK, LATIN SMALL LETTER B
@@ -13122,7 +13336,7 @@ TEST(normalization, nfkc_087_125)
 }
 
 
-TEST(normalization, nfkc_087_126)
+TEST(normalization, nfkc_087_128)
 {
     // 0061 085A 059A 0316 302A 0062;0061 302A 085A 0316 059A 0062;0061 302A 085A 0316 059A 0062;0061 302A 085A 0316 059A 0062;0061 302A 085A 0316 059A 0062; 
     // (a◌࡚◌֚◌̖◌〪b; a◌〪◌࡚◌̖◌֚b; a◌〪◌࡚◌̖◌֚b; a◌〪◌࡚◌̖◌֚b; a◌〪◌࡚◌̖◌֚b; ) LATIN SMALL LETTER A, MANDAIC VOCALIZATION MARK, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
@@ -13229,7 +13443,7 @@ TEST(normalization, nfkc_087_126)
 }
 
 
-TEST(normalization, nfkc_087_127)
+TEST(normalization, nfkc_087_129)
 {
     // 0061 059A 0316 302A 085B 0062;0061 302A 0316 085B 059A 0062;0061 302A 0316 085B 059A 0062;0061 302A 0316 085B 059A 0062;0061 302A 0316 085B 059A 0062; 
     // (a◌֚◌̖◌〪◌࡛b; a◌〪◌̖◌࡛◌֚b; a◌〪◌̖◌࡛◌֚b; a◌〪◌̖◌࡛◌֚b; a◌〪◌̖◌࡛◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, MANDAIC GEMINATION MARK, LATIN SMALL LETTER B
@@ -13336,7 +13550,7 @@ TEST(normalization, nfkc_087_127)
 }
 
 
-TEST(normalization, nfkc_087_128)
+TEST(normalization, nfkc_087_130)
 {
     // 0061 085B 059A 0316 302A 0062;0061 302A 085B 0316 059A 0062;0061 302A 085B 0316 059A 0062;0061 302A 085B 0316 059A 0062;0061 302A 085B 0316 059A 0062; 
     // (a◌࡛◌֚◌̖◌〪b; a◌〪◌࡛◌̖◌֚b; a◌〪◌࡛◌̖◌֚b; a◌〪◌࡛◌̖◌֚b; a◌〪◌࡛◌̖◌֚b; ) LATIN SMALL LETTER A, MANDAIC GEMINATION MARK, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
@@ -13443,7 +13657,221 @@ TEST(normalization, nfkc_087_128)
 }
 
 
-TEST(normalization, nfkc_087_129)
+TEST(normalization, nfkc_087_131)
+{
+    // 0061 059A 0316 302A 08D3 0062;0061 302A 0316 08D3 059A 0062;0061 302A 0316 08D3 059A 0062;0061 302A 0316 08D3 059A 0062;0061 302A 0316 08D3 059A 0062; 
+    // (a◌֚◌̖◌〪◌࣓b; a◌〪◌̖◌࣓◌֚b; a◌〪◌̖◌࣓◌֚b; a◌〪◌̖◌࣓◌֚b; a◌〪◌̖◌࣓◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC SMALL LOW WAW, LATIN SMALL LETTER B
+    {
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x059A, 0x0316, 0x302A, 0x08D3, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x0316, 0x08D3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x0316, 0x08D3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x0316, 0x08D3, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x0316, 0x08D3, 0x059A, 0x0062 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfkc_087_132)
+{
+    // 0061 08D3 059A 0316 302A 0062;0061 302A 08D3 0316 059A 0062;0061 302A 08D3 0316 059A 0062;0061 302A 08D3 0316 059A 0062;0061 302A 08D3 0316 059A 0062; 
+    // (a◌࣓◌֚◌̖◌〪b; a◌〪◌࣓◌̖◌֚b; a◌〪◌࣓◌̖◌֚b; a◌〪◌࣓◌̖◌֚b; a◌〪◌࣓◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC SMALL LOW WAW, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
+    {
+        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x08D3, 0x059A, 0x0316, 0x302A, 0x0062 }};
+        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x08D3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x08D3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x08D3, 0x0316, 0x059A, 0x0062 }};
+        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x08D3, 0x0316, 0x059A, 0x0062 }};
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c2.begin(), c2.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c3.begin(), c3.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
+
+        EXPECT_TRUE(boost::text::normalized_nfc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
+        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
+
+
+
+        {
+            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+        {
+            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
+            boost::text::normalize_to_nfkc(str);
+            boost::text::utf32_range utf32_range(str);
+            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
+            auto c4_it = c4.begin();
+            int i = 0;
+            for (auto x : utf32_range) {
+                EXPECT_EQ(x, *c4_it) << "iteration " << i;
+                ++c4_it;
+                ++i;
+            }
+        }
+
+    }
+}
+
+
+TEST(normalization, nfkc_087_133)
 {
     // 0061 0315 0300 05AE 08D4 0062;00E0 05AE 08D4 0315 0062;0061 05AE 0300 08D4 0315 0062;00E0 05AE 08D4 0315 0062;0061 05AE 0300 08D4 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣔb; à◌֮◌ࣔ◌̕b; a◌֮◌̀◌ࣔ◌̕b; à◌֮◌ࣔ◌̕b; a◌֮◌̀◌ࣔ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH WORD AR-RUB, LATIN SMALL LETTER B
@@ -13542,7 +13970,7 @@ TEST(normalization, nfkc_087_129)
 }
 
 
-TEST(normalization, nfkc_087_130)
+TEST(normalization, nfkc_087_134)
 {
     // 0061 08D4 0315 0300 05AE 0062;0061 05AE 08D4 0300 0315 0062;0061 05AE 08D4 0300 0315 0062;0061 05AE 08D4 0300 0315 0062;0061 05AE 08D4 0300 0315 0062; 
     // (a◌ࣔ◌̕◌̀◌֮b; a◌֮◌ࣔ◌̀◌̕b; a◌֮◌ࣔ◌̀◌̕b; a◌֮◌ࣔ◌̀◌̕b; a◌֮◌ࣔ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH WORD AR-RUB, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -13649,7 +14077,7 @@ TEST(normalization, nfkc_087_130)
 }
 
 
-TEST(normalization, nfkc_087_131)
+TEST(normalization, nfkc_087_135)
 {
     // 0061 0315 0300 05AE 08D5 0062;00E0 05AE 08D5 0315 0062;0061 05AE 0300 08D5 0315 0062;00E0 05AE 08D5 0315 0062;0061 05AE 0300 08D5 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣕb; à◌֮◌ࣕ◌̕b; a◌֮◌̀◌ࣕ◌̕b; à◌֮◌ࣕ◌̕b; a◌֮◌̀◌ࣕ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH SAD, LATIN SMALL LETTER B
@@ -13748,7 +14176,7 @@ TEST(normalization, nfkc_087_131)
 }
 
 
-TEST(normalization, nfkc_087_132)
+TEST(normalization, nfkc_087_136)
 {
     // 0061 08D5 0315 0300 05AE 0062;0061 05AE 08D5 0300 0315 0062;0061 05AE 08D5 0300 0315 0062;0061 05AE 08D5 0300 0315 0062;0061 05AE 08D5 0300 0315 0062; 
     // (a◌ࣕ◌̕◌̀◌֮b; a◌֮◌ࣕ◌̀◌̕b; a◌֮◌ࣕ◌̀◌̕b; a◌֮◌ࣕ◌̀◌̕b; a◌֮◌ࣕ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH SAD, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -13855,7 +14283,7 @@ TEST(normalization, nfkc_087_132)
 }
 
 
-TEST(normalization, nfkc_087_133)
+TEST(normalization, nfkc_087_137)
 {
     // 0061 0315 0300 05AE 08D6 0062;00E0 05AE 08D6 0315 0062;0061 05AE 0300 08D6 0315 0062;00E0 05AE 08D6 0315 0062;0061 05AE 0300 08D6 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣖb; à◌֮◌ࣖ◌̕b; a◌֮◌̀◌ࣖ◌̕b; à◌֮◌ࣖ◌̕b; a◌֮◌̀◌ࣖ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH AIN, LATIN SMALL LETTER B
@@ -13954,7 +14382,7 @@ TEST(normalization, nfkc_087_133)
 }
 
 
-TEST(normalization, nfkc_087_134)
+TEST(normalization, nfkc_087_138)
 {
     // 0061 08D6 0315 0300 05AE 0062;0061 05AE 08D6 0300 0315 0062;0061 05AE 08D6 0300 0315 0062;0061 05AE 08D6 0300 0315 0062;0061 05AE 08D6 0300 0315 0062; 
     // (a◌ࣖ◌̕◌̀◌֮b; a◌֮◌ࣖ◌̀◌̕b; a◌֮◌ࣖ◌̀◌̕b; a◌֮◌ࣖ◌̀◌̕b; a◌֮◌ࣖ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH AIN, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -14061,7 +14489,7 @@ TEST(normalization, nfkc_087_134)
 }
 
 
-TEST(normalization, nfkc_087_135)
+TEST(normalization, nfkc_087_139)
 {
     // 0061 0315 0300 05AE 08D7 0062;00E0 05AE 08D7 0315 0062;0061 05AE 0300 08D7 0315 0062;00E0 05AE 08D7 0315 0062;0061 05AE 0300 08D7 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣗb; à◌֮◌ࣗ◌̕b; a◌֮◌̀◌ࣗ◌̕b; à◌֮◌ࣗ◌̕b; a◌֮◌̀◌ࣗ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH QAF, LATIN SMALL LETTER B
@@ -14160,7 +14588,7 @@ TEST(normalization, nfkc_087_135)
 }
 
 
-TEST(normalization, nfkc_087_136)
+TEST(normalization, nfkc_087_140)
 {
     // 0061 08D7 0315 0300 05AE 0062;0061 05AE 08D7 0300 0315 0062;0061 05AE 08D7 0300 0315 0062;0061 05AE 08D7 0300 0315 0062;0061 05AE 08D7 0300 0315 0062; 
     // (a◌ࣗ◌̕◌̀◌֮b; a◌֮◌ࣗ◌̀◌̕b; a◌֮◌ࣗ◌̀◌̕b; a◌֮◌ࣗ◌̀◌̕b; a◌֮◌ࣗ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH QAF, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -14267,7 +14695,7 @@ TEST(normalization, nfkc_087_136)
 }
 
 
-TEST(normalization, nfkc_087_137)
+TEST(normalization, nfkc_087_141)
 {
     // 0061 0315 0300 05AE 08D8 0062;00E0 05AE 08D8 0315 0062;0061 05AE 0300 08D8 0315 0062;00E0 05AE 08D8 0315 0062;0061 05AE 0300 08D8 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣘb; à◌֮◌ࣘ◌̕b; a◌֮◌̀◌ࣘ◌̕b; à◌֮◌ࣘ◌̕b; a◌֮◌̀◌ࣘ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH NOON WITH KASRA, LATIN SMALL LETTER B
@@ -14366,7 +14794,7 @@ TEST(normalization, nfkc_087_137)
 }
 
 
-TEST(normalization, nfkc_087_138)
+TEST(normalization, nfkc_087_142)
 {
     // 0061 08D8 0315 0300 05AE 0062;0061 05AE 08D8 0300 0315 0062;0061 05AE 08D8 0300 0315 0062;0061 05AE 08D8 0300 0315 0062;0061 05AE 08D8 0300 0315 0062; 
     // (a◌ࣘ◌̕◌̀◌֮b; a◌֮◌ࣘ◌̀◌̕b; a◌֮◌ࣘ◌̀◌̕b; a◌֮◌ࣘ◌̀◌̕b; a◌֮◌ࣘ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH NOON WITH KASRA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -14473,7 +14901,7 @@ TEST(normalization, nfkc_087_138)
 }
 
 
-TEST(normalization, nfkc_087_139)
+TEST(normalization, nfkc_087_143)
 {
     // 0061 0315 0300 05AE 08D9 0062;00E0 05AE 08D9 0315 0062;0061 05AE 0300 08D9 0315 0062;00E0 05AE 08D9 0315 0062;0061 05AE 0300 08D9 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣙb; à◌֮◌ࣙ◌̕b; a◌֮◌̀◌ࣙ◌̕b; à◌֮◌ࣙ◌̕b; a◌֮◌̀◌ࣙ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL LOW NOON WITH KASRA, LATIN SMALL LETTER B
@@ -14572,7 +15000,7 @@ TEST(normalization, nfkc_087_139)
 }
 
 
-TEST(normalization, nfkc_087_140)
+TEST(normalization, nfkc_087_144)
 {
     // 0061 08D9 0315 0300 05AE 0062;0061 05AE 08D9 0300 0315 0062;0061 05AE 08D9 0300 0315 0062;0061 05AE 08D9 0300 0315 0062;0061 05AE 08D9 0300 0315 0062; 
     // (a◌ࣙ◌̕◌̀◌֮b; a◌֮◌ࣙ◌̀◌̕b; a◌֮◌ࣙ◌̀◌̕b; a◌֮◌ࣙ◌̀◌̕b; a◌֮◌ࣙ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL LOW NOON WITH KASRA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -14679,7 +15107,7 @@ TEST(normalization, nfkc_087_140)
 }
 
 
-TEST(normalization, nfkc_087_141)
+TEST(normalization, nfkc_087_145)
 {
     // 0061 0315 0300 05AE 08DA 0062;00E0 05AE 08DA 0315 0062;0061 05AE 0300 08DA 0315 0062;00E0 05AE 08DA 0315 0062;0061 05AE 0300 08DA 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣚb; à◌֮◌ࣚ◌̕b; a◌֮◌̀◌ࣚ◌̕b; à◌֮◌ࣚ◌̕b; a◌֮◌̀◌ࣚ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH WORD ATH-THALATHA, LATIN SMALL LETTER B
@@ -14778,7 +15206,7 @@ TEST(normalization, nfkc_087_141)
 }
 
 
-TEST(normalization, nfkc_087_142)
+TEST(normalization, nfkc_087_146)
 {
     // 0061 08DA 0315 0300 05AE 0062;0061 05AE 08DA 0300 0315 0062;0061 05AE 08DA 0300 0315 0062;0061 05AE 08DA 0300 0315 0062;0061 05AE 08DA 0300 0315 0062; 
     // (a◌ࣚ◌̕◌̀◌֮b; a◌֮◌ࣚ◌̀◌̕b; a◌֮◌ࣚ◌̀◌̕b; a◌֮◌ࣚ◌̀◌̕b; a◌֮◌ࣚ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH WORD ATH-THALATHA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -14885,7 +15313,7 @@ TEST(normalization, nfkc_087_142)
 }
 
 
-TEST(normalization, nfkc_087_143)
+TEST(normalization, nfkc_087_147)
 {
     // 0061 0315 0300 05AE 08DB 0062;00E0 05AE 08DB 0315 0062;0061 05AE 0300 08DB 0315 0062;00E0 05AE 08DB 0315 0062;0061 05AE 0300 08DB 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣛb; à◌֮◌ࣛ◌̕b; a◌֮◌̀◌ࣛ◌̕b; à◌֮◌ࣛ◌̕b; a◌֮◌̀◌ࣛ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH WORD AS-SAJDA, LATIN SMALL LETTER B
@@ -14984,7 +15412,7 @@ TEST(normalization, nfkc_087_143)
 }
 
 
-TEST(normalization, nfkc_087_144)
+TEST(normalization, nfkc_087_148)
 {
     // 0061 08DB 0315 0300 05AE 0062;0061 05AE 08DB 0300 0315 0062;0061 05AE 08DB 0300 0315 0062;0061 05AE 08DB 0300 0315 0062;0061 05AE 08DB 0300 0315 0062; 
     // (a◌ࣛ◌̕◌̀◌֮b; a◌֮◌ࣛ◌̀◌̕b; a◌֮◌ࣛ◌̀◌̕b; a◌֮◌ࣛ◌̀◌̕b; a◌֮◌ࣛ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH WORD AS-SAJDA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -15091,7 +15519,7 @@ TEST(normalization, nfkc_087_144)
 }
 
 
-TEST(normalization, nfkc_087_145)
+TEST(normalization, nfkc_087_149)
 {
     // 0061 0315 0300 05AE 08DC 0062;00E0 05AE 08DC 0315 0062;0061 05AE 0300 08DC 0315 0062;00E0 05AE 08DC 0315 0062;0061 05AE 0300 08DC 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣜb; à◌֮◌ࣜ◌̕b; a◌֮◌̀◌ࣜ◌̕b; à◌֮◌ࣜ◌̕b; a◌֮◌̀◌ࣜ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH WORD AN-NISF, LATIN SMALL LETTER B
@@ -15190,7 +15618,7 @@ TEST(normalization, nfkc_087_145)
 }
 
 
-TEST(normalization, nfkc_087_146)
+TEST(normalization, nfkc_087_150)
 {
     // 0061 08DC 0315 0300 05AE 0062;0061 05AE 08DC 0300 0315 0062;0061 05AE 08DC 0300 0315 0062;0061 05AE 08DC 0300 0315 0062;0061 05AE 08DC 0300 0315 0062; 
     // (a◌ࣜ◌̕◌̀◌֮b; a◌֮◌ࣜ◌̀◌̕b; a◌֮◌ࣜ◌̀◌̕b; a◌֮◌ࣜ◌̀◌̕b; a◌֮◌ࣜ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH WORD AN-NISF, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -15297,7 +15725,7 @@ TEST(normalization, nfkc_087_146)
 }
 
 
-TEST(normalization, nfkc_087_147)
+TEST(normalization, nfkc_087_151)
 {
     // 0061 0315 0300 05AE 08DD 0062;00E0 05AE 08DD 0315 0062;0061 05AE 0300 08DD 0315 0062;00E0 05AE 08DD 0315 0062;0061 05AE 0300 08DD 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣝb; à◌֮◌ࣝ◌̕b; a◌֮◌̀◌ࣝ◌̕b; à◌֮◌ࣝ◌̕b; a◌֮◌̀◌ࣝ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH WORD SAKTA, LATIN SMALL LETTER B
@@ -15396,7 +15824,7 @@ TEST(normalization, nfkc_087_147)
 }
 
 
-TEST(normalization, nfkc_087_148)
+TEST(normalization, nfkc_087_152)
 {
     // 0061 08DD 0315 0300 05AE 0062;0061 05AE 08DD 0300 0315 0062;0061 05AE 08DD 0300 0315 0062;0061 05AE 08DD 0300 0315 0062;0061 05AE 08DD 0300 0315 0062; 
     // (a◌ࣝ◌̕◌̀◌֮b; a◌֮◌ࣝ◌̀◌̕b; a◌֮◌ࣝ◌̀◌̕b; a◌֮◌ࣝ◌̀◌̕b; a◌֮◌ࣝ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH WORD SAKTA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -15503,7 +15931,7 @@ TEST(normalization, nfkc_087_148)
 }
 
 
-TEST(normalization, nfkc_087_149)
+TEST(normalization, nfkc_087_153)
 {
     // 0061 0315 0300 05AE 08DE 0062;00E0 05AE 08DE 0315 0062;0061 05AE 0300 08DE 0315 0062;00E0 05AE 08DE 0315 0062;0061 05AE 0300 08DE 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣞb; à◌֮◌ࣞ◌̕b; a◌֮◌̀◌ࣞ◌̕b; à◌֮◌ࣞ◌̕b; a◌֮◌̀◌ࣞ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH WORD QIF, LATIN SMALL LETTER B
@@ -15602,7 +16030,7 @@ TEST(normalization, nfkc_087_149)
 }
 
 
-TEST(normalization, nfkc_087_150)
+TEST(normalization, nfkc_087_154)
 {
     // 0061 08DE 0315 0300 05AE 0062;0061 05AE 08DE 0300 0315 0062;0061 05AE 08DE 0300 0315 0062;0061 05AE 08DE 0300 0315 0062;0061 05AE 08DE 0300 0315 0062; 
     // (a◌ࣞ◌̕◌̀◌֮b; a◌֮◌ࣞ◌̀◌̕b; a◌֮◌ࣞ◌̀◌̕b; a◌֮◌ࣞ◌̀◌̕b; a◌֮◌ࣞ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH WORD QIF, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -15709,7 +16137,7 @@ TEST(normalization, nfkc_087_150)
 }
 
 
-TEST(normalization, nfkc_087_151)
+TEST(normalization, nfkc_087_155)
 {
     // 0061 0315 0300 05AE 08DF 0062;00E0 05AE 08DF 0315 0062;0061 05AE 0300 08DF 0315 0062;00E0 05AE 08DF 0315 0062;0061 05AE 0300 08DF 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣟb; à◌֮◌ࣟ◌̕b; a◌֮◌̀◌ࣟ◌̕b; à◌֮◌ࣟ◌̕b; a◌֮◌̀◌ࣟ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH WORD WAQFA, LATIN SMALL LETTER B
@@ -15808,7 +16236,7 @@ TEST(normalization, nfkc_087_151)
 }
 
 
-TEST(normalization, nfkc_087_152)
+TEST(normalization, nfkc_087_156)
 {
     // 0061 08DF 0315 0300 05AE 0062;0061 05AE 08DF 0300 0315 0062;0061 05AE 08DF 0300 0315 0062;0061 05AE 08DF 0300 0315 0062;0061 05AE 08DF 0300 0315 0062; 
     // (a◌ࣟ◌̕◌̀◌֮b; a◌֮◌ࣟ◌̀◌̕b; a◌֮◌ࣟ◌̀◌̕b; a◌֮◌ࣟ◌̀◌̕b; a◌֮◌ࣟ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH WORD WAQFA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -15915,7 +16343,7 @@ TEST(normalization, nfkc_087_152)
 }
 
 
-TEST(normalization, nfkc_087_153)
+TEST(normalization, nfkc_087_157)
 {
     // 0061 0315 0300 05AE 08E0 0062;00E0 05AE 08E0 0315 0062;0061 05AE 0300 08E0 0315 0062;00E0 05AE 08E0 0315 0062;0061 05AE 0300 08E0 0315 0062; 
     // (a◌̕◌̀◌֮◌࣠b; à◌֮◌࣠◌̕b; a◌֮◌̀◌࣠◌̕b; à◌֮◌࣠◌̕b; a◌֮◌̀◌࣠◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH FOOTNOTE MARKER, LATIN SMALL LETTER B
@@ -16014,7 +16442,7 @@ TEST(normalization, nfkc_087_153)
 }
 
 
-TEST(normalization, nfkc_087_154)
+TEST(normalization, nfkc_087_158)
 {
     // 0061 08E0 0315 0300 05AE 0062;0061 05AE 08E0 0300 0315 0062;0061 05AE 08E0 0300 0315 0062;0061 05AE 08E0 0300 0315 0062;0061 05AE 08E0 0300 0315 0062; 
     // (a◌࣠◌̕◌̀◌֮b; a◌֮◌࣠◌̀◌̕b; a◌֮◌࣠◌̀◌̕b; a◌֮◌࣠◌̀◌̕b; a◌֮◌࣠◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH FOOTNOTE MARKER, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -16121,7 +16549,7 @@ TEST(normalization, nfkc_087_154)
 }
 
 
-TEST(normalization, nfkc_087_155)
+TEST(normalization, nfkc_087_159)
 {
     // 0061 0315 0300 05AE 08E1 0062;00E0 05AE 08E1 0315 0062;0061 05AE 0300 08E1 0315 0062;00E0 05AE 08E1 0315 0062;0061 05AE 0300 08E1 0315 0062; 
     // (a◌̕◌̀◌֮◌࣡b; à◌֮◌࣡◌̕b; a◌֮◌̀◌࣡◌̕b; à◌֮◌࣡◌̕b; a◌֮◌̀◌࣡◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH SIGN SAFHA, LATIN SMALL LETTER B
@@ -16220,7 +16648,7 @@ TEST(normalization, nfkc_087_155)
 }
 
 
-TEST(normalization, nfkc_087_156)
+TEST(normalization, nfkc_087_160)
 {
     // 0061 08E1 0315 0300 05AE 0062;0061 05AE 08E1 0300 0315 0062;0061 05AE 08E1 0300 0315 0062;0061 05AE 08E1 0300 0315 0062;0061 05AE 08E1 0300 0315 0062; 
     // (a◌࣡◌̕◌̀◌֮b; a◌֮◌࣡◌̀◌̕b; a◌֮◌࣡◌̀◌̕b; a◌֮◌࣡◌̀◌̕b; a◌֮◌࣡◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH SIGN SAFHA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -16327,7 +16755,7 @@ TEST(normalization, nfkc_087_156)
 }
 
 
-TEST(normalization, nfkc_087_157)
+TEST(normalization, nfkc_087_161)
 {
     // 0061 059A 0316 302A 08E3 0062;0061 302A 0316 08E3 059A 0062;0061 302A 0316 08E3 059A 0062;0061 302A 0316 08E3 059A 0062;0061 302A 0316 08E3 059A 0062; 
     // (a◌֚◌̖◌〪◌ࣣb; a◌〪◌̖◌ࣣ◌֚b; a◌〪◌̖◌ࣣ◌֚b; a◌〪◌̖◌ࣣ◌֚b; a◌〪◌̖◌ࣣ◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC TURNED DAMMA BELOW, LATIN SMALL LETTER B
@@ -16434,7 +16862,7 @@ TEST(normalization, nfkc_087_157)
 }
 
 
-TEST(normalization, nfkc_087_158)
+TEST(normalization, nfkc_087_162)
 {
     // 0061 08E3 059A 0316 302A 0062;0061 302A 08E3 0316 059A 0062;0061 302A 08E3 0316 059A 0062;0061 302A 08E3 0316 059A 0062;0061 302A 08E3 0316 059A 0062; 
     // (a◌ࣣ◌֚◌̖◌〪b; a◌〪◌ࣣ◌̖◌֚b; a◌〪◌ࣣ◌̖◌֚b; a◌〪◌ࣣ◌̖◌֚b; a◌〪◌ࣣ◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC TURNED DAMMA BELOW, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
@@ -16541,7 +16969,7 @@ TEST(normalization, nfkc_087_158)
 }
 
 
-TEST(normalization, nfkc_087_159)
+TEST(normalization, nfkc_087_163)
 {
     // 0061 0315 0300 05AE 08E4 0062;00E0 05AE 08E4 0315 0062;0061 05AE 0300 08E4 0315 0062;00E0 05AE 08E4 0315 0062;0061 05AE 0300 08E4 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣤb; à◌֮◌ࣤ◌̕b; a◌֮◌̀◌ࣤ◌̕b; à◌֮◌ࣤ◌̕b; a◌֮◌̀◌ࣤ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC CURLY FATHA, LATIN SMALL LETTER B
@@ -16640,7 +17068,7 @@ TEST(normalization, nfkc_087_159)
 }
 
 
-TEST(normalization, nfkc_087_160)
+TEST(normalization, nfkc_087_164)
 {
     // 0061 08E4 0315 0300 05AE 0062;0061 05AE 08E4 0300 0315 0062;0061 05AE 08E4 0300 0315 0062;0061 05AE 08E4 0300 0315 0062;0061 05AE 08E4 0300 0315 0062; 
     // (a◌ࣤ◌̕◌̀◌֮b; a◌֮◌ࣤ◌̀◌̕b; a◌֮◌ࣤ◌̀◌̕b; a◌֮◌ࣤ◌̀◌̕b; a◌֮◌ࣤ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC CURLY FATHA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -16747,7 +17175,7 @@ TEST(normalization, nfkc_087_160)
 }
 
 
-TEST(normalization, nfkc_087_161)
+TEST(normalization, nfkc_087_165)
 {
     // 0061 0315 0300 05AE 08E5 0062;00E0 05AE 08E5 0315 0062;0061 05AE 0300 08E5 0315 0062;00E0 05AE 08E5 0315 0062;0061 05AE 0300 08E5 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣥb; à◌֮◌ࣥ◌̕b; a◌֮◌̀◌ࣥ◌̕b; à◌֮◌ࣥ◌̕b; a◌֮◌̀◌ࣥ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC CURLY DAMMA, LATIN SMALL LETTER B
@@ -16846,7 +17274,7 @@ TEST(normalization, nfkc_087_161)
 }
 
 
-TEST(normalization, nfkc_087_162)
+TEST(normalization, nfkc_087_166)
 {
     // 0061 08E5 0315 0300 05AE 0062;0061 05AE 08E5 0300 0315 0062;0061 05AE 08E5 0300 0315 0062;0061 05AE 08E5 0300 0315 0062;0061 05AE 08E5 0300 0315 0062; 
     // (a◌ࣥ◌̕◌̀◌֮b; a◌֮◌ࣥ◌̀◌̕b; a◌֮◌ࣥ◌̀◌̕b; a◌֮◌ࣥ◌̀◌̕b; a◌֮◌ࣥ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC CURLY DAMMA, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -16953,7 +17381,7 @@ TEST(normalization, nfkc_087_162)
 }
 
 
-TEST(normalization, nfkc_087_163)
+TEST(normalization, nfkc_087_167)
 {
     // 0061 059A 0316 302A 08E6 0062;0061 302A 0316 08E6 059A 0062;0061 302A 0316 08E6 059A 0062;0061 302A 0316 08E6 059A 0062;0061 302A 0316 08E6 059A 0062; 
     // (a◌֚◌̖◌〪◌ࣦb; a◌〪◌̖◌ࣦ◌֚b; a◌〪◌̖◌ࣦ◌֚b; a◌〪◌̖◌ࣦ◌֚b; a◌〪◌̖◌ࣦ◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC CURLY KASRA, LATIN SMALL LETTER B
@@ -17060,7 +17488,7 @@ TEST(normalization, nfkc_087_163)
 }
 
 
-TEST(normalization, nfkc_087_164)
+TEST(normalization, nfkc_087_168)
 {
     // 0061 08E6 059A 0316 302A 0062;0061 302A 08E6 0316 059A 0062;0061 302A 08E6 0316 059A 0062;0061 302A 08E6 0316 059A 0062;0061 302A 08E6 0316 059A 0062; 
     // (a◌ࣦ◌֚◌̖◌〪b; a◌〪◌ࣦ◌̖◌֚b; a◌〪◌ࣦ◌̖◌֚b; a◌〪◌ࣦ◌̖◌֚b; a◌〪◌ࣦ◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC CURLY KASRA, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
@@ -17167,7 +17595,7 @@ TEST(normalization, nfkc_087_164)
 }
 
 
-TEST(normalization, nfkc_087_165)
+TEST(normalization, nfkc_087_169)
 {
     // 0061 0315 0300 05AE 08E7 0062;00E0 05AE 08E7 0315 0062;0061 05AE 0300 08E7 0315 0062;00E0 05AE 08E7 0315 0062;0061 05AE 0300 08E7 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣧb; à◌֮◌ࣧ◌̕b; a◌֮◌̀◌ࣧ◌̕b; à◌֮◌ࣧ◌̕b; a◌֮◌̀◌ࣧ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC CURLY FATHATAN, LATIN SMALL LETTER B
@@ -17266,7 +17694,7 @@ TEST(normalization, nfkc_087_165)
 }
 
 
-TEST(normalization, nfkc_087_166)
+TEST(normalization, nfkc_087_170)
 {
     // 0061 08E7 0315 0300 05AE 0062;0061 05AE 08E7 0300 0315 0062;0061 05AE 08E7 0300 0315 0062;0061 05AE 08E7 0300 0315 0062;0061 05AE 08E7 0300 0315 0062; 
     // (a◌ࣧ◌̕◌̀◌֮b; a◌֮◌ࣧ◌̀◌̕b; a◌֮◌ࣧ◌̀◌̕b; a◌֮◌ࣧ◌̀◌̕b; a◌֮◌ࣧ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC CURLY FATHATAN, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -17373,7 +17801,7 @@ TEST(normalization, nfkc_087_166)
 }
 
 
-TEST(normalization, nfkc_087_167)
+TEST(normalization, nfkc_087_171)
 {
     // 0061 0315 0300 05AE 08E8 0062;00E0 05AE 08E8 0315 0062;0061 05AE 0300 08E8 0315 0062;00E0 05AE 08E8 0315 0062;0061 05AE 0300 08E8 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣨb; à◌֮◌ࣨ◌̕b; a◌֮◌̀◌ࣨ◌̕b; à◌֮◌ࣨ◌̕b; a◌֮◌̀◌ࣨ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC CURLY DAMMATAN, LATIN SMALL LETTER B
@@ -17472,7 +17900,7 @@ TEST(normalization, nfkc_087_167)
 }
 
 
-TEST(normalization, nfkc_087_168)
+TEST(normalization, nfkc_087_172)
 {
     // 0061 08E8 0315 0300 05AE 0062;0061 05AE 08E8 0300 0315 0062;0061 05AE 08E8 0300 0315 0062;0061 05AE 08E8 0300 0315 0062;0061 05AE 08E8 0300 0315 0062; 
     // (a◌ࣨ◌̕◌̀◌֮b; a◌֮◌ࣨ◌̀◌̕b; a◌֮◌ࣨ◌̀◌̕b; a◌֮◌ࣨ◌̀◌̕b; a◌֮◌ࣨ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC CURLY DAMMATAN, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -17579,7 +18007,7 @@ TEST(normalization, nfkc_087_168)
 }
 
 
-TEST(normalization, nfkc_087_169)
+TEST(normalization, nfkc_087_173)
 {
     // 0061 059A 0316 302A 08E9 0062;0061 302A 0316 08E9 059A 0062;0061 302A 0316 08E9 059A 0062;0061 302A 0316 08E9 059A 0062;0061 302A 0316 08E9 059A 0062; 
     // (a◌֚◌̖◌〪◌ࣩb; a◌〪◌̖◌ࣩ◌֚b; a◌〪◌̖◌ࣩ◌֚b; a◌〪◌̖◌ࣩ◌֚b; a◌〪◌̖◌ࣩ◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC CURLY KASRATAN, LATIN SMALL LETTER B
@@ -17686,7 +18114,7 @@ TEST(normalization, nfkc_087_169)
 }
 
 
-TEST(normalization, nfkc_087_170)
+TEST(normalization, nfkc_087_174)
 {
     // 0061 08E9 059A 0316 302A 0062;0061 302A 08E9 0316 059A 0062;0061 302A 08E9 0316 059A 0062;0061 302A 08E9 0316 059A 0062;0061 302A 08E9 0316 059A 0062; 
     // (a◌ࣩ◌֚◌̖◌〪b; a◌〪◌ࣩ◌̖◌֚b; a◌〪◌ࣩ◌̖◌֚b; a◌〪◌ࣩ◌̖◌֚b; a◌〪◌ࣩ◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC CURLY KASRATAN, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
@@ -17793,7 +18221,7 @@ TEST(normalization, nfkc_087_170)
 }
 
 
-TEST(normalization, nfkc_087_171)
+TEST(normalization, nfkc_087_175)
 {
     // 0061 0315 0300 05AE 08EA 0062;00E0 05AE 08EA 0315 0062;0061 05AE 0300 08EA 0315 0062;00E0 05AE 08EA 0315 0062;0061 05AE 0300 08EA 0315 0062; 
     // (a◌̕◌̀◌֮◌࣪b; à◌֮◌࣪◌̕b; a◌֮◌̀◌࣪◌̕b; à◌֮◌࣪◌̕b; a◌֮◌̀◌࣪◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC TONE ONE DOT ABOVE, LATIN SMALL LETTER B
@@ -17892,7 +18320,7 @@ TEST(normalization, nfkc_087_171)
 }
 
 
-TEST(normalization, nfkc_087_172)
+TEST(normalization, nfkc_087_176)
 {
     // 0061 08EA 0315 0300 05AE 0062;0061 05AE 08EA 0300 0315 0062;0061 05AE 08EA 0300 0315 0062;0061 05AE 08EA 0300 0315 0062;0061 05AE 08EA 0300 0315 0062; 
     // (a◌࣪◌̕◌̀◌֮b; a◌֮◌࣪◌̀◌̕b; a◌֮◌࣪◌̀◌̕b; a◌֮◌࣪◌̀◌̕b; a◌֮◌࣪◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC TONE ONE DOT ABOVE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -17999,7 +18427,7 @@ TEST(normalization, nfkc_087_172)
 }
 
 
-TEST(normalization, nfkc_087_173)
+TEST(normalization, nfkc_087_177)
 {
     // 0061 0315 0300 05AE 08EB 0062;00E0 05AE 08EB 0315 0062;0061 05AE 0300 08EB 0315 0062;00E0 05AE 08EB 0315 0062;0061 05AE 0300 08EB 0315 0062; 
     // (a◌̕◌̀◌֮◌࣫b; à◌֮◌࣫◌̕b; a◌֮◌̀◌࣫◌̕b; à◌֮◌࣫◌̕b; a◌֮◌̀◌࣫◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC TONE TWO DOTS ABOVE, LATIN SMALL LETTER B
@@ -18098,7 +18526,7 @@ TEST(normalization, nfkc_087_173)
 }
 
 
-TEST(normalization, nfkc_087_174)
+TEST(normalization, nfkc_087_178)
 {
     // 0061 08EB 0315 0300 05AE 0062;0061 05AE 08EB 0300 0315 0062;0061 05AE 08EB 0300 0315 0062;0061 05AE 08EB 0300 0315 0062;0061 05AE 08EB 0300 0315 0062; 
     // (a◌࣫◌̕◌̀◌֮b; a◌֮◌࣫◌̀◌̕b; a◌֮◌࣫◌̀◌̕b; a◌֮◌࣫◌̀◌̕b; a◌֮◌࣫◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC TONE TWO DOTS ABOVE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -18205,7 +18633,7 @@ TEST(normalization, nfkc_087_174)
 }
 
 
-TEST(normalization, nfkc_087_175)
+TEST(normalization, nfkc_087_179)
 {
     // 0061 0315 0300 05AE 08EC 0062;00E0 05AE 08EC 0315 0062;0061 05AE 0300 08EC 0315 0062;00E0 05AE 08EC 0315 0062;0061 05AE 0300 08EC 0315 0062; 
     // (a◌̕◌̀◌֮◌࣬b; à◌֮◌࣬◌̕b; a◌֮◌̀◌࣬◌̕b; à◌֮◌࣬◌̕b; a◌֮◌̀◌࣬◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC TONE LOOP ABOVE, LATIN SMALL LETTER B
@@ -18304,7 +18732,7 @@ TEST(normalization, nfkc_087_175)
 }
 
 
-TEST(normalization, nfkc_087_176)
+TEST(normalization, nfkc_087_180)
 {
     // 0061 08EC 0315 0300 05AE 0062;0061 05AE 08EC 0300 0315 0062;0061 05AE 08EC 0300 0315 0062;0061 05AE 08EC 0300 0315 0062;0061 05AE 08EC 0300 0315 0062; 
     // (a◌࣬◌̕◌̀◌֮b; a◌֮◌࣬◌̀◌̕b; a◌֮◌࣬◌̀◌̕b; a◌֮◌࣬◌̀◌̕b; a◌֮◌࣬◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC TONE LOOP ABOVE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -18411,7 +18839,7 @@ TEST(normalization, nfkc_087_176)
 }
 
 
-TEST(normalization, nfkc_087_177)
+TEST(normalization, nfkc_087_181)
 {
     // 0061 059A 0316 302A 08ED 0062;0061 302A 0316 08ED 059A 0062;0061 302A 0316 08ED 059A 0062;0061 302A 0316 08ED 059A 0062;0061 302A 0316 08ED 059A 0062; 
     // (a◌֚◌̖◌〪◌࣭b; a◌〪◌̖◌࣭◌֚b; a◌〪◌̖◌࣭◌֚b; a◌〪◌̖◌࣭◌֚b; a◌〪◌̖◌࣭◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC TONE ONE DOT BELOW, LATIN SMALL LETTER B
@@ -18518,7 +18946,7 @@ TEST(normalization, nfkc_087_177)
 }
 
 
-TEST(normalization, nfkc_087_178)
+TEST(normalization, nfkc_087_182)
 {
     // 0061 08ED 059A 0316 302A 0062;0061 302A 08ED 0316 059A 0062;0061 302A 08ED 0316 059A 0062;0061 302A 08ED 0316 059A 0062;0061 302A 08ED 0316 059A 0062; 
     // (a◌࣭◌֚◌̖◌〪b; a◌〪◌࣭◌̖◌֚b; a◌〪◌࣭◌̖◌֚b; a◌〪◌࣭◌̖◌֚b; a◌〪◌࣭◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC TONE ONE DOT BELOW, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
@@ -18625,7 +19053,7 @@ TEST(normalization, nfkc_087_178)
 }
 
 
-TEST(normalization, nfkc_087_179)
+TEST(normalization, nfkc_087_183)
 {
     // 0061 059A 0316 302A 08EE 0062;0061 302A 0316 08EE 059A 0062;0061 302A 0316 08EE 059A 0062;0061 302A 0316 08EE 059A 0062;0061 302A 0316 08EE 059A 0062; 
     // (a◌֚◌̖◌〪◌࣮b; a◌〪◌̖◌࣮◌֚b; a◌〪◌̖◌࣮◌֚b; a◌〪◌̖◌࣮◌֚b; a◌〪◌̖◌࣮◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC TONE TWO DOTS BELOW, LATIN SMALL LETTER B
@@ -18732,7 +19160,7 @@ TEST(normalization, nfkc_087_179)
 }
 
 
-TEST(normalization, nfkc_087_180)
+TEST(normalization, nfkc_087_184)
 {
     // 0061 08EE 059A 0316 302A 0062;0061 302A 08EE 0316 059A 0062;0061 302A 08EE 0316 059A 0062;0061 302A 08EE 0316 059A 0062;0061 302A 08EE 0316 059A 0062; 
     // (a◌࣮◌֚◌̖◌〪b; a◌〪◌࣮◌̖◌֚b; a◌〪◌࣮◌̖◌֚b; a◌〪◌࣮◌̖◌֚b; a◌〪◌࣮◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC TONE TWO DOTS BELOW, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
@@ -18839,7 +19267,7 @@ TEST(normalization, nfkc_087_180)
 }
 
 
-TEST(normalization, nfkc_087_181)
+TEST(normalization, nfkc_087_185)
 {
     // 0061 059A 0316 302A 08EF 0062;0061 302A 0316 08EF 059A 0062;0061 302A 0316 08EF 059A 0062;0061 302A 0316 08EF 059A 0062;0061 302A 0316 08EF 059A 0062; 
     // (a◌֚◌̖◌〪◌࣯b; a◌〪◌̖◌࣯◌֚b; a◌〪◌̖◌࣯◌֚b; a◌〪◌̖◌࣯◌֚b; a◌〪◌̖◌࣯◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC TONE LOOP BELOW, LATIN SMALL LETTER B
@@ -18946,7 +19374,7 @@ TEST(normalization, nfkc_087_181)
 }
 
 
-TEST(normalization, nfkc_087_182)
+TEST(normalization, nfkc_087_186)
 {
     // 0061 08EF 059A 0316 302A 0062;0061 302A 08EF 0316 059A 0062;0061 302A 08EF 0316 059A 0062;0061 302A 08EF 0316 059A 0062;0061 302A 08EF 0316 059A 0062; 
     // (a◌࣯◌֚◌̖◌〪b; a◌〪◌࣯◌̖◌֚b; a◌〪◌࣯◌̖◌֚b; a◌〪◌࣯◌̖◌֚b; a◌〪◌࣯◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC TONE LOOP BELOW, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
@@ -19053,7 +19481,7 @@ TEST(normalization, nfkc_087_182)
 }
 
 
-TEST(normalization, nfkc_087_183)
+TEST(normalization, nfkc_087_187)
 {
     // 0061 064C 064B FB1E 08F0 0062;0061 FB1E 064B 08F0 064C 0062;0061 FB1E 064B 08F0 064C 0062;0061 FB1E 064B 08F0 064C 0062;0061 FB1E 064B 08F0 064C 0062; 
     // (a◌ٌ◌ً◌ﬞ◌ࣰb; a◌ﬞ◌ً◌ࣰ◌ٌb; a◌ﬞ◌ً◌ࣰ◌ٌb; a◌ﬞ◌ً◌ࣰ◌ٌb; a◌ﬞ◌ً◌ࣰ◌ٌb; ) LATIN SMALL LETTER A, ARABIC DAMMATAN, ARABIC FATHATAN, HEBREW POINT JUDEO-SPANISH VARIKA, ARABIC OPEN FATHATAN, LATIN SMALL LETTER B
@@ -19160,7 +19588,7 @@ TEST(normalization, nfkc_087_183)
 }
 
 
-TEST(normalization, nfkc_087_184)
+TEST(normalization, nfkc_087_188)
 {
     // 0061 08F0 064C 064B FB1E 0062;0061 FB1E 08F0 064B 064C 0062;0061 FB1E 08F0 064B 064C 0062;0061 FB1E 08F0 064B 064C 0062;0061 FB1E 08F0 064B 064C 0062; 
     // (a◌ࣰ◌ٌ◌ً◌ﬞb; a◌ﬞ◌ࣰ◌ً◌ٌb; a◌ﬞ◌ࣰ◌ً◌ٌb; a◌ﬞ◌ࣰ◌ً◌ٌb; a◌ﬞ◌ࣰ◌ً◌ٌb; ) LATIN SMALL LETTER A, ARABIC OPEN FATHATAN, ARABIC DAMMATAN, ARABIC FATHATAN, HEBREW POINT JUDEO-SPANISH VARIKA, LATIN SMALL LETTER B
@@ -19267,7 +19695,7 @@ TEST(normalization, nfkc_087_184)
 }
 
 
-TEST(normalization, nfkc_087_185)
+TEST(normalization, nfkc_087_189)
 {
     // 0061 064D 064C 064B 08F1 0062;0061 064B 064C 08F1 064D 0062;0061 064B 064C 08F1 064D 0062;0061 064B 064C 08F1 064D 0062;0061 064B 064C 08F1 064D 0062; 
     // (a◌ٍ◌ٌ◌ً◌ࣱb; a◌ً◌ٌ◌ࣱ◌ٍb; a◌ً◌ٌ◌ࣱ◌ٍb; a◌ً◌ٌ◌ࣱ◌ٍb; a◌ً◌ٌ◌ࣱ◌ٍb; ) LATIN SMALL LETTER A, ARABIC KASRATAN, ARABIC DAMMATAN, ARABIC FATHATAN, ARABIC OPEN DAMMATAN, LATIN SMALL LETTER B
@@ -19374,7 +19802,7 @@ TEST(normalization, nfkc_087_185)
 }
 
 
-TEST(normalization, nfkc_087_186)
+TEST(normalization, nfkc_087_190)
 {
     // 0061 08F1 064D 064C 064B 0062;0061 064B 08F1 064C 064D 0062;0061 064B 08F1 064C 064D 0062;0061 064B 08F1 064C 064D 0062;0061 064B 08F1 064C 064D 0062; 
     // (a◌ࣱ◌ٍ◌ٌ◌ًb; a◌ً◌ࣱ◌ٌ◌ٍb; a◌ً◌ࣱ◌ٌ◌ٍb; a◌ً◌ࣱ◌ٌ◌ٍb; a◌ً◌ࣱ◌ٌ◌ٍb; ) LATIN SMALL LETTER A, ARABIC OPEN DAMMATAN, ARABIC KASRATAN, ARABIC DAMMATAN, ARABIC FATHATAN, LATIN SMALL LETTER B
@@ -19481,7 +19909,7 @@ TEST(normalization, nfkc_087_186)
 }
 
 
-TEST(normalization, nfkc_087_187)
+TEST(normalization, nfkc_087_191)
 {
     // 0061 0618 064D 064C 08F2 0062;0061 064C 064D 08F2 0618 0062;0061 064C 064D 08F2 0618 0062;0061 064C 064D 08F2 0618 0062;0061 064C 064D 08F2 0618 0062; 
     // (a◌ؘ◌ٍ◌ٌ◌ࣲb; a◌ٌ◌ٍ◌ࣲ◌ؘb; a◌ٌ◌ٍ◌ࣲ◌ؘb; a◌ٌ◌ٍ◌ࣲ◌ؘb; a◌ٌ◌ٍ◌ࣲ◌ؘb; ) LATIN SMALL LETTER A, ARABIC SMALL FATHA, ARABIC KASRATAN, ARABIC DAMMATAN, ARABIC OPEN KASRATAN, LATIN SMALL LETTER B
@@ -19588,7 +20016,7 @@ TEST(normalization, nfkc_087_187)
 }
 
 
-TEST(normalization, nfkc_087_188)
+TEST(normalization, nfkc_087_192)
 {
     // 0061 08F2 0618 064D 064C 0062;0061 064C 08F2 064D 0618 0062;0061 064C 08F2 064D 0618 0062;0061 064C 08F2 064D 0618 0062;0061 064C 08F2 064D 0618 0062; 
     // (a◌ࣲ◌ؘ◌ٍ◌ٌb; a◌ٌ◌ࣲ◌ٍ◌ؘb; a◌ٌ◌ࣲ◌ٍ◌ؘb; a◌ٌ◌ࣲ◌ٍ◌ؘb; a◌ٌ◌ࣲ◌ٍ◌ؘb; ) LATIN SMALL LETTER A, ARABIC OPEN KASRATAN, ARABIC SMALL FATHA, ARABIC KASRATAN, ARABIC DAMMATAN, LATIN SMALL LETTER B
@@ -19695,7 +20123,7 @@ TEST(normalization, nfkc_087_188)
 }
 
 
-TEST(normalization, nfkc_087_189)
+TEST(normalization, nfkc_087_193)
 {
     // 0061 0315 0300 05AE 08F3 0062;00E0 05AE 08F3 0315 0062;0061 05AE 0300 08F3 0315 0062;00E0 05AE 08F3 0315 0062;0061 05AE 0300 08F3 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣳb; à◌֮◌ࣳ◌̕b; a◌֮◌̀◌ࣳ◌̕b; à◌֮◌ࣳ◌̕b; a◌֮◌̀◌ࣳ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC SMALL HIGH WAW, LATIN SMALL LETTER B
@@ -19794,7 +20222,7 @@ TEST(normalization, nfkc_087_189)
 }
 
 
-TEST(normalization, nfkc_087_190)
+TEST(normalization, nfkc_087_194)
 {
     // 0061 08F3 0315 0300 05AE 0062;0061 05AE 08F3 0300 0315 0062;0061 05AE 08F3 0300 0315 0062;0061 05AE 08F3 0300 0315 0062;0061 05AE 08F3 0300 0315 0062; 
     // (a◌ࣳ◌̕◌̀◌֮b; a◌֮◌ࣳ◌̀◌̕b; a◌֮◌ࣳ◌̀◌̕b; a◌֮◌ࣳ◌̀◌̕b; a◌֮◌ࣳ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC SMALL HIGH WAW, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -19901,7 +20329,7 @@ TEST(normalization, nfkc_087_190)
 }
 
 
-TEST(normalization, nfkc_087_191)
+TEST(normalization, nfkc_087_195)
 {
     // 0061 0315 0300 05AE 08F4 0062;00E0 05AE 08F4 0315 0062;0061 05AE 0300 08F4 0315 0062;00E0 05AE 08F4 0315 0062;0061 05AE 0300 08F4 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣴb; à◌֮◌ࣴ◌̕b; a◌֮◌̀◌ࣴ◌̕b; à◌֮◌ࣴ◌̕b; a◌֮◌̀◌ࣴ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC FATHA WITH RING, LATIN SMALL LETTER B
@@ -20000,7 +20428,7 @@ TEST(normalization, nfkc_087_191)
 }
 
 
-TEST(normalization, nfkc_087_192)
+TEST(normalization, nfkc_087_196)
 {
     // 0061 08F4 0315 0300 05AE 0062;0061 05AE 08F4 0300 0315 0062;0061 05AE 08F4 0300 0315 0062;0061 05AE 08F4 0300 0315 0062;0061 05AE 08F4 0300 0315 0062; 
     // (a◌ࣴ◌̕◌̀◌֮b; a◌֮◌ࣴ◌̀◌̕b; a◌֮◌ࣴ◌̀◌̕b; a◌֮◌ࣴ◌̀◌̕b; a◌֮◌ࣴ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC FATHA WITH RING, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -20107,7 +20535,7 @@ TEST(normalization, nfkc_087_192)
 }
 
 
-TEST(normalization, nfkc_087_193)
+TEST(normalization, nfkc_087_197)
 {
     // 0061 0315 0300 05AE 08F5 0062;00E0 05AE 08F5 0315 0062;0061 05AE 0300 08F5 0315 0062;00E0 05AE 08F5 0315 0062;0061 05AE 0300 08F5 0315 0062; 
     // (a◌̕◌̀◌֮◌ࣵb; à◌֮◌ࣵ◌̕b; a◌֮◌̀◌ࣵ◌̕b; à◌֮◌ࣵ◌̕b; a◌֮◌̀◌ࣵ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC FATHA WITH DOT ABOVE, LATIN SMALL LETTER B
@@ -20206,7 +20634,7 @@ TEST(normalization, nfkc_087_193)
 }
 
 
-TEST(normalization, nfkc_087_194)
+TEST(normalization, nfkc_087_198)
 {
     // 0061 08F5 0315 0300 05AE 0062;0061 05AE 08F5 0300 0315 0062;0061 05AE 08F5 0300 0315 0062;0061 05AE 08F5 0300 0315 0062;0061 05AE 08F5 0300 0315 0062; 
     // (a◌ࣵ◌̕◌̀◌֮b; a◌֮◌ࣵ◌̀◌̕b; a◌֮◌ࣵ◌̀◌̕b; a◌֮◌ࣵ◌̀◌̕b; a◌֮◌ࣵ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC FATHA WITH DOT ABOVE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
@@ -20313,7 +20741,7 @@ TEST(normalization, nfkc_087_194)
 }
 
 
-TEST(normalization, nfkc_087_195)
+TEST(normalization, nfkc_087_199)
 {
     // 0061 059A 0316 302A 08F6 0062;0061 302A 0316 08F6 059A 0062;0061 302A 0316 08F6 059A 0062;0061 302A 0316 08F6 059A 0062;0061 302A 0316 08F6 059A 0062; 
     // (a◌֚◌̖◌〪◌ࣶb; a◌〪◌̖◌ࣶ◌֚b; a◌〪◌̖◌ࣶ◌֚b; a◌〪◌̖◌ࣶ◌֚b; a◌〪◌̖◌ࣶ◌֚b; ) LATIN SMALL LETTER A, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, ARABIC KASRA WITH DOT BELOW, LATIN SMALL LETTER B
@@ -20342,418 +20770,6 @@ TEST(normalization, nfkc_087_195)
         EXPECT_TRUE(boost::text::normalized_nfc(c5.begin(), c5.end()));
         EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
         EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
-
-
-
-        {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfkc_087_196)
-{
-    // 0061 08F6 059A 0316 302A 0062;0061 302A 08F6 0316 059A 0062;0061 302A 08F6 0316 059A 0062;0061 302A 08F6 0316 059A 0062;0061 302A 08F6 0316 059A 0062; 
-    // (a◌ࣶ◌֚◌̖◌〪b; a◌〪◌ࣶ◌̖◌֚b; a◌〪◌ࣶ◌̖◌֚b; a◌〪◌ࣶ◌̖◌֚b; a◌〪◌ࣶ◌̖◌֚b; ) LATIN SMALL LETTER A, ARABIC KASRA WITH DOT BELOW, HEBREW ACCENT YETIV, COMBINING GRAVE ACCENT BELOW, IDEOGRAPHIC LEVEL TONE MARK, LATIN SMALL LETTER B
-    {
-        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x08F6, 0x059A, 0x0316, 0x302A, 0x0062 }};
-        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x302A, 0x08F6, 0x0316, 0x059A, 0x0062 }};
-        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x302A, 0x08F6, 0x0316, 0x059A, 0x0062 }};
-        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x302A, 0x08F6, 0x0316, 0x059A, 0x0062 }};
-        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x302A, 0x08F6, 0x0316, 0x059A, 0x0062 }};
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized_nfd(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
-
-
-
-        {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfkc_087_197)
-{
-    // 0061 0315 0300 05AE 08F7 0062;00E0 05AE 08F7 0315 0062;0061 05AE 0300 08F7 0315 0062;00E0 05AE 08F7 0315 0062;0061 05AE 0300 08F7 0315 0062; 
-    // (a◌̕◌̀◌֮◌ࣷb; à◌֮◌ࣷ◌̕b; a◌֮◌̀◌ࣷ◌̕b; à◌֮◌ࣷ◌̕b; a◌֮◌̀◌ࣷ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC LEFT ARROWHEAD ABOVE, LATIN SMALL LETTER B
-    {
-        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x08F7, 0x0062 }};
-        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x08F7, 0x0315, 0x0062 }};
-        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x08F7, 0x0315, 0x0062 }};
-        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x08F7, 0x0315, 0x0062 }};
-        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x08F7, 0x0315, 0x0062 }};
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
-
-
-
-        {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfkc_087_198)
-{
-    // 0061 08F7 0315 0300 05AE 0062;0061 05AE 08F7 0300 0315 0062;0061 05AE 08F7 0300 0315 0062;0061 05AE 08F7 0300 0315 0062;0061 05AE 08F7 0300 0315 0062; 
-    // (a◌ࣷ◌̕◌̀◌֮b; a◌֮◌ࣷ◌̀◌̕b; a◌֮◌ࣷ◌̀◌̕b; a◌֮◌ࣷ◌̀◌̕b; a◌֮◌ࣷ◌̀◌̕b; ) LATIN SMALL LETTER A, ARABIC LEFT ARROWHEAD ABOVE, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, LATIN SMALL LETTER B
-    {
-        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x08F7, 0x0315, 0x0300, 0x05AE, 0x0062 }};
-        std::array<uint32_t, 6> const c2 = {{ 0x0061, 0x05AE, 0x08F7, 0x0300, 0x0315, 0x0062 }};
-        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x08F7, 0x0300, 0x0315, 0x0062 }};
-        std::array<uint32_t, 6> const c4 = {{ 0x0061, 0x05AE, 0x08F7, 0x0300, 0x0315, 0x0062 }};
-        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x08F7, 0x0300, 0x0315, 0x0062 }};
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized_nfd(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized_nfd(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c5.begin(), c5.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
-
-
-
-        {
-            boost::text::string str = boost::text::to_string(c1.begin(), c1.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c2.begin(), c2.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c3.begin(), c3.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c4.begin(), c4.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-        {
-            boost::text::string str = boost::text::to_string(c5.begin(), c5.end());
-            boost::text::normalize_to_nfkc(str);
-            boost::text::utf32_range utf32_range(str);
-            EXPECT_EQ(std::distance(utf32_range.begin(), utf32_range.end()), c4.size());
-            auto c4_it = c4.begin();
-            int i = 0;
-            for (auto x : utf32_range) {
-                EXPECT_EQ(x, *c4_it) << "iteration " << i;
-                ++c4_it;
-                ++i;
-            }
-        }
-
-    }
-}
-
-
-TEST(normalization, nfkc_087_199)
-{
-    // 0061 0315 0300 05AE 08F8 0062;00E0 05AE 08F8 0315 0062;0061 05AE 0300 08F8 0315 0062;00E0 05AE 08F8 0315 0062;0061 05AE 0300 08F8 0315 0062; 
-    // (a◌̕◌̀◌֮◌ࣸb; à◌֮◌ࣸ◌̕b; a◌֮◌̀◌ࣸ◌̕b; à◌֮◌ࣸ◌̕b; a◌֮◌̀◌ࣸ◌̕b; ) LATIN SMALL LETTER A, COMBINING COMMA ABOVE RIGHT, COMBINING GRAVE ACCENT, HEBREW ACCENT ZINOR, ARABIC RIGHT ARROWHEAD ABOVE, LATIN SMALL LETTER B
-    {
-        std::array<uint32_t, 6> const c1 = {{ 0x0061, 0x0315, 0x0300, 0x05AE, 0x08F8, 0x0062 }};
-        std::array<uint32_t, 5> const c2 = {{ 0x00E0, 0x05AE, 0x08F8, 0x0315, 0x0062 }};
-        std::array<uint32_t, 6> const c3 = {{ 0x0061, 0x05AE, 0x0300, 0x08F8, 0x0315, 0x0062 }};
-        std::array<uint32_t, 5> const c4 = {{ 0x00E0, 0x05AE, 0x08F8, 0x0315, 0x0062 }};
-        std::array<uint32_t, 6> const c5 = {{ 0x0061, 0x05AE, 0x0300, 0x08F8, 0x0315, 0x0062 }};
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c2.begin(), c2.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c2.begin(), c2.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfd(c3.begin(), c3.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkd(c3.begin(), c3.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfc(c4.begin(), c4.end()));
-        EXPECT_TRUE(boost::text::normalized_nfkc(c4.begin(), c4.end()));
-
-        EXPECT_TRUE(boost::text::normalized_nfd(c5.begin(), c5.end()));
         EXPECT_TRUE(boost::text::normalized_nfkd(c5.begin(), c5.end()));
 
 

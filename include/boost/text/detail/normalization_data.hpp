@@ -117,7 +117,7 @@ namespace boost { namespace text { namespace detail {
         return 0xAC00 <= cp && cp <= 0xD7A3;
     }
 
-    // Hangul decomposition as described in Unicode 10.0 Section 3.12.
+    // Hangul decomposition as described in Unicode 11.0 Section 3.12.
     template<int Capacity>
     inline code_points<Capacity> decompose_hangul_syllable(uint32_t cp) noexcept
     {

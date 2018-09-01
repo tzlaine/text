@@ -15,7 +15,7 @@
 
 namespace boost { namespace text {
 
-    /** The sentence properties outlined in Unicode 10. */
+    /** The sentence properties outlined in Unicode 11. */
     enum class sentence_property {
         Other,
         CR,

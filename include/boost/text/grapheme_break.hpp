@@ -15,13 +15,14 @@
 
 namespace boost { namespace text {
 
-    /** The grapheme properties outlined in Unicode 10. */
+    /** The grapheme properties outlined in Unicode 11. */
     enum class grapheme_property {
         Other,
         CR,
         LF,
         Control,
         Extend,
+        Regional_Indicator,
         Prepend,
         SpacingMark,
         L,
@@ -29,12 +30,8 @@ namespace boost { namespace text {
         T,
         LV,
         LVT,
-        Regional_Indicator,
-        E_Base,
-        E_Modifier,
-        ZWJ,
-        Glue_After_Zwj,
-        E_Base_GAZ
+        ExtPict,
+        ZWJ
     };
 
     namespace detail {
@@ -51,7 +48,7 @@ namespace boost { namespace text {
             return lhs.hi_ <= rhs.lo_;
         }
 
-        BOOST_TEXT_DECL std::array<grapheme_prop_interval, 3> const &
+        BOOST_TEXT_DECL std::array<grapheme_prop_interval, 6> const &
         make_grapheme_prop_intervals();
         BOOST_TEXT_DECL std::unordered_map<uint32_t, grapheme_property>
         make_grapheme_prop_map();
@@ -94,7 +91,6 @@ namespace boost { namespace text {
         struct grapheme_break_state
         {
             CPIter it;
-            bool it_points_to_prev = false;
 
             grapheme_property prev_prop;
             grapheme_property prop;
@@ -113,73 +109,53 @@ namespace boost { namespace text {
         template<typename CPIter>
         grapheme_break_state<CPIter> prev(grapheme_break_state<CPIter> state)
         {
-            if (!state.it_points_to_prev)
-                --state.it;
-            state.it_points_to_prev = false;
+            --state.it;
             state.prop = state.prev_prop;
             return state;
+        }
+
+        template<typename CPIter>
+        bool gb11_prefix(CPIter first, CPIter prev_it)
+        {
+            auto final_prop = grapheme_property::Other;
+            find_if_backward(first, prev_it, [&final_prop](uint32_t cp) {
+                final_prop = grapheme_prop(cp);
+                return final_prop != grapheme_property::Extend;
+            });
+            return final_prop == grapheme_property::ExtPict;
         }
 
         inline bool table_grapheme_break(
             grapheme_property lhs, grapheme_property rhs) noexcept
         {
-            // Note that RI.RI was changed to '1' since that case is handled in
-            // the grapheme break FSM.
+            // Note that RI.RI was changed to '1' since that case is handled
+            // in the grapheme break FSM.
 
             // clang-format off
-// See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/GraphemeBreakTest.html.
-constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
-//   Other CR LF Ctrl Ext Pre SpcMk L  V  T  LV LVT RI E_Bse E_Mod ZWJ GAZ EBG
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  1,  1}}, // Other
-    {{1,   1, 0, 1,   1,  1,  1,    1, 1, 1, 1, 1,  1, 1,    1,    1,  1,  1}}, // CR
-    {{1,   1, 1, 1,   1,  1,  1,    1, 1, 1, 1, 1,  1, 1,    1,    1,  1,  1}}, // LF
-                             
-    {{1,   1, 1, 1,   1,  1,  1,    1, 1, 1, 1, 1,  1, 1,    1,    1,  1,  1}}, // Control
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  1,  1}}, // Extend
-    {{0,   1, 1, 1,   0,  0,  0,    0, 0, 0, 0, 0,  0, 0,    0,    0,  0,  0}}, // Prepend
-                             
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  1,  1}}, // SpacingMark
-    {{1,   1, 1, 1,   0,  1,  0,    0, 0, 1, 0, 0,  1, 1,    1,    0,  1,  1}}, // L
-    {{1,   1, 1, 1,   0,  1,  0,    1, 0, 0, 1, 1,  1, 1,    1,    0,  1,  1}}, // V
-                             
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 0, 1, 1,  1, 1,    1,    0,  1,  1}}, // T
-    {{1,   1, 1, 1,   0,  1,  0,    1, 0, 0, 1, 1,  1, 1,    1,    0,  1,  1}}, // LV
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 0, 1, 1,  1, 1,    1,    0,  1,  1}}, // LVT
-                             
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  1,  1}}, // Regional_Indicator
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    0,    0,  1,  1}}, // E_Base
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  1,  1}}, // E_Modifier
+// See chart at https://unicode.org/Public/11.0.0/ucd/auxiliary/GraphemeBreakTest.html .
+constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
+//   Other CR LF Ctrl Ext RI Pre SpcMk L  V  T  LV LVT ExtPict ZWJ
+    {{1,   1, 1, 1,   0,  1, 1,  0,    1, 1, 1, 1, 1,  1,      0}}, // Other
+    {{1,   1, 0, 1,   1,  1, 1,  1,    1, 1, 1, 1, 1,  1,      1}}, // CR
+    {{1,   1, 1, 1,   1,  1, 1,  1,    1, 1, 1, 1, 1,  1,      1}}, // LF
+    {{1,   1, 1, 1,   1,  1, 1,  1,    1, 1, 1, 1, 1,  1,      1}}, // Control
+    {{1,   1, 1, 1,   0,  1, 1,  0,    1, 1, 1, 1, 1,  1,      0}}, // Extend
+    {{1,   1, 1, 1,   0,  1, 1,  0,    1, 1, 1, 1, 1,  1,      0}}, // RI
+    {{0,   1, 1, 1,   0,  0, 0,  0,    0, 0, 0, 0, 0,  0,      0}}, // Prepend
+    {{1,   1, 1, 1,   0,  1, 1,  0,    1, 1, 1, 1, 1,  1,      0}}, // SpacingMark
+    {{1,   1, 1, 1,   0,  1, 1,  0,    0, 0, 1, 0, 0,  1,      0}}, // L
+    {{1,   1, 1, 1,   0,  1, 1,  0,    1, 0, 0, 1, 1,  1,      0}}, // V
+    {{1,   1, 1, 1,   0,  1, 1,  0,    1, 1, 0, 1, 1,  1,      0}}, // T
+    {{1,   1, 1, 1,   0,  1, 1,  0,    1, 0, 0, 1, 1,  1,      0}}, // LV
+    {{1,   1, 1, 1,   0,  1, 1,  0,    1, 1, 0, 1, 1,  1,      0}}, // LVT
+    {{1,   1, 1, 1,   0,  1, 1,  0,    1, 1, 1, 1, 1,  1,      0}}, // ExtPict
+    {{1,   1, 1, 1,   0,  1, 1,  0,    1, 1, 1, 1, 1,  1,      0}}, // ZWJ
 
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  0,  0}}, // ZWJ
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    1,    0,  1,  1}}, // Glue_After_Zwj
-    {{1,   1, 1, 1,   0,  1,  0,    1, 1, 1, 1, 1,  1, 1,    0,    0,  1,  1}}, // E_Base_GAZ
 }};
             // clang-format on
             auto const lhs_int = static_cast<int>(lhs);
             auto const rhs_int = static_cast<int>(rhs);
             return grapheme_breaks[lhs_int][rhs_int];
-        }
-
-        template<typename CPIter, typename Sentinel>
-        grapheme_break_state<CPIter> skip_forward(
-            grapheme_break_state<CPIter> state, CPIter first, Sentinel last)
-        {
-            if (state.it != first &&
-                (state.prev_prop == grapheme_property::E_Base ||
-                 state.prev_prop == grapheme_property::E_Base_GAZ) &&
-                skippable(state.prop)) {
-                auto temp_it =
-                    find_if_not(std::next(state.it), last, [](uint32_t cp) {
-                        return skippable(grapheme_prop(cp));
-                    });
-                if (temp_it != last &&
-                    grapheme_prop(*temp_it) == grapheme_property::E_Modifier) {
-                    auto const temp_prop = grapheme_prop(*temp_it);
-                    state.it = temp_it;
-                    state.prop = temp_prop;
-                }
-            }
-            return state;
         }
     }
 
@@ -204,28 +180,6 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         state.prev_prop = grapheme_prop(*std::prev(state.it));
         state.emoji_state = detail::grapheme_break_emoji_state_t::none;
 
-        // GB10
-        auto skip = [](detail::grapheme_break_state<CPIter> state,
-                       CPIter first) {
-            if (state.prop == grapheme_property::E_Modifier &&
-                detail::skippable(state.prev_prop)) {
-                auto temp_it =
-                    find_if_not_backward(first, state.it, [](uint32_t cp) {
-                        return detail::skippable(grapheme_prop(cp));
-                    });
-                if (temp_it == state.it)
-                    return state;
-                auto temp_prev_prop = grapheme_prop(*temp_it);
-                if (temp_prev_prop == grapheme_property::E_Base ||
-                    temp_prev_prop == grapheme_property::E_Base_GAZ) {
-                    state.it = temp_it;
-                    state.it_points_to_prev = true;
-                    state.prev_prop = temp_prev_prop;
-                }
-            }
-            return state;
-        };
-
         for (; state.it != first; state = prev(state)) {
             state.prev_prop = grapheme_prop(*std::prev(state.it));
 
@@ -249,23 +203,19 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
                         : detail::grapheme_break_emoji_state_t::second_emoji;
             }
 
-            // If we end up breaking durign this iteration, we want the break
-            // to show up after the skip, so that the skippable CPs go with
-            // the CP before them.  This is to maintain symmetry with
-            // next_grapheme_break().
-            auto after_skip_it = state.it;
-
-            // Puting this here means not having to do it explicitly below
-            // between prev_prop and prop (and transitively, between prop and
-            // next_prop).
-            state = skip(state, first);
+            // GB11
+            if (state.prev_prop == grapheme_property::ZWJ &&
+                state.prop == grapheme_property::ExtPict &&
+                detail::gb11_prefix(first, std::prev(state.it))) {
+                continue;
+            }
 
             if (state.emoji_state ==
                 detail::grapheme_break_emoji_state_t::first_emoji) {
                 if (state.prev_prop == grapheme_property::Regional_Indicator) {
                     state.emoji_state =
                         detail::grapheme_break_emoji_state_t::second_emoji;
-                    return after_skip_it;
+                    return state.it;
                 } else {
                     state.emoji_state =
                         detail::grapheme_break_emoji_state_t::none;
@@ -280,7 +230,7 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
             }
 
             if (detail::table_grapheme_break(state.prev_prop, state.prop))
-                return after_skip_it;
+                return state.it;
         }
 
         return first;
@@ -315,10 +265,12 @@ constexpr std::array<std::array<bool, 18>, 18> grapheme_breaks = {{
         for (; state.it != last; state = next(state)) {
             state.prop = grapheme_prop(*state.it);
 
-            // GB10
-            state = detail::skip_forward(state, first, last);
-            if (state.it == last)
-                return state.it;
+            // GB11
+            if (state.prev_prop == grapheme_property::ZWJ &&
+                state.prop == grapheme_property::ExtPict &&
+                detail::gb11_prefix(first, std::prev(state.it))) {
+                continue;
+            }
 
             if (state.emoji_state ==
                 detail::grapheme_break_emoji_state_t::first_emoji) {

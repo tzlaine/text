@@ -44,3 +44,11 @@ collation_table const & table()
 TEST(tailoring, und_emoji_001_000)
 {
 }
+
+TEST(tailoring, und_emoji_002_001)
+{
+}
+
+TEST(tailoring, und_emoji_002_002)
+{
+}

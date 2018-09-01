@@ -13,7 +13,7 @@
 
 namespace boost { namespace text {
 
-    /** The word properties outlined in Unicode 10. */
+    /** The word properties outlined in Unicode 11. */
     enum class word_property {
         Other,
         CR,
@@ -30,10 +30,8 @@ namespace boost { namespace text {
         Hebrew_Letter,
         Double_Quote,
         Single_Quote,
-        E_Base,
-        E_Modifier,
-        Glue_After_Zwj,
-        E_Base_GAZ,
+        ExtPict,
+        WSegSpace,
         Format,
         Extend,
         ZWJ
@@ -53,7 +51,7 @@ namespace boost { namespace text {
             return lhs.hi_ <= rhs.lo_;
         }
 
-        BOOST_TEXT_DECL std::array<word_prop_interval, 21> const &
+        BOOST_TEXT_DECL std::array<word_prop_interval, 24> const &
         make_word_prop_intervals();
         BOOST_TEXT_DECL std::unordered_map<uint32_t, word_property>
         make_word_prop_map();
@@ -184,39 +182,33 @@ namespace boost { namespace text {
 
         inline bool table_word_break(word_property lhs, word_property rhs)
         {
+            // Note that WSegSpace.WSegSpace was changed to '1' since that
+            // case is handled in the word break FSM.
+
             // clang-format off
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/WordBreakTest.html.
-constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
-//  Other CR LF NL Ktk AL ML MN MNL Num ENL RI HL DQ SQ E_Bse E_Mod GAZ EBG Fmt Extd ZWJ
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Other
-    {{1,   1, 0, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  1,  1,   1}}, // CR
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  1,  1,   1}}, // LF
-                                                                                     
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  1,  1,   1}}, // Newline
-    {{1,   1, 1, 1, 0,  1, 1, 1, 1,  1,  0,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Katakana
-    {{1,   1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // ALetter
-                                                                                     
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // MidLetter
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // MidNum
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // MidNumLet
-                                                                                     
-    {{1,   1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Numeric
-    {{1,   1, 1, 1, 0,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // ExtendNumLet
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  0, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // RI
-                                                                                     
-    {{1,   1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 0, 1,    1,    1,  1,  0,  0,   0}}, // Hebrew_Letter
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Double_Quote
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Single_Quote
-                                                                                     
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    0,    1,  1,  0,  0,   0}}, // E_Base
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // E_Modifier
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Glue_After_Zwj
-                                                                                     
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    0,    1,  1,  0,  0,   0}}, // EBG
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Format
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Extend
-                                                                                     
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    0,  0,  0,  0,   0}}, // ZWJ
+constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
+// Other CR LF NL Ktk AL ML MN MNL Num ENL RI HL DQ SQ EP WSSp Fmt Extd ZWJ
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Other
+    {{1, 1, 0, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   1,  1,   1}}, // CR
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   1,  1,   1}}, // LF
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   1,  1,   1}}, // Newline
+    {{1, 1, 1, 1, 0,  1, 1, 1, 1,  1,  0,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Katakana
+    {{1, 1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1, 1,   0,  0,   0}}, // ALetter
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // MidLetter
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // MidNum
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // MidNumLet
+    {{1, 1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1, 1,   0,  0,   0}}, // Numeric
+    {{1, 1, 1, 1, 0,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1, 1,   0,  0,   0}}, // ExtendNumLet
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  0, 1, 1, 1, 1, 1,   0,  0,   0}}, // RI
+    {{1, 1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 0, 1, 1,   0,  0,   0}}, // Hebrew_Letter
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Double_Quote
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Single_Quote
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // ExtPict
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // WSegSpace
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Format
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Extend
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 0, 1,   0,  0,   0}}, // ZWJ
 }};
             // clang-format on
             auto const lhs_int = static_cast<int>(lhs);
@@ -235,12 +227,20 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         {
             if (state.it != first && !skippable(state.caps[ph::prev].prop) &&
                 skippable(state.caps[ph::curr].prop)) {
-                auto temp_it =
-                    find_if_not(state.it, last, [word_prop](uint32_t cp) {
-                        return skippable(word_prop(cp));
+                auto last_prop = word_property::Other;
+                auto temp_it = find_if_not(
+                    state.it, last, [word_prop, &last_prop](uint32_t cp) {
+                        last_prop = word_prop(cp);
+                        return skippable(last_prop);
                     });
-                if (temp_it == last)
+                if (temp_it == last) {
                     --temp_it;
+                } else if (last_prop == word_property::ExtPict) {
+                    auto const next_to_last_prop =
+                        word_prop(*std::prev(temp_it));
+                    if (next_to_last_prop == word_property::ZWJ)
+                        --temp_it;
+                }
                 state.it = temp_it;
                 state.caps[ph::curr] = cp_and_word_prop(*temp_it, word_prop);
                 state.caps[ph::next] = cp_and_word_prop();
@@ -588,8 +588,13 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
             // WB3c
             if (state.caps[ph::prev].prop == word_property::ZWJ &&
-                (state.caps[ph::curr].prop == word_property::Glue_After_Zwj ||
-                 state.caps[ph::curr].prop == word_property::E_Base_GAZ)) {
+                state.caps[ph::curr].prop == word_property::ExtPict) {
+                continue;
+            }
+
+            // WB3d
+            if (state.caps[ph::prev].prop == word_property::WSegSpace &&
+                state.caps[ph::curr].prop == word_property::WSegSpace) {
                 continue;
             }
 
@@ -770,12 +775,17 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
             // WB3c
             if (state.caps[ph::prev].prop == word_property::ZWJ &&
-                (state.caps[ph::curr].prop == word_property::Glue_After_Zwj ||
-                 state.caps[ph::curr].prop == word_property::E_Base_GAZ)) {
+                state.caps[ph::curr].prop == word_property::ExtPict) {
                 continue;
             }
 
-            // Puting this here means not having to do it explicitly below
+            // WB3d
+            if (state.caps[ph::prev].prop == word_property::WSegSpace &&
+                state.caps[ph::curr].prop == word_property::WSegSpace) {
+                continue;
+            }
+
+            // Putting this here means not having to do it explicitly below
             // between prop and next_prop (and transitively, between prev_prop
             // and prop).
             state = detail::skip_forward(state, first, last, word_prop);

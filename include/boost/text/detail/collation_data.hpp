@@ -97,11 +97,11 @@ namespace boost { namespace text { namespace detail {
     }
 
     BOOST_TEXT_DECL void
-        make_collation_elements(std::array<collation_element, 39258> &);
+        make_collation_elements(std::array<collation_element, 39841> &);
 
-    inline std::array<collation_element, 39258> const & collation_elements_()
+    inline std::array<collation_element, 39841> const & collation_elements_()
     {
-        static std::array<collation_element, 39258> retval;
+        static std::array<collation_element, 39841> retval;
         static bool once = true;
         if (once) {
             make_collation_elements(retval);
@@ -210,13 +210,13 @@ namespace boost { namespace text { namespace detail {
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 
     BOOST_TEXT_DECL void
-        make_trie_keys(std::array<collation_trie_key<3>, 38593> &);
+        make_trie_keys(std::array<collation_trie_key<3>, 39272> &);
     BOOST_TEXT_DECL void
-        make_trie_values(std::array<collation_elements, 38593> &);
+        make_trie_values(std::array<collation_elements, 39272> &);
 
-    inline std::array<collation_trie_key<3>, 38593> const & trie_keys()
+    inline std::array<collation_trie_key<3>, 39272> const & trie_keys()
     {
-        static std::array<collation_trie_key<3>, 38593> retval;
+        static std::array<collation_trie_key<3>, 39272> retval;
         static bool once = true;
         if (once) {
             make_trie_keys(retval);
@@ -224,9 +224,9 @@ namespace boost { namespace text { namespace detail {
         }
         return retval;
     }
-    inline std::array<collation_elements, 38593> const & trie_values()
+    inline std::array<collation_elements, 39272> const & trie_values()
     {
-        static std::array<collation_elements, 38593> retval;
+        static std::array<collation_elements, 39272> retval;
         static bool once = true;
         if (once) {
             make_trie_values(retval);
@@ -253,10 +253,10 @@ namespace boost { namespace text { namespace detail {
                lhs.compressible_ == rhs.compressible_;
     }
 
-    BOOST_TEXT_DECL std::array<reorder_group, 140> const &
+    BOOST_TEXT_DECL std::array<reorder_group, 145> const &
     make_reorder_groups();
 
-    inline std::array<reorder_group, 140> const & reorder_groups()
+    inline std::array<reorder_group, 145> const & reorder_groups()
     {
         static auto const retval = make_reorder_groups();
         return retval;

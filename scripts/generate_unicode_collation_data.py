@@ -26,7 +26,7 @@ namespace boost {{ namespace text {{ namespace detail {{
 
     enum collation_constants : uint32_t {{
         min_variable_collation_weight = 0x03040000,
-        max_variable_collation_weight = 0x0b6d4b00,
+        max_variable_collation_weight = 0x0b785900,
 
         OR_CJK_Compatibility_Ideographs = {},
         OR_CJK_Unified_Ideographs_Extension_D = {},
@@ -543,6 +543,8 @@ def get_group_boundary_to_token_mapping(filename):
         ((hex(implicit_weights_final_lead_byte + 1)[2:], '00', '00', '00'), ('05',), ('05',))
     )
 
+    # TODO: Unfortunately, this must be updated by hand as new languages are
+    # added.
     name_map = {
         'SPACE': 'space',
         'PUNCTUATION': 'punct',
@@ -582,6 +584,9 @@ def get_group_boundary_to_token_mapping(filename):
         'KHAROSHTHI': 'Khar',
         'NEW_TAI_LUE': 'Talu',
         'Old_Hungarian': 'Hung',
+        'Hanifi_Rohingya': 'Rohg',
+        'Medefaidrin': 'Medf',
+        'Meroitic_Hieroglyphs': 'Merc'
     }
 
     for boundary in group_boundary_names:
@@ -628,7 +633,7 @@ def get_group_boundary_to_token_mapping(filename):
     for i in range(first_lead_byte, last_lead_byte):
         if i not in all_lead_bytes:
             free_lead_bytes.append(i)
-    if free_lead_bytes != [0x26, 0x27, 0x5d, 0x5e]:
+    if free_lead_bytes != [0x27, 0x28, 0x5e, 0x5f]:
         raise Exception('It looks like the free lead bytes list needs updating')
 
     return (name_map, implicit_bytes, sorted(groups.items(), key=lambda x: x[1]))
