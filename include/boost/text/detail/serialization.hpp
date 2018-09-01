@@ -6,7 +6,7 @@
 #include <boost/endian/buffers.hpp>
 
 
-namespace boost { namespace text { namespace detail {
+namespace boost { namespace text { inline namespace unicode_10 { namespace detail_ {
 
     enum current_version : int { serialization_version = 0 };
 
@@ -70,7 +70,7 @@ namespace boost { namespace text { namespace detail {
         header_t() {}
         header_t(collation_table_data const & table)
         {
-            version_ = detail::serialization_version;
+            version_ = serialization_version;
             collation_elements_ = int(table.collation_element_vec_.size());
             trie_ = int(table.trie_.size());
             nonsimple_reorders_ = int(table.nonsimple_reorders_.size());
@@ -267,6 +267,6 @@ namespace boost { namespace text { namespace detail {
         }
     }
 
-}}}
+}}}}
 
 #endif

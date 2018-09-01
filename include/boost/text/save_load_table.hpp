@@ -7,7 +7,7 @@
 #include <boost/filesystem.hpp>
 
 
-namespace boost { namespace text {
+namespace boost { namespace text { inline namespace unicode_10 {
 
     struct collation_table;
 
@@ -15,7 +15,7 @@ namespace boost { namespace text {
     save_table(collation_table const & table, filesystem::path const & path);
     collation_table load_table(filesystem::path const & path);
 
-    namespace detail {
+    namespace detail_ {
 
         struct filesystem_fstream_tag_t
         {};
@@ -53,20 +53,20 @@ namespace boost { namespace text {
     {
         auto const & table = *table_proper.data_;
 
-        detail::header_t header(table);
+        detail_::header_t header(table);
 
         filesystem::ofstream ofs(path, std::ios_base::binary);
 
-        detail::write_bytes(header, ofs);
+        detail_::write_bytes(header, ofs);
 
-        detail::write_collation_elements(
+        detail_::write_collation_elements(
             table.collation_element_vec_, table.collation_elements_, ofs);
 
-        detail::write_nonsimple_reorders(table.nonsimple_reorders_, ofs);
+        detail_::write_nonsimple_reorders(table.nonsimple_reorders_, ofs);
 
-        detail::write_simple_reorders(table.simple_reorders_, ofs);
+        detail_::write_simple_reorders(table.simple_reorders_, ofs);
 
-        detail::write_trie(table.trie_, ofs);
+        detail_::write_trie(table.trie_, ofs);
     }
 
     /** Reads a collation table from the given path. */
@@ -76,30 +76,30 @@ namespace boost { namespace text {
 
         auto & table = *retval.data_;
 
-        detail::header_t header;
+        detail_::header_t header;
 
         filesystem::ifstream ifs(path, std::ios_base::binary);
 
-        detail::read_bytes(ifs, header);
+        detail_::read_bytes(ifs, header);
 
-        detail::read_collation_elements(
+        detail_::read_collation_elements(
             ifs,
             table.collation_element_vec_,
             table.collation_elements_,
             header.collation_elements_.value());
 
-        detail::read_nonsimple_reorders(
+        detail_::read_nonsimple_reorders(
             ifs, table.nonsimple_reorders_, header.nonsimple_reorders_.value());
 
-        detail::read_simple_reorders(
+        detail_::read_simple_reorders(
             ifs, table.simple_reorders_, header.simple_reorders_.value());
 
-        detail::header_to_table(header, table);
+        detail_::header_to_table(header, table);
 
-        detail::read_trie(ifs, table.trie_, header.trie_.value());
+        detail_::read_trie(ifs, table.trie_, header.trie_.value());
         return retval;
     }
 
-}}
+}}}
 
 #endif
