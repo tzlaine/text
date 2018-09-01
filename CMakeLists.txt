@@ -66,6 +66,7 @@ add_library(text
     src/collation_data_0.cpp
     src/collation_data_1.cpp
     src/case_mapping.cpp
+    src/unicode_version.cpp
 )
 
 target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
