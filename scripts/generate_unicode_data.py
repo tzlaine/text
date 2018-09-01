@@ -6,12 +6,12 @@ import shutil
 import os
 
 parser = argparse.ArgumentParser(description='Downloads data files necessary for building Boost.Text\'s Unicode data, and generates those data.')
-parser.add_argument('unicode_version', type=str, help='The X[.Y[.Z]] Unicode version from which the data should be generated.  Available versions can be viewed at https://www.unicode.org/Public .')
+parser.add_argument('unicode_version', type=str, help='The X.Y.Z Unicode version from which the data should be generated.  Available versions can be viewed at https://www.unicode.org/Public .')
 parser.add_argument('cldr_version', type=str, help='The X[.Y[.Z]] CLDR version from which the data should be generated.  Available versions can be viewed at https://www.unicode.org/Public/cldr .')
 parser.add_argument('--icu-dir', type=str, default='', help='The path to icu4c/source/data/coll containing ICU\'s tailoring data.  Without this, the include/boost/text/data headers will not be generated.')
 parser.add_argument('--tests', action='store_true', help='Generate the test files associated with the generated Unicode data.')
-parser.add_argument('--perf', action='store_true', help='Generate perf-test files isntead of regular tests.  Ignored without --tests.')
-parser.add_argument('--skip-downloads', action='store_true', help='Don\'t downlaod the data files; just use the ones in this directory.')
+parser.add_argument('--perf', action='store_true', help='Generate perf-test files instead of regular tests.  Ignored without --tests.')
+parser.add_argument('--skip-downloads', action='store_true', help='Don\'t download the data files; just use the ones in this directory.')
 args = parser.parse_args()
 
 
@@ -101,7 +101,11 @@ if args.tests:
         os.system('./generate_unicode_normalization_tests.py --perf')
         print 'Generating collation perf tests.'
         os.system('./generate_unicode_collation_tests.py --perf')
+
+        print '''You may now want to do:
+    mv *cpp ../perf'''
         exit(0)
+
     print 'Generating text segmentation and bidirectional tests.'
     os.system('./generate_unicode_break_tests.py')
     print 'Generating normalization tests.'
@@ -113,6 +117,10 @@ if args.tests:
     if args.icu_dir != '':
         print 'Generating tailoring tests.'
         os.system('./generate_unicode_tailoring_data.py {} --tests'.format(args.icu_dir))
+
+    print "Tests were just generated.  Don't forget to re-add the hand adjustments to those tests."
+    print '''You may now want to do:
+    mv *cpp ../test'''
     exit(0)
 
 
@@ -170,3 +178,6 @@ open('data_versions.cpp', 'w').write(version_cpp_form.format(
     unicode_major, unicode_minor, unicode_patch,
     cldr_major, cldr_minor, cldr_patch
 ))
+
+print '''You may now want to do:
+    mv *cpp ../src && mv *hpp ../include/boost/text/detail'''

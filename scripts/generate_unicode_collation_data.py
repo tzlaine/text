@@ -92,7 +92,7 @@ namespace boost {{ namespace text {{ namespace detail {{
         uint32_t primary_offset_;
     }};
 
-    BOOST_TEXT_DECL extern std::array<implicit_weights_segment, 10>
+    BOOST_TEXT_DECL std::array<implicit_weights_segment, 10>
     make_implicit_weights_segments();
 
 }}}}}}
