@@ -134,7 +134,6 @@ add_test_executable(parser_data 0)
 add_test_executable(tailoring 0 riwords.txt)
 add_test_executable(tailoring_reorderings 0)
 add_test_executable(tailoring_suppressions 0)
-# add_test_executable(tailoring_data 0) # TODO: Probably not very useful.
 add_test_executable(collation_search 0)
 
 if (LIMIT_TESTING_FOR_CI)
