@@ -35,7 +35,6 @@ a nonmember):
 * `operator[]()`
 * `begin()` (non-`const`)
 * `end()` (non-`const`)
-* `assign()`
 * `reserve()`
 * `shrink_to_fit()`
 * `clear()`
@@ -61,7 +60,8 @@ These would have been much more useful as separate algorithms that can be
 applied to any sequence of characters.  Implementing these as member functions
 is the moral equivalent of adding a `std::vector::sort()` member.
 
-_Text_ provides these as separate algorithms.
+_Text_ does not provide these as separate algorithms, becasue the standard
+algorithms and _StringAlgo_.
 
 
 [heading The Expensive Substring Operation]
@@ -92,7 +92,7 @@ _t_ and its related types.  _s_ and its related types are encoding-agnostic.
 Finally, `std::string` is not thread-safe, cannot be implemented as
 copy-on-write, and is contiguous.
 
-_Text_ provide _ur_ and _r_ for those times when you want a string type that
+_Text_ provides _ur_ and _r_ for those times when you want a string type that
 is thread-safe, copy-on-write, or cheap to insert into the middle of.
 
 [endsect]
