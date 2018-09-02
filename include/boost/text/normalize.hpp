@@ -485,9 +485,6 @@ namespace boost { namespace text {
         return normalize_to_nfkc(std::begin(r), std::end(r), out);
     }
 
-    // TODO: Document how the normalized_*() functions should be used.
-    // TODO: Document the assumption of safe stream format.
-
     /** Returns true iff the given sequence of code points is normalized
         NFD. */
     template<typename CPIter, typename Sentinel>

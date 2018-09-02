@@ -779,12 +779,12 @@ namespace boost { namespace text {
         }
     }
 
-    // TODO: Document that these functions all assume FCC.
-
     /** Returns a collation sort key for the code points in <code>[first,
         last)</code>, using the given collation table.  Any optional settings
         such as case_first will be honored, so long as they do not conlfict
-        with the settings on the given table. */
+        with the settings on the given table.
+
+        \pre [first, last) is normalized FCC. */
     template<typename CPIter, typename Sentinel>
     auto collation_sort_key(
         CPIter first,
@@ -811,7 +811,9 @@ namespace boost { namespace text {
     /** Returns a collation sort key for the code points in <code>[first,
         last)</code>, using the given collation table.  Any optional settings
         such as case_first will be honored, so long as they do not conlfict
-        with the settings on the given table. */
+        with the settings on the given table.
+
+        \pre [first, last) is normalized FCC. */
     template<typename CPIter, typename Sentinel>
     auto collation_sort_key(
         CPIter first,
@@ -833,7 +835,9 @@ namespace boost { namespace text {
     /** Returns a collation sort key for the code points in \a r, using the
         given collation table.  Any optional settings such as case_first will
         be honored, so long as they do not conlfict with the settings on the
-        given table. */
+        given table.
+
+        \pre r is normalized FCC. */
     template<typename CPRange>
     text_sort_key collation_sort_key(
         CPRange const & r, collation_table const & table, collation_flags flags)
@@ -854,7 +858,10 @@ namespace boost { namespace text {
         produced using <code>[lhs_first, lhs_last)</code> and
         <code>[rhs_first, rhs_last)</code>, respectively.  Any optional
         settings such as case_first will be honored, so long as they do not
-        conlfict with the settings on the given table. */
+        conlfict with the settings on the given table.
+
+        \pre [lhs_first, lhs_last) is normalized FCC.
+        \pre [rhs_first, rhs_last) is normalized FCC. */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -890,7 +897,10 @@ namespace boost { namespace text {
         produced using <code>[lhs_first, lhs_last)</code> and
         <code>[rhs_first, rhs_last)</code>, respectively.  Any optional
         settings such as case_first will be honored, so long as they do not
-        conlfict with the settings on the given table. */
+        conlfict with the settings on the given table.
+
+        \pre [lhs_first, lhs_last) is normalized FCC.
+        \pre [rhs_first, rhs_last) is normalized FCC. */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -920,7 +930,10 @@ namespace boost { namespace text {
     /** Returns the result of calling compare() on collation sort keys
         produced using \a r1 and \a r2, respectively.  Any optional settings
         such as case_first will be honored, so long as they do not conlfict
-        with the settings on the given table. */
+        with the settings on the given table.
+
+        \pre r1 is normalized FCC.
+        \pre r2 is normalized FCC. */
     template<typename CPRange1, typename CPRange2>
     int collate(
         CPRange1 const & r1,

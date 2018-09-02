@@ -317,41 +317,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         }
     };
 
-    /* TODO: For docs on how to use WordPropFunc:
-       Some or all of the following characters may be tailored to be in
-       MidLetter, depending on the environment:
-
-        U+002D ( - ) HYPHEN-MINUS
-        U+055A ( ՚ ) ARMENIAN APOSTROPHE
-        U+058A ( ֊ ) ARMENIAN HYPHEN
-        U+0F0B ( ་ ) TIBETAN MARK INTERSYLLABIC TSHEG
-        U+1806 ( ᠆ ) MONGOLIAN TODO SOFT HYPHEN
-        U+2010 ( ‐ ) HYPHEN
-        U+2011 ( ‑ ) NON-BREAKING HYPHEN
-        U+201B ( ‛ ) SINGLE HIGH-REVERSED-9 QUOTATION MARK
-        U+30A0 ( ゠ ) KATAKANA-HIRAGANA DOUBLE HYPHEN
-        U+30FB ( ・ ) KATAKANA MIDDLE DOT
-        U+FE63 ( ﹣ ) SMALL HYPHEN-MINUS
-        U+FF0D ( － ) FULLWIDTH HYPHEN-MINUS
-
-       For example, some writing systems use a hyphen character between
-       syllables within a word. An example is the Iu Mien language written
-       with the Thai script. Such words should behave as single words for the
-       purpose of selection (“double-click”), indexing, and so forth, meaning
-       that they should not word-break on the hyphen.
-
-       Some or all of the following characters may be tailored to be in
-       MidNum, depending on the environment, to allow for languages that use
-       spaces as thousands separators, such as €1 234,56.
-
-        U+0020 SPACE
-        U+00A0 NO-BREAK SPACE
-        U+2007 FIGURE SPACE
-        U+2008 PUNCTUATION SPACE
-        U+2009 THIN SPACE
-        U+202F NARROW NO-BREAK SPACE
-    */
-
     /** Finds the nearest word break at or before before <code>it</code>.  If
         <code>it == first</code>, that is returned.  Otherwise, the first code
         point of the word that <code>it</code> is within is returned (even if

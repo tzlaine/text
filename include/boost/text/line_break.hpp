@@ -1636,9 +1636,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             {range.begin().base(), range.begin().base(), range.end().base()}};
     }
 
-    // TODO: Document that hard_break is only set when we see a bang-break
-    // from the rules (a rule with '!' in it).
-
     /** A range of code points elements that delimit a pair of line break
         boundaries. */
     template<typename CPIter, typename Sentinel = CPIter>

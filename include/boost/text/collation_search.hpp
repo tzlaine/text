@@ -19,15 +19,6 @@
 
 namespace boost { namespace text {
 
-    // TODO: Document that "a\u0300\u0301" -- an 'a' followed by an grave
-    // accent followed by an acute accent -- will not always be matched
-    // correctly by pattern "a\u0300" (or "a\u0301"), due to the arbitrary
-    // ordering of combining marks with the same CCC.  This does not matter in
-    // the whole-grapheme case, which handles this correctly.  It will only
-    // matter in code point level searches, because you may search for partial
-    // graphemes as in the collation_search("a\u0300", "a\u0300\u0301")
-    // example.
-
     /** Returns the code point subrange within [first, last) in which the
         given searcher finds its pattern.  If the pattern is not found, the
         resulting range will be empty. */
