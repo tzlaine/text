@@ -7,34 +7,31 @@ A _CharRng_ is a possibly-discontiguous sequence of `char`.
 Example: _ur_.
 
 Requirements on _CharRng_.  In the table below, `R` is a type that models
-_CharRng_; `r` is an object of type `R`; `Iter` is an iterator type; and `it`
-is an object of type `Iter`.
+_CharRng_; `r` is an object of type `R`; `Iter` is an iterator type whose
+value type is (possibly cv-qualified) `char`; and `Sentinel` is a type
+equality comparable to `Iter`.
 
 [table Expression Requirements
-    [[Expression]    [Type]     [Description]                      [Notes]]
+    [[Expression]    [Type]     [Description]]
     [
-        [ `begin(r)` or `r.begin()` or `std::begin(r)` ]
+        [ `std::begin(r)` ]
         [ Iter ]
         [ The begin-iterator for `r`. ]
-        [ If multiple `begin()` overloads exist, they are prefered in the order listed. ]
     ]
     [
-        [ `end(r)` or `r.end()` or `std::end(r)` ]
-        [ Iter ]
-        [ The end-iterator for `r`. ]
-        [ If multiple `end()` overloads exist, they are prefered in the order listed. ]
+        [ `std::end(r)` ]
+        [ Sentinel ]
+        [ The end-iterator or end-sentinel for `r`. ]
     ]
     [
-        [ `typename std::iterator_traits<R::iterator>::iterator_category` ]
+        [ `typename std::iterator_traits<decltype(std::begin(r))>::iterator_category` ]
         [ std::bidirectional_iterator_tag ]
-        [ `R::iterator` must be a bidirectional iterator. ]
-        []
+        [ `decltype(std::begin(r))` must be a bidirectional iterator. ]
     ]
     [
-        [ `*it` ]
+        [ `*std::begin(r)` ]
         [ `char` ]
         [ It must be possible to access the `char` sequence underlying `r`. ]
-        []
     ]
 ]
 
@@ -47,16 +44,16 @@ Example: _s_.
 
 Requirements on _ContCharRng_.  All the requirements on _CharRng_ apply, in
 addition to the following table.  In the table, `R` is a type that models
-_ContCharRng_; `r` is an object of type `R`; `Iter` is an iterator type; and
-`it` is an object of type `Iter`.
+_ContCharRng_; `r` is an object of type `R`; and `Iter` is an iterator type
+whose value type is (possibly cv-qualified) `char`.
 
 [table Expression Requirements
     [[Expression]    [Type]     [Description]                      [Notes]]
     [
-        [ `&*it` ]
+        [ `std::addressof(*std::begin(r))` ]
         [ `char *` ]
         [ It must be possible to access the `char` sequence underlying `r` as an array. ]
-        [ The result will be `char const *` if `Iter` is a `const_iterator`. ]
+        [ The result will be `char const *` if `r` is `const`. ]
     ]
 ]
 
@@ -66,39 +63,52 @@ Additionally, `Iter` must be a contiguous random access iterator.
 [heading GraphemeRange]
 
 A _GrRng_ is a sequence of graphemes over an underlying possibly-discontiguous
-sequence of `char`.
+sequence of UTF-8-encoded `char`.
 
 Example: _r_.
 
 Requirements on _GrRng_.  In the table below, `R` is a type that models
-_GrRng_; `r` is an object of type `R`; `Iter` is an iterator type; and `it` is
+_GrRng_; `r` is an object of type `R`; `CPIter` is an iterator type whose
+(possibly cv-qualified) value type is convertible to `uint32_t`; `Iter` is an
+iterator type whose value type is (possibly cv-qualified) `char`; and `it` is
 an object of type `Iter`.
 
 [table Expression Requirements
-    [[Expression]    [Type]     [Description]                      [Notes]]
+    [[Expression]    [Type]     [Description]]
     [
-        [ `begin(r).base().base()` or `r.begin().base().base()` or `std::begin(r).base().base()` ]
+        [ `std::begin(r).base()` ]
+        [ CPIter ]
+        [ The begin-iterator for the underlying sequence of `uint32_t` delimited by `r`. ]
+    ]
+    [
+        [ `std::end(r).base()` ]
+        [ CPIter or some sentinel type equality comparable to `std::begin(r).base()` ]
+        [ The end-iterator or end-sentinel for the underlying sequence of `uint32_t` delimited by `r`. ]
+    ]
+    [
+        [ `std::begin(r).base().base()` ]
         [ Iter ]
         [ The begin-iterator for the underlying sequence of `char` delimited by `r`. ]
-        [ If multiple `begin()` overloads exist, they are prefered in the order listed. ]
     ]
     [
-        [ `end(r).base().base()` or `r.end().base().base()` or `std::end(r).base().base()` ]
-        [ Iter ]
-        [ The end-iterator for the underlying sequence of `char` delimited by `r`. ]
-        [ If multiple `end()` overloads exist, they are prefered in the order listed. ]
+        [ `std::end(r).base().base()` ]
+        [ Sentinel ]
+        [ The end-iterator or end-sentinel for the underlying sequence of `char` delimited by `r`. ]
     ]
     [
-        [ `typename std::iterator_traits<Iter>::iterator_category` ]
+        [ `typename std::iterator_traits<decltype(std::begin(r))>::iterator_category` ]
         [ std::bidirectional_iterator_tag ]
         [ `Iter` must be a bidirectional iterator. ]
-        []
     ]
     [
-        [ `*it->base().base()` ]
+        [ `*std::begin(r).base()` ]
+        [ any type convertible to `uint32_t` ]
+        [ It must be possible to access the `char` sequence underlying `r`. ]
+    ]
+    [
+        [ `*std::begin(r).base().base()` ]
         [ `char` ]
         [ It must be possible to access the `char` sequence underlying `r`. ]
-        []
     ]
 ]
 
@@ -106,22 +116,22 @@ an object of type `Iter`.
 [heading ContigGraphemeRange]
 
 A _ContGrRng_ is a sequence of graphemes over an underlying contiguous
-sequence of `char`.
+sequence of UTF-8-encoded `char`.
 
 Example: _t_.
 
 Requirements on _ContGrRng_.  All the requirements on _GrRng_ apply, in
 addition to the following table.  In the table, `R` is a type that models
-_ContGrRng_; `r` is an object of type `R`; `Iter` is an iterator type; and
-`it` is an object of type `Iter`.
+_ContGrRng_; `r` is an object of type `R`; and `Iter` is an iterator type
+whose value type is (possibly cv-qualified) `char`.
 
 [table Expression Requirements
     [[Expression]    [Type]     [Description]                      [Notes]]
     [
-        [ `&*it->base().base()` ]
+        [ `std::addressof(*std::begin(r).base().base())` ]
         [ `char *` ]
         [ It must be possible to access the `char` sequence underlying `r` as an array. ]
-        [ The result will be `char const *` if `Iter` is a `const_iterator`. ]
+        [ The result will be `char const *` if `R` is `const`. ]
     ]
 ]
 
@@ -151,7 +161,7 @@ _CharIter_.
     ]
 ]
 
-_CharIter_ does not need to be a contiguous iterator.
+_CharIter_ does *not* need to be a contiguous iterator.
 
 
 [heading CPIter]
@@ -174,7 +184,7 @@ _CPIter_.
     >::type
 >::type`` ]
         [ any unsigned 32-bit integral convertible to `uint32_t` ]
-        [ The value_type of `Iter` must be convertible to `uint32_t`. ]
+        [ The `value_type` of `Iter` must be convertible to `uint32_t`. ]
     ]
 ]
 
@@ -189,34 +199,31 @@ unsigned 32-bit integral type.
 Example: _cpr_.
 
 Requirements on _CPRng_.  In the table below, `R` is a type that models
-_CPRng_; `r` is an object of type `R`; `Iter` is an iterator type; and `it`
-is an object of type `Iter`.
+_CPRng_; `r` is an object of type `R`; `Iter` is an iterator type whose
+(possibly cv-qualified) value type is convertible to `uint32_t`; and
+`Sentinel` is a type equality comparable to `Iter`.
 
 [table Expression Requirements
-    [[Expression]    [Type]     [Description]                      [Notes]]
+    [[Expression]    [Type]     [Description]]
     [
-        [ `begin(r)` or `r.begin()` or `std::begin(r)` ]
+        [ `std::begin(r)` ]
         [ Iter ]
         [ The begin-iterator for `r`. ]
-        [ If multiple `begin()` overloads exist, they are prefered in the order listed. ]
     ]
     [
-        [ `end(r)` or `r.end()` or `std::end(r)` ]
-        [ Iter ]
-        [ The end-iterator for `r`. ]
-        [ If multiple `end()` overloads exist, they are prefered in the order listed. ]
+        [ `std::end(r)` ]
+        [ Sentinel ]
+        [ The end-iterator or end-sentinel for `r`. ]
     ]
     [
-        [ `typename std::iterator_traits<R::iterator>::iterator_category` ]
+        [ `typename std::iterator_traits<decltype(std::begin(r))>::iterator_category` ]
         [ std::bidirectional_iterator_tag ]
-        [ `R::iterator` must be a bidirectional iterator. ]
-        []
+        [ `decltype(std::begin(r))` must be a bidirectional iterator. ]
     ]
     [
-        [ `*it` ]
+        [ `*decltype(std::begin(r))` ]
         [ any unsigned 32-bit integral convertible to `uint32_t` ]
         [ It must be possible to access the sequence underlying `r`. ]
-        []
     ]
 ]
 
