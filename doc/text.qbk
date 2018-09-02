@@ -48,6 +48,11 @@
 [def _CharIter_            [link boost_text__proposed_.concepts.chariter CharIter]]
 [def _CPRng_               [link boost_text__proposed_.concepts.cprange CPRange]]
 [def _CPIter_              [link boost_text__proposed_.concepts.cpiter CPIter]]
+[def _CPExtentFunc_        [link boost_text__proposed_.concepts.cpextentfunc CPExtentFunc]]
+[def _WordPropFunc_        [link boost_text__proposed_.concepts.wordpropfunc WordPropFunc]]
+[def _CPWordBreakFunc_     [link boost_text__proposed_.concepts.cpwordbreakfunc CPWordBreakFunc]]
+[def _BreakFunc_           [link boost_text__proposed_.concepts.breakfunc BreakFunc]]
+[def _Searcher_            [link boost_text__proposed_.concepts.searcher Searcher]]
 
 [def _s_                   [classref boost::text::string `string`]]
 [def _ss_                  [classref boost::text::string `string`s]]
@@ -75,6 +80,16 @@
 [def _trie_                [classref boost::trie::trie `trie`]]
 [def _trie_m_              [classref boost::trie::trie_map `trie_map`]]
 [def _trie_s_              [classref boost::trie::trie_set `trie_set`]]
+
+[def _grapheme_property_   [enumref boost::text::grapheme_property `grapheme_property`]]
+[def _word_property_       [enumref boost::text::word_property `word_property`]]
+[def _sentence_property_   [enumref boost::text::sentence_property `sentence_property`]]
+[def _line_property_       [enumref boost::text::line_property `line_property`]]
+
+[def _prev_graph_          [funcref boost::text::prev_grapheme_break `prev_grapheme_break`]]
+[def _next_graph_          [funcref boost::text::next_grapheme_break `next_grapheme_break`]]
+
+[def _bm_searcher_         [classref boost::text::boyer_moore_collation_searcher `boyer_moore_collation_searcher`]]
 
 [def _thread_unsafe_m_     [macroref BOOST_TEXT_THREAD_UNSAFE]]
 

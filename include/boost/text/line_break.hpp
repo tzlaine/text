@@ -1686,8 +1686,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         bool hard_break_;
     };
 
-    // TODO: Document CPExtentFunc.
-
     /** Returns a lazy range of the code point ranges in <code>[first,
         last)</code> delimiting lines.  A line that does not end in a hard
         break will end in a possible break that does not exceed max_extent,

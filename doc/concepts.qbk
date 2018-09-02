@@ -227,4 +227,161 @@ _CPRng_; `r` is an object of type `R`; `Iter` is an iterator type whose
     ]
 ]
 
+
+[heading WordPropFunc]
+
+A _WordPropFunc_ is a callable taking a code point that returns the
+_word_property_ for that code point.  A _WordPropFunc_ must be stateless.
+
+Example:
+```
+    struct default_word_prop
+    {
+        boost::text::word_property operator()(uint32_t cp)
+        {
+            return boost::text::word_prop(cp);
+        }
+    };
+```
+
+Requirements on _WordPropFunc_.  In the table below, `F` is a type that models
+_WordPropFunc_; `f` is an object of type `f`; and `cp` is an object
+convertible to `uint32_t`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]     [Notes]]
+    [
+        [ `f(cp)` ]
+        [ _word_property_ ]
+        [ Returns the _word_property_ associated with `cp`. ]
+        [ The _word_property_ produced by `f` may be different than the one indicated by the Unicode standard; this allows customization of word boundaries.  `f` may not rely on its state being preserved between calls. ]
+    ]
+]
+
+_WordPropFunc_ is used in some of the word breaking API to tailor word
+breaking behavior.
+
+
+[heading CPWordBreakFunc]
+
+A _CPWordBreakFunc_ is a callable taking a several code points that returns
+`true` or `false` indicating whether to break at the middle code point.  A
+_CPWordBreakFunc_ must be stateless.
+
+Example:
+```
+    struct default_cp_break
+    {
+        bool operator()(uint32_t prev_prev,
+                        uint32_t prev,
+                        uint32_t curr,
+                        uint32_t next,
+                        uint32_t next_next) const noexcept
+        {
+            return false;
+        }
+    };
+```
+
+Requirements on _CPWordBreakFunc_.  In the table below, `F` is a type that
+models _CPWordBreakFunc_; `f` is an object of type `f`; and `prev_prev`,
+`prev`, `curr`, `next`, and `next_next` are objects convertible to `uint32_t`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]     [Notes]]
+    [
+        [ `f(prev_prev, prev, curr, next, next_next)` ]
+        [ a type convertible to `bool` ]
+        [ Returns `true` if a word break at `curr` is indicated, and `false` otherwise. ]
+        [ The result produced by `f` may be different than the one indicated by the Unicode standard; this allows customization of word boundaries.  `f` may not rely on its state being preserved between calls. ]
+    ]
+]
+
+_CPWordBreakFunc_ is used in some of the word breaking API to tailor word
+breaking behavior.
+
+
+[heading CPExtentFunc]
+
+A _CPExtentFunc_ is a callable taking a pair of iterators to a range of code
+points that returns the horizontal extent of the code points.  A
+_CPExtentFunc_ may be stateful.
+
+Example:
+```
+    struct no_op_cp_extent
+    {
+        int operator()(uint32_t * first, uint32_t * last)
+        {
+            // Extent is always zero, regardless of the code points given.
+            return 0;
+        }
+    };
+```
+
+Requirements on _CPExtentFunc_.  In the table below, `F` is a type that models
+_CPExtentFunc_; `f` is an object of type `f`; `CPIter` is the parameter type
+of `F`; and `first` and `last` are objects of type `CPIter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]     [Notes]]
+    [
+        [ `f(first, last)` ]
+        [ an integral type ]
+        [ Returns the horizontal width of the given range of code points. ]
+        [ `f` may have state that is mutated in the call. ]
+    ]
+]
+
+_CPExtentFunc_ is used in some of the line breaking API.
+
+
+[heading BreakFunc]
+
+A _BreakFunc_ is a callable taking three iterators to a range of code points
+that indicates whether the middle iterator is at a text break (word break,
+grapheme break, etc.).  A _BreakFunc_ may not be stateful.
+
+Example: _prev_graph_
+
+Requirements on _BreakFunc_.  In the table below, `F` is a type that models
+_BreakFunc_; `f` is an object of type `f`; `CPIter` is the parameter type of
+`F`; and `first`, `it`, and `last` are objects of type `CPIter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]     [Notes]]
+    [
+        [ `f(first, it, last)` ]
+        [ a type convertible to `bool` ]
+        [ Returns `true` if `it` is at a text break, and `false` otherwise. ]
+        [ `f` may not rely on its state being preserved between calls. ]
+    ]
+]
+
+_BreakFunc_ is used in some of the collation-aware searching API.
+
+
+[heading Searcher]
+
+A _Searcher_ is a callable taking a pair of iterators to a corpus of code
+points to search.  It returns a range of code points from the corpus that is
+equal to the sequence of code points the _Searcher_ was configured to find.
+
+Example: _bm_searcher_
+
+Requirements on _Searcher_.  In the table below, `F` is a type that models
+_Searcher_; `f` is an object of type `f`; `CPIter` is the parameter type of
+`F`; and `first`, `it`, and `last` are objects of type `CPIter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]]
+    [
+        [ `f(first, last)` ]
+        [ a type that models _CPRng_ ]
+        [ Returns the range within (`first`, `last`\] that matches the code point sequence `f` was configured to find. ]
+    ]
+]
+
+_Searcher_ is used in some of the collation-aware searching API.
+
 [endsect]

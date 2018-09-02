@@ -769,9 +769,6 @@ namespace boost { namespace text {
         BreakFunc break_fn_;
     };
 
-    // TODO: Document the requirements of BreakFunc.
-    // TODO: Document the requirements of Searcher.
-
     /** Returns a simple_collation_searcher that will find the pattern [first,
         last).  A match must begin and end at a grapheme boundary. */
     template<typename CPIter, typename Sentinel>
@@ -1197,8 +1194,8 @@ namespace boost { namespace text {
             detail::to_weighting(flags));
     }
 
-    /** A searcher for use with the collation_search() algorithm.  A match
-        must begin and end at a grapheme boundary. */
+    /** A searcher for use with the collation_search() algorithm.  This
+        searcher uses the Boyer-Moore matching algorithm. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
     struct boyer_moore_collation_searcher
     {

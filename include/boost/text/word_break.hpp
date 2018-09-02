@@ -317,8 +317,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         }
     };
 
-    // TODO: Document WordPropFunc, including that it must be stateless.
-
     /* TODO: For docs on how to use WordPropFunc:
        Some or all of the following characters may be tailored to be in
        MidLetter, depending on the environment:
@@ -362,13 +360,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename CPIter,
         typename Sentinel,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto prev_word_break(
         CPIter first,
         CPIter it,
         Sentinel last,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         using detail::ph;
@@ -695,12 +693,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename CPIter,
         typename Sentinel,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto next_word_break(
         CPIter first,
         Sentinel last,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         using detail::ph;
@@ -884,12 +882,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename CPRange,
         typename CPIter,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto prev_word_break(
         CPRange & range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept -> detail::
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept -> detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
         return prev_word_break(
@@ -904,12 +902,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename GraphemeRange,
         typename GraphemeIter,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto prev_word_break(
         GraphemeRange const & range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::graph_word_prop_func_ret_t<
             detail::iterator_t<GraphemeRange const>,
             WordPropFunc,
@@ -935,12 +933,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename CPRange,
         typename CPIter,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto next_word_break(
         CPRange & range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept -> detail::
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept -> detail::
         word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
         return next_word_break(it, std::end(range), word_prop, cp_break);
@@ -955,12 +953,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename GraphemeRange,
         typename GraphemeIter,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto next_word_break(
         GraphemeRange const & range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::graph_word_prop_func_ret_t<
             detail::iterator_t<GraphemeRange const>,
             WordPropFunc,
@@ -981,7 +979,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             typename CPIter,
             typename Sentinel,
             typename WordPropFunc,
-            typename CPBreakFunc>
+            typename CPWordBreakFunc>
         struct next_word_callable
         {
             auto operator()(CPIter it, Sentinel last) const noexcept
@@ -991,10 +989,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             }
 
             WordPropFunc word_prop_;
-            CPBreakFunc cp_break_;
+            CPWordBreakFunc cp_break_;
         };
 
-        template<typename CPIter, typename WordPropFunc, typename CPBreakFunc>
+        template<
+            typename CPIter,
+            typename WordPropFunc,
+            typename CPWordBreakFunc>
         struct prev_word_callable
         {
             auto operator()(CPIter first, CPIter it, CPIter last) const noexcept
@@ -1004,7 +1005,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             }
 
             WordPropFunc word_prop_;
-            CPBreakFunc cp_break_;
+            CPWordBreakFunc cp_break_;
         };
     }
 
@@ -1013,13 +1014,13 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename CPIter,
         typename Sentinel,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     cp_range<CPIter> word(
         CPIter first,
         CPIter it,
         Sentinel last,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
     {
         first = prev_word_break(first, it, last, word_prop, cp_break);
         return cp_range<CPIter>{
@@ -1031,12 +1032,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename CPRange,
         typename CPIter,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto word(
         CPRange & range,
         CPIter it,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::word_prop_func_ret_t<
             cp_range<detail::iterator_t<CPRange>>,
             WordPropFunc,
@@ -1055,12 +1056,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename GraphemeRange,
         typename GraphemeIter,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto word(
         GraphemeRange const & range,
         GraphemeIter it,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::graph_word_prop_func_ret_t<
             grapheme_range<decltype(range.begin().base())>,
             WordPropFunc,
@@ -1084,12 +1085,12 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         typename CPIter,
         typename Sentinel,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto words(
         CPIter first,
         Sentinel last,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::cp_iter_sntl_ret_t<
             lazy_segment_range<
                 CPIter,
@@ -1098,15 +1099,16 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     CPIter,
                     Sentinel,
                     WordPropFunc,
-                    CPBreakFunc>,
+                    CPWordBreakFunc>,
                 cp_range<CPIter>,
                 detail::const_lazy_segment_iterator,
                 false>,
             CPIter,
             Sentinel>
     {
-        detail::next_word_callable<CPIter, Sentinel, WordPropFunc, CPBreakFunc>
-            next{word_prop, cp_break};
+        detail::
+            next_word_callable<CPIter, Sentinel, WordPropFunc, CPWordBreakFunc>
+                next{word_prop, cp_break};
         return {std::move(next), {first, last}, {last}};
     }
 
@@ -1115,11 +1117,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     template<
         typename CPRange,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto words(
         CPRange & range,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::word_prop_func_ret_t<
             lazy_segment_range<
                 detail::iterator_t<CPRange>,
@@ -1128,7 +1130,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     detail::iterator_t<CPRange>,
                     detail::sentinel_t<CPRange>,
                     WordPropFunc,
-                    CPBreakFunc>>,
+                    CPWordBreakFunc>>,
             WordPropFunc,
             CPRange>
     {
@@ -1136,7 +1138,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             detail::iterator_t<CPRange>,
             detail::sentinel_t<CPRange>,
             WordPropFunc,
-            CPBreakFunc>
+            CPWordBreakFunc>
             next{word_prop, cp_break};
         return {std::move(next),
                 {std::begin(range), std::end(range)},
@@ -1148,11 +1150,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     template<
         typename GraphemeRange,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto words(
         GraphemeRange const & range,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::graph_word_prop_func_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),
@@ -1161,15 +1163,18 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     decltype(range.begin().base()),
                     decltype(range.begin().base()),
                     WordPropFunc,
-                    CPBreakFunc>,
+                    CPWordBreakFunc>,
                 grapheme_range<decltype(range.begin().base())>>,
             WordPropFunc,
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        detail::
-            next_word_callable<cp_iter_t, cp_iter_t, WordPropFunc, CPBreakFunc>
-                next{word_prop, cp_break};
+        detail::next_word_callable<
+            cp_iter_t,
+            cp_iter_t,
+            WordPropFunc,
+            CPWordBreakFunc>
+            next{word_prop, cp_break};
         return {std::move(next),
                 {range.begin().base(), range.end().base()},
                 {range.end().base()}};
@@ -1180,24 +1185,25 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     template<
         typename CPIter,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto reversed_words(
         CPIter first,
         CPIter last,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::cp_iter_sntl_ret_t<
             lazy_segment_range<
                 CPIter,
                 CPIter,
-                detail::prev_word_callable<CPIter, WordPropFunc, CPBreakFunc>,
+                detail::
+                    prev_word_callable<CPIter, WordPropFunc, CPWordBreakFunc>,
                 cp_range<CPIter>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
             CPIter,
             CPIter>
     {
-        detail::prev_word_callable<CPIter, WordPropFunc, CPBreakFunc> prev{
+        detail::prev_word_callable<CPIter, WordPropFunc, CPWordBreakFunc> prev{
             word_prop, cp_break};
         return {std::move(prev), {first, last, last}, {first, first, last}};
     }
@@ -1207,11 +1213,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     template<
         typename CPRange,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto reversed_words(
         CPRange & range,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::word_prop_func_ret_t<
             lazy_segment_range<
                 detail::iterator_t<CPRange>,
@@ -1219,7 +1225,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 detail::prev_word_callable<
                     detail::iterator_t<CPRange>,
                     WordPropFunc,
-                    CPBreakFunc>,
+                    CPWordBreakFunc>,
                 cp_range<detail::iterator_t<CPRange>>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
@@ -1229,7 +1235,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         detail::prev_word_callable<
             detail::iterator_t<CPRange>,
             WordPropFunc,
-            CPBreakFunc>
+            CPWordBreakFunc>
             prev{word_prop, cp_break};
         return {std::move(prev),
                 {std::begin(range), std::end(range), std::end(range)},
@@ -1241,11 +1247,11 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     template<
         typename GraphemeRange,
         typename WordPropFunc = word_prop_callable,
-        typename CPBreakFunc = detail::default_cp_break>
+        typename CPWordBreakFunc = detail::default_cp_break>
     auto reversed_words(
         GraphemeRange const & range,
         WordPropFunc word_prop = WordPropFunc{},
-        CPBreakFunc cp_break = CPBreakFunc{}) noexcept
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
         -> detail::graph_word_prop_func_ret_t<
             lazy_segment_range<
                 decltype(range.begin().base()),
@@ -1253,7 +1259,7 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 detail::prev_word_callable<
                     decltype(range.begin().base()),
                     WordPropFunc,
-                    CPBreakFunc>,
+                    CPWordBreakFunc>,
                 grapheme_range<decltype(range.begin().base())>,
                 detail::const_reverse_lazy_segment_iterator,
                 true>,
@@ -1261,8 +1267,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             GraphemeRange>
     {
         using cp_iter_t = decltype(range.begin().base());
-        detail::prev_word_callable<cp_iter_t, WordPropFunc, CPBreakFunc> prev{
-            word_prop, cp_break};
+        detail::prev_word_callable<cp_iter_t, WordPropFunc, CPWordBreakFunc>
+            prev{word_prop, cp_break};
         return {
             std::move(prev),
             {range.begin().base(), range.end().base(), range.end().base()},
