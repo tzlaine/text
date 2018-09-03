@@ -53,6 +53,16 @@ data, call [funcref boost::text::unicode_version `unicode_version`] or
 [funcref boost::text::cldr_version `cldr_version`], respectively.
 
 
+[heading Unicode Layer Parameter Conventions]
+
+Most of the Unicode layer algorithms are written as typical C++ standard
+algorithms; they take iterators as input and produce output via an
+out-iterator.  Since ranges are the future, there are range overloads of the
+algorithms that take a pair of iterators.  The Unicode algorithms all operate
+on _cps_, so they take _CPIter_ iterator parameters.  The range overloads take
+_CPRng_ parameters.
+
+
 [section Encoding and Normalization]
 
 [heading Encoding]
@@ -85,7 +95,9 @@ the result of reading several characters of a multi-character encoding,
 post-increment and post-decrement can be quite a bit more expensive than
 pre-increment and pre-decrement.
 
-An example of use:
+To use a converting iterator, you must provide it with an underlying iterator
+that models the _CPIter_ concept.  Note that these converting iterators each
+model _CPIter_ too.  An example of use:
 
 [to_utf32_verbose]
 
@@ -112,8 +124,9 @@ compact as the most compact official form, NFC, except in a few degenerate
 cases.  FCC is particularly useful when doing collation.
 
 The algorithms are of the form `normalize_to_X()`, and there are range and
-iterator-based interfaces.  There are also algorithms that can check if a _cp_
-sequence is in a certain normalization form.
+iterator-based interfaces.  The iterator interfaces require iterators that
+model _CPIter_, and ranges that model _CPRange_.  There are also algorithms
+that can check if a _cp_ sequence is in a certain normalization form.
 
 [normalize_1]
 
@@ -123,14 +136,115 @@ check may be inconclusive for a particular code point an normalization form.
 In this case, a full normalization is performed, and the result is compared to
 the input sequence.]
 
+There are _s_-specific in-place normalization functions as well, in
+_norm_str_header_.
+
 [endsect]
 
 
 [section Text Segmentation]
 
-Unicode provides algorithms for breaking _cps_ into _grs_, words, sentences,
-and lines.  The Unicode Bidirectional Algorithm requires paragraph breaking
-too, so I've included that as well.
+Unicode provides algorithms for breaking _cp_ sequences into _grs_, words,
+sentences, and lines.  The Unicode Bidirectional Algorithm requires paragraph
+breaking too, so paragraph breaking is included as well, even though it is not
+an official Unicode text segmentation algorithm.
+
+[heading Conventions]
+
+All the kinds of text breaking have a common pattern.  Each kind of break `X`
+provides at least these functions:
+
+    template <typename CPIter, typename Sentinel>
+    CPIter prev_X_break(CPIter first, CPIter it, Sentinel last) noexcept;
+
+`prev_X_break()` returns `it` if `it` is already at a break, or the break
+before `it` otherwise.  There is one exception to this _emdash_ even though
+there is always an implicit break at the end of an sequence of _cps_, if `it`
+== `last`, the previous break is still returned, if any.
+
+This behavior allows us to do two convenient things with `prev_X_break()`.
+First, we can use `prev_X_break(first, it, last) == it` as a predicate that
+`it` is at a break.  Second, we can use `prev_X_break()` followed by
+`next_X_break()` to find the nearest breaks that include `it`.
+
+Note that `prev_X_break()` requires `last` because in the genereal case, the
+algorithm needs to know context after `it` to determine where the breaks are
+at or before `it`.
+
+    template <typename CPIter, typename Sentinel>
+    CPIter next_X_break(CPIter first, Sentinel last) noexcept;
+
+`next_X_break()` returns the next break after `first`.  It has a precondition
+that `first` is already at a break; the results are otherwise undefined.
+
+    template<typename CPIter, typename Sentinel>
+    cp_range<CPIter> X(CPIter first, CPIter it, Sentinel last) noexcept;
+
+`X()` returns smallest range of _cps_ that comprise an `X` (word, line, etc.)
+in which `it` is found.
+
+    template<typename CPIter, typename Sentinel>
+    auto Xs(CPIter first, Sentinel last) noexcept;
+
+`Xs()` returns a lazy range of subranges of `[first, last)`.  Each subrange is an `X`.
+
+    template<typename CPIter>
+    auto reversed_Xs(CPIter first, CPIter last) noexcept;
+
+`reversed_Xs()` returns the same thing as `Xs()`, with the subranges in
+reverse order.
+
+And of course there are _CPRange_ overloads as well:
+
+    template<typename CPRange, typename CPIter>
+    auto prev_X_break(CPRange & range, CPIter it) noexcept;
+    template<typename CPRange, typename CPIter>
+    auto next_X_break(CPRange & range, CPIter it) noexcept;
+    template<typename CPRange, typename CPIter>
+    auto X(CPRange & range, CPIter it) noexcept;
+    template<typename CPRange>
+    auto Xs(CPRange & range) noexcept;
+    template<typename CPRange>
+    auto reversed_Xs(CPRange & range) noexcept;
+
+For all kinds of breaks besides grapheme breaks, there are range overloads
+that accept _GrRng_ ranges _GrIter_ iterators instead.  These provide
+convenient support for using the Unicode layer algorithms with the text layer
+types link _t_ and _r_.
+
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto prev_X_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto next_X_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+    template<typename GraphemeRange, typename GraphemeIter>
+    auto X(GraphemeRange const & range, GraphemeIter it) noexcept;
+    template<typename GraphemeRange>
+    auto Xs(GraphemeRange const & range) noexcept;
+    template<typename GraphemeRange>
+    auto reversed_Xs(GraphemeRange const & range) noexcept;
+
+[heading Graphemes]
+
+[grapheme_breaks]
+
+[heading Stream-Safe Format]
+
+Consider this sequence of _cps_: the letter `'a'` followed by 10,000
+/umlauts/.  There is no technical reason why you cannot create this sequence
+of _cps_, though it is not useful to do so.  This creates a problem for
+algorithms like normalization or _gr_ breaking, because they may be required
+to look ahead a very long way in order to determine how to handle the current
+_gr_.  To address this, Unicode allows a conforming implementation to assume
+that an sequence of _cps_ contains _grs_ of at most 32 _cps_.  This is known
+as the _str_safe_ assumption; _Text_ makes this assumption.
+
+[heading Stream-Safe Format and Security]
+
+If you Give _Text_ algorithms a _cp_ sequence with _grs_ longer than 32 _cps_,
+you will get undefined behavior.  This poses a security problem.  To address
+this, there is a simple algorithm described at _str_safe_ that can put any
+_cp_ sequence into the _str_safe_.  You may want to implement this and use it
+with text from an unknown source.
 
 TODO
 

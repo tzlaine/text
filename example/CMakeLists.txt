@@ -21,6 +21,7 @@ add_sample(code_point_to_utf8)
 
 add_sample(utf8)
 add_sample(normalize)
+add_sample(breaks)
 
 
 if (BUILD_EDITOR)

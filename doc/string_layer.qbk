@@ -46,17 +46,23 @@ Of course, there is a user-defined literal for _sv_:
 
 [string_view_literal]
 
-Finally, there is an `explicit` conversion from any value of a type that
-models _CharRng_.  _CharRng_ is any contiguous sequence of `char` that
+Also, there is an `explicit` conversion from any value of a type that models
+_ContCharRng_.  _ContCharRng_ is any contiguous sequence of `char` that
 provides `char const *` pointer access to its `char`s.  This gives us
 conversions from `std::string` and other types that _sv_ does not explicitly
 know about.
+
+Finally, there is an `explicit` conversion from any value of a type that
+models _ContGrRng_.  _ContGrRng_ is a sequence of _grs_ over an underlying
+contiguous sequence of `char` for which there is pointer access to the
+`char`s.  This provides conversions from _t_ and other grapheme-oriented types
+that _sv_ does not explicitly know about.
 
 
 [heading The `string` Type]
 
 _s_ is a contiguous sequence of `char`.  The sequence of `char` is either
-stored in the _s_, if it is small, or is heap-allocated.  _s_ is also strongly
+stored in the _s_ (if it is small) or is heap-allocated.  _s_ is also strongly
 exception-safe.  Its purpose is to be a better `std::string`.
 
 _s_'s character type is `char` and its size/index type is `int`, for the same
@@ -67,6 +73,8 @@ _s_ has its own user-defined literals:
 [string_literal]
 
 Unlike _sv_ though, _s_ is mutable.
+
+There are `explicit` conversions from _CharRng_ and _GrRng_.
 
 
 [heading The `repeated_string_view` Type]
@@ -252,6 +260,9 @@ of its nodes, and when we decided to mutate `R` in place or not.
 [important Therefore, if you care about using _urs_ in a thread-safe manner,
 always pass them by value.]
 
+_ur_ has the same `explicit` conversions from _CharRng_ and _GrRng_ that _s_
+does.
+
 [heading The `unencoded_rope_view` Type]
 
 Just as you can think of a _Rope_ as a heavyweight string, you can think of a
@@ -267,14 +278,22 @@ If your code expects to handle only _ss_, `char const *`s, and _svs_ as
 function parameters, use _sv_ in your interfaces.  If you also expect to
 handle _urs_ and _rsvs_, use _urv_ in your interfaces instead.
 
+_urv_ has the same `explicit` conversions from _ContCharRng_ and _ContGrRng_
+that _sv_ does.
+
 
 [heading Common Operations]
 
-There are some operations that are common to all the _Text_ string layer types.
+There are some operations that are common to all the _Text_ string layer
+types.
 
 # Implicit conversions to view types are the norm.
 
 # Explicit conversions to non-view types are the norm.
+
+# View types are explicitly constructible from _ContCharRng_ and _ContGrRng_.
+
+# Non-view types are explicitly constructible from _CharRng_ and _GrRng_.
 
 # Each has the slicing call operators.  Each slicing call operator returns a
   view, and so does not allocate.
