@@ -29,6 +29,8 @@
 [import ../example/string_snippets.cpp]
 [import ../example/hello_world.cpp]
 [import ../example/param_conventions.cpp]
+[import ../example/utf8.cpp]
+[import ../example/normalize.cpp]
 
 [/ Images ]
 

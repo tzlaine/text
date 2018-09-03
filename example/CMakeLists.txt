@@ -19,6 +19,9 @@ add_sample(hello_world)
 add_sample(param_conventions)
 add_sample(code_point_to_utf8)
 
+add_sample(utf8)
+add_sample(normalize)
+
 
 if (BUILD_EDITOR)
     find_package(Curses)

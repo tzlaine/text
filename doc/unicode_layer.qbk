@@ -85,40 +85,41 @@ pre-increment and pre-decrement.
 
 An example of use:
 
-    std::vector<char> chars = {/* ... */};
-    for (auto it = boost::text::utf8::make_to_utf32_iterator(chars.begin()),
-              end = boost::text::utf8::make_to_utf32_iterator(chars.end());
-        it != end; ++it) {
-        uint32_t cp = *it;
-        // Use cp here...
-    }
+[to_utf32_verbose]
 
 That's a lot of typing, so there's also a much terser range-based form using _u32_rng_:
 
-    std::vector<char> chars = {/* ... */};
-    for (auto cp : text::utf32_range(chars)) {
-        // Use cp here....
-    }
+[to_utf32_terse]
 
-Thereare two output iterator adapters, [funcref
+There are two output iterator adapters, [funcref
 boost::text::utf8::from_utf32_inserter `from_utf32_inserter`] and [funcref
 boost::text::utf8::from_utf32_back_inserter `from_utf32_back_inserter`], that
 do UTF-8 -> UTF-32 conversion and `push_back()` or `insert()` in one step.
 
-Finally, [funcref boost::text::to_string `to_string`] takes two UTF-32
-iterators and returns a _s_ containing the given sequence, UTF-8-encoded.
+Finally, there is [funcref boost::text::to_string `to_string`], which takes
+two UTF-32 iterators and returns a _s_ containing the given sequence,
+UTF-8-encoded.
 
 
 [heading Normalization]
 
-_Text_ provides all four Unicode normalization algorithms.  In addition, it
-provides an unofficial fifth normalization form called FCC that is described
-in _tn5_.
+_Text_ provides algorithms for all four Unicode normalization forms: NFD,
+NFKD, NFC, and NFKC.  In addition, it provides an unofficial fifth
+normalization form called FCC that is described in _tn5_.  FCC is just as
+compact as the most compact official form, NFC, except in a few degenerate
+cases.  FCC is particularly useful when doing collation.
 
-TODO
+The algorithms are of the form `normalize_to_X()`, and there are range and
+iterator-based interfaces.  There are also algorithms that can check if a _cp_
+sequence is in a certain normalization form.
 
-TODO: Example!
+[normalize_1]
 
+[note Beware!  The normalization checks attempt to use a quick-check lookup
+for each code point, to avoid having to do a full normalization.  This quick
+check may be inconclusive for a particular code point an normalization form.
+In this case, a full normalization is performed, and the result is compared to
+the input sequence.]
 
 
 TODO
