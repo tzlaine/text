@@ -26,12 +26,12 @@ of the standard algorithms, with range-friendly interfaces.  There are
 algorithms for these Unicode operations:
 
 * UTF-8 <-> UTF-16, UTF-8 <-> UTF-32
-* Text segmentation (line breaks, word breaks, etc.)
 * Normalization, including the four Unicode normalization forms, plus the FCC form from _tn5_
-* Collation, including tailoring using the _ldml_coll_tail_ and serialization of collation tables
-* The Unicode Bidirectional Algorithm, for laying out text that includes both left-to-right and right-to-left text
-* Collation-aware searching, including caseless searching
+* Text segmentation (line breaks, word breaks, etc.)
 * Case mapping (`to_upper()`, `is_lower()`, etc.)
+* Collation, including tailoring using the _ldml_coll_tail_ and serialization of collation tables
+* Collation-aware searching, including caseless searching
+* The Unicode Bidirectional Algorithm, for laying out text that includes both left-to-right and right-to-left text
 
 These algorithms are independent of the other two layers; it is possible to
 use _Text_ as a Unicode library without using the either of the _s_ or _t_

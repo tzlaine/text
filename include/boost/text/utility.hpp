@@ -29,7 +29,7 @@ namespace boost { namespace text {
         }
     }
 
-    /** Returns a string constructed from [first, last). */
+    /** Returns a UTF-8-encoded string constructed from [first, last). */
     template<typename CPIter, typename Sentinel>
     auto to_string(CPIter first, Sentinel last)
         -> detail::cp_iter_ret_t<string, CPIter>

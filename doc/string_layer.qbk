@@ -272,14 +272,31 @@ handle _urs_ and _rsvs_, use _urv_ in your interfaces instead.
 
 There are some operations that are common to all the _Text_ string layer types.
 
+# Implicit conversions to view types are the norm.
+
+# Explicit conversions to non-view types are the norm.
+
 # Each has the slicing call operators.  Each slicing call operator returns a
   view, and so does not allocate.
 
 # Each has an index operator with the signature `char operator[](size_type)
   const noexcept`.
 
-# `operator+()` and `operator+=()` are defined for the mutable types, _s_ and
-  _ur_.
+# Taking text layer types and using them with string layer types works, but
+  often requires more verbosity.
+
+# Allocating `operator+()` is defined for almost all types, but not between
+  pairs of view types.
+
+# Non-allocating slice operations are defined for all types.
+
+# Unformatted-output operator<< is defined for all types.
+
+# All variants of `begin()`, `end()`, `rbegin()`, and `rend()` are defined for
+  all types.
+
+# `operator+=()`, `insert()`, `erase()`, and `replace()` are defined for the
+  non-view types (_s_ and _ur_).
 
 
 [heading Picking the Right String Type]

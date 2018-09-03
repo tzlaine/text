@@ -1,37 +1,125 @@
 [section The Unicode Layer]
 
-[note _Text_'s Unicode support is based on the Unicode 10 standard.]
+"Unicode is hard."
+
+['[*-- Everyone]]
+
+Unicode is hard to implement; the algorithms are crazy.  Even as just a user
+of Unicode, it can be difficult to understand how one is supposed to use
+Unicode correctly.  The text layer types do much of what is described in this
+section, but nicely out of view.  Unless you need to use many different
+normalization and/or encoding forms, feel free to skip those portions of this
+section.
+
+A primary design goal of the Unicode layer of _Text_ is usability.  To that
+end, the data model is a simple as possible.
+
+[heading A Quick Unicode Primer]
+
+There are multiple encoding types defined in Unicode: UTF-8, UTF-16, and
+UTF-32.  A _cu_ is the lowest-level datum-type in your Unicode data. Examples
+are a `char` in UTF-8 and a `uint32_t` in UTF-32.  A _cp_ is a 32-bit unsigned
+value that represents a single Unicode value. Examples are U+0041 "A" "LATIN
+CAPITAL LETTER A" and U+0308 " ̈" "COMBINING DIAERESIS".
+
+There are four different Unicode normalization forms.  Normalization is
+necessary because Unicode requires that certain combinations of code points be
+considered identical.  For instance, the two _cps_ U+0041 U+0308 appear like
+this: "Ä", and the _cp_ U+00C4 appears like this: "Ä".  Since they are not
+visually distinct, all the algorithms must treat them as the same thing.
+Therefore, the operation `"\U00000041\U00000308" == "\U000000C4"` must return
+`true` for the purposes of Unicode.  Normalizations exist to put strings of
+_cps_ into canonical forms.
+
+An /extended grapheme cluster/, or just _gr_, is a sequence of _cps_ that
+appears to the end-user to be a single character.  For example, the _cps_ from
+before (U+0041 U+0308) form a _gr_, since they appear when rendered to be the
+single character "Ä".
+
+
+[heading Unicode Versions]
+
+There are multiple versions of Unicode, and _Text_ only supports one at a
+time.  There are large volumes of data required to implement the Unicode
+algorithms, and adding data for N versions of Unicode would make an already
+large library larger by a factor of N.
+
+Most Unicode data used in _Text_ come straight from the published Unicode data
+files, but the collation data are taken from _cldr_, with language-specific
+tailoring data taken from _ldml_ (a part of the _cldr_ project).
+
+To find out what versions of Unicode and _cldr_ were used to generate _Text_'s
+data, call [funcref boost::text::unicode_version `unicode_version`] or
+[funcref boost::text::cldr_version `cldr_version`], respectively.
+
 
 [heading UTF-8 Conversions]
 
-_Text_ provides four converting iterators:
+_Text_ provides conversions between UTF-8 and UTF-16, and between UTF-8 and
+UTF-32, via four converting iterators:
 
-* [classref boost::text::utf8::from_utf32_iterator `from_utf32_iterator`]
-* [classref boost::text::utf8::to_utf32_iterator `to_utf32_iterator`]
-* [classref boost::text::utf8::from_utf16_iterator `from_utf16_iterator`]
-* [classref boost::text::utf8::to_utf16_iterator `to_utf16_iterator`]
+* _from_32_iter_
+* _to_32_iter_
+* _from_16_iter_
+* _to_16_iter_
 
 By default, these produce the Unicode replacement character `0xFFFD` when
-encoutering an invalid encoding.  These are the ones that _Text_ uses
-internally when performing conversions.  The exact error handling behavior can
-be controlled via the `ErrorHandler` template parameter.
+encoutering an invalid encoding.  This replacement character error handling
+strategy is used internally within _Text_ when performing conversions.  The
+exact error handling behavior can be controlled via the `ErrorHandler`
+template parameter.
 
 The Unicode standard is flexible with respect to where, in an incoming stream,
-encoding errors are repored.  However, the standard provides recommendations
+encoding errors are reported.  However, the standard provides recommendations
 for where within a stream, and how frequently within that stream, errors
 should be reported.  _Text_'s converting iterators follow the Unicode
-recommendations.  See Unicode 10, "Best Practices for Using U+FFFD" and Table
+recommendations.  See Unicode, "Best Practices for Using U+FFFD" and Table
 3-8.
 
 The converting iterators are pretty straightforward, but there is an important
 caveat.  Because each of these converting iterators does a substantial amount
 of work in increment and decrement operations, including in some cases caching
 the result of reading several characters of a multi-character encoding,
-post-increment and pot-decrement can be quite a bit more expensive than
+post-increment and post-decrement can be quite a bit more expensive than
 pre-increment and pre-decrement.
 
-[note The `to_utf32_iterator` converting iterator can be used to iterate
-across Unicode code points in the _Text_ string types.]
+An example of use:
+
+    std::vector<char> chars = {/* ... */};
+    for (auto it = boost::text::utf8::make_to_utf32_iterator(chars.begin()),
+              end = boost::text::utf8::make_to_utf32_iterator(chars.end());
+        it != end; ++it) {
+        uint32_t cp = *it;
+        // Use cp here...
+    }
+
+That's a lot of typing, so there's also a much terser range-based form using _u32_rng_:
+
+    std::vector<char> chars = {/* ... */};
+    for (auto cp : text::utf32_range(chars)) {
+        // Use cp here....
+    }
+
+Thereare two output iterator adapters, [funcref
+boost::text::utf8::from_utf32_inserter `from_utf32_inserter`] and [funcref
+boost::text::utf8::from_utf32_back_inserter `from_utf32_back_inserter`], that
+do UTF-8 -> UTF-32 conversion and `push_back()` or `insert()` in one step.
+
+Finally, [funcref boost::text::to_string `to_string`] takes two UTF-32
+iterators and returns a _s_ containing the given sequence, UTF-8-encoded.
+
+
+[heading Normalization]
+
+_Text_ provides all four Unicode normalization algorithms.  In addition, it
+provides an unofficial fifth normalization form called FCC that is described
+in _tn5_.
+
+TODO
+
+TODO: Example!
+
+
 
 TODO
 
