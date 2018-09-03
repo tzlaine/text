@@ -53,7 +53,9 @@ data, call [funcref boost::text::unicode_version `unicode_version`] or
 [funcref boost::text::cldr_version `cldr_version`], respectively.
 
 
-[heading UTF-8 Conversions]
+[section Encoding and Normalization]
+
+[heading Encoding]
 
 _Text_ provides conversions between UTF-8 and UTF-16, and between UTF-8 and
 UTF-32, via four converting iterators:
@@ -121,7 +123,45 @@ check may be inconclusive for a particular code point an normalization form.
 In this case, a full normalization is performed, and the result is compared to
 the input sequence.]
 
+[endsect]
+
+
+[section Text Segmentation]
+
+Unicode provides algorithms for breaking _cps_ into _grs_, words, sentences,
+and lines.  The Unicode Bidirectional Algorithm requires paragraph breaking
+too, so I've included that as well.
 
 TODO
+
+[endsect]
+
+
+[section Case Mapping]
+
+TODO
+
+[endsect]
+
+
+[section Collation]
+
+TODO
+
+[endsect]
+
+
+[section Searching]
+
+TODO
+
+[endsect]
+
+
+[section Bidirectional Text]
+
+TODO
+
+[endsect]
 
 [endsect]
