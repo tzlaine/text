@@ -13,8 +13,7 @@ import os
 ################################################################################
 
 
-parser = argparse.ArgumentParser(description='Downloads data files necessary for building Boost.Text\'s Unicode data, and generates those data.  NOTE: There is some manual intervention required in
-generate_collation_data.py (marked with TODO).  Handle that before using this script.')
+parser = argparse.ArgumentParser(description='Downloads data files necessary for building Boost.Text\'s Unicode data, and generates those data.  NOTE: There is some manual intervention required in generate_collation_data.py (marked with TODO).  Handle that before using this script.')
 parser.add_argument('unicode_version', type=str, help='The X.Y.Z Unicode version from which the data should be generated.  Available versions can be viewed at https://www.unicode.org/Public .')
 parser.add_argument('cldr_version', type=str, help='The X[.Y[.Z]] CLDR version from which the data should be generated.  Available versions can be viewed at https://www.unicode.org/Public/cldr .')
 parser.add_argument('--icu-dir', type=str, default='', help='The path to icu4c/source/data/coll containing ICU\'s tailoring data.  Without this, the include/boost/text/data headers will not be generated.')
