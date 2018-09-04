@@ -430,7 +430,10 @@ it is not necessary to do so.  These are known as /allowed/ line breaks.
 Higher-level program logic must determine which of these allowed breaks is to
 be used, for example to fit in available horizontal space.
 
-
+[note _Text_ only generates hard line breaks where they are indicated in the
+Unicode line breaking rules *and* there could be an allowed line break.  Line
+breaks always occur at the beginning and end of any sequence, but _Text_ never
+reports those as hard breaks.]
 
 
 [line_breaks]
