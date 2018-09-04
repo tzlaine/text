@@ -135,24 +135,10 @@ namespace boost { namespace text {
     }
 
     template<typename CPIter, typename Sentinel>
-    auto operator==(Sentinel s, grapheme_iterator<CPIter, Sentinel> it) noexcept
-        -> decltype(it == s)
-    {
-        return it == s;
-    }
-
-    template<typename CPIter, typename Sentinel>
     auto operator!=(grapheme_iterator<CPIter, Sentinel> it, Sentinel s) noexcept
         -> decltype(it.base() != s)
     {
         return it.base() != s;
-    }
-
-    template<typename CPIter, typename Sentinel>
-    auto operator!=(Sentinel s, grapheme_iterator<CPIter, Sentinel> it) noexcept
-        -> decltype(it != s)
-    {
-        return it != s;
     }
 
 }}

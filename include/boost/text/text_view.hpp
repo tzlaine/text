@@ -12,6 +12,8 @@
 namespace boost { namespace text {
 
     struct text;
+    template<typename CPIter>
+    struct grapheme_range;
 
     /** A reference to a constant sequence of graphemes. The underlying
         storage is a string that is UTF-8-encoded and FCC-normalized. */
@@ -37,6 +39,10 @@ namespace boost { namespace text {
 
         /** Disallow construction from a temporary text. */
         text_view(text && t) noexcept = delete;
+
+        /** Constructs a text_view from a grapheme_range. */
+        template <typename CPIter>
+        text_view(grapheme_range<CPIter> range) noexcept;
 
         /** Constructs a text_view from a pair of text_iterators. */
         text_view(text_iterator first, text_iterator last) noexcept :
@@ -166,12 +172,19 @@ namespace boost { namespace text {
 }}
 
 #include <boost/text/text.hpp>
+#include <boost/text/grapheme_range.hpp>
 
 namespace boost { namespace text {
 
     inline text_view::text_view(text const & t) noexcept :
         first_(t.begin()),
         last_(t.end())
+    {}
+
+    template<typename CPIter>
+    text_view::text_view(grapheme_range<CPIter> range) noexcept :
+        first_(range.begin()),
+        last_(range.end())
     {}
 
 }}

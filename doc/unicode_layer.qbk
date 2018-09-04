@@ -17,21 +17,21 @@ end, the data model is a simple as possible.
 [heading A Quick Unicode Primer]
 
 There are multiple encoding types defined in Unicode: UTF-8, UTF-16, and
-UTF-32.  A _cu_ is the lowest-level datum-type in your Unicode data. Examples
-are a `char` in UTF-8 and a `uint32_t` in UTF-32.  A _cp_ is a 32-bit unsigned
-value that represents a single Unicode value. Examples are U+0041 "A" "LATIN
-CAPITAL LETTER A" and U+0308 " ̈" "COMBINING DIAERESIS".
+UTF-32.  A /_cu_/ is the lowest-level datum-type in your Unicode
+data. Examples are a `char` in UTF-8 and a `uint32_t` in UTF-32.  A /_cp_/ is
+a 32-bit unsigned value that represents a single Unicode value. Examples are
+U+0041 "A" "LATIN CAPITAL LETTER A" and U+0308 " ̈" "COMBINING DIAERESIS".
 
 There are four different Unicode normalization forms.  Normalization is
 necessary because Unicode requires that certain combinations of code points be
 considered identical.  For instance, the two _cps_ U+0041 U+0308 appear like
-this: "Ä", and the _cp_ U+00C4 appears like this: "Ä".  Since they are not
-visually distinct, all the algorithms must treat them as the same thing.
-Therefore, the operation `"\U00000041\U00000308" == "\U000000C4"` must return
-`true` for the purposes of Unicode.  Normalizations exist to put strings of
-_cps_ into canonical forms.
+this: "Ä", and the _cp_ U+00C4 appears like this: "Ä".  Since these two
+sequences are not visually distinct, all the algorithms must treat them as the
+same thing.  Therefore, the operation `"\U00000041\U00000308" == "\U000000C4"`
+must return `true` for the purposes of Unicode.  Normalizations exist to put
+strings of _cps_ into canonical forms.
 
-An /extended grapheme cluster/, or just _gr_, is a sequence of _cps_ that
+An /extended grapheme cluster/, or just /_gr_/, is a sequence of _cps_ that
 appears to the end-user to be a single character.  For example, the _cps_ from
 before (U+0041 U+0308) form a _gr_, since they appear when rendered to be the
 single character "Ä".
@@ -60,7 +60,9 @@ algorithms; they take iterators as input and produce output via an
 out-iterator.  Since ranges are the future, there are range overloads of the
 algorithms that take a pair of iterators.  The Unicode algorithms all operate
 on _cps_, so they take _CPIter_ iterator parameters.  The range overloads take
-_CPRng_ parameters.
+_CPRng_ parameters.  For convenience, overloads are provided for many of the
+Unicode layer algorithms that take _GrRng_ and _GrIter_ parameters.  This
+provides convenient compatability with the text layer types, like _t_ and _r_.
 
 
 [section Encoding and Normalization]
@@ -130,7 +132,7 @@ that can check if a _cp_ sequence is in a certain normalization form.
 
 [normalize_1]
 
-[note Beware!  The normalization checks attempt to use a quick-check lookup
+[warning Beware!  The normalization checks attempt to use a quick-check lookup
 for each code point, to avoid having to do a full normalization.  This quick
 check may be inconclusive for a particular code point an normalization form.
 In this case, a full normalization is performed, and the result is compared to
@@ -223,9 +225,21 @@ types link _t_ and _r_.
     template<typename GraphemeRange>
     auto reversed_Xs(GraphemeRange const & range) noexcept;
 
+[heading Tailoring]
+
+Unicode allows for /tailoring/ of the segmentation algorithms, to produce
+customized results that are necessary or useful for a particular application,
+or to produce correct results in cases that the Unicode algorithms do not
+handle.  Some of the break algorithms below are tailorable.  Each section
+below indicates whether a certain kind of break is tailorable, and if so, how.
+
 [heading Graphemes]
 
 [grapheme_breaks]
+
+_Text_ does not support tailoring of _gr_ breaking, because _grs_ are the
+fundamental unit of work for the text layer of the library.  Everyone must
+have the same notion of what a _gr_ is for that to work.
 
 [heading Stream-Safe Format]
 
@@ -245,6 +259,159 @@ you will get undefined behavior.  This poses a security problem.  To address
 this, there is a simple algorithm described at _str_safe_ that can put any
 _cp_ sequence into the _str_safe_.  You may want to implement this and use it
 with text from an unknown source.
+
+[heading Words]
+
+Word break occur where you'd expect _emdash_ at the beginnings and ends of
+words _emdash_ but that implies that they occur where you might not expect
+_emdash_ at the beginnings and ends of the _cp_ sequences *between* words.
+Here is an example of word breaks taken from _text_seg_.  The string `"The
+quick (“brown”) fox can’t jump 32.3 feet, right?"` is broken up into words
+like this:
+
+[table Word Break Example
+    [
+    [`"The"`]
+    [`" "`]
+    [`"quick"`]
+    [`" "`]
+    [`"("`]
+    [`"“"`]
+    [`"brown"`]
+    [`"”"`]
+    [`")"`]
+    [`" "`]
+    [`"fox"`]
+    [`" "`]
+    [`"can’t"`]
+    [`" "`]
+    [`"jump"`]
+    [`" "`]
+    [`"32.3"`]
+    [`" "`]
+    [`"feet"`]
+    [`","`]
+    [`" "`]
+    [`"right"`]
+    [`"?"`]
+    ]
+]
+
+Note that many of those "words" are not what most people would consider to be
+words.  You may need to do some additional processing to find only the "real"
+words, if that matters in your use case.
+
+The word breaking API can be used just as the _gr_ break API, except that it
+also has _GrRng_ overloads.  Here are some example calls using only the
+_GrRng_ overloads, with a _t_ as the _GrRng_:
+
+[word_breaks_1]
+
+[heading Limitations of Word Breaking]
+
+This algorithm does not work for all languages.  From _text_seg_:
+
+[:For Thai, Lao, Khmer, Myanmar, and other scripts that do not typically use
+spaces between words, a good implementation should not depend on the default
+word boundary specification. It should use a more sophisticated mechanism, as
+is also required for line breaking. Ideographic scripts such as Japanese and
+Chinese are even more complex. Where Hangul text is written without spaces,
+the same applies. However, in the absence of a more sophisticated mechanism,
+the rules specified in this annex supply a well-defined default.]
+
+French and Italian words are not broken after an apostrophe; the default
+algorithm finds `"l’objectif"` to be a single word.
+
+Breaking on dashes in the default; the default algorithm finds
+`"out-of-the-box"` to be seven words.
+
+There are other rarer failure cases in that document you might want to look at
+too.
+
+[heading Word Break Tailoring]
+
+Forunately, unlike _gr_ breaking, word breaking is tailorable in two ways.
+
+Each break algorithm is defined in terms of _cp_ properties; each _cp_ is a
+letter, digit, punctuation, etc.  All the work break functions accept an
+optional word-property lookup function to replace the default one.
+
+For example, here I've made a custom word property lookup function that treats
+a regular dash `'-'` as a `MidLetter`, meaning a _cp_ that is part of a word
+as long as it can reach at least one letter before reaching a line break on
+either side:
+
+[word_breaks_2]
+
+From _text_seg_, here are some other _cps_ you might want to treat as
+`MidLetter`, depending on your language and use case:
+
+[table `MidLetter` Candidates
+    [[Code Point]]
+    [[U+002D ( - ) HYPHEN-MINUS]]
+    [[U+055A ( ՚ ) ARMENIAN APOSTROPHE]]
+    [[U+058A ( ֊ ) ARMENIAN HYPHEN]]
+    [[U+0F0B ( ་ ) TIBETAN MARK INTERSYLLABIC TSHEG]]
+    [[U+1806 ( ᠆ ) MONGOLIAN TODO SOFT HYPHEN]]
+    [[U+2010 ( ‐ ) HYPHEN]]
+    [[U+2011 ( ‑ ) NON-BREAKING HYPHEN]]
+    [[U+201B ( ‛ ) SINGLE HIGH-REVERSED-9 QUOTATION MARK]]
+    [[U+30A0 ( ゠ ) KATAKANA-HIRAGANA DOUBLE HYPHEN]]
+    [[U+30FB ( ・ ) KATAKANA MIDDLE DOT]]
+    [[U+FE63 ( ﹣ ) SMALL HYPHEN-MINUS]]
+    [[U+FF0D ( － ) FULLWIDTH HYPHEN-MINUS]]
+]
+
+Another example from _text_seg_ is to treat spaces as `MidNum` to support
+languages that use spaces as thousands separators, as in `"€1 234,56"`.
+`MidNum` is like `MidLetter`, but for the interior _cps_ of numbers instead of
+words containing letters.  Here are the space characters you might want to do
+that with:
+
+[table `MidNum` Candidates
+    [[Code Point]]
+    [[U+0020 SPACE]]
+    [[U+00A0 NO-BREAK SPACE ]]
+    [[U+2007 FIGURE SPACE]]
+    [[U+2008 PUNCTUATION SPACE]]
+    [[U+2009 THIN SPACE]]
+    [[U+202F NARROW NO-BREAK SPACE]]
+]
+
+Tailoring the properties for each code point works for some cases, but using
+tailorings of the meanings of `MidLetter` and `MidNum` can only add to the
+sizes of words; it cannot decrease their sizes.  The word break functions take
+a second optional parameter that allows you to pick arbitrary word breaks
+based on limited context.
+
+The _Text_ implementation of the word break algorithm uses the current _cp_,
+plus two _cps_ before and two _cps_ after, to determine whether a word break
+exists at the current _cp_.  Therefore, the signature of the custom word break
+function is this:
+
+    bool custom_break(uint32_t prev_prev,
+                      uint32_t prev,
+                      uint32_t curr,
+                      uint32_t next,
+                      uint32_t next_next);
+
+Returning `true` indicates that `[prev, curr]` straddles a word break; `prev`
+is the last _cp_ of one word, and `curr` is the first _cp_ of the next:
+
+[word_breaks_3]
+
+
+[heading Sentences]
+
+TODO
+
+[heading Paragraphs]
+
+TODO
+
+[heading Lines]
+
+[line_breaks]
 
 TODO
 
