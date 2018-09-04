@@ -400,16 +400,38 @@ is the last _cp_ of one word, and `curr` is the first _cp_ of the next:
 
 [word_breaks_3]
 
-
 [heading Sentences]
 
-TODO
+The sentence breaking API is the same as the word breaking API, without the
+extra tailoring parameters.
 
 [heading Paragraphs]
 
-TODO
+The paragraph breaking API is the same as the sentence and word breaking APIs,
+without the extra tailoring parameters.
+
+Unicode does not list paragraph breaks as a specific kind of text
+segmentation, but it can be useful in some cases.  In particular, paragraph
+detection is part of the Unicode bidirectional algorithm.  One way of
+tailoring the behavior of the bidirectional algorithm is to process some
+paragraphs separately from others; having an API for detecting paragraph
+breaks makes that simpler.
 
 [heading Lines]
+
+The Unicode line breaking algorithm differs from the other break algorithms in
+that there are multiple kinds of line breaks.  Some line breaks are required,
+as after a newline (e.g. `"\n"` or `"\r\n"`).  These are known as /hard/ line
+breaks.
+
+The line breaking algorithm produces many more line breaks, but all non-hard
+line breaks are places where it is possible to break the line _emdash_ though
+it is not necessary to do so.  These are known as /allowed/ line breaks.
+Higher-level program logic must determine which of these allowed breaks is to
+be used, for example to fit in available horizontal space.
+
+
+
 
 [line_breaks]
 
