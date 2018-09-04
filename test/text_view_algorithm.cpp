@@ -139,12 +139,12 @@ TEST(break_apis, line_break)
         EXPECT_EQ(std::distance(cps.cbegin(), next), 3);
     }
     {
-        auto const prev = prev_possible_line_break(
+        auto const prev = prev_allowed_line_break(
             cps, std::next(cps.begin(), 1));
         EXPECT_EQ(std::distance(cps.cbegin(), prev.iter), 0);
         EXPECT_TRUE(prev.hard_break);
 
-        auto const next = next_possible_line_break(
+        auto const next = next_allowed_line_break(
             cps, std::next(cps.begin(), 0));
         EXPECT_EQ(std::distance(cps.cbegin(), next.iter), 2);
         EXPECT_FALSE(next.hard_break);
@@ -156,7 +156,7 @@ TEST(break_apis, line_break)
         EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 3);
     }
     {
-        auto const range = possible_line(cps, begin);
+        auto const range = allowed_line(cps, begin);
         EXPECT_EQ(std::distance(cps.cbegin(), range.begin()), 0);
         EXPECT_EQ(std::distance(cps.cbegin(), range.end()), 2);
         EXPECT_FALSE(range.hard_break());
@@ -190,7 +190,7 @@ TEST(break_apis, line_break)
     }
 
     {
-        auto const all_lines = possible_lines(cps);
+        auto const all_lines = allowed_lines(cps);
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -207,7 +207,7 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            reversed_possible_lines(cps);
+            reversed_allowed_lines(cps);
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -220,7 +220,7 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, 0);
     }
 
-    // 80 columns -> don't take the possible break in the middle.
+    // 80 columns -> don't take the allowed break in the middle.
     {
         auto const _80_column_lines = lines(
             cps,

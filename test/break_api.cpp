@@ -1139,36 +1139,36 @@ TEST(break_apis, line_break)
     std::array<uint32_t, 3> cps = {{0x200b, 0x20, 0x30}};
 
     {
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
     }
     // Range API
     {
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps, cps.begin() + 0).iter - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps, cps.begin() + 0).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps, cps.begin() + 0).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps, cps.begin() + 0).iter - cps.begin(), 2);
     }
 
     {
         auto const range =
-            boost::text::possible_line(cps.begin(), cps.begin() + 0, cps.end());
+            boost::text::allowed_line(cps.begin(), cps.begin() + 0, cps.end());
         EXPECT_EQ(range.begin() - cps.begin(), 0);
         EXPECT_EQ(range.end() - cps.begin(), 2);
     }
     // Range API
     {
-        auto const range = boost::text::possible_line(cps, cps.begin() + 0);
+        auto const range = boost::text::allowed_line(cps, cps.begin() + 0);
         EXPECT_EQ(range.begin() - cps.begin(), 0);
         EXPECT_EQ(range.end() - cps.begin(), 2);
     }
 
     {
-        auto const all_lines = boost::text::possible_lines(cps.begin(), cps.end());
+        auto const all_lines = boost::text::allowed_lines(cps.begin(), cps.end());
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -1184,7 +1184,7 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            boost::text::reversed_possible_lines(cps.begin(), cps.end());
+            boost::text::reversed_allowed_lines(cps.begin(), cps.end());
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -1198,7 +1198,7 @@ TEST(break_apis, line_break)
     }
     // Range API
     {
-        auto const all_lines = boost::text::possible_lines(cps);
+        auto const all_lines = boost::text::allowed_lines(cps);
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -1214,7 +1214,7 @@ TEST(break_apis, line_break)
         EXPECT_EQ(i, (int)line_bounds.size());
 
         auto const all_lines_reversed =
-            boost::text::reversed_possible_lines(cps);
+            boost::text::reversed_allowed_lines(cps);
         i = line_bounds.size();
         for (auto line : all_lines_reversed) {
             --i;
@@ -1380,35 +1380,35 @@ TEST(break_apis, line_break_sentinel)
     auto const end = cp_range.end();
 
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, begin, end).iter), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(begin, end).iter), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, one, end).iter), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(begin, end).iter), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, two, end).iter), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(two, end).iter), 3);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(begin, three, end).iter), 2);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(two, end).iter), 3);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_allowed_line_break(begin, begin, end).iter), 0);
+        EXPECT_EQ(std::distance(begin, boost::text::next_allowed_line_break(begin, end).iter), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_allowed_line_break(begin, one, end).iter), 0);
+        EXPECT_EQ(std::distance(begin, boost::text::next_allowed_line_break(begin, end).iter), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_allowed_line_break(begin, two, end).iter), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::next_allowed_line_break(two, end).iter), 3);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_allowed_line_break(begin, three, end).iter), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::next_allowed_line_break(two, end).iter), 3);
     }
     // Range API
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_possible_line_break(cp_range, begin).iter), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_possible_line_break(cp_range, begin).iter), 2);
+        EXPECT_EQ(std::distance(begin, boost::text::prev_allowed_line_break(cp_range, begin).iter), 0);
+        EXPECT_EQ(std::distance(begin, boost::text::next_allowed_line_break(cp_range, begin).iter), 2);
     }
 
     {
-        auto const range = boost::text::possible_line(begin, begin, end);
+        auto const range = boost::text::allowed_line(begin, begin, end);
         EXPECT_EQ(std::distance(begin, range.begin()), 0);
         EXPECT_EQ(std::distance(begin, range.end()), 2);
     }
     // Range API
     {
-        auto const range = boost::text::possible_line(cp_range, begin);
+        auto const range = boost::text::allowed_line(cp_range, begin);
         EXPECT_EQ(std::distance(begin, range.begin()), 0);
         EXPECT_EQ(std::distance(begin, range.end()), 2);
     }
 
     {
-        auto const all_lines = boost::text::possible_lines(begin, end);
+        auto const all_lines = boost::text::allowed_lines(begin, end);
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -1425,7 +1425,7 @@ TEST(break_apis, line_break_sentinel)
     }
     // Range API
     {
-        auto const all_lines = boost::text::possible_lines(cp_range);
+        auto const all_lines = boost::text::allowed_lines(cp_range);
 
         std::array<std::pair<int, int>, 2> const line_bounds = {
             {{0, 2}, {2, 3}}};
@@ -1444,7 +1444,7 @@ TEST(break_apis, line_break_sentinel)
 
     using begin_t = decltype(begin);
 
-    // 80 columns -> don't take the possible break in the middle.
+    // 80 columns -> don't take the allowed break in the middle.
     {
         auto const _80_column_lines =
             boost::text::lines(begin, end, 80, [](begin_t it, begin_t last) {
@@ -1464,7 +1464,7 @@ TEST(break_apis, line_break_sentinel)
         EXPECT_EQ(i, (int)line_bounds.size());
     }
 
-    // 2 columns -> take the possible break in the middle.
+    // 2 columns -> take the allowed break in the middle.
     {
         auto const _2_column_lines =
             boost::text::lines(begin, end, 2, [](begin_t it, begin_t last) {
@@ -1507,7 +1507,7 @@ TEST(break_apis, line_break_sentinel)
         EXPECT_EQ(i, (int)line_bounds.size());
     }
 
-    // 1 column -> ignore the overlong lines, and so only take the possible
+    // 1 column -> ignore the overlong lines, and so only take the allowed
     // break in the middle.
     {
         auto const _1_column_lines = boost::text::lines(
@@ -1786,7 +1786,7 @@ TEST(break_apis, line_break_sentinel)
     }
 
     // Range API
-    // 80 columns -> don't take the possible break in the middle.
+    // 80 columns -> don't take the allowed break in the middle.
     {
         auto const _80_column_lines =
             boost::text::lines(cp_range, 80, [](u32_iter it, u32_iter last) {

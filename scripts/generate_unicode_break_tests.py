@@ -628,7 +628,7 @@ sentence_cps_and_breaks = extract_cps_and_breaks('SentenceBreakTest.txt')
 generate_break_tests_2(sentence_cps_and_breaks, 'sentence')
 
 line_cps_and_breaks = extract_cps_and_breaks('LineBreakTest.txt', 100)
-generate_break_tests_2(line_cps_and_breaks, 'line', 'possible_', '.iter')
+generate_break_tests_2(line_cps_and_breaks, 'line', 'allowed_', '.iter')
 
 generate_bidi_tests('BidiTest.txt', 500)
 

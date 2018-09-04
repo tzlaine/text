@@ -1269,7 +1269,7 @@ namespace boost { namespace text {
             fwd_rev_cp_iter_kind kind_;
         };
 
-        enum class bidi_line_break_kind { none, hard, possible };
+        enum class bidi_line_break_kind { none, hard, allowed };
 
         struct bidi_next_hard_line_break_callable
         {
@@ -1284,7 +1284,7 @@ namespace boost { namespace text {
 
     /** Represents a subrange of code points ordered by the Unicode
         bidirectional algorithm, with or without a line break at the end; the
-        line break may be a hard line break, or a possible line break,
+        line break may be a hard line break, or a allowed line break,
         according to the Unicode line break algorithm.  This is the output
         type for the code point overloads of bidirectional_order(). */
     template<typename CPIter>
@@ -1311,15 +1311,15 @@ namespace boost { namespace text {
 
         bool line_break() const noexcept
         {
-            return hard_line_break() || possible_line_break();
+            return hard_line_break() || allowed_line_break();
         }
         bool hard_line_break() const noexcept
         {
             return break_ == detail::bidi_line_break_kind::hard;
         }
-        bool possible_line_break() const noexcept
+        bool allowed_line_break() const noexcept
         {
-            return break_ == detail::bidi_line_break_kind::possible;
+            return break_ == detail::bidi_line_break_kind::allowed;
         }
         bool empty() const noexcept { return first_ == last_; }
         iterator begin() const noexcept { return first_; }
@@ -1333,7 +1333,7 @@ namespace boost { namespace text {
 
     /** Represents a subrange of graphemes ordered by the Unicode
         bidirectional algorithm, with or without a line break at the end; the
-        line break may be a hard line break, or a possible line break,
+        line break may be a hard line break, or a allowed line break,
         according to the Unicode line break algorithm.  This is the output
         type for the grapheme overloads of bidirectional_order(). */
     template<typename CPIter>
@@ -1369,15 +1369,15 @@ namespace boost { namespace text {
 
         bool line_break() const noexcept
         {
-            return hard_line_break() || possible_line_break();
+            return hard_line_break() || allowed_line_break();
         }
         bool hard_line_break() const noexcept
         {
             return break_ == detail::bidi_line_break_kind::hard;
         }
-        bool possible_line_break() const noexcept
+        bool allowed_line_break() const noexcept
         {
-            return break_ == detail::bidi_line_break_kind::possible;
+            return break_ == detail::bidi_line_break_kind::allowed;
         }
         bool empty() const noexcept { return first_ == last_; }
         iterator begin() const noexcept { return first_; }
@@ -1905,7 +1905,7 @@ namespace boost { namespace text {
 
                 state.line_break_ = line.hard_break()
                                         ? bidi_line_break_kind::hard
-                                        : bidi_line_break_kind::possible;
+                                        : bidi_line_break_kind::allowed;
 
                 state.reordered_runs_it_ = state.reordered_runs_.begin();
                 state.reordered_runs_last_ = state.reordered_runs_.end();
@@ -1986,7 +1986,7 @@ namespace boost { namespace text {
 
                 state.line_break_ = line.hard_break()
                                         ? bidi_line_break_kind::hard
-                                        : bidi_line_break_kind::possible;
+                                        : bidi_line_break_kind::allowed;
 
                 state.reordered_runs_it_ = state.reordered_runs_.begin();
                 state.reordered_runs_last_ = state.reordered_runs_.end();
@@ -2435,14 +2435,13 @@ namespace boost { namespace text {
             CPIter,
             Sentinel,
             bidirectional_cp_subrange<CPIter>,
-            detail::next_possible_line_break_within_extent_callable<
+            detail::next_allowed_line_break_within_extent_callable<
                 Extent,
                 CPExtentFunc>>
     {
-        detail::next_possible_line_break_within_extent_callable<
-            Extent,
-            CPExtentFunc>
-            next{max_extent, std::move(cp_extent), break_overlong_lines};
+        detail::
+            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
+                next{max_extent, std::move(cp_extent), break_overlong_lines};
         return {first, last, paragraph_embedding_level, std::move(next)};
     }
 
@@ -2479,15 +2478,14 @@ namespace boost { namespace text {
                 detail::iterator_t<CPRange>,
                 detail::sentinel_t<CPRange>,
                 bidirectional_cp_subrange<detail::iterator_t<CPRange>>,
-                detail::next_possible_line_break_within_extent_callable<
+                detail::next_allowed_line_break_within_extent_callable<
                     Extent,
                     CPExtentFunc>>,
             CPRange>
     {
-        detail::next_possible_line_break_within_extent_callable<
-            Extent,
-            CPExtentFunc>
-            next{max_extent, std::move(cp_extent), break_overlong_lines};
+        detail::
+            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
+                next{max_extent, std::move(cp_extent), break_overlong_lines};
         return {std::begin(range),
                 std::end(range),
                 paragraph_embedding_level,
@@ -2528,15 +2526,14 @@ namespace boost { namespace text {
                 typename detail::iterator_t<GraphemeRange const>::iterator_type,
                 bidirectional_grapheme_subrange<typename detail::iterator_t<
                     GraphemeRange const>::iterator_type>,
-                detail::next_possible_line_break_within_extent_callable<
+                detail::next_allowed_line_break_within_extent_callable<
                     Extent,
                     CPExtentFunc>>,
             GraphemeRange>
     {
-        detail::next_possible_line_break_within_extent_callable<
-            Extent,
-            CPExtentFunc>
-            next{max_extent, std::move(cp_extent), break_overlong_lines};
+        detail::
+            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
+                next{max_extent, std::move(cp_extent), break_overlong_lines};
         return {range.begin().base(),
                 range.end().base(),
                 paragraph_embedding_level,
