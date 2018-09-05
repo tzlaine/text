@@ -142,7 +142,7 @@ TEST(break_apis, line_break)
         auto const prev = prev_allowed_line_break(
             cps, std::next(cps.begin(), 1));
         EXPECT_EQ(std::distance(cps.cbegin(), prev.iter), 0);
-        EXPECT_TRUE(prev.hard_break);
+        EXPECT_FALSE(prev.hard_break);
 
         auto const next = next_allowed_line_break(
             cps, std::next(cps.begin(), 0));
@@ -201,7 +201,7 @@ TEST(break_apis, line_break)
                 << "i=" << i;
             EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
                 << "i=" << i;
-            EXPECT_EQ(line.hard_break(), i == 1) << "i=" << i;
+            EXPECT_EQ(line.hard_break(), false) << "i=" << i;
             ++i;
         }
         EXPECT_EQ(i, (int)line_bounds.size());
@@ -215,7 +215,7 @@ TEST(break_apis, line_break)
                 << "i=" << i;
             EXPECT_EQ(std::distance(cps.cbegin(), line.end()), line_bounds[i].second)
                 << "i=" << i;
-            EXPECT_EQ(line.hard_break(), i == 1);
+            EXPECT_EQ(line.hard_break(), false);
         }
         EXPECT_EQ(i, 0);
     }

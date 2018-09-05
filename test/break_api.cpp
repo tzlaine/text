@@ -1192,7 +1192,7 @@ TEST(break_apis, line_break)
                 << "i=" << i;
             EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
                 << "i=" << i;
-            EXPECT_EQ(line.hard_break(), i == 1);
+            EXPECT_EQ(line.hard_break(), false);
         }
         EXPECT_EQ(i, 0);
     }
@@ -1222,7 +1222,7 @@ TEST(break_apis, line_break)
                 << "i=" << i;
             EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
                 << "i=" << i;
-            EXPECT_EQ(line.hard_break(), i == 1);
+            EXPECT_EQ(line.hard_break(), false);
         }
         EXPECT_EQ(i, 0);
     }
