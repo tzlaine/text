@@ -1,5 +1,6 @@
 #include <boost/text/grapheme_break.hpp>
 #include <boost/text/word_break.hpp>
+#include <boost/text/line_break.hpp>
 #include <boost/text/text.hpp>
 
 #include <iostream>
@@ -52,7 +53,7 @@ std::cout << "\n";
 {
 //[ word_breaks_1
 // Using GraphemeRange/GraphemeIterator overloads...
-boost::text::text cps("The quick (\“brown\”) fox can’t jump 32.3 feet, right?");
+boost::text::text cps("The quick (\"brown\") fox can’t jump 32.3 feet, right?");
 
 auto const first = cps.cbegin();
 
@@ -143,7 +144,96 @@ std::cout << "\n";
 }
 
 {
-//[ line_breaks
+//[ line_breaks_1
+std::array<uint32_t, 5> cps = {{'a', ' ', 'b', '\n', 'c'}};
+
+auto const first = cps.begin();
+auto const last = cps.end();
+
+// prev_/next_hard_line_break() returns an iterator.
+auto at_or_before_2_hard =
+    boost::text::prev_hard_line_break(first, first + 2, last);
+assert(at_or_before_2_hard == first + 0);
+
+auto after_0_hard = boost::text::next_hard_line_break(first, last);
+assert(after_0_hard == first + 4);
+
+// prev_/next_allowed_line_break() returns a line_break_result<CPIter>.
+auto at_or_before_2_allowed =
+    boost::text::prev_allowed_line_break(first, first + 2, last);
+assert(at_or_before_2_allowed.iter == first + 2);
+assert(!at_or_before_2_allowed.hard_break);
+
+auto after_0_allowed = boost::text::next_allowed_line_break(first, last);
+assert(after_0_allowed.iter == first + 2);
+assert(!after_0_allowed.hard_break);
+
+// operator==() and operator!=() are defined between line_break_result<CPIter>
+// and CPIter.
+assert(at_or_before_2_allowed == first + 2);
+assert(first + 2 == after_0_allowed);
+//]
+}
+
+{
+//[ line_breaks_2
+std::array<uint32_t, 5> cps = {{'a', ' ', 'b', '\n', 'c'}};
+
+/* Prints:
+"c"
+"b
+""a "
+*/
+for (auto line : boost::text::reversed_allowed_lines(cps)) {
+    std::cout << '"' << boost::text::to_string(line.begin(), line.end()) << '"';
+    // Don't add \n to a hard line break; it already has one!
+    if (!line.hard_break())
+        std::cout << "\n";
+}
+//]
+}
+
+{
+//[ line_breaks_3
+boost::text::text const cps =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+    "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim "
+    "veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea "
+    "commodo consequat. Duis aute irure dolor in reprehenderit in voluptate "
+    "velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint "
+    "occaecat cupidatat non proident, sunt in culpa qui officia deserunt "
+    "mollit anim id est laborum.";
+
+/* Prints:
+************************************************************
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna 
+aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+Duis aute irure dolor in reprehenderit in voluptate velit 
+esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+occaecat cupidatat non proident, sunt in culpa qui officia 
+deserunt mollit anim id est laborum.
+************************************************************
+*/
+std::cout << boost::text::repeat("*", 60) << "\n";
+for (auto line : boost::text::lines(
+         cps,
+         60,
+         [](boost::text::text::const_iterator::iterator_type first,
+            boost::text::text::const_iterator::iterator_type last) {
+             // The width of this chunk of text.  For out purposes here, each
+             // grapheme in the chunk has a fixed width of 1.
+             boost::text::grapheme_range<
+                 boost::text::text::const_iterator::iterator_type>
+                 range(first, last);
+             return std::distance(range.begin(), range.end());
+         })) {
+    std::cout << boost::text::text_view(line);
+    if (!line.hard_break())
+        std::cout << "\n";
+}
+std::cout << boost::text::repeat("*", 60) << "\n";
 //]
 }
 

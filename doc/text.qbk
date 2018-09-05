@@ -85,6 +85,10 @@
 
 [def _norm_str_header_     [link header.boost.text.normalize_string_hpp normalize_string.hpp]]
 
+[def _line_brk_res_        [classref boost::text::line_break_result `line_break_result`]]
+[def _line_brk_cp_rng_     [classref boost::text::line_break_cp_range `line_break_cp_range`]]
+[def _line_brk_cp_rngs_    [classref boost::text::line_break_cp_range `line_break_cp_range`s]]
+
 [def _t_                   [classref boost::text::text `text`]]
 [def _ts_                  [classref boost::text::text `text`s]]
 [def _tv_                  [classref boost::text::text_view `text_view`]]

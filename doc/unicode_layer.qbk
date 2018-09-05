@@ -432,13 +432,44 @@ be used, for example to fit in available horizontal space.
 
 [note _Text_ only generates hard line breaks where they are indicated in the
 Unicode line breaking rules *and* there could be an allowed line break.  Line
-breaks always occur at the beginning and end of any sequence, but _Text_ never
-reports those as hard breaks.]
+breaks always occur at the beginning and end of any sequence, but _Text_ does
+not report those as hard breaks.]
 
+The `next_*_break()` and `prev_*_break()` functions for line breaking come in
+two flavors.  There are `hard_line` versions and `allowed_line` versions.  For
+the `allowed` overloads, you may need to know, once you have the break
+position, whether it was a hard line break.  The `allowed` overloads therefore
+return a struct, _line_brk_res_.  It has an `.iter` member to indicate the
+location, and a `.hard_break` member ot indicate whether that location is a
+hard line break.  Overloads of `operator==()` ans `operator!=()` are defined
+between _line_brk_res_ and its iterator type so that you can treat it as an
+iterator in generic code if you don't care about the hard line break
+information:
 
-[line_breaks]
+[line_breaks_1]
 
-TODO
+The `hard` naming is only present in these low-level functions; the rest of
+the line breaking APi uses `line` for the hard break version, and
+`allowed_line` for the other.  The reset of the line breaking API should be
+familiar by now; it parallels the other breaking APIs, but with the hard
+vs. allowed overloads.
+
+Just as the low-level `prev` and `next` functions for allowed beaks returned
+extra information, the other allowed-break functions do as well.  The rest of
+the API produces _cp_ ranges, and the allowed-break versions produce
+_line_brk_cp_rngs_ instead:
+
+[line_breaks_2]
+
+Additionally, there are overloads that make it convenient to write simple code
+that selects an allowed break based on available space.  The available space,
+and the amout of space taken up by each check of _cps_, is user-configurable.
+There is an overload of `lines()` that you pass the amount of space and a
+callable that determines the space used by some sequence of _cps_.  Each chunk
+contains the _cps_ between allowed breaks.  If a chunk would exceed available
+space, the allowed break before that chunk is used:
+
+[line_breaks_3]
 
 [endsect]
 
