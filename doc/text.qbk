@@ -32,6 +32,7 @@
 [import ../example/utf8.cpp]
 [import ../example/normalize.cpp]
 [import ../example/breaks.cpp]
+[import ../example/case_mapping.cpp]
 
 [/ Images ]
 
@@ -52,6 +53,7 @@
 [def _CharIter_            [link boost_text__proposed_.concepts.chariter CharIter]]
 [def _CPRng_               [link boost_text__proposed_.concepts.cprange CPRange]]
 [def _CPIter_              [link boost_text__proposed_.concepts.cpiter CPIter]]
+[def _CPIters_             [link boost_text__proposed_.concepts.cpiter CPIters]]
 [def _CPExtentFunc_        [link boost_text__proposed_.concepts.cpextentfunc CPExtentFunc]]
 [def _WordPropFunc_        [link boost_text__proposed_.concepts.wordpropfunc WordPropFunc]]
 [def _CPWordBreakFunc_     [link boost_text__proposed_.concepts.cpwordbreakfunc CPWordBreakFunc]]
@@ -88,6 +90,16 @@
 [def _line_brk_res_        [classref boost::text::line_break_result `line_break_result`]]
 [def _line_brk_cp_rng_     [classref boost::text::line_break_cp_range `line_break_cp_range`]]
 [def _line_brk_cp_rngs_    [classref boost::text::line_break_cp_range `line_break_cp_range`s]]
+
+[def _to_lower_            [funcref boost::text::to_lower `to_lower`]]
+[def _to_title_            [funcref boost::text::to_title `to_title`]]
+[def _to_upper_            [funcref boost::text::to_upper `to_upper`]]
+[def _is_lower_            [funcref boost::text::is_lower `is_lower`]]
+[def _is_title_            [funcref boost::text::is_title `is_title`]]
+[def _is_upper_            [funcref boost::text::is_upper `is_upper`]]
+[def _case_lang_           [enumref boost::text::case_language `case_language`]]
+[def _wbreak_call_         [classref boost::text::next_word_break_callable `next_word_break_callable`]]
+[def _next_wbreak_         [funcref boost::text::next_word_break `next_word_break`]]
 
 [def _t_                   [classref boost::text::text `text`]]
 [def _ts_                  [classref boost::text::text `text`s]]

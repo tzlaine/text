@@ -27,12 +27,20 @@ namespace boost { namespace text {
         case mapping functions. */
     struct next_word_break_callable
     {
+#ifdef BOOST_TEXT_DOXYGEN
+
         template<typename CPIter, typename Sentinel>
-        auto operator()(CPIter it, Sentinel last) noexcept
+        CPIter operator()(CPIter it, Sentinel last) const noexcept;
+#else
+
+        template<typename CPIter, typename Sentinel>
+        auto operator()(CPIter it, Sentinel last) const noexcept
             -> detail::cp_iter_ret_t<CPIter, CPIter>
         {
             return next_word_break(it, last);
         }
+
+#endif
     };
 
     namespace detail {

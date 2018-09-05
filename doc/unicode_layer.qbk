@@ -476,7 +476,41 @@ space, the allowed break before that chunk is used:
 
 [section Case Mapping]
 
-TODO
+Case mapping is conceptually simple.  There are three kinds of case:
+lower-case, upper-case, and title-case.  Title-case has an upper-case letter
+at the beginning of each word.  There are six operations, though there are a
+few overloads of each.  There are three case-mapping algorithms: _to_lower_,
+_to_title_, and _to_upper_.  Each of these outputs its result (as _cps_) via
+an out-iterator.  There are also three case predicates, _is_lower_,
+_is_title_, and _is_upper_.
+
+For each of these, there are overloads that take the input _cp_ sequence as a
+pair of _CPIters_, a _CPRng_, or a _GrRng_:
+
+[case_mapping_1]
+
+As a complication, some languages have case-mapping rules that differ from the
+general case, and so there is an optional _case_lang_ parameter to the
+`to_*()` functions that you can specify to get this custom behavior:
+
+[case_mapping_2]
+
+Another complication is that the title-case functions need to know where word
+boundaries are.  By default, they use an instance of _wbreak_call_, which in
+turn just calls _next_wbreak_.  You can supply your own callable instead if
+you need tailored word breaking.
+
+There are a few case mapping behaviors that are common in various languages,
+but that are not accounted for by the default Unicode case mapping rules.  For
+instance, Dutch capitalizes `"IJ"` at the beginning of title-cased words.
+This is available in _Text_'s implementation if you use `_case_lang_::dutch`.
+_Text_ also implements the somewhat complicated rules for upper-casing modern
+Greek.
+
+Finally, there are in-place versions of the case-mapping functions available
+for use with _t_ and _r_:
+
+[case_mapping_3]
 
 [endsect]
 
