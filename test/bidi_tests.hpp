@@ -3,6 +3,8 @@
 
 #include <boost/text/bidirectional.hpp>
 
+#include <iostream>
+
 
 using str_iter_t = uint32_t const *;
 
