@@ -517,6 +517,117 @@ for use with _t_ and _r_:
 
 [section Collation]
 
+Collation is the relative ordering of sequences of _cps_ for purposes of
+sorting or searching.  The Unicode collation algorithm takes a sequence of
+_cps_ and produces a sequence of numbers (a "sort key") that can be
+lexicographically compared to another sequence's sort key.
+
+Why can't we just lexicographically compare two Unicode strings?  Because
+Unicode.  Consider two _cps_ `A` and `B`.  There may be some languages for
+which the proper ordering of `A` and `B` is `A < B`.  There may also be other
+languages for which `B < A` is the proper order.  Ther may be yet other
+languages for which `A == B` is the proper order.  As a concrete example, in
+Swedish `z < ö`, whereas in German `ö < z`.
+
+So, if I want to implement a simple function like this:
+
+    // Compare two code points for dictionary ordering.
+    bool impossible_less(uint32_t lhs, uint32_t rhs)
+    {
+        return /* What goes here? */;
+    }
+
+I can't, because I don't know what language we're using these _cps_ in.
+
+Sadly, collation is even more complicated than this.  Collation must also
+handle the different ordering priorities of different characteristics of _cps_
+within a single language or context.  For instance, I may want capitals first,
+implying that `G < g`, or I may want capitals last, implying `g < G`.  Some
+languages sort based on accents, and some do not; collation must know whether
+`o < ô` or `o == ô`.
+
+To handle this correctly, collation sort keys are created with support for
+four levels of comparison.  The primary level (/L1/) represents differences in
+the base character being represented; the secondary level (/L2/) represents
+differences in accent; the tertiary level (/L3/) represents differences in
+case, or variants of characters; and the quaternary level (/L4/) represents
+differences in punctuation.
+
+From the Unicde documentation:
+
+[table Comparison Levels
+    [[Level] [Description]     [Examples]]
+    [[L1]    [Base characters] [role < roles < rule]]
+    [[L2]    [Accents]         [role < rôle < roles]]
+    [[L3]    [Case/Variants]   [role < Role < rôle]]
+    [[L4]    [Punctuation]     [role < “role” < Role]]
+]
+
+When forming a sort key, all the L1 weights come first _emdash_ for all _cps_
+in the sequence _emdash_ then all the L2 weights, then the L3 weights, etc.
+This means that any L1 difference is treated as more important than any L2
+difference, and any L2 difference trumps any L3 difference, etc.
+
+It is possible to compare sequences considering only a contiguous subrange of
+levels; this is known as the collation /strength/.  For example, L1 strength
+means "Ignore accents, case, and punctuation", and L2 strength means "Ignore
+case and punctuation".
+
+There are also parameters you can provide to the collation algorithm that
+create variations such as "Ignore accents, but do consider case".
+
+[heading Tailoring]
+
+Since there exists no unique mapping of _cps_ to collation weights that works
+for every language and context, there needs to be a means available to users
+of the Unicode collation algorithm of tailoring collation to a particular
+language or use case.  _Text_ supports the _ldml_ format for specifying
+collation tailoring; see that webstire for details.  An example of this super
+simple and convenient format is:
+
+    [normalization on]
+    [reorder Grek]
+    &N<ñ<<<Ñ
+    &C<ch<<<Ch<<<CH
+    &l<ll<<<Ll<<<LL
+
+You should never need to write one of these tailoring scripts, but if you do,
+there's a full parser of the tailoring scripting language built in to _Text_.
+For most users, it should be sufficient to use one of the canned tailoring
+scripts in the `boost/text/data/` directory.  These come from _cldr_, and the
+files use the _cldr_ locale naming scheme.  Just rummage about until you find
+the language you're looking for.  Note that many of the languages have
+multiple variants.
+
+There is also a default table that can be used for languages with no
+tailorings.
+
+[heading The Collation API]
+
+I've made every effort to hide the messy details of collation configuration
+from you, because they are super confusing.  Instead, _Text_ uses a set of
+_coll_flags_ that have more recognizable semantics.  The flags map directly
+onto the low-level configuration settings.  If you have C++14 _ce_ support,
+combinations of the flags that map to incompatible low-level settings will not
+compile.  The low-level configuration is still available for those already
+familiar with Unicode collation.
+
+TODO: example
+
+[heading General Container Woes]
+
+TODO
+
+[heading Hashing Container Woes]
+
+TODO
+
+[heading Sorting Woes]
+
+TODO: collation keys should be kept around since they are expensive to make
+
+
+
 TODO
 
 [endsect]

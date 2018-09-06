@@ -101,6 +101,8 @@
 [def _wbreak_call_         [classref boost::text::next_word_break_callable `next_word_break_callable`]]
 [def _next_wbreak_         [funcref boost::text::next_word_break `next_word_break`]]
 
+[def _coll_flags_          [enumref boost::text::collation_flags `collation_flags`]]
+
 [def _t_                   [classref boost::text::text `text`]]
 [def _ts_                  [classref boost::text::text `text`s]]
 [def _tv_                  [classref boost::text::text_view `text_view`]]
