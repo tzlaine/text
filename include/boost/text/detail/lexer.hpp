@@ -3,6 +3,7 @@
 
 #include <boost/text/parser_fwd.hpp>
 #include <boost/text/string.hpp>
+#include <boost/text/string_utility.hpp>
 #include <boost/text/utf8.hpp>
 #include <boost/text/utility.hpp>
 

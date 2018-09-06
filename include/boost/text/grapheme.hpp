@@ -1,6 +1,9 @@
 #ifndef BOOST_TEXT_GRAPHEME_HPP
 #define BOOST_TEXT_GRAPHEME_HPP
 
+#include <boost/text/grapheme_break.hpp>
+#include <boost/text/normalize.hpp>
+#include <boost/text/utf8.hpp>
 #include <boost/text/utility.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
@@ -9,19 +12,13 @@
 
 namespace boost { namespace text {
 
-    namespace detail {
-        using grapheme_storage_t = container::small_vector<uint32_t, 4>;
-    }
-
-    template<typename CPIter = detail::grapheme_storage_t::const_iterator>
+    template<typename CPIter>
     struct grapheme_view;
 
     /** An owning sequence of code points that comprise a grapheme. */
     struct grapheme
     {
-        using storage_t = detail::grapheme_storage_t;
-        using iterator = storage_t::iterator;
-        using const_iterator = storage_t::const_iterator;
+        using const_iterator = utf8::to_utf32_iterator<char const *>;
 
         /** Default ctor. */
         grapheme() {}
@@ -29,40 +26,73 @@ namespace boost { namespace text {
         /** Constructs *this from the code points [first, last).
 
             \pre The code points in [first, last) comprise at most one
-            grapheme. */
+            grapheme.
+            \pre [first, last) is normalized FCC. */
         template<typename CPIter>
-        grapheme(CPIter first, CPIter last) : cps_(first, last)
-        {}
+        grapheme(CPIter first, CPIter last)
+        {
+            std::copy(first, last, utf8::from_utf32_back_inserter(chars_));
+            BOOST_ASSERT(next_grapheme_break(begin(), end()) == end());
+            BOOST_ASSERT(fcd_form(begin(), end()));
+        }
+
+        /** Constructs *this from the code point cp. */
+        grapheme(uint32_t cp)
+        {
+            uint32_t cps[1] = {cp};
+            std::copy(cps, cps + 1, utf8::from_utf32_back_inserter(chars_));
+        }
 
         /** Constructs *this from r.
 
-            \pre The code points in r comprise at most one grapheme. */
+            \pre The code points in r comprise at most one grapheme.
+
+            \pre The code points in [first, last) comprise at most one
+            grapheme.
+            \pre [first, last) is normalized FCC. */
         template<typename CPIter>
-        grapheme(cp_range<CPIter> r) : cps_(r.begin(), r.end())
-        {}
+        grapheme(cp_range<CPIter> r)
+        {
+            std::copy(
+                r.begin(), r.end(), utf8::from_utf32_back_inserter(chars_));
+            BOOST_ASSERT(next_grapheme_break(begin(), end()) == end());
+            BOOST_ASSERT(fcd_form(begin(), end()));
+        }
 
         /** Constructs *this from g. */
         template<typename CPIter>
-        grapheme(grapheme_view<CPIter> g) : cps_(g.begin(), g.end())
-        {}
+        grapheme(grapheme_view<CPIter> g)
+        {
+            std::copy(
+                g.begin(), g.end(), utf8::from_utf32_back_inserter(chars_));
+        }
 
-        /** Returns true of *this contains no code points. */
-        bool empty() const noexcept { return cps_.empty(); }
+        /** Returns true if *this contains no code points. */
+        bool empty() const noexcept { return chars_.empty(); }
 
-        /** Returns the number of code points contained in *this. */
-        int size() const noexcept { return cps_.size(); }
+        /** Returns the number of code points contained in *this.  This is an
+            O(N) operation. */
+        int distance() const noexcept { return std::distance(begin(), end()); }
 
-        const_iterator begin() const noexcept { return cps_.begin(); }
-        const_iterator end() const noexcept { return cps_.end(); }
+        const_iterator begin() const noexcept
+        {
+            auto const first = &chars_[0];
+            auto const last = first + chars_.size();
+            return grapheme::const_iterator{first, first, last};
+        }
 
-        iterator begin() noexcept { return cps_.begin(); }
-        iterator end() noexcept { return cps_.end(); }
+        const_iterator end() const noexcept
+        {
+            auto const first = &chars_[0];
+            auto const last = first + chars_.size();
+            return grapheme::const_iterator{first, last, last};
+        }
 
     private:
-        container::small_vector<uint32_t, 4> cps_;
+        container::small_vector<char, 8> chars_;
     };
 
-    /** A non-owning view of a range of code points that conprise a
+    /** A non-owning view of a range of code points that comprise a
         grapheme. */
     template<typename CPIter>
     struct grapheme_view
@@ -75,19 +105,27 @@ namespace boost { namespace text {
         /** Constructs *this from the code points [first, last).
 
             \pre The code points in [first, last) comprise at most one
-            grapheme. */
+            grapheme.
+            \pre [first, last) is normalized FCC. */
         grapheme_view(CPIter first, CPIter last) noexcept :
             first_(first),
             last_(last)
-        {}
+        {
+            BOOST_ASSERT(next_grapheme_break(first_, last_) == last_);
+            BOOST_ASSERT(fcd_form(first_, last_));
+        }
 
         /** Constructs *this from r.
 
-            \pre The code points in r comprise at most one grapheme. */
+            \pre The code points in r comprise at most one grapheme.
+            \pre The code points in r are normalized FCC. */
         grapheme_view(cp_range<CPIter> r) noexcept :
             first_(r.begin()),
             last_(r.end())
-        {}
+        {
+            BOOST_ASSERT(next_grapheme_break(first_, last_) == last_);
+            BOOST_ASSERT(fcd_form(first_, last_));
+        }
 
         /** Constructs *this from g. */
         grapheme_view(struct grapheme const & g) noexcept :

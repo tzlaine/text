@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
+#include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/normalize_string.hpp>
 #include <boost/text/utf8.hpp>
@@ -39,7 +40,7 @@ namespace boost { namespace text {
         FCC-normalized. */
     struct text
     {
-        using value_type = cp_range<utf8::to_utf32_iterator<char *>>;
+        using value_type = struct grapheme;
         using size_type = int;
         using iterator = grapheme_iterator<utf8::to_utf32_iterator<char *>>;
         using const_iterator =
@@ -274,6 +275,9 @@ namespace boost { namespace text {
         /** Inserts the sequence [first, last) into *this starting at position
             at. */
         iterator insert(iterator at, const_iterator first, const_iterator last);
+
+        /** Inserts the grapheme g into *this at position at. */
+        iterator insert(iterator at, struct grapheme const & g);
 
         /** Erases the portion of *this delimited by tv.
 
@@ -720,6 +724,12 @@ namespace boost { namespace text {
     text::insert(iterator at, const_iterator first, const_iterator last)
     {
         return insert(at, text_view(first, last));
+    }
+
+    inline text::iterator text::insert(iterator at, struct grapheme const & g)
+    {
+        auto const char_size = g.end().base() - g.begin().base();
+        return insert_impl(at, string_view(g.begin().base(), char_size), true);
     }
 
     inline text::iterator text::erase(iterator first, iterator last) noexcept

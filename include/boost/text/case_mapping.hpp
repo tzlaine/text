@@ -587,7 +587,7 @@ namespace boost { namespace text {
                 if (special_dutch_case &&
                     title_state == title_state_t::right_after &&
                     (*it == 'j' || *it == 'J')) {
-                    *out = 'J';
+                    *out = uint32_t('J');
                     ++out;
                     ++it;
                     continue;

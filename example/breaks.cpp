@@ -2,6 +2,7 @@
 #include <boost/text/word_break.hpp>
 #include <boost/text/line_break.hpp>
 #include <boost/text/text.hpp>
+#include <boost/text/string_utility.hpp>
 
 #include <iostream>
 

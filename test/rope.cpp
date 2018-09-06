@@ -1,4 +1,5 @@
 #include <boost/text/rope.hpp>
+#include <boost/text/string_utility.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 

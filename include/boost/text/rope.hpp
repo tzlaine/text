@@ -1,7 +1,9 @@
 #ifndef BOOST_TEXT_ROPE_HPP
 #define BOOST_TEXT_ROPE_HPP
 
+#include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_iterator.hpp>
+#include <boost/text/unencoded_rope.hpp>
 #include <boost/text/utf8.hpp>
 
 #include <iterator>
@@ -36,8 +38,7 @@ namespace boost { namespace text {
         is an unencoded_rope that is UTF-8-encoded and FCC-normalized. */
     struct rope
     {
-        using value_type =
-            cp_range<utf8::to_utf32_iterator<detail::const_rope_iterator>>;
+        using value_type = struct grapheme;
         using size_type = std::ptrdiff_t;
         using iterator = grapheme_iterator<
             utf8::to_utf32_iterator<detail::const_rope_iterator>>;
@@ -215,6 +216,9 @@ namespace boost { namespace text {
             at. */
         const_iterator
         insert(const_iterator at, const_iterator first, const_iterator last);
+
+        /** Inserts the grapheme g into *this at position at. */
+        const_iterator insert(const_iterator at, struct grapheme const & g);
 
         /** Erases the portion of *this delimited by rv.
 
@@ -585,6 +589,12 @@ namespace boost { namespace text {
     rope::insert(const_iterator at, const_iterator first, const_iterator last)
     {
         return insert(at, rope_view(first, last));
+    }
+
+    inline rope::const_iterator
+    rope::insert(const_iterator at, struct grapheme const & g)
+    {
+        return insert_impl(at, string(g.begin().base(), g.end().base()), true);
     }
 
     inline rope & rope::erase(rope_view rv)

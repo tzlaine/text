@@ -6,6 +6,8 @@
 
 #include <boost/container/static_vector.hpp>
 
+#include <algorithm>
+
 
 namespace boost { namespace text {
 

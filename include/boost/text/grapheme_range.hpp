@@ -1,5 +1,5 @@
-#ifndef BOOST_TEXT_TEXT_GRAPHEME_RANGE_HPP
-#define BOOST_TEXT_TEXT_GRAPHEME_RANGE_HPP
+#ifndef BOOST_TEXT_GRAPHEME_RANGE_HPP
+#define BOOST_TEXT_GRAPHEME_RANGE_HPP
 
 #include <boost/text/grapheme_iterator.hpp>
 

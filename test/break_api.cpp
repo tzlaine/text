@@ -4,7 +4,7 @@
 #include <boost/text/line_break.hpp>
 #include <boost/text/paragraph_break.hpp>
 #include <boost/text/bidirectional.hpp>
-
+#include <boost/text/string_utility.hpp>
 #include <boost/text/utf8.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>

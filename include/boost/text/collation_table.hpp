@@ -3,6 +3,7 @@
 
 #include <boost/text/normalize.hpp>
 #include <boost/text/segmented_vector.hpp>
+#include <boost/text/string_utility.hpp>
 #include <boost/text/detail/canonical_closure.hpp>
 #include <boost/text/detail/collation_data.hpp>
 #include <boost/text/detail/parser.hpp>

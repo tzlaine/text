@@ -2,6 +2,7 @@
 #define BOOST_TEXT_ROPE_VIEW_HPP
 
 #include <boost/text/grapheme_iterator.hpp>
+#include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/utf8.hpp>
 
 #include <iterator>
@@ -12,6 +13,7 @@ namespace boost { namespace text {
     namespace detail {
         struct rope_iterator;
         struct const_rope_iterator;
+        struct const_rope_view_iterator;
     }
 
     struct text;

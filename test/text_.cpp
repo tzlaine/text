@@ -1,5 +1,6 @@
 #define BOOST_TEXT_TESTING
 #include <boost/text/text.hpp>
+#include <boost/text/string_utility.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 

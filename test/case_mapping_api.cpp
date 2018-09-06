@@ -1,5 +1,5 @@
 #include <boost/text/case_mapping.hpp>
-
+#include <boost/text/string_utility.hpp>
 #include <boost/text/utf8.hpp>
 
 #include <gtest/gtest.h>

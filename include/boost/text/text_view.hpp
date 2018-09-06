@@ -3,10 +3,13 @@
 
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/utf8.hpp>
+#include <boost/text/detail/utility.hpp>
 
 #include <boost/assert.hpp>
 
 #include <iterator>
+
+#include <climits>
 
 
 namespace boost { namespace text {
