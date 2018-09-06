@@ -118,6 +118,8 @@ namespace boost { namespace text {
             return os;
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
     private:
         static iterator make_iter(
             detail::const_rope_view_iterator first,
@@ -125,6 +127,8 @@ namespace boost { namespace text {
             detail::const_rope_view_iterator last) noexcept;
 
         unencoded_rope_view view_;
+
+#endif
     };
 
     inline bool operator==(rope_view lhs, rope_view rhs) noexcept

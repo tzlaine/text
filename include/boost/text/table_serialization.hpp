@@ -45,8 +45,9 @@ namespace boost { namespace text {
         }
     }
 
-    /** Serializes the given collation table, writing the results to \a out.
-        Returns the final value of \a out after the write. */
+    /** Serializes the given collation table, writing the results to
+        <code>out</code>.  Returns the final value of <code>out</code> after
+        the write. */
     template<typename CharIter>
     CharIter
     write_table(collation_table const & table_proper, CharIter out) noexcept
@@ -69,8 +70,8 @@ namespace boost { namespace text {
         return out;
     }
 
-    /** Deserializes a collation table by reading from \a it.  Returns the
-        final value of \a it after the read. */
+    /** Deserializes a collation table by reading from <code>it</code>.
+        Returns the final value of <code>it</code> after the read. */
     template<typename CharIter>
     read_table_result<CharIter> read_table(CharIter it)
     {

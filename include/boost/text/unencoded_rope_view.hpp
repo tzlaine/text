@@ -119,7 +119,8 @@ namespace boost { namespace text {
         /** Constructs a unencoded_rope_view from a range of char.
 
             This function only participates in overload resolution if
-            ContigCharRange models the ContigCharRange concept. */
+            <code>ContigCharRange</code> models the ContigCharRange
+            concept. */
         template<typename ContigCharRange>
         explicit unencoded_rope_view(ContigCharRange const & r);
 
@@ -127,7 +128,8 @@ namespace boost { namespace text {
             underlying range of char.
 
             This function only participates in overload resolution if
-            ContigGraphemeRange models the ContigGraphemeRange concept. */
+            <code>ContigGraphemeRange</code> models the ContigGraphemeRange
+            concept. */
         template<typename ContigGraphemeRange>
         explicit unencoded_rope_view(ContigGraphemeRange const & r);
 
@@ -258,7 +260,8 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            ContigCharRange models the ContigCharRange concept. */
+            <code>ContigCharRange</code> models the ContigCharRange
+            concept. */
         template<typename ContigCharRange>
         unencoded_rope_view & operator=(ContigCharRange const & r);
 
@@ -266,7 +269,8 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            ContigGraphemeRange models the ContigGraphemeRange concept. */
+            <code>ContigGraphemeRange</code> models the ContigGraphemeRange
+            concept. */
         template<typename ContigGraphemeRange>
         unencoded_rope_view & operator=(ContigGraphemeRange const & r);
 

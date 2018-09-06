@@ -7,8 +7,8 @@
 
 namespace boost { namespace text {
 
-    /** Puts the contents of \a s in Unicode normalization form NFD.
-        Normalization is not performed if \a s passes a normalization
+    /** Puts the contents of <code>s</code> in Unicode normalization form NFD.
+        Normalization is not performed if <code>s</code> passes a normalization
         quick-check. */
     inline void normalize_to_nfd(string & s)
     {
@@ -34,8 +34,8 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-    /** Puts the contents of \a s in Unicode normalization form NFKD.
-        Normalization is not performed if \a s passes a normalization
+    /** Puts the contents of <code>s</code> in Unicode normalization form NFKD.
+        Normalization is not performed if <code>s</code> passes a normalization
         quick-check. */
     inline void normalize_to_nfkd(string & s)
     {
@@ -61,8 +61,8 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-    /** Puts the contents of \a s in Unicode normalization form NFC.
-        Normalization is not performed if \a s passes a normalization
+    /** Puts the contents of <code>s</code> in Unicode normalization form NFC.
+        Normalization is not performed if <code>s</code> passes a normalization
         quick-check. */
     inline void normalize_to_nfc(string & s)
     {
@@ -88,8 +88,8 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-    /** Puts the contents of \a s in Unicode normalization form NFKC.
-        Normalization is not performed if \a s passes a normalization
+    /** Puts the contents of <code>s</code> in Unicode normalization form NFKC.
+        Normalization is not performed if <code>s</code> passes a normalization
         quick-check. */
     inline void normalize_to_nfkc(string & s)
     {
@@ -115,8 +115,9 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-    /** Puts the contents of \a s in normalization form FCC.  Normalization is
-        not performed if \a s passes a normalization quick-check. */
+    /** Puts the contents of <code>s</code> in normalization form FCC.
+       Normalization is not performed if <code>s</code> passes a normalization
+       quick-check. */
     inline void normalize_to_fcc(string & s)
     {
         // http://www.unicode.org/notes/tn5/#FCC

@@ -40,7 +40,7 @@ namespace boost { namespace text {
     }
 
     /** Returns the bidirectional algorithm character property associated with
-        code point \a cp. */
+        code point <code>cp</code>. */
     inline bidi_property bidi_prop(uint32_t cp) noexcept
     {
         static auto const map = detail::make_bidi_prop_map();
@@ -1284,9 +1284,9 @@ namespace boost { namespace text {
 
     /** Represents a subrange of code points ordered by the Unicode
         bidirectional algorithm, with or without a line break at the end; the
-        line break may be a hard line break, or a allowed line break,
+        line break may be a hard line break, or an allowed line break,
         according to the Unicode line break algorithm.  This is the output
-        type for the code point overloads of bidirectional_order(). */
+        type for the code point overloads of bidirectional_subranges(). */
     template<typename CPIter>
     struct bidirectional_cp_subrange
     {
@@ -1309,18 +1309,25 @@ namespace boost { namespace text {
             break_(b)
         {}
 
+        /** Returns true if this subrange ends with some kind of line
+            break. */
         bool line_break() const noexcept
         {
             return hard_line_break() || allowed_line_break();
         }
+
+        /** Returns true if this subrange ends with a hard line break. */
         bool hard_line_break() const noexcept
         {
             return break_ == detail::bidi_line_break_kind::hard;
         }
+
+        /** Returns true if this subrange ends with an allowed line break. */
         bool allowed_line_break() const noexcept
         {
             return break_ == detail::bidi_line_break_kind::allowed;
         }
+
         bool empty() const noexcept { return first_ == last_; }
         iterator begin() const noexcept { return first_; }
         iterator end() const noexcept { return last_; }
@@ -1333,9 +1340,9 @@ namespace boost { namespace text {
 
     /** Represents a subrange of graphemes ordered by the Unicode
         bidirectional algorithm, with or without a line break at the end; the
-        line break may be a hard line break, or a allowed line break,
+        line break may be a hard line break, or an allowed line break,
         according to the Unicode line break algorithm.  This is the output
-        type for the grapheme overloads of bidirectional_order(). */
+        type for the grapheme overloads of bidirectional_subranges(). */
     template<typename CPIter>
     struct bidirectional_grapheme_subrange
     {
@@ -1367,18 +1374,25 @@ namespace boost { namespace text {
             break_(b)
         {}
 
+        /** Returns true if this subrange ends with some kind of line
+            break. */
         bool line_break() const noexcept
         {
             return hard_line_break() || allowed_line_break();
         }
+
+        /** Returns true if this subrange ends with a hard line break. */
         bool hard_line_break() const noexcept
         {
             return break_ == detail::bidi_line_break_kind::hard;
         }
+
+        /** Returns true if this subrange ends with an allowed line break. */
         bool allowed_line_break() const noexcept
         {
             return break_ == detail::bidi_line_break_kind::allowed;
         }
+
         bool empty() const noexcept { return first_ == last_; }
         iterator begin() const noexcept { return first_; }
         iterator end() const noexcept { return last_; }
@@ -2257,13 +2271,11 @@ namespace boost { namespace text {
         };
     }
 
-    /** Represents a range of non-overlapping subranges.  Each subrange
-        represents some semantically significant segment, the semantics of
-        which are controlled by the NextFunc template parameter.  For
-        instance, if NextFunc is next_paragraph_break, the subranges produced
-        by lazy_segment_range will be paragraphs.  Each subrange is lazily
-        produced; an output subrange is not produced until a lazy range
-        iterator is dereferenced. */
+    /** Represents a range of non-overlapping subranges.  Each subrange is a
+        sequence of code points that are all in a consistent direction
+        (left-to-right or right-to-lef).  Each subrange is lazily produced; an
+        output subrange is not produced until a lazy range iterator is
+        dereferenced. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -2295,24 +2307,25 @@ namespace boost { namespace text {
                 state_;
     };
 
-    /** Returns a lazy range of code point subranges in [first, last); each
-        subrange is one of three kinds: a forward-subrange; a
-        reverse-subrange; or a one-code-point subrange used to subtitute a
-        reversed bracketing code point (e.g. '[') for its couterpart
-        (e.g. ']').  There is a single iterator type used in the resulting
-        subranges, so this distinction is not visible in the subrange API.
+    /** Returns a lazy range of code point subranges in <code>[first,
+        last)</code>; each subrange is one of three kinds: a forward-subrange;
+        a reverse-subrange; or a one-code-point subrange used to subtitute a
+        reversed bracketing code point (e.g. <code>'['</code>) for its
+        couterpart (e.g. <code>']'</code>).  There is a single iterator type
+        used in the resulting subranges, so this distinction is not exposed in
+        the subrange API.
 
-        Line breaks are determined by calling lines(first, last); only hard
-        line breaks are considered.
+        Line breaks are determined within the algorithm by calling
+        <code>lines(first, last)</code>; only hard line breaks are considered.
 
-        If a non-negative paragraph_embedding_level is provided, it will be
-        used instead of the initial paragraph embedding level computed by the
-        bidirectional algorithm.  This applies to all paragraphs found in
-        [first, last).
+        If a non-negative <code>paragraph_embedding_level</code> is provided,
+        it will be used instead of the initial paragraph embedding level
+        computed by the bidirectional algorithm.  This applies to all
+        paragraphs found in <code>[first, last)</code>.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
-        in the output.  The Unicode Bidirectional Algorithm specifies that
+        in the output.  The Unicode bidirectional algorithm specifies that
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.*/
@@ -2327,24 +2340,25 @@ namespace boost { namespace text {
         return {first, last, paragraph_embedding_level};
     }
 
-    /** Returns a lazy range of code point subranges in range; each subrange
-        is one of three kinds: a forward-subrange; a reverse-subrange; or a
-        one-code-point subrange used to subtitute a reversed bracketing code
-        point (e.g. '[') for its couterpart (e.g. ']').  There is a single
-        iterator type used in the resulting subranges, so this distinction is
-        not visible in the subrange API.
+    /** Returns a lazy range of code point subranges in <code>range</code>;
+        each subrange is one of three kinds: a forward-subrange; a
+        reverse-subrange; or a one-code-point subrange used to subtitute a
+        reversed bracketing code point (e.g. <code>'['</code>) for its
+        couterpart (e.g. <code>']'</code>).  There is a single iterator type
+        used in the resulting subranges, so this distinction is not exposed in
+        the subrange API.
 
-        Line breaks are determined by calling lines(first, last); only hard
-        line breaks are considered.
+        Line breaks are determined within the algorithm by calling
+        <code>lines(first, last)</code>; only hard line breaks are considered.
 
-        If a non-negative paragraph_embedding_level is provided, it will be
-        used instead of the initial paragraph embedding level computed by the
-        bidirectional algorithm.  This applies to all paragraphs found in
-        range.
+        If a non-negative <code>paragraph_embedding_level</code> is provided,
+        it will be used instead of the initial paragraph embedding level
+        computed by the bidirectional algorithm.  This applies to all
+        paragraphs found in <code>range</code>.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
-        in the output.  The Unicode Bidirectional Algorithm specifies that
+        in the output.  The Unicode bidirectional algorithm specifies that
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.*/
@@ -2361,24 +2375,25 @@ namespace boost { namespace text {
         return {std::begin(range), std::end(range), paragraph_embedding_level};
     }
 
-    /** Returns a lazy range of grapheme subranges in range; each subrange is
-        one of three kinds: a forward-subrange; a reverse-subrange; or a
-        one-grapheme subrange used to subtitute a reversed bracketing grapheme
-        (e.g. '[') for its couterpart (e.g. ']').  There is a single iterator
-        type used in the resulting subranges, so this distinction is not
-        visible in the subrange API.
+    /** Returns a lazy range of grapheme subranges in <code>range</code>; each
+        subrange is one of three kinds: a forward-subrange; a
+        reverse-subrange; or a one-grapheme subrange used to subtitute a
+        reversed bracketing grapheme (e.g. <code>'['</code>) for its
+        couterpart (e.g. <code>']'</code>).  There is a single iterator type
+        used in the resulting subranges, so this distinction is not exposed in
+        the subrange API.
 
-        Line breaks are determined by calling lines(first, last); only hard
-        line breaks are considered.
+        Line breaks are determined within the algorithm by calling
+        <code>lines(first, last)</code>; only hard line breaks are considered.
 
-        If a non-negative paragraph_embedding_level is provided, it will be
-        used instead of the initial paragraph embedding level computed by the
-        bidirectional algorithm.  This applies to all paragraphs found in
-        range.
+        If a non-negative <code>paragraph_embedding_level</code> is provided,
+        it will be used instead of the initial paragraph embedding level
+        computed by the bidirectional algorithm.  This applies to all
+        paragraphs found in <code>range</code>.
 
         Graphemes that are used to control the left-to-right or right-to-left
         direction of graphemes within the text will not appear in the output.
-        The Unicode Bidirectional Algorithm specifies that graphemes with
+        The Unicode bidirectional algorithm specifies that graphemes with
         classes RLE, LRE, RLO, LRO, PDF, and BN not appear in the output; this
         implementation additionally removes graphemes with classes FSI, LRI,
         RLI, and PDI.*/
@@ -2398,24 +2413,26 @@ namespace boost { namespace text {
                 paragraph_embedding_level};
     }
 
-    /** Returns a lazy range of code point subranges in [first, last); each
-        subrange is one of three kinds: a forward-subrange; a
-        reverse-subrange; or a one-code-point subrange used to subtitute a
-        reversed bracketing code point (e.g. '[') for its couterpart
-        (e.g. ']').  There is a single iterator type used in the resulting
-        subranges, so this distinction is not visible in the subrange API.
+    /** Returns a lazy range of code point subranges in <code>[first,
+        last)</code>; each subrange is one of three kinds: a forward-subrange;
+        a reverse-subrange; or a one-code-point subrange used to subtitute a
+        reversed bracketing code point (e.g. <code>'['</code>) for its
+        couterpart (e.g. <code>']'</code>).  There is a single iterator type
+        used in the resulting subranges, so this distinction is not exposed in
+        the subrange API.
 
-        Line breaks are determined by calling lines(first, last, max_extent,
-        cp_extent, break_overlong_lines).
+        Line breaks are determined within the algorithm by calling
+        <code>lines(first, last, max_extent, cp_extent,
+        break_overlong_lines)</code>.
 
-        If a non-negative paragraph_embedding_level is provided, it will be
-        used instead of the initial paragraph embedding level computed by the
-        bidirectional algorithm.  This applies to all paragraphs found in
-        [first, last).
+        If a non-negative <code>paragraph_embedding_level</code> is provided,
+        it will be used instead of the initial paragraph embedding level
+        computed by the bidirectional algorithm.  This applies to all
+        paragraphs found in <code>[first, last)</code>.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
-        in the output.  The Unicode Bidirectional Algorithm specifies that
+        in the output.  The Unicode bidirectional algorithm specifies that
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.*/
@@ -2445,24 +2462,26 @@ namespace boost { namespace text {
         return {first, last, paragraph_embedding_level, std::move(next)};
     }
 
-    /** Returns a lazy range of code point subranges in range; each subrange
-        is one of three kinds: a forward-subrange; a reverse-subrange; or a
-        one-code-point subrange used to subtitute a reversed bracketing code
-        point (e.g. '[') for its couterpart (e.g. ']').  There is a single
-        iterator type used in the resulting subranges, so this distinction is
-        not visible in the subrange API.
+    /** Returns a lazy range of code point subranges in <code>range</code>;
+        each subrange is one of three kinds: a forward-subrange; a
+        reverse-subrange; or a one-code-point subrange used to subtitute a
+        reversed bracketing code point (e.g. <code>'['</code>) for its
+        couterpart (e.g. <code>']'</code>).  There is a single iterator type
+        used in the resulting subranges, so this distinction is not exposed in
+        the subrange API.
 
-        Line breaks are determined by calling lines(first, last, max_extent,
-        cp_extent, break_overlong_lines).
+        Line breaks are determined within the algorithm by calling
+        <code>lines(first, last, max_extent, cp_extent,
+        break_overlong_lines)</code>.
 
-        If a non-negative paragraph_embedding_level is provided, it will be
-        used instead of the initial paragraph embedding level computed by the
-        bidirectional algorithm.  This applies to all paragraphs found in
-        range.
+        If a non-negative <code>paragraph_embedding_level</code> is provided,
+        it will be used instead of the initial paragraph embedding level
+        computed by the bidirectional algorithm.  This applies to all
+        paragraphs found in <code>range</code>.
 
         Code points that are used to control the left-to-right or
         right-to-left direction of code points within the text will not appear
-        in the output.  The Unicode Bidirectional Algorithm specifies that
+        in the output.  The Unicode bidirectional algorithm specifies that
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.*/
@@ -2492,24 +2511,26 @@ namespace boost { namespace text {
                 std::move(next)};
     }
 
-    /** Returns a lazy range of grapheme subranges in range; each subrange is
-        one of three kinds: a forward-subrange; a reverse-subrange; or a
-        one-grapheme subrange used to subtitute a reversed bracketing grapheme
-        (e.g. '[') for its couterpart (e.g. ']').  There is a single iterator
-        type used in the resulting subranges, so this distinction is not
-        visible in the subrange API.
+    /** Returns a lazy range of grapheme subranges in <code>range</code>; each
+        subrange is one of three kinds: a forward-subrange; a
+        reverse-subrange; or a one-grapheme subrange used to subtitute a
+        reversed bracketing grapheme (e.g. <code>'['</code>) for its
+        couterpart (e.g. <code>']'</code>).  There is a single iterator type
+        used in the resulting subranges, so this distinction is not exposed in
+        the subrange API.
 
-        Line breaks are determined by calling lines(first, last, max_extent,
-        cp_extent, break_overlong_lines).
+        Line breaks are determined within the algorithm by calling
+        <code>lines(first, last, max_extent, cp_extent,
+        break_overlong_lines)</code>.
 
-        If a non-negative paragraph_embedding_level is provided, it will be
-        used instead of the initial paragraph embedding level computed by the
-        bidirectional algorithm.  This applies to all paragraphs found in
-        range.
+        If a non-negative <code>paragraph_embedding_level</code> is provided,
+        it will be used instead of the initial paragraph embedding level
+        computed by the bidirectional algorithm.  This applies to all
+        paragraphs found in <code>range</code>.
 
         Graphemes that are used to control the left-to-right or right-to-left
         direction of graphemes within the text will not appear in the output.
-        The Unicode Bidirectional Algorithm specifies that graphemes with
+        The Unicode bidirectional algorithm specifies that graphemes with
         classes RLE, LRE, RLO, LRO, PDF, and BN not appear in the output; this
         implementation additionally removes graphemes with classes FSI, LRI,
         RLI, and PDI.*/

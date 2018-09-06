@@ -71,14 +71,14 @@ namespace boost { namespace text {
         /** Constructs a rope from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         explicit rope(CharRange const & r);
 
         /** Constructs a rope from a sequence of char.
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept. */
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         rope(CharIter first, Sentinel last);
 
@@ -116,7 +116,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         rope & operator=(CharRange const & r);
 
@@ -187,15 +187,15 @@ namespace boost { namespace text {
         /** Inserts the char range r into *this starting at position at.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         const_iterator insert(const_iterator at, CharRange const & r);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept. */
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         const_iterator insert(const_iterator at, CharIter first, Sentinel last);
 
@@ -257,7 +257,7 @@ namespace boost { namespace text {
             char range r.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept.
+            <code>CharRange</code> models the CharRange concept.
 
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
@@ -268,8 +268,8 @@ namespace boost { namespace text {
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence [first, last).
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept.
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept.
 
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
@@ -324,7 +324,7 @@ namespace boost { namespace text {
         /** Appends the char range r to *this.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         rope & operator+=(CharRange const & r);
 
@@ -947,15 +947,15 @@ namespace boost { namespace text {
 
     /** Creates a new rope object that is the concatenation of r and r2.
 
-        This function only participates in overload resolution if CharRange
-        models the CharRange concept. */
+        This function only participates in overload resolution if
+        <code>CharRange</code> models the CharRange concept. */
     template<typename CharRange>
     rope operator+(rope r, CharRange const & r2);
 
     /** Creates a new rope object that is the concatenation of r and r2.
 
-        This function only participates in overload resolution if CharRange
-        models the CharRange concept. */
+        This function only participates in overload resolution if
+        <code>CharRange</code> models the CharRange concept. */
     template<typename CharRange>
     rope operator+(CharRange const & r, rope const & r2);
 

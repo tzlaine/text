@@ -114,6 +114,8 @@ namespace boost { namespace text {
             return os;
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
     private:
         static iterator make_iter(char * first, char * it, char * last) noexcept
         {
@@ -125,6 +127,8 @@ namespace boost { namespace text {
 
         iterator first_;
         iterator last_;
+
+#endif
     };
 
     inline bool operator==(text_view lhs, text_view rhs) noexcept

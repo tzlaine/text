@@ -12,6 +12,8 @@
 #include <numeric>
 #include <vector>
 
+#ifndef BOOST_TEXT_DOXYGEN
+
 #define BOOST_TEXT_TAILORING_INSTRUMENTATION 0
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
 #include <iostream>
@@ -21,6 +23,8 @@
 namespace boost { namespace filesystem {
     class path;
 }}
+
+#endif
 
 namespace boost { namespace text {
 
@@ -211,14 +215,17 @@ namespace boost { namespace text {
     /** A collation table.  Such a table is necessary to use the collation
         API.
 
-        collation_table has the semantics of a shared_ptr to const.  It can be
-        copied cheaply; copies should be made freely.
+        collation_table has the semantics of a <code>std::shared_ptr</code> to
+        <code>const</code>.  It can be copied cheaply; copies should be made
+        freely.
 
         \see default_collation_table()
         \see tailored_collation_table()
     */
     struct collation_table
     {
+#ifndef BOOST_TEXT_DOXYGEN
+
         /** Returns a comparison object. */
         collation_compare compare(
             collation_strength strength = collation_strength::tertiary,
@@ -308,7 +315,16 @@ namespace boost { namespace text {
         friend void save_table(
             collation_table const & table, filesystem::path const & path);
         friend collation_table load_table(filesystem::path const & path);
+
+#endif
     };
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+    bool operator==(collation_table const & lhs, collation_table const & rhs);
+    bool operator!=(collation_table const & lhs, collation_table const & rhs);
+
+#endif
 
     /** A function object suitable for use with standard algorithms that
         accept a comparison object. */
@@ -1147,6 +1163,7 @@ namespace boost { namespace text {
             boost::container::
                 small_vector<detail::canonical_closure_string_t, 64>
                     relation_closure;
+#ifndef BOOST_TEXT_DOXYGEN
 #define DO_CANONICAL_CLOSURE 0
 #if DO_CANONICAL_CLOSURE
             detail::canonical_closure(
@@ -1165,6 +1182,7 @@ namespace boost { namespace text {
                 relation_closure.end());
 #else
             relation_closure.push_back(relation);
+#endif
 #endif
 
             for (auto & rel : relation_closure) {
@@ -1210,6 +1228,8 @@ namespace boost { namespace text {
     }
 }}
 
+#ifndef BOOST_TEXT_DOXYGEN
+
 namespace std {
     template<>
     struct hash<boost::text::detail::temp_table_element::ces_t>
@@ -1234,6 +1254,8 @@ namespace std {
         }
     };
 }
+
+#endif
 
 namespace boost { namespace text {
 
@@ -1291,17 +1313,19 @@ namespace boost { namespace text {
         return retval;
     }
 
-    /** Returns a collation table tailored using the tailoring specified in \a
-        tailoring.
+    /** Returns a collation table tailored using the tailoring specified in
+        <code>tailoring</code>.
 
-        If \a report_errors and/or \a report_warnings are provided, they will
-        be used to report warnings and errors, respectively.
+        If <code>report_errors</code> and/or <code>report_warnings</code> are
+        provided, they will be used to report parse warnings and errors,
+        respectively.
 
-        \note The suppressContractions element only supports code points and
-        code point ranges of the form "cp0-cp1".
-        \throws parse_error when a parse error is encountered.
-        \throws tailoring_error when some aspect of the requested tailoring
-        cannot be satisfied. */
+        \note The <code>suppressContractions</code> element only supports code
+        points and code point ranges of the form "cp0-cp1".
+
+        \throws parse_error when a parse error is encountered, or
+        tailoring_error when some aspect of the requested tailoring cannot be
+        satisfied. */
     inline collation_table tailored_collation_table(
         string_view tailoring,
         string_view tailoring_filename = "",

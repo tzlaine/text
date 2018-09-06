@@ -1,4 +1,4 @@
-[section The _Text_ String Types]
+[section The String Layer]
 
 [heading The `string_view` Type]
 

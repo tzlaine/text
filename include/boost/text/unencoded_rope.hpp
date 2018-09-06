@@ -56,14 +56,14 @@ namespace boost { namespace text {
         /** Constructs a unencoded_rope from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         explicit unencoded_rope(CharRange const & r);
 
         /** Constructs an unencoded_rope from a sequence of char.
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept. */
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         unencoded_rope(CharIter first, Sentinel last);
 
@@ -71,7 +71,7 @@ namespace boost { namespace text {
             underlying range of char.
 
             This function only participates in overload resolution if
-            GraphemeRange models the GraphemeRange concept. */
+            <code>GraphemeRange</code> models the GraphemeRange concept. */
         template<typename GraphemeRange>
         explicit unencoded_rope(GraphemeRange const & r);
 
@@ -127,7 +127,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         unencoded_rope & operator=(CharRange const & r);
 
@@ -135,7 +135,7 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            GraphemeRange models the GraphemeRange concept. */
+            <code>GraphemeRange</code> models the GraphemeRange concept. */
         template<typename GraphemeRange>
         unencoded_rope & operator=(GraphemeRange const & r);
 
@@ -291,30 +291,30 @@ namespace boost { namespace text {
         /** Inserts the char sequence r into *this starting at offset at.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         auto insert(size_type at, CharRange const & r);
 
         /** Inserts the char sequence r into *this starting at position at.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         auto insert(const_iterator at, CharRange const & r);
 
         /** Inserts the char sequence [first, last) into *this starting at
             offset at.
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept. */
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         unencoded_rope & insert(size_type at, CharIter first, Sentinel last);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept. */
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept. */
         template<typename CharIter, typename Sentinel>
         unencoded_rope &
         insert(const_iterator at, CharIter first, Sentinel last);
@@ -381,8 +381,8 @@ namespace boost { namespace text {
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence r.
 
-            This function only participates in overload resolution if CharRange
-            models the CharRange concept.
+            This function only participates in overload resolution if
+            <code>CharRange</code> models the CharRange concept.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename CharRange>
@@ -391,8 +391,8 @@ namespace boost { namespace text {
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence [first, last).
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept.
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept.
 
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename CharIter, typename Sentinel>
@@ -402,8 +402,8 @@ namespace boost { namespace text {
         /** Replaces the portion of *this delimited by [old_first, old_last)
             with the char sequence [new_first, new_last).
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept.
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept.
 
            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         template<typename CharIter, typename Sentinel>
@@ -469,8 +469,8 @@ namespace boost { namespace text {
 
         /** Append r to *this.
 
-            This function only participates in overload resolution if CharRange
-            models the CharRange concept. */
+            This function only participates in overload resolution if
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         unencoded_rope & operator+=(CharRange const & r);
 
@@ -1291,16 +1291,16 @@ namespace boost { namespace text {
     /** Creates a new unencoded_rope object that is the concatenation of ur
         and r.
 
-        This function only participates in overload resolution if CharRange
-        models the CharRange concept. */
+        This function only participates in overload resolution if
+        <code>CharRange</code> models the CharRange concept. */
     template<typename CharRange>
     unencoded_rope & operator+(unencoded_rope ur, CharRange const & r);
 
     /** Creates a new unencoded_rope object that is the concatenation of r
         and ur.
 
-        This function only participates in overload resolution if CharRange
-        models the CharRange concept. */
+        This function only participates in overload resolution if
+        <code>CharRange</code> models the CharRange concept. */
     template<typename CharRange>
     unencoded_rope & operator+(CharRange const & r, unencoded_rope const & ur);
 

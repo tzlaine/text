@@ -347,7 +347,7 @@ namespace boost { namespace text { namespace detail {
         return quick_check(it->second.nfkc_quick_check_);
     }
 
-    /** Returns true iff \a cp is a stable code point under FCC normalization
+    /** Returns true iff cp is a stable code point under FCC normalization
         (meaning that it is ccc=0 and Quick_Check_NFC=Yes).
 
         \see https://www.unicode.org/reports/tr15/#Stable_Code_Points */

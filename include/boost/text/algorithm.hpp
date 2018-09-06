@@ -28,8 +28,8 @@ namespace boost { namespace text {
         }
     }
 
-    /** Range-friendly version of std::distance(), taking an iterator and a
-        sentinel. */
+    /** Range-friendly version of <code>std::distance()</code>, taking an
+        iterator and a sentinel. */
     template<typename Iter, typename Sentinel>
     std::ptrdiff_t distance(Iter first, Sentinel last)
     {
@@ -42,8 +42,8 @@ namespace boost { namespace text {
                 detail::sentinel_tag>::type());
     }
 
-    /** Range-friendly version of std::find(), taking an iterator and a
-        sentinel. */
+    /** Range-friendly version of <code>std::find()</code>, taking an iterator
+        and a sentinel. */
     template<typename BidiIter, typename Sentinel, typename T>
     BidiIter find(BidiIter first, Sentinel last, T const & x)
     {
@@ -55,8 +55,8 @@ namespace boost { namespace text {
         return first;
     }
 
-    /** A range-friendly compliment to std::find(); returns an iterator to the
-        first element not equal to \a x. */
+    /** A range-friendly compliment to <code>std::find()</code>; returns an
+        iterator to the first element not equal to <code>x</code>. */
     template<typename BidiIter, typename Sentinel, typename T>
     BidiIter find_not(BidiIter first, Sentinel last, T const & x)
     {
@@ -68,8 +68,8 @@ namespace boost { namespace text {
         return first;
     }
 
-    /** Range-friendly version of std::find_if(), taking an iterator and a
-        sentinel. */
+    /** Range-friendly version of <code>std::find_if()</code>, taking an
+        iterator and a sentinel. */
     template<typename BidiIter, typename Sentinel, typename Pred>
     BidiIter find_if(BidiIter first, Sentinel last, Pred p)
     {
@@ -81,8 +81,8 @@ namespace boost { namespace text {
         return first;
     }
 
-    /** Range-friendly version of std::find_if_not(), taking an iterator and a
-        sentinel. */
+    /** Range-friendly version of <code>std::find_if_not()</code>, taking an
+        iterator and a sentinel. */
     template<typename BidiIter, typename Sentinel, typename Pred>
     BidiIter find_if_not(BidiIter first, Sentinel last, Pred p)
     {
@@ -94,8 +94,8 @@ namespace boost { namespace text {
         return first;
     }
 
-    /** Analogue of std::find() that finds the last value in [first, last)
-        equal to \a x. */
+    /** Analogue of <code>std::find()</code> that finds the last value in
+        <code>[first, last)</code> equal to <code>x</code>. */
     template<typename BidiIter, typename T>
     BidiIter find_backward(BidiIter first, BidiIter last, T const & x)
     {
@@ -107,8 +107,8 @@ namespace boost { namespace text {
         return last;
     }
 
-    /** Analogue of std::find() that finds the last value in [first, last) not
-        equal to \a x. */
+    /** Analogue of <code>std::find()</code> that finds the last value in
+        <code>[first, last)</code> not equal to <code>x</code>. */
     template<typename BidiIter, typename T>
     BidiIter find_not_backward(BidiIter first, BidiIter last, T const & x)
     {
@@ -120,8 +120,9 @@ namespace boost { namespace text {
         return last;
     }
 
-    /** Analogue of std::find() that finds the last value \a v in [first,
-        last) for which <code>p(v)</code> is true. */
+    /** Analogue of <code>std::find()</code> that finds the last value
+        <code>v</code> in <code>[first, last)</code> for which
+        <code>p(v)</code> is true. */
     template<typename BidiIter, typename Pred>
     BidiIter find_if_backward(BidiIter first, BidiIter last, Pred p)
     {
@@ -133,8 +134,9 @@ namespace boost { namespace text {
         return last;
     }
 
-    /** Analogue of std::find() that finds the last value \a v in [first,
-        last) for which <code>p(v)</code> is false. */
+    /** Analogue of <code>std::find()</code> that finds the last value
+        <code>v</code> in <code>[first, last)</code> for which
+        <code>p(v)</code> is false. */
     template<typename BidiIter, typename Pred>
     BidiIter find_if_not_backward(BidiIter first, BidiIter last, Pred p)
     {
@@ -146,7 +148,7 @@ namespace boost { namespace text {
         return last;
     }
 
-    /** A utility range type returned by foreach_subrange*(). */
+    /** A utility range type returned by <code>foreach_subrange*()</code>. */
     template<typename Iter, typename Sentinel = Iter>
     struct foreach_subrange_range
     {
@@ -167,10 +169,11 @@ namespace boost { namespace text {
         sentinel last_;
     };
 
-    /** Calls <code>f(sub)</code> for each subrange \a sub in [first, last).
-        A subrange is a contiguous subsequence of elements that each compares
-        equal to the first element of the subsequence.  Subranges passed to \a
-        f are non-overlapping. */
+    /** Calls <code>f(sub)</code> for each subrange <code>sub</code> in
+        <code>[first, last)</code>.  A subrange is a contiguous subsequence of
+        elements that each compares equal to the first element of the
+        subsequence.  Subranges passed to <code>f</code> are
+        non-overlapping. */
     template<typename FwdIter, typename Sentinel, typename Func>
     Func foreach_subrange(FwdIter first, Sentinel last, Func f)
     {
@@ -184,10 +187,12 @@ namespace boost { namespace text {
         return f;
     }
 
-    /** Calls <code>f(sub)</code> for each subrange \a sub in [first, last).
-        A subrange is a contiguous subsequence of elements that for each
-        element e, proj(e) each compares equal to proj() of the first element
-        of the subsequence.  Subranges passed to \a f are non-overlapping. */
+    /** Calls <code>f(sub)</code> for each subrange <code>sub</code> in
+        <code>[first, last)</code>.  A subrange is a contiguous subsequence of
+        elements that for each element <code>e</code>, <code>proj(e)</code>
+        each compares equal to <code>proj()</code> of the first element of the
+        subsequence.  Subranges passed to <code>f</code> are
+        non-overlapping. */
     template<typename FwdIter, typename Sentinel, typename Func, typename Proj>
     Func foreach_subrange(FwdIter first, Sentinel last, Func f, Proj proj)
     {
@@ -205,9 +210,10 @@ namespace boost { namespace text {
         return f;
     }
 
-    /** Calls <code>f(sub)</code> for each subrange \a sub in [first, last).
-        A subrange is a contiguous subsequence of elements, each of which is
-        equal to \a x.  Subranges passed to \a f are non-overlapping. */
+    /** Calls <code>f(sub)</code> for each subrange <code>sub</code> in
+        <code>[first, last)</code>.  A subrange is a contiguous subsequence of
+        elements, each of which is equal to <code>x</code>.  Subranges passed
+        to <code>f</code> are non-overlapping. */
     template<typename FwdIter, typename Sentinel, typename T, typename Func>
     Func foreach_subrange_of(FwdIter first, Sentinel last, T const & x, Func f)
     {
@@ -221,10 +227,10 @@ namespace boost { namespace text {
         return f;
     }
 
-    /** Calls <code>f(sub)</code> for each subrange \a sub in [first, last).
-        A subrange is a contiguous subsequence of elements \a ei for which
-        <code>p(ei)</code> is true.  Subranges passed to \a f are
-        non-overlapping. */
+    /** Calls <code>f(sub)</code> for each subrange <code>sub</code> in
+        <code>[first, last)</code>.  A subrange is a contiguous subsequence of
+        elements <code>ei</code> for which <code>p(ei)</code> is true.
+        Subranges passed to <code>f</code> are non-overlapping. */
     template<typename FwdIter, typename Sentinel, typename Pred, typename Func>
     Func foreach_subrange_if(FwdIter first, Sentinel last, Pred p, Func f)
     {
@@ -238,7 +244,7 @@ namespace boost { namespace text {
         return f;
     }
 
-    /** Sentinel-friendly version of std::all_of(). */
+    /** Sentinel-friendly version of <code>std::all_of()</code>. */
     template<typename Iter, typename Sentinel, typename Pred>
     bool all_of(Iter first, Sentinel last, Pred p)
     {

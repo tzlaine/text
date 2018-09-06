@@ -18,7 +18,7 @@
 
 namespace boost { namespace text {
 
-    /** The line properties outlined in Unicode 11. */
+    /** The line properties defined by Unicode. */
     enum class line_property {
         AL,
         B2,
@@ -84,7 +84,8 @@ namespace boost { namespace text {
         make_line_prop_map();
     }
 
-    /** Returns the line property associated with code point \a cp. */
+    /** Returns the line property associated with code point
+        <code>cp</code>. */
     inline line_property line_prop(uint32_t cp) noexcept
     {
         static auto const map = detail::make_line_prop_map();
@@ -105,9 +106,9 @@ namespace boost { namespace text {
 
     /** The result type for line break algorithms that return an iterator, and
         which may return an iterator to either a hard (i.e. mandatory) or
-        allowed line break.  A hard break occurs at the beginning and end of
-        text, and after a code point with the line break property BK, CR, LF,
-        or NL (but not within a CR/LF pair). */
+        allowed line break.  A hard break occurs only after a code point with
+        the line break property BK, CR, LF, or NL (but not within a CR/LF
+        pair). */
     template<typename CPIter>
     struct line_break_result
     {
@@ -1217,18 +1218,30 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         }
     }
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Finds the nearest hard line break at or before before
         <code>it</code>. If <code>it == first</code>, that is returned.
         Otherwise, the first code point of the line that <code>it</code> is
         within is returned (even if <code>it</code> is already at the first
         code point of a line).  A hard line break follows any code points with
-        the property BK, CR (not followed by LF), LF, or NL. */
+        the property BK, CR (not followed by LF), LF, or NL.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    CPIter prev_hard_line_break(CPIter first, CPIter it, Sentinel last) noexcept;
+
+#else
+
     template<typename CPIter, typename Sentinel>
     auto prev_hard_line_break(CPIter first, CPIter it, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
         return detail::prev_line_break_impl(first, it, last, true).iter;
     }
+
+#endif
 
     /** Finds the nearest line break opportunity at or before before
         <code>it</code>.  If <code>it == first</code>, that is returned.
@@ -1242,12 +1255,137 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return detail::prev_line_break_impl(first, it, last, false);
     }
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Finds the next hard line break after <code>first</code>.  This will be
         the first code point after the current line, or <code>last</code> if
         no next line exists.  A hard line break follows any code points with
         the property BK, CR (not followed by LF), LF, or NL.
 
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept.
+
         \pre <code>first</code> is at the beginning of a line. */
+    template<typename CPIter, typename Sentinel>
+    CPIter next_hard_line_break(CPIter first, Sentinel last) noexcept;
+
+    /** Finds the next line break opportunity after <code>first</code>. This
+        will be the first code point after the current line, or
+        <code>last</code> if no next line exists.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept.
+
+        \pre <code>first</code> is at the beginning of a line. */
+    template<typename CPIter, typename Sentinel>
+    CPIter next_allowed_line_break(CPIter first, Sentinel last) noexcept;
+
+    /** Finds the nearest hard line break at or before before
+        <code>it</code>. If <code>it == range.begin()</code>, that is
+        returned.  Otherwise, the first code point of the line that
+        <code>it</code> is within is returned (even if <code>it</code> is
+        already at the first code point of a line).  A hard line break follows
+        any code points with the property BK, CR (not followed by LF), LF, or
+        NL.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept. */
+    template<typename CPRange, typename CPIter>
+    detail::unspecified
+    prev_hard_line_break(CPRange & range, CPIter it) noexcept;
+
+    /** Returns a grapheme_iterator to the nearest hard line break at or
+        before before <code>it</code>.  If <code>it == range.begin()</code>,
+        that is returned.  Otherwise, the first grapheme of the line that
+        <code>it</code> is within is returned (even if <code>it</code> is
+        already at the first grapheme of a line).  A hard line break follows
+        any code points with the property BK, CR (not followed by LF), LF, or
+        NL.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    detail::unspecified
+    prev_hard_line_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+
+    /** Finds the next hard line break after <code>it</code>.  This will be
+        the first code point after the current line, or
+        <code>range.end()</code> if no next line exists.  A hard line break
+        follows any code points with the property BK, CR (not followed by LF),
+        LF, or NL.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept.
+
+        \pre <code>it</code> is at the beginning of a line. */
+    template<typename CPRange, typename CPIter>
+    detail::unspecified
+    next_hard_line_break(CPRange & range, CPIter it) noexcept;
+
+    /** Returns a grapheme_iterator to the next hard line break after
+        <code>it</code>.  This will be the first grapheme after the current
+        line, or <code>range.end()</code> if no next line exists.  A hard line
+        break follows any code points with the property BK, CR (not followed
+        by LF), LF, or NL.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept.
+
+        \pre <code>it</code> is at the beginning of a line. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    detail::unspecified
+    next_hard_line_break(GraphemeRange const & range, GraphemeIter it) noexcept;
+
+    /** Finds the nearest line break opportunity at or before before
+        <code>it</code>.  If <code>it == range.begin()</code>, that is
+        returned.  Otherwise, the first code point of the line that
+        <code>it</code> is within is returned (even if <code>it</code> is
+        already at the first code point of a line.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept. */
+    template<typename CPRange, typename CPIter>
+    detail::unspecified
+    prev_allowed_line_break(CPRange & range, CPIter it) noexcept;
+
+    /** Returns a grapheme_iterator to the nearest line break opportunity at
+        or before before <code>it</code>.  If <code>it ==
+        range.begin()</code>, that is returned.  Otherwise, the first grapheme
+        of the line that <code>it</code> is within is returned (even if
+        <code>it</code> is already at the first grapheme of a line).
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    detail::unspecified prev_allowed_line_break(
+        GraphemeRange const & range, GraphemeIter it) noexcept;
+
+    /** Finds the next line break opportunity after <code>it</code>.  This
+        will be the first code point after the current line, or
+        <code>range.end()</code> if no next line exists.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept.
+
+        \pre <code>it</code> is at the beginning of a line. */
+    template<typename CPRange, typename CPIter>
+    detail::unspecified
+    next_allowed_line_break(CPRange & range, CPIter it) noexcept;
+
+    /** Returns a grapheme_iterator to the next line break opportunity after
+        <code>it</code>.  This will be the first grapheme after the current
+        line, or <code>range.end()</code> if no next line exists.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept.
+
+        \pre <code>it</code> is at the beginning of a line. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    detail::unspecified next_allowed_line_break(
+        GraphemeRange const & range, GraphemeIter it) noexcept;
+
+#else
+
     template<typename CPIter, typename Sentinel>
     auto next_hard_line_break(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<CPIter, CPIter>
@@ -1257,11 +1395,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             .iter;
     }
 
-    /** Finds the next line break opportunity after <code>first</code>. This
-        will be the first code point after the current line, or
-        <code>last</code> if no next line exists.
-
-        \pre <code>first</code> is at the beginning of a line. */
     template<typename CPIter, typename Sentinel>
     auto next_allowed_line_break(CPIter first, Sentinel last) noexcept
         -> detail::cp_iter_ret_t<line_break_result<CPIter>, CPIter>
@@ -1271,13 +1404,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             first, last, false, 0, no_op, false);
     }
 
-    /** Finds the nearest hard line break at or before before
-        <code>it</code>. If <code>it == range.begin()</code>, that is
-        returned.  Otherwise, the first code point of the line that
-        <code>it</code> is within is returned (even if <code>it</code> is
-        already at the first code point of a line).  A hard line break follows
-        any code points with the property BK, CR (not followed by LF), LF, or
-        NL. */
     template<typename CPRange, typename CPIter>
     auto prev_hard_line_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
@@ -1285,12 +1411,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return prev_hard_line_break(std::begin(range), it, std::end(range));
     }
 
-    /** Returns a grapheme_iterator to the nearest hard line break at or
-        before before 'it'.  If it == range.begin(), that is returned.
-        Otherwise, the first grapheme of the line that 'it' is within is
-        returned (even if 'it' is already at the first grapheme of a line).  A
-        hard line break follows any code points with the property BK, CR (not
-        followed by LF), LF, or NL. */
     template<typename GraphemeRange, typename GraphemeIter>
     auto
     prev_hard_line_break(GraphemeRange const & range, GraphemeIter it) noexcept
@@ -1307,13 +1427,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 range.end().base()};
     }
 
-    /** Finds the next hard line break after <code>it</code>.  This will be
-        the first code point after the current line, or
-        <code>range.end()</code> if no next line exists.  A hard line break
-        follows any code points with the property BK, CR (not followed by LF),
-        LF, or NL.
-
-        \pre <code>it</code> is at the beginning of a line. */
     template<typename CPRange, typename CPIter>
     auto next_hard_line_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<detail::iterator_t<CPRange>, CPRange>
@@ -1321,12 +1434,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return next_hard_line_break(it, std::end(range));
     }
 
-    /** Returns a grapheme_iterator to the next hard line break after 'it'.
-        This will be the first grapheme after the current line, or range.end()
-        if no next line exists.  A hard line break follows any code points
-        with the property BK, CR (not followed by LF), LF, or NL.
-
-        \pre 'it' is at the beginning of a line. */
     template<typename GraphemeRange, typename GraphemeIter>
     auto
     next_hard_line_break(GraphemeRange const & range, GraphemeIter it) noexcept
@@ -1341,11 +1448,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 range.end().base()};
     }
 
-    /** Finds the nearest line break opportunity at or before before
-        <code>it</code>.  If <code>it == range.begin()</code>, that is
-        returned.  Otherwise, the first code point of the line that
-        <code>it</code> is within is returned (even if <code>it</code> is
-        already at the first code point of a line. */
     template<typename CPRange, typename CPIter>
     auto prev_allowed_line_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<
@@ -1355,10 +1457,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return prev_allowed_line_break(std::begin(range), it, std::end(range));
     }
 
-    /** Returns a grapheme_iterator to the nearest line break opportunity at
-        or before before 'it'.  If it == range.begin(), that is returned.
-        Otherwise, the first grapheme of the line that 'it' is within is
-        returned (even if 'it' is already at the first grapheme of a line). */
     template<typename GraphemeRange, typename GraphemeIter>
     auto prev_allowed_line_break(
         GraphemeRange const & range, GraphemeIter it) noexcept
@@ -1375,11 +1473,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 prev.hard_break};
     }
 
-    /** Finds the next line break opportunity after <code>it</code>.  This
-        will be the first code point after the current line, or
-        <code>range.end()</code> if no next line exists.
-
-        \pre <code>it</code> is at the beginning of a line. */
     template<typename CPRange, typename CPIter>
     auto next_allowed_line_break(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<
@@ -1389,11 +1482,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return next_allowed_line_break(it, std::end(range));
     }
 
-    /** Returns a grapheme_iterator to the next line break opportunity after
-        'it'.  This will be the first grapheme after the current line, or
-        range.end() if no next line exists.
-
-        \pre 'it' is at the beginning of a line. */
     template<typename GraphemeRange, typename GraphemeIter>
     auto next_allowed_line_break(
         GraphemeRange const & range, GraphemeIter it) noexcept
@@ -1407,6 +1495,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return {{range.begin().base(), next.iter, range.end().base()},
                 next.hard_break};
     }
+
+#endif
 
     namespace detail {
         template<typename CPIter, typename Sentinel>
@@ -1495,8 +1585,70 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return cp_range<CPIter>{first, next_hard_line_break(first, last)};
     }
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Returns the bounds of the line (using hard line breaks) that
-        <code>it</code> lies within. */
+        <code>it</code> lies within, as a cp_range.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept. */
+    template<typename CPRange, typename CPIter>
+    detail::unspecified line(CPRange & range, CPIter it) noexcept;
+
+    /** Returns grapheme range delimiting the bounds of the line (using hard
+        line breaks) that <code>it</code> lies within, as a grapheme_range.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    detail::unspecified
+    line(GraphemeRange const & range, GraphemeIter it) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting lines (using
+        hard line breaks) in <code>[first, last)</code>. */
+    template<typename CPIter, typename Sentinel>
+    detail::unspecified
+    lines(CPIter first, Sentinel last) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting lines (using
+        hard line breaks) in <code>range</code>.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept. */
+    template<typename CPRange>
+    detail::unspecified lines(CPRange & range) noexcept;
+
+    /** Returns a lazy range of the grapheme ranges delimiting lines (using
+        hard line breaks) in <code>range</code>.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
+    template<typename GraphemeRange>
+    detail::unspecified lines(GraphemeRange const & range) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting lines (using
+        hard line breaks) in <code>[first, last)</code>, in reverse. */
+    template<typename CPIter>
+    detail::unspecified reversed_lines(CPIter first, CPIter last) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting lines (using
+        hard line breaks) in <code>range</code>, in reverse.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept. */
+    template<typename CPRange>
+    detail::unspecified reversed_lines(CPRange & range) noexcept;
+
+    /** Returns a lazy range of the grapheme ranges delimiting lines (using
+        hard line breaks) in <code>range</code>, in reverse.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
+    template<typename GraphemeRange>
+    detail::unspecified reversed_lines(GraphemeRange const & range) noexcept;
+
+#else
+
     template<typename CPRange, typename CPIter>
     auto line(CPRange & range, CPIter it) noexcept -> detail::
         cp_rng_alg_ret_t<cp_range<detail::iterator_t<CPRange>>, CPRange>
@@ -1507,8 +1659,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                                 next_hard_line_break(first, std::end(range))};
     }
 
-    /** Returns grapheme range delimiting the bounds of the line (using hard
-        line breaks) that 'it' lies within. */
     template<typename GraphemeRange, typename GraphemeIter>
     auto line(GraphemeRange const & range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
@@ -1523,8 +1673,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return {first, next_hard_line_break(first, range.end().base())};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting lines (using
-        hard line breaks) in <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
     lazy_segment_range<
         CPIter,
@@ -1536,8 +1684,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return {std::move(next), {first, last}, {last}};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting lines (using
-        hard line breaks) in <code>range</code>. */
     template<typename CPRange>
     auto lines(CPRange & range) noexcept -> detail::cp_rng_alg_ret_t<
         lazy_segment_range<
@@ -1557,8 +1703,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {std::end(range)}};
     }
 
-    /** Returns a lazy range of the grapheme ranges delimiting lines (using
-        hard line breaks) in range. */
     template<typename GraphemeRange>
     auto lines(GraphemeRange const & range) noexcept
         -> detail::graph_rng_alg_ret_t<
@@ -1578,8 +1722,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {range.end().base()}};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting lines (using
-        hard line breaks) in <code>[first, last)</code>, in reverse. */
     template<typename CPIter>
     lazy_segment_range<
         CPIter,
@@ -1594,8 +1736,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return {std::move(prev), {first, last, last}, {first, first, last}};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting lines (using
-        hard line breaks) in <code>range</code>, in reverse. */
     template<typename CPRange>
     auto reversed_lines(CPRange & range) noexcept -> detail::cp_rng_alg_ret_t<
         lazy_segment_range<
@@ -1613,8 +1753,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {std::begin(range), std::begin(range), std::end(range)}};
     }
 
-    /** Returns a lazy range of the grapheme ranges delimiting lines (using
-        hard line breaks) in range, in reverse. */
     template<typename GraphemeRange>
     auto reversed_lines(GraphemeRange const & range) noexcept
         -> detail::graph_rng_alg_ret_t<
@@ -1636,7 +1774,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             {range.begin().base(), range.begin().base(), range.end().base()}};
     }
 
-    /** A range of code points elements that delimit a pair of line break
+#endif
+
+    /** A range of code points that delimit a pair of line break
         boundaries. */
     template<typename CPIter, typename Sentinel = CPIter>
     struct line_break_cp_range : cp_range<CPIter, Sentinel>
@@ -1648,16 +1788,14 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             hard_break_(last.hard_break)
         {}
 
-        /** Returns true iff the end of *this is a hard line break
-            boundary. */
+        /** Returns true if the end of *this is a hard line break boundary. */
         bool hard_break() const noexcept { return hard_break_; }
 
     private:
         bool hard_break_;
     };
 
-    /** A range of grapheme elements that delimit a pair of line break
-        boundaries. */
+    /** A range of graphemes that delimit a pair of line break boundaries. */
     template<typename CPIter>
     struct line_break_grapheme_range : grapheme_range<CPIter>
     {
@@ -1675,21 +1813,73 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             hard_break_(last.hard_break)
         {}
 
-        /** Returns true iff the end of *this is a hard line break
-            boundary. */
+        /** Returns true if the end of *this is a hard line break boundary. */
         bool hard_break() const noexcept { return hard_break_; }
 
     private:
         bool hard_break_;
     };
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Returns a lazy range of the code point ranges in <code>[first,
         last)</code> delimiting lines.  A line that does not end in a hard
-        break will end in a allowed break that does not exceed max_extent,
-        using the code point extents derived from CPExtentFunc.  When a line
-        has no allowed breaks before it would exceed max_extent, if will be
-        broken only if break_overlong_lines is true.  If break_overlong_lines
-        is false, such an unbreakable line will exceed max_extent. */
+        break will end in a allowed break that does not exceed
+        <code>max_extent</code>, using the code point extents derived from
+        <code>CPExtentFunc</code>.  When a line has no allowed breaks before
+        it would exceed <code>max_extent</code>, it will be broken only if
+        <code>break_overlong_lines</code> is true.  If
+        <code>break_overlong_lines</code> is false, such an unbreakable line
+        will exceed <code>max_extent</code>. */
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename Extent,
+        typename CPExtentFunc>
+    detail::unspecified lines(
+        CPIter first,
+        Sentinel last,
+        Extent max_extent,
+        CPExtentFunc cp_extent,
+        bool break_overlong_lines = true) noexcept;
+
+    /** Returns a lazy range of the code point ranges in <code>range</code>
+        delimiting lines.  A line that does not end in a hard break will end
+        in a allowed break that does not exceed <code>max_extent</code>, using
+        the code point extents derived from <code>CPExtentFunc</code>.  When a
+        line has no allowed breaks before it would exceed
+        <code>max_extent</code>, it will be broken only if
+        <code>break_overlong_lines</code> is true.  If
+        <code>break_overlong_lines</code> is false, such an unbreakable line
+        will exceed <code>max_extent</code>. */
+    template<typename CPRange, typename Extent, typename CPExtentFunc>
+    detail::unspecified lines(
+        CPRange & range,
+        Extent max_extent,
+        CPExtentFunc cp_extent,
+        bool break_overlong_lines = true) noexcept;
+
+    /** Returns a lazy range of the grapheme ranges in <code>range</code>
+        delimiting lines.  A line that does not end in a hard break will end
+        in a allowed break that does not exceed <code>max_extent</code>, using
+        the code point extents derived from <code>CPExtentFunc</code>.  When a
+        line has no allowed breaks before it would exceed
+        <code>max_extent</code>, it will be broken only if
+        <code>break_overlong_lines</code> is true.  If
+        <code>break_overlong_lines</code> is false, such an unbreakable line
+        will exceed <code>max_extent</code>.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
+    template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
+    detail::unspecified lines(
+        GraphemeRange const & range,
+        Extent max_extent,
+        CPExtentFunc cp_extent,
+        bool break_overlong_lines = true) noexcept;
+
+#else
+
     template<
         typename CPIter,
         typename Sentinel,
@@ -1717,13 +1907,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {last}};
     }
 
-    /** Returns a lazy range of the code point ranges in range delimiting
-        lines. A line that does not end in a hard break will end in a allowed
-        break that does not exceed max_extent, using the code point extents
-        derived from CPExtentFunc.  When a line has no allowed breaks before
-        it would exceed max_extent, if will be broken only if
-        break_overlong_lines is true.  If break_overlong_lines is false, such
-        an unbreakable line will exceed max_extent. */
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     detail::cp_rng_alg_ret_t<
         lazy_segment_range<
@@ -1750,13 +1933,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {std::end(range)}};
     }
 
-    /** Returns a lazy range of the grapheme ranges in range delimiting
-        lines. A line that does not end in a hard break will end in a allowed
-        break that does not exceed max_extent, using the code point extents
-        derived from CPExtentFunc.  When a line has no allowed breaks before
-        it would exceed max_extent, if will be broken only if
-        break_overlong_lines is true.  If break_overlong_lines is false, such
-        an unbreakable line will exceed max_extent. */
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     auto lines(
         GraphemeRange const & range,
@@ -1783,6 +1959,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {range.end().base()}};
     }
 
+#endif
+
     /** Returns the bounds of the smallest chunk of text that could be broken
         off into a line, searching from <code>it</code> in either
         direction. */
@@ -1795,9 +1973,50 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             first_, next_allowed_line_break(first_.iter, last)};
     }
 
-    /** Returns the bounds of the smallest chunk of text that could be
-       broken off into a line, searching from <code>it</code> in either
-        direction. */
+#ifdef BOOST_TEXT_DOXYGEN
+
+    /** Returns the bounds of the smallest chunk of text that could be broken
+        off into a line, searching from <code>it</code> in either direction,
+        as a line_break_cp_range.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept. */
+    template<typename CPRange, typename CPIter>
+    detail::unspecified allowed_line(CPRange & range, CPIter it) noexcept;
+
+    /** Returns a grapheme range delimiting the bounds of the line (using hard
+        line breaks) that <code>it</code> lies within, as a
+        line_break_grapheme_range.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
+    template<typename GraphemeRange, typename GraphemeIter>
+    detail::unspecified
+    allowed_line(GraphemeRange const & range, GraphemeIter it) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting allowed
+        lines in <code>[first, last)</code>. */
+    template<typename CPIter, typename Sentinel>
+    detail::unspecified allowed_lines(CPIter first, Sentinel last) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting allowed
+        lines in <code>range</code>.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept. */
+    template<typename CPRange>
+    detail::unspecified allowed_lines(CPRange & range) noexcept;
+
+    /** Returns a lazy range of the grapheme ranges delimiting allowed lines
+        in <code>range</code>.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
+    template<typename GraphemeRange>
+    detail::unspecified allowed_lines(GraphemeRange const & range) noexcept;
+
+#else
+
     template<typename CPRange, typename CPIter>
     auto allowed_line(CPRange & range, CPIter it) noexcept
         -> detail::cp_rng_alg_ret_t<
@@ -1810,8 +2029,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             first, next_allowed_line_break(first.iter, std::end(range))};
     }
 
-    /** Returns grapheme range delimiting the bounds of the line (using hard
-        line breaks) that 'it' lies within. */
     template<typename GraphemeRange, typename GraphemeIter>
     auto allowed_line(GraphemeRange const & range, GraphemeIter it) noexcept
         -> detail::graph_rng_alg_ret_t<
@@ -1822,8 +2039,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         return {first, next_allowed_line_break(range, first.iter)};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting allowed
-        lines in <code>[first, last)</code>. */
     template<typename CPIter, typename Sentinel>
     lazy_segment_range<
         line_break_result<CPIter>,
@@ -1843,8 +2058,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {last}};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting allowed
-        lines in <code>range</code>. */
     template<typename CPRange>
     auto allowed_lines(CPRange & range) noexcept -> detail::cp_rng_alg_ret_t<
         lazy_segment_range<
@@ -1867,8 +2080,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {std::end(range)}};
     }
 
-    /** Returns a lazy range of the grapheme ranges delimiting allowed lines
-        in <code>range</code>. */
     template<typename GraphemeRange>
     auto allowed_lines(GraphemeRange const & range) noexcept
         -> detail::graph_rng_alg_ret_t<
@@ -1891,6 +2102,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                  range.end().base()},
                 {range.end().base()}};
     }
+
+#endif
 
     namespace detail {
         template<
@@ -1969,8 +2182,33 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         };
     }
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Returns a lazy range of the code point ranges delimiting allowed
         lines in <code>[first, last)</code>, in reverse. */
+    template<typename CPIter>
+    detail::unspecified
+    reversed_allowed_lines(CPIter first, CPIter last) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting allowed
+        lines in <code>range</code>, in reverse.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept. */
+    template<typename CPRange>
+    detail::unspecified reversed_allowed_lines(CPRange & range) noexcept;
+
+    /** Returns a lazy range of the grapheme ranges delimiting allowed lines
+        in <code>range</code>, in reverse.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
+    template<typename GraphemeRange>
+    detail::unspecified
+    reversed_allowed_lines(GraphemeRange const & range) noexcept;
+
+#else
+
     template<typename CPIter>
     lazy_segment_range<
         CPIter,
@@ -1992,8 +2230,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {first, first_result, last_result}};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting allowed
-        lines in <code>range</code>, in reverse. */
     template<typename CPRange>
     auto reversed_allowed_lines(CPRange & range) noexcept
         -> detail::cp_rng_alg_ret_t<
@@ -2022,8 +2258,6 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {begin, begin_result, end_result}};
     }
 
-    /** Returns a lazy range of the grapheme ranges delimiting allowed lines
-        in <code>range</code>, in reverse. */
     template<typename GraphemeRange>
     auto reversed_allowed_lines(GraphemeRange const & range) noexcept
         -> detail::graph_rng_alg_ret_t<
@@ -2051,6 +2285,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 {range.begin().base(), end_result, end_result},
                 {range.begin().base(), begin_result, end_result}};
     }
+
+#endif
 
 }}
 

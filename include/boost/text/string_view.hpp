@@ -66,7 +66,7 @@ namespace boost { namespace text {
         /** Constructs a string_view from a range of char.
 
             This function only participates in overload resolution if
-            ContigCharRange models the ContigCharRange concept. */
+            <code>ContigCharRange</code> models the ContigCharRange concept. */
         template<typename ContigCharRange>
         explicit string_view(ContigCharRange const & r);
 
@@ -74,7 +74,8 @@ namespace boost { namespace text {
             underlying range of char.
 
             This function only participates in overload resolution if
-            ContigGraphemeRange models the ContigGraphemeRange concept. */
+            <code>ContigGraphemeRange</code> models the ContigGraphemeRange
+            concept. */
         template<typename ContigGraphemeRange>
         explicit string_view(ContigGraphemeRange const & r);
 
@@ -132,7 +133,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            ContigCharRange models the ContigCharRange concept. */
+            <code>ContigCharRange</code> models the ContigCharRange concept. */
         template<typename ContigCharRange>
         string_view & operator=(ContigCharRange const & r);
 
@@ -140,7 +141,8 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            ContigGraphemeRange models the ContigGraphemeRange concept. */
+            <code>ContigGraphemeRange</code> models the ContigGraphemeRange
+            concept. */
         template<typename ContigGraphemeRange>
         string_view & operator=(ContigGraphemeRange const & r);
 

@@ -47,9 +47,9 @@ namespace boost { namespace text {
         }
     }
 
-    /** Writes the given collation table to the given path. */
-    void
-    save_table(collation_table const & table_proper, filesystem::path const & path)
+    /** Writes the given collation table to <code>path</code>. */
+    void save_table(
+        collation_table const & table_proper, filesystem::path const & path)
     {
         auto const & table = *table_proper.data_;
 
@@ -69,7 +69,7 @@ namespace boost { namespace text {
         detail::write_trie(table.trie_, ofs);
     }
 
-    /** Reads a collation table from the given path. */
+    /** Reads a collation table from <code>path</code>. */
     collation_table load_table(filesystem::path const & path)
     {
         collation_table retval;

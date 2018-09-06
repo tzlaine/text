@@ -21,6 +21,8 @@ using atomics, #define this macro to a nonzero value. */
 #    define BOOST_TEXT_STRING_INSERT_MAX 4096
 #endif
 
+#ifndef BOOST_TEXT_DOXYGEN
+
 // Nothing before GCC 6 has proper C++14 constexpr support.
 #if defined(__GNUC__) && __GNUC__ < 6 && !defined(__clang__)
 #    define BOOST_TEXT_CXX14_CONSTEXPR
@@ -89,5 +91,7 @@ using atomics, #define this macro to a nonzero value. */
 #include <boost/config/auto_link.hpp>
 #endif  // auto-linking disabled
 #endif
+
+#endif // doxygen
 
 #endif

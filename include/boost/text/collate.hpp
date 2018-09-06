@@ -8,13 +8,18 @@
 #include <boost/text/utility.hpp>
 #include <boost/text/detail/collation_data.hpp>
 
+#include <boost/algorithm/cxx14/equal.hpp>
 #include <boost/algorithm/cxx14/mismatch.hpp>
 #include <boost/container/small_vector.hpp>
 
 #include <vector>
 
+#ifndef BOOST_TEXT_DOXYGEN
+
 #ifndef BOOST_TEXT_COLLATE_INSTRUMENTATION
 #define BOOST_TEXT_COLLATE_INSTRUMENTATION 0
+#endif
+
 #endif
 
 
@@ -39,6 +44,16 @@ namespace boost { namespace text {
         std::vector<uint32_t> storage_;
     };
 
+    inline bool operator==(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+
+    inline bool operator!=(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return !(lhs == rhs);
+    }
+
 #if BOOST_TEXT_COLLATE_INSTRUMENTATION
     inline std::ostream & operator<<(std::ostream & os, text_sort_key const & k)
     {
@@ -51,8 +66,9 @@ namespace boost { namespace text {
     }
 #endif
 
-    /** Returns 0 if the given sort keys are equal, a value < 0 if \a lhs is
-        less than \a rhs, and a value > 0 otehrwise. */
+    /** Returns 0 if the given sort keys are equal, a value < 0 if
+        <code>lhs</code> is less than <code>rhs</code>, and a value > 0
+        otherwise. */
     inline int
     compare(text_sort_key const & lhs, text_sort_key const & rhs) noexcept
     {
@@ -779,12 +795,46 @@ namespace boost { namespace text {
         }
     }
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Returns a collation sort key for the code points in <code>[first,
         last)</code>, using the given collation table.  Any optional settings
-        such as case_first will be honored, so long as they do not conlfict
-        with the settings on the given table.
+        such as <code>case_1st</code> will be honored, so long as they do not
+        conlfict with the settings on the given table.
 
-        \pre [first, last) is normalized FCC. */
+        \pre <code>[first, last)</code> is normalized FCC.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    auto collation_sort_key(
+        CPIter first,
+        Sentinel last,
+        collation_table const & table,
+        collation_strength strength = collation_strength::tertiary,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
+        variable_weighting weighting = variable_weighting::non_ignorable,
+        l2_weight_order l2_order = l2_weight_order::forward);
+
+    /** Returns a collation sort key for the code points in <code>[first,
+        last)</code>, using the given collation table.  Any optional settings
+        flags will be honored, so long as they do not conlfict with the
+        settings on the given table.
+
+        \pre <code>[first, last)</code> is normalized FCC.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    text_sort_key collation_sort_key(
+        CPIter first,
+        Sentinel last,
+        collation_table const & table,
+        collation_flags flags);
+
+#else
+
     template<typename CPIter, typename Sentinel>
     auto collation_sort_key(
         CPIter first,
@@ -808,12 +858,6 @@ namespace boost { namespace text {
             table);
     }
 
-    /** Returns a collation sort key for the code points in <code>[first,
-        last)</code>, using the given collation table.  Any optional settings
-        such as case_first will be honored, so long as they do not conlfict
-        with the settings on the given table.
-
-        \pre [first, last) is normalized FCC. */
     template<typename CPIter, typename Sentinel>
     auto collation_sort_key(
         CPIter first,
@@ -832,9 +876,11 @@ namespace boost { namespace text {
             table);
     }
 
-    /** Returns a collation sort key for the code points in \a r, using the
-        given collation table.  Any optional settings such as case_first will
-        be honored, so long as they do not conlfict with the settings on the
+#endif
+
+    /** Returns a collation sort key for the code points in <code>r</code>,
+        using the given collation table.  Any optional settings flags will be
+        honored, so long as they do not conlfict with the settings on the
         given table.
 
         \pre r is normalized FCC. */
@@ -854,14 +900,62 @@ namespace boost { namespace text {
     }
 
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Returns the result of calling compare() on collation sort keys
         produced using <code>[lhs_first, lhs_last)</code> and
         <code>[rhs_first, rhs_last)</code>, respectively.  Any optional
-        settings such as case_first will be honored, so long as they do not
-        conlfict with the settings on the given table.
+        settings such as <code>case_1st</code> will be honored, so long as
+        they do not conlfict with the settings on the given table.
 
-        \pre [lhs_first, lhs_last) is normalized FCC.
-        \pre [rhs_first, rhs_last) is normalized FCC. */
+        \pre <code>[lhs_first, lhs_last)</code> is normalized FCC.
+        \pre <code>[rhs_first, rhs_last)</code> is normalized FCC.
+
+        This function only participates in overload resolution if
+        <code>CPIter1</code> models the CPIter concept. */
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    int collate(
+        CPIter1 lhs_first,
+        Sentinel1 lhs_last,
+        CPIter2 rhs_first,
+        Sentinel2 rhs_last,
+        collation_table const & table,
+        collation_strength strength = collation_strength::tertiary,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
+        variable_weighting weighting = variable_weighting::non_ignorable,
+        l2_weight_order l2_order = l2_weight_order::forward);
+
+    /** Returns the result of calling compare() on collation sort keys
+        produced using <code>[lhs_first, lhs_last)</code> and
+        <code>[rhs_first, rhs_last)</code>, respectively.  Any optional
+        settings flags will be honored, so long as they do not conlfict with
+        the settings on the given table.
+
+        \pre <code>[lhs_first, lhs_last)</code> is normalized FCC.
+        \pre <code>[rhs_first, rhs_last)</code> is normalized FCC.
+
+        This function only participates in overload resolution if
+        <code>CPIter1</code> models the CPIter concept. */
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    int collate(
+        CPIter1 lhs_first,
+        Sentinel1 lhs_last,
+        CPIter2 rhs_first,
+        Sentinel2 rhs_last,
+        collation_table const & table,
+        collation_flags flags);
+
+#else
+
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -893,14 +987,6 @@ namespace boost { namespace text {
             table);
     }
 
-    /** Returns the result of calling compare() on collation sort keys
-        produced using <code>[lhs_first, lhs_last)</code> and
-        <code>[rhs_first, rhs_last)</code>, respectively.  Any optional
-        settings such as case_first will be honored, so long as they do not
-        conlfict with the settings on the given table.
-
-        \pre [lhs_first, lhs_last) is normalized FCC.
-        \pre [rhs_first, rhs_last) is normalized FCC. */
     template<
         typename CPIter1,
         typename Sentinel1,
@@ -927,13 +1013,15 @@ namespace boost { namespace text {
             table);
     }
 
-    /** Returns the result of calling compare() on collation sort keys
-        produced using \a r1 and \a r2, respectively.  Any optional settings
-        such as case_first will be honored, so long as they do not conlfict
-        with the settings on the given table.
+#endif
 
-        \pre r1 is normalized FCC.
-        \pre r2 is normalized FCC. */
+    /** Returns the result of calling compare() on collation sort keys
+        produced using <code>r1</code> and <code>r2</code>, respectively.  Any
+        optional settings flags will be honored, so long as they do not
+        conlfict with the settings on the given table.
+
+        \pre <code>r1</code> is normalized FCC.
+        \pre <code>r2</code> is normalized FCC. */
     template<typename CPRange1, typename CPRange2>
     int collate(
         CPRange1 const & r1,

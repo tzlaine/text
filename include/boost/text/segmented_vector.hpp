@@ -328,6 +328,8 @@ namespace boost { namespace text {
         /** Swaps *this with rhs. */
         void swap(segmented_vector & rhs) { ptr_.swap(rhs.ptr_); }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
     private:
         enum allocation_note_t { would_allocate, would_not_allocate };
 
@@ -407,6 +409,8 @@ namespace boost { namespace text {
         detail::node_ptr<T> ptr_;
 
         friend struct detail::const_vector_iterator<T>;
+
+#endif
     };
 
     template<typename T>

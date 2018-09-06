@@ -13,7 +13,7 @@
 
 namespace boost { namespace text {
 
-    /** The word properties outlined in Unicode 11. */
+    /** The word properties defined by Unicode. */
     enum class word_property {
         Other,
         CR,
@@ -57,7 +57,8 @@ namespace boost { namespace text {
         make_word_prop_map();
     }
 
-    /** Returns the word property associated with code point \a cp. */
+    /** Returns the word property associated with code point
+        <code>cp</code>. */
     inline word_property word_prop(uint32_t cp) noexcept
     {
         static auto const map = detail::make_word_prop_map();
@@ -307,8 +308,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
     }
 
     /** A callable type that returns the next word_property for the given code
-        point cp.  This is the default used with the word breaking
-        functions. */
+        point <code>cp</code>.  This is the default used with the word
+        breaking functions. */
     struct word_prop_callable
     {
         word_property operator()(uint32_t cp) const noexcept
@@ -317,10 +318,127 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         }
     };
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Finds the nearest word break at or before before <code>it</code>.  If
         <code>it == first</code>, that is returned.  Otherwise, the first code
         point of the word that <code>it</code> is within is returned (even if
-        <code>it</code> is already at the first code point of a word). */
+        <code>it</code> is already at the first code point of a word).
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    CPIter prev_word_break(
+        CPIter first,
+        CPIter it,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Finds the next word break after <code>first</code>.  This will be the
+        first code point after the current word, or <code>last</code> if no
+        next word exists.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept.
+
+        \pre <code>first</code> is at the beginning of a word. */
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    CPIter next_word_break(
+        CPIter first,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Finds the nearest word break at or before before <code>it</code>.  If
+        <code>it == range.begin()</code>, that is returned.  Otherwise, the
+        first code point of the word that <code>it</code> is within is
+        returned (even if <code>it</code> is already at the first code point
+        of a word).
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined prev_word_break(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a grapheme_iterator to the nearest word break at or before
+        before <code>it</code>.  If <code>it == range.begin()</code>, that is
+        returned.  Otherwise, the first grapheme of the word that
+        <code>it</code> is within is returned (even if <code>it</code> is
+        already at the first grapheme of a word).
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined prev_word_break(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Finds the next word break after <code>it</code>.  This will be the
+        first code point after the current word, or <code>range.end()</code>
+        if no next word exists.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept.
+
+        \pre <code>it</code> is at the beginning of a word. */
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined next_word_break(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{});
+
+    /** Returns a grapheme_iterator to the next word break after
+        <code>it</code>.  This will be the first grapheme after the current
+        word, or <code>range.end()</code> if no next word exists.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept.
+
+        \pre <code>it</code> is at the beginning of a word. */
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined next_word_break(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+#else
+
     template<
         typename CPIter,
         typename Sentinel,
@@ -649,11 +767,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         return first;
     }
 
-    /** Finds the next word break after <code>first</code>.  This will be the
-        first code point after the current word, or <code>last</code> if no
-        next word exists.
-
-        \pre <code>first</code> is at the beginning of a word. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -838,11 +951,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         return state.it;
     }
 
-    /** Finds the nearest word break at or before before <code>it</code>.  If
-        <code>it == range.begin()</code>, that is returned.  Otherwise, the
-        first code point of the word that <code>it</code> is within is
-        returned (even if <code>it</code> is already at the first code point
-        of a word). */
     template<
         typename CPRange,
         typename CPIter,
@@ -859,10 +967,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             std::begin(range), it, std::end(range), word_prop, cp_break);
     }
 
-    /** Returns a grapheme_iterator to the nearest word break at or before
-        before 'it'.  If it == range.begin(), that is returned.  Otherwise,
-        the first grapheme of the word that 'it' is within is returned (even
-        if 'it' is already at the first grapheme of a word). */
     template<
         typename GraphemeRange,
         typename GraphemeIter,
@@ -889,11 +993,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 range.end().base()};
     }
 
-    /** Finds the next word break after <code>it</code>.  This will be the
-        first code point after the current word, or <code>range.end()</code>
-        if no next word exists.
-
-        \pre <code>it</code> is at the beginning of a word. */
     template<
         typename CPRange,
         typename CPIter,
@@ -909,11 +1008,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         return next_word_break(it, std::end(range), word_prop, cp_break);
     }
 
-    /** Returns a grapheme_iterator to the next word break after 'it'.  This
-        will be the first grapheme after the current word, or range.end() if
-        no next word exists.
-
-        \pre 'it' is at the beginning of a word. */
     template<
         typename GraphemeRange,
         typename GraphemeIter,
@@ -938,6 +1032,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                     cp_break),
                 range.end().base()};
     }
+
+#endif
 
     namespace detail {
         template<
@@ -992,7 +1088,137 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             first, next_word_break(first, last, word_prop, cp_break)};
     }
 
-    /** Returns the bounds of the word that <code>it</code> lies within. */
+#ifdef BOOST_TEXT_DOXYGEN
+
+    /** Returns the bounds of the word that <code>it</code> lies within, as a
+        cp_range.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined word(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns grapheme range delimiting the bounds of the word that
+        <code>it</code> lies within, as a grapheme_range.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined word(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>[first, last)</code>.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept and CPIter is equality
+        comparable with Sentinel. */
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined words(
+        CPIter first,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>range</code>.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename CPRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined words(
+        CPRange & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a lazy range of the grapheme ranges delimiting words in
+        <code>range</code>.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename GraphemeRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined words(
+        GraphemeRange const & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>[first, last)</code>, in reverse.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept and CPIter is equality
+        comparable with Sentinel. */
+    template<
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined reversed_words(
+        CPIter first,
+        CPIter last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>range</code>, in reverse.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename CPRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined reversed_words(
+        CPRange & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a lazy range of the grapheme ranges delimiting words in
+        <code>range</code>, in reverse.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename GraphemeRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined reversed_words(
+        GraphemeRange const & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+#else
+
     template<
         typename CPRange,
         typename CPIter,
@@ -1015,8 +1241,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             next_word_break(first, std::end(range), word_prop, cp_break)};
     }
 
-    /** Returns grapheme range delimiting the bounds of the word that 'it'
-        lies within. */
     template<
         typename GraphemeRange,
         typename GraphemeIter,
@@ -1044,8 +1268,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             next_word_break(first, range.end().base(), word_prop, cp_break)};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting words in
-        <code>[first, last)</code>. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -1077,8 +1299,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         return {std::move(next), {first, last}, {last}};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting words in
-        <code>range</code>. */
     template<
         typename CPRange,
         typename WordPropFunc = word_prop_callable,
@@ -1110,8 +1330,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 {std::end(range)}};
     }
 
-    /** Returns a lazy range of the grapheme ranges delimiting words in
-        range. */
     template<
         typename GraphemeRange,
         typename WordPropFunc = word_prop_callable,
@@ -1145,8 +1363,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 {range.end().base()}};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting words in
-        <code>[first, last)</code>, in reverse. */
     template<
         typename CPIter,
         typename WordPropFunc = word_prop_callable,
@@ -1173,8 +1389,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
         return {std::move(prev), {first, last, last}, {first, first, last}};
     }
 
-    /** Returns a lazy range of the code point ranges delimiting words in
-        <code>range</code>, in reverse. */
     template<
         typename CPRange,
         typename WordPropFunc = word_prop_callable,
@@ -1207,8 +1421,6 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
                 {std::begin(range), std::begin(range), std::end(range)}};
     }
 
-    /** Returns a lazy range of the grapheme ranges delimiting words in range,
-        in reverse. */
     template<
         typename GraphemeRange,
         typename WordPropFunc = word_prop_callable,
@@ -1239,6 +1451,8 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             {range.begin().base(), range.end().base(), range.end().base()},
             {range.begin().base(), range.begin().base(), range.end().base()}};
     }
+
+#endif
 
 }}
 
