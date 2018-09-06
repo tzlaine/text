@@ -622,7 +622,7 @@ namespace boost { namespace text {
                 decomp.size_ == 1 ? ccc : detail::ccc(*(decomp.end() - 1));
             ++first;
         }
-        return false;
+        return true;
     }
 
     /** Returns true iff the given range of code points is in an FCD form. */

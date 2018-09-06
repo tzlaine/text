@@ -115,15 +115,11 @@ namespace boost { namespace text {
             s.swap(temp);
     }
 
-    /** Puts the contents of <code>s</code> in normalization form FCC.
-       Normalization is not performed if <code>s</code> passes a normalization
-       quick-check. */
+        /** Puts the contents of <code>s</code> in normalization form FCC. */
     inline void normalize_to_fcc(string & s)
     {
         // http://www.unicode.org/notes/tn5/#FCC
         utf32_range as_utf32(s);
-        if (fcd_form(as_utf32.begin(), as_utf32.end()))
-            return;
 
         string temp;
         temp.reserve(s.size());
