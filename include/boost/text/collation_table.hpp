@@ -1241,17 +1241,11 @@ namespace std {
         {
             result_type retval = ces.size();
             for (auto ce : ces) {
-                retval = combine(
+                retval = boost::text::detail::hash_combine_(
                     retval,
                     (result_type(ce.l1_) << 32) | (ce.l2_ << 16) | ce.l3_);
             }
             return retval;
-        }
-
-    private:
-        static result_type combine(result_type seed, result_type value) noexcept
-        {
-            return seed ^= value + 0x9e3779b9 + (seed << 6) + (seed >> 2);
         }
     };
 }

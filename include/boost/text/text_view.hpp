@@ -196,4 +196,21 @@ namespace boost { namespace text {
 
 }}
 
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::text_view>
+    {
+        using argument_type = boost::text::text_view;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & tv) const noexcept
+        {
+            return boost::text::detail::hash_grapheme_range(tv);
+        }
+    };
+}
+
+#endif
+
 #endif

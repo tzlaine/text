@@ -1040,4 +1040,21 @@ namespace boost { namespace text {
 
 }}
 
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::rope>
+    {
+        using argument_type = boost::text::rope;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & r) const noexcept
+        {
+            return boost::text::detail::hash_grapheme_range(r);
+        }
+    };
+}
+
+#endif
+
 #endif

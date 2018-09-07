@@ -37,6 +37,8 @@ namespace boost { namespace text {
             storage_(std::move(bytes))
         {}
 
+        std::size_t size() const noexcept { return storage_.size(); }
+
         const_iterator begin() const noexcept { return storage_.begin(); }
         const_iterator end() const noexcept { return storage_.end(); }
 
@@ -1247,5 +1249,26 @@ namespace boost { namespace text { namespace detail {
     }
 
 }}}
+
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::text_sort_key>
+    {
+        using argument_type = boost::text::text_sort_key;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & key) const noexcept
+        {
+            return std::accumulate(
+                key.begin(),
+                key.end(),
+                result_type(key.size()),
+                boost::text::detail::hash_combine_);
+        }
+    };
+}
+
+#endif
 
 #endif

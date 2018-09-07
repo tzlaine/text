@@ -5,6 +5,7 @@
 
 #include <boost/assert.hpp>
 
+#include <numeric>
 #include <type_traits>
 #include <utility>
 
@@ -396,6 +397,76 @@ namespace boost { namespace text { namespace detail {
     detail::reverse_iterator<Iter> make_reverse_iterator(Iter it)
     {
         return detail::reverse_iterator<Iter>(it);
+    }
+
+    inline std::size_t
+    hash_combine_(std::size_t seed, std::size_t value) noexcept
+    {
+        return seed ^= value + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    }
+
+    template<int N>
+    struct hash_4_more_chars
+    {
+        template<typename Iter>
+        static std::size_t call(std::size_t curr, Iter it)
+        {
+            return curr;
+        }
+    };
+
+    template<>
+    struct hash_4_more_chars<8>
+    {
+        template<typename Iter>
+        static std::size_t call(std::size_t curr, Iter it)
+        {
+            curr <<= 32;
+            curr += (*(it + 4) << 24) + (*(it + 5) << 16) + (*(it + 2) << 6) +
+                    (*(it + 7) << 0);
+            return curr;
+        }
+    };
+
+    template<typename CharRange>
+    std::size_t hash_char_range(CharRange const & r) noexcept
+    {
+        auto first = r.begin();
+        auto last = r.end();
+        auto const size = last - first;
+        auto const remainder = size % sizeof(std::size_t);
+        last -= remainder;
+
+        std::size_t retval = size;
+        for (; first != last; first += sizeof(std::size_t)) {
+            std::size_t curr = (*(first + 0) << 24) + (*(first + 1) << 16) +
+                               (*(first + 2) << 8) + (*(first + 3) << 0);
+            curr = hash_4_more_chars<sizeof(std::size_t)>::call(curr, first);
+            retval = hash_combine_(retval, curr);
+        }
+
+        first = last;
+        last += remainder;
+        for (; first != last; ++first) {
+            retval = hash_combine_(retval, *first);
+        }
+
+        return retval;
+    }
+
+    template<typename GraphemeRange>
+    std::size_t hash_grapheme_range(GraphemeRange const & r) noexcept
+    {
+        std::size_t cps = 0;
+        std::size_t retval = std::accumulate(
+            r.begin().base(),
+            r.end().base(),
+            std::size_t(0),
+            [&cps](std::size_t seed, std::size_t value) {
+                ++cps;
+                return hash_combine_(seed, value);
+            });
+        return hash_combine_(retval, cps);
     }
 
 }}}

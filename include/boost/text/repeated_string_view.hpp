@@ -269,4 +269,21 @@ namespace boost { namespace text {
 
 #include <boost/text/unencoded_rope_view.hpp>
 
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::repeated_string_view>
+    {
+        using argument_type = boost::text::repeated_string_view;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & rsv) const noexcept
+        {
+            return boost::text::detail::hash_char_range(rsv);
+        }
+    };
+}
+
+#endif
+
 #endif

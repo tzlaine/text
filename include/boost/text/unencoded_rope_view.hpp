@@ -431,4 +431,21 @@ namespace boost { namespace text {
 
 }}
 
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::unencoded_rope_view>
+    {
+        using argument_type = boost::text::unencoded_rope_view;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & urv) const noexcept
+        {
+            return boost::text::detail::hash_char_range(urv);
+        }
+    };
+}
+
+#endif
+
 #endif
