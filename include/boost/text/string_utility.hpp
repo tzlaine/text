@@ -28,7 +28,17 @@ namespace boost { namespace text {
         }
     }
 
-    /** Returns a UTF-8-encoded string constructed from [first, last). */
+#ifdef BOOST_TEXT_DOXYGEN
+
+    /** Returns a UTF-8-encoded string constructed from [first, last).
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    string to_string(CPIter first, Sentinel last);
+
+#else
+
     template<typename CPIter, typename Sentinel>
     auto to_string(CPIter first, Sentinel last)
         -> detail::cp_iter_ret_t<string, CPIter>
@@ -41,6 +51,8 @@ namespace boost { namespace text {
                 detail::non_sentinel_tag,
                 detail::sentinel_tag>::type{});
     }
+
+#endif
 
 }}
 
