@@ -33,6 +33,7 @@
 [import ../example/normalize.cpp]
 [import ../example/breaks.cpp]
 [import ../example/case_mapping.cpp]
+[import ../example/collation.cpp]
 
 [/ Images ]
 
@@ -49,9 +50,11 @@
 [def _ContCharRng_         [link boost_text__proposed_.concepts.contigcharrange ContigCharRange]]
 [def _GrIter_              [link boost_text__proposed_.concepts.graphemeiterator GraphemeIterator]]
 [def _GrRng_               [link boost_text__proposed_.concepts.graphemerange GraphemeRange]]
+[def _GrRngs_              [link boost_text__proposed_.concepts.graphemerange GraphemeRanges]]
 [def _ContGrRng_           [link boost_text__proposed_.concepts.contiggraphemerange ContigGraphemeRange]]
 [def _CharIter_            [link boost_text__proposed_.concepts.chariter CharIter]]
 [def _CPRng_               [link boost_text__proposed_.concepts.cprange CPRange]]
+[def _CPRngs_              [link boost_text__proposed_.concepts.cprange CPRanges]]
 [def _CPIter_              [link boost_text__proposed_.concepts.cpiter CPIter]]
 [def _CPIters_             [link boost_text__proposed_.concepts.cpiter CPIters]]
 [def _CPExtentFunc_        [link boost_text__proposed_.concepts.cpextentfunc CPExtentFunc]]
@@ -91,17 +94,23 @@
 [def _line_brk_cp_rng_     [classref boost::text::line_break_cp_range `line_break_cp_range`]]
 [def _line_brk_cp_rngs_    [classref boost::text::line_break_cp_range `line_break_cp_range`s]]
 
-[def _to_lower_            [funcref boost::text::to_lower `to_lower`]]
-[def _to_title_            [funcref boost::text::to_title `to_title`]]
-[def _to_upper_            [funcref boost::text::to_upper `to_upper`]]
-[def _is_lower_            [funcref boost::text::is_lower `is_lower`]]
-[def _is_title_            [funcref boost::text::is_title `is_title`]]
-[def _is_upper_            [funcref boost::text::is_upper `is_upper`]]
+[def _to_lower_            [funcref boost::text::to_lower `to_lower()`]]
+[def _to_title_            [funcref boost::text::to_title `to_title()`]]
+[def _to_upper_            [funcref boost::text::to_upper `to_upper()`]]
+[def _is_lower_            [funcref boost::text::is_lower `is_lower()`]]
+[def _is_title_            [funcref boost::text::is_title `is_title()`]]
+[def _is_upper_            [funcref boost::text::is_upper `is_upper()`]]
 [def _case_lang_           [enumref boost::text::case_language `case_language`]]
 [def _wbreak_call_         [classref boost::text::next_word_break_callable `next_word_break_callable`]]
-[def _next_wbreak_         [funcref boost::text::next_word_break `next_word_break`]]
+[def _next_wbreak_         [funcref boost::text::next_word_break `next_word_break()`]]
 
 [def _coll_flags_          [enumref boost::text::collation_flags `collation_flags`]]
+[def _collate_             [funcref boost::text::collate `collate()`]]
+[def _sort_key_            [classref boost::text::text_sort_key `text_sort_key`]]
+[def _sort_keys_           [classref boost::text::text_sort_key `text_sort_keys`]]
+
+[def _table_ser_           [link header.boost.text.table_serialization_hpp table_serialization.hpp]]
+[def _save_load_table_     [link header.boost.text.save_load_table_hpp save_load_table.hpp]]
 
 [def _t_                   [classref boost::text::text `text`]]
 [def _ts_                  [classref boost::text::text `text`s]]
@@ -124,12 +133,13 @@
 [def _sentence_property_   [enumref boost::text::sentence_property `sentence_property`]]
 [def _line_property_       [enumref boost::text::line_property `line_property`]]
 
-[def _prev_graph_          [funcref boost::text::prev_grapheme_break `prev_grapheme_break`]]
-[def _next_graph_          [funcref boost::text::next_grapheme_break `next_grapheme_break`]]
+[def _prev_graph_          [funcref boost::text::prev_grapheme_break `prev_grapheme_break()`]]
+[def _next_graph_          [funcref boost::text::next_grapheme_break `next_grapheme_break()`]]
 
 [def _bm_searcher_         [classref boost::text::boyer_moore_collation_searcher `boyer_moore_collation_searcher`]]
 
 [def _thread_unsafe_m_     [macroref BOOST_TEXT_THREAD_UNSAFE]]
+[def _string_max_m_        [macroref BOOST_TEXT_STRING_INSERT_MAX]]
 
 [def _ce_                  `constexpr`]
 
@@ -169,4 +179,3 @@
 [named_index macro_name Macro Index]
 
 [include rationale.qbk]
-[include future_work.qbk]

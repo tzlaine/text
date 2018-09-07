@@ -23,6 +23,7 @@ add_sample(utf8)
 add_sample(normalize)
 add_sample(breaks)
 add_sample(case_mapping)
+add_sample(collation)
 
 
 if (BUILD_EDITOR)

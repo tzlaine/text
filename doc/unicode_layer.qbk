@@ -602,7 +602,29 @@ multiple variants.
 There is also a default table that can be used for languages with no
 tailorings.
 
+[note Collation tailoring is quite expensive for some languages, typically the
+CJK (Chinese, Japanese, and Korean) language tailorings _emdash_ sometimes as
+much as multiple seconds.  There is serialization of collation tables to/from
+a buffer or to/from a `boost::filesystem::path`.  This enables you to do
+expensive tailorings offline, and just load the results at runtime.  See the
+headers _table_ser_ and _save_load_table_ for details.]
+
 [heading The Collation API]
+
+The collation-related functions all require a collation table.  There are two
+ways to collate two _cp_ sequences relative to one another.  First is to just
+call `collate()`.  This can be very expensive to call in a loop or other hot
+code path, because the sort keys are not kept for re-use.  The other way is to
+create the sort keys for the sequences, and then compare the keys yourself.
+Here is a simple example using the default table:
+
+[collation_simple]
+
+Here's a similar example, this time using the Danish collation tailorings.
+Note that we're using two overloads that respectively take _CPRngs_ and
+_GrRngs_.
+
+[collation_simple_tailored]
 
 I've made every effort to hide the messy details of collation configuration
 from you, because they are super confusing.  Instead, _Text_ uses a set of
@@ -612,11 +634,141 @@ combinations of the flags that map to incompatible low-level settings will not
 compile.  The low-level configuration is still available for those already
 familiar with Unicode collation.
 
-TODO: example
+When generating a sort key, the default configuration is to use tertiary
+strength (consider everything but punctuation), with no other options enabled.
+Other options can be specified to get different collations with the same
+table:
 
-[heading General Container Woes]
+[collation_configuration]
 
-TODO
+[important The entire collation API requires input sequences of _cps_ to be
+normalized FCC.  This happens automatically within the text layer types (_t_,
+_r_, etc.).]
+
+[heading Associative Container Woes]
+
+One thing people use associative containers for is to make it easy to look for
+elements, while keeping the elements sorted.  Let's see how that goes in the
+world of Unicode:
+
+[collation_set_1]
+
+Hm.  Not well.  Ok, we can fix this by making a comparison callable:
+
+[collation_text_cmp_naive]
+
+Then we can make a set using that:
+
+[collation_set_2]
+
+But wait, I want to do a bunch of stuff in Danish.  In fact, I'm building a
+directory of old and new town names, and I want to print an index of them for
+end-users.  Ah, I'll just collate the values instead of binary-comparing them.
+
+First, my new callable:
+
+[collation_text_coll_cmp]
+
+And then the using code:
+
+[collation_set_3]
+
+The problem is that we're doing the very expensive operation of creating two
+sort keys for *each comparison*, and immediately throwing them away.
+
+[note Ordering sequences of _cps_ creates expectations about their order that
+can be misleading.  _Text_ therefore does not allow implicit ordering of
+sequences of _cps_.]
+
+Let's look at how much overhead we've incurred by doing all this repetitive
+collation.  Below is the result of running a pair of perf tests.  The first
+test is insertion of `N` _cp_ sequences into a `flat_multiset` that just does
+binary comparison, like `set2` in the example above.  The second inserts the
+same `N` sequences into a `flat_multiset` that does collation and throws away
+the keys, like `set3` in the other example above.
+
+[/ Before you can generate the tables below:
+   perf/text_set_compare_vs_collate_perf --benchmark_format=json > DATA
+/]
+
+[/ ./make_perf_table.py DATA BM_set_inserts_binary_compare_text_naive,CodePointBinaryComparison BM_set_inserts_collate,FullCollation /]
+[table Code Point Binary Comparison Vs. Unretained Key Collation
+    [ [N] [Code Point Binary Comparison] [Full Collation] [Code Point Binary Comparison / Full Collation] ]
+    [ [16] [5963 ns] [24777 ns] [0.241] ]
+    [ [64] [52369 ns] [210472 ns] [0.249] ]
+    [ [512] [1009486 ns] [3777195 ns] [0.267] ]
+    [ [4096] [27348577 ns] [64371370 ns] [0.425] ]
+    [ [8192] [51425527 ns] [133293696 ns] [0.386] ]
+]
+
+So the collation is truly a large cost!  But wait, isn't all that transcoding
+from UTF-8 to UTF-32 taking up a lot of time?  We can do better that the code point binary comparison above by doing `char` binary comparison instead:
+
+[collation_text_cmp]
+
+[collation_set_4]
+
+And here are the two binary comparison approaches compared to each other:
+
+[/ ./make_perf_table.py DATA BM_set_inserts_binary_compare_text_naive,CodePointBinaryComparison BM_set_inserts_binary_compare_text,CharBinaryComparison /]
+[table Code Point Binary Comparison Vs. `char` Binary Comparison (Tree Set)
+    [ [N] [Code Point Binary Comparison] [`char` Binary Comparison] [Code Point Binary Comparison / `char` Binary Comparison] ]
+    [ [16] [5963 ns] [5341 ns] [1.12] ]
+    [ [64] [52369 ns] [52008 ns] [1.01] ]
+    [ [512] [1009486 ns] [917452 ns] [1.1] ]
+    [ [4096] [27348577 ns] [26544606 ns] [1.03] ]
+    [ [8192] [51425527 ns] [49242103 ns] [1.04] ]
+]
+
+Interestingly, getting rid of UTF-8 -> UTF-32 transcoding only amounts to a
+few percent.
+
+A better way to go is probably to directly associate the sort key with each
+sequence in a map:
+
+[collation_map]
+
+Here we compare the map-based approach to the faster binary comparison
+approach from before:
+
+[/ ./make_perf_table.py DATA BM_set_inserts_binary_compare_text,Set BM_map_inserts,Map /]
+[table `char` Binary Comparison Flat Set Vs. Flat Map
+    [ [N] [Set] [Map] [Set / Map] ]
+    [ [16] [5341 ns] [5579 ns] [0.957] ]
+    [ [64] [52008 ns] [30262 ns] [1.72] ]
+    [ [512] [917452 ns] [511895 ns] [1.79] ]
+    [ [4096] [26544606 ns] [22397834 ns] [1.19] ]
+    [ [8192] [49242103 ns] [37479917 ns] [1.31] ]
+]
+
+The map version even does better than the set that uses binary comparison.
+
+In all these tests, I've intentionally chosen to use multisets and multimaps,
+because otherwise the map-based approach above has an unfair advantage, or a
+bug, depending on your use case.
+
+If you use a map instead of a flat_map, you may not insert a value that has
+the same sort key as an element already in the map, even if that _cp_ sequence
+itself is *not* in the map.  That is, two _cp_ sequences can collate to the
+same sort key.  If you want to consider two _cp_ sequences equivalent if they
+collate the same, it is a feature, and a possibly large optimization, not to
+insert one of them.  If you want to keep all unique _cp_ sequences, this is a
+bug.
+
+[heading Associative Container Perf Bottom Line]
+
+As with everything else associated with Unicode, it's complicated:
+
+* When using sequences of _cps_ with associative containers, consider using
+  binary comparison if you *don't* care about the overall sort order being
+  collation-correct.
+
+* If you do binary comparisons of UTF-8 encoded types, consider comparing the
+  bytes of the underlying `char`s directly, though it's not a large effect.
+
+* You should use a container that retains the sort keys once they are
+  generated if you *do* care about the overall sort order being
+  collation-correct.
 
 [heading Hashing Container Woes]
 

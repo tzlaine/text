@@ -31,6 +31,7 @@ add_perf_executable(collation_perf_000)
 add_perf_executable(collation_perf_001)
 add_perf_executable(collation_perf_002)
 add_perf_executable(collation_perf_003)
+add_perf_executable(text_set_compare_vs_collate_perf)
 
 add_custom_target(perf
     COMMAND ctor_dtor_perf --benchmark_out=ctor_dtor_perf.json --benchmark_out_format=json

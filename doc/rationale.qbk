@@ -30,17 +30,13 @@ _s_ does not have any of these, even though `std::string` does.  Here's why:
 * Since `string::iterator` is just `char const *`, and _s_ is always
   null-terminated, `data()`, `c_str()`, and `begin()` are synonyms.
 
-* `front()` and `back()` have no reason to be members, so they are now free
-  functions.  This makes them usable on many types of sequences of `char`, not
-  just _s_.
-
 
 [heading Inserting Null Terminated Sequences]
 
 The _s_ inserting interfaces (`insert()` and `replace()`) remove explicit null
 terminators from inserted _svs_ and _rsvs_, because leaving them in is almost
 certainly an error.  This can still be accomplished by directly writing
-through the index operator or or an iterator, or by inserting
+through the index operator or an iterator, or by inserting
 `string_view("\0")`.
 
 
