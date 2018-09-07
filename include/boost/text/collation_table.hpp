@@ -1165,8 +1165,8 @@ namespace boost { namespace text {
                 small_vector<detail::canonical_closure_string_t, 64>
                     relation_closure;
 #ifndef BOOST_TEXT_DOXYGEN
-#define DO_CANONICAL_CLOSURE 0
-#if DO_CANONICAL_CLOSURE
+#define BOOST_TEXT_DO_CANONICAL_CLOSURE 0
+#if BOOST_TEXT_DO_CANONICAL_CLOSURE
             detail::canonical_closure(
                 relation.begin(),
                 relation.end(),
