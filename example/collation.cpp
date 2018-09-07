@@ -6,6 +6,8 @@
 #include <boost/container/flat_map.hpp>
 
 #include <iostream>
+#include <unordered_map>
+#include <unordered_set>
 
 
 //[ collation_text_cmp_naive
@@ -245,6 +247,44 @@ for (auto const & pair : map) {
     std::cout << pair.second << " ";
 }
 std::cout << "\n";
+//]
+}
+
+{
+//[ collation_unordered_map
+boost::text::collation_table da_table = boost::text::tailored_collation_table(
+    boost::text::data::da::standard_collation_tailoring());
+
+boost::text::text const aarhus_old = u8"Århus";
+boost::text::text const aarhus_new = u8"Aarhus";
+
+// This works.
+std::unordered_multiset<boost::text::text> set;
+set.insert(aarhus_old);
+set.insert(aarhus_new);
+assert(set.size() == 2);
+
+// So does this.
+std::unordered_multimap<boost::text::text_sort_key, boost::text::text> map;
+map.emplace(boost::text::collation_sort_key(aarhus_old, da_table), aarhus_old);
+map.emplace(boost::text::collation_sort_key(aarhus_new, da_table), aarhus_new);
+assert(map.size() == 2);
+
+// In fact, hashing support is built in for all the text layer types.
+std::unordered_multiset<boost::text::rope> rope_set;
+rope_set.insert(boost::text::rope(aarhus_old));
+rope_set.insert(boost::text::rope(aarhus_new));
+assert(rope_set.size() == 2);
+
+std::unordered_multiset<boost::text::rope_view> rope_view_set;
+rope_view_set.insert(aarhus_old);
+rope_view_set.insert(aarhus_new);
+assert(rope_view_set.size() == 2);
+
+std::unordered_multiset<boost::text::text_view> text_view_set;
+text_view_set.insert(aarhus_old);
+text_view_set.insert(aarhus_new);
+assert(text_view_set.size() == 2);
 //]
 }
 

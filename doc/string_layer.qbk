@@ -317,6 +317,8 @@ types.
 # `operator+=()`, `insert()`, `erase()`, and `replace()` are defined for the
   non-view types (_s_ and _ur_).
 
+# `std::hash` is specialized for all the string layer types.
+
 
 [heading Picking the Right String Type]
 

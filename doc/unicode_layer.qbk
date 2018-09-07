@@ -641,9 +641,15 @@ table:
 
 [collation_configuration]
 
-[important The entire collation API requires input sequences of _cps_ to be
-normalized FCC.  This happens automatically within the text layer types (_t_,
-_r_, etc.).]
+[important Unicode collation requires the NFD normalization form, one of the
+least compact normalization forms. However, there is a variant that is defined
+in _tn5_ that allows one to use an alternate normalization form called FCC.
+
+FCC is very similar to NFC, except that it is less compact in a few
+cases. _Text_'s collation implementation relies on the inputs being in the FCC
+normalization form, so the collation functions require inputs to be normalized
+FCC.  This happens automatically within the text layer types (_t_, _r_,
+etc.).]
 
 [heading Associative Container Woes]
 
@@ -747,7 +753,7 @@ In all these tests, I've intentionally chosen to use multisets and multimaps,
 because otherwise the map-based approach above has an unfair advantage, or a
 bug, depending on your use case.
 
-If you use a map instead of a flat_map, you may not insert a value that has
+If you use a map instead of a multimap, you may not insert a value that has
 the same sort key as an element already in the map, even if that _cp_ sequence
 itself is *not* in the map.  That is, two _cp_ sequences can collate to the
 same sort key.  If you want to consider two _cp_ sequences equivalent if they
@@ -760,19 +766,26 @@ bug.
 As with everything else associated with Unicode, it's complicated:
 
 * When using sequences of _cps_ with associative containers, consider using
-  binary comparison if you *don't* care about the overall sort order being
+  binary comparison if you *don't* care about the sort order being
   collation-correct.
 
 * If you do binary comparisons of UTF-8 encoded types, consider comparing the
   bytes of the underlying `char`s directly, though it's not a large effect.
 
 * You should use a container that retains the sort keys once they are
-  generated if you *do* care about the overall sort order being
-  collation-correct.
+  generated if you *do* care about the sort order being collation-correct.
 
-[heading Hashing Container Woes]
+[heading Hashing Containers]
 
-TODO
+Associative containers are not the best choice when the key-type is a sequence
+of things, because comparing sequences is inherently expensive.  Why not use
+the unordered associative containers then?
+
+[collation_unordered_map]
+
+Hashing is your friend.  Hashing containers sidestep the question of
+misleading orderings ("Is this order collation-correct?") completely, because
+they are unordered.
 
 [heading Sorting Woes]
 
