@@ -44,16 +44,6 @@ namespace boost { namespace text {
         std::vector<uint32_t> storage_;
     };
 
-    inline bool operator==(text_sort_key const & lhs, text_sort_key const & rhs)
-    {
-        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-    }
-
-    inline bool operator!=(text_sort_key const & lhs, text_sort_key const & rhs)
-    {
-        return !(lhs == rhs);
-    }
-
 #if BOOST_TEXT_COLLATE_INSTRUMENTATION
     inline std::ostream & operator<<(std::ostream & os, text_sort_key const & k)
     {
@@ -89,6 +79,38 @@ namespace boost { namespace text {
                 return 1;
             return 0;
         }
+    }
+
+    inline bool operator==(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+
+    inline bool operator!=(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    inline bool operator<(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return std::lexicographical_compare(
+            lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+
+    inline bool operator<=(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return compare(lhs, rhs) < 0;
+    }
+
+    inline bool operator>(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return std::lexicographical_compare(
+            rhs.begin(), rhs.end(), lhs.begin(), lhs.end());
+    }
+
+    inline bool operator>=(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return 0 < compare(lhs, rhs);
     }
 
     // The code in this file implements the UCA as described in
