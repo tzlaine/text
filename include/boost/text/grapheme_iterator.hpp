@@ -63,8 +63,7 @@ namespace boost { namespace text {
         grapheme_iterator & operator++() noexcept
         {
             auto const first = grapheme_.end();
-            grapheme_ =
-                value_type(first, next_grapheme_break(grapheme_.end(), last_));
+            grapheme_ = value_type(first, next_grapheme_break(first, last_));
             return *this;
         }
 
@@ -79,9 +78,7 @@ namespace boost { namespace text {
         {
             auto const last = grapheme_.begin();
             grapheme_ = value_type(
-                prev_grapheme_break(
-                    first_, std::prev(grapheme_.begin()), last_),
-                last);
+                prev_grapheme_break(first_, std::prev(last), last_), last);
             return *this;
         }
 

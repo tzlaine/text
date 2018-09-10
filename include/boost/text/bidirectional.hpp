@@ -1170,11 +1170,14 @@ namespace boost { namespace text {
         enum fwd_rev_cp_iter_kind { user_it, rev_user_it, mirror_array_it };
 
         template<typename CPIter>
+        struct fwd_rev_grapheme_iter;
+
+        template<typename CPIter>
         struct fwd_rev_cp_iter
         {
             using value_type = uint32_t;
-            using pointer = uint32_t;
-            using reference = uint32_t;
+            using pointer = value_type;
+            using reference = value_type;
             using difference_type =
                 typename std::iterator_traits<CPIter>::difference_type;
             using iterator_category = std::bidirectional_iterator_tag;
@@ -1267,6 +1270,154 @@ namespace boost { namespace text {
             CPIter it_;
             mirrors_array_t::const_iterator ait_;
             fwd_rev_cp_iter_kind kind_;
+
+            template<typename CPIter2>
+            friend struct fwd_rev_grapheme_iter;
+        };
+
+        template<typename CPIter>
+        struct fwd_rev_grapheme_iter
+        {
+            using value_type = grapheme_view<fwd_rev_cp_iter<CPIter>>;
+            using pointer = value_type;
+            using reference = value_type;
+            using difference_type =
+                typename std::iterator_traits<CPIter>::difference_type;
+            using iterator_category = std::bidirectional_iterator_tag;
+
+            using mirrors_array_t = remove_cv_ref_t<decltype(bidi_mirroreds())>;
+            using kind_t = fwd_rev_cp_iter_kind;
+
+            fwd_rev_grapheme_iter() noexcept :
+                grapheme_(),
+                first_(),
+                last_(),
+                ait_(),
+                kind_(kind_t::user_it)
+            {}
+            fwd_rev_grapheme_iter(
+                fwd_rev_cp_iter<CPIter> first,
+                fwd_rev_cp_iter<CPIter> it,
+                fwd_rev_cp_iter<CPIter> last) noexcept :
+                grapheme_(),
+                first_(),
+                last_(),
+                ait_(),
+                kind_(first.kind_)
+            {
+                BOOST_ASSERT(first.kind_ == it.kind_);
+                BOOST_ASSERT(first.kind_ == last.kind_);
+
+                if (kind_ == fwd_rev_cp_iter_kind::user_it) {
+                    first_ = first.it_;
+                    last_ = last.it_;
+                    grapheme_ =
+                        value_type(it.it_, next_grapheme_break(it.it_, last_));
+                } else if (kind_ == fwd_rev_cp_iter_kind::rev_user_it) {
+                    if (it == last) { // end iterator case
+                        last_ = first.it_;
+                        first_ = last.it_;
+                        grapheme_ = value_type(first_, first_);
+                    } else { // begin iterator case
+                        last_ = first.it_;
+                        first_ = last.it_;
+                        grapheme_ = value_type(
+                            prev_grapheme_break(
+                                first_, std::prev(it.it_), last_),
+                            it.it_);
+                    }
+                } else {
+                    ait_ = first.ait_;
+                    grapheme_ = value_type(
+                        fwd_rev_cp_iter<CPIter>(ait_, kind_),
+                        fwd_rev_cp_iter<CPIter>(ait_ + 1, kind_));
+                }
+            }
+
+            fwd_rev_grapheme_iter & operator++() noexcept
+            {
+                if (kind_ == kind_t::user_it) {
+                    auto const first = grapheme_.end().it_;
+                    grapheme_ =
+                        value_type(first, next_grapheme_break(first, last_));
+                } else if (kind_ == kind_t::rev_user_it) {
+                    auto const last = grapheme_.begin().it_;
+                    if (last == first_) {
+                        grapheme_ = value_type(first_, first_);
+                    } else {
+                        grapheme_ = value_type(
+                            prev_grapheme_break(first_, std::prev(last), last_),
+                            last);
+                    }
+                } else {
+                    ++ait_;
+                    grapheme_ = value_type(
+                        fwd_rev_cp_iter<CPIter>(ait_, kind_),
+                        fwd_rev_cp_iter<CPIter>(ait_ + 1, kind_));
+                }
+                return *this;
+            }
+            fwd_rev_grapheme_iter & operator--() noexcept
+            {
+                if (kind_ == kind_t::user_it) {
+                    auto const last = grapheme_.begin().it_;
+                    if (last == first_) {
+                        grapheme_ = value_type(first_, first_);
+                    } else {
+                        grapheme_ = value_type(
+                            prev_grapheme_break(first_, std::prev(last), last_),
+                            last);
+                    }
+                } else if (kind_ == kind_t::rev_user_it) {
+                    auto const first = grapheme_.end().it_;
+                    grapheme_ =
+                        value_type(first, next_grapheme_break(first, last_));
+                } else {
+                    --ait_;
+                    grapheme_ = value_type(
+                        fwd_rev_cp_iter<CPIter>(ait_, kind_),
+                        fwd_rev_cp_iter<CPIter>(ait_ + 1, kind_));
+                }
+                return *this;
+            }
+
+            fwd_rev_grapheme_iter operator++(int)noexcept
+            {
+                fwd_rev_grapheme_iter retval = *this;
+                ++*this;
+                return retval;
+            }
+            fwd_rev_grapheme_iter operator--(int)noexcept
+            {
+                fwd_rev_grapheme_iter retval = *this;
+                --*this;
+                return retval;
+            }
+
+            reference operator*() const noexcept { return grapheme_; }
+
+            friend bool operator==(
+                fwd_rev_grapheme_iter const & lhs,
+                fwd_rev_grapheme_iter const & rhs) noexcept
+            {
+                BOOST_ASSERT(lhs.kind_ == rhs.kind_);
+                return lhs.kind_ == kind_t::rev_user_it
+                           ? lhs.grapheme_.end() == rhs.grapheme_.begin()
+                           : lhs.grapheme_.begin() == rhs.grapheme_.begin();
+            }
+            friend bool operator!=(
+                fwd_rev_grapheme_iter const & lhs,
+                fwd_rev_grapheme_iter const & rhs) noexcept
+            {
+                return !(lhs == rhs);
+            }
+
+        private:
+            value_type grapheme_;
+            CPIter first_;
+            CPIter last_;
+            mirrors_array_t::const_iterator ait_;
+            fwd_rev_cp_iter_kind kind_;
         };
 
         enum class bidi_line_break_kind { none, hard, allowed };
@@ -1346,7 +1497,7 @@ namespace boost { namespace text {
     template<typename CPIter>
     struct bidirectional_grapheme_subrange
     {
-        using iterator = grapheme_iterator<detail::fwd_rev_cp_iter<CPIter>>;
+        using iterator = detail::fwd_rev_grapheme_iter<CPIter>;
 
         static_assert(
             detail::is_cp_iter<CPIter>::value,
