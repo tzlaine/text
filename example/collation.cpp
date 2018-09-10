@@ -120,7 +120,7 @@ using namespace boost::text::literals;
 
 int result = 0;
 
-// No configuration.
+// No configuration, which implies tertiary strength.
 result = boost::text::collate(u8"resume"_t, u8"RÉSUMÉ"_t, default_table);
 assert(result < 0);
 
@@ -285,6 +285,43 @@ std::unordered_multiset<boost::text::text_view> text_view_set;
 text_view_set.insert(aarhus_old);
 text_view_set.insert(aarhus_new);
 assert(text_view_set.size() == 2);
+//]
+}
+
+{
+//[ collation_sorting_1
+boost::text::collation_table da_table = boost::text::tailored_collation_table(
+    boost::text::data::da::standard_collation_tailoring());
+
+boost::text::text const aarhus_old = u8"Århus";
+boost::text::text const aarhus_new = u8"Aarhus";
+
+std::vector<boost::text::text> text_vec = {aarhus_new, aarhus_old};
+// std::sort(text_vec.begin(), text_vec.end()); // Error!  No operator<.
+//]
+
+//[ collation_sorting_2
+using key_and_text = std::pair<boost::text::text_sort_key, boost::text::text>;
+std::vector<key_and_text> key_and_text_vec;
+std::transform(
+    text_vec.begin(),
+    text_vec.end(),
+    std::back_inserter(key_and_text_vec),
+    [da_table](boost::text::text const & t) {
+        return key_and_text(boost::text::collation_sort_key(t, da_table), t);
+    });
+std::sort(
+    key_and_text_vec.begin(),
+    key_and_text_vec.end(),
+    [](key_and_text const & lhs, key_and_text const & rhs) {
+        return lhs.first < rhs.first;
+    });
+
+// Prints "Århus Aarhus".
+for (auto const & pair : key_and_text_vec) {
+    std::cout << pair.second << " ";
+}
+std::cout << "\n";
 //]
 }
 

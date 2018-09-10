@@ -88,6 +88,13 @@ namespace boost { namespace text {
             return grapheme::const_iterator{first, last, last};
         }
 
+        /** Stream inserter; performs unformatted output, in UTF-8 encoding. */
+        friend std::ostream & operator<<(std::ostream & os, grapheme const & g)
+        {
+            return os.write(
+                g.begin().base(), g.end().base() - g.begin().base());
+        }
+
     private:
         container::small_vector<char, 8> chars_;
     };
@@ -140,6 +147,21 @@ namespace boost { namespace text {
 
         iterator begin() const noexcept { return first_; }
         iterator end() const noexcept { return last_; }
+
+        /** Stream inserter; performs unformatted output, in UTF-8 encoding. */
+        friend std::ostream & operator<<(std::ostream & os, grapheme_view gv)
+        {
+            char buf[4];
+            for (auto cp : gv) {
+                uint32_t cps[1] = {cp};
+                auto const end = std::copy(
+                    utf8::make_from_utf32_iterator(cps, cps, cps + 1),
+                    utf8::make_from_utf32_iterator(cps, cps + 1, cps + 1),
+                    buf);
+                os.write(buf, end - buf);
+            }
+            return os;
+        }
 
     private:
         iterator first_;

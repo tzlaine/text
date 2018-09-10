@@ -34,6 +34,8 @@
 [import ../example/breaks.cpp]
 [import ../example/case_mapping.cpp]
 [import ../example/collation.cpp]
+[import ../example/collation_search.cpp]
+[import ../example/bidirectional.cpp]
 
 [/ Images ]
 
@@ -93,6 +95,7 @@
 [def _line_brk_res_        [classref boost::text::line_break_result `line_break_result`]]
 [def _line_brk_cp_rng_     [classref boost::text::line_break_cp_range `line_break_cp_range`]]
 [def _line_brk_cp_rngs_    [classref boost::text::line_break_cp_range `line_break_cp_range`s]]
+[def _line_brk_gr_rngs_    [classref boost::text::line_break_grapheme_range `line_break_grapheme_range`s]]
 
 [def _to_lower_            [funcref boost::text::to_lower `to_lower()`]]
 [def _to_title_            [funcref boost::text::to_title `to_title()`]]
@@ -111,6 +114,9 @@
 
 [def _table_ser_           [link header.boost.text.table_serialization_hpp table_serialization.hpp]]
 [def _save_load_table_     [link header.boost.text.save_load_table_hpp save_load_table.hpp]]
+
+[def _bidi_cp_subrng_      [classref boost::text::bidirectional_cp_subrange `bidirectional_cp_subrange`]]
+[def _bidi_gr_subrng_      [classref boost::text::bidirectional_grapheme_subrange `bidirectional_grapheme_subrange`]]
 
 [def _t_                   [classref boost::text::text `text`]]
 [def _ts_                  [classref boost::text::text `text`s]]

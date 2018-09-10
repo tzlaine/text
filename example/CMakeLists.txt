@@ -24,6 +24,8 @@ add_sample(normalize)
 add_sample(breaks)
 add_sample(case_mapping)
 add_sample(collation)
+add_sample(collation_search)
+add_sample(bidirectional)
 
 
 if (BUILD_EDITOR)

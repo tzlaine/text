@@ -27,8 +27,8 @@ necessary because Unicode requires that certain combinations of code points be
 considered identical.  For instance, the two _cps_ U+0041 U+0308 appear like
 this: "Ä", and the _cp_ U+00C4 appears like this: "Ä".  Since these two
 sequences are not visually distinct, all the algorithms must treat them as the
-same thing.  Therefore, the operation `"\U00000041\U00000308" == "\U000000C4"`
-must return `true` for the purposes of Unicode.  Normalizations exist to put
+same thing.  Therefore, that `u8"\U00000041\U00000308" == u8"\U000000C4"` must
+evaluate to `true` for the purposes of Unicode.  Normalizations exist to put
 strings of _cps_ into canonical forms.
 
 An /extended grapheme cluster/, or just /_gr_/, is a sequence of _cps_ that
@@ -63,6 +63,15 @@ on _cps_, so they take _CPIter_ iterator parameters.  The range overloads take
 _CPRng_ parameters.  For convenience, overloads are provided for many of the
 Unicode layer algorithms that take _GrRng_ and _GrIter_ parameters.  This
 provides convenient compatability with the text layer types, like _t_ and _r_.
+
+[heading Memory Allcoations]
+
+Many of the Unicode algorithms require that intermediate results be
+accumulated in side buffers at various times during their operation.
+Therefore, many of the algorithms in this section may allocate memory.
+However, _Text_ makes extensive use of `boost::container::small_vector<>`s for
+these side buffers.  The end result is that though these algorithms /may/
+allocate memory, in practice they seldom if ever do.
 
 
 [section Encoding and Normalization]
@@ -103,7 +112,8 @@ model _CPIter_ too.  An example of use:
 
 [to_utf32_verbose]
 
-That's a lot of typing, so there's also a much terser range-based form using _u32_rng_:
+That's a lot of typing, so there's also a much terser range-based form using
+_u32_rng_:
 
 [to_utf32_terse]
 
@@ -117,6 +127,29 @@ two UTF-32 iterators and returns a _s_ containing the given sequence,
 UTF-8-encoded.
 
 
+[heading Accessing the Underlying UTF-8 chars]
+
+When using _to_32_iter_ or _u32_rng_, it is often desirable to get access to
+the underlying sequence of `char`s (e.g. for copying into a buffer or
+constructing a `std::string`).
+
+_to_32_iter_ exposes, and in fact all the converting iterators expose, the
+iterator they are parameterized with, via the member function `base()`.  You
+can always get at the sequence of `char` underlying the _cp_ sequence exposed
+by _to_32_iter_ like this:
+
+    boost::text::utf8::to_utf32_iterator first = /* ... */;
+    boost::text::utf8::to_utf32_iterator last = /* ... */;
+
+    // Copy [first, last) as code points.
+    std::vector<uint32_t> cp_vec;
+    std::copy(first, last, std::back_inserter(cp_vec));
+
+    // Copy [first, last) as chars.
+    std::vector<char> char_vec;
+    std::copy(first.base(), last.base(), std::back_inserter(char_vec));
+
+
 [heading Normalization]
 
 _Text_ provides algorithms for all four Unicode normalization forms: NFD,
@@ -127,14 +160,14 @@ cases.  FCC is particularly useful when doing collation.
 
 The algorithms are of the form `normalize_to_X()`, and there are range and
 iterator-based interfaces.  The iterator interfaces require iterators that
-model _CPIter_, and ranges that model _CPRange_.  There are also algorithms
-that can check if a _cp_ sequence is in a certain normalization form.
+model _CPIter_, and ranges that model _CPRng_.  There are also algorithms that
+can check if a _cp_ sequence is in a certain normalization form.
 
 [normalize_1]
 
 [warning Beware!  The normalization checks attempt to use a quick-check lookup
 for each code point, to avoid having to do a full normalization.  This quick
-check may be inconclusive for a particular code point an normalization form.
+check may be inconclusive for a particular code point a normalization form.
 In this case, a full normalization is performed, and the result is compared to
 the input sequence.]
 
@@ -154,14 +187,14 @@ an official Unicode text segmentation algorithm.
 [heading Conventions]
 
 All the kinds of text breaking have a common pattern.  Each kind of break `X`
-provides at least these functions:
+(word, sentence, etc.)  provides at least these functions:
 
     template <typename CPIter, typename Sentinel>
     CPIter prev_X_break(CPIter first, CPIter it, Sentinel last) noexcept;
 
 `prev_X_break()` returns `it` if `it` is already at a break, or the break
 before `it` otherwise.  There is one exception to this _emdash_ even though
-there is always an implicit break at the end of an sequence of _cps_, if `it`
+there is always an implicit break at the end of a sequence of _cps_, if `it`
 == `last`, the previous break is still returned, if any.
 
 This behavior allows us to do two convenient things with `prev_X_break()`.
@@ -196,7 +229,7 @@ in which `it` is found.
 `reversed_Xs()` returns the same thing as `Xs()`, with the subranges in
 reverse order.
 
-And of course there are _CPRange_ overloads as well:
+And of course there are _CPRng_ overloads as well:
 
     template<typename CPRange, typename CPIter>
     auto prev_X_break(CPRange & range, CPIter it) noexcept;
@@ -212,7 +245,7 @@ And of course there are _CPRange_ overloads as well:
 For all kinds of breaks besides grapheme breaks, there are range overloads
 that accept _GrRng_ ranges _GrIter_ iterators instead.  These provide
 convenient support for using the Unicode layer algorithms with the text layer
-types link _t_ and _r_.
+types like _t_ and _r_.
 
     template<typename GraphemeRange, typename GraphemeIter>
     auto prev_X_break(GraphemeRange const & range, GraphemeIter it) noexcept;
@@ -262,12 +295,11 @@ with text from an unknown source.
 
 [heading Words]
 
-Word break occur where you'd expect _emdash_ at the beginnings and ends of
-words _emdash_ but that implies that they occur where you might not expect
-_emdash_ at the beginnings and ends of the _cp_ sequences *between* words.
-Here is an example of word breaks taken from _text_seg_.  The string `"The
-quick (“brown”) fox can’t jump 32.3 feet, right?"` is broken up into words
-like this:
+Word breaks occur where you'd expect _emdash_ at the beginnings and ends of
+words _emdash_ but they also occur where you might not expect _emdash_ at the
+beginnings and ends of the _cp_ sequences *between* words.  Here is an example
+of word breaks taken from _text_seg_.  The string `"The quick (“brown”) fox
+can’t jump 32.3 feet, right?"` is broken up into words like this:
 
 [table Word Break Example
     [
@@ -322,7 +354,7 @@ the rules specified in this annex supply a well-defined default.]
 French and Italian words are not broken after an apostrophe; the default
 algorithm finds `"l’objectif"` to be a single word.
 
-Breaking on dashes in the default; the default algorithm finds
+Breaking on dashes is the default; the default algorithm finds
 `"out-of-the-box"` to be seven words.
 
 There are other rarer failure cases in that document you might want to look at
@@ -338,8 +370,8 @@ optional word-property lookup function to replace the default one.
 
 For example, here I've made a custom word property lookup function that treats
 a regular dash `'-'` as a `MidLetter`, meaning a _cp_ that is part of a word
-as long as it can reach at least one letter before reaching a line break on
-either side:
+as long as it can reach at least one letter on either side, before reaching a
+word break first:
 
 [word_breaks_2]
 
@@ -396,7 +428,9 @@ function is this:
                       uint32_t next_next);
 
 Returning `true` indicates that `[prev, curr]` straddles a word break; `prev`
-is the last _cp_ of one word, and `curr` is the first _cp_ of the next:
+is the last _cp_ of one word, and `curr` is the first _cp_ of the next.  If
+provided, this cusomt break function is evaluated before any of the Unicode
+word break rules.
 
 [word_breaks_3]
 
@@ -450,21 +484,21 @@ information:
 
 The `hard` naming is only present in these low-level functions; the rest of
 the line breaking APi uses `line` for the hard break version, and
-`allowed_line` for the other.  The reset of the line breaking API should be
+`allowed_line` for the other.  The rest of the line breaking API should be
 familiar by now; it parallels the other breaking APIs, but with the hard
 vs. allowed overloads.
 
 Just as the low-level `prev` and `next` functions for allowed beaks returned
 extra information, the other allowed-break functions do as well.  The rest of
-the API produces _cp_ ranges, and the allowed-break versions produce
-_line_brk_cp_rngs_ instead:
+the API produces _cp_ or _gr_ ranges, and the allowed-break versions produce
+_line_brk_cp_rngs_ or _line_brk_gr_rngs_ instead, respectively:
 
 [line_breaks_2]
 
 Additionally, there are overloads that make it convenient to write simple code
 that selects an allowed break based on available space.  The available space,
-and the amout of space taken up by each check of _cps_, is user-configurable.
-There is an overload of `lines()` that you pass the amount of space and a
+and the amount of space taken up by each chunk of _cps_, is user-configurable.
+There is an overload of `lines()` that takes the amount of space and a
 callable that determines the space used by some sequence of _cps_.  Each chunk
 contains the _cps_ between allowed breaks.  If a chunk would exceed available
 space, the allowed break before that chunk is used:
@@ -485,7 +519,7 @@ an out-iterator.  There are also three case predicates, _is_lower_,
 _is_title_, and _is_upper_.
 
 For each of these, there are overloads that take the input _cp_ sequence as a
-pair of _CPIters_, a _CPRng_, or a _GrRng_:
+_CPRng_, a pair of _CPIters_, or a _GrRng_:
 
 [case_mapping_1]
 
@@ -503,9 +537,9 @@ you need tailored word breaking.
 There are a few case mapping behaviors that are common in various languages,
 but that are not accounted for by the default Unicode case mapping rules.  For
 instance, Dutch capitalizes `"IJ"` at the beginning of title-cased words.
-This is available in _Text_'s implementation if you use `_case_lang_::dutch`.
-_Text_ also implements the somewhat complicated rules for upper-casing modern
-Greek.
+This is available in _Text_'s implementation if you use `_case_lang_::dutch`,
+as seen above.  _Text_ also implements the somewhat complicated rules for
+upper-casing modern Greek.
 
 Finally, there are in-place versions of the case-mapping functions available
 for use with _t_ and _r_:
@@ -568,10 +602,10 @@ in the sequence _emdash_ then all the L2 weights, then the L3 weights, etc.
 This means that any L1 difference is treated as more important than any L2
 difference, and any L2 difference trumps any L3 difference, etc.
 
-It is possible to compare sequences considering only a contiguous subrange of
-levels; this is known as the collation /strength/.  For example, L1 strength
-means "Ignore accents, case, and punctuation", and L2 strength means "Ignore
-case and punctuation".
+It is possible to consider only a subset of levels (L1 through LN) when
+comparing sequences; this is known as the collation /strength/.  For example,
+L1 strength means "Ignore accents, case, and punctuation", and L2 strength
+means "Ignore case and punctuation".
 
 There are also parameters you can provide to the collation algorithm that
 create variations such as "Ignore accents, but do consider case".
@@ -582,7 +616,7 @@ Since there exists no unique mapping of _cps_ to collation weights that works
 for every language and context, there needs to be a means available to users
 of the Unicode collation algorithm of tailoring collation to a particular
 language or use case.  _Text_ supports the _ldml_ format for specifying
-collation tailoring; see that webstire for details.  An example of this super
+collation tailoring; see that website for details.  An example of this super
 simple and convenient format is:
 
     [normalization on]
@@ -641,9 +675,12 @@ table:
 
 [collation_configuration]
 
-[important Unicode collation requires the NFD normalization form, one of the
-least compact normalization forms. However, there is a variant that is defined
-in _tn5_ that allows one to use an alternate normalization form called FCC.
+[important The default Unicode collation algorithm requires the NFD
+normalization form, one of the least compact normalization forms.  This means
+either keeping your data is a memory-hogging normalization form, or paying the
+cost of normalization every time you do a collation.  However, there is a
+variant of the default algorithm that is defined in _tn5_ that allows one to
+use an alternate normalization form called FCC.
 
 FCC is very similar to NFC, except that it is less compact in a few
 cases. _Text_'s collation implementation relies on the inputs being in the FCC
@@ -659,7 +696,8 @@ world of Unicode:
 
 [collation_set_1]
 
-Hm.  Not well.  Ok, we can fix this by making a comparison callable:
+Hm.  Not well.  Ok, we can fix this by making a callable to use for
+comparisons:
 
 [collation_text_cmp_naive]
 
@@ -667,9 +705,10 @@ Then we can make a set using that:
 
 [collation_set_2]
 
-But wait, I want to do a bunch of stuff in Danish.  In fact, I'm building a
-directory of old and new town names, and I want to print an index of them for
-end-users.  Ah, I'll just collate the values instead of binary-comparing them.
+But wait, I want to do a bunch of stuff /in Danish/, and I care about
+collation order.  In fact, I'm building a directory of old and new town names,
+and I want to print an index of them for end-users.  Ah, I'll just collate the
+values instead of binary-comparing them.
 
 First, my new callable:
 
@@ -683,8 +722,10 @@ The problem is that we're doing the very expensive operation of creating two
 sort keys for *each comparison*, and immediately throwing them away.
 
 [note Ordering sequences of _cps_ creates expectations about their order that
-can be misleading.  _Text_ therefore does not allow implicit ordering of
-sequences of _cps_.]
+can be misleading and/or confusing.  Some collation-incorrect sort orders are
+fine, because end-users will never see them; some sort orders must be
+collation-correct because end-users eventually /will/ see them.  _Text_
+therefore does not allow *implicit* ordering of sequences of _cps_.]
 
 Let's look at how much overhead we've incurred by doing all this repetitive
 collation.  Below is the result of running a pair of perf tests.  The first
@@ -747,19 +788,20 @@ approach from before:
     [ [8192] [49242103 ns] [37479917 ns] [1.31] ]
 ]
 
-The map version even does better than the set that uses binary comparison.
+The map version even does better than the set that uses the faster,
+`char`-based, binary comparison.
 
 In all these tests, I've intentionally chosen to use multisets and multimaps,
 because otherwise the map-based approach above has an unfair advantage, or a
 bug, depending on your use case.
 
-If you use a map instead of a multimap, you may not insert a value that has
+If you use a map instead of a multimap, you will not insert a value that has
 the same sort key as an element already in the map, even if that _cp_ sequence
 itself is *not* in the map.  That is, two _cp_ sequences can collate to the
-same sort key.  If you want to consider two _cp_ sequences equivalent if they
-collate the same, it is a feature, and a possibly large optimization, not to
-insert one of them.  If you want to keep all unique _cp_ sequences, this is a
-bug.
+same sort key.  If you want to consider two _cp_ sequences equivalent when
+they collate the same, it is a feature, and a possibly large optimization, not
+to insert one of them.  If you want to keep all unique _cp_ sequences,
+regardless of their associated keys, this is a bug.
 
 [heading Associative Container Perf Bottom Line]
 
@@ -789,23 +831,101 @@ they are unordered.
 
 [heading Sorting Woes]
 
-TODO: collation keys should be kept around since they are expensive to make
+Ok, so we've seen a reasonable container-based approach to getting _cp_
+sequences that are sorted in a collation-correct way.  What if you just want
+to collation-sort a sequence of _cp_ sequences?  As with our earliest
+container efforts before, the straightforward approach does not work:
 
+[collation_sorting_1]
 
+However, we can just drag around the sort keys, though it's a bit more work:
 
-TODO
+[collation_sorting_2]
+
+This is something close to the optimal approach, as clunky as it is.
+Alternatievly, we could sort the _ts_ using a comparator that does a lookup in
+some side data structure containing keys, but that seems even more clunky.
 
 [endsect]
 
 
 [section Searching]
 
-TODO
+This section concerns itself with collation-aware searching.  That is, given a
+string `S` and a pattern to search for `P`, the search operation uses
+collation comparison _emdash_ not binary comparison _emdash_ to find `P`
+within `S`.
+
+You can search any range in a variety of ways, using the standard algorithms
+and the string algorithms in _StringAlgo_.
+
+However, many of these algorithms do simple element equality using the default
+`operator==`, which is obviously not suitable for collation comparison.  Some
+of them have overloads that take a comparator, though in most cases the
+algorithm expects the comparator to be stateless; this is also not suitable
+for collation comparison, which is inherently stateful.
+
+_Text_ includes a collation-aware search API.  The benefit of using the
+general-purpose collation mechanism for search is that we get all the
+collation matching functionality included _emdash_ tailoring plus the
+collation configury (consider case or not, accents or not, etc.).
+
+Our examples will all use this string to search within:
+
+[collation_search_string]
+
+Below is the simplest way to do a search using this API.  Here, we use a
+convenience function that does a brute-force search (much like a call to the
+non-searcher overloads of `std::search()`):
+
+[collation_search_covenience]
+
+That convenience function is equivalent to the code below.  Here, we're
+creating a searcher and passing it to `collation_search()`.  The reset of the
+collation search API uses this interface.
+
+[collation_search_simple]
+
+If we want to use a different searching algorithm, we can try that instead:
+
+[collation_search_bmh]
+
+And of course we can configure the search in the same way as we can configure
+collation; here we see a case-ignoring search:
+
+[collation_search_ignore_case]
+
+One more example _emdash_ one that uses a non-default collation:
+
+[collation_search_da]
+
+I've only shown the _GrRng_ overloads here for brevity, but there are
+overloads that take a _CPRng_ or a pair of _CPIters_ as well, just like the
+other APIs we've already seen.
 
 [endsect]
 
 
 [section Bidirectional Text]
+
+Most scripts supported by Unicode are written left-to-right (/LTR/).  Some,
+most notably Arabic and Hebrew, are written right-to-left (/RTL/).  Let's say
+you have some text that is mostly LTR, but which contains some RTL text.  If
+you want to present this text to the user, say by printing it to a terminal or
+showing it in a GUI, it becomes necessary to produce an ordering on the _cps_
+in the text that reverses the RTL subsequences, so they appear in their proper
+readable order, not in memory-order.  For example, if the capital letters in
+the string "car means CAR." were RTL, the end-user should see "car means RAC."
+
+There are also times when you find RTL nested within LTR nested within RTL
+nested within LTR.  Unicode is hard.
+
+_Text_ has an implementation of the Unicode bidirectional algorithm.  The
+interface for simple uses is straightfoward; you just call the algorithm with
+a sequence of _cps_, and it returns a lazy range of subranges.  Each subrange
+is a _bidi_cp_subrng_ (or _bidi_gr_subrng_ for the _GrRng_ overloads):
+
+[bidi_simple]
 
 TODO
 
