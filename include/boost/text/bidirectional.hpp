@@ -2207,6 +2207,11 @@ namespace boost { namespace text {
                 auto run = *state.reordered_runs_it_;
                 ++state.reordered_runs_it_;
 
+                auto const line_break =
+                    state.reordered_runs_it_ == state.reordered_runs_last_
+                        ? state.line_break_
+                        : bidi_line_break_kind::none;
+
                 auto const cp_first = run.begin()->it_;
                 auto const cp_last = run.begin() == run.end()
                                          ? cp_first
@@ -2242,7 +2247,7 @@ namespace boost { namespace text {
                         }
 
                         auto const break_ = std::next(it) == out_last
-                                                ? state.line_break_
+                                                ? line_break
                                                 : bidi_line_break_kind::none;
 
                         // Emit the reversed CP.
@@ -2261,14 +2266,13 @@ namespace boost { namespace text {
                     }
 
                     if (!out_value.empty()) {
-                        out_value = OutValueType{out_value.begin(),
-                                                 out_value.end(),
-                                                 state.line_break_};
+                        out_value = OutValueType{
+                            out_value.begin(), out_value.end(), line_break};
                         state.out_values_.push_back(out_value);
                     }
                 } else {
                     auto const out_value =
-                        OutValueType{cp_first, cp_last, state.line_break_};
+                        OutValueType{cp_first, cp_last, line_break};
                     state.out_values_.push_back(out_value);
                 }
 
@@ -2572,7 +2576,10 @@ namespace boost { namespace text {
 
         Line breaks are determined within the algorithm by calling
         <code>lines(first, last, max_extent, cp_extent,
-        break_overlong_lines)</code>.
+        break_overlong_lines)</code>.  Note that CPExtentFunc must have a
+        polymorphic call operator.  That is, it must be a template or generic
+        lambda that accepts two parameters whose type models the CPIter
+        concept.
 
         If a non-negative <code>paragraph_embedding_level</code> is provided,
         it will be used instead of the initial paragraph embedding level
@@ -2621,7 +2628,10 @@ namespace boost { namespace text {
 
         Line breaks are determined within the algorithm by calling
         <code>lines(first, last, max_extent, cp_extent,
-        break_overlong_lines)</code>.
+        break_overlong_lines)</code>.  Note that CPExtentFunc must have a
+        polymorphic call operator.  That is, it must be a template or generic
+        lambda that accepts two parameters whose type models the CPIter
+        concept.
 
         If a non-negative <code>paragraph_embedding_level</code> is provided,
         it will be used instead of the initial paragraph embedding level
@@ -2670,7 +2680,10 @@ namespace boost { namespace text {
 
         Line breaks are determined within the algorithm by calling
         <code>lines(first, last, max_extent, cp_extent,
-        break_overlong_lines)</code>.
+        break_overlong_lines)</code>.  Note that CPExtentFunc must have a
+        polymorphic call operator.  That is, it must be a template or generic
+        lambda that accepts two parameters whose type models the CPIter
+        concept.
 
         If a non-negative <code>paragraph_embedding_level</code> is provided,
         it will be used instead of the initial paragraph embedding level
