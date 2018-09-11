@@ -1464,17 +1464,17 @@ namespace boost { namespace text {
             break. */
         bool line_break() const noexcept
         {
-            return hard_line_break() || allowed_line_break();
+            return hard_break() || allowed_break();
         }
 
         /** Returns true if this subrange ends with a hard line break. */
-        bool hard_line_break() const noexcept
+        bool hard_break() const noexcept
         {
             return break_ == detail::bidi_line_break_kind::hard;
         }
 
         /** Returns true if this subrange ends with an allowed line break. */
-        bool allowed_line_break() const noexcept
+        bool allowed_break() const noexcept
         {
             return break_ == detail::bidi_line_break_kind::allowed;
         }
@@ -1529,17 +1529,17 @@ namespace boost { namespace text {
             break. */
         bool line_break() const noexcept
         {
-            return hard_line_break() || allowed_line_break();
+            return hard_break() || allowed_break();
         }
 
         /** Returns true if this subrange ends with a hard line break. */
-        bool hard_line_break() const noexcept
+        bool hard_break() const noexcept
         {
             return break_ == detail::bidi_line_break_kind::hard;
         }
 
         /** Returns true if this subrange ends with an allowed line break. */
-        bool allowed_line_break() const noexcept
+        bool allowed_break() const noexcept
         {
             return break_ == detail::bidi_line_break_kind::allowed;
         }
@@ -2355,9 +2355,7 @@ namespace boost { namespace text {
                 state.out_values_last_ = state.out_values_.end();
             }
         };
-    }
 
-    namespace detail {
         template<typename T>
         struct arrow_proxy
         {
