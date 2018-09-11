@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <array>
+#include <memory>
 #include <numeric>
 #include <unordered_map>
 
@@ -1518,6 +1519,138 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             }
         };
 
+        template<
+            typename CPExtentFunc,
+            bool trivial =
+                std::is_trivially_copy_constructible<CPExtentFunc>::value>
+        struct optional_extent_func
+        {
+            optional_extent_func() : ptr_(nullptr) {}
+            optional_extent_func(optional_extent_func const & other) :
+                ptr_(nullptr)
+            {
+                if (other.ptr_)
+                    ptr_ = new (aligned_ptr()) CPExtentFunc(*other);
+            }
+            optional_extent_func(optional_extent_func && other) : ptr_(nullptr)
+            {
+                if (other.ptr_)
+                    ptr_ = new (aligned_ptr()) CPExtentFunc(std::move(*other));
+            }
+
+            optional_extent_func &
+            operator=(optional_extent_func const & other)
+            {
+                destruct();
+                if (other.ptr_)
+                    ptr_ = new (aligned_ptr()) CPExtentFunc(*other);
+                return *this;
+            }
+            optional_extent_func & operator=(optional_extent_func && other)
+            {
+                destruct();
+                if (other.ptr_)
+                    ptr_ = new (aligned_ptr()) CPExtentFunc(std::move(*other));
+                return *this;
+            }
+
+            optional_extent_func(CPExtentFunc && f)
+            {
+                ptr_ = new (aligned_ptr()) CPExtentFunc(std::move(f));
+            }
+            optional_extent_func(CPExtentFunc const & f)
+            {
+                ptr_ = new (aligned_ptr()) CPExtentFunc(f);
+            }
+
+            ~optional_extent_func() { destruct(); }
+
+            optional_extent_func & operator=(CPExtentFunc && f)
+            {
+                destruct();
+                ptr_ = new (aligned_ptr()) CPExtentFunc(std::move(f));
+            }
+            optional_extent_func & operator=(CPExtentFunc const & f)
+            {
+                destruct();
+                ptr_ = new (aligned_ptr()) CPExtentFunc(f);
+            }
+
+            explicit operator bool() const noexcept { return ptr_; }
+            CPExtentFunc const & operator*() const noexcept { return *ptr_; }
+
+            CPExtentFunc & operator*() noexcept { return *ptr_; }
+
+        private:
+            void * aligned_ptr()
+            {
+                void * ptr = buf_.data();
+                std::size_t space = buf_.size();
+                void * const retval = std::align(
+                    alignof(CPExtentFunc), sizeof(CPExtentFunc), ptr, space);
+                assert(retval);
+                return retval;
+            }
+            void destruct()
+            {
+                if (ptr_)
+                    ptr_->~CPExtentFunc();
+            }
+
+            std::array<char, sizeof(CPExtentFunc) + alignof(CPExtentFunc)> buf_;
+            CPExtentFunc * ptr_;
+        };
+
+        template<typename CPExtentFunc>
+        struct optional_extent_func<CPExtentFunc, true>
+        {
+            optional_extent_func() : ptr_(nullptr) {}
+            optional_extent_func(optional_extent_func const & other) :
+                ptr_(nullptr)
+            {
+                if (other.ptr_)
+                    construct(*other);
+            }
+            optional_extent_func(CPExtentFunc const & f) { construct(f); }
+            optional_extent_func(CPExtentFunc && f) { construct(f); }
+            optional_extent_func & operator=(CPExtentFunc const & f)
+            {
+                construct(f);
+                return *this;
+            }
+            optional_extent_func & operator=(CPExtentFunc && f)
+            {
+                construct(f);
+                return *this;
+            }
+
+            template<typename T>
+            optional_extent_func & operator=(CPExtentFunc const & f)
+            {
+                construct(f);
+            }
+
+            explicit operator bool() const noexcept { return ptr_; }
+            CPExtentFunc const & operator*() const noexcept { return *ptr_; }
+
+            CPExtentFunc & operator*() noexcept { return *ptr_; }
+
+        private:
+            void construct(CPExtentFunc f)
+            {
+                void * ptr = buf_.data();
+                std::size_t space = buf_.size();
+                void * const aligned_ptr = std::align(
+                    alignof(CPExtentFunc), sizeof(CPExtentFunc), ptr, space);
+                assert(aligned_ptr);
+
+                ptr_ = new (aligned_ptr) CPExtentFunc(f);
+            }
+
+            std::array<char, sizeof(CPExtentFunc) + alignof(CPExtentFunc)> buf_;
+            CPExtentFunc * ptr_;
+        };
+
         template<typename Extent, typename CPExtentFunc>
         struct next_allowed_line_break_within_extent_callable
         {
@@ -1551,7 +1684,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
 
         private:
             Extent extent_;
-            optional<CPExtentFunc> cp_extent_;
+            optional_extent_func<CPExtentFunc> cp_extent_;
             bool break_overlong_lines_;
         };
 
