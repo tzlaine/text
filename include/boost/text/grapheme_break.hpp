@@ -370,6 +370,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         };
     }
 
+#if 0
     /** Returns the bounds of the grapheme that <code>it</code> lies within. */
     template<typename CPIter, typename Sentinel>
     cp_range<CPIter> grapheme(CPIter first, CPIter it, Sentinel last) noexcept
@@ -377,13 +378,16 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
         first = prev_grapheme_break(first, it, last);
         return cp_range<CPIter>{first, next_grapheme_break(first, last)};
     }
+#endif
 
 #ifdef BOOST_TEXT_DOXYGEN
 
+#if 0
     /** Returns the bounds of the grapheme that <code>it</code> lies within,
         as a cp_range. */
     template<typename CPRange, typename CPIter>
     detail::undefined grapheme(CPRange & range, CPIter it) noexcept;
+#endif
 
     /** Returns a lazy range of the code point ranges delimiting graphemes in
         <code>[first, last)</code>. */
@@ -407,6 +411,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
 
 #else
 
+#if 0
     template<typename CPRange, typename CPIter>
     auto grapheme(CPRange & range, CPIter it) noexcept
         -> cp_range<detail::iterator_t<CPRange>>
@@ -415,6 +420,7 @@ constexpr std::array<std::array<bool, 15>, 15> grapheme_breaks = {{
             prev_grapheme_break(std::begin(range), it, std::end(range));
         return cp_range<CPIter>{first, next_grapheme_break(first, range.end())};
     }
+#endif
 
     template<typename CPIter, typename Sentinel>
     lazy_segment_range<

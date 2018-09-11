@@ -138,7 +138,7 @@ namespace boost { namespace text {
         }
 
         /** Constructs *this from g. */
-        grapheme_view(struct grapheme const & g) noexcept :
+        grapheme_view(grapheme const & g) noexcept :
             first_(g.begin()),
             last_(g.end())
         {}
@@ -213,28 +213,28 @@ namespace boost { namespace text {
 
     /** Returns true if lhs the same sequence of code points as rhs. */
     template<typename CPIter>
-    bool operator==(struct grapheme const & lhs, grapheme_view<CPIter> rhs)
+    bool operator==(grapheme const & lhs, grapheme_view<CPIter> rhs)
     {
         return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
     template<typename CPIter>
-    bool operator==(grapheme_view<CPIter> lhs, struct grapheme const & rhs)
+    bool operator==(grapheme_view<CPIter> lhs, grapheme const & rhs)
     {
         return rhs == lhs;
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
     template<typename CPIter>
-    bool operator!=(struct grapheme const & lhs, grapheme_view<CPIter> rhs)
+    bool operator!=(grapheme const & lhs, grapheme_view<CPIter> rhs)
     {
         return !(lhs == rhs);
     }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
     template<typename CPIter>
-    bool operator!=(grapheme_view<CPIter> rhs, struct grapheme const & lhs)
+    bool operator!=(grapheme_view<CPIter> rhs, grapheme const & lhs)
     {
         return !(lhs == rhs);
     }

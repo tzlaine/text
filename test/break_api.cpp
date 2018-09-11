@@ -38,6 +38,7 @@ TEST(break_apis, grapheme_break)
         EXPECT_EQ(boost::text::next_grapheme_break(cps, cps.begin() + 0) - cps.begin(), 2);
     }
 
+#if 0
     {
         auto const range =
             boost::text::grapheme(cps.begin(), cps.begin() + 0, cps.end());
@@ -50,6 +51,7 @@ TEST(break_apis, grapheme_break)
         EXPECT_EQ(range.begin() - cps.begin(), 0);
         EXPECT_EQ(range.end() - cps.begin(), 2);
     }
+#endif
 
     {
         auto const all_graphemes =
@@ -219,6 +221,7 @@ TEST(break_apis, grapheme_break_sentinel)
         EXPECT_EQ(std::distance(begin, boost::text::next_grapheme_break(cp_range, begin)), 2);
     }
 
+#if 0
     {
         auto const range = boost::text::grapheme(begin, begin, end);
         EXPECT_EQ(std::distance(begin, range.begin()), 0);
@@ -230,6 +233,7 @@ TEST(break_apis, grapheme_break_sentinel)
         EXPECT_EQ(std::distance(begin, range.begin()), 0);
         EXPECT_EQ(std::distance(begin, range.end()), 2);
     }
+#endif
 
     {
         auto const all_graphemes = boost::text::graphemes(begin, end);

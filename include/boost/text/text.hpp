@@ -40,7 +40,7 @@ namespace boost { namespace text {
         FCC-normalized. */
     struct text
     {
-        using value_type = struct grapheme;
+        using value_type = grapheme;
         using size_type = int;
         using iterator = grapheme_iterator<utf8::to_utf32_iterator<char *>>;
         using const_iterator =
@@ -277,7 +277,7 @@ namespace boost { namespace text {
         iterator insert(iterator at, const_iterator first, const_iterator last);
 
         /** Inserts the grapheme g into *this at position at. */
-        iterator insert(iterator at, struct grapheme const & g);
+        iterator insert(iterator at, grapheme const & g);
 
         /** Inserts the grapheme g into *this at position at. */
         template<typename CPIter>
@@ -776,7 +776,7 @@ namespace boost { namespace text {
         return insert(at, text_view(first, last));
     }
 
-    inline text::iterator text::insert(iterator at, struct grapheme const & g)
+    inline text::iterator text::insert(iterator at, grapheme const & g)
     {
         return insert(at, grapheme_view<grapheme::const_iterator>(g));
     }

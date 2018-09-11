@@ -38,7 +38,7 @@ namespace boost { namespace text {
         is an unencoded_rope that is UTF-8-encoded and FCC-normalized. */
     struct rope
     {
-        using value_type = struct grapheme;
+        using value_type = grapheme;
         using size_type = std::ptrdiff_t;
         using iterator = grapheme_iterator<
             utf8::to_utf32_iterator<detail::const_rope_iterator>>;
@@ -218,7 +218,7 @@ namespace boost { namespace text {
         insert(const_iterator at, const_iterator first, const_iterator last);
 
         /** Inserts the grapheme g into *this at position at. */
-        const_iterator insert(const_iterator at, struct grapheme const & g);
+        const_iterator insert(const_iterator at, grapheme const & g);
 
         /** Inserts the grapheme g into *this at position at. */
         template<typename CPIter>
@@ -633,7 +633,7 @@ namespace boost { namespace text {
     }
 
     inline rope::const_iterator
-    rope::insert(const_iterator at, struct grapheme const & g)
+    rope::insert(const_iterator at, grapheme const & g)
     {
         return insert(at, grapheme_view<grapheme::const_iterator>(g));
     }
