@@ -923,11 +923,45 @@ nested within LTR.  Unicode is hard.
 _Text_ has an implementation of the Unicode bidirectional algorithm.  The
 interface for simple uses is straightfoward; you just call the algorithm with
 a sequence of _cps_, and it returns a lazy range of subranges.  Each subrange
-is a _bidi_cp_subrng_ (or _bidi_gr_subrng_ for the _GrRng_ overloads):
+is a _bidi_cp_subrng_ (or _bidi_gr_subrng_ for the _GrRng_ overload):
 
 [bidi_simple]
 
-TODO
+[note By default, `bidirectional_subranges()` auto-detects the overall
+direction of the text _emdash_ LTR or RTL.  This is known as the /embedding
+level/; even embedding levels are RTL, and odd embedding levels are RTL.  Even
+levels above `0` are found nested within RTL text.  Odd levels above `1` are
+found nested within LTR text.  This is what the /embedding/ part of /embedding
+level/ means.
+
+If you want to force a particular embedding level, say if you're laying out
+text in an HTML table, so the text you're processing is separate from the
+surrounding text, but you know that the surrounding text is all RTL, you may
+want to specify the optional `paragraph_embedding_level` parameter to
+`bidirectional_subranges()`.
+
+Most users can leave this parameter unchanged.]
+
+There is another form of `bidirectional_subranges()`.  This second form takes
+a line width extent and a callable to provide the extent of a subsequence of
+_cps_.  These parameters are the same as the ones passed to some of the line
+break overloads.
+
+This form is necessary because the locations of line breaks within the text
+can affect the output of the bidirectional algorithm.  Therefore, the
+bidirectional algorithm needs to know the positions of line breaks in order to
+operate corerctly.  For example:
+
+[bidi_with_line_breaks]
+
+[important The extent-callable used in the line breaking API takes two
+parameters of exact type.  The extent-callable used above must take two
+parameters of any type that models _CPIter_.  This is because the callable is
+used with some internal iterator types that do not match the _CPIters_ in the
+top-level range that you pass to `bidirectional_subranges()`.]
+
+As with most of the other Unicode layer algorithms, overloads of the two forms
+above exist for _GrRng_, _CPRng_, and pair-of-_CPIter_ inputs.
 
 [endsect]
 
