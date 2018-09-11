@@ -113,23 +113,33 @@ namespace boost { namespace text { namespace detail {
 
 
 
+    template<typename T, typename U>
+    struct is_convertible_and_1_byte
+        : std::integral_constant<
+              bool,
+              std::is_convertible<T, U>::value && sizeof(T) == 1>
+    {
+    };
+
+
+
     template<typename T>
     using is_char_iter = std::integral_constant<
         bool,
         std::is_same<char *, typename std::remove_cv<T>::type>::value ||
             std::is_same<char const *, typename std::remove_cv<T>::type>::
                 value ||
-            std::is_convertible<detected_t<value_type_, T>, char>::value>;
+            is_convertible_and_1_byte<detected_t<value_type_, T>, char>::value>;
 
     template<typename T>
     using is_char_range = std::integral_constant<
         bool,
         std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value ||
             std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value ||
-            (std::is_convertible<
+            (is_convertible_and_1_byte<
                  remove_cv_ref_t<detected_t<has_begin, T>>,
                  char>::value &&
-             std::is_convertible<
+             is_convertible_and_1_byte<
                  remove_cv_ref_t<detected_t<has_end, T>>,
                  char>::value)>;
 

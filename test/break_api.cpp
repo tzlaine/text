@@ -640,15 +640,36 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
 
     // Default breaks.
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cp_range, begin)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cp_range, std::next(begin, 4))), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cp_range, begin)), 5);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::prev_word_break(cp_range, begin)),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::prev_word_break(cp_range, std::next(begin, 4))),
+            0);
+        EXPECT_EQ(
+            std::distance(begin, boost::text::next_word_break(cp_range, begin)),
+            5);
     }
     // MidLetter tailoring.
     {
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cp_range, begin, midletter_dash)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::prev_word_break(cp_range, std::next(begin, 9), midletter_dash)), 0);
-        EXPECT_EQ(std::distance(begin, boost::text::next_word_break(cp_range, begin, midletter_dash)), 10);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::prev_word_break(cp_range, begin, midletter_dash)),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::prev_word_break(
+                    cp_range, std::next(begin, 9), midletter_dash)),
+            0);
+        EXPECT_EQ(
+            std::distance(
+                begin,
+                boost::text::next_word_break(cp_range, begin, midletter_dash)),
+            10);
     }
 
     // Default breaks.
@@ -657,9 +678,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
         boost::text::string const expected_word = "multi";
         auto const expected = utf32_range(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
-            word.begin(), word.end(), expected.begin(), expected.end()))
-            << " '" << boost::text::string(word) << "' != '"
-            << boost::text::string(expected) << "'";
+            word.begin(), word.end(), expected.begin(), expected.end()));
     }
     // MidLetter tailoring.
     {
@@ -667,9 +686,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
         boost::text::string const expected_word = "multi-part";
         auto const expected = utf32_range(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
-            word.begin(), word.end(), expected.begin(), expected.end()))
-            << " '" << boost::text::string(word) << "' != '"
-            << boost::text::string(expected) << "'";
+            word.begin(), word.end(), expected.begin(), expected.end()));
     }
     // Default breaks, range API.
     {
@@ -677,9 +694,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
         boost::text::string const expected_word = "multi";
         auto const expected = utf32_range(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
-            word.begin(), word.end(), expected.begin(), expected.end()))
-            << " '" << boost::text::string(word) << "' != '"
-            << boost::text::string(expected) << "'";
+            word.begin(), word.end(), expected.begin(), expected.end()));
     }
     // MidLetter tailoring, range API.
     {
@@ -687,9 +702,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
         boost::text::string const expected_word = "multi-part";
         auto const expected = utf32_range(expected_word);
         EXPECT_TRUE(boost::algorithm::equal(
-            word.begin(), word.end(), expected.begin(), expected.end()))
-            << " '" << boost::text::string(word) << "' != '"
-            << boost::text::string(expected) << "'";
+            word.begin(), word.end(), expected.begin(), expected.end()));
     }
 
     // Default breaks.
@@ -700,9 +713,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
         for (auto word : boost::text::words(begin, end)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 9);
@@ -715,9 +726,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
         for (auto word : boost::text::words(begin, end, midletter_dash)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 7);
@@ -730,9 +739,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
         for (auto word : boost::text::words(cp_range)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 9);
@@ -745,9 +752,7 @@ TEST(break_apis, word_tailoring_MidLetter_sentinel)
         for (auto word : boost::text::words(cp_range, midletter_dash)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 7);
@@ -788,9 +793,7 @@ TEST(break_apis, word_tailoring_cp_break)
         for (auto word : boost::text::words(begin, end)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 3);
@@ -804,9 +807,7 @@ TEST(break_apis, word_tailoring_cp_break)
              boost::text::words(begin, end, midletter_dash, identifier_break)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 6);
@@ -819,9 +820,7 @@ TEST(break_apis, word_tailoring_cp_break)
         for (auto word : boost::text::words(cps)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 3);
@@ -835,9 +834,7 @@ TEST(break_apis, word_tailoring_cp_break)
              boost::text::words(cps, midletter_dash, identifier_break)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 6);
@@ -886,9 +883,7 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
         for (auto word : boost::text::words(begin, end)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 3);
@@ -902,9 +897,7 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
              boost::text::words(begin, end, midletter_dash, identifier_break)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 6);
@@ -917,9 +910,7 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
         for (auto word : boost::text::words(cp_range)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 3);
@@ -933,9 +924,7 @@ TEST(break_apis, word_tailoring_cp_break_sentinel)
              boost::text::words(cp_range, midletter_dash, identifier_break)) {
             auto const expected = utf32_range(expected_words[i]);
             EXPECT_TRUE(boost::algorithm::equal(
-                word.begin(), word.end(), expected.begin(), expected.end()))
-                << "i=" << i << " '" << boost::text::string(word) << "' != '"
-                << boost::text::string(expected) << "'";
+                word.begin(), word.end(), expected.begin(), expected.end()));
             ++i;
         }
         EXPECT_EQ(i, 6);

@@ -85,8 +85,8 @@ static_assert(
 static_assert(
     text::detail::is_char_iter<std::list<char>::const_reverse_iterator>{}, "");
 
-// Works because int is convertible to char.
-static_assert(text::detail::is_char_iter<std::vector<int>::iterator>{}, "");
+// Does not work because int narrows when converted to char.
+static_assert(!text::detail::is_char_iter<std::vector<int>::iterator>{}, "");
 
 static_assert(!text::detail::is_char_iter<char>{}, "");
 static_assert(!text::detail::is_char_iter<int>{}, "");

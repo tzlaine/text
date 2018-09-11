@@ -10,7 +10,7 @@ Requirements on _CharIter_.  In the table below, `Iter` is a type that models
 _CharIter_.
 
 [table Expression Requirements
-    [[Expression]    [Type]     [Description]]
+    [[Expression]    [Type]     [Description]    [Notes]]
     [
         [
 ``typename std::remove_cv<
@@ -19,7 +19,8 @@ _CharIter_.
     >::type
 >::type`` ]
         [ `char` ]
-        [ The value_type of `Iter` must be convertible to `char`. ]
+        [ The `value_type` of `Iter` must be convertible to `char`. ]
+        [ The size of  the `value_type` of `Iter` must also be `1`. ]
     ]
 ]
 

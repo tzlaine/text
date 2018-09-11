@@ -55,13 +55,15 @@ static_assert(
 static_assert(text::detail::is_char_range<inline_t>::value, "");
 static_assert(text::detail::is_char_range<inline_t const>::value, "");
 
-// These work because their value types are convertible to char.
-static_assert(text::detail::is_char_range<std::vector<wchar_t>>::value, "");
-static_assert(text::detail::is_char_range<std::vector<int>>::value, "");
-static_assert(text::detail::is_char_range<std::array<float, 5>>::value, "");
-static_assert(text::detail::is_char_range<iterator_range<wchar_t *>>::value, "");
+// These don't work because their value types narrow when converted to char.
+static_assert(!text::detail::is_char_range<std::vector<wchar_t>>::value, "");
+static_assert(!text::detail::is_char_range<std::vector<int>>::value, "");
+static_assert(!text::detail::is_char_range<std::array<float, 5>>::value, "");
 static_assert(
-    text::detail::is_char_range<iterator_range<std::vector<int>::iterator>>::value,
+    !text::detail::is_char_range<iterator_range<wchar_t *>>::value, "");
+static_assert(
+    !text::detail::is_char_range<
+        iterator_range<std::vector<int>::iterator>>::value,
     "");
 
 static_assert(text::detail::is_char_range<std::list<char>>::value, "");
