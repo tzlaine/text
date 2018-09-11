@@ -127,6 +127,9 @@
 [def _rv_                  [classref boost::text::rope_view `rope_view`]]
 [def _rvs_                 [classref boost::text::rope_view `rope_view`s]]
 
+[def _gr_view_             [classref boost::text::grapheme_view `grapheme_view`]]
+[def _grapheme_            [classref boost::text::grapheme `grapheme`]]
+
 [def _cpr_                 [classref boost::text::cp_range `cp_range`]]
 
 [def _segv_                [classref boost::text::segmented_vector `segmented_vector`]]

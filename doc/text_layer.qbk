@@ -1,5 +1,53 @@
 [section The Text Layer]
 
+The text layer of _Text_ consists mostly of four types: _t_, _tv_, _r_, and
+_rv_.  These are directly analogous to their string layer counterparts _s_,
+_sv_, _ur_, and _urv_, respectively.  In fact each of the text layer types has
+a single data member _emdash_ the corresponding string layer type.
+
+Let's consider one of the text layer types in particular, _t_.  It's
+underlying stoage is a _s_, as mentioned before.  The `char`s in the _s_ are
+UTF-8 encoded.  The _cp_ view of those UTF-8 encoded `char`s is available by
+using _to_32_iter_.  Since _to_32_iter_ generates replacement characters when
+it encounters a broken encoding, no runtime checks ever need to be performed
+on the encoding of the `char`s in a _t_'s _s_ data member.
+
+[note To be absolutely clear, all the text layer types use UTF-8 encoding.
+There are no other options.  Transcoding to UTF-16 is still possible using
+_to_16_iter_ and _from_16_iter_.]
+
+All the text layer types are kept in the FCC normalization form at all times.
+There is a runtime cost associated with normalizing text that is inserted into
+a text layer type.
+
+[note To be absolutely clear about this as well, there are not other encoding
+options for the text layer types.  Normalization to the four official Unicode
+forms is still available using the Unicode layer normalization algorithms.]
+
+The text layer types are centered around _grs_ instead of `char`s.  Since
+_grs_ are variable-length, this means that all indexing is done using
+iterators instead of integral indices; there is no random access to the
+graphemes in the text layer types.
+
+[heading Graphemes]
+
+When you dereference an iterator that you get from one of the text layer
+types, you get a _gr_view_.  This is a non-owning range of _cps_ that is known
+to be normalized FCC.
+
+If you want an owning set of _cps_ that is known to be normalized FCC, you can
+construct a _grapheme_ (either from a _gr_view_, or by some other means).
+
+TODO: Examples of these.  Maybe return a grapheme from a function containing a
+temporary text?
+
+An Individual _gr_, in the form of a _grapheme_ or _gr_view_, can be inserted
+into a _t_ or _r_.
+
+[note The _gr_ is the unit of work within the text layer.  When using text
+layer types, you should always use the _GrRng_ overloads of the Unicode
+algorithms.]
+
 [heading Grapheme Iterators]
 
 TODO
