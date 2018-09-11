@@ -2483,7 +2483,7 @@ namespace boost { namespace text {
         in the output.  The Unicode bidirectional algorithm specifies that
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
-        classes FSI, LRI, RLI, and PDI.*/
+        classes FSI, LRI, RLI, and PDI. */
     template<typename CPIter, typename Sentinel>
     detail::unspecified bidirectional_subranges(
         CPIter first, Sentinel last, int paragraph_embedding_level = -1);
@@ -2512,10 +2512,10 @@ namespace boost { namespace text {
         classes FSI, LRI, RLI, and PDI.
 
         This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept.*/
+        <code>CPRange</code> models the CPRange concept. */
     template<typename CPRange>
-    detail::unspecified
-    bidirectional_subranges(CPRange & range, int paragraph_embedding_level = -1);
+    detail::unspecified bidirectional_subranges(
+        CPRange & range, int paragraph_embedding_level = -1);
 
     /** Returns a lazy range of grapheme subranges in <code>range</code>; each
         subrange is one of three kinds: a forward-subrange; a
@@ -2541,7 +2541,7 @@ namespace boost { namespace text {
         RLI, and PDI.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept.*/
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
     template<typename GraphemeRange>
     detail::unspecified bidirectional_subranges(
         GraphemeRange const & range, int paragraph_embedding_level = -1);
@@ -2571,7 +2571,7 @@ namespace boost { namespace text {
         in the output.  The Unicode bidirectional algorithm specifies that
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
-        classes FSI, LRI, RLI, and PDI.*/
+        classes FSI, LRI, RLI, and PDI. */
     template<
         typename CPIter,
         typename Sentinel,
@@ -2582,8 +2582,8 @@ namespace boost { namespace text {
         Sentinel last,
         Extent max_extent,
         CPExtentFunc cp_extent,
-        bool break_overlong_lines = true,
-        int paragraph_embedding_level = -1);
+        int paragraph_embedding_level = -1,
+        bool break_overlong_lines = true);
 
     /** Returns a lazy range of code point subranges in <code>range</code>;
         each subrange is one of three kinds: a forward-subrange; a
@@ -2613,14 +2613,14 @@ namespace boost { namespace text {
         classes FSI, LRI, RLI, and PDI.
 
         This function only participates in overload resolution if
-        <code>CPRange</code> models the CPRange concept.*/
+        <code>CPRange</code> models the CPRange concept. */
     template<typename CPRange, typename Extent, typename CPExtentFunc>
     detail::unspecified bidirectional_subranges(
         CPRange & range,
         Extent max_extent,
         CPExtentFunc cp_extent,
-        bool break_overlong_lines = true,
-        int paragraph_embedding_level = -1);
+        int paragraph_embedding_level = -1,
+        bool break_overlong_lines = true);
 
     /** Returns a lazy range of grapheme subranges in <code>range</code>; each
         subrange is one of three kinds: a forward-subrange; a
@@ -2650,14 +2650,14 @@ namespace boost { namespace text {
         RLI, and PDI.
 
         This function only participates in overload resolution if
-        <code>GraphemeRange</code> models the GraphemeRange concept.*/
+        <code>GraphemeRange</code> models the GraphemeRange concept. */
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     detail::unspecified bidirectional_subranges(
         GraphemeRange const & range,
         Extent max_extent,
         CPExtentFunc cp_extent,
-        bool break_overlong_lines = true,
-        int paragraph_embedding_level = -1);
+        int paragraph_embedding_level = -1,
+        bool break_overlong_lines = true);
 
 #else
 
@@ -2711,8 +2711,8 @@ namespace boost { namespace text {
         Sentinel last,
         Extent max_extent,
         CPExtentFunc cp_extent,
-        bool break_overlong_lines = true,
-        int paragraph_embedding_level = -1)
+        int paragraph_embedding_level = -1,
+        bool break_overlong_lines = true)
         -> lazy_bidi_segment_range<
             CPIter,
             Sentinel,
@@ -2732,8 +2732,8 @@ namespace boost { namespace text {
         CPRange & range,
         Extent max_extent,
         CPExtentFunc cp_extent,
-        bool break_overlong_lines = true,
-        int paragraph_embedding_level = -1)
+        int paragraph_embedding_level = -1,
+        bool break_overlong_lines = true)
         -> detail::cp_rng_alg_ret_t<
             lazy_bidi_segment_range<
                 detail::iterator_t<CPRange>,
@@ -2758,8 +2758,8 @@ namespace boost { namespace text {
         GraphemeRange const & range,
         Extent max_extent,
         CPExtentFunc cp_extent,
-        bool break_overlong_lines = true,
-        int paragraph_embedding_level = -1)
+        int paragraph_embedding_level = -1,
+        bool break_overlong_lines = true)
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
                 typename detail::iterator_t<GraphemeRange const>::iterator_type,
