@@ -312,7 +312,9 @@ namespace boost { namespace text {
         /** Removes and returns the underlying unencoded_rope from *this. */
         unencoded_rope extract() && noexcept;
 
-        /** Replaces the underlying unencoded_rope in *this. */
+        /** Replaces the underlying unencoded_rope in *this.
+
+            \pre ur is normalized FCC. */
         void replace(unencoded_rope && ur) noexcept;
 
         /** Appends c_str to *this. */

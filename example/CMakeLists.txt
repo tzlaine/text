@@ -26,6 +26,8 @@ add_sample(case_mapping)
 add_sample(collation)
 add_sample(collation_search)
 add_sample(bidirectional)
+add_sample(graphemes)
+add_sample(segmented_vector)
 
 
 if (BUILD_EDITOR)

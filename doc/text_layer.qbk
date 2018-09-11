@@ -2,8 +2,9 @@
 
 The text layer of _Text_ consists mostly of four types: _t_, _tv_, _r_, and
 _rv_.  These are directly analogous to their string layer counterparts _s_,
-_sv_, _ur_, and _urv_, respectively.  In fact each of the text layer types has
-a single data member _emdash_ the corresponding string layer type.
+_sv_, _ur_, and _urv_, respectively.  In fact, each of the text layer types
+has a single data member _emdash_ an object of the corresponding string layer
+type.
 
 Let's consider one of the text layer types in particular, _t_.  It's
 underlying stoage is a _s_, as mentioned before.  The `char`s in the _s_ are
@@ -20,7 +21,7 @@ All the text layer types are kept in the FCC normalization form at all times.
 There is a runtime cost associated with normalizing text that is inserted into
 a text layer type.
 
-[note To be absolutely clear about this as well, there are not other encoding
+[note To be absolutely clear about this as well, there are no other encoding
 options for the text layer types.  Normalization to the four official Unicode
 forms is still available using the Unicode layer normalization algorithms.]
 
@@ -35,11 +36,17 @@ When you dereference an iterator that you get from one of the text layer
 types, you get a _gr_view_.  This is a non-owning range of _cps_ that is known
 to be normalized FCC.
 
+[graphemes_grapheme_view]
+
 If you want an owning set of _cps_ that is known to be normalized FCC, you can
 construct a _grapheme_ (either from a _gr_view_, or by some other means).
 
-TODO: Examples of these.  Maybe return a grapheme from a function containing a
-temporary text?
+[graphemes_grapheme]
+
+[note _grapheme_ has a small-buffer optimization so that using it seldom
+involves allocations.  This also implies that an array of _graphemes_ is
+likely to be wasteful of storage.  If you want a bunch of _grs_, you chould
+probably be using a _t_.]
 
 An Individual _gr_, in the form of a _grapheme_ or _gr_view_, can be inserted
 into a _t_ or _r_.
@@ -50,8 +57,94 @@ algorithms.]
 
 [heading Grapheme Iterators]
 
-TODO
+Since the _gr_ is the unit of work within the text layer, it's natural that
+the text layer types return _gr_its_ from `begin()` and `end()`.  But what
+about the times when you actually want to deal with sequences of _cps_ or
+`char`s?  This comes up often when you need to use legacy interfaces.
 
-TODO
+Fotunately, that's really easy.  _gr_it_ has a `base()` member that returns
+its underlying _cp_ iterator.  The _cp_ iterator used in the text layer types
+is always _to_32_iter_, which also has a `base()` member that returns /it's/
+underlying `char` iterator:
+
+[graphemes_iterator_bases]
+
+if you remember from the discucssion of the string layer types, _s_ is always
+null-terminated, and its iterator is just a `char *`.  This means that any _t_
+object `t` is null-terminated too, as long as you access it's underlying
+`char` iterator directly:
+
+[graphemes_text_null_termination]
+
+[heading A Shortcoming]
+
+There is a problem with basing all your Unicode operations on _grs_.
+Graphemes do not always line up with the text segmentation algorithms.
+Specifically, lines are not guaranteed to end exactly on a _gr_ break (the
+other text breaking algorithms all end on _gr_ breaks).
+
+There are two things to note here:
+
+# The cases where a line does not end on a _gr_ break are obscure corner cases
+  that do not often come up in practice.
+
+# Graphemes are context-sensitive.  In other words, if you break a line in the
+  middle of a _gr_ `G`, `G`'s _cps_ before the line break from their own _gr_,
+  and the rest of `G`'s _cps_ form another _gr_.  In other words, breaking
+  _grs_ is pretty benign; it's not like breaking encoding or normalization.
+
+[heading The Text Layer Types]
+
+As mentioned before, this layer has four types (_t_, _tv_, _r_, and _rv_) that
+are directly analogous to the four major types in the strig layer (_s_, _sv_,
+_ur_, and _urv_).  The high-level semantics of these types is the same:
+
+* _s_ and _t_ are owning and contiguous.
+* _sv_ and _tv_ and non-owning and continguous.
+* _ur_ and _r_ are owning and discontiguous.
+* _urv_ and _rv_ are non-owning and discontiguous.
+
+Other high-level semantics apply as well, such as the size-type used for each.
+How about the differences?
+
+* The text layer types are sequences of _grs_, not `char`s.
+
+* The text layer types are bidirectional ranges, not random-access ranges like
+  the string layer types.
+
+* There are no relational operators (`<`, `<=`, `>`, and `>=`).  This is
+  because this would lead to implicit ordering based on the type's binary
+  representation, and not on some collation.  This is wrong in some _emdash_
+  but not all _emdash_ contexts, making it bad candidate for implicit
+  semantics.
+
+* There are still equality comparison operators though (`==` and `!=`),
+  because they are fundamental.
+
+* There are no comparisons of any kind between the text layer types and the
+  string layer types.  This is because the former are all UTF-8 encoded and
+  normalized, and the latter are not.  Such comparisons across type should
+  require explicit indication of the desired semantics.
+
+* There are no `size()` members.  To implement this would be an `O(N)`
+  operation, and so `size()` would be a very misleading name for this.  There
+  is instead a `distance()` function that returns the number of _grs_ in
+  `O(N)` time.  There is an `O(1)` member `storage_bytes()` that returns the
+  size (in `char`s) of the underlying storage.
+
+* Since it would imply a maximum number of _grs_, there is no `max_size()`
+  either.  There is instead a `max_bytes()`.
+
+* _t_ has a `capacity_bytes()` instead of a `capacity()` member.
+
+* There are two members that allow you to steal and/or replace the underlying
+  storage of the owning text layer types (_t_ and _r_).  `extract()` moves the
+  underlying container out, and an overload of `replace()` moves it in.
+  `replace()` requires the moved-in container is normalized FCC.
+
+If you want to know which text layer type to use, you can refer back to the
+handy table in the string layer documentation.  The text layer types have the
+same relationships among each other that the string layer types do among
+themselves.
 
 [endsect]

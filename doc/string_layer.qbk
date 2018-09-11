@@ -68,6 +68,10 @@ exception-safe.  Its purpose is to be a better `std::string`.
 _s_'s character type is `char` and its size/index type is `int`, for the same
 reasons given for _sv_.  It is also slice-able in the same way that _sv_ is.
 
+_s_ is always kept null-terminated, and its iterator type is (possibly
+`const`) `char *`.  This means that getting a null-terminated C-style string
+out of a _s_ is done by calling `str.begin()`.
+
 _s_ has its own user-defined literals:
 
 [string_literal]
@@ -259,6 +263,10 @@ of its nodes, and when we decided to mutate `R` in place or not.
 
 [important Therefore, if you care about using _urs_ in a thread-safe manner,
 always pass them by value.]
+
+[note A major use case for _urs_ is for building undo/redo systems for text
+editing that are simple and performant.  See the example in the _seg_vec_docs_
+for details _emdash_ just imagine _urs_ instead of `segmented_vector<int>`s.]
 
 _ur_ has the same `explicit` conversions from _CharRng_ and _GrRng_ that _s_
 does.
