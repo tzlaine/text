@@ -14,7 +14,7 @@ int main ()
 //[ grapheme_breaks
 
 // U+0308 COMBINING ACUTE ACCENT
-std::array<uint32_t, 3> cps = {'a', 0x0308, 'b'};
+std::array<uint32_t, 3> cps = {{'a', 0x0308, 'b'}};
 
 auto const first = cps.begin();
 auto const last = cps.end();
