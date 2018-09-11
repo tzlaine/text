@@ -139,6 +139,8 @@
 [def _sentence_property_   [enumref boost::text::sentence_property `sentence_property`]]
 [def _line_property_       [enumref boost::text::line_property `line_property`]]
 
+[def _word_prop_           [funcref boost::text::word_prop `word_prop`]]
+
 [def _prev_graph_          [funcref boost::text::prev_grapheme_break `prev_grapheme_break()`]]
 [def _next_graph_          [funcref boost::text::next_grapheme_break `next_grapheme_break()`]]
 

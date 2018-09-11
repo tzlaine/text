@@ -73,6 +73,26 @@ However, _Text_ makes extensive use of `boost::container::small_vector<>`s for
 these side buffers.  The end result is that though these algorithms /may/
 allocate memory, in practice they seldom if ever do.
 
+[heading What About Code Point Properties?]
+
+You might notice that there are no interfaces in this layer that provide
+properties of code points, like whether a particular code point is space or
+punctuation.  The reason for this is that such properties are complicated in
+Unicode.
+
+Unicode defines properties like space and punctuation, but it defines them in
+a highly context-sensitive way; each algorithm has its own set of properties
+it associates with code points.  For instance, the word breaking algorithm is
+concerned with single quotes and double quotes, and so has a property for
+each, but other punctuation is spread out among its other properties.  It has
+no property that maps to something like "puntuation".
+
+So if you want to know if a code point is whitespace or not, you might have to
+look it up on a Unicode reference website (and implement a function for
+yourself), or see if the whitespace code points covered by one of the Unicode
+algorithms fits your needs and use that algorithm's `*_prop()` function
+(e.g. _word_prop_).
+
 
 [section Encoding and Normalization]
 
