@@ -279,6 +279,10 @@ namespace boost { namespace text {
         /** Inserts the grapheme g into *this at position at. */
         iterator insert(iterator at, struct grapheme const & g);
 
+        /** Inserts the grapheme g into *this at position at. */
+        template<typename CPIter>
+        iterator insert(iterator at, grapheme_view<CPIter> g);
+
         /** Erases the portion of *this delimited by tv.
 
             \pre !std::less(tv.begin().base().base(), begin().base().base()) &&
@@ -499,10 +503,56 @@ namespace boost { namespace text {
             string_view new_substr,
             bool new_substr_normalized);
 
+        template <typename CPIter>
+        struct insert_grapheme_view_impl;
+
         string str_;
+
+        template <typename CPIter>
+        friend struct insert_grapheme_view_impl;
 
 #endif // Doxygen
     };
+
+#ifndef BOOST_TEXT_DOXYGEN
+
+    template <typename CPIter>
+    struct text::insert_grapheme_view_impl
+    {
+        static text::iterator
+        call(text & t, text::iterator at, grapheme_view<CPIter> g)
+        {
+            container::small_vector<char, 16> grapheme_chars;
+            std::copy(
+                g.begin(),
+                g.end(),
+                utf8::from_utf32_back_inserter(grapheme_chars));
+            return t.insert_impl(
+                at,
+                string_view(&grapheme_chars[0], grapheme_chars.size()),
+                true);
+        }
+    };
+
+    template<typename Iter, typename Sentinel, typename ErrorHandler>
+    struct text::insert_grapheme_view_impl<
+        utf8::to_utf32_iterator<Iter, Sentinel, ErrorHandler>>
+    {
+        static text::iterator call(
+            text & t,
+            text::iterator at,
+            grapheme_view<utf8::to_utf32_iterator<Iter, Sentinel, ErrorHandler>>
+                g)
+        {
+            return t.insert_impl(
+                at,
+                string_view(
+                    g.begin().base(), g.end().base() - g.begin().base()),
+                true);
+        }
+    };
+
+#endif
 
     inline text::iterator begin(text & t) noexcept { return t.begin(); }
     inline text::iterator end(text & t) noexcept { return t.end(); }
@@ -728,8 +778,13 @@ namespace boost { namespace text {
 
     inline text::iterator text::insert(iterator at, struct grapheme const & g)
     {
-        auto const char_size = g.end().base() - g.begin().base();
-        return insert_impl(at, string_view(g.begin().base(), char_size), true);
+        return insert(at, grapheme_view<grapheme::const_iterator>(g));
+    }
+
+    template<typename CPIter>
+    text::iterator text::insert(iterator at, grapheme_view<CPIter> g)
+    {
+        return insert_grapheme_view_impl<CPIter>::call(*this, at, g);
     }
 
     inline text::iterator text::erase(iterator first, iterator last) noexcept
