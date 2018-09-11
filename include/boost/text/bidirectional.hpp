@@ -2460,6 +2460,8 @@ namespace boost { namespace text {
                 state_;
     };
 
+#ifdef BOOST_TEXT_DOXYGEN
+
     /** Returns a lazy range of code point subranges in <code>[first,
         last)</code>; each subrange is one of three kinds: a forward-subrange;
         a reverse-subrange; or a one-code-point subrange used to subtitute a
@@ -2483,15 +2485,8 @@ namespace boost { namespace text {
         the output; this implementation additionally removes code points with
         classes FSI, LRI, RLI, and PDI.*/
     template<typename CPIter, typename Sentinel>
-    auto bidirectional_subranges(
-        CPIter first, Sentinel last, int paragraph_embedding_level = -1)
-        -> lazy_bidi_segment_range<
-            CPIter,
-            Sentinel,
-            bidirectional_cp_subrange<CPIter>>
-    {
-        return {first, last, paragraph_embedding_level};
-    }
+    detail::unspecified bidirectional_subranges(
+        CPIter first, Sentinel last, int paragraph_embedding_level = -1);
 
     /** Returns a lazy range of code point subranges in <code>range</code>;
         each subrange is one of three kinds: a forward-subrange; a
@@ -2514,19 +2509,13 @@ namespace boost { namespace text {
         in the output.  The Unicode bidirectional algorithm specifies that
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
-        classes FSI, LRI, RLI, and PDI.*/
+        classes FSI, LRI, RLI, and PDI.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept.*/
     template<typename CPRange>
-    auto
-    bidirectional_subranges(CPRange & range, int paragraph_embedding_level = -1)
-        -> detail::cp_rng_alg_ret_t<
-            lazy_bidi_segment_range<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>,
-                bidirectional_cp_subrange<detail::iterator_t<CPRange>>>,
-            CPRange>
-    {
-        return {std::begin(range), std::end(range), paragraph_embedding_level};
-    }
+    detail::unspecified
+    bidirectional_subranges(CPRange & range, int paragraph_embedding_level = -1);
 
     /** Returns a lazy range of grapheme subranges in <code>range</code>; each
         subrange is one of three kinds: a forward-subrange; a
@@ -2549,22 +2538,13 @@ namespace boost { namespace text {
         The Unicode bidirectional algorithm specifies that graphemes with
         classes RLE, LRE, RLO, LRO, PDF, and BN not appear in the output; this
         implementation additionally removes graphemes with classes FSI, LRI,
-        RLI, and PDI.*/
+        RLI, and PDI.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept.*/
     template<typename GraphemeRange>
-    auto bidirectional_subranges(
-        GraphemeRange const & range, int paragraph_embedding_level = -1)
-        -> detail::graph_rng_alg_ret_t<
-            lazy_bidi_segment_range<
-                typename detail::iterator_t<GraphemeRange const>::iterator_type,
-                typename detail::iterator_t<GraphemeRange const>::iterator_type,
-                bidirectional_grapheme_subrange<typename detail::iterator_t<
-                    GraphemeRange const>::iterator_type>>,
-            GraphemeRange>
-    {
-        return {range.begin().base(),
-                range.end().base(),
-                paragraph_embedding_level};
-    }
+    detail::unspecified bidirectional_subranges(
+        GraphemeRange const & range, int paragraph_embedding_level = -1);
 
     /** Returns a lazy range of code point subranges in <code>[first,
         last)</code>; each subrange is one of three kinds: a forward-subrange;
@@ -2597,26 +2577,13 @@ namespace boost { namespace text {
         typename Sentinel,
         typename Extent,
         typename CPExtentFunc>
-    auto bidirectional_subranges(
+    detail::unspecified bidirectional_subranges(
         CPIter first,
         Sentinel last,
         Extent max_extent,
         CPExtentFunc cp_extent,
-        int paragraph_embedding_level = -1,
-        bool break_overlong_lines = true)
-        -> lazy_bidi_segment_range<
-            CPIter,
-            Sentinel,
-            bidirectional_cp_subrange<CPIter>,
-            detail::next_allowed_line_break_within_extent_callable<
-                Extent,
-                CPExtentFunc>>
-    {
-        detail::
-            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
-                next{max_extent, std::move(cp_extent), break_overlong_lines};
-        return {first, last, paragraph_embedding_level, std::move(next)};
-    }
+        bool break_overlong_lines = true,
+        int paragraph_embedding_level = -1);
 
     /** Returns a lazy range of code point subranges in <code>range</code>;
         each subrange is one of three kinds: a forward-subrange; a
@@ -2643,32 +2610,17 @@ namespace boost { namespace text {
         in the output.  The Unicode bidirectional algorithm specifies that
         code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in
         the output; this implementation additionally removes code points with
-        classes FSI, LRI, RLI, and PDI.*/
+        classes FSI, LRI, RLI, and PDI.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept.*/
     template<typename CPRange, typename Extent, typename CPExtentFunc>
-    auto bidirectional_subranges(
+    detail::unspecified bidirectional_subranges(
         CPRange & range,
         Extent max_extent,
         CPExtentFunc cp_extent,
-        int paragraph_embedding_level = -1,
-        bool break_overlong_lines = true)
-        -> detail::cp_rng_alg_ret_t<
-            lazy_bidi_segment_range<
-                detail::iterator_t<CPRange>,
-                detail::sentinel_t<CPRange>,
-                bidirectional_cp_subrange<detail::iterator_t<CPRange>>,
-                detail::next_allowed_line_break_within_extent_callable<
-                    Extent,
-                    CPExtentFunc>>,
-            CPRange>
-    {
-        detail::
-            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
-                next{max_extent, std::move(cp_extent), break_overlong_lines};
-        return {std::begin(range),
-                std::end(range),
-                paragraph_embedding_level,
-                std::move(next)};
-    }
+        bool break_overlong_lines = true,
+        int paragraph_embedding_level = -1);
 
     /** Returns a lazy range of grapheme subranges in <code>range</code>; each
         subrange is one of three kinds: a forward-subrange; a
@@ -2695,14 +2647,119 @@ namespace boost { namespace text {
         The Unicode bidirectional algorithm specifies that graphemes with
         classes RLE, LRE, RLO, LRO, PDF, and BN not appear in the output; this
         implementation additionally removes graphemes with classes FSI, LRI,
-        RLI, and PDI.*/
+        RLI, and PDI.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept.*/
+    template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
+    detail::unspecified bidirectional_subranges(
+        GraphemeRange const & range,
+        Extent max_extent,
+        CPExtentFunc cp_extent,
+        bool break_overlong_lines = true,
+        int paragraph_embedding_level = -1);
+
+#else
+
+    template<typename CPIter, typename Sentinel>
+    auto bidirectional_subranges(
+        CPIter first, Sentinel last, int paragraph_embedding_level = -1)
+        -> lazy_bidi_segment_range<
+            CPIter,
+            Sentinel,
+            bidirectional_cp_subrange<CPIter>>
+    {
+        return {first, last, paragraph_embedding_level};
+    }
+
+    template<typename CPRange>
+    auto
+    bidirectional_subranges(CPRange & range, int paragraph_embedding_level = -1)
+        -> detail::cp_rng_alg_ret_t<
+            lazy_bidi_segment_range<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>,
+                bidirectional_cp_subrange<detail::iterator_t<CPRange>>>,
+            CPRange>
+    {
+        return {std::begin(range), std::end(range), paragraph_embedding_level};
+    }
+
+    template<typename GraphemeRange>
+    auto bidirectional_subranges(
+        GraphemeRange const & range, int paragraph_embedding_level = -1)
+        -> detail::graph_rng_alg_ret_t<
+            lazy_bidi_segment_range<
+                typename detail::iterator_t<GraphemeRange const>::iterator_type,
+                typename detail::iterator_t<GraphemeRange const>::iterator_type,
+                bidirectional_grapheme_subrange<typename detail::iterator_t<
+                    GraphemeRange const>::iterator_type>>,
+            GraphemeRange>
+    {
+        return {range.begin().base(),
+                range.end().base(),
+                paragraph_embedding_level};
+    }
+
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename Extent,
+        typename CPExtentFunc>
+    auto bidirectional_subranges(
+        CPIter first,
+        Sentinel last,
+        Extent max_extent,
+        CPExtentFunc cp_extent,
+        bool break_overlong_lines = true,
+        int paragraph_embedding_level = -1)
+        -> lazy_bidi_segment_range<
+            CPIter,
+            Sentinel,
+            bidirectional_cp_subrange<CPIter>,
+            detail::next_allowed_line_break_within_extent_callable<
+                Extent,
+                CPExtentFunc>>
+    {
+        detail::
+            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
+                next{max_extent, std::move(cp_extent), break_overlong_lines};
+        return {first, last, paragraph_embedding_level, std::move(next)};
+    }
+
+    template<typename CPRange, typename Extent, typename CPExtentFunc>
+    auto bidirectional_subranges(
+        CPRange & range,
+        Extent max_extent,
+        CPExtentFunc cp_extent,
+        bool break_overlong_lines = true,
+        int paragraph_embedding_level = -1)
+        -> detail::cp_rng_alg_ret_t<
+            lazy_bidi_segment_range<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>,
+                bidirectional_cp_subrange<detail::iterator_t<CPRange>>,
+                detail::next_allowed_line_break_within_extent_callable<
+                    Extent,
+                    CPExtentFunc>>,
+            CPRange>
+    {
+        detail::
+            next_allowed_line_break_within_extent_callable<Extent, CPExtentFunc>
+                next{max_extent, std::move(cp_extent), break_overlong_lines};
+        return {std::begin(range),
+                std::end(range),
+                paragraph_embedding_level,
+                std::move(next)};
+    }
+
     template<typename GraphemeRange, typename Extent, typename CPExtentFunc>
     auto bidirectional_subranges(
         GraphemeRange const & range,
         Extent max_extent,
         CPExtentFunc cp_extent,
-        int paragraph_embedding_level = -1,
-        bool break_overlong_lines = true)
+        bool break_overlong_lines = true,
+        int paragraph_embedding_level = -1)
         -> detail::graph_rng_alg_ret_t<
             lazy_bidi_segment_range<
                 typename detail::iterator_t<GraphemeRange const>::iterator_type,
@@ -2722,6 +2779,8 @@ namespace boost { namespace text {
                 paragraph_embedding_level,
                 std::move(next)};
     }
+
+#endif
 
 }}
 
