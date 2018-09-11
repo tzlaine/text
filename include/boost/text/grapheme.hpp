@@ -9,6 +9,8 @@
 #include <boost/algorithm/cxx14/equal.hpp>
 #include <boost/container/small_vector.hpp>
 
+#include <ostream>
+
 
 namespace boost { namespace text {
 
@@ -46,7 +48,6 @@ namespace boost { namespace text {
         /** Constructs *this from r.
 
             \pre The code points in r comprise at most one grapheme.
-
             \pre The code points in [first, last) comprise at most one
             grapheme.
             \pre [first, last) is normalized FCC. */
