@@ -85,11 +85,11 @@ TEST(text_tests, test_non_empty_const_interface)
 
     EXPECT_FALSE(t_a.empty());
     EXPECT_EQ(t_a.distance(), 1);
-    EXPECT_GT(t_a.bytes_capacity(), t_a.distance());
+    EXPECT_GT(t_a.capacity_bytes(), t_a.distance());
 
     EXPECT_FALSE(t_ab.empty());
     EXPECT_EQ(t_ab.distance(), 2);
-    EXPECT_GT(t_ab.bytes_capacity(), t_ab.distance());
+    EXPECT_GT(t_ab.capacity_bytes(), t_ab.distance());
 
     EXPECT_EQ(t_a.max_bytes(), INT_MAX / 2);
     EXPECT_EQ(t_ab.max_bytes(), INT_MAX / 2);

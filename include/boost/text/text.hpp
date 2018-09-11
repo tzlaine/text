@@ -203,8 +203,8 @@ namespace boost { namespace text {
         int storage_bytes() const noexcept { return str_.size(); }
 
         /** Returns the number of bytes of storage currently in use by
-         *this. */
-        int bytes_capacity() const noexcept { return str_.capacity(); }
+            *this. */
+        int capacity_bytes() const noexcept { return str_.capacity(); }
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
