@@ -164,6 +164,8 @@
 [def _Rope_                [@https://en.wikipedia.org/wiki/Rope_(data_structure) Rope]]
 [def _tn5_                 [@https://unicode.org/notes/tn5 Unicode Technical Note #5]]
 [def _text_seg_            [@https://unicode.org/reports/tr29 Unicode Text Segmention]]
+[def _text_seg_notes_      [@https://unicode.org/reports/tr29/#Word_Boundary_Rules word break notes in Unicode Text Segmention]]
+[def _bidi_h_tailorings_   [@https://unicode.org/reports/tr9/#Higher-Level_Protocols Higher Level Protocols]]
 [def _cldr_                [@http://cldr.unicode.org CLDR]]
 [def _ldml_coll_tail_      [@https://unicode.org/reports/tr35/tr35-collation.html LDML syntax]]
 [def _ldml_                [@https://unicode.org/reports/tr35/tr35-collation.html LDML]]

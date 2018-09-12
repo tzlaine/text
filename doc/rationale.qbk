@@ -69,6 +69,36 @@ This means that the layout/spacing of the output is not something _Text_ can
 determine.  Higher-level code must deal with such issues.
 
 
+[heading Unicode Algorithm Tailoring]
+
+The behavior of some of the Unicode algorithms is intended to be tailorable.
+_Text_ provides customization of some of its Unicode algorithm implementations
+for this purpose.  Some possible tailorings are not available.
+
+* Grapheme breaks are not tailorable, because they are fundamental to how a
+  large part of _Text_ operates; everyone must have the same sense of what a
+  _gr_ is for this to work.
+
+* Word breaks are tailorable.  The tailorings available via _Text_'s word
+  breaking API should be enough handle most of the shortcomings listed in the
+  _text_seg_notes_.  The shortcomings not covered by _Text_'s API require
+  dictionary lookups (very much out of scope) or extra _cp_ properties (for
+  breaking on script boundaries; also out of scope).
+
+* Sentence breaks are not tailorable, because the suggested tailorings require
+  a large amount of context, and possibly dictionary-style lookups.
+
+* Line breaks are not tailorable, because all the suggested tailorings involve
+  multiple modes of behavior (e.g. for Korean text) or dictionary lookups.
+
+* For bidirectional ordering, Unicode lays out certain tailorings it refers to
+  as _bidi_h_tailorings_.  _Text_ directcly supports HL1 and HL4.  HL2 is
+  unsupported because it frankly doesn't seem very important.  HL3 and HL5 can
+  be accomplished by manually adding directional formatting characters or
+  other desired _cps_ to segments of text.  HL6 is completely unsupported,
+  because it also seems like a very low-frequency use case.
+
+
 [heading _Text_ Does Not Use allocators]
 
 Allocators are too low gain for the cost they impose.  How many
