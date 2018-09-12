@@ -14,7 +14,9 @@
 
 #include <algorithm>
 #include <array>
+#if !defined(__GNUC__) || 5 <= __GNUC__
 #include <memory>
+#endif
 #include <numeric>
 #include <unordered_map>
 
@@ -1523,6 +1525,32 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             }
         };
 
+        inline void * align(
+            std::size_t alignment,
+            std::size_t size,
+            void *& ptr,
+            std::size_t & space)
+        {
+#if defined(__GNUC__) && __GNUC__ < 5
+            void * retval = nullptr;
+            if (size <= space) {
+                char * p1 = static_cast<char *>(ptr);
+                char * p2 = reinterpret_cast<char *>(
+                    reinterpret_cast<size_t>(p1 + (alignment - 1)) &
+                    -alignment);
+                size_t d = static_cast<size_t>(p2 - p1);
+                if (d <= space - size) {
+                    retval = p2;
+                    ptr = retval;
+                    space -= d;
+                }
+            }
+            return retval;
+#else
+            return std::align(alignment, size, ptr, space);
+#endif
+        }
+
         template<
             typename CPExtentFunc,
             bool trivial =
@@ -1595,7 +1623,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             {
                 void * ptr = buf_.data();
                 std::size_t space = buf_.size();
-                void * const retval = std::align(
+                void * const retval = align(
                     alignof(CPExtentFunc), sizeof(CPExtentFunc), ptr, space);
                 assert(retval);
                 return retval;
@@ -1649,7 +1677,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             {
                 void * ptr = buf_.data();
                 std::size_t space = buf_.size();
-                void * const aligned_ptr = std::align(
+                void * const aligned_ptr = align(
                     alignof(CPExtentFunc), sizeof(CPExtentFunc), ptr, space);
                 assert(aligned_ptr);
 
