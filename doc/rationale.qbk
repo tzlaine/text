@@ -25,10 +25,10 @@ allows interoperability with C strings and arrays of `char`.
 
 [heading Where Are `data()`, `c_str()`, `front()`, and `back()`?]
 
-_s_ does not have any of these, even though `std::string` does.  Here's why:
-
-* Since `string::iterator` is just `char const *`, and _s_ is always
-  null-terminated, `data()`, `c_str()`, and `begin()` are synonyms.
+_s_ does not have any of these, even though `std::string` does.  Since
+`string::iterator` is just `char const *`, and _s_ is always null-terminated,
+`data()`, `c_str()`, and `begin()` are synonyms.  Synonyms bad.  Small
+interfaces good.
 
 
 [heading Inserting Null Terminated Sequences]
@@ -38,6 +38,27 @@ terminators from inserted _svs_ and _rsvs_, because leaving them in is almost
 certainly an error.  This can still be accomplished by directly writing
 through the index operator or an iterator, or by inserting
 `string_view("\0")`.
+
+
+[heading _s_, _t_, _ur_ and _r_ Are Implicitly Convertible from `char const *`.]
+
+I find that the syntactic overhead of bringing UDLs into scope and then using
+them to be too high in some cases.  Aggregate initialization including
+string-like objects is one of those:
+
+[table Explicit vs. Implicit Conversion from `char const *`
+    [[Explicit] [Implicit]]
+    [[``
+    using namespace boost::text::literals;
+
+    std::array<boost::text::string, 3> = {{ "foo"_s, "bar"_s, "baz"_s }};
+``]
+    [``
+    std::array<boost::text::string, 3> = {{ "foo", "bar", "baz" }};
+``]]
+]
+
+I find the implicit-conversion code much more natural.
 
 
 [heading None of the _Text_ String Types Does Formatted Output]
@@ -55,5 +76,14 @@ Allocators are too low gain for the cost they impose.  How many
 involve a non-default allocator?  I would be surprised if it was as high as
 1%.  Allocators may once have served an important function, but in modern C++
 are a perfect example of not sticking to "Don't pay for what you don't use."
+
+As a concrete example, consider `std::vector`.  This is a type whose sole
+purpose is to manage the allocations and reallocations of a heap-allocated
+array for you.  Its interface allows me, via its allocator template parameter,
+to change its behavior to be a stack-allocated array of fixed size, but with a
+`std::vector` interface.  This has a large impact on the properties of the
+type, the `noexcept`-ness of and time complexity of `swap()` to name just
+one. I don't consider this to be a feature of the `std::vector` design, but a
+bug.
 
 [endsect]
