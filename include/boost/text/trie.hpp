@@ -141,6 +141,40 @@ namespace boost { namespace trie {
         }
     };
 
+    template<>
+    struct optional_ref<bool const>
+    {
+    private:
+        bool const * t_;
+
+    public:
+        optional_ref() : t_(nullptr) {}
+        optional_ref(bool const & t) : t_(&t) {}
+
+        template<typename U>
+        auto operator=(U && u)
+            -> decltype(*this->t_ = static_cast<U &&>(u), *this)
+        {
+            BOOST_ASSERT(t_);
+            *t_ = static_cast<U &&>(u);
+            return *this;
+        }
+
+        explicit operator bool() const & noexcept { return t_ != nullptr; }
+        explicit operator bool() && noexcept { return t_ != nullptr; }
+
+        bool const & operator*() const noexcept
+        {
+            BOOST_ASSERT(t_);
+            return *t_;
+        }
+        bool const * operator->() const noexcept
+        {
+            BOOST_ASSERT(t_);
+            return t_;
+        }
+    };
+
     namespace detail {
 
         template<typename ParentIndexing, typename Key, typename Value>
