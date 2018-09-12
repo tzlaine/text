@@ -39,6 +39,7 @@
 [import ../example/graphemes.cpp]
 [import ../example/segmented_vector.cpp]
 [import ../example/string_builder.cpp]
+[import ../example/trie.cpp]
 
 [/ Images ]
 
@@ -168,6 +169,7 @@
 [def _seg_vec_docs_        [link boost_text__proposed_._segmented_vector__ `segmented_vector documentation`]]
 
 [def _Rope_                [@https://en.wikipedia.org/wiki/Rope_(data_structure) Rope]]
+[def _Trie_                [@https://en.wikipedia.org/wiki/Trie Trie]]
 [def _tn5_                 [@https://unicode.org/notes/tn5 Unicode Technical Note #5]]
 [def _text_seg_            [@https://unicode.org/reports/tr29 Unicode Text Segmention]]
 [def _text_seg_notes_      [@https://unicode.org/reports/tr29/#Word_Boundary_Rules word break notes in Unicode Text Segmention]]

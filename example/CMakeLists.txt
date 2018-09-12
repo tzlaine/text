@@ -29,6 +29,7 @@ add_sample(bidirectional)
 add_sample(graphemes)
 add_sample(segmented_vector)
 add_sample(string_builder)
+add_sample(trie)
 
 
 if (BUILD_EDITOR)
