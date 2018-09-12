@@ -8,6 +8,10 @@
 #include <boost/assert.hpp>
 #include <boost/optional.hpp>
 
+#if defined(__GNUC__) && __GNUC__ < 5
+#include <boost/type_traits/has_trivial_copy.hpp>
+#endif
+
 #include <algorithm>
 #include <array>
 #include <memory>
@@ -1522,7 +1526,12 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         template<
             typename CPExtentFunc,
             bool trivial =
-                std::is_trivially_copy_constructible<CPExtentFunc>::value>
+#if defined(__GNUC__) && __GNUC__ < 5
+                has_trivial_copy<CPExtentFunc>::value
+#else
+                std::is_trivially_copy_constructible<CPExtentFunc>::value
+#endif
+            >
         struct optional_extent_func
         {
             optional_extent_func() : ptr_(nullptr) {}
