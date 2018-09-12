@@ -75,11 +75,4 @@ if (BUILD_EDITOR)
     if (clang_on_linux)
         target_link_libraries(text_editor c++)
     endif ()
-
-    if (UNIX AND NOT APPLE) # Linux
-        target_include_directories(rope_editor PRIVATE ${CURSES_INCLUDE_DIR}/ncursesw)
-        target_include_directories(text_editor PRIVATE ${CURSES_INCLUDE_DIR}/ncursesw)
-        target_link_libraries(rope_editor ncursesw)
-        target_link_libraries(text_editor ncursesw)
-    endif ()
 endif ()

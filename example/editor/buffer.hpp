@@ -13,15 +13,15 @@
 struct line_size_t
 {
     int code_units_ = 0;
-    int code_points_ = 0;
+    int code_points_ = 0; // TODO: graphemes_
 };
 
 struct snapshot_t
 {
 #ifdef USE_ROPES
-    boost::text::unencoded_rope content_;
+    boost::text::unencoded_rope content_; // TODO: rope
 #else
-    boost::text::string content_;
+    boost::text::string content_; // TODO: text
 #endif
     boost::text::segmented_vector<line_size_t> line_sizes_;
     int first_row_ = 0;
@@ -47,7 +47,7 @@ inline bool dirty(buffer_t const & b)
 #endif
 
 template<typename Iter>
-Iter advance_by_code_point(Iter it, int code_points)
+Iter advance_by_code_point(Iter it, int code_points) // TODO: grapheme
 {
     while (code_points) {
         int const bytes = boost::text::utf8::code_point_bytes(*it);
@@ -109,9 +109,11 @@ inline buffer_t load(boost::filesystem::path path, int screen_width)
                 --it_for_counting_cps;
             line_cps += std::distance(
                 boost::text::utf8::to_utf32_iterator<
-                    boost::text::string::const_iterator>(prev_it),
+                    boost::text::string::const_iterator>(
+                    prev_it, prev_it, it_for_counting_cps),
                 boost::text::utf8::to_utf32_iterator<
-                    boost::text::string::const_iterator>(it_for_counting_cps));
+                    boost::text::string::const_iterator>(
+                    prev_it, it_for_counting_cps, it_for_counting_cps));
             if (it != chunk.end())
                 ++it;
             line_size += it - prev_it;

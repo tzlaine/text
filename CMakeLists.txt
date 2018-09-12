@@ -49,6 +49,16 @@ endif ()
 ##################################################
 # Dependencies
 ##################################################
+set(boost_components)
+
+# Built conditionally, because it relies on curses, Boost.System, and
+# Boost.Filesystem.  The Boost dependencies mean it must come before the
+# include here.
+set(BUILD_EDITOR false CACHE BOOL "Set to true to build ncurses-based text editor.")
+if (BUILD_EDITOR)
+  set(boost_components filesystem system)
+endif()
+
 include(dependencies)
 
 
@@ -94,8 +104,7 @@ if (BUILD_FUZZ_TESTS AND NOT CMAKE_CXX_COMPILER_ID STREQUAL Clang)
     message(FATAL_ERROR "BUILD_FUZZ_TESTS only works with Clang; it uses libFuzzer.")
 endif ()
 
-# Built conditionally, because it relies on ncurses.
-set(BUILD_EDITOR false CACHE BOOL "Set to true to build ncurses-based text editor.")
+# See above for editor example.
 
 add_subdirectory(test)
 add_subdirectory(perf)

@@ -117,8 +117,11 @@ namespace {
             auto const excess_units =
                 line_size.code_units_ - int(line_end - line_it);
             auto const excess_points = std::distance(
-                boost::text::utf8::to_utf32_iterator<Iter>(line_end),
                 boost::text::utf8::to_utf32_iterator<Iter>(
+                    line_end, line_end, line_end + excess_units),
+                boost::text::utf8::to_utf32_iterator<Iter>(
+                    line_end,
+                    line_end + excess_units,
                     line_end + excess_units));
             line_size.code_units_ -= excess_units;
             line_size.code_points_ -= excess_points;
@@ -252,9 +255,9 @@ namespace {
                     int const * const key_ptr = &key_code.key_;
                     auto const last = std::copy(
                         boost::text::utf8::from_utf32_iterator<int const *>(
-                            key_ptr),
+                            key_ptr, key_ptr, key_ptr + 1),
                         boost::text::utf8::from_utf32_iterator<int const *>(
-                            key_ptr + 1),
+                            key_ptr, key_ptr + 1, key_ptr + 1),
                         buf);
                     return eval_input_t{
                         insert(boost::text::string_view(buf, last - buf)), true};

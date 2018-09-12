@@ -7,7 +7,7 @@
 # Boost
 ###############################################################################
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost 1.64.0 COMPONENTS)
+find_package(Boost 1.64.0 COMPONENTS ${boost_components})
 if (Boost_INCLUDE_DIR)
   add_library(boost INTERFACE)
   target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIR})

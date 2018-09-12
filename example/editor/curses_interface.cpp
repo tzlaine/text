@@ -26,9 +26,26 @@ screen_pos_t curses_interface_t::screen_size() const
 
 event_t curses_interface_t::next_event() const
 {
-    wint_t k = 0;
-    int const mod = wget_wch(win_, &k);
-    return {key_code_t(mod, (int)k), screen_size()};
+    int const k = wgetch(win_);
+    int mod = 0;
+    constexpr std::array<int, 10> key_codes = {{
+        KEY_UP,
+        KEY_DOWN,
+        KEY_LEFT,
+        KEY_RIGHT,
+        KEY_HOME,
+        KEY_END,
+        KEY_BACKSPACE,
+        KEY_DC,
+        KEY_PPAGE,
+        KEY_NPAGE,
+    }};
+    if (std::any_of(key_codes.begin(), key_codes.end(), [k](int key_code) {
+            return key_code == k;
+        })) {
+        mod = KEY_CODE_YES;
+    }
+    return {key_code_t(mod, k), screen_size()};
 }
 
 namespace {
