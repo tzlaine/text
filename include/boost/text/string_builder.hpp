@@ -15,15 +15,14 @@ namespace boost { namespace text {
         template<>
         struct static_string_builder_impl<0>
         {
-            int size() const noexcept { return 0; }
+            constexpr static_string_builder_impl() : size_(0) {}
             void copy(char *) const noexcept {}
+            int size_;
         };
 
         template<int N>
         struct static_string_builder_impl
         {
-            int size() const noexcept { return view_.size() + prev_.size(); }
-
             void copy(char * last) const noexcept
             {
                 last = std::copy_backward(view_.begin(), view_.end(), last);
@@ -33,13 +32,14 @@ namespace boost { namespace text {
             string to_string() const
             {
                 string retval;
-                retval.resize(size(), 0);
+                retval.resize(size_, 0);
                 copy(retval.end());
                 return retval;
             }
 
             static_string_builder_impl<N - 1> prev_;
             string_view view_;
+            int size_;
         };
     }
 
@@ -48,9 +48,9 @@ namespace boost { namespace text {
         later. */
     struct static_string_builder
     {
-        constexpr static_string_builder() {}
+        constexpr static_string_builder() : impl_{{}, {}, 0} {}
         explicit constexpr static_string_builder(string_view sv) :
-            impl_{{}, {sv}}
+            impl_{{}, {sv}, sv.size()}
         {}
 
         string to_string() const noexcept { return impl_.to_string(); }
@@ -66,7 +66,7 @@ namespace boost { namespace text {
     inline constexpr detail::static_string_builder_impl<2>
     operator+(static_string_builder prev, string_view sv) noexcept
     {
-        return {prev.impl_, sv};
+        return {prev.impl_, sv, prev.impl_.size_ + sv.size()};
     }
 
     namespace detail {
@@ -76,7 +76,7 @@ namespace boost { namespace text {
         constexpr static_string_builder_impl<N + 1>
         operator+(static_string_builder_impl<N> prev, string_view sv) noexcept
         {
-            return {prev, sv};
+            return {prev, sv, prev.size_ + sv.size()};
         }
     }
 
@@ -94,14 +94,19 @@ namespace boost { namespace text {
 
         string to_string() noexcept
         {
-            return string(std::move(data_), size_, cap_);
+            if (data_) {
+                data_[size_] = 0;
+                return string(std::move(data_), size_, cap_);
+            } else {
+                return string();
+            }
         }
 
         string_builder & operator+=(string_view sv)
         {
-            auto const new_size = size_ + sv.size();
-            if (cap_ < new_size) {
-                int const new_cap = cap_ < 32 ? 32 : cap_ / 2 * 3;
+            auto const min_cap = size_ + sv.size() + 1;
+            if (cap_ < min_cap) {
+                int const new_cap = (std::max)(min_cap, 32) / 2 * 3;
                 std::unique_ptr<char[]> new_data(new char[new_cap]);
                 std::copy(data_.get(), data_.get() + size_, new_data.get());
                 std::swap(data_, new_data);
