@@ -923,6 +923,23 @@ I've only shown the _GrRng_ overloads here for brevity, but there are
 overloads that take a _CPRng_ or a pair of _CPIters_ as well, just like the
 other APIs we've already seen.
 
+[important The searching API does not require FCC-normalized inputs; it will
+search other normalization forms as well.  However, you should be careful
+searching in text that is normalized NFD or NFKD.
+
+Consider the NFD string `"a\u0300\u0301"` _emdash_ an `'a'` followed by an
+grave accent followed by an acute accent.  This string will not always be
+matched correctly by pattern `"a\u0300"` (or `"a\u0301"`), due to the
+arbitrary ordering of combining marks with the same canonical combining class
+(CCC).  This does not matter in the whole-_gr_ case, which handles this
+correctly.  It will only matter in _cp_ level searches, because you may search
+for partial _grs_, as in `collation_search("a\u0300", "a\u0300\u0301")`
+example.
+
+If none of that made sense to you, don't worry.  Just use the text layer
+types, which are always normalized FCC and always deal in graphemes, and
+you'll never have to consider this effect.]
+
 [endsect]
 
 
