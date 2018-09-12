@@ -35,16 +35,20 @@
       &#8212; each of which is called string &#8212; without any encoding guarantees.
     </p>
 <p>
+      Apart from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code> in particular, text handling in C++
+      is problematic in general, due to the lack of Unicode support.
+    </p>
+<p>
+      This library attempts to fill in some of these gaps in C++.
+    </p>
+<p>
       In part, this library is an attempt to re-think <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>
       as an interoperable family of types, each suited to a different aspect of string
       processing.
     </p>
 <p>
-      C++ is one of a select few major languages with no built-in support for Unicode.
-      If nothing else, this is an embarassment that should be remedied.
-    </p>
-<p>
-      In part, this library is a Unicode implementation suitable for use by anyone.
+      In part, this library is a Unicode implementation suitable for use by anyone
+      &#8212; including those who know next to nothing about Unicode.
     </p>
 <h4>
 <a name="boost_text__proposed_.intro.h1"></a>
@@ -76,11 +80,7 @@
       or allocations using a Python-like slicing interface.
     </p>
 <p>
-      - Compilational simplicity -- none of the above string or text types is a template.
-    </p>
-<p>
-      - A small library of algorithms that replicates the functionality of <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>'s
-      search members, plus a bit more.
+      - Code simplicity -- none of the above string or text types is a template.
     </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

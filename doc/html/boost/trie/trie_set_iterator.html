@@ -6,12 +6,12 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../../header/boost/text/trie_set_hpp.html" title="Header &lt;boost/text/trie_set.hpp&gt;">
-<link rel="prev" href="reverse_trie_set_iterator.html" title="Struct template reverse_trie_set_iterator">
-<link rel="next" href="../../BOOST_TRIE_SET_C_STR_OVERLOAD.html" title="Macro BOOST_TRIE_SET_C_STR_OVERLOAD">
+<link rel="prev" href="trie_set.html" title="Struct template trie_set">
+<link rel="next" href="../../header/boost/text/unencoded_rope_hpp.html" title="Header &lt;boost/text/unencoded_rope.hpp&gt;">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="reverse_trie_set_iterator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_set_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../BOOST_TRIE_SET_C_STR_OVERLOAD.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="trie_set.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_set_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../header/boost/text/unencoded_rope_hpp.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.trie.trie_set_iterator"></a><div class="titlepage"></div>
@@ -32,41 +32,35 @@
   <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">bidirectional_iterator_tag</span> <a name="boost.trie.trie_set_iterator.iterator_category"></a><span class="identifier">iterator_category</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="trie_set_iterator.html#boost.trie.trie_set_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="trie_set_iterator.html#idm10603-bb"><span class="identifier">trie_set_iterator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">explicit</span> <a class="link" href="trie_set_iterator.html#idm10605-bb"><span class="identifier">trie_set_iterator</span></a><span class="special">(</span><span class="emphasis"><em><span class="identifier">unspecified</span></em></span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">explicit</span> <a class="link" href="trie_set_iterator.html#idm10609-bb"><span class="identifier">trie_set_iterator</span></a><span class="special">(</span><a class="link" href="const_trie_set_iterator.html" title="Struct template const_trie_set_iterator">const_trie_set_iterator</a><span class="special">&lt;</span> <span class="identifier">Key</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="trie_set_iterator.html#idm21512-bb"><span class="identifier">trie_set_iterator</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="trie_set_iterator.html#idm10582-bb">public member functions</a></span>
-  <span class="identifier">reference</span> <a class="link" href="trie_set_iterator.html#idm10583-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">pointer</span> <a class="link" href="trie_set_iterator.html#idm10585-bb"><span class="keyword">operator</span><span class="special">-&gt;</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <span class="special">&amp;</span> <a class="link" href="trie_set_iterator.html#idm10587-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <a class="link" href="trie_set_iterator.html#idm10590-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <span class="special">&amp;</span> <a class="link" href="trie_set_iterator.html#idm10595-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <a class="link" href="trie_set_iterator.html#idm10598-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="trie_set_iterator.html#idm21491-bb">public member functions</a></span>
+  <span class="identifier">reference</span> <a class="link" href="trie_set_iterator.html#idm21492-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">pointer</span> <a class="link" href="trie_set_iterator.html#idm21494-bb"><span class="keyword">operator</span><span class="special">-&gt;</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <span class="special">&amp;</span> <a class="link" href="trie_set_iterator.html#idm21496-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <a class="link" href="trie_set_iterator.html#idm21499-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <span class="special">&amp;</span> <a class="link" href="trie_set_iterator.html#idm21504-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <a class="link" href="trie_set_iterator.html#idm21507-bb"><span class="keyword">operator</span><span class="special">--</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm32135"></a><h2>Description</h2>
+<a name="idm48116"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="idm32137"></a><h3>
+<a name="idm48118"></a><h3>
 <a name="boost.trie.trie_set_iteratorconstruct-copy-destruct"></a><code class="computeroutput">trie_set_iterator</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm10603-bb"></a><span class="identifier">trie_set_iterator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idm10605-bb"></a><span class="identifier">trie_set_iterator</span><span class="special">(</span><span class="emphasis"><em><span class="identifier">unspecified</span></em></span> state<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idm10609-bb"></a><span class="identifier">trie_set_iterator</span><span class="special">(</span><a class="link" href="const_trie_set_iterator.html" title="Struct template const_trie_set_iterator">const_trie_set_iterator</a><span class="special">&lt;</span> <span class="identifier">Key</span> <span class="special">&gt;</span> it<span class="special">)</span><span class="special">;</span></pre></li>
-</ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idm21512-bb"></a><span class="identifier">trie_set_iterator</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idm32174"></a><h3>
-<a name="idm10582-bb"></a><code class="computeroutput">trie_set_iterator</code> public member functions</h3>
+<a name="idm48131"></a><h3>
+<a name="idm21491-bb"></a><code class="computeroutput">trie_set_iterator</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">reference</span> <a name="idm10583-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">pointer</span> <a name="idm10585-bb"></a><span class="keyword">operator</span><span class="special">-&gt;</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <span class="special">&amp;</span> <a name="idm10587-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <a name="idm10590-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <span class="special">&amp;</span> <a name="idm10595-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <a name="idm10598-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">reference</span> <a name="idm21492-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">pointer</span> <a name="idm21494-bb"></a><span class="keyword">operator</span><span class="special">-&gt;</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <span class="special">&amp;</span> <a name="idm21496-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <a name="idm21499-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <span class="special">&amp;</span> <a name="idm21504-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="trie_set_iterator.html" title="Struct template trie_set_iterator">trie_set_iterator</a> <a name="idm21507-bb"></a><span class="keyword">operator</span><span class="special">--</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>
@@ -81,7 +75,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="reverse_trie_set_iterator.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_set_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../BOOST_TRIE_SET_C_STR_OVERLOAD.html"><img src="../../images/next.png" alt="Next"></a>
+<a accesskey="p" href="trie_set.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/trie_set_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../../header/boost/text/unencoded_rope_hpp.html"><img src="../../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

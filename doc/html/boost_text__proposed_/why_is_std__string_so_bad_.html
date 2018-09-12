@@ -109,9 +109,6 @@
           (non-<code class="computeroutput"><span class="keyword">const</span></code>)
         </li>
 <li class="listitem">
-          <code class="computeroutput"><span class="identifier">assign</span><span class="special">()</span></code>
-        </li>
-<li class="listitem">
           <code class="computeroutput"><span class="identifier">reserve</span><span class="special">()</span></code>
         </li>
 <li class="listitem">
@@ -168,7 +165,8 @@
       member.
     </p>
 <p>
-      Boost.Text provides these as separate algorithms.
+      Boost.Text does not provide these as separate algorithms, becasue the standard
+      algorithms and <a href="https://www.boost.org/doc/libs/1_68_0/doc/html/string_algo.html" target="_top">Boost.StringAlgo</a>.
     </p>
 <h4>
 <a name="boost_text__proposed_.why_is_std__string_so_bad_.h1"></a>
@@ -215,7 +213,7 @@
       as copy-on-write, and is contiguous.
     </p>
 <p>
-      Boost.Text provide <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> and <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>
+      Boost.Text provides <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> and <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>
       for those times when you want a string type that is thread-safe, copy-on-write,
       or cheap to insert into the middle of.
     </p>

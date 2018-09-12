@@ -1,0 +1,889 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Text Segmentation</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../the_unicode_layer.html" title="The Unicode Layer">
+<link rel="prev" href="encoding_and_normalization.html" title="Encoding and Normalization">
+<link rel="next" href="case_mapping.html" title="Case Mapping">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="encoding_and_normalization.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../the_unicode_layer.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="case_mapping.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation"></a><a class="link" href="text_segmentation.html" title="Text Segmentation">Text
+      Segmentation</a>
+</h3></div></div></div>
+<p>
+        Unicode provides algorithms for breaking code point sequences into graphemes,
+        words, sentences, and lines. The Unicode Bidirectional Algorithm requires
+        paragraph breaking too, so paragraph breaking is included as well, even though
+        it is not an official Unicode text segmentation algorithm.
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h0"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.conventions"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.conventions">Conventions</a>
+      </h5>
+<p>
+        All the kinds of text breaking have a common pattern. Each kind of break
+        <code class="computeroutput"><span class="identifier">X</span></code> (word, sentence, etc.)
+        provides at least these functions:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Sentinel</span><span class="special">&gt;</span>
+<span class="identifier">CPIter</span> <span class="identifier">prev_X_break</span><span class="special">(</span><span class="identifier">CPIter</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">it</span><span class="special">,</span> <span class="identifier">Sentinel</span> <span class="identifier">last</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+</pre>
+<p>
+        <code class="computeroutput"><span class="identifier">prev_X_break</span><span class="special">()</span></code>
+        returns <code class="computeroutput"><span class="identifier">it</span></code> if <code class="computeroutput"><span class="identifier">it</span></code> is already at a break, or the break
+        before <code class="computeroutput"><span class="identifier">it</span></code> otherwise. There
+        is one exception to this &#8212; even though there is always an implicit
+        break at the end of a sequence of code points, if <code class="computeroutput"><span class="identifier">it</span></code>
+        == <code class="computeroutput"><span class="identifier">last</span></code>, the previous break
+        is still returned, if any.
+      </p>
+<p>
+        This behavior allows us to do two convenient things with <code class="computeroutput"><span class="identifier">prev_X_break</span><span class="special">()</span></code>. First, we can use <code class="computeroutput"><span class="identifier">prev_X_break</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">it</span><span class="special">,</span>
+        <span class="identifier">last</span><span class="special">)</span>
+        <span class="special">==</span> <span class="identifier">it</span></code>
+        as a predicate that <code class="computeroutput"><span class="identifier">it</span></code> is
+        at a break. Second, we can use <code class="computeroutput"><span class="identifier">prev_X_break</span><span class="special">()</span></code> followed by <code class="computeroutput"><span class="identifier">next_X_break</span><span class="special">()</span></code> to find the nearest breaks that include
+        <code class="computeroutput"><span class="identifier">it</span></code>.
+      </p>
+<p>
+        Note that <code class="computeroutput"><span class="identifier">prev_X_break</span><span class="special">()</span></code>
+        requires <code class="computeroutput"><span class="identifier">last</span></code> because in
+        the genereal case, the algorithm needs to know context after <code class="computeroutput"><span class="identifier">it</span></code> to determine where the breaks are at
+        or before <code class="computeroutput"><span class="identifier">it</span></code>.
+      </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Sentinel</span><span class="special">&gt;</span>
+<span class="identifier">CPIter</span> <span class="identifier">next_X_break</span><span class="special">(</span><span class="identifier">CPIter</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">Sentinel</span> <span class="identifier">last</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+</pre>
+<p>
+        <code class="computeroutput"><span class="identifier">next_X_break</span><span class="special">()</span></code>
+        returns the next break after <code class="computeroutput"><span class="identifier">first</span></code>.
+        It has a precondition that <code class="computeroutput"><span class="identifier">first</span></code>
+        is already at a break; the results are otherwise undefined.
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Sentinel</span><span class="special">&gt;</span>
+<span class="identifier">cp_range</span><span class="special">&lt;</span><span class="identifier">CPIter</span><span class="special">&gt;</span> <span class="identifier">X</span><span class="special">(</span><span class="identifier">CPIter</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">it</span><span class="special">,</span> <span class="identifier">Sentinel</span> <span class="identifier">last</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+</pre>
+<p>
+        <code class="computeroutput"><span class="identifier">X</span><span class="special">()</span></code>
+        returns smallest range of code points that comprise an <code class="computeroutput"><span class="identifier">X</span></code>
+        (word, line, etc.) in which <code class="computeroutput"><span class="identifier">it</span></code>
+        is found.
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Sentinel</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">Xs</span><span class="special">(</span><span class="identifier">CPIter</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">Sentinel</span> <span class="identifier">last</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+</pre>
+<p>
+        <code class="computeroutput"><span class="identifier">Xs</span><span class="special">()</span></code>
+        returns a lazy range of subranges of <code class="computeroutput"><span class="special">[</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">)</span></code>.
+        Each subrange is an <code class="computeroutput"><span class="identifier">X</span></code>.
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">reversed_Xs</span><span class="special">(</span><span class="identifier">CPIter</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">last</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+</pre>
+<p>
+        <code class="computeroutput"><span class="identifier">reversed_Xs</span><span class="special">()</span></code>
+        returns the same thing as <code class="computeroutput"><span class="identifier">Xs</span><span class="special">()</span></code>, with the subranges in reverse order.
+      </p>
+<p>
+        And of course there are <a class="link" href="../concepts.html#boost_text__proposed_.concepts.cprange">CPRange</a>
+        overloads as well:
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">prev_X_break</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">next_X_break</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">X</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">CPIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPRange</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">Xs</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPRange</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">reversed_Xs</span><span class="special">(</span><span class="identifier">CPRange</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+</pre>
+<p>
+        For all kinds of breaks besides grapheme breaks, there are range overloads
+        that accept <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
+        ranges <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>
+        iterators instead. These provide convenient support for using the Unicode
+        layer algorithms with the text layer types like <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code> and <code class="computeroutput"><a class="link" href="../../boost/text/rope.html" title="Struct rope">rope</a></code>.
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">GraphemeIter</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">prev_X_break</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">GraphemeIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">GraphemeIter</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">next_X_break</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">GraphemeIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">GraphemeIter</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">X</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="identifier">GraphemeIter</span> <span class="identifier">it</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">Xs</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">reversed_Xs</span><span class="special">(</span><span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+</pre>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h1"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.tailoring"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.tailoring">Tailoring</a>
+      </h5>
+<p>
+        Unicode allows for <span class="emphasis"><em>tailoring</em></span> of the segmentation algorithms,
+        to produce customized results that are necessary or useful for a particular
+        application, or to produce correct results in cases that the Unicode algorithms
+        do not handle. Some of the break algorithms below are tailorable. Each section
+        below indicates whether a certain kind of break is tailorable, and if so,
+        how.
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h2"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.graphemes"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.graphemes">Graphemes</a>
+      </h5>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// U+0308 COMBINING ACUTE ACCENT</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="identifier">cps</span> <span class="special">=</span> <span class="special">{{</span><span class="char">'a'</span><span class="special">,</span> <span class="number">0x0308</span><span class="special">,</span> <span class="char">'b'</span><span class="special">}};</span>
+
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">first</span> <span class="special">=</span> <span class="identifier">cps</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">last</span> <span class="special">=</span> <span class="identifier">cps</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span>
+
+<span class="keyword">auto</span> <span class="identifier">at_or_before_1</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_grapheme_break</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">1</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">at_or_before_1</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">0</span><span class="special">);</span>
+
+<span class="keyword">auto</span> <span class="identifier">at_or_before_2</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_grapheme_break</span><span class="special">(</span><span class="identifier">cps</span><span class="special">,</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">at_or_before_2</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">);</span>
+
+<span class="keyword">auto</span> <span class="identifier">at_or_before_3</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_grapheme_break</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">3</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">at_or_before_3</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">);</span>
+
+<span class="keyword">auto</span> <span class="identifier">after_0</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">next_grapheme_break</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">after_0</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">);</span>
+
+<span class="preprocessor">#if</span> <span class="number">0</span>
+<span class="keyword">auto</span> <span class="identifier">around_1</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme</span><span class="special">(</span><span class="identifier">cps</span><span class="special">,</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">1</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">around_1</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">0</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">around_1</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">);</span>
+<span class="preprocessor">#endif</span>
+
+<span class="comment">// Prints "[0, 2) [2, 3)".</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">graphemes</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span>
+              <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+
+<span class="comment">// Prints "[2, 3) [0, 2)".</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reversed_graphemes</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span>
+              <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<p>
+        Boost.Text does not support tailoring of grapheme breaking, because graphemes
+        are the fundamental unit of work for the text layer of the library. Everyone
+        must have the same notion of what a grapheme is for that to work.
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h3"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.stream_safe_format"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.stream_safe_format">Stream-Safe
+        Format</a>
+      </h5>
+<p>
+        Consider this sequence of code points: the letter <code class="computeroutput"><span class="char">'a'</span></code>
+        followed by 10,000 <span class="emphasis"><em>umlauts</em></span>. There is no technical reason
+        why you cannot create this sequence of code points, though it is not useful
+        to do so. This creates a problem for algorithms like normalization or grapheme
+        breaking, because they may be required to look ahead a very long way in order
+        to determine how to handle the current grapheme. To address this, Unicode
+        allows a conforming implementation to assume that an sequence of code points
+        contains graphemes of at most 32 code points. This is known as the <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+        Format</a> assumption; Boost.Text makes this assumption.
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h4"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.stream_safe_format_and_security"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.stream_safe_format_and_security">Stream-Safe
+        Format and Security</a>
+      </h5>
+<p>
+        If you Give Boost.Text algorithms a code point sequence with graphemes longer
+        than 32 code points, you will get undefined behavior. This poses a security
+        problem. To address this, there is a simple algorithm described at <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+        Format</a> that can put any code point sequence into the <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+        Format</a>. You may want to implement this and use it with text from
+        an unknown source.
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h5"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.words"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.words">Words</a>
+      </h5>
+<p>
+        Word breaks occur where you'd expect &#8212; at the beginnings and ends
+        of words &#8212; but they also occur where you might not expect &#8212;
+        at the beginnings and ends of the code point sequences <span class="bold"><strong>between</strong></span>
+        words. Here is an example of word breaks taken from <a href="https://unicode.org/reports/tr29" target="_top">Unicode
+        Text Segmention</a>. The string <code class="computeroutput"><span class="string">"The
+        quick (&#8220;brown&#8221;) fox can&#8217;t jump 32.3 feet, right?"</span></code>
+        is broken up into words like this:
+      </p>
+<div class="table">
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t0"></a><p class="title"><b>Table&#160;1.2.&#160;Word Break Example</b></p>
+<div class="table-contents"><table class="table" summary="Word Break Example">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody><tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"The"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">" "</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"quick"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">" "</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"("</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"&#8220;"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"brown"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"&#8221;"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">")"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">" "</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"fox"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">" "</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"can&#8217;t"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">" "</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"jump"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">" "</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"32.3"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">" "</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"feet"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">","</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">" "</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"right"</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="string">"?"</span></code>
+                </p>
+              </td>
+</tr></tbody>
+</table></div>
+</div>
+<br class="table-break"><p>
+        Note that many of those "words" are not what most people would
+        consider to be words. You may need to do some additional processing to find
+        only the "real" words, if that matters in your use case.
+      </p>
+<p>
+        The word breaking API can be used just as the grapheme break API, except
+        that it also has <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
+        overloads. Here are some example calls using only the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
+        overloads, with a <code class="computeroutput"><a class="link" href="../../boost/text/text.html" title="Struct text">text</a></code>
+        as the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Using GraphemeRange/GraphemeIterator overloads...</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">cps</span><span class="special">(</span><span class="string">"The quick (\"brown\") fox can&#8217;t jump 32.3 feet, right?"</span><span class="special">);</span>
+
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">first</span> <span class="special">=</span> <span class="identifier">cps</span><span class="special">.</span><span class="identifier">cbegin</span><span class="special">();</span>
+
+<span class="keyword">auto</span> <span class="identifier">at_or_before_1</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_word_break</span><span class="special">(</span><span class="identifier">cps</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="number">1</span><span class="special">));</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">at_or_before_1</span> <span class="special">==</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="number">0</span><span class="special">));</span>
+
+<span class="keyword">auto</span> <span class="identifier">at_or_before_3</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_word_break</span><span class="special">(</span><span class="identifier">cps</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="number">3</span><span class="special">));</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">at_or_before_3</span> <span class="special">==</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="number">3</span><span class="special">));</span>
+
+<span class="keyword">auto</span> <span class="identifier">after_0</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">next_word_break</span><span class="special">(</span><span class="identifier">cps</span><span class="special">,</span> <span class="identifier">first</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">after_0</span> <span class="special">==</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="number">3</span><span class="special">));</span>
+
+<span class="keyword">auto</span> <span class="identifier">around_7</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word</span><span class="special">(</span><span class="identifier">cps</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="number">7</span><span class="special">));</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">around_7</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">==</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="number">4</span><span class="special">));</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">around_7</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span> <span class="special">==</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="number">9</span><span class="special">));</span>
+
+<span class="comment">// Prints the indices of the words from the table above.</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">words</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span>
+              <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+
+<span class="comment">// Prints the indices of the words from the table above, backward.</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reversed_words</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'['</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">", "</span>
+              <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="string">") "</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h6"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.limitations_of_word_breaking"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.limitations_of_word_breaking">Limitations
+        of Word Breaking</a>
+      </h5>
+<p>
+        This algorithm does not work for all languages. From <a href="https://unicode.org/reports/tr29" target="_top">Unicode
+        Text Segmention</a>:
+      </p>
+<div class="blockquote"><blockquote class="blockquote"><p>
+          For Thai, Lao, Khmer, Myanmar, and other scripts that do not typically
+          use spaces between words, a good implementation should not depend on the
+          default word boundary specification. It should use a more sophisticated
+          mechanism, as is also required for line breaking. Ideographic scripts such
+          as Japanese and Chinese are even more complex. Where Hangul text is written
+          without spaces, the same applies. However, in the absence of a more sophisticated
+          mechanism, the rules specified in this annex supply a well-defined default.
+        </p></blockquote></div>
+<p>
+        French and Italian words are not broken after an apostrophe; the default
+        algorithm finds <code class="computeroutput"><span class="string">"l&#8217;objectif"</span></code>
+        to be a single word.
+      </p>
+<p>
+        Breaking on dashes is the default; the default algorithm finds <code class="computeroutput"><span class="string">"out-of-the-box"</span></code> to be seven words.
+      </p>
+<p>
+        There are other rarer failure cases in that document you might want to look
+        at too.
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h7"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.word_break_tailoring"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.word_break_tailoring">Word
+        Break Tailoring</a>
+      </h5>
+<p>
+        Forunately, unlike grapheme breaking, word breaking is tailorable in two
+        ways.
+      </p>
+<p>
+        Each break algorithm is defined in terms of code point properties; each code
+        point is a letter, digit, punctuation, etc. All the work break functions
+        accept an optional word-property lookup function to replace the default one.
+      </p>
+<p>
+        For example, here I've made a custom word property lookup function that treats
+        a regular dash <code class="computeroutput"><span class="char">'-'</span></code> as a <code class="computeroutput"><span class="identifier">MidLetter</span></code>, meaning a code point that is
+        part of a word as long as it can reach at least one letter on either side,
+        before reaching a word break first:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">cps</span><span class="special">(</span><span class="string">"out-of-the-box"</span><span class="special">);</span>
+
+<span class="comment">// Prints "out - of - the - box".</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">words</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span><span class="special">(</span><span class="identifier">range</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">" "</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">custom_word_prop</span> <span class="special">=</span> <span class="special">[](</span><span class="identifier">uint32_t</span> <span class="identifier">cp</span><span class="special">)</span> <span class="special">{</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">cp</span> <span class="special">==</span> <span class="char">'-'</span><span class="special">)</span>
+        <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_property</span><span class="special">::</span><span class="identifier">MidLetter</span><span class="special">;</span> <span class="comment">// '-' becomes a MidLetter</span>
+    <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_prop</span><span class="special">(</span><span class="identifier">cp</span><span class="special">);</span> <span class="comment">// Otherwise, just use the default implementation.</span>
+<span class="special">};</span>
+
+<span class="comment">// Prints "out-of-the-box".</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">words</span><span class="special">(</span><span class="identifier">cps</span><span class="special">,</span> <span class="identifier">custom_word_prop</span><span class="special">))</span> <span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span><span class="special">(</span><span class="identifier">range</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">" "</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<p>
+        From <a href="https://unicode.org/reports/tr29" target="_top">Unicode Text Segmention</a>,
+        here are some other code points you might want to treat as <code class="computeroutput"><span class="identifier">MidLetter</span></code>, depending on your language and
+        use case:
+      </p>
+<div class="table">
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t1"></a><p class="title"><b>Table&#160;1.3.&#160;`MidLetter` Candidates</b></p>
+<div class="table-contents"><table class="table" summary="`MidLetter` Candidates">
+<colgroup><col></colgroup>
+<thead><tr><th>
+                <p>
+                  Code Point
+                </p>
+              </th></tr></thead>
+<tbody>
+<tr><td>
+                <p>
+                  U+002D ( - ) HYPHEN-MINUS
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+055A ( &#1370; ) ARMENIAN APOSTROPHE
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+058A ( &#1418; ) ARMENIAN HYPHEN
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+0F0B ( &#3851; ) TIBETAN MARK INTERSYLLABIC TSHEG
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+1806 ( &#6150; ) MONGOLIAN TODO SOFT HYPHEN
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+2010 ( &#8208; ) HYPHEN
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+2011 ( &#8209; ) NON-BREAKING HYPHEN
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+201B ( &#8219; ) SINGLE HIGH-REVERSED-9 QUOTATION MARK
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+30A0 ( &#12448; ) KATAKANA-HIRAGANA DOUBLE HYPHEN
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+30FB ( &#12539; ) KATAKANA MIDDLE DOT
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+FE63 ( &#65123; ) SMALL HYPHEN-MINUS
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+FF0D ( &#65293; ) FULLWIDTH HYPHEN-MINUS
+                </p>
+              </td></tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><p>
+        Another example from <a href="https://unicode.org/reports/tr29" target="_top">Unicode
+        Text Segmention</a> is to treat spaces as <code class="computeroutput"><span class="identifier">MidNum</span></code>
+        to support languages that use spaces as thousands separators, as in <code class="computeroutput"><span class="string">"&#8364;1 234,56"</span></code>. <code class="computeroutput"><span class="identifier">MidNum</span></code>
+        is like <code class="computeroutput"><span class="identifier">MidLetter</span></code>, but for
+        the interior code points of numbers instead of words containing letters.
+        Here are the space characters you might want to do that with:
+      </p>
+<div class="table">
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.t2"></a><p class="title"><b>Table&#160;1.4.&#160;`MidNum` Candidates</b></p>
+<div class="table-contents"><table class="table" summary="`MidNum` Candidates">
+<colgroup><col></colgroup>
+<thead><tr><th>
+                <p>
+                  Code Point
+                </p>
+              </th></tr></thead>
+<tbody>
+<tr><td>
+                <p>
+                  U+0020 SPACE
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+00A0 NO-BREAK SPACE
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+2007 FIGURE SPACE
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+2008 PUNCTUATION SPACE
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+2009 THIN SPACE
+                </p>
+              </td></tr>
+<tr><td>
+                <p>
+                  U+202F NARROW NO-BREAK SPACE
+                </p>
+              </td></tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><p>
+        Tailoring the properties for each code point works for some cases, but using
+        tailorings of the meanings of <code class="computeroutput"><span class="identifier">MidLetter</span></code>
+        and <code class="computeroutput"><span class="identifier">MidNum</span></code> can only add to
+        the sizes of words; it cannot decrease their sizes. The word break functions
+        take a second optional parameter that allows you to pick arbitrary word breaks
+        based on limited context.
+      </p>
+<p>
+        The Boost.Text implementation of the word break algorithm uses the current
+        code point, plus two code points before and two code points after, to determine
+        whether a word break exists at the current code point. Therefore, the signature
+        of the custom word break function is this:
+      </p>
+<pre class="programlisting"><span class="keyword">bool</span> <span class="identifier">custom_break</span><span class="special">(</span><span class="identifier">uint32_t</span> <span class="identifier">prev_prev</span><span class="special">,</span>
+                  <span class="identifier">uint32_t</span> <span class="identifier">prev</span><span class="special">,</span>
+                  <span class="identifier">uint32_t</span> <span class="identifier">curr</span><span class="special">,</span>
+                  <span class="identifier">uint32_t</span> <span class="identifier">next</span><span class="special">,</span>
+                  <span class="identifier">uint32_t</span> <span class="identifier">next_next</span><span class="special">);</span>
+</pre>
+<p>
+        Returning <code class="computeroutput"><span class="keyword">true</span></code> indicates that
+        <code class="computeroutput"><span class="special">[</span><span class="identifier">prev</span><span class="special">,</span> <span class="identifier">curr</span><span class="special">]</span></code> straddles a word break; <code class="computeroutput"><span class="identifier">prev</span></code>
+        is the last code point of one word, and <code class="computeroutput"><span class="identifier">curr</span></code>
+        is the first code point of the next. If provided, this cusomt break function
+        is evaluated before any of the Unicode word break rules.
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">cps</span><span class="special">(</span><span class="string">"snake_case camelCase"</span><span class="special">);</span>
+
+<span class="comment">// Prints "snake_case   camelCase".</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">words</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span><span class="special">(</span><span class="identifier">range</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">" "</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+
+<span class="comment">// Break up words into chunks as if they were identifiers in a popular</span>
+<span class="comment">// programming language.</span>
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">identifier_break</span> <span class="special">=</span> <span class="special">[](</span><span class="identifier">uint32_t</span> <span class="identifier">prev_prev</span><span class="special">,</span>
+                                 <span class="identifier">uint32_t</span> <span class="identifier">prev</span><span class="special">,</span>
+                                 <span class="identifier">uint32_t</span> <span class="identifier">curr</span><span class="special">,</span>
+                                 <span class="identifier">uint32_t</span> <span class="identifier">next</span><span class="special">,</span>
+                                 <span class="identifier">uint32_t</span> <span class="identifier">next_next</span><span class="special">)</span> <span class="special">{</span>
+    <span class="keyword">if</span> <span class="special">((</span><span class="identifier">prev</span> <span class="special">==</span> <span class="char">'_'</span><span class="special">)</span> <span class="special">!=</span> <span class="special">(</span><span class="identifier">curr</span> <span class="special">==</span> <span class="char">'_'</span><span class="special">))</span>
+        <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="number">0x61</span> <span class="special">&lt;=</span> <span class="identifier">prev</span> <span class="special">&amp;&amp;</span> <span class="identifier">prev</span> <span class="special">&lt;=</span> <span class="number">0x7a</span> <span class="special">&amp;&amp;</span> <span class="number">0x41</span> <span class="special">&lt;=</span> <span class="identifier">curr</span> <span class="special">&amp;&amp;</span> <span class="identifier">curr</span> <span class="special">&lt;=</span> <span class="number">0x5a</span><span class="special">)</span>
+        <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span>
+    <span class="keyword">return</span> <span class="keyword">false</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="comment">// Prints "snake _ case   camel Case".</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span>
+     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">words</span><span class="special">(</span><span class="identifier">cps</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_prop</span><span class="special">,</span> <span class="identifier">identifier_break</span><span class="special">))</span> <span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span><span class="special">(</span><span class="identifier">range</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">" "</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h8"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.sentences"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.sentences">Sentences</a>
+      </h5>
+<p>
+        The sentence breaking API is the same as the word breaking API, without the
+        extra tailoring parameters.
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h9"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.paragraphs"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.paragraphs">Paragraphs</a>
+      </h5>
+<p>
+        The paragraph breaking API is the same as the sentence and word breaking
+        APIs, without the extra tailoring parameters.
+      </p>
+<p>
+        Unicode does not list paragraph breaks as a specific kind of text segmentation,
+        but it can be useful in some cases. In particular, paragraph detection is
+        part of the Unicode bidirectional algorithm. One way of tailoring the behavior
+        of the bidirectional algorithm is to process some paragraphs separately from
+        others; having an API for detecting paragraph breaks makes that simpler.
+      </p>
+<h5>
+<a name="boost_text__proposed_.the_unicode_layer.text_segmentation.h10"></a>
+        <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.text_segmentation.lines"></a></span><a class="link" href="text_segmentation.html#boost_text__proposed_.the_unicode_layer.text_segmentation.lines">Lines</a>
+      </h5>
+<p>
+        The Unicode line breaking algorithm differs from the other break algorithms
+        in that there are multiple kinds of line breaks. Some line breaks are required,
+        as after a newline (e.g. <code class="computeroutput"><span class="string">"\n"</span></code>
+        or <code class="computeroutput"><span class="string">"\r\n"</span></code>). These are
+        known as <span class="emphasis"><em>hard</em></span> line breaks.
+      </p>
+<p>
+        The line breaking algorithm produces many more line breaks, but all non-hard
+        line breaks are places where it is possible to break the line &#8212; though
+        it is not necessary to do so. These are known as <span class="emphasis"><em>allowed</em></span>
+        line breaks. Higher-level program logic must determine which of these allowed
+        breaks is to be used, for example to fit in available horizontal space.
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          Boost.Text only generates hard line breaks where they are indicated in
+          the Unicode line breaking rules <span class="bold"><strong>and</strong></span> there
+          could be an allowed line break. Line breaks always occur at the beginning
+          and end of any sequence, but Boost.Text does not report those as hard breaks.
+        </p></td></tr>
+</table></div>
+<p>
+        The <code class="computeroutput"><span class="identifier">next_</span><span class="special">*</span><span class="identifier">_break</span><span class="special">()</span></code>
+        and <code class="computeroutput"><span class="identifier">prev_</span><span class="special">*</span><span class="identifier">_break</span><span class="special">()</span></code>
+        functions for line breaking come in two flavors. There are <code class="computeroutput"><span class="identifier">hard_line</span></code> versions and <code class="computeroutput"><span class="identifier">allowed_line</span></code>
+        versions. For the <code class="computeroutput"><span class="identifier">allowed</span></code>
+        overloads, you may need to know, once you have the break position, whether
+        it was a hard line break. The <code class="computeroutput"><span class="identifier">allowed</span></code>
+        overloads therefore return a struct, <code class="computeroutput"><a class="link" href="../../boost/text/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code>. It has an
+        <code class="computeroutput"><span class="special">.</span><span class="identifier">iter</span></code>
+        member to indicate the location, and a <code class="computeroutput"><span class="special">.</span><span class="identifier">hard_break</span></code> member ot indicate whether that
+        location is a hard line break. Overloads of <code class="computeroutput"><span class="keyword">operator</span><span class="special">==()</span></code> ans <code class="computeroutput"><span class="keyword">operator</span><span class="special">!=()</span></code> are defined between <code class="computeroutput"><a class="link" href="../../boost/text/line_break_result.html" title="Struct template line_break_result">line_break_result</a></code> and its iterator
+        type so that you can treat it as an iterator in generic code if you don't
+        care about the hard line break information:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">,</span> <span class="number">5</span><span class="special">&gt;</span> <span class="identifier">cps</span> <span class="special">=</span> <span class="special">{{</span><span class="char">'a'</span><span class="special">,</span> <span class="char">' '</span><span class="special">,</span> <span class="char">'b'</span><span class="special">,</span> <span class="char">'\n'</span><span class="special">,</span> <span class="char">'c'</span><span class="special">}};</span>
+
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">first</span> <span class="special">=</span> <span class="identifier">cps</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">last</span> <span class="special">=</span> <span class="identifier">cps</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span>
+
+<span class="comment">// prev_/next_hard_line_break() returns an iterator.</span>
+<span class="keyword">auto</span> <span class="identifier">at_or_before_2_hard</span> <span class="special">=</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_hard_line_break</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">at_or_before_2_hard</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">0</span><span class="special">);</span>
+
+<span class="keyword">auto</span> <span class="identifier">after_0_hard</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">next_hard_line_break</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">after_0_hard</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">4</span><span class="special">);</span>
+
+<span class="comment">// prev_/next_allowed_line_break() returns a line_break_result&lt;CPIter&gt;.</span>
+<span class="keyword">auto</span> <span class="identifier">at_or_before_2_allowed</span> <span class="special">=</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_allowed_line_break</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">at_or_before_2_allowed</span><span class="special">.</span><span class="identifier">iter</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(!</span><span class="identifier">at_or_before_2_allowed</span><span class="special">.</span><span class="identifier">hard_break</span><span class="special">);</span>
+
+<span class="keyword">auto</span> <span class="identifier">after_0_allowed</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">next_allowed_line_break</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">after_0_allowed</span><span class="special">.</span><span class="identifier">iter</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(!</span><span class="identifier">after_0_allowed</span><span class="special">.</span><span class="identifier">hard_break</span><span class="special">);</span>
+
+<span class="comment">// operator==() and operator!=() are defined between line_break_result&lt;CPIter&gt;</span>
+<span class="comment">// and CPIter.</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">at_or_before_2_allowed</span> <span class="special">==</span> <span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">first</span> <span class="special">+</span> <span class="number">2</span> <span class="special">==</span> <span class="identifier">after_0_allowed</span><span class="special">);</span>
+</pre>
+<p>
+      </p>
+<p>
+        The <code class="computeroutput"><span class="identifier">hard</span></code> naming is only present
+        in these low-level functions; the rest of the line breaking APi uses <code class="computeroutput"><span class="identifier">line</span></code> for the hard break version, and <code class="computeroutput"><span class="identifier">allowed_line</span></code> for the other. The rest of
+        the line breaking API should be familiar by now; it parallels the other breaking
+        APIs, but with the hard vs. allowed overloads.
+      </p>
+<p>
+        Just as the low-level <code class="computeroutput"><span class="identifier">prev</span></code>
+        and <code class="computeroutput"><span class="identifier">next</span></code> functions for allowed
+        beaks returned extra information, the other allowed-break functions do as
+        well. The rest of the API produces code point or grapheme ranges, and the
+        allowed-break versions produce <code class="computeroutput"><a class="link" href="../../boost/text/line_break_cp_range.html" title="Struct template line_break_cp_range">line_break_cp_ranges</a></code> or <code class="computeroutput"><a class="link" href="../../boost/text/line_break_grapheme_range.html" title="Struct template line_break_grapheme_range">line_break_grapheme_ranges</a></code>
+        instead, respectively:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">uint32_t</span><span class="special">,</span> <span class="number">5</span><span class="special">&gt;</span> <span class="identifier">cps</span> <span class="special">=</span> <span class="special">{{</span><span class="char">'a'</span><span class="special">,</span> <span class="char">' '</span><span class="special">,</span> <span class="char">'b'</span><span class="special">,</span> <span class="char">'\n'</span><span class="special">,</span> <span class="char">'c'</span><span class="special">}};</span>
+
+<span class="comment">/* Prints:
+"c"
+"b
+""a "
+*/</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">line</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">reversed_allowed_lines</span><span class="special">(</span><span class="identifier">cps</span><span class="special">))</span> <span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="char">'"'</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">to_string</span><span class="special">(</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">&lt;&lt;</span> <span class="char">'"'</span><span class="special">;</span>
+    <span class="comment">// Don't add \n to a hard line break; it already has one!</span>
+    <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break</span><span class="special">())</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        Additionally, there are overloads that make it convenient to write simple
+        code that selects an allowed break based on available space. The available
+        space, and the amount of space taken up by each chunk of code points, is
+        user-configurable. There is an overload of <code class="computeroutput"><span class="identifier">lines</span><span class="special">()</span></code> that takes the amount of space and a callable
+        that determines the space used by some sequence of code points. Each chunk
+        contains the code points between allowed breaks. If a chunk would exceed
+        available space, the allowed break before that chunk is used:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">cps</span> <span class="special">=</span>
+    <span class="string">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "</span>
+    <span class="string">"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim "</span>
+    <span class="string">"veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea "</span>
+    <span class="string">"commodo consequat. Duis aute irure dolor in reprehenderit in voluptate "</span>
+    <span class="string">"velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint "</span>
+    <span class="string">"occaecat cupidatat non proident, sunt in culpa qui officia deserunt "</span>
+    <span class="string">"mollit anim id est laborum."</span><span class="special">;</span>
+
+<span class="comment">/* Prints:
+************************************************************
+Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna
+aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit
+esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum.
+************************************************************
+*/</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"*"</span><span class="special">,</span> <span class="number">60</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">line</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">lines</span><span class="special">(</span>
+         <span class="identifier">cps</span><span class="special">,</span>
+         <span class="number">60</span><span class="special">,</span>
+         <span class="special">[](</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span> <span class="identifier">first</span><span class="special">,</span>
+            <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span> <span class="identifier">last</span><span class="special">)</span> <span class="special">{</span>
+             <span class="comment">// The width of this chunk of text.  For out purposes here, each</span>
+             <span class="comment">// grapheme in the chunk has a fixed width of 1.</span>
+             <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_range</span><span class="special">&lt;</span>
+                 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span>
+                 <span class="identifier">range</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+             <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
+         <span class="special">}))</span> <span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text_view</span><span class="special">(</span><span class="identifier">line</span><span class="special">);</span>
+    <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break</span><span class="special">())</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"*"</span><span class="special">,</span> <span class="number">60</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="encoding_and_normalization.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../the_unicode_layer.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="case_mapping.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

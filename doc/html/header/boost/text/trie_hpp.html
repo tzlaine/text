@@ -16,14 +16,16 @@
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="header.boost.text.trie_hpp"></a>Header &lt;<a href="../../../../../boost/text/trie.hpp" target="_top">boost/text/trie.hpp</a>&gt;</h3></div></div></div>
-<pre class="synopsis">
-
-<a class="link" href="../../../BOOST_TRIE_C_STR_OVERLOAD.html" title="Macro BOOST_TRIE_C_STR_OVERLOAD">BOOST_TRIE_C_STR_OVERLOAD</a>(rtype, func, quals)</pre>
 <pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
   <span class="keyword">namespace</span> <span class="identifier">trie</span> <span class="special">{</span>
     <span class="keyword">struct</span> <a class="link" href="../../../boost/trie/less.html" title="Struct less">less</a><span class="special">;</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../../../boost/trie/optional_ref.html" title="Struct template optional_ref">optional_ref</a><span class="special">;</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../../../boost/trie/optional_ref_bool_idm19746.html" title="Struct optional_ref&lt;bool&gt;">optional_ref</a><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../../../boost/trie/optional_ref_bool_idm19773.html" title="Struct optional_ref&lt;bool const&gt;">optional_ref</a><span class="special">&lt;</span><span class="keyword">bool</span> <span class="keyword">const</span><span class="special">&gt;</span><span class="special">;</span>
+
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Key<span class="special">,</span> <span class="keyword">typename</span> Value<span class="special">,</span> <span class="keyword">typename</span> Compare <span class="special">=</span> <a class="link" href="../../../boost/trie/less.html" title="Struct less">less</a><span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../../../boost/trie/trie.html" title="Struct template trie">trie</a><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Key<span class="special">,</span> <span class="keyword">typename</span> Value<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="../../../boost/trie/trie_element.html" title="Struct template trie_element">trie_element</a><span class="special">;</span>
     <span class="keyword">struct</span> <a class="link" href="../../../boost/trie/trie_match_result.html" title="Struct trie_match_result">trie_match_result</a><span class="special">;</span>
   <span class="special">}</span>
 <span class="special">}</span></pre>

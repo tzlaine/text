@@ -6,82 +6,156 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
 <link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
-<link rel="prev" href="the__text__string_types.html" title="The Boost.Text String Types">
-<link rel="next" href="the__text__text_types_.html" title="The Boost.Text Text Types">
+<link rel="prev" href="the_string_layer.html" title="The String Layer">
+<link rel="next" href="the_unicode_layer/encoding_and_normalization.html" title="Encoding and Normalization">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <div class="spirit-nav">
-<a accesskey="p" href="the__text__string_types.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="the__text__text_types_.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="the_string_layer.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="the_unicode_layer/encoding_and_normalization.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_text__proposed_.the_unicode_layer"></a><a class="link" href="the_unicode_layer.html" title="The Unicode Layer">The Unicode Layer</a>
 </h2></div></div></div>
-<div class="note"><table border="0" summary="Note">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
-<th align="left">Note</th>
-</tr>
-<tr><td align="left" valign="top"><p>
-        Boost.Text's Unicode support is based on the Unicode 10 standard.
-      </p></td></tr>
-</table></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="the_unicode_layer/encoding_and_normalization.html">Encoding
+      and Normalization</a></span></dt>
+<dt><span class="section"><a href="the_unicode_layer/text_segmentation.html">Text
+      Segmentation</a></span></dt>
+<dt><span class="section"><a href="the_unicode_layer/case_mapping.html">Case
+      Mapping</a></span></dt>
+<dt><span class="section"><a href="the_unicode_layer/collation.html">Collation</a></span></dt>
+<dt><span class="section"><a href="the_unicode_layer/searching.html">Searching</a></span></dt>
+<dt><span class="section"><a href="the_unicode_layer/bidirectional_text.html">Bidirectional
+      Text</a></span></dt>
+</dl></div>
+<p>
+      "Unicode is hard."
+    </p>
+<p>
+      <span class="emphasis"><em><span class="bold"><strong>-- Everyone</strong></span></em></span>
+    </p>
+<p>
+      Unicode is hard to implement; the algorithms are crazy. Even as just a user
+      of Unicode, it can be difficult to understand how one is supposed to use Unicode
+      correctly. The text layer types do much of what is described in this section,
+      but nicely out of view. Unless you need to use many different normalization
+      and/or encoding forms, feel free to skip those portions of this section.
+    </p>
+<p>
+      A primary design goal of the Unicode layer of Boost.Text is usability. To that
+      end, the data model is a simple as possible.
+    </p>
 <h4>
 <a name="boost_text__proposed_.the_unicode_layer.h0"></a>
-      <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.utf_8_conversions"></a></span><a class="link" href="the_unicode_layer.html#boost_text__proposed_.the_unicode_layer.utf_8_conversions">UTF-8 Conversions</a>
+      <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.a_quick_unicode_primer"></a></span><a class="link" href="the_unicode_layer.html#boost_text__proposed_.the_unicode_layer.a_quick_unicode_primer">A
+      Quick Unicode Primer</a>
     </h4>
 <p>
-      Boost.Text provides four converting iterators:
-    </p>
-<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem">
-          <code class="computeroutput"><a class="link" href="../boost/text/utf8/from_utf32_iterator.html" title="Struct template from_utf32_iterator">from_utf32_iterator</a></code>
-        </li>
-<li class="listitem">
-          <code class="computeroutput"><a class="link" href="../boost/text/utf8/to_utf32_iterator.html" title="Struct template to_utf32_iterator">to_utf32_iterator</a></code>
-        </li>
-<li class="listitem">
-          <code class="computeroutput"><a class="link" href="../boost/text/utf8/from_utf16_iterator.html" title="Struct template from_utf16_iterator">from_utf16_iterator</a></code>
-        </li>
-<li class="listitem">
-          <code class="computeroutput"><a class="link" href="../boost/text/utf8/to_utf16_iterator.html" title="Struct template to_utf16_iterator">to_utf16_iterator</a></code>
-        </li>
-</ul></div>
-<p>
-      By default, these produce the Unicode replacement character <code class="computeroutput"><span class="number">0xFFFD</span></code>
-      when encoutering an invalid encoding. These are the ones that Boost.Text uses
-      internally when performing conversions. The exact error handling behavior can
-      be controlled via the <code class="computeroutput"><span class="identifier">ErrorHandler</span></code>
-      template parameter.
+      There are multiple encoding types defined in Unicode: UTF-8, UTF-16, and UTF-32.
+      A <span class="emphasis"><em>code unit</em></span> is the lowest-level datum-type in your Unicode
+      data. Examples are a <code class="computeroutput"><span class="keyword">char</span></code> in UTF-8
+      and a <code class="computeroutput"><span class="identifier">uint32_t</span></code> in UTF-32. A
+      <span class="emphasis"><em>code point</em></span> is a 32-bit unsigned value that represents
+      a single Unicode value. Examples are U+0041 "A" "LATIN CAPITAL
+      LETTER A" and U+0308 " &#776;" "COMBINING DIAERESIS".
     </p>
 <p>
-      The Unicode standard is flexible with respect to where, in an incoming stream,
-      encoding errors are repored. However, the standard provides recommendations
-      for where within a stream, and how frequently within that stream, errors should
-      be reported. Boost.Text's converting iterators follow the Unicode recommendations.
-      See Unicode 10, "Best Practices for Using U+FFFD" and Table 3-8.
+      There are four different Unicode normalization forms. Normalization is necessary
+      because Unicode requires that certain combinations of code points be considered
+      identical. For instance, the two code points U+0041 U+0308 appear like this:
+      "A&#776;", and the code point U+00C4 appears like this: "A&#776;".
+      Since these two sequences are not visually distinct, all the algorithms must
+      treat them as the same thing. Therefore, that <code class="computeroutput"><span class="identifier">u8</span><span class="string">"\U00000041\U00000308"</span> <span class="special">==</span>
+      <span class="identifier">u8</span><span class="string">"\U000000C4"</span></code>
+      must evaluate to <code class="computeroutput"><span class="keyword">true</span></code> for the
+      purposes of Unicode. Normalizations exist to put strings of code points into
+      canonical forms.
     </p>
 <p>
-      The converting iterators are pretty straightforward, but there is an important
-      caveat. Because each of these converting iterators does a substantial amount
-      of work in increment and decrement operations, including in some cases caching
-      the result of reading several characters of a multi-character encoding, post-increment
-      and pot-decrement can be quite a bit more expensive than pre-increment and
-      pre-decrement.
+      An <span class="emphasis"><em>extended grapheme cluster</em></span>, or just <span class="emphasis"><em>grapheme</em></span>,
+      is a sequence of code points that appears to the end-user to be a single character.
+      For example, the code points from before (U+0041 U+0308) form a grapheme, since
+      they appear when rendered to be the single character "A&#776;".
     </p>
-<div class="note"><table border="0" summary="Note">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
-<th align="left">Note</th>
-</tr>
-<tr><td align="left" valign="top"><p>
-        The <code class="computeroutput"><span class="identifier">to_utf32_iterator</span></code> converting
-        iterator can be used to iterate across Unicode code points in the Boost.Text
-        string types.
-      </p></td></tr>
-</table></div>
+<h4>
+<a name="boost_text__proposed_.the_unicode_layer.h1"></a>
+      <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.unicode_versions"></a></span><a class="link" href="the_unicode_layer.html#boost_text__proposed_.the_unicode_layer.unicode_versions">Unicode
+      Versions</a>
+    </h4>
 <p>
-      TODO
+      There are multiple versions of Unicode, and Boost.Text only supports one at
+      a time. There are large volumes of data required to implement the Unicode algorithms,
+      and adding data for N versions of Unicode would make an already large library
+      larger by a factor of N.
+    </p>
+<p>
+      Most Unicode data used in Boost.Text come straight from the published Unicode
+      data files, but the collation data are taken from <a href="http://cldr.unicode.org" target="_top">CLDR</a>,
+      with language-specific tailoring data taken from <a href="https://unicode.org/reports/tr35/tr35-collation.html" target="_top">LDML</a>
+      (a part of the <a href="http://cldr.unicode.org" target="_top">CLDR</a> project).
+    </p>
+<p>
+      To find out what versions of Unicode and <a href="http://cldr.unicode.org" target="_top">CLDR</a>
+      were used to generate Boost.Text's data, call <code class="computeroutput"><a class="link" href="../boost/text/unicode_version.html" title="Function unicode_version">unicode_version</a></code> or <code class="computeroutput"><a class="link" href="../boost/text/cldr_version.html" title="Function cldr_version">cldr_version</a></code>,
+      respectively.
+    </p>
+<h4>
+<a name="boost_text__proposed_.the_unicode_layer.h2"></a>
+      <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.unicode_layer_parameter_conventions"></a></span><a class="link" href="the_unicode_layer.html#boost_text__proposed_.the_unicode_layer.unicode_layer_parameter_conventions">Unicode
+      Layer Parameter Conventions</a>
+    </h4>
+<p>
+      Most of the Unicode layer algorithms are written as typical C++ standard algorithms;
+      they take iterators as input and produce output via an out-iterator. Since
+      ranges are the future, there are range overloads of the algorithms that take
+      a pair of iterators. The Unicode algorithms all operate on code points, so
+      they take <a class="link" href="concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>
+      iterator parameters. The range overloads take <a class="link" href="concepts.html#boost_text__proposed_.concepts.cprange">CPRange</a>
+      parameters. For convenience, overloads are provided for many of the Unicode
+      layer algorithms that take <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
+      and <a class="link" href="concepts.html#boost_text__proposed_.concepts.graphemeiterator">GraphemeIterator</a>
+      parameters. This provides convenient compatability with the text layer types,
+      like <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+      and <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>.
+    </p>
+<h4>
+<a name="boost_text__proposed_.the_unicode_layer.h3"></a>
+      <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.memory_allcoations"></a></span><a class="link" href="the_unicode_layer.html#boost_text__proposed_.the_unicode_layer.memory_allcoations">Memory
+      Allcoations</a>
+    </h4>
+<p>
+      Many of the Unicode algorithms require that intermediate results be accumulated
+      in side buffers at various times during their operation. Therefore, many of
+      the algorithms in this section may allocate memory. However, Boost.Text makes
+      extensive use of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">small_vector</span><span class="special">&lt;&gt;</span></code>s
+      for these side buffers. The end result is that though these algorithms <span class="emphasis"><em>may</em></span>
+      allocate memory, in practice they seldom if ever do.
+    </p>
+<h4>
+<a name="boost_text__proposed_.the_unicode_layer.h4"></a>
+      <span class="phrase"><a name="boost_text__proposed_.the_unicode_layer.what_about_code_point_properties_"></a></span><a class="link" href="the_unicode_layer.html#boost_text__proposed_.the_unicode_layer.what_about_code_point_properties_">What
+      About Code Point Properties?</a>
+    </h4>
+<p>
+      You might notice that there are no interfaces in this layer that provide properties
+      of code points, like whether a particular code point is space or punctuation.
+      The reason for this is that such properties are complicated in Unicode.
+    </p>
+<p>
+      Unicode defines properties like space and punctuation, but it defines them
+      in a highly context-sensitive way; each algorithm has its own set of properties
+      it associates with code points. For instance, the word breaking algorithm is
+      concerned with single quotes and double quotes, and so has a property for each,
+      but other punctuation is spread out among its other properties. It has no property
+      that maps to something like "puntuation".
+    </p>
+<p>
+      So if you want to know if a code point is whitespace or not, you might have
+      to look it up on a Unicode reference website (and implement a function for
+      yourself), or see if the whitespace code points covered by one of the Unicode
+      algorithms fits your needs and use that algorithm's <code class="computeroutput"><span class="special">*</span><span class="identifier">_prop</span><span class="special">()</span></code> function
+      (e.g. <code class="computeroutput"><a class="link" href="../boost/text/word_prop.html" title="Function word_prop">word_prop</a></code>).
     </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
@@ -94,7 +168,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="the__text__string_types.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="the__text__text_types_.html"><img src="../images/next.png" alt="Next"></a>
+<a accesskey="p" href="the_string_layer.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="the_unicode_layer/encoding_and_normalization.html"><img src="../images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

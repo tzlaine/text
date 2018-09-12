@@ -1,0 +1,195 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Bidirectional Text</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../the_unicode_layer.html" title="The Unicode Layer">
+<link rel="prev" href="searching.html" title="Searching">
+<link rel="next" href="../the_text_layer.html" title="The Text Layer">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="searching.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../the_unicode_layer.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../the_text_layer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_text__proposed_.the_unicode_layer.bidirectional_text"></a><a class="link" href="bidirectional_text.html" title="Bidirectional Text">Bidirectional
+      Text</a>
+</h3></div></div></div>
+<p>
+        Most scripts supported by Unicode are written left-to-right (<span class="emphasis"><em>LTR</em></span>).
+        Some, most notably Arabic and Hebrew, are written right-to-left (<span class="emphasis"><em>RTL</em></span>).
+        Let's say you have some text that is mostly LTR, but which contains some
+        RTL text. If you want to present this text to the user, say by printing it
+        to a terminal or showing it in a GUI, it becomes necessary to produce an
+        ordering on the code points in the text that reverses the RTL subsequences,
+        so they appear in their proper readable order, not in memory-order. For example,
+        if the capital letters in the string "car means CAR." were RTL,
+        the end-user should see "car means RAC."
+      </p>
+<p>
+        There are also times when you find RTL nested within LTR nested within RTL
+        nested within LTR. Unicode is hard.
+      </p>
+<p>
+        Boost.Text has an implementation of the Unicode bidirectional algorithm.
+        The interface for simple uses is straightfoward; you just call the algorithm
+        with a sequence of code points, and it returns a lazy range of subranges.
+        Each subrange is a <code class="computeroutput"><a class="link" href="../../boost/text/bidirectional_cp_subrange.html" title="Struct template bidirectional_cp_subrange">bidirectional_cp_subrange</a></code> (or
+        <code class="computeroutput"><a class="link" href="../../boost/text/bidirectional_gra_idm11425.html" title="Struct template bidirectional_grapheme_subrange">bidirectional_grapheme_subrange</a></code>
+        for the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>
+        overload):
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// This is the Arabic text as it appears in Google translate, already</span>
+<span class="comment">// right-to-left.  This is how we expect it to appear in our output below,</span>
+<span class="comment">// after the bidirectional algorithm processes it.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">RTL_order_arabic</span> <span class="special">=</span> <span class="string">"&#1605;&#1585;&#1581;&#1576;&#1575; &#1548; &#1593;&#1575;&#1604;&#1605; &#1579;&#1606;&#1575;&#1574;&#1610; &#1575;&#1604;&#1575;&#1578;&#1580;&#1575;&#1607;"</span><span class="special">;</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">memory_order_text</span> <span class="special">=</span>
+    <span class="identifier">u8</span><span class="string">"When I type \"Hello, bidirectional world\" into Google translate "</span>
+    <span class="identifier">u8</span><span class="string">"English-&gt;Arabic, it produces \"&#1607;&#1575;&#1580;&#1578;&#1575;&#1604;&#1575; &#1610;&#1574;&#1575;&#1606;&#1579; &#1605;&#1604;&#1575;&#1593; &#1548; &#1575;&#1576;&#1581;&#1585;&#1605;\".  I have no "</span>
+    <span class="identifier">u8</span><span class="string">"idea if it's correct.\n"</span><span class="special">;</span>
+
+<span class="comment">/* Prints:
+When I type "Hello, bidirectional world" into Google translate English-&gt;Arabic, it produces "&#1605;&#1585;&#1581;&#1576;&#1575; &#1548; &#1593;&#1575;&#1604;&#1605; &#1579;&#1606;&#1575;&#1574;&#1610; &#1575;&#1604;&#1575;&#1578;&#1580;&#1575;&#1607;".  I have no idea if it's correct.
+*/</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">rope</span> <span class="identifier">bidirectional_text</span><span class="special">;</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">bidirectional_subranges</span><span class="special">(</span><span class="identifier">memory_order_text</span><span class="special">))</span> <span class="special">{</span>
+    <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">grapheme</span> <span class="special">:</span> <span class="identifier">range</span><span class="special">)</span> <span class="special">{</span>
+        <span class="comment">// We can take each grapheme and print it out directly ...</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">grapheme</span><span class="special">;</span>
+        <span class="comment">// ... or we can insert it into a text to be used elsewhere.</span>
+        <span class="identifier">bidirectional_text</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">bidirectional_text</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">grapheme</span><span class="special">);</span>
+    <span class="special">}</span>
+<span class="special">}</span>
+
+<span class="comment">// Prints same as the loop above.</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bidirectional_text</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          By default, <code class="computeroutput"><span class="identifier">bidirectional_subranges</span><span class="special">()</span></code> auto-detects the overall direction of
+          the text &#8212; LTR or RTL. This is known as the <span class="emphasis"><em>embedding
+          level</em></span>; even embedding levels are RTL, and odd embedding levels
+          are RTL. Even levels above <code class="computeroutput"><span class="number">0</span></code>
+          are found nested within RTL text. Odd levels above <code class="computeroutput"><span class="number">1</span></code>
+          are found nested within LTR text. This is what the <span class="emphasis"><em>embedding</em></span>
+          part of <span class="emphasis"><em>embedding level</em></span> means.
+        </p>
+<p>
+          If you want to force a particular embedding level, say if you're laying
+          out text in an HTML table, so the text you're processing is separate from
+          the surrounding text, but you know that the surrounding text is all RTL,
+          you may want to specify the optional <code class="computeroutput"><span class="identifier">paragraph_embedding_level</span></code>
+          parameter to <code class="computeroutput"><span class="identifier">bidirectional_subranges</span><span class="special">()</span></code>.
+        </p>
+<p>
+          Most users can leave this parameter unchanged.
+        </p>
+</td></tr>
+</table></div>
+<p>
+        There is another form of <code class="computeroutput"><span class="identifier">bidirectional_subranges</span><span class="special">()</span></code>. This second form takes a line width extent
+        and a callable to provide the extent of a subsequence of code points. These
+        parameters are the same as the ones passed to some of the line break overloads.
+      </p>
+<p>
+        This form is necessary because the locations of line breaks within the text
+        can affect the output of the bidirectional algorithm. Therefore, the bidirectional
+        algorithm needs to know the positions of line breaks in order to operate
+        corerctly. For example:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="keyword">const</span> <span class="identifier">memory_order_text</span> <span class="special">=</span>
+    <span class="identifier">u8</span><span class="string">"When I type \"Hello, bidirectional world\" into Google translate "</span>
+    <span class="identifier">u8</span><span class="string">"English-&gt;Arabic, it produces \"&#1607;&#1575;&#1580;&#1578;&#1575;&#1604;&#1575; &#1610;&#1574;&#1575;&#1606;&#1579; &#1605;&#1604;&#1575;&#1593; &#1548; &#1575;&#1576;&#1581;&#1585;&#1605;\".  I have no "</span>
+    <span class="identifier">u8</span><span class="string">"idea if it's correct.\n"</span><span class="special">;</span>
+
+<span class="preprocessor">#ifdef</span> <span class="identifier">BOOST_NO_CXX14_GENERIC_LAMBDAS</span>
+<span class="comment">// This is an out-of-line callable with a operator() member template.  It's</span>
+<span class="comment">// just like the lambda below.</span>
+<span class="identifier">extent_callable</span> <span class="identifier">extent</span><span class="special">;</span>
+<span class="preprocessor">#else</span>
+<span class="comment">// The extent callable used in the line-breaking example took parameters of</span>
+<span class="comment">// fixed type.  The bidirectional algorithm needs to call this using some of</span>
+<span class="comment">// its own internal iterators, so the extent-callable it expects should be</span>
+<span class="comment">// written as a template or a generic lambda.</span>
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">extent</span> <span class="special">=</span> <span class="special">[](</span><span class="keyword">auto</span> <span class="identifier">first</span><span class="special">,</span> <span class="keyword">auto</span> <span class="identifier">last</span><span class="special">)</span> <span class="special">{</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_range</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">first</span><span class="special">)&gt;</span> <span class="identifier">range</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+    <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
+<span class="special">};</span>
+<span class="preprocessor">#endif</span>
+
+<span class="comment">/* Prints:
+************************************************************
+When I type "Hello, bidirectional world" into Google
+translate English-&gt;Arabic, it produces "&#1579;&#1606;&#1575;&#1574;&#1610; &#1575;&#1604;&#1575;&#1578;&#1580;&#1575;&#1607;
+&#1605;&#1585;&#1581;&#1576;&#1575; &#1548; &#1593;&#1575;&#1604;&#1605;".  I have no idea if it's correct.
+************************************************************
+*/</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"*"</span><span class="special">,</span> <span class="number">60</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">range</span> <span class="special">:</span>
+     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">bidirectional_subranges</span><span class="special">(</span><span class="identifier">memory_order_text</span><span class="special">,</span> <span class="number">60</span><span class="special">,</span> <span class="identifier">extent</span><span class="special">))</span> <span class="special">{</span>
+    <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">grapheme</span> <span class="special">:</span> <span class="identifier">range</span><span class="special">)</span> <span class="special">{</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">grapheme</span><span class="special">;</span>
+    <span class="special">}</span>
+    <span class="comment">// With the example for line breaking, our predicate in this spot was</span>
+    <span class="comment">// !hard_break().  In this case though, there are some subranges that have</span>
+    <span class="comment">// no line breaks at all.  Since we don't want double line breaks, we</span>
+    <span class="comment">// still don't add a line break after a hard_break().  That leaves the</span>
+    <span class="comment">// need to break only after allowed breaks.</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">allowed_break</span><span class="special">())</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">repeat</span><span class="special">(</span><span class="string">"*"</span><span class="special">,</span> <span class="number">60</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+</pre>
+<p>
+      </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          The extent-callable used in the line breaking API takes two parameters
+          of exact type. The extent-callable used above must take two parameters
+          of any type that models <a class="link" href="../concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>.
+          This is because the callable is used with some internal iterator types
+          that do not match the <a class="link" href="../concepts.html#boost_text__proposed_.concepts.cpiter">CPIters</a>
+          in the top-level range that you pass to <code class="computeroutput"><span class="identifier">bidirectional_subranges</span><span class="special">()</span></code>.
+        </p></td></tr>
+</table></div>
+<p>
+        As with most of the other Unicode layer algorithms, overloads of the two
+        forms above exist for <a class="link" href="../concepts.html#boost_text__proposed_.concepts.graphemerange">GraphemeRange</a>,
+        <a class="link" href="../concepts.html#boost_text__proposed_.concepts.cprange">CPRange</a>, and
+        pair-of-<a class="link" href="../concepts.html#boost_text__proposed_.concepts.cpiter">CPIter</a>
+        inputs.
+      </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="searching.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../the_unicode_layer.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="../the_text_layer.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
