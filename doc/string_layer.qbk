@@ -162,7 +162,7 @@ pointer for each child, and a fixed maximum number of children.  Each key `Ki`
 is the cumulative size of all children in the range `[0, i]`.
 
 To make the images smaller, each interior node in these diagrams has a maximum
-of four children (the actually number is an implementation detail, but it's a
+of four children (the actual number is an implementation detail, but it's a
 lot higher).
 
 Now let's take a look at a more complicated _ur_:
