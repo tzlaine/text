@@ -22,10 +22,10 @@ TEST(trie_map1, const_access)
         EXPECT_EQ(trie.max_size(), PTRDIFF_MAX);
 
         {
-            std::vector<trie::trie_map_element<std::vector<int>, int>> const
+            std::vector<trie::trie_element<std::vector<int>, int>> const
                 expected_elements = {
                     {{0}, 17}, {{0, 1, 2}, 19}, {{0, 1, 3}, 13}};
-            std::vector<trie::trie_map_element<std::vector<int>, int>>
+            std::vector<trie::trie_element<std::vector<int>, int>>
                 copied_elements(trie.size());
 
             std::copy(trie.begin(), trie.end(), copied_elements.begin());
@@ -246,10 +246,10 @@ TEST(trie_map1, mutable_access)
         EXPECT_EQ(trie.max_size(), PTRDIFF_MAX);
 
         {
-            std::vector<trie::trie_map_element<std::vector<int>, int>> const
+            std::vector<trie::trie_element<std::vector<int>, int>> const
                 expected_elements = {
                     {{0}, 17}, {{0, 1, 2}, 19}, {{0, 1, 3}, 13}};
-            std::vector<trie::trie_map_element<std::vector<int>, int>>
+            std::vector<trie::trie_element<std::vector<int>, int>>
                 copied_elements(trie.size());
 
             std::copy(trie.begin(), trie.end(), copied_elements.begin());

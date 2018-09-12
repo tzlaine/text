@@ -1095,7 +1095,7 @@ TEST(rope_btree, test_btree_erase_entire_node_leaf_children_extra_ref)
 }
 
 // The rest of these don't have _extra_ref variants, because the
-// rope::substr() tests exercise the shared node cases well enough.
+// rope::operator() tests exercise the shared node cases well enough.
 
 TEST(rope_btree, test_btree_erase_entire_node_interior_children)
 {

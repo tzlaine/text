@@ -1,5 +1,6 @@
 #define BOOST_TEXT_TESTING
 #include <boost/text/text.hpp>
+#include <boost/text/string_utility.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 
@@ -29,7 +30,7 @@ TEST(text_tests, test_empty)
     EXPECT_EQ(t.distance(), 0);
     EXPECT_EQ(t.begin(), t.end());
 
-    EXPECT_EQ(t.max_size(), INT_MAX / 2);
+    EXPECT_EQ(t.max_bytes(), INT_MAX / 2);
 
     EXPECT_TRUE(t == t);
     EXPECT_FALSE(t != t);
@@ -49,6 +50,8 @@ TEST(text_tests, test_empty)
 
     t.clear();
     t.shrink_to_fit();
+
+    std::cout << "t=\"" << t << "\"\n";
 
     {
         using namespace text::literals;
@@ -82,14 +85,14 @@ TEST(text_tests, test_non_empty_const_interface)
 
     EXPECT_FALSE(t_a.empty());
     EXPECT_EQ(t_a.distance(), 1);
-    EXPECT_GT(t_a.capacity(), t_a.distance());
+    EXPECT_GT(t_a.capacity_bytes(), t_a.distance());
 
     EXPECT_FALSE(t_ab.empty());
     EXPECT_EQ(t_ab.distance(), 2);
-    EXPECT_GT(t_ab.capacity(), t_ab.distance());
+    EXPECT_GT(t_ab.capacity_bytes(), t_ab.distance());
 
-    EXPECT_EQ(t_a.max_size(), INT_MAX / 2);
-    EXPECT_EQ(t_ab.max_size(), INT_MAX / 2);
+    EXPECT_EQ(t_a.max_bytes(), INT_MAX / 2);
+    EXPECT_EQ(t_ab.max_bytes(), INT_MAX / 2);
 
     EXPECT_FALSE(t_a == t_ab);
     EXPECT_TRUE(t_a != t_ab);
@@ -456,8 +459,8 @@ TEST(text_tests, test_replace_iter)
                 expected += after;
 
                 t.replace(substr, final_cp, last);
-                EXPECT_EQ(t, expected)
-                    << "i=" << i << " j=" << j << " erasing '" << substr_copy << "'";
+                EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
+                                       << " erasing '" << substr_copy << "'";
             }
 
             {
@@ -474,8 +477,8 @@ TEST(text_tests, test_replace_iter)
                 expected += after;
 
                 t.replace(substr, first, last);
-                EXPECT_EQ(t, expected)
-                    << "i=" << i << " j=" << j << " erasing '" << substr_copy << "'";
+                EXPECT_EQ(t, expected) << "i=" << i << " j=" << j
+                                       << " erasing '" << substr_copy << "'";
             }
         }
     }
@@ -709,5 +712,29 @@ TEST(text_tests, normalization)
         t.replace(third(t), s_circumflex.begin(), s_circumflex.end());
         EXPECT_EQ(t, text::text("\xc3\xa2\xc3\xa2")/*ââ*/);
         EXPECT_EQ(t.distance(), 2);
+    }
+}
+
+TEST(text, test_sentinel_api)
+{
+    {
+        char const * chars = "chars";
+        text::text s(chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, text::text(chars));
+    }
+    {
+        char const * chars = "chars";
+        text::text s;
+        s.insert(s.end(), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, text::text(chars));
+    }
+    {
+        char const * chars = "chars";
+        text::text s;
+        s.replace(
+            text::text_view(s.begin(), s.begin()),
+            chars,
+            text::utf8::null_sentinel{});
+        EXPECT_EQ(s, text::text(chars));
     }
 }

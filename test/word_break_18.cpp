@@ -8,10 +8,10 @@
 
 TEST(word, breaks_18)
 {
-    // ÷ 0027 ÷ 3031 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] VERTICAL KANA REPEAT MARK (Katakana) ÷ [0.3]
+    // ÷ 231A ÷ 000B ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [3.2] <LINE TABULATION> (Newline) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x3031 }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0xb }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -21,10 +21,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 3031 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] VERTICAL KANA REPEAT MARK (Katakana) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 000B ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [3.2] <LINE TABULATION> (Newline) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x3031 }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0xb }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -36,10 +36,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0041 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] LATIN CAPITAL LETTER A (ALetter) ÷ [0.3]
+    // ÷ 231A ÷ 3031 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] VERTICAL KANA REPEAT MARK (Katakana) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x41 }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x3031 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -49,10 +49,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0041 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN CAPITAL LETTER A (ALetter) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 3031 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] VERTICAL KANA REPEAT MARK (Katakana) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x41 }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x3031 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -64,10 +64,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 003A ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
+    // ÷ 231A ÷ 0041 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] LATIN CAPITAL LETTER A (ALetter) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x3a }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x41 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -77,10 +77,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 003A ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0041 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN CAPITAL LETTER A (ALetter) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x3a }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x41 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -92,10 +92,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 002C ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] COMMA (MidNum) ÷ [0.3]
+    // ÷ 231A ÷ 003A ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x2c }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x3a }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -105,10 +105,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 002C ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] COMMA (MidNum) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 003A ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x2c }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x3a }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -120,10 +120,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 002E ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] FULL STOP (MidNumLet) ÷ [0.3]
+    // ÷ 231A ÷ 002C ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] COMMA (MidNum) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x2e }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x2c }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -133,10 +133,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 002E ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] FULL STOP (MidNumLet) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 002C ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] COMMA (MidNum) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x2e }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x2c }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -148,10 +148,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0030 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] DIGIT ZERO (Numeric) ÷ [0.3]
+    // ÷ 231A ÷ 002E ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] FULL STOP (MidNumLet) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x30 }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x2e }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -161,10 +161,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0030 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] DIGIT ZERO (Numeric) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 002E ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] FULL STOP (MidNumLet) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x30 }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x2e }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -176,10 +176,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 005F ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] LOW LINE (ExtendNumLet) ÷ [0.3]
+    // ÷ 231A ÷ 0030 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] DIGIT ZERO (Numeric) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x5f }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x30 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -189,10 +189,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 005F ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LOW LINE (ExtendNumLet) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0030 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] DIGIT ZERO (Numeric) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x5f }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x30 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -204,10 +204,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 1F1E6 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    // ÷ 231A ÷ 005F ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] LOW LINE (ExtendNumLet) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x1f1e6 }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x5f }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -217,10 +217,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 1F1E6 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 005F ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LOW LINE (ExtendNumLet) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x1f1e6 }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x5f }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -232,10 +232,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 05D0 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] HEBREW LETTER ALEF (Hebrew_Letter) ÷ [0.3]
+    // ÷ 231A ÷ 1F1E6 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x5d0 }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x1f1e6 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -245,10 +245,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 05D0 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] HEBREW LETTER ALEF (Hebrew_Letter) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 1F1E6 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x5d0 }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x1f1e6 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -260,10 +260,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0022 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] QUOTATION MARK (Double_Quote) ÷ [0.3]
+    // ÷ 231A ÷ 05D0 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] HEBREW LETTER ALEF (Hebrew_Letter) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x22 }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x5d0 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -273,10 +273,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0022 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] QUOTATION MARK (Double_Quote) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 05D0 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] HEBREW LETTER ALEF (Hebrew_Letter) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x22 }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x5d0 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -288,10 +288,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0027 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
+    // ÷ 231A ÷ 0022 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] QUOTATION MARK (Double_Quote) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x27 }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x22 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -301,10 +301,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0027 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0022 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] QUOTATION MARK (Double_Quote) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x27 }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x22 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -316,10 +316,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 261D ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
+    // ÷ 231A ÷ 0027 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x261d }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x27 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -329,10 +329,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 261D ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0027 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x261d }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x27 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -344,10 +344,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 1F3FB ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
+    // ÷ 231A ÷ 231A ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] WATCH (ExtPict) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x1f3fb }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x231a }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -357,10 +357,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 1F3FB ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 231A ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] WATCH (ExtPict) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x1f3fb }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x231a }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -372,10 +372,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 2640 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
+    // ÷ 231A ÷ 0020 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] SPACE (WSegSpace) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x2640 }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x20 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -385,10 +385,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 2640 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0020 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] SPACE (WSegSpace) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x2640 }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x20 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -400,38 +400,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 1F466 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] BOY (EBG) ÷ [0.3]
+    // ÷ 231A × 00AD ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] SOFT HYPHEN (Format_FE) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x1f466 }};
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
-    }
-
-
-    // ÷ 0027 × 0308 ÷ 1F466 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] BOY (EBG) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x1f466 }};
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-    }
-
-
-    // ÷ 0027 × 00AD ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] SOFT HYPHEN (Format_FE) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0xad }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0xad }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -441,10 +413,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 × 00AD ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) × [4.0] SOFT HYPHEN (Format_FE) ÷ [0.3]
+    // ÷ 231A × 0308 × 00AD ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) × [4.0] SOFT HYPHEN (Format_FE) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0xad }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0xad }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -456,10 +428,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0300 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING GRAVE ACCENT (Extend_FE) ÷ [0.3]
+    // ÷ 231A × 0300 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING GRAVE ACCENT (Extend_FE) ÷ [0.3]
     {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x300 }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x300 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -469,38 +441,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 × 0300 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) × [4.0] COMBINING GRAVE ACCENT (Extend_FE) ÷ [0.3]
+    // ÷ 231A × 0308 × 0300 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) × [4.0] COMBINING GRAVE ACCENT (Extend_FE) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x300 }};
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-    }
-
-
-    // ÷ 0027 × 200D ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] ZERO WIDTH JOINER (ZWJ_FE) ÷ [0.3]
-    {
-        std::array<uint32_t, 2> cps = {{ 0x27, 0x200d }};
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-    }
-
-
-    // ÷ 0027 × 0308 × 200D ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) × [4.0] ZERO WIDTH JOINER (ZWJ_FE) ÷ [0.3]
-    {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x308, 0x200d }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x300 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -512,10 +456,38 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0061 × 2060 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] LATIN SMALL LETTER A (ALetter) × [4.0] WORD JOINER (Format_FE) ÷ [0.3]
+    // ÷ 231A × 200D ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] ZERO WIDTH JOINER (ZWJ_FE) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x61, 0x2060 }};
+        std::array<uint32_t, 2> cps = {{ 0x231a, 0x200d }};
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+    }
+
+
+    // ÷ 231A × 0308 × 200D ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) × [4.0] ZERO WIDTH JOINER (ZWJ_FE) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x308, 0x200d }};
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
+    }
+
+
+    // ÷ 231A ÷ 0061 × 2060 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] LATIN SMALL LETTER A (ALetter) × [4.0] WORD JOINER (Format_FE) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x61, 0x2060 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -527,10 +499,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0061 × 2060 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN SMALL LETTER A (ALetter) × [4.0] WORD JOINER (Format_FE) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0061 × 2060 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN SMALL LETTER A (ALetter) × [4.0] WORD JOINER (Format_FE) ÷ [0.3]
     {
-        std::array<uint32_t, 4> cps = {{ 0x27, 0x308, 0x61, 0x2060 }};
+        std::array<uint32_t, 4> cps = {{ 0x231a, 0x308, 0x61, 0x2060 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -544,10 +516,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0061 ÷ 003A ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
+    // ÷ 231A ÷ 0061 ÷ 003A ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x61, 0x3a }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x61, 0x3a }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -559,10 +531,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0061 ÷ 003A ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0061 ÷ 003A ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
     {
-        std::array<uint32_t, 4> cps = {{ 0x27, 0x308, 0x61, 0x3a }};
+        std::array<uint32_t, 4> cps = {{ 0x231a, 0x308, 0x61, 0x3a }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -576,10 +548,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0061 ÷ 0027 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
+    // ÷ 231A ÷ 0061 ÷ 0027 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x61, 0x27 }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x61, 0x27 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -591,10 +563,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0061 ÷ 0027 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0061 ÷ 0027 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
     {
-        std::array<uint32_t, 4> cps = {{ 0x27, 0x308, 0x61, 0x27 }};
+        std::array<uint32_t, 4> cps = {{ 0x231a, 0x308, 0x61, 0x27 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -608,10 +580,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0061 ÷ 0027 × 2060 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] APOSTROPHE (Single_Quote) × [4.0] WORD JOINER (Format_FE) ÷ [0.3]
+    // ÷ 231A ÷ 0061 ÷ 0027 × 2060 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] APOSTROPHE (Single_Quote) × [4.0] WORD JOINER (Format_FE) ÷ [0.3]
     {
-        std::array<uint32_t, 4> cps = {{ 0x27, 0x61, 0x27, 0x2060 }};
+        std::array<uint32_t, 4> cps = {{ 0x231a, 0x61, 0x27, 0x2060 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -625,10 +597,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0061 ÷ 0027 × 2060 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] APOSTROPHE (Single_Quote) × [4.0] WORD JOINER (Format_FE) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0061 ÷ 0027 × 2060 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] APOSTROPHE (Single_Quote) × [4.0] WORD JOINER (Format_FE) ÷ [0.3]
     {
-        std::array<uint32_t, 5> cps = {{ 0x27, 0x308, 0x61, 0x27, 0x2060 }};
+        std::array<uint32_t, 5> cps = {{ 0x231a, 0x308, 0x61, 0x27, 0x2060 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -644,10 +616,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0061 ÷ 002C ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] COMMA (MidNum) ÷ [0.3]
+    // ÷ 231A ÷ 0061 ÷ 002C ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] COMMA (MidNum) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x61, 0x2c }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x61, 0x2c }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -659,10 +631,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0061 ÷ 002C ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] COMMA (MidNum) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0061 ÷ 002C ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] LATIN SMALL LETTER A (ALetter) ÷ [999.0] COMMA (MidNum) ÷ [0.3]
     {
-        std::array<uint32_t, 4> cps = {{ 0x27, 0x308, 0x61, 0x2c }};
+        std::array<uint32_t, 4> cps = {{ 0x231a, 0x308, 0x61, 0x2c }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -676,10 +648,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0031 ÷ 003A ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] DIGIT ONE (Numeric) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
+    // ÷ 231A ÷ 0031 ÷ 003A ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] DIGIT ONE (Numeric) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x31, 0x3a }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x31, 0x3a }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -691,10 +663,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0031 ÷ 003A ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] DIGIT ONE (Numeric) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0031 ÷ 003A ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] DIGIT ONE (Numeric) ÷ [999.0] COLON (MidLetter) ÷ [0.3]
     {
-        std::array<uint32_t, 4> cps = {{ 0x27, 0x308, 0x31, 0x3a }};
+        std::array<uint32_t, 4> cps = {{ 0x231a, 0x308, 0x31, 0x3a }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
@@ -708,10 +680,10 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 ÷ 0031 ÷ 0027 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) ÷ [999.0] DIGIT ONE (Numeric) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
+    // ÷ 231A ÷ 0031 ÷ 0027 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] DIGIT ONE (Numeric) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
     {
-        std::array<uint32_t, 3> cps = {{ 0x27, 0x31, 0x27 }};
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x31, 0x27 }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
@@ -723,10 +695,42 @@ TEST(word, breaks_18)
     }
 
 
-    // ÷ 0027 × 0308 ÷ 0031 ÷ 0027 ÷	
-    // ÷ [0.2] APOSTROPHE (Single_Quote) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] DIGIT ONE (Numeric) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0031 ÷ 0027 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] DIGIT ONE (Numeric) ÷ [999.0] APOSTROPHE (Single_Quote) ÷ [0.3]
     {
-        std::array<uint32_t, 4> cps = {{ 0x27, 0x308, 0x31, 0x27 }};
+        std::array<uint32_t, 4> cps = {{ 0x231a, 0x308, 0x31, 0x27 }};
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+    }
+
+
+    // ÷ 231A ÷ 0031 ÷ 002C ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] DIGIT ONE (Numeric) ÷ [999.0] COMMA (MidNum) ÷ [0.3]
+    {
+        std::array<uint32_t, 3> cps = {{ 0x231a, 0x31, 0x2c }};
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 1, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_word_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
+    }
+
+
+    // ÷ 231A × 0308 ÷ 0031 ÷ 002C ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [4.0] COMBINING DIAERESIS (Extend_FE) ÷ [999.0] DIGIT ONE (Numeric) ÷ [999.0] COMMA (MidNum) ÷ [0.3]
+    {
+        std::array<uint32_t, 4> cps = {{ 0x231a, 0x308, 0x31, 0x2c }};
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
         EXPECT_EQ(boost::text::next_word_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
         EXPECT_EQ(boost::text::prev_word_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);

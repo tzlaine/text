@@ -1,7 +1,9 @@
 #ifndef BOOST_TEXT_TEXT_HPP
 #define BOOST_TEXT_TEXT_HPP
 
+#include <boost/text/grapheme.hpp>
 #include <boost/text/grapheme_iterator.hpp>
+#include <boost/text/normalize_string.hpp>
 #include <boost/text/utf8.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
@@ -17,7 +19,7 @@
     do {                                                                       \
         string str2(str_);                                                     \
         normalize_to_fcc(str2);                                                \
-        assert(str_ == str2);                                                  \
+        BOOST_ASSERT(str_ == str2);                                            \
     } while (false)
 #else
 #define BOOST_TEXT_CHECK_TEXT_NORMALIZATION()
@@ -38,16 +40,22 @@ namespace boost { namespace text {
         FCC-normalized. */
     struct text
     {
-        using value_type = cp_range<utf8::to_utf32_iterator<char *>>;
+        using value_type = grapheme;
         using size_type = int;
         using iterator = grapheme_iterator<utf8::to_utf32_iterator<char *>>;
         using const_iterator =
             grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
-        using reverse_iterator = std::reverse_iterator<iterator>;
-        using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+        using reverse_iterator = detail::reverse_iterator<iterator>;
+        using const_reverse_iterator = detail::reverse_iterator<const_iterator>;
 
         /** Default ctor. */
         text() {}
+
+        /** Constructs a text from a pair of iterators. */
+        text(iterator first, iterator last);
+
+        /** Constructs a text from a pair of iterators. */
+        text(const_iterator first, const_iterator last);
 
         /** Constructs a text from a null-terminated string. */
         text(char const * c_str);
@@ -69,22 +77,22 @@ namespace boost { namespace text {
         /** Constructs a text from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         explicit text(CharRange const & r);
 
         /** Constructs a text from a sequence of char.
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept. */
-        template<typename CharIter>
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept. */
+        template<typename CharIter, typename Sentinel>
         text(CharIter first, Iter Charlast);
 
         /** Constructs a text from a range of graphemes over an underlying
             range of char.
 
             This function only participates in overload resolution if
-            GraphemeRange models the GraphemeRange concept. */
+            <code>GraphemeRange</code> models the GraphemeRange concept. */
         template<typename GraphemeRange>
         explicit text(GraphemeRange const & r);
 
@@ -94,10 +102,10 @@ namespace boost { namespace text {
         explicit text(
             CharRange const & r, detail::rng_alg_ret_t<int *, CharRange> = 0);
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         text(
             CharIter first,
-            CharIter last,
+            Sentinel last,
             detail::char_iter_ret_t<void *, CharIter> = 0);
 
         template<typename GraphemeRange>
@@ -127,7 +135,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         text & operator=(CharRange const & r);
 
@@ -135,7 +143,7 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            GraphemeRange models the GraphemeRange concept. */
+            <code>GraphemeRange</code> models the GraphemeRange concept. */
         template<typename GraphemeRange>
         text & operator=(GraphemeRange const & r);
 
@@ -195,15 +203,15 @@ namespace boost { namespace text {
         int storage_bytes() const noexcept { return str_.size(); }
 
         /** Returns the number of bytes of storage currently in use by
-         *this. */
-        int capacity() const noexcept { return str_.capacity(); }
+            *this. */
+        int capacity_bytes() const noexcept { return str_.capacity(); }
 
         /** Returns the number of graphemes in *this.  This operation is
             O(n). */
         int distance() const noexcept { return std::distance(begin(), end()); }
 
-        /** Returns the maximum size a text can have. */
-        int max_size() const noexcept { return INT_MAX / 2; }
+        /** Returns the maximum size in bytes a text can have. */
+        int max_bytes() const noexcept { return INT_MAX / 2; }
 
         /** Clear.
 
@@ -213,56 +221,67 @@ namespace boost { namespace text {
 
         /** Inserts the sequence of char from c_str into *this starting at
             position at. */
-        text & insert(iterator at, char const * c_str);
+        iterator insert(iterator at, char const * c_str);
 
         /** Inserts the sequence of char from t into *this starting at
             position at. */
-        text & insert(iterator at, text const & t);
+        iterator insert(iterator at, text const & t);
 
         /** Inserts the sequence of char from tv into *this starting at
             position at. */
-        text & insert(iterator at, text_view tv);
+        iterator insert(iterator at, text_view tv);
 
         /** Inserts the sequence of char from sv into *this starting at
             position at. */
-        text & insert(iterator at, string_view sv);
+        iterator insert(iterator at, string_view sv);
 
         /** Inserts the sequence of char from rsv into *this starting at
             position at. */
-        text & insert(iterator at, repeated_string_view rsv);
+        iterator insert(iterator at, repeated_string_view rsv);
 
         /** Inserts the sequence of char from rv into *this starting at
             position at. */
-        text & insert(iterator at, rope_view rv);
+        iterator insert(iterator at, rope_view rv);
 
 #ifdef BOOST_TEXT_DOXYGEN
 
         /** Inserts the char range r into *this starting at position at.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
-        text & insert(iterator at, CharRange const & r);
+        iterator insert(iterator at, CharRange const & r);
 
         /** Inserts the char sequence [first, last) into *this starting at
             position at.
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept. */
-        template<typename CharIter>
-        text & insert(iterator at, CharIter first, CharIter last);
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept. */
+        template<typename CharIter, typename Sentinel>
+        iterator insert(iterator at, CharIter first, Sentinel last);
 
 #else
 
         template<typename CharRange>
         auto insert(iterator at, CharRange const & r)
-            -> detail::rng_alg_ret_t<text &, CharRange>;
+            -> detail::rng_alg_ret_t<iterator, CharRange>;
 
-        template<typename CharIter>
-        auto insert(iterator at, CharIter first, CharIter last)
-            -> detail::char_iter_ret_t<text &, CharIter>;
+        template<typename CharIter, typename Sentinel>
+        auto insert(iterator at, CharIter first, Sentinel last)
+            -> detail::char_iter_ret_t<iterator, CharIter>;
 
 #endif
+
+        /** Inserts the sequence [first, last) into *this starting at position
+            at. */
+        iterator insert(iterator at, const_iterator first, const_iterator last);
+
+        /** Inserts the grapheme g into *this at position at. */
+        iterator insert(iterator at, grapheme const & g);
+
+        /** Inserts the grapheme g into *this at position at. */
+        template<typename CPIter>
+        iterator insert(iterator at, grapheme_view<CPIter> g);
 
         /** Erases the portion of *this delimited by tv.
 
@@ -273,7 +292,7 @@ namespace boost { namespace text {
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
-        text & erase(iterator first, iterator last) noexcept;
+        iterator erase(iterator first, iterator last) noexcept;
 
         /** Replaces the portion of *this delimited by old_substr with the
             sequence of char from new_substr.
@@ -329,7 +348,7 @@ namespace boost { namespace text {
             char range r.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept.
+            <code>CharRange</code> models the CharRange concept.
 
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
@@ -340,14 +359,14 @@ namespace boost { namespace text {
         /** Replaces the portion of *this delimited by old_substr with the
             char sequence [first, last).
 
-            This function only participates in overload resolution if CharIter
-            models the CharIter concept.
+            This function only participates in overload resolution if
+            <code>CharIter</code> models the CharIter concept.
 
             \pre !std::less(old_substr.begin().base().base(),
             begin().base().base()) && !std::less(end().base().base(),
             old_substr.end().base().base()) */
-        template<typename CharIter>
-        text & replace(text_view old_substr, CharIter first, CharIter last);
+        template<typename CharIter, typename Sentinel>
+        text & replace(text_view old_substr, CharIter first, Sentinel last);
 
 #else
 
@@ -355,11 +374,20 @@ namespace boost { namespace text {
         auto replace(text_view old_substr, CharRange const & r)
             -> detail::rng_alg_ret_t<text &, CharRange>;
 
-        template<typename CharIter>
-        auto replace(text_view old_substr, CharIter first, CharIter last)
+        template<typename CharIter, typename Sentinel>
+        auto replace(text_view old_substr, CharIter first, Sentinel last)
             -> detail::char_iter_ret_t<text &, CharIter>;
 
 #endif
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence [first, last).
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
+        text & replace(
+            text_view old_substr, const_iterator first, const_iterator last);
 
         /** Reserves storage enough for a string of at least new_size
             bytes.
@@ -379,7 +407,9 @@ namespace boost { namespace text {
         /** Removes and returns the underlying string from *this. */
         string extract() && noexcept { return std::move(str_); }
 
-        /** Replaces the underlying string in *this. */
+        /** Replaces the underlying string in *this.
+
+            \pre s is normalized FCC. */
         void replace(string && s) noexcept { str_ = std::move(s); }
 
         /** Appends c_str to *this. */
@@ -396,10 +426,7 @@ namespace boost { namespace text {
         /** Appends the char range r to *this.
 
             This function only participates in overload resolution if
-            CharRange models the CharRange concept.
-
-            \throw std::invalid_argument if the ends of the range are not
-            valid UTF-8. */
+            <code>CharRange</code> models the CharRange concept. */
         template<typename CharRange>
         text & operator+=(CharRange const & r);
 
@@ -444,9 +471,10 @@ namespace boost { namespace text {
         }
 
         template<typename Iter>
-        static std::reverse_iterator<Iter> make_reverse_iter(Iter it) noexcept
+        static detail::reverse_iterator<Iter>
+        make_reverse_iter(Iter it) noexcept
         {
-            return std::reverse_iterator<Iter>{it};
+            return detail::reverse_iterator<Iter>{it};
         }
 
         using mutable_utf32_iter = utf8::to_utf32_iterator<char *>;
@@ -457,29 +485,75 @@ namespace boost { namespace text {
         // https://www.unicode.org/reports/tr15/#Concatenation
         void normalize_subrange(int from_near_offset, int to_near_offset);
 
-        template<typename CharIter>
-        text & insert_impl(
+        template<typename CharIter, typename Sentinel>
+        iterator insert_impl(
             iterator at,
             CharIter first,
-            CharIter last,
+            Sentinel last,
             bool first_last_normalized);
-        text & insert_impl(iterator at, string_view sv, bool sv_normalized);
+        iterator insert_impl(iterator at, string_view sv, bool sv_normalized);
 
-        template<typename CharIter>
+        template<typename CharIter, typename Sentinel>
         text & replace_impl(
             text_view old_substr,
             CharIter first,
-            CharIter last,
+            Sentinel last,
             bool first_last_normalized);
         text & replace_impl(
             text_view old_substr,
             string_view new_substr,
             bool new_substr_normalized);
 
+        template <typename CPIter>
+        struct insert_grapheme_view_impl;
+
         string str_;
+
+        template <typename CPIter>
+        friend struct insert_grapheme_view_impl;
 
 #endif // Doxygen
     };
+
+#ifndef BOOST_TEXT_DOXYGEN
+
+    template <typename CPIter>
+    struct text::insert_grapheme_view_impl
+    {
+        static text::iterator
+        call(text & t, text::iterator at, grapheme_view<CPIter> g)
+        {
+            container::small_vector<char, 16> grapheme_chars;
+            std::copy(
+                g.begin(),
+                g.end(),
+                utf8::from_utf32_back_inserter(grapheme_chars));
+            return t.insert_impl(
+                at,
+                string_view(&grapheme_chars[0], grapheme_chars.size()),
+                true);
+        }
+    };
+
+    template<typename Iter, typename Sentinel, typename ErrorHandler>
+    struct text::insert_grapheme_view_impl<
+        utf8::to_utf32_iterator<Iter, Sentinel, ErrorHandler>>
+    {
+        static text::iterator call(
+            text & t,
+            text::iterator at,
+            grapheme_view<utf8::to_utf32_iterator<Iter, Sentinel, ErrorHandler>>
+                g)
+        {
+            return t.insert_impl(
+                at,
+                string_view(
+                    g.begin().base(), g.end().base() - g.begin().base()),
+                true);
+        }
+    };
+
+#endif
 
     inline text::iterator begin(text & t) noexcept { return t.begin(); }
     inline text::iterator end(text & t) noexcept { return t.end(); }
@@ -533,22 +607,27 @@ namespace boost { namespace text {
         /** Creates a text from a char string literal. */
         inline text operator"" _t(char const * str, std::size_t len)
         {
-            assert(len < INT_MAX / 2);
+            BOOST_ASSERT(len < INT_MAX / 2);
             return text(str, str + len);
         }
     }
 
 #ifndef BOOST_TEXT_DOXYGEN
 
+    inline text::text(iterator first, iterator last) :
+        text(text_view(first, last))
+    {}
+
+    inline text::text(const_iterator first, const_iterator last) :
+        text(text_view(first, last))
+    {}
+
     inline text::text(char const * c_str) : str_(c_str)
     {
         normalize_to_fcc(str_);
     }
 
-    inline text::text(string s) : str_(std::move(s))
-    {
-        normalize_to_fcc(str_);
-    }
+    inline text::text(string s) : str_(std::move(s)) { normalize_to_fcc(str_); }
 
     inline text::text(text_view tv) : str_()
     {
@@ -556,10 +635,7 @@ namespace boost { namespace text {
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
     }
 
-    inline text::text(string_view sv) : str_(sv)
-    {
-        normalize_to_fcc(str_);
-    }
+    inline text::text(string_view sv) : str_(sv) { normalize_to_fcc(str_); }
 
     inline text::text(repeated_string_view rsv) : str_(rsv)
     {
@@ -573,10 +649,10 @@ namespace boost { namespace text {
         normalize_to_fcc(str_);
     }
 
-    template<typename CharIter>
+    template<typename CharIter, typename Sentinel>
     text::text(
         CharIter first,
-        CharIter last,
+        Sentinel last,
         detail::char_iter_ret_t<void *, CharIter>) :
         str_(first, last)
     {
@@ -588,9 +664,7 @@ namespace boost { namespace text {
         GraphemeRange const & r,
         detail::graph_rng_alg_ret_t<int *, GraphemeRange>) :
         str_(r)
-    {
-        normalize_to_fcc(str_);
-    }
+    {}
 
     inline text & text::operator=(char const * c_str)
     {
@@ -647,41 +721,39 @@ namespace boost { namespace text {
 
     template<typename CharRange>
     auto text::insert(iterator at, CharRange const & r)
-        -> detail::rng_alg_ret_t<text &, CharRange>
+        -> detail::rng_alg_ret_t<iterator, CharRange>
     {
-        using std::begin;
-        using std::end;
-        return insert(at, begin(r), end(r));
+        return insert(at, std::begin(r), std::end(r));
     }
 
-    template<typename CharIter>
-    auto text::insert(iterator at, CharIter first, CharIter last)
-        -> detail::char_iter_ret_t<text &, CharIter>
+    template<typename CharIter, typename Sentinel>
+    auto text::insert(iterator at, CharIter first, Sentinel last)
+        -> detail::char_iter_ret_t<iterator, CharIter>
     {
         return insert_impl(at, first, last, false);
     }
 
-    inline text & text::insert(iterator at, char const * c_str)
+    inline text::iterator text::insert(iterator at, char const * c_str)
     {
         return insert(at, string_view(c_str));
     }
 
-    inline text & text::insert(iterator at, text const & t)
+    inline text::iterator text::insert(iterator at, text const & t)
     {
         return insert_impl(at, string_view(t), true);
     }
 
-    inline text & text::insert(iterator at, text_view tv)
+    inline text::iterator text::insert(iterator at, text_view tv)
     {
         return insert_impl(at, string_view(tv), true);
     }
 
-    inline text & text::insert(iterator at, string_view sv)
+    inline text::iterator text::insert(iterator at, string_view sv)
     {
         return insert_impl(at, sv, false);
     }
 
-    inline text & text::insert(iterator at, repeated_string_view rsv)
+    inline text::iterator text::insert(iterator at, repeated_string_view rsv)
     {
         bool const rsv_null_terminated =
             !rsv.view().empty() && rsv.view().end()[-1] == '\0';
@@ -699,9 +771,28 @@ namespace boost { namespace text {
         return *this;
     }
 
-    inline text & text::erase(iterator first, iterator last) noexcept
+    inline text::iterator
+    text::insert(iterator at, const_iterator first, const_iterator last)
     {
-        return erase(text_view(first, last));
+        return insert(at, text_view(first, last));
+    }
+
+    inline text::iterator text::insert(iterator at, grapheme const & g)
+    {
+        return insert(at, grapheme_view<grapheme::const_iterator>(g));
+    }
+
+    template<typename CPIter>
+    text::iterator text::insert(iterator at, grapheme_view<CPIter> g)
+    {
+        return insert_grapheme_view_impl<CPIter>::call(*this, at, g);
+    }
+
+    inline text::iterator text::erase(iterator first, iterator last) noexcept
+    {
+        int const offset = first.base().base() - str_.begin();
+        erase(text_view(first, last));
+        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
     }
 
     inline text & text::replace(text_view old_substr, char const * new_substr)
@@ -739,16 +830,20 @@ namespace boost { namespace text {
     auto text::replace(text_view old_substr, CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        using std::begin;
-        using std::end;
-        return replace(old_substr, begin(r), end(r));
+        return replace(old_substr, std::begin(r), std::end(r));
     }
 
-    template<typename CharIter>
-    auto text::replace(text_view old_substr, CharIter first, CharIter last)
+    template<typename CharIter, typename Sentinel>
+    auto text::replace(text_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<text &, CharIter>
     {
         return replace_impl(old_substr, first, last, false);
+    }
+
+    inline text & text::replace(
+        text_view old_substr, const_iterator first, const_iterator last)
+    {
+        return replace(old_substr, text_view(first, last));
     }
 
     inline text & text::operator+=(char const * c_str)
@@ -756,20 +851,24 @@ namespace boost { namespace text {
         return operator+=(string_view(c_str));
     }
 
-    inline text & text::operator+=(string_view sv) { return insert(end(), sv); }
+    inline text & text::operator+=(string_view sv)
+    {
+        insert(end(), sv);
+        return *this;
+    }
 
     inline text & text::operator+=(repeated_string_view rsv)
     {
-        return insert(end(), rsv);
+        insert(end(), rsv);
+        return *this;
     }
 
     template<typename CharRange>
     auto text::operator+=(CharRange const & r)
         -> detail::rng_alg_ret_t<text &, CharRange>
     {
-        using std::begin;
-        using std::end;
-        return insert(this->end(), begin(r), end(r));
+        insert(this->end(), std::begin(r), std::end(r));
+        return *this;
     }
 
     inline text::mutable_utf32_iter
@@ -814,46 +913,55 @@ namespace boost { namespace text {
             string_view(&buf[0], buf.size()));
     }
 
-    template<typename CharIter>
-    text & text::insert_impl(
-        iterator at, CharIter first, CharIter last, bool first_last_normalized)
+    template<typename CharIter, typename Sentinel>
+    text::iterator text::insert_impl(
+        iterator at, CharIter first, Sentinel last, bool first_last_normalized)
     {
+        int const offset = at.base().base() - str_.begin();
+
         int const lo = at.base().base() - str_.begin();
         auto const insertion_it = str_.insert(at.base().base(), first, last);
         int const hi = insertion_it - str_.begin();
         if (first_last_normalized) {
-            if (lo)
-                normalize_subrange(lo, lo);
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
         } else {
             normalize_subrange(lo, hi);
         }
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+
+        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
     }
 
-    inline text &
+    inline text::iterator
     text::insert_impl(iterator at, string_view sv, bool sv_normalized)
     {
+        int const offset = at.base().base() - str_.begin();
+
         int const lo = at.base().base() - str_.begin();
         auto const insertion_it = str_.insert(at.base().base(), sv);
         int const hi = insertion_it - str_.begin();
         if (sv_normalized) {
-            if (lo)
-                normalize_subrange(lo, lo);
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
         } else {
             normalize_subrange(lo, hi);
         }
         BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-        return *this;
+
+        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
     }
 
-    template<typename CharIter>
+    template<typename CharIter, typename Sentinel>
     text & text::replace_impl(
-        text_view old_substr, CharIter first, CharIter last, bool first_last_normalized)
+        text_view old_substr,
+        CharIter first,
+        Sentinel last,
+        bool first_last_normalized)
     {
         int const lo = old_substr.begin().base().base() - str_.begin();
         int const old_size = storage_bytes();
@@ -862,10 +970,10 @@ namespace boost { namespace text {
         int const new_size = storage_bytes();
         int const hi = lo + old_substr_size + (new_size - old_size);
         if (first_last_normalized) {
-            if (lo)
-                normalize_subrange(lo, lo);
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
         } else {
             normalize_subrange(lo, hi);
         }
@@ -888,10 +996,10 @@ namespace boost { namespace text {
                        (new_substr.size() - old_substr.storage_bytes());
         str_.replace(string_view(old_substr), new_substr);
         if (new_substr_normalized) {
-            if (lo)
-                normalize_subrange(lo, lo);
             if (hi < str_.size())
                 normalize_subrange(hi, hi);
+            if (lo)
+                normalize_subrange(lo, lo);
         } else {
             normalize_subrange(lo, hi);
         }
@@ -948,19 +1056,29 @@ namespace boost { namespace text {
     }
 
     /** Creates a new text object that is the concatenation of t and t2. */
-    inline text operator+(text t, text const & t2) { return t += t2; }
+    inline text operator+(text t, text const & t2)
+    {
+        t.insert(t.end(), t2);
+        return t;
+    }
 
-    /** Creates a new text object that is the concatenation of t and c_str. */
+    /** Creates a new text object that is the concatenation of t and c_str.
+     */
     inline text operator+(text t, char const * c_str) { return t += c_str; }
 
-    /** Creates a new text object that is the concatenation of c_str and t. */
+    /** Creates a new text object that is the concatenation of c_str and t.
+     */
     inline text operator+(char const * c_str, text const & t)
     {
         return text(c_str) + t;
     }
 
     /** Creates a new text object that is the concatenation of t and tv. */
-    inline text operator+(text t, text_view tv) { return t += tv; }
+    inline text operator+(text t, text_view tv)
+    {
+        t.insert(t.end(), tv);
+        return t;
+    }
 
     /** Creates a new text object that is the concatenation of tv and t. */
     inline text operator+(text_view tv, text const & t) { return text(tv) + t; }
@@ -978,21 +1096,15 @@ namespace boost { namespace text {
 
     /** Creates a new text object that is the concatenation of t and r.
 
-        This function only participates in overload resolution if CharRange
-        models the CharRange concept.
-
-        \throw std::invalid_argument if the ends of the range are not valid
-        UTF-8. */
+        This function only participates in overload resolution if
+        <code>CharRange</code> models the CharRange concept. */
     template<typename CharRange>
     text operator+(text t, CharRange const & r);
 
     /** Creates a new text object that is the concatenation of r and t.
 
-        This function only participates in overload resolution if CharRange
-        models the CharRange concept.
-
-        \throw std::invalid_argument if the ends of the range are not valid
-        UTF-8. */
+        This function only participates in overload resolution if
+        <code>CharRange</code> models the CharRange concept. */
     template<typename CharRange>
     text operator+(CharRange const & r, text const & t);
 
@@ -1015,5 +1127,22 @@ namespace boost { namespace text {
 #endif
 
 }}
+
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::text>
+    {
+        using argument_type = boost::text::text;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & t) const noexcept
+        {
+            return boost::text::detail::hash_grapheme_range(t);
+        }
+    };
+}
+
+#endif
 
 #endif

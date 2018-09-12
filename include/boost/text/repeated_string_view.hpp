@@ -38,8 +38,8 @@ namespace boost { namespace text {
             view_(sv),
             count_(count)
         {
-            assert(0 <= sv.size());
-            assert(0 <= count);
+            BOOST_ASSERT(0 <= sv.size());
+            BOOST_ASSERT(0 <= count);
         }
 
         /** Constructs a repeated_string_view from a range of char.
@@ -54,8 +54,8 @@ namespace boost { namespace text {
             view_(string_view(r)),
             count_(count)
         {
-            assert(0 <= view_.size());
-            assert(0 <= count);
+            BOOST_ASSERT(0 <= view_.size());
+            BOOST_ASSERT(0 <= count);
         }
 
         /** Constructs a repeated_string_view from a range of graphemes over
@@ -72,8 +72,8 @@ namespace boost { namespace text {
             view_(string_view(r)),
             count_(count)
         {
-            assert(0 <= view_.size());
-            assert(0 <= count);
+            BOOST_ASSERT(0 <= view_.size());
+            BOOST_ASSERT(0 <= count);
         }
 
         constexpr const_iterator begin() const noexcept
@@ -120,7 +120,7 @@ namespace boost { namespace text {
         {
             if (i < 0)
                 i += size();
-            assert(0 <= i && i < size());
+            BOOST_ASSERT(0 <= i && i < size());
             return begin()[i];
         }
 
@@ -196,7 +196,7 @@ namespace boost { namespace text {
     inline BOOST_TEXT_CXX14_CONSTEXPR repeated_string_view
     repeat(string_view sv, std::ptrdiff_t count)
     {
-        assert(0 <= count);
+        BOOST_ASSERT(0 <= count);
         return repeated_string_view(sv, count);
     }
 
@@ -267,6 +267,23 @@ namespace boost { namespace text {
 
 }}
 
-#    include <boost/text/unencoded_rope_view.hpp>
+#include <boost/text/unencoded_rope_view.hpp>
+
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::repeated_string_view>
+    {
+        using argument_type = boost::text::repeated_string_view;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & rsv) const noexcept
+        {
+            return boost::text::detail::hash_char_range(rsv);
+        }
+    };
+}
+
+#endif
 
 #endif

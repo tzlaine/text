@@ -35,11 +35,11 @@ if (UNIX)
         message("-- Building for code coverage; disabling any sanitizers")
         if (APPLE)
             set(compile_flags -fprofile-arcs -ftest-coverage)
-            set(CMAKE_BUILD_TYPE RelWithDebInfo)
+            set(CMAKE_BUILD_TYPE Debug)
             set(link_flags --coverage)
         else ()
             set(compile_flags --coverage)
-            set(CMAKE_BUILD_TYPE RelWithDebInfo)
+            set(CMAKE_BUILD_TYPE Debug)
             set(link_flags --coverage)
         endif ()
     endif ()
@@ -65,11 +65,14 @@ add_library(text
     src/normalization_data_compose.cpp
     src/collation_data_0.cpp
     src/collation_data_1.cpp
+    src/case_mapping.cpp
+    src/data_versions.cpp
 )
 
 target_include_directories(text PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(text PUBLIC boost)
 set_property(TARGET text PROPERTY CXX_STANDARD ${CXX_STD})
+target_compile_options(text PRIVATE -DBOOST_TEXT_SOURCE)
 if (link_flags)
     target_link_libraries(text PUBLIC ${link_flags})
     target_compile_options(text PUBLIC ${compile_flags})
@@ -83,7 +86,6 @@ endif ()
 # Tests and examples
 ##################################################
 # Built conditionally, because it relies on TSan.
-# NOTE: TSan is currently confused by atomic operations, and so this test is useless atm.
 set(BUILD_ROPE_THREADSAFETY_TEST false CACHE BOOL "Set to true to build rope the threadsafety test.")
 # Built conditionally, because it relies on libFuzzer.
 set(BUILD_FUZZ_TESTS false CACHE BOOL "Set to true to build fuzz tests.")

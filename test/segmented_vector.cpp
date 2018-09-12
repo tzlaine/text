@@ -1,4 +1,5 @@
 #include <boost/text/segmented_vector.hpp>
+#include <boost/text/utf8.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
 
@@ -83,8 +84,8 @@ TEST(segmented_vector, test_insert)
 
     {
         text::segmented_vector<int> t({0, 1, 2, 3, 4, 5});
-        t = t.erase(t.begin(), t.end());
-        t = t.insert(t.begin() + 0, _789.begin(), _789.end());
+        t.erase(t.begin(), t.end());
+        t.insert(t.begin() + 0, _789.begin(), _789.end());
         std::vector<int> const vec{7, 8, 9};
         EXPECT_TRUE(
             algorithm::equal(t.begin(), t.end(), vec.begin(), vec.end()));
@@ -231,5 +232,29 @@ TEST(segmented_vector, test_replace)
             t.replace(t.begin() + i, t.begin() + j, ct.begin(), ct.end());
             EXPECT_EQ(t, expected) << "i=" << i << " j=" << j;
         }
+    }
+}
+
+TEST(segmented_vector, test_sentinel_api)
+{
+    {
+        char const * chars = "chars";
+        text::segmented_vector<char> v(chars, text::utf8::null_sentinel{});
+        EXPECT_TRUE(algorithm::equal(
+            chars, chars + std::strlen(chars), v.begin(), v.end()));
+    }
+    {
+        char const * chars = "chars";
+        text::segmented_vector<char> v;
+        v.insert(v.end(), chars, text::utf8::null_sentinel{});
+        EXPECT_TRUE(algorithm::equal(
+            chars, chars + std::strlen(chars), v.begin(), v.end()));
+    }
+    {
+        char const * chars = "chars";
+        text::segmented_vector<char> v;
+        v.replace(v.begin(), v.end(), chars, text::utf8::null_sentinel{});
+        EXPECT_TRUE(algorithm::equal(
+            chars, chars + std::strlen(chars), v.begin(), v.end()));
     }
 }

@@ -2,7 +2,7 @@
 #define BOOST_TEXT_TEST_COLLATION_TESTS_HPP
 
 #include <boost/text/collate.hpp>
-#include <boost/text/normalize.hpp>
+#include <boost/text/normalize_string.hpp>
 
 #include <iomanip>
 
@@ -56,14 +56,15 @@ std::vector<uint32_t> collate_for_tests(
     uint32_t * first = &*buf.begin();
     uint32_t * last = &*buf.end();
 
-    boost::container::small_vector<boost::text::detail::collation_element, 1024>
-        ces = table().collation_elements(
-            first,
-            last,
-            boost::text::collation_strength::primary,
-            boost::text::case_first::off,
-            boost::text::case_level::off,
-            weighting);
+    boost::container::small_vector<boost::text::detail::collation_element, 1024>ces;
+    table().copy_collation_elements(
+        first,
+        last,
+        std::back_inserter(ces),
+        boost::text::collation_strength::primary,
+        boost::text::case_first::off,
+        boost::text::case_level::off,
+        weighting);
 
     std::vector<uint32_t> retval;
     boost::text::detail::s3(

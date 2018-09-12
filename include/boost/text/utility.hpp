@@ -1,26 +1,18 @@
 #ifndef BOOST_TEXT_UTILITY_HPP
 #define BOOST_TEXT_UTILITY_HPP
 
-#include <boost/text/string.hpp>
 #include <boost/text/utf8.hpp>
+#include <boost/text/detail/algorithm.hpp>
+#include <boost/text/detail/sentinel_tag.hpp>
 
 
 namespace boost { namespace text {
-
-    /** Returns a string constructed from [first, last). */
-    template<typename CPIter>
-    string to_string(CPIter first, CPIter last)
-    {
-        return string(
-            utf8::from_utf32_iterator<CPIter>(first, first, last),
-            utf8::from_utf32_iterator<CPIter>(first, last, last));
-    }
 
     /** A range that adapts a sequence of <code>char const *</code> to a
         sequence of code points. */
     struct utf32_range
     {
-        using iterator = utf8::to_utf32_iterator<char const *, char const *>;
+        using iterator = utf8::to_utf32_iterator<char const *>;
 
         utf32_range() :
             first_(nullptr, nullptr, nullptr),
@@ -62,6 +54,10 @@ namespace boost { namespace text {
     {
         using iterator = CPIter;
         using sentinel = Sentinel;
+
+        static_assert(
+            detail::is_cp_iter<CPIter>::value,
+            "CPIter must be a code point iterator");
 
         cp_range() {}
         cp_range(iterator first, sentinel last) : first_(first), last_(last) {}

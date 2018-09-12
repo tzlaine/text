@@ -1,10 +1,13 @@
 #ifndef BOOST_TEXT_DETAIL_ALGORITHM_HPP
 #define BOOST_TEXT_DETAIL_ALGORITHM_HPP
 
-#include <iterator>
-#include <type_traits>
+#include <boost/text/detail/iterator.hpp>
 
-#include <cassert>
+#include <boost/assert.hpp>
+
+#include <numeric>
+#include <type_traits>
+#include <utility>
 
 
 namespace boost { namespace text {
@@ -89,18 +92,9 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using has_member_begin = decltype(*std::declval<T>().begin());
+    using has_begin = decltype(*std::begin(std::declval<T>()));
     template<typename T>
-    using has_free_unqualified_begin = decltype(*begin(std::declval<T>()));
-    template<typename T>
-    using has_free_std_begin = decltype(*std::begin(std::declval<T>()));
-
-    template<typename T>
-    using has_member_end = decltype(*std::declval<T>().end());
-    template<typename T>
-    using has_free_unqualified_end = decltype(*end(std::declval<T>()));
-    template<typename T>
-    using has_free_std_end = decltype(*std::end(std::declval<T>()));
+    using has_end = decltype(*std::end(std::declval<T>()));
 
     template<typename T>
     using value_type_ = typename std::remove_cv<
@@ -119,32 +113,35 @@ namespace boost { namespace text { namespace detail {
 
 
 
+    template<typename T, typename U>
+    struct is_convertible_and_1_byte
+        : std::integral_constant<
+              bool,
+              std::is_convertible<T, U>::value && sizeof(T) == 1>
+    {
+    };
+
+
+
+    template<typename T>
+    using is_char_iter = std::integral_constant<
+        bool,
+        std::is_same<char *, typename std::remove_cv<T>::type>::value ||
+            std::is_same<char const *, typename std::remove_cv<T>::type>::
+                value ||
+            is_convertible_and_1_byte<detected_t<value_type_, T>, char>::value>;
+
     template<typename T>
     using is_char_range = std::integral_constant<
         bool,
-        std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value || // TODO
-        std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value || // TODO
-            (std::is_same<
-                remove_cv_ref_t<detected_or<
-                    detected_or<
-                        detected_t<has_free_std_begin, T>,
-                        has_free_unqualified_begin,
-                        T>,
-                    has_member_begin,
-                    T>>,
-                char>::value &&
-                 std::is_same<
-                     remove_cv_ref_t<detected_or<
-                         detected_or<
-                             detected_t<has_free_std_end, T>,
-                             has_free_unqualified_end,
-                             T>,
-                         has_member_end,
-                         T>>,
-                     char>::value &&
-                     std::is_same<
-                         detected_t<iterator_category_, T>,
-                         std::random_access_iterator_tag>::value)>;
+        std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value ||
+            std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value ||
+            (is_convertible_and_1_byte<
+                 remove_cv_ref_t<detected_t<has_begin, T>>,
+                 char>::value &&
+             is_convertible_and_1_byte<
+                 remove_cv_ref_t<detected_t<has_end, T>>,
+                 char>::value)>;
 
 
 
@@ -195,42 +192,20 @@ namespace boost { namespace text { namespace detail {
 
 
     template<typename T>
-    using has_contig_member_begin = decltype(&*std::declval<T>().begin());
+    using has_contig_begin = decltype(&*std::begin(std::declval<T>()));
     template<typename T>
-    using has_contig_free_unqualified_begin =
-        decltype(&*begin(std::declval<T>()));
-    template<typename T>
-    using has_contig_free_std_begin = decltype(&*std::begin(std::declval<T>()));
-
-    template<typename T>
-    using has_contig_member_end = decltype(&*std::declval<T>().end());
-    template<typename T>
-    using has_contig_free_unqualified_end = decltype(&*end(std::declval<T>()));
-    template<typename T>
-    using has_contig_free_std_end = decltype(&*std::end(std::declval<T>()));
+    using has_contig_end = decltype(&*std::end(std::declval<T>()));
 
     template<typename T>
     using is_contig_char_range = std::integral_constant<
         bool,
         std::is_same<
-            fixup_ptr_t<detected_or<
-                detected_or<
-                    detected_t<has_contig_free_std_begin, T>,
-                    has_contig_free_unqualified_begin,
-                    T>,
-                has_contig_member_begin,
-                T>>,
+            fixup_ptr_t<detected_t<has_contig_begin, T>>,
             char const *>::value &&
             std::is_same<
-                fixup_ptr_t<detected_or<
-                    detected_or<
-                        detected_t<has_contig_free_std_end, T>,
-                        has_contig_free_unqualified_end,
-                        T>,
-                    has_contig_member_end,
-                    T>>,
+                fixup_ptr_t<detected_t<has_contig_end, T>>,
                 char const *>::value &&
-            std::is_same<
+            std::is_convertible<
                 iterator_category_<T>,
                 std::random_access_iterator_tag>::value &&
             !std::is_same<T, unencoded_rope>::value &&
@@ -276,13 +251,6 @@ namespace boost { namespace text { namespace detail {
 
 
 
-    template<typename T>
-    using is_char_iter = std::integral_constant<
-        bool,
-        std::is_same<char const *, T>::value ||
-            std::is_same<char *, T>::value ||
-            std::is_same<detected_t<value_type_, T>, char>::value>;
-
     template<
         typename T,
         typename R1,
@@ -299,6 +267,75 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename R1>
     using char_iter_ret_t = typename char_iter_ret<T, R1>::type;
+
+
+
+    template<typename T>
+    using is_code_point = std::integral_constant<
+        bool,
+        (std::is_unsigned<T>::value && std::is_integral<T>::value &&
+         sizeof(T) == 4)>;
+
+    template<typename T>
+    using has_deref_and_incr =
+        std::pair<decltype(*std::declval<T>()), decltype(++std::declval<T>())>;
+
+    template<typename T>
+    using is_cp_iter = std::integral_constant<
+        bool,
+        ((std::is_pointer<T>::value &&
+          is_code_point<typename std::remove_cv<
+              typename std::remove_pointer<T>::type>::type>::value) ||
+         (is_detected<has_deref_and_incr, T>::value &&
+          is_code_point<typename std::remove_cv<
+              detected_t<value_type_, T>>::type>::value))>;
+
+    template<typename T, typename R1, bool R1IsCPRange = is_cp_iter<R1>::value>
+    struct cp_iter_ret
+    {
+    };
+
+    template<typename T, typename R1>
+    struct cp_iter_ret<T, R1, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1>
+    using cp_iter_ret_t = typename cp_iter_ret<T, R1>::type;
+
+
+
+    template<typename T, typename U>
+    using comparable_ = decltype(std::declval<T>() == std::declval<U>());
+
+    template<
+        typename T,
+        typename CPIter,
+        typename Sentinel,
+        bool FIsWordPropFunc = is_cp_iter<CPIter>::value &&
+            is_detected<comparable_, CPIter, Sentinel>::value>
+    struct cp_iter_sntl_ret
+    {
+    };
+
+    template<typename T, typename CPIter, typename Sentinel>
+    struct cp_iter_sntl_ret<T, CPIter, Sentinel, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename CPIter, typename Sentinel>
+    using cp_iter_sntl_ret_t =
+        typename cp_iter_sntl_ret<T, CPIter, Sentinel>::type;
+
+
+
+    template<typename T, typename R1>
+    using cp_rng_alg_ret_t = cp_iter_sntl_ret_t<
+        T,
+        decltype(std::declval<R1>().begin()),
+        decltype(std::declval<R1>().end())>;
 
 
 
@@ -366,11 +403,80 @@ namespace boost { namespace text { namespace detail {
 
 
 
-    inline BOOST_TEXT_CXX14_CONSTEXPR char
-    back_impl(char const * first, char const * last) noexcept
+    template<typename Iter>
+    detail::reverse_iterator<Iter> make_reverse_iterator(Iter it)
     {
-        assert(first != last);
-        return *(last - 1);
+        return detail::reverse_iterator<Iter>(it);
+    }
+
+    inline std::size_t
+    hash_combine_(std::size_t seed, std::size_t value) noexcept
+    {
+        return seed ^= value + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    }
+
+    template<int N>
+    struct hash_4_more_chars
+    {
+        template<typename Iter>
+        static std::size_t call(std::size_t curr, Iter it)
+        {
+            return curr;
+        }
+    };
+
+    template<>
+    struct hash_4_more_chars<8>
+    {
+        template<typename Iter>
+        static std::size_t call(std::size_t curr, Iter it)
+        {
+            curr <<= 32;
+            curr += (*(it + 4) << 24) + (*(it + 5) << 16) + (*(it + 2) << 6) +
+                    (*(it + 7) << 0);
+            return curr;
+        }
+    };
+
+    template<typename CharRange>
+    std::size_t hash_char_range(CharRange const & r) noexcept
+    {
+        auto first = r.begin();
+        auto last = r.end();
+        auto const size = last - first;
+        auto const remainder = size % sizeof(std::size_t);
+        last -= remainder;
+
+        std::size_t retval = size;
+        for (; first != last; first += sizeof(std::size_t)) {
+            std::size_t curr = (*(first + 0) << 24) + (*(first + 1) << 16) +
+                               (*(first + 2) << 8) + (*(first + 3) << 0);
+            curr = hash_4_more_chars<sizeof(std::size_t)>::call(curr, first);
+            retval = hash_combine_(retval, curr);
+        }
+
+        first = last;
+        last += remainder;
+        for (; first != last; ++first) {
+            retval = hash_combine_(retval, *first);
+        }
+
+        return retval;
+    }
+
+    template<typename GraphemeRange>
+    std::size_t hash_grapheme_range(GraphemeRange const & r) noexcept
+    {
+        std::size_t cps = 0;
+        std::size_t retval = std::accumulate(
+            r.begin().base(),
+            r.end().base(),
+            std::size_t(0),
+            [&cps](std::size_t seed, std::size_t value) {
+                ++cps;
+                return hash_combine_(seed, value);
+            });
+        return hash_combine_(retval, cps);
     }
 
 }}}

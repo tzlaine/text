@@ -207,7 +207,7 @@ namespace boost { namespace text { namespace detail {
                 collation_element_vec[i] = convert(sce);
             }
         } else {
-            collation_elements = g_collation_elements_first;
+            collation_elements = collation_elements_ptr();
         }
     }
 
@@ -249,7 +249,7 @@ namespace boost { namespace text { namespace detail {
     void read_simple_reorders(
         Source & in, std::array<uint32_t, 256> & simple_reorders, int size)
     {
-        assert(size == 256);
+        BOOST_ASSERT(size == 256);
         for (int i = 0; i < size; ++i) {
             endian::little_uint32_buf_t r;
             read_bytes(in, r);

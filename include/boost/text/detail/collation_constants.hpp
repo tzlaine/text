@@ -2,6 +2,8 @@
 #ifndef BOOST_TEXT_DETAIL_COLLATION_CONSTANTS_HPP
 #define BOOST_TEXT_DETAIL_COLLATION_CONSTANTS_HPP
 
+#include <boost/text/config.hpp>
+
 #include <array>
 
 #include <cstdint>
@@ -11,7 +13,7 @@ namespace boost { namespace text { namespace detail {
 
     enum collation_constants : uint32_t {
         min_variable_collation_weight = 0x03040000,
-        max_variable_collation_weight = 0x0b6d4b00,
+        max_variable_collation_weight = 0x0b785900,
 
         OR_CJK_Compatibility_Ideographs = 0xfa3f,
         OR_CJK_Unified_Ideographs_Extension_D = 0x2bfff,
@@ -53,6 +55,13 @@ namespace boost { namespace text { namespace detail {
         first_secondary_in_primary = 0x0500,
         last_secondary_in_primary = 0x7c00,
 
+        min_secondary_byte = 0x02,
+        min_tertiary_byte = 0x03,
+        common_secondary_byte = 0x05,
+        common_tertiary_byte = 0x05,
+        max_secondary_byte = 0xfe,
+        max_tertiary_byte = 0xb8,
+
         implicit_weights_spacing_times_ten = 80,
         implicit_weights_first_lead_byte = 0xe0,
         implicit_weights_final_lead_byte = 0xe4
@@ -70,8 +79,8 @@ namespace boost { namespace text { namespace detail {
         uint32_t primary_offset_;
     };
 
-    extern std::array<implicit_weights_segment, 10>
-        const g_implicit_weights_segments;
+    BOOST_TEXT_DECL std::array<implicit_weights_segment, 10>
+    make_implicit_weights_segments();
 
 }}}
 

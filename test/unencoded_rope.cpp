@@ -410,11 +410,11 @@ TEST(unencoded_rope, test_substr)
             "kindle its self-immolation") +
         text::repeated_string_view(".", 3);
 
-    EXPECT_EQ(r.substr(-4, -1), "n..");
+    EXPECT_EQ(r(-4, -1), "n..");
 
     for (int i = 0; i < r.size(); ++i) {
         for (int j = i; j < r.size(); ++j) {
-            text::unencoded_rope const substr = r.substr(i, j);
+            text::unencoded_rope const substr(r(i, j));
             text::unencoded_rope_view const rv = r(i, j);
             EXPECT_EQ(substr, rv);
         }
@@ -422,12 +422,12 @@ TEST(unencoded_rope, test_substr)
 
     for (int i = 0; i < r.size(); ++i) {
         {
-            text::unencoded_rope const substr = r.substr(i);
+            text::unencoded_rope const substr(r(i));
             text::unencoded_rope_view const rv = r(i);
             EXPECT_EQ(substr, rv);
         }
         {
-            text::unencoded_rope const substr = r.substr(-i - 1);
+            text::unencoded_rope const substr(r(-i - 1));
             text::unencoded_rope_view const rv = r(-i - 1);
             EXPECT_EQ(substr, rv);
         }
@@ -847,5 +847,38 @@ TEST(unencoded_rope, test_unformatted_output)
         oss << std::setw(10) << std::left << std::setfill('*')
             << text::unencoded_rope("abc");
         EXPECT_EQ(oss.str(), "abc");
+    }
+}
+
+TEST(unencoded_rope, test_sentinel_api)
+{
+    {
+        char const * chars = "chars";
+        text::unencoded_rope s(chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::unencoded_rope s;
+        s.insert(0, chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::unencoded_rope s;
+        s.insert(s.end(), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::unencoded_rope s;
+        s.replace(s(0, 0), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::unencoded_rope s;
+        s.replace(s.begin(), s.begin(), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
     }
 }

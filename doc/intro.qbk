@@ -13,14 +13,17 @@ works for non-ASCII uses, but then I'm left using multiple types for strings
 _emdash_ each of which is called string _emdash_ without any encoding
 guarantees.
 
+Apart from `std::string` in particular, text handling in C++ is problematic in
+general, due to the lack of Unicode support.
+
+This library attempts to fill in some of these gaps in C++.
+
 In part, this library is an attempt to re-think `std::string` as an
 interoperable family of types, each suited to a different aspect of string
 processing.
 
-C++ is one of a select few major languages with no built-in support for
-Unicode.  If nothing else, this is an embarassment that should be remedied.
-
-In part, this library is a Unicode implementation suitable for use by anyone.
+In part, this library is a Unicode implementation suitable for use by anyone
+_emdash_ including those who know next to nothing about Unicode.
 
 [heading Features]
 
@@ -40,10 +43,6 @@ In part, this library is a Unicode implementation suitable for use by anyone.
 - Substrings of each of the string-like types above can be had with no copies
   or allocations using a Python-like slicing interface.
 
-- Compilational simplicity -- none of the above string or text types is a
-  template.
-
-- A small library of algorithms that replicates the functionality of
-  `std::string`'s search members, plus a bit more.
+- Code simplicity -- none of the above string or text types is a template.
 
 [endsect]

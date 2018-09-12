@@ -1085,3 +1085,36 @@ TEST(string, test_unformatted_output)
         EXPECT_EQ(oss.str(), "abc");
     }
 }
+
+TEST(string, test_sentinel_api)
+{
+    {
+        char const * chars = "chars";
+        text::string s(chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::string s;
+        s.insert(0, chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::string s;
+        s.insert(s.end(), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::string s;
+        s.replace(s(0, 0), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+    {
+        char const * chars = "chars";
+        text::string s;
+        s.replace(s.begin(), s.begin(), chars, text::utf8::null_sentinel{});
+        EXPECT_EQ(s, chars);
+    }
+}

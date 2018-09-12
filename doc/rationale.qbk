@@ -25,14 +25,10 @@ allows interoperability with C strings and arrays of `char`.
 
 [heading Where Are `data()`, `c_str()`, `front()`, and `back()`?]
 
-_s_ does not have any of these, even though `std::string` does.  Here's why:
-
-* Since `string::iterator` is just `char const *`, and _s_ is always
-  null-terminated, `data()`, `c_str()`, and `begin()` are synonyms.
-
-* `front()` and `back()` have no reason to be members, so they are now free
-  functions.  This makes them usable on many types of sequences of `char`, not
-  just _s_.
+_s_ does not have any of these, even though `std::string` does.  Since
+`string::iterator` is just `char const *`, and _s_ is always null-terminated,
+`data()`, `c_str()`, and `begin()` are synonyms.  Synonyms bad.  Small
+interfaces good.
 
 
 [heading Inserting Null Terminated Sequences]
@@ -40,8 +36,29 @@ _s_ does not have any of these, even though `std::string` does.  Here's why:
 The _s_ inserting interfaces (`insert()` and `replace()`) remove explicit null
 terminators from inserted _svs_ and _rsvs_, because leaving them in is almost
 certainly an error.  This can still be accomplished by directly writing
-through the index operator or or an iterator, or by inserting
+through the index operator or an iterator, or by inserting
 `string_view("\0")`.
+
+
+[heading _s_, _t_, _ur_ and _r_ Are Implicitly Convertible from `char const *`.]
+
+I find that the syntactic overhead of bringing UDLs into scope and then using
+them to be too high in some cases.  Aggregate initialization including
+string-like objects is one of those:
+
+[table Explicit vs. Implicit Conversion from `char const *`
+    [[Explicit] [Implicit]]
+    [[``
+    using namespace boost::text::literals;
+
+    std::array<boost::text::string, 3> = {{ "foo"_s, "bar"_s, "baz"_s }};
+``]
+    [``
+    std::array<boost::text::string, 3> = {{ "foo", "bar", "baz" }};
+``]]
+]
+
+I find the implicit-conversion code much more natural.
 
 
 [heading None of the _Text_ String Types Does Formatted Output]
@@ -52,6 +69,36 @@ This means that the layout/spacing of the output is not something _Text_ can
 determine.  Higher-level code must deal with such issues.
 
 
+[heading Unicode Algorithm Tailoring]
+
+The behavior of some of the Unicode algorithms is intended to be tailorable.
+_Text_ provides customization of some of its Unicode algorithm implementations
+for this purpose.  Some possible tailorings are not available.
+
+* Grapheme breaks are not tailorable, because they are fundamental to how a
+  large part of _Text_ operates; everyone must have the same sense of what a
+  _gr_ is for this to work.
+
+* Word breaks are tailorable.  The tailorings available via _Text_'s word
+  breaking API should be enough handle most of the shortcomings listed in the
+  _text_seg_notes_.  The shortcomings not covered by _Text_'s API require
+  dictionary lookups (very much out of scope) or extra _cp_ properties (for
+  breaking on script boundaries; also out of scope).
+
+* Sentence breaks are not tailorable, because the suggested tailorings require
+  a large amount of context, and possibly dictionary-style lookups.
+
+* Line breaks are not tailorable, because all the suggested tailorings involve
+  multiple modes of behavior (e.g. for Korean text) or dictionary lookups.
+
+* For bidirectional ordering, Unicode lays out certain tailorings it refers to
+  as _bidi_h_tailorings_.  _Text_ directcly supports HL1 and HL4.  HL2 is
+  unsupported because it frankly doesn't seem very important.  HL3 and HL5 can
+  be accomplished by manually adding directional formatting characters or
+  other desired _cps_ to segments of text.  HL6 is completely unsupported,
+  because it also seems like a very low-frequency use case.
+
+
 [heading _Text_ Does Not Use allocators]
 
 Allocators are too low gain for the cost they impose.  How many
@@ -59,5 +106,14 @@ Allocators are too low gain for the cost they impose.  How many
 involve a non-default allocator?  I would be surprised if it was as high as
 1%.  Allocators may once have served an important function, but in modern C++
 are a perfect example of not sticking to "Don't pay for what you don't use."
+
+As a concrete example, consider `std::vector`.  This is a type whose sole
+purpose is to manage the allocations and reallocations of a heap-allocated
+array for you.  Its interface allows me, via its allocator template parameter,
+to change its behavior to be a stack-allocated array of fixed size, but with a
+`std::vector` interface.  This has a large impact on the properties of the
+type, the `noexcept`-ness of and time complexity of `swap()` to name just
+one. I don't consider this to be a feature of the `std::vector` design, but a
+bug.
 
 [endsect]

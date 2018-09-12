@@ -2,6 +2,7 @@
 #define BOOST_TEXT_SEGMENTED_VECTOR_HPP
 
 #include <boost/text/detail/btree.hpp>
+#include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/vector_iterator.hpp>
 
 #include <initializer_list>
@@ -21,21 +22,21 @@ namespace boost { namespace text {
     {
         using iterator = detail::const_vector_iterator<T>;
         using const_iterator = detail::const_vector_iterator<T>;
-        using reverse_iterator = detail::const_reverse_vector_iterator<T>;
-        using const_reverse_iterator = detail::const_reverse_vector_iterator<T>;
+        using reverse_iterator = detail::reverse_iterator<iterator>;
+        using const_reverse_iterator = detail::reverse_iterator<const_iterator>;
 
         using size_type = std::ptrdiff_t;
 
         /** Default ctor.
 
             \post size() == 0 && begin() == end() */
-        segmented_vector() noexcept : ptr_(nullptr) {}
+        segmented_vector() noexcept {}
 
         segmented_vector(segmented_vector const & rhs) = default;
         segmented_vector(segmented_vector && rhs) noexcept = default;
 
-        template<typename Iter>
-        segmented_vector(Iter first, Iter last)
+        template<typename Iter, typename Sentinel>
+        segmented_vector(Iter first, Sentinel last)
         {
             for (; first != last; ++first) {
                 push_back(*first);
@@ -72,11 +73,11 @@ namespace boost { namespace text {
 
         const_reverse_iterator rbegin() const noexcept
         {
-            return const_reverse_iterator(const_iterator(*this, size() - 1));
+            return const_reverse_iterator(end());
         }
         const_reverse_iterator rend() const noexcept
         {
-            return const_reverse_iterator(const_iterator(*this, -1));
+            return const_reverse_iterator(begin());
         }
 
         bool empty() const noexcept { return size() == 0; }
@@ -88,8 +89,8 @@ namespace boost { namespace text {
             \pre 0 <= i && i < size() */
         T const & operator[](size_type n) const noexcept
         {
-            assert(ptr_);
-            assert(n < size());
+            BOOST_ASSERT(ptr_);
+            BOOST_ASSERT(n < size());
             detail::found_element<T> found;
             find_element(ptr_, n, found);
             return *found.element_;
@@ -97,38 +98,6 @@ namespace boost { namespace text {
 
         /** Returns the maximum size a segmented_vector can have. */
         size_type max_size() const noexcept { return PTRDIFF_MAX; }
-
-        /** Visits each segment s of *this and calls f(s).  Each segment is
-            presented as a pair of T const * pointers.  Depending of the
-            operation performed on each segment, this may be more efficient
-            than iterating over [begin(), end()).
-
-            \pre Fn is an Invocable accepting a pair of T const *
-            parameters. */
-        template<typename Fn>
-        void foreach_segment(Fn && f) const
-        {
-            detail::foreach_leaf(
-                ptr_, [&](detail::leaf_node_t<T> const * leaf) {
-                    switch (leaf->which_) {
-                    case detail::leaf_node_t<T>::which::vec:
-                        f(&*leaf->as_vec().begin(), &*leaf->as_vec().end());
-                        break;
-                    case detail::leaf_node_t<T>::which::ref:
-                        f(&*leaf->as_reference()
-                                .vec_.as_leaf()
-                                ->as_vec()
-                                .begin(),
-                          &*leaf->as_reference()
-                                .vec_.as_leaf()
-                                ->as_vec()
-                                .end());
-                        break;
-                    default: assert(!"unhandled leaf node case"); break;
-                    }
-                    return true;
-                });
-        }
 
         /** Lexicographical compare.  Returns a value < 0 when *this is
             lexicographically less than rhs, 0 if *this == rhs, and a value >
@@ -198,13 +167,16 @@ namespace boost { namespace text {
         /** Inserts t into *this at offset size() by moving t. */
         segmented_vector & push_back(T t)
         {
-            return insert(end(), std::move(t));
+            insert(end(), std::move(t));
+            return *this;
         }
 
         /** Inserts t into *this at offset at by moving t. */
-        segmented_vector & insert(const_iterator at, T t)
+        const_iterator insert(const_iterator at, T t)
         {
-            assert(begin() <= at && at <= end());
+            BOOST_ASSERT(begin() <= at && at <= end());
+
+            int const offset = at - begin();
 
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, 1, would_allocate)) {
@@ -219,40 +191,47 @@ namespace boost { namespace text {
                     detail::make_node(std::vector<T>(1, std::move(t))));
             }
 
-            return *this;
+            return begin() + offset;
         }
 
         /** Inserts the sequence of T from t into *this starting at offset at,
             by moving the contents of t. */
-        segmented_vector & insert(const_iterator at, std::vector<T> t)
+        const_iterator insert(const_iterator at, std::vector<T> t)
         {
             return insert_impl(at, std::move(t), would_not_allocate);
         }
 
         /** Inserts the T sequence [first, last) into *this starting at
             position at. */
-        template<typename Iter>
-        segmented_vector & insert(const_iterator at, Iter first, Iter last)
+        template<typename Iter, typename Sentinel>
+        const_iterator insert(const_iterator at, Iter first, Sentinel last)
         {
-            assert(begin() <= at && at <= end());
+            BOOST_ASSERT(begin() <= at && at <= end());
 
             if (first == last)
-                return *this;
+                return at;
+
+            int const offset = at - begin();
+
+            std::vector<T> vec;
+            for (; first != last; ++first) {
+                vec.push_back(*first);
+            }
 
             ptr_ = detail::btree_insert(
-                ptr_,
-                at - begin(),
-                detail::make_node(std::vector<T>(first, last)));
+                ptr_, at - begin(), detail::make_node(std::move(vec)));
 
-            return *this;
+            return begin() + offset;
         }
 
         /** Erases the element at position at.
 
             \pre begin() <= at && at < end() */
-        segmented_vector & erase(const_iterator at)
+        const_iterator erase(const_iterator at)
         {
-            assert(begin() <= at && at < end());
+            BOOST_ASSERT(begin() <= at && at < end());
+
+            int const offset = at - begin();
 
             auto const lo = at - begin();
             if (vec_insertion insertion =
@@ -264,19 +243,21 @@ namespace boost { namespace text {
                 ptr_ = btree_erase(ptr_, lo, lo + 1);
             }
 
-            return *this;
+            return begin() + offset;
         }
 
         /** Erases the portion of *this delimited by [first, last).
 
             \pre first <= last */
-        segmented_vector & erase(const_iterator first, const_iterator last)
+        const_iterator erase(const_iterator first, const_iterator last)
         {
-            assert(first <= last);
-            assert(begin() <= first && last <= end());
+            BOOST_ASSERT(first <= last);
+            BOOST_ASSERT(begin() <= first && last <= end());
 
             if (first == last)
-                return *this;
+                return first;
+
+            int const offset = first - begin();
 
             auto const lo = first - begin();
             auto const hi = last - begin();
@@ -291,7 +272,7 @@ namespace boost { namespace text {
                 ptr_ = btree_erase(ptr_, lo, hi);
             }
 
-            return *this;
+            return begin() + offset;
         }
 
         /** Replaces the element at position at with t, by moving t.
@@ -299,7 +280,7 @@ namespace boost { namespace text {
             \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
         segmented_vector & replace(const_iterator at, T t)
         {
-            assert(begin() <= at && at <= end());
+            BOOST_ASSERT(begin() <= at && at <= end());
 
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, 0, would_allocate)) {
@@ -324,26 +305,30 @@ namespace boost { namespace text {
         replace(const_iterator first, const_iterator last, std::vector<T> t)
         {
             erase(first, last);
-            return insert(first + 0, std::move(t));
+            insert(first + 0, std::move(t));
+            return *this;
         }
 
         /** Replaces the portion of *this delimited by [old_first, old_last)
             with the T sequence [new_first, new_last).
 
            \pre begin() <= old_substr.begin() && old_substr.end() <= end() */
-        template<typename Iter>
+        template<typename Iter, typename Sentinel>
         segmented_vector & replace(
             const_iterator old_first,
             const_iterator old_last,
             Iter new_first,
-            Iter new_last)
+            Sentinel new_last)
         {
             erase(old_first, old_last);
-            return insert(old_first + 0, new_first, new_last);
+            insert(old_first + 0, new_first, new_last);
+            return *this;
         }
 
         /** Swaps *this with rhs. */
         void swap(segmented_vector & rhs) { ptr_.swap(rhs.ptr_); }
+
+#ifndef BOOST_TEXT_DOXYGEN
 
     private:
         enum allocation_note_t { would_allocate, would_not_allocate };
@@ -378,8 +363,10 @@ namespace boost { namespace text {
                 std::vector<T> & v = const_cast<std::vector<T> &>(
                     found.leaf_->as_leaf()->as_vec());
                 auto const inserted_size = v.size() + size;
-                if (size < 0 && v.size() < found.offset_ + -size)
+                if (size < 0 &&
+                    (std::ptrdiff_t)v.size() < found.offset_ + -size) {
                     return vec_insertion{nullptr};
+                }
                 if ((0 < inserted_size && inserted_size <= v.capacity()) ||
                     (allocation_note == would_allocate &&
                      inserted_size <= detail::vec_insert_max)) {
@@ -391,13 +378,15 @@ namespace boost { namespace text {
         }
 
         template<typename U>
-        segmented_vector &
+        const_iterator
         insert_impl(iterator at, U && u, allocation_note_t allocation_note)
         {
-            assert(begin() <= at && at <= end());
+            BOOST_ASSERT(begin() <= at && at <= end());
 
             if (u.empty())
-                return *this;
+                return at;
+
+            int const offset = at - begin();
 
             if (vec_insertion insertion =
                     mutable_insertion_leaf(at, u.size(), allocation_note)) {
@@ -414,12 +403,14 @@ namespace boost { namespace text {
                     detail::make_node(static_cast<U &&>(u)));
             }
 
-            return *this;
+            return begin() + offset;
         }
 
         detail::node_ptr<T> ptr_;
 
         friend struct detail::const_vector_iterator<T>;
+
+#endif
     };
 
     template<typename T>

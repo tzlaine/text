@@ -3,8 +3,11 @@
 
 #include <boost/text/parser_fwd.hpp>
 #include <boost/text/string.hpp>
+#include <boost/text/string_utility.hpp>
 #include <boost/text/utf8.hpp>
 #include <boost/text/utility.hpp>
+
+#include <boost/throw_exception.hpp>
 
 #include <sstream>
 #include <iomanip>
@@ -39,7 +42,7 @@ namespace boost { namespace text { namespace detail {
         token_kind kind() const { return kind_; }
         uint32_t cp() const
         {
-            assert(kind_ == token_kind::code_point);
+            BOOST_ASSERT(kind_ == token_kind::code_point);
             return cp_;
         }
         string const & identifier() const { return identifier_; }
@@ -53,7 +56,7 @@ namespace boost { namespace text { namespace detail {
 
         friend bool operator==(token const & tok, token_kind kind)
         {
-            assert(
+            BOOST_ASSERT(
                 kind != token_kind::code_point &&
                 kind != token_kind::identifier);
             return tok.kind() == kind;
@@ -214,7 +217,7 @@ namespace boost { namespace text { namespace detail {
                     retval.line_starts_,
                     filename));
             }
-            throw parse_error(msg, line, column);
+            boost::throw_exception(parse_error(msg, line, column));
         };
 
         auto check_not_at_end = [&](string_view msg) {
@@ -435,7 +438,7 @@ namespace boost { namespace text { namespace detail {
                 // indicated by
                 // http://www.unicode.org/reports/tr35/tr35-collation.html#Rules
                 char const c = consume_one("\\ at end of input");
-                assert(c != 'r' && c != 'n'); // Handled above.
+                BOOST_ASSERT(c != 'r' && c != 'n'); // Handled above.
                 switch (c) {
                 case 'u': {
                     auto buf_end = consume(

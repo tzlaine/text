@@ -7,7 +7,7 @@
 #include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/utility.hpp>
 
-#include <cassert>
+#include <boost/assert.hpp>
 
 
 namespace boost { namespace text {
@@ -40,7 +40,7 @@ namespace boost { namespace text {
             data_(c_str),
             size_(detail::strlen(c_str))
         {
-            assert(detail::strlen(c_str) <= max_size());
+            BOOST_ASSERT(detail::strlen(c_str) <= max_size());
         }
 
         /** Constructs a string_view from an array of char.
@@ -50,7 +50,7 @@ namespace boost { namespace text {
             data_(c_str),
             size_(len)
         {
-            assert(0 <= len);
+            BOOST_ASSERT(0 <= len);
         }
 
         /** Constructs a string_view from a string.
@@ -66,7 +66,7 @@ namespace boost { namespace text {
         /** Constructs a string_view from a range of char.
 
             This function only participates in overload resolution if
-            ContigCharRange models the ContigCharRange concept. */
+            <code>ContigCharRange</code> models the ContigCharRange concept. */
         template<typename ContigCharRange>
         explicit string_view(ContigCharRange const & r);
 
@@ -74,7 +74,8 @@ namespace boost { namespace text {
             underlying range of char.
 
             This function only participates in overload resolution if
-            ContigGraphemeRange models the ContigGraphemeRange concept. */
+            <code>ContigGraphemeRange</code> models the ContigGraphemeRange
+            concept. */
         template<typename ContigGraphemeRange>
         explicit string_view(ContigGraphemeRange const & r);
 
@@ -85,13 +86,12 @@ namespace boost { namespace text {
             ContigCharRange const & r,
             detail::contig_rng_alg_ret_t<int *, ContigCharRange> = 0)
         {
-            using std::begin;
-            using std::end;
-            if (begin(r) == end(r)) {
-                data_ = &*begin(r);
+            if (std::begin(r) == std::end(r)) {
+                data_ = &*std::begin(r);
                 size_ = 0;
             } else {
-                *this = string_view(&*begin(r), end(r) - begin(r));
+                *this =
+                    string_view(&*std::begin(r), std::end(r) - std::begin(r));
             }
         }
 
@@ -100,15 +100,13 @@ namespace boost { namespace text {
             ContigGraphemeRange const & r,
             detail::contig_graph_rng_alg_ret_t<int *, ContigGraphemeRange> = 0)
         {
-            using std::begin;
-            using std::end;
-            if (begin(r) == end(r)) {
-                data_ = &*begin(r).base().base();
+            if (std::begin(r) == std::end(r)) {
+                data_ = &*std::begin(r).base().base();
                 size_ = 0;
             } else {
                 *this = string_view(
-                    &*begin(r).base().base(),
-                    end(r).base().base() - begin(r).base().base());
+                    &*std::begin(r).base().base(),
+                    std::end(r).base().base() - std::begin(r).base().base());
             }
         }
 
@@ -135,7 +133,7 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            ContigCharRange models the ContigCharRange concept. */
+            <code>ContigCharRange</code> models the ContigCharRange concept. */
         template<typename ContigCharRange>
         string_view & operator=(ContigCharRange const & r);
 
@@ -143,7 +141,8 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            ContigGraphemeRange models the ContigGraphemeRange concept. */
+            <code>ContigGraphemeRange</code> models the ContigGraphemeRange
+            concept. */
         template<typename ContigGraphemeRange>
         string_view & operator=(ContigGraphemeRange const & r);
 
@@ -207,7 +206,7 @@ namespace boost { namespace text {
         {
             if (i < 0)
                 i += size_;
-            assert(i < size_);
+            BOOST_ASSERT(i < size_);
             return data_[i];
         }
 
@@ -230,9 +229,9 @@ namespace boost { namespace text {
                 lo += size_;
             if (hi < 0)
                 hi += size_;
-            assert(0 <= lo && lo <= size_);
-            assert(0 <= hi && hi <= size_);
-            assert(lo <= hi);
+            BOOST_ASSERT(0 <= lo && lo <= size_);
+            BOOST_ASSERT(0 <= hi && hi <= size_);
+            BOOST_ASSERT(lo <= hi);
             return string_view(data_ + lo, hi - lo);
         }
 
@@ -250,8 +249,8 @@ namespace boost { namespace text {
                 lo = cut + size_;
                 hi = size_;
             }
-            assert(0 <= lo && lo <= size_);
-            assert(0 <= hi && hi <= size_);
+            BOOST_ASSERT(0 <= lo && lo <= size_);
+            BOOST_ASSERT(0 <= hi && hi <= size_);
             return string_view(data_ + lo, hi - lo);
         }
 
@@ -304,7 +303,7 @@ namespace boost { namespace text {
         inline BOOST_TEXT_CXX14_CONSTEXPR string_view
         operator"" _sv(char const * str, std::size_t len) noexcept
         {
-            assert(len < INT_MAX);
+            BOOST_ASSERT(len < INT_MAX);
             return string_view(str, len);
         }
     }
@@ -489,5 +488,22 @@ namespace boost { namespace text {
     {}
 
 }}
+
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::string_view>
+    {
+        using argument_type = boost::text::string_view;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & sv) const noexcept
+        {
+            return boost::text::detail::hash_char_range(sv);
+        }
+    };
+}
+
+#endif
 
 #endif

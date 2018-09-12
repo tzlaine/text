@@ -1,0 +1,711 @@
+{
+  "context": {
+    "date": "2018-04-15 15:34:18",
+    "num_cpus": 8,
+    "mhz_per_cpu": 4000,
+    "cpu_scaling_enabled": true,
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_collation_element_lookup_600",
+      "iterations": 811656,
+      "real_time": 866,
+      "cpu_time": 862,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_601",
+      "iterations": 907319,
+      "real_time": 772,
+      "cpu_time": 768,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_602",
+      "iterations": 825630,
+      "real_time": 789,
+      "cpu_time": 786,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_603",
+      "iterations": 860322,
+      "real_time": 798,
+      "cpu_time": 794,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_604",
+      "iterations": 730096,
+      "real_time": 832,
+      "cpu_time": 832,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_605",
+      "iterations": 836761,
+      "real_time": 797,
+      "cpu_time": 797,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_606",
+      "iterations": 777390,
+      "real_time": 798,
+      "cpu_time": 798,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_607",
+      "iterations": 893054,
+      "real_time": 742,
+      "cpu_time": 742,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_608",
+      "iterations": 870135,
+      "real_time": 791,
+      "cpu_time": 791,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_609",
+      "iterations": 894263,
+      "real_time": 778,
+      "cpu_time": 778,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_610",
+      "iterations": 898993,
+      "real_time": 775,
+      "cpu_time": 775,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_611",
+      "iterations": 894567,
+      "real_time": 771,
+      "cpu_time": 771,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_612",
+      "iterations": 818077,
+      "real_time": 832,
+      "cpu_time": 832,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_613",
+      "iterations": 890663,
+      "real_time": 761,
+      "cpu_time": 761,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_614",
+      "iterations": 880212,
+      "real_time": 775,
+      "cpu_time": 775,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_615",
+      "iterations": 861231,
+      "real_time": 782,
+      "cpu_time": 782,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_616",
+      "iterations": 828022,
+      "real_time": 829,
+      "cpu_time": 829,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_617",
+      "iterations": 874888,
+      "real_time": 792,
+      "cpu_time": 792,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_618",
+      "iterations": 867605,
+      "real_time": 788,
+      "cpu_time": 788,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_619",
+      "iterations": 866451,
+      "real_time": 775,
+      "cpu_time": 775,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_620",
+      "iterations": 748306,
+      "real_time": 846,
+      "cpu_time": 846,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_621",
+      "iterations": 879543,
+      "real_time": 805,
+      "cpu_time": 805,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_622",
+      "iterations": 856831,
+      "real_time": 780,
+      "cpu_time": 780,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_623",
+      "iterations": 883741,
+      "real_time": 785,
+      "cpu_time": 785,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_624",
+      "iterations": 793391,
+      "real_time": 878,
+      "cpu_time": 878,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_625",
+      "iterations": 817925,
+      "real_time": 792,
+      "cpu_time": 792,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_626",
+      "iterations": 795580,
+      "real_time": 812,
+      "cpu_time": 812,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_627",
+      "iterations": 834752,
+      "real_time": 799,
+      "cpu_time": 799,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_628",
+      "iterations": 808118,
+      "real_time": 873,
+      "cpu_time": 873,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_629",
+      "iterations": 841508,
+      "real_time": 813,
+      "cpu_time": 813,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_630",
+      "iterations": 896885,
+      "real_time": 780,
+      "cpu_time": 780,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_631",
+      "iterations": 864922,
+      "real_time": 767,
+      "cpu_time": 767,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_632",
+      "iterations": 835360,
+      "real_time": 873,
+      "cpu_time": 873,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_633",
+      "iterations": 854603,
+      "real_time": 804,
+      "cpu_time": 804,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_634",
+      "iterations": 846573,
+      "real_time": 835,
+      "cpu_time": 835,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_635",
+      "iterations": 831089,
+      "real_time": 826,
+      "cpu_time": 826,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_636",
+      "iterations": 823640,
+      "real_time": 839,
+      "cpu_time": 839,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_637",
+      "iterations": 855974,
+      "real_time": 790,
+      "cpu_time": 790,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_638",
+      "iterations": 888276,
+      "real_time": 784,
+      "cpu_time": 784,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_639",
+      "iterations": 885263,
+      "real_time": 786,
+      "cpu_time": 786,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_640",
+      "iterations": 789141,
+      "real_time": 848,
+      "cpu_time": 848,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_641",
+      "iterations": 850949,
+      "real_time": 805,
+      "cpu_time": 805,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_642",
+      "iterations": 883453,
+      "real_time": 769,
+      "cpu_time": 769,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_643",
+      "iterations": 880338,
+      "real_time": 782,
+      "cpu_time": 782,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_644",
+      "iterations": 848232,
+      "real_time": 793,
+      "cpu_time": 793,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_645",
+      "iterations": 891705,
+      "real_time": 907,
+      "cpu_time": 907,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_646",
+      "iterations": 796304,
+      "real_time": 847,
+      "cpu_time": 847,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_647",
+      "iterations": 890132,
+      "real_time": 803,
+      "cpu_time": 803,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_648",
+      "iterations": 811500,
+      "real_time": 829,
+      "cpu_time": 830,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_649",
+      "iterations": 856859,
+      "real_time": 798,
+      "cpu_time": 798,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_650",
+      "iterations": 885494,
+      "real_time": 812,
+      "cpu_time": 812,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_651",
+      "iterations": 893616,
+      "real_time": 780,
+      "cpu_time": 780,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_652",
+      "iterations": 772796,
+      "real_time": 906,
+      "cpu_time": 906,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_653",
+      "iterations": 838083,
+      "real_time": 819,
+      "cpu_time": 819,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_654",
+      "iterations": 884669,
+      "real_time": 774,
+      "cpu_time": 774,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_655",
+      "iterations": 894182,
+      "real_time": 769,
+      "cpu_time": 769,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_656",
+      "iterations": 780329,
+      "real_time": 879,
+      "cpu_time": 879,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_657",
+      "iterations": 882539,
+      "real_time": 783,
+      "cpu_time": 783,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_658",
+      "iterations": 849608,
+      "real_time": 813,
+      "cpu_time": 813,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_659",
+      "iterations": 856543,
+      "real_time": 800,
+      "cpu_time": 800,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_660",
+      "iterations": 800465,
+      "real_time": 861,
+      "cpu_time": 861,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_661",
+      "iterations": 865002,
+      "real_time": 797,
+      "cpu_time": 797,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_662",
+      "iterations": 861896,
+      "real_time": 810,
+      "cpu_time": 810,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_663",
+      "iterations": 845589,
+      "real_time": 791,
+      "cpu_time": 791,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_664",
+      "iterations": 750480,
+      "real_time": 933,
+      "cpu_time": 930,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_665",
+      "iterations": 869106,
+      "real_time": 825,
+      "cpu_time": 821,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_666",
+      "iterations": 892206,
+      "real_time": 786,
+      "cpu_time": 784,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_667",
+      "iterations": 868212,
+      "real_time": 778,
+      "cpu_time": 778,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_668",
+      "iterations": 781350,
+      "real_time": 892,
+      "cpu_time": 892,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_669",
+      "iterations": 896619,
+      "real_time": 791,
+      "cpu_time": 791,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_670",
+      "iterations": 832890,
+      "real_time": 836,
+      "cpu_time": 836,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_671",
+      "iterations": 863174,
+      "real_time": 811,
+      "cpu_time": 811,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_672",
+      "iterations": 760427,
+      "real_time": 922,
+      "cpu_time": 922,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_673",
+      "iterations": 854354,
+      "real_time": 807,
+      "cpu_time": 807,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_674",
+      "iterations": 840782,
+      "real_time": 818,
+      "cpu_time": 818,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_675",
+      "iterations": 845727,
+      "real_time": 817,
+      "cpu_time": 817,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_676",
+      "iterations": 772516,
+      "real_time": 883,
+      "cpu_time": 883,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_677",
+      "iterations": 848138,
+      "real_time": 797,
+      "cpu_time": 797,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_678",
+      "iterations": 918646,
+      "real_time": 753,
+      "cpu_time": 753,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_679",
+      "iterations": 905464,
+      "real_time": 764,
+      "cpu_time": 764,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_680",
+      "iterations": 872626,
+      "real_time": 791,
+      "cpu_time": 791,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_681",
+      "iterations": 899990,
+      "real_time": 770,
+      "cpu_time": 770,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_682",
+      "iterations": 853595,
+      "real_time": 795,
+      "cpu_time": 795,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_683",
+      "iterations": 895552,
+      "real_time": 778,
+      "cpu_time": 778,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_684",
+      "iterations": 865039,
+      "real_time": 803,
+      "cpu_time": 803,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_685",
+      "iterations": 889272,
+      "real_time": 768,
+      "cpu_time": 768,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_686",
+      "iterations": 863614,
+      "real_time": 785,
+      "cpu_time": 785,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_687",
+      "iterations": 901433,
+      "real_time": 784,
+      "cpu_time": 784,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_688",
+      "iterations": 831809,
+      "real_time": 834,
+      "cpu_time": 834,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_689",
+      "iterations": 899243,
+      "real_time": 774,
+      "cpu_time": 774,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_690",
+      "iterations": 909595,
+      "real_time": 763,
+      "cpu_time": 763,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_691",
+      "iterations": 894018,
+      "real_time": 770,
+      "cpu_time": 770,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_692",
+      "iterations": 868122,
+      "real_time": 807,
+      "cpu_time": 807,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_693",
+      "iterations": 891111,
+      "real_time": 780,
+      "cpu_time": 780,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_694",
+      "iterations": 879515,
+      "real_time": 791,
+      "cpu_time": 791,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_695",
+      "iterations": 846098,
+      "real_time": 793,
+      "cpu_time": 793,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_696",
+      "iterations": 840831,
+      "real_time": 834,
+      "cpu_time": 834,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_697",
+      "iterations": 872469,
+      "real_time": 784,
+      "cpu_time": 784,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_698",
+      "iterations": 857892,
+      "real_time": 812,
+      "cpu_time": 812,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_collation_element_lookup_699",
+      "iterations": 854828,
+      "real_time": 800,
+      "cpu_time": 800,
+      "time_unit": "ns"
+    }
+  ]
+}

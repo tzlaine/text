@@ -3,14 +3,20 @@
 
 #include <boost/text/grapheme_iterator.hpp>
 #include <boost/text/utf8.hpp>
+#include <boost/text/detail/utility.hpp>
+
+#include <boost/assert.hpp>
 
 #include <iterator>
-#include <cassert>
+
+#include <climits>
 
 
 namespace boost { namespace text {
 
     struct text;
+    template<typename CPIter>
+    struct grapheme_range;
 
     /** A reference to a constant sequence of graphemes. The underlying
         storage is a string that is UTF-8-encoded and FCC-normalized. */
@@ -21,7 +27,7 @@ namespace boost { namespace text {
         using iterator =
             grapheme_iterator<utf8::to_utf32_iterator<char const *>>;
         using const_iterator = iterator;
-        using reverse_iterator = std::reverse_iterator<const_iterator>;
+        using reverse_iterator = detail::reverse_iterator<const_iterator>;
         using const_reverse_iterator = reverse_iterator;
 
         using text_iterator =
@@ -37,6 +43,10 @@ namespace boost { namespace text {
         /** Disallow construction from a temporary text. */
         text_view(text && t) noexcept = delete;
 
+        /** Constructs a text_view from a grapheme_range. */
+        template <typename CPIter>
+        text_view(grapheme_range<CPIter> range) noexcept;
+
         /** Constructs a text_view from a pair of text_iterators. */
         text_view(text_iterator first, text_iterator last) noexcept :
             first_(make_iter(
@@ -46,7 +56,8 @@ namespace boost { namespace text {
         {}
 
         /** Constructs a text_view from a pair of const_text_iterators. */
-        text_view(const_text_iterator first, const_text_iterator last) noexcept :
+        text_view(
+            const_text_iterator first, const_text_iterator last) noexcept :
             first_(first),
             last_(last)
         {}
@@ -82,8 +93,8 @@ namespace boost { namespace text {
             O(n). */
         int distance() const noexcept { return std::distance(begin(), end()); }
 
-        /** Returns the maximum size a text_view can have. */
-        int max_size() const noexcept { return INT_MAX; }
+        /** Returns the maximum size in bytes a text_view can have. */
+        int max_bytes() const noexcept { return INT_MAX; }
 
         /** Swaps *this with rhs. */
         void swap(text_view & rhs) noexcept
@@ -106,6 +117,8 @@ namespace boost { namespace text {
             return os;
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
     private:
         static iterator make_iter(char * first, char * it, char * last) noexcept
         {
@@ -117,6 +130,8 @@ namespace boost { namespace text {
 
         iterator first_;
         iterator last_;
+
+#endif
     };
 
     inline bool operator==(text_view lhs, text_view rhs) noexcept
@@ -164,6 +179,7 @@ namespace boost { namespace text {
 }}
 
 #include <boost/text/text.hpp>
+#include <boost/text/grapheme_range.hpp>
 
 namespace boost { namespace text {
 
@@ -172,6 +188,29 @@ namespace boost { namespace text {
         last_(t.end())
     {}
 
+    template<typename CPIter>
+    text_view::text_view(grapheme_range<CPIter> range) noexcept :
+        first_(range.begin()),
+        last_(range.end())
+    {}
+
 }}
+
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::text_view>
+    {
+        using argument_type = boost::text::text_view;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & tv) const noexcept
+        {
+            return boost::text::detail::hash_grapheme_range(tv);
+        }
+    };
+}
+
+#endif
 
 #endif

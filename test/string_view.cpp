@@ -113,22 +113,7 @@ TEST(string_view, test_empty_constexpr)
 
 #endif
 
-struct a_t
-{
-    using iterator = std::array<char, 4>::const_iterator;
-    std::array<char, 4> chars_;
-};
-
-std::array<char, 4>::const_iterator begin(a_t const & a)
-{
-    return a.chars_.begin();
-}
-std::array<char, 4>::const_iterator end(a_t const & a)
-{
-    return a.chars_.end();
-}
-
-struct b_t
+struct inline_t
 {
     using iterator = std::array<char, 4>::const_iterator;
 
@@ -141,15 +126,12 @@ struct b_t
 TEST(string_view, test_char_range_ctor)
 {
     std::string const str("text");
-    a_t const a = {{{'t', 'e', 'x', 't'}}};
-    b_t const b = {{{'t', 'e', 'x', 't'}}};
+    inline_t const inl = {{{'t', 'e', 'x', 't'}}};
 
     text::string_view tv_str(str);
     EXPECT_EQ(tv_str, "text");
-    text::string_view tv_a(a);
-    EXPECT_EQ(tv_a, "text");
-    text::string_view tv_b(b);
-    EXPECT_EQ(tv_b, "text");
+    text::string_view tv_inl(inl);
+    EXPECT_EQ(tv_inl, "text");
 }
 
 TEST(string_view, test_non_empty)

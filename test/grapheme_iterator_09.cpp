@@ -10,20 +10,14 @@
 
 TEST(grapheme, iterator_09_0_fwd)
 {
-    // ÷ AC00 ÷ 261D ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
+    // ÷ AC00 × 200D ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] ZERO WIDTH JOINER (ZWJ_ExtCccZwj) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x261D };
+        uint32_t const cps[] = { 0xAC00, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -36,7 +30,7 @@ TEST(grapheme, iterator_09_0_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x261D };
+        uint32_t const cps[] = { 0xAC00, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -44,44 +38,20 @@ TEST(grapheme, iterator_09_0_rev)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_0_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x261D };
+        uint32_t const cps[] = { 0xAC00, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -91,22 +61,16 @@ TEST(grapheme, iterator_09_0_fab)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_0_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x261D };
+        uint32_t const cps[] = { 0xAC00, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -114,31 +78,8 @@ TEST(grapheme, iterator_09_0_baf)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -151,7 +92,7 @@ TEST(grapheme, iterator_09_0_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x261D };
+        uint32_t const cps[] = { 0xAC00, 0x200D };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -174,17 +115,8 @@ TEST(grapheme, iterator_09_0_utf8)
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
         EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
-
-        ++it;
-
-        EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
         EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
 
         ++it;
@@ -196,20 +128,14 @@ TEST(grapheme, iterator_09_0_utf8)
 
 TEST(grapheme, iterator_09_1_fwd)
 {
-    // ÷ AC00 × 0308 ÷ 261D ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
+    // ÷ AC00 × 0308 × 200D ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.0] ZERO WIDTH JOINER (ZWJ_ExtCccZwj) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x261D };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -222,7 +148,7 @@ TEST(grapheme, iterator_09_1_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x261D };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -230,44 +156,20 @@ TEST(grapheme, iterator_09_1_rev)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
     }
 }
 TEST(grapheme, iterator_09_1_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x261D };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -277,22 +179,16 @@ TEST(grapheme, iterator_09_1_fab)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
     }
 }
 TEST(grapheme, iterator_09_1_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x261D };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -300,31 +196,8 @@ TEST(grapheme, iterator_09_1_baf)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -337,7 +210,7 @@ TEST(grapheme, iterator_09_1_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x261D };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0x200D };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -360,17 +233,8 @@ TEST(grapheme, iterator_09_1_utf8)
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
         EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
-
-        ++it;
-
-        EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
         EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
 
         ++it;
@@ -382,10 +246,10 @@ TEST(grapheme, iterator_09_1_utf8)
 
 TEST(grapheme, iterator_09_2_fwd)
 {
-    // ÷ AC00 ÷ 1F3FB ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
+    // ÷ AC00 ÷ 0378 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GA (LV) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x1F3FB };
+        uint32_t const cps[] = { 0xAC00, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -408,7 +272,7 @@ TEST(grapheme, iterator_09_2_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x1F3FB };
+        uint32_t const cps[] = { 0xAC00, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -431,7 +295,7 @@ TEST(grapheme, iterator_09_2_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x1F3FB };
+        uint32_t const cps[] = { 0xAC00, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -478,7 +342,7 @@ TEST(grapheme, iterator_09_2_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x1F3FB };
+        uint32_t const cps[] = { 0xAC00, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -523,7 +387,7 @@ TEST(grapheme, iterator_09_2_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x1F3FB };
+        uint32_t const cps[] = { 0xAC00, 0x0378 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -568,10 +432,10 @@ TEST(grapheme, iterator_09_2_utf8)
 
 TEST(grapheme, iterator_09_3_fwd)
 {
-    // ÷ AC00 × 0308 ÷ 1F3FB ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
+    // ÷ AC00 × 0308 ÷ 0378 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x1F3FB };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -594,7 +458,7 @@ TEST(grapheme, iterator_09_3_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x1F3FB };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -617,7 +481,7 @@ TEST(grapheme, iterator_09_3_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x1F3FB };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -664,7 +528,7 @@ TEST(grapheme, iterator_09_3_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x1F3FB };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -709,7 +573,7 @@ TEST(grapheme, iterator_09_3_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x1F3FB };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0x0378 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -754,14 +618,20 @@ TEST(grapheme, iterator_09_3_utf8)
 
 TEST(grapheme, iterator_09_4_fwd)
 {
-    // ÷ AC00 × 200D ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
+    // ÷ AC00 ÷ D800 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GA (LV) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x200D };
+        uint32_t const cps[] = { 0xAC00, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -774,7 +644,7 @@ TEST(grapheme, iterator_09_4_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x200D };
+        uint32_t const cps[] = { 0xAC00, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -782,20 +652,44 @@ TEST(grapheme, iterator_09_4_rev)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 1);
     }
 }
 TEST(grapheme, iterator_09_4_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x200D };
+        uint32_t const cps[] = { 0xAC00, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -805,16 +699,22 @@ TEST(grapheme, iterator_09_4_fab)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 1);
     }
 }
 TEST(grapheme, iterator_09_4_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x200D };
+        uint32_t const cps[] = { 0xAC00, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -822,8 +722,31 @@ TEST(grapheme, iterator_09_4_baf)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -832,54 +755,24 @@ TEST(grapheme, iterator_09_4_baf)
         EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
-TEST(grapheme, iterator_09_4_utf8)
-{
-    {
-        // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x200D };
-        char cus[1024] = { 0 };
-        int cp_indices[1024] = { 0 };
-
-        std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
-            cus);
-
-        boost::text::utf8::null_sentinel sentinel;
-        int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
-            *index_it++ = it.base() - cus;
-            if (it == sentinel)
-                break;
-        }
-
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
-        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
-
-        EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
-
-        ++it;
-
-        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
-    }
-}
+// Skipping from-utf8 test due to presence of surrogate code point.
 
 TEST(grapheme, iterator_09_5_fwd)
 {
-    // ÷ AC00 × 0308 × 200D ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
+    // ÷ AC00 × 0308 ÷ D800 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x200D };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -892,7 +785,7 @@ TEST(grapheme, iterator_09_5_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x200D };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -900,20 +793,44 @@ TEST(grapheme, iterator_09_5_rev)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_5_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x200D };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -923,16 +840,22 @@ TEST(grapheme, iterator_09_5_fab)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_5_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x200D };
+        uint32_t const cps[] = { 0xAC00, 0x0308, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -940,8 +863,31 @@ TEST(grapheme, iterator_09_5_baf)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -950,50 +896,14 @@ TEST(grapheme, iterator_09_5_baf)
         EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
-TEST(grapheme, iterator_09_5_utf8)
-{
-    {
-        // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x200D };
-        char cus[1024] = { 0 };
-        int cp_indices[1024] = { 0 };
-
-        std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
-            cus);
-
-        boost::text::utf8::null_sentinel sentinel;
-        int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
-            *index_it++ = it.base() - cus;
-            if (it == sentinel)
-                break;
-        }
-
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
-        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
-
-        EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
-
-        ++it;
-
-        EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
-    }
-}
+// Skipping from-utf8 test due to presence of surrogate code point.
 
 TEST(grapheme, iterator_09_6_fwd)
 {
-    // ÷ AC00 ÷ 2640 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
+    // ÷ AC01 ÷ 0020 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x2640 };
+        uint32_t const cps[] = { 0xAC01, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1016,7 +926,7 @@ TEST(grapheme, iterator_09_6_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x2640 };
+        uint32_t const cps[] = { 0xAC01, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -1039,7 +949,7 @@ TEST(grapheme, iterator_09_6_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x2640 };
+        uint32_t const cps[] = { 0xAC01, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1086,7 +996,7 @@ TEST(grapheme, iterator_09_6_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x2640 };
+        uint32_t const cps[] = { 0xAC01, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -1131,7 +1041,7 @@ TEST(grapheme, iterator_09_6_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x2640 };
+        uint32_t const cps[] = { 0xAC01, 0x0020 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -1176,10 +1086,10 @@ TEST(grapheme, iterator_09_6_utf8)
 
 TEST(grapheme, iterator_09_7_fwd)
 {
-    // ÷ AC00 × 0308 ÷ 2640 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 0020 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x2640 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1202,7 +1112,7 @@ TEST(grapheme, iterator_09_7_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x2640 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -1225,7 +1135,7 @@ TEST(grapheme, iterator_09_7_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x2640 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1272,7 +1182,7 @@ TEST(grapheme, iterator_09_7_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x2640 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -1317,7 +1227,7 @@ TEST(grapheme, iterator_09_7_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x2640 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0020 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -1362,10 +1272,10 @@ TEST(grapheme, iterator_09_7_utf8)
 
 TEST(grapheme, iterator_09_8_fwd)
 {
-    // ÷ AC00 ÷ 1F466 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) ÷ [999.0] BOY (EBG) ÷ [0.3]
+    // ÷ AC01 ÷ 000D ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x1F466 };
+        uint32_t const cps[] = { 0xAC01, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1388,7 +1298,7 @@ TEST(grapheme, iterator_09_8_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x1F466 };
+        uint32_t const cps[] = { 0xAC01, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -1411,7 +1321,7 @@ TEST(grapheme, iterator_09_8_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x1F466 };
+        uint32_t const cps[] = { 0xAC01, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1458,7 +1368,7 @@ TEST(grapheme, iterator_09_8_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x1F466 };
+        uint32_t const cps[] = { 0xAC01, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -1503,7 +1413,7 @@ TEST(grapheme, iterator_09_8_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x1F466 };
+        uint32_t const cps[] = { 0xAC01, 0x000D };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -1548,10 +1458,10 @@ TEST(grapheme, iterator_09_8_utf8)
 
 TEST(grapheme, iterator_09_9_fwd)
 {
-    // ÷ AC00 × 0308 ÷ 1F466 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 000D ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x1F466 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1574,7 +1484,7 @@ TEST(grapheme, iterator_09_9_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x1F466 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -1597,7 +1507,7 @@ TEST(grapheme, iterator_09_9_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x1F466 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1644,7 +1554,7 @@ TEST(grapheme, iterator_09_9_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x1F466 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -1689,7 +1599,7 @@ TEST(grapheme, iterator_09_9_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x1F466 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000D };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -1734,10 +1644,10 @@ TEST(grapheme, iterator_09_9_utf8)
 
 TEST(grapheme, iterator_09_10_fwd)
 {
-    // ÷ AC00 ÷ 0378 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
+    // ÷ AC01 ÷ 000A ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x0378 };
+        uint32_t const cps[] = { 0xAC01, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1760,7 +1670,7 @@ TEST(grapheme, iterator_09_10_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x0378 };
+        uint32_t const cps[] = { 0xAC01, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -1783,7 +1693,7 @@ TEST(grapheme, iterator_09_10_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x0378 };
+        uint32_t const cps[] = { 0xAC01, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1830,7 +1740,7 @@ TEST(grapheme, iterator_09_10_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x0378 };
+        uint32_t const cps[] = { 0xAC01, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -1875,7 +1785,7 @@ TEST(grapheme, iterator_09_10_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x0378 };
+        uint32_t const cps[] = { 0xAC01, 0x000A };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -1920,10 +1830,10 @@ TEST(grapheme, iterator_09_10_utf8)
 
 TEST(grapheme, iterator_09_11_fwd)
 {
-    // ÷ AC00 × 0308 ÷ 0378 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 000A ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x0378 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -1946,7 +1856,7 @@ TEST(grapheme, iterator_09_11_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x0378 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -1969,7 +1879,7 @@ TEST(grapheme, iterator_09_11_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x0378 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -2016,7 +1926,7 @@ TEST(grapheme, iterator_09_11_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x0378 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -2061,7 +1971,7 @@ TEST(grapheme, iterator_09_11_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0x0378 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000A };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -2106,10 +2016,10 @@ TEST(grapheme, iterator_09_11_utf8)
 
 TEST(grapheme, iterator_09_12_fwd)
 {
-    // ÷ AC00 ÷ D800 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
+    // ÷ AC01 ÷ 0001 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0xD800 };
+        uint32_t const cps[] = { 0xAC01, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -2132,7 +2042,7 @@ TEST(grapheme, iterator_09_12_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0xD800 };
+        uint32_t const cps[] = { 0xAC01, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -2155,7 +2065,7 @@ TEST(grapheme, iterator_09_12_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0xD800 };
+        uint32_t const cps[] = { 0xAC01, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -2202,7 +2112,7 @@ TEST(grapheme, iterator_09_12_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0xD800 };
+        uint32_t const cps[] = { 0xAC01, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -2243,14 +2153,59 @@ TEST(grapheme, iterator_09_12_baf)
         EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
-// Skipping from-utf8 test due to presence of surrogate code point.
+TEST(grapheme, iterator_09_12_utf8)
+{
+    {
+        // from UTF8
+        uint32_t const cps[] = { 0xAC01, 0x0001 };
+        char cus[1024] = { 0 };
+        int cp_indices[1024] = { 0 };
+
+        std::copy(
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
+            cus);
+
+        boost::text::utf8::null_sentinel sentinel;
+        int * index_it = cp_indices;
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
+            *index_it++ = it.base() - cus;
+            if (it == sentinel)
+                break;
+        }
+
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
+        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
+
+        EXPECT_EQ(*it.base(), cps[0]);
+        EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(*it->end(), cps[1]);
+        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+
+        ++it;
+
+        EXPECT_EQ(*it.base(), cps[1]);
+        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
+        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
+        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+
+        ++it;
+
+        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
+        EXPECT_EQ(it->begin(), (*it).end());
+    }
+}
 
 TEST(grapheme, iterator_09_13_fwd)
 {
-    // ÷ AC00 × 0308 ÷ D800 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GA (LV) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 0001 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0xD800 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -2273,7 +2228,7 @@ TEST(grapheme, iterator_09_13_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0xD800 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -2296,7 +2251,7 @@ TEST(grapheme, iterator_09_13_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0xD800 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -2343,7 +2298,7 @@ TEST(grapheme, iterator_09_13_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC00, 0x0308, 0xD800 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -2384,338 +2339,11 @@ TEST(grapheme, iterator_09_13_baf)
         EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
-// Skipping from-utf8 test due to presence of surrogate code point.
-
-TEST(grapheme, iterator_09_14_fwd)
-{
-    // ÷ AC01 ÷ 0020 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] SPACE (Other) ÷ [0.3]
-    {
-        uint32_t const cps[] = { 0xAC01, 0x0020 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-    }
-}
-TEST(grapheme, iterator_09_14_rev)
-{
-    {
-        // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0020 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-    }
-}
-TEST(grapheme, iterator_09_14_fab)
-{
-    {
-        // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0020 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-    }
-}
-TEST(grapheme, iterator_09_14_baf)
-{
-    {
-        // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0020 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-    }
-}
-TEST(grapheme, iterator_09_14_utf8)
+TEST(grapheme, iterator_09_13_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0020 };
-        char cus[1024] = { 0 };
-        int cp_indices[1024] = { 0 };
-
-        std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
-            cus);
-
-        boost::text::utf8::null_sentinel sentinel;
-        int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
-            *index_it++ = it.base() - cus;
-            if (it == sentinel)
-                break;
-        }
-
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
-        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
-
-        EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
-
-        ++it;
-
-        EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
-
-        ++it;
-
-        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
-    }
-}
-
-TEST(grapheme, iterator_09_15_fwd)
-{
-    // ÷ AC01 × 0308 ÷ 0020 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] SPACE (Other) ÷ [0.3]
-    {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0020 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-    }
-}
-TEST(grapheme, iterator_09_15_rev)
-{
-    {
-        // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0020 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-    }
-}
-TEST(grapheme, iterator_09_15_fab)
-{
-    {
-        // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0020 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-    }
-}
-TEST(grapheme, iterator_09_15_baf)
-{
-    {
-        // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0020 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-    }
-}
-TEST(grapheme, iterator_09_15_utf8)
-{
-    {
-        // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0020 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0001 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -2758,12 +2386,248 @@ TEST(grapheme, iterator_09_15_utf8)
     }
 }
 
+TEST(grapheme, iterator_09_14_fwd)
+{
+    // ÷ AC01 × 034F ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING GRAPHEME JOINER (Extend) ÷ [0.3]
+    {
+        uint32_t const cps[] = { 0xAC01, 0x034F };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
+}
+TEST(grapheme, iterator_09_14_rev)
+{
+    {
+        // reverse
+        uint32_t const cps[] = { 0xAC01, 0x034F };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+}
+TEST(grapheme, iterator_09_14_fab)
+{
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xAC01, 0x034F };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+}
+TEST(grapheme, iterator_09_14_baf)
+{
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xAC01, 0x034F };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
+}
+TEST(grapheme, iterator_09_14_utf8)
+{
+    {
+        // from UTF8
+        uint32_t const cps[] = { 0xAC01, 0x034F };
+        char cus[1024] = { 0 };
+        int cp_indices[1024] = { 0 };
+
+        std::copy(
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
+            cus);
+
+        boost::text::utf8::null_sentinel sentinel;
+        int * index_it = cp_indices;
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
+            *index_it++ = it.base() - cus;
+            if (it == sentinel)
+                break;
+        }
+
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
+        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
+
+        EXPECT_EQ(*it.base(), cps[0]);
+        EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+
+        ++it;
+
+        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
+        EXPECT_EQ(it->begin(), (*it).end());
+    }
+}
+
+TEST(grapheme, iterator_09_15_fwd)
+{
+    // ÷ AC01 × 0308 × 034F ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.0] COMBINING GRAPHEME JOINER (Extend) ÷ [0.3]
+    {
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x034F };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
+}
+TEST(grapheme, iterator_09_15_rev)
+{
+    {
+        // reverse
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x034F };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+    }
+}
+TEST(grapheme, iterator_09_15_fab)
+{
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x034F };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+    }
+}
+TEST(grapheme, iterator_09_15_baf)
+{
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x034F };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
+}
+TEST(grapheme, iterator_09_15_utf8)
+{
+    {
+        // from UTF8
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x034F };
+        char cus[1024] = { 0 };
+        int cp_indices[1024] = { 0 };
+
+        std::copy(
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
+            cus);
+
+        boost::text::utf8::null_sentinel sentinel;
+        int * index_it = cp_indices;
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
+            *index_it++ = it.base() - cus;
+            if (it == sentinel)
+                break;
+        }
+
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
+        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
+
+        EXPECT_EQ(*it.base(), cps[0]);
+        EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+
+        ++it;
+
+        EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
+        EXPECT_EQ(it->begin(), (*it).end());
+    }
+}
+
 TEST(grapheme, iterator_09_16_fwd)
 {
-    // ÷ AC01 ÷ 000D ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
+    // ÷ AC01 ÷ 1F1E6 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x000D };
+        uint32_t const cps[] = { 0xAC01, 0x1F1E6 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -2786,7 +2650,7 @@ TEST(grapheme, iterator_09_16_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x000D };
+        uint32_t const cps[] = { 0xAC01, 0x1F1E6 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -2809,7 +2673,7 @@ TEST(grapheme, iterator_09_16_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x000D };
+        uint32_t const cps[] = { 0xAC01, 0x1F1E6 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -2856,7 +2720,7 @@ TEST(grapheme, iterator_09_16_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x000D };
+        uint32_t const cps[] = { 0xAC01, 0x1F1E6 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -2901,7 +2765,7 @@ TEST(grapheme, iterator_09_16_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x000D };
+        uint32_t const cps[] = { 0xAC01, 0x1F1E6 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -2946,10 +2810,10 @@ TEST(grapheme, iterator_09_16_utf8)
 
 TEST(grapheme, iterator_09_17_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 000D ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 1F1E6 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000D };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F1E6 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -2972,7 +2836,7 @@ TEST(grapheme, iterator_09_17_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000D };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F1E6 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -2995,7 +2859,7 @@ TEST(grapheme, iterator_09_17_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000D };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F1E6 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -3042,7 +2906,7 @@ TEST(grapheme, iterator_09_17_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000D };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F1E6 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -3087,7 +2951,7 @@ TEST(grapheme, iterator_09_17_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000D };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F1E6 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -3132,10 +2996,10 @@ TEST(grapheme, iterator_09_17_utf8)
 
 TEST(grapheme, iterator_09_18_fwd)
 {
-    // ÷ AC01 ÷ 000A ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
+    // ÷ AC01 ÷ 0600 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x000A };
+        uint32_t const cps[] = { 0xAC01, 0x0600 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -3158,7 +3022,7 @@ TEST(grapheme, iterator_09_18_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x000A };
+        uint32_t const cps[] = { 0xAC01, 0x0600 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -3181,7 +3045,7 @@ TEST(grapheme, iterator_09_18_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x000A };
+        uint32_t const cps[] = { 0xAC01, 0x0600 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -3228,7 +3092,7 @@ TEST(grapheme, iterator_09_18_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x000A };
+        uint32_t const cps[] = { 0xAC01, 0x0600 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -3273,7 +3137,7 @@ TEST(grapheme, iterator_09_18_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x000A };
+        uint32_t const cps[] = { 0xAC01, 0x0600 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -3318,10 +3182,10 @@ TEST(grapheme, iterator_09_18_utf8)
 
 TEST(grapheme, iterator_09_19_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 000A ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 0600 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000A };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0600 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -3344,7 +3208,7 @@ TEST(grapheme, iterator_09_19_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000A };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0600 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -3367,7 +3231,7 @@ TEST(grapheme, iterator_09_19_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000A };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0600 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -3414,7 +3278,7 @@ TEST(grapheme, iterator_09_19_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000A };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0600 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -3459,7 +3323,7 @@ TEST(grapheme, iterator_09_19_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x000A };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0600 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -3504,20 +3368,14 @@ TEST(grapheme, iterator_09_19_utf8)
 
 TEST(grapheme, iterator_09_20_fwd)
 {
-    // ÷ AC01 ÷ 0001 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
+    // ÷ AC01 × 0903 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0001 };
+        uint32_t const cps[] = { 0xAC01, 0x0903 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -3530,7 +3388,249 @@ TEST(grapheme, iterator_09_20_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0001 };
+        uint32_t const cps[] = { 0xAC01, 0x0903 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+}
+TEST(grapheme, iterator_09_20_fab)
+{
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xAC01, 0x0903 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+    }
+}
+TEST(grapheme, iterator_09_20_baf)
+{
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xAC01, 0x0903 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
+}
+TEST(grapheme, iterator_09_20_utf8)
+{
+    {
+        // from UTF8
+        uint32_t const cps[] = { 0xAC01, 0x0903 };
+        char cus[1024] = { 0 };
+        int cp_indices[1024] = { 0 };
+
+        std::copy(
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
+            cus);
+
+        boost::text::utf8::null_sentinel sentinel;
+        int * index_it = cp_indices;
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
+            *index_it++ = it.base() - cus;
+            if (it == sentinel)
+                break;
+        }
+
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
+        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
+
+        EXPECT_EQ(*it.base(), cps[0]);
+        EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+
+        ++it;
+
+        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
+        EXPECT_EQ(it->begin(), (*it).end());
+    }
+}
+
+TEST(grapheme, iterator_09_21_fwd)
+{
+    // ÷ AC01 × 0308 × 0903 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
+    {
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0903 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
+}
+TEST(grapheme, iterator_09_21_rev)
+{
+    {
+        // reverse
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0903 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+    }
+}
+TEST(grapheme, iterator_09_21_fab)
+{
+    {
+        // forth and back
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0903 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+    }
+}
+TEST(grapheme, iterator_09_21_baf)
+{
+    {
+        // back and forth
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0903 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
+}
+TEST(grapheme, iterator_09_21_utf8)
+{
+    {
+        // from UTF8
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0903 };
+        char cus[1024] = { 0 };
+        int cp_indices[1024] = { 0 };
+
+        std::copy(
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
+            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
+            cus);
+
+        boost::text::utf8::null_sentinel sentinel;
+        int * index_it = cp_indices;
+        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
+            *index_it++ = it.base() - cus;
+            if (it == sentinel)
+                break;
+        }
+
+        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
+        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
+            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
+
+        EXPECT_EQ(*it.base(), cps[0]);
+        EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
+
+        ++it;
+
+        EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
+        EXPECT_EQ(it->begin(), (*it).end());
+    }
+}
+
+TEST(grapheme, iterator_09_22_fwd)
+{
+    // ÷ AC01 ÷ 1100 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
+    {
+        uint32_t const cps[] = { 0xAC01, 0x1100 };
+        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+    }
+}
+TEST(grapheme, iterator_09_22_rev)
+{
+    {
+        // reverse
+        uint32_t const cps[] = { 0xAC01, 0x1100 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -3549,11 +3649,11 @@ TEST(grapheme, iterator_09_20_rev)
         EXPECT_EQ((*it).end(), cps + 1);
     }
 }
-TEST(grapheme, iterator_09_20_fab)
+TEST(grapheme, iterator_09_22_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0001 };
+        uint32_t const cps[] = { 0xAC01, 0x1100 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -3596,11 +3696,11 @@ TEST(grapheme, iterator_09_20_fab)
         EXPECT_EQ((*it).end(), cps + 1);
     }
 }
-TEST(grapheme, iterator_09_20_baf)
+TEST(grapheme, iterator_09_22_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0001 };
+        uint32_t const cps[] = { 0xAC01, 0x1100 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -3641,11 +3741,11 @@ TEST(grapheme, iterator_09_20_baf)
         EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
-TEST(grapheme, iterator_09_20_utf8)
+TEST(grapheme, iterator_09_22_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0001 };
+        uint32_t const cps[] = { 0xAC01, 0x1100 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -3688,12 +3788,12 @@ TEST(grapheme, iterator_09_20_utf8)
     }
 }
 
-TEST(grapheme, iterator_09_21_fwd)
+TEST(grapheme, iterator_09_23_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 0001 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 1100 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0001 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1100 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -3712,11 +3812,11 @@ TEST(grapheme, iterator_09_21_fwd)
         EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
-TEST(grapheme, iterator_09_21_rev)
+TEST(grapheme, iterator_09_23_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0001 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1100 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -3735,11 +3835,11 @@ TEST(grapheme, iterator_09_21_rev)
         EXPECT_EQ((*it).end(), cps + 2);
     }
 }
-TEST(grapheme, iterator_09_21_fab)
+TEST(grapheme, iterator_09_23_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0001 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1100 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -3782,11 +3882,11 @@ TEST(grapheme, iterator_09_21_fab)
         EXPECT_EQ((*it).end(), cps + 2);
     }
 }
-TEST(grapheme, iterator_09_21_baf)
+TEST(grapheme, iterator_09_23_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0001 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1100 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -3827,11 +3927,11 @@ TEST(grapheme, iterator_09_21_baf)
         EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
-TEST(grapheme, iterator_09_21_utf8)
+TEST(grapheme, iterator_09_23_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0001 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1100 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -3874,248 +3974,12 @@ TEST(grapheme, iterator_09_21_utf8)
     }
 }
 
-TEST(grapheme, iterator_09_22_fwd)
-{
-    // ÷ AC01 × 0300 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
-    {
-        uint32_t const cps[] = { 0xAC01, 0x0300 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-    }
-}
-TEST(grapheme, iterator_09_22_rev)
-{
-    {
-        // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0300 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-    }
-}
-TEST(grapheme, iterator_09_22_fab)
-{
-    {
-        // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0300 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-    }
-}
-TEST(grapheme, iterator_09_22_baf)
-{
-    {
-        // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0300 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-    }
-}
-TEST(grapheme, iterator_09_22_utf8)
-{
-    {
-        // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0300 };
-        char cus[1024] = { 0 };
-        int cp_indices[1024] = { 0 };
-
-        std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
-            cus);
-
-        boost::text::utf8::null_sentinel sentinel;
-        int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
-            *index_it++ = it.base() - cus;
-            if (it == sentinel)
-                break;
-        }
-
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
-        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
-
-        EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
-
-        ++it;
-
-        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
-    }
-}
-
-TEST(grapheme, iterator_09_23_fwd)
-{
-    // ÷ AC01 × 0308 × 0300 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] COMBINING GRAVE ACCENT (Extend) ÷ [0.3]
-    {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0300 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-    }
-}
-TEST(grapheme, iterator_09_23_rev)
-{
-    {
-        // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0300 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
-    }
-}
-TEST(grapheme, iterator_09_23_fab)
-{
-    {
-        // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0300 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
-    }
-}
-TEST(grapheme, iterator_09_23_baf)
-{
-    {
-        // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0300 };
-        boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-    }
-}
-TEST(grapheme, iterator_09_23_utf8)
-{
-    {
-        // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0300 };
-        char cus[1024] = { 0 };
-        int cp_indices[1024] = { 0 };
-
-        std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
-            cus);
-
-        boost::text::utf8::null_sentinel sentinel;
-        int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
-            *index_it++ = it.base() - cus;
-            if (it == sentinel)
-                break;
-        }
-
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
-        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
-
-        EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
-
-        ++it;
-
-        EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
-    }
-}
-
 TEST(grapheme, iterator_09_24_fwd)
 {
-    // ÷ AC01 ÷ 0600 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
+    // ÷ AC01 ÷ 1160 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0600 };
+        uint32_t const cps[] = { 0xAC01, 0x1160 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -4138,7 +4002,7 @@ TEST(grapheme, iterator_09_24_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0600 };
+        uint32_t const cps[] = { 0xAC01, 0x1160 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -4161,7 +4025,7 @@ TEST(grapheme, iterator_09_24_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0600 };
+        uint32_t const cps[] = { 0xAC01, 0x1160 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -4208,7 +4072,7 @@ TEST(grapheme, iterator_09_24_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0600 };
+        uint32_t const cps[] = { 0xAC01, 0x1160 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -4253,7 +4117,7 @@ TEST(grapheme, iterator_09_24_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0600 };
+        uint32_t const cps[] = { 0xAC01, 0x1160 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -4298,10 +4162,10 @@ TEST(grapheme, iterator_09_24_utf8)
 
 TEST(grapheme, iterator_09_25_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 0600 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] ARABIC NUMBER SIGN (Prepend) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 1160 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0600 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1160 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -4324,7 +4188,7 @@ TEST(grapheme, iterator_09_25_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0600 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1160 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -4347,7 +4211,7 @@ TEST(grapheme, iterator_09_25_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0600 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1160 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -4394,7 +4258,7 @@ TEST(grapheme, iterator_09_25_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0600 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1160 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -4439,7 +4303,7 @@ TEST(grapheme, iterator_09_25_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0600 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1160 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -4484,10 +4348,10 @@ TEST(grapheme, iterator_09_25_utf8)
 
 TEST(grapheme, iterator_09_26_fwd)
 {
-    // ÷ AC01 × 0903 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
+    // ÷ AC01 × 11A8 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [8.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0903 };
+        uint32_t const cps[] = { 0xAC01, 0x11A8 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -4504,7 +4368,7 @@ TEST(grapheme, iterator_09_26_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0903 };
+        uint32_t const cps[] = { 0xAC01, 0x11A8 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -4521,7 +4385,7 @@ TEST(grapheme, iterator_09_26_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0903 };
+        uint32_t const cps[] = { 0xAC01, 0x11A8 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -4544,7 +4408,7 @@ TEST(grapheme, iterator_09_26_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0903 };
+        uint32_t const cps[] = { 0xAC01, 0x11A8 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -4566,7 +4430,7 @@ TEST(grapheme, iterator_09_26_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0903 };
+        uint32_t const cps[] = { 0xAC01, 0x11A8 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -4602,14 +4466,20 @@ TEST(grapheme, iterator_09_26_utf8)
 
 TEST(grapheme, iterator_09_27_fwd)
 {
-    // ÷ AC01 × 0308 × 0903 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) × [9.1] DEVANAGARI SIGN VISARGA (SpacingMark) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 11A8 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0903 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x11A8 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -4622,7 +4492,7 @@ TEST(grapheme, iterator_09_27_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0903 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x11A8 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -4630,20 +4500,44 @@ TEST(grapheme, iterator_09_27_rev)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_27_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0903 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x11A8 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -4653,16 +4547,22 @@ TEST(grapheme, iterator_09_27_fab)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_27_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0903 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x11A8 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -4670,8 +4570,31 @@ TEST(grapheme, iterator_09_27_baf)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -4684,7 +4607,7 @@ TEST(grapheme, iterator_09_27_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0903 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x11A8 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -4707,8 +4630,17 @@ TEST(grapheme, iterator_09_27_utf8)
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(*it->end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
         EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+
+        ++it;
+
+        EXPECT_EQ(*it.base(), cps[2]);
+        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
+        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
         EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
 
         ++it;
@@ -4720,10 +4652,10 @@ TEST(grapheme, iterator_09_27_utf8)
 
 TEST(grapheme, iterator_09_28_fwd)
 {
-    // ÷ AC01 ÷ 1100 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
+    // ÷ AC01 ÷ AC00 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x1100 };
+        uint32_t const cps[] = { 0xAC01, 0xAC00 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -4746,7 +4678,7 @@ TEST(grapheme, iterator_09_28_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x1100 };
+        uint32_t const cps[] = { 0xAC01, 0xAC00 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -4769,7 +4701,7 @@ TEST(grapheme, iterator_09_28_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x1100 };
+        uint32_t const cps[] = { 0xAC01, 0xAC00 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -4816,7 +4748,7 @@ TEST(grapheme, iterator_09_28_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x1100 };
+        uint32_t const cps[] = { 0xAC01, 0xAC00 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -4861,7 +4793,7 @@ TEST(grapheme, iterator_09_28_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x1100 };
+        uint32_t const cps[] = { 0xAC01, 0xAC00 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -4906,10 +4838,10 @@ TEST(grapheme, iterator_09_28_utf8)
 
 TEST(grapheme, iterator_09_29_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 1100 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL CHOSEONG KIYEOK (L) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ AC00 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1100 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC00 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -4932,7 +4864,7 @@ TEST(grapheme, iterator_09_29_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1100 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC00 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -4955,7 +4887,7 @@ TEST(grapheme, iterator_09_29_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1100 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC00 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -5002,7 +4934,7 @@ TEST(grapheme, iterator_09_29_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1100 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC00 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -5047,7 +4979,7 @@ TEST(grapheme, iterator_09_29_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1100 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC00 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -5092,10 +5024,10 @@ TEST(grapheme, iterator_09_29_utf8)
 
 TEST(grapheme, iterator_09_30_fwd)
 {
-    // ÷ AC01 ÷ 1160 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
+    // ÷ AC01 ÷ AC01 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x1160 };
+        uint32_t const cps[] = { 0xAC01, 0xAC01 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -5118,7 +5050,7 @@ TEST(grapheme, iterator_09_30_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x1160 };
+        uint32_t const cps[] = { 0xAC01, 0xAC01 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -5141,7 +5073,7 @@ TEST(grapheme, iterator_09_30_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x1160 };
+        uint32_t const cps[] = { 0xAC01, 0xAC01 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -5188,7 +5120,7 @@ TEST(grapheme, iterator_09_30_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x1160 };
+        uint32_t const cps[] = { 0xAC01, 0xAC01 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -5233,7 +5165,7 @@ TEST(grapheme, iterator_09_30_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x1160 };
+        uint32_t const cps[] = { 0xAC01, 0xAC01 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -5278,10 +5210,10 @@ TEST(grapheme, iterator_09_30_utf8)
 
 TEST(grapheme, iterator_09_31_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 1160 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JUNGSEONG FILLER (V) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ AC01 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1160 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC01 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -5304,7 +5236,7 @@ TEST(grapheme, iterator_09_31_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1160 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC01 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -5327,7 +5259,7 @@ TEST(grapheme, iterator_09_31_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1160 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC01 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -5374,7 +5306,7 @@ TEST(grapheme, iterator_09_31_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1160 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC01 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -5419,7 +5351,7 @@ TEST(grapheme, iterator_09_31_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1160 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC01 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -5464,14 +5396,20 @@ TEST(grapheme, iterator_09_31_utf8)
 
 TEST(grapheme, iterator_09_32_fwd)
 {
-    // ÷ AC01 × 11A8 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [8.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
+    // ÷ AC01 ÷ 231A ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] WATCH (ExtPict) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x11A8 };
+        uint32_t const cps[] = { 0xAC01, 0x231A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -5484,7 +5422,7 @@ TEST(grapheme, iterator_09_32_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x11A8 };
+        uint32_t const cps[] = { 0xAC01, 0x231A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -5492,20 +5430,44 @@ TEST(grapheme, iterator_09_32_rev)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 1);
     }
 }
 TEST(grapheme, iterator_09_32_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x11A8 };
+        uint32_t const cps[] = { 0xAC01, 0x231A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -5515,16 +5477,22 @@ TEST(grapheme, iterator_09_32_fab)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 1);
     }
 }
 TEST(grapheme, iterator_09_32_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x11A8 };
+        uint32_t const cps[] = { 0xAC01, 0x231A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -5532,8 +5500,31 @@ TEST(grapheme, iterator_09_32_baf)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -5546,7 +5537,7 @@ TEST(grapheme, iterator_09_32_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x11A8 };
+        uint32_t const cps[] = { 0xAC01, 0x231A };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -5569,8 +5560,17 @@ TEST(grapheme, iterator_09_32_utf8)
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(*it->end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
         EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+
+        ++it;
+
+        EXPECT_EQ(*it.base(), cps[1]);
+        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
+        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
         EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
 
         ++it;
@@ -5582,10 +5582,10 @@ TEST(grapheme, iterator_09_32_utf8)
 
 TEST(grapheme, iterator_09_33_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 11A8 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL JONGSEONG KIYEOK (T) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 231A ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] WATCH (ExtPict) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x11A8 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x231A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -5608,7 +5608,7 @@ TEST(grapheme, iterator_09_33_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x11A8 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x231A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -5631,7 +5631,7 @@ TEST(grapheme, iterator_09_33_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x11A8 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x231A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -5678,7 +5678,7 @@ TEST(grapheme, iterator_09_33_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x11A8 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x231A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -5723,7 +5723,7 @@ TEST(grapheme, iterator_09_33_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x11A8 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x231A };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -5768,20 +5768,14 @@ TEST(grapheme, iterator_09_33_utf8)
 
 TEST(grapheme, iterator_09_34_fwd)
 {
-    // ÷ AC01 ÷ AC00 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
+    // ÷ AC01 × 0300 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING GRAVE ACCENT (Extend_ExtCccZwj) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0xAC00 };
+        uint32_t const cps[] = { 0xAC01, 0x0300 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -5794,7 +5788,7 @@ TEST(grapheme, iterator_09_34_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0xAC00 };
+        uint32_t const cps[] = { 0xAC01, 0x0300 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -5802,44 +5796,20 @@ TEST(grapheme, iterator_09_34_rev)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_34_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0xAC00 };
+        uint32_t const cps[] = { 0xAC01, 0x0300 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -5849,22 +5819,16 @@ TEST(grapheme, iterator_09_34_fab)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_34_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0xAC00 };
+        uint32_t const cps[] = { 0xAC01, 0x0300 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -5872,31 +5836,8 @@ TEST(grapheme, iterator_09_34_baf)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -5909,7 +5850,7 @@ TEST(grapheme, iterator_09_34_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0xAC00 };
+        uint32_t const cps[] = { 0xAC01, 0x0300 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -5932,17 +5873,8 @@ TEST(grapheme, iterator_09_34_utf8)
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
         EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
-
-        ++it;
-
-        EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
         EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
 
         ++it;
@@ -5954,20 +5886,14 @@ TEST(grapheme, iterator_09_34_utf8)
 
 TEST(grapheme, iterator_09_35_fwd)
 {
-    // ÷ AC01 × 0308 ÷ AC00 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GA (LV) ÷ [0.3]
+    // ÷ AC01 × 0308 × 0300 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.0] COMBINING GRAVE ACCENT (Extend_ExtCccZwj) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC00 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0300 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -5980,7 +5906,7 @@ TEST(grapheme, iterator_09_35_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC00 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0300 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -5988,44 +5914,20 @@ TEST(grapheme, iterator_09_35_rev)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
     }
 }
 TEST(grapheme, iterator_09_35_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC00 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0300 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -6035,22 +5937,16 @@ TEST(grapheme, iterator_09_35_fab)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
     }
 }
 TEST(grapheme, iterator_09_35_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC00 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0300 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -6058,31 +5954,8 @@ TEST(grapheme, iterator_09_35_baf)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -6095,7 +5968,7 @@ TEST(grapheme, iterator_09_35_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC00 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0300 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -6118,17 +5991,8 @@ TEST(grapheme, iterator_09_35_utf8)
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
         EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
-
-        ++it;
-
-        EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
         EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
 
         ++it;
@@ -6140,20 +6004,14 @@ TEST(grapheme, iterator_09_35_utf8)
 
 TEST(grapheme, iterator_09_36_fwd)
 {
-    // ÷ AC01 ÷ AC01 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
+    // ÷ AC01 × 200D ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] ZERO WIDTH JOINER (ZWJ_ExtCccZwj) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0xAC01 };
+        uint32_t const cps[] = { 0xAC01, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -6166,7 +6024,7 @@ TEST(grapheme, iterator_09_36_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0xAC01 };
+        uint32_t const cps[] = { 0xAC01, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -6174,44 +6032,20 @@ TEST(grapheme, iterator_09_36_rev)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_36_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0xAC01 };
+        uint32_t const cps[] = { 0xAC01, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -6221,22 +6055,16 @@ TEST(grapheme, iterator_09_36_fab)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_36_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0xAC01 };
+        uint32_t const cps[] = { 0xAC01, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -6244,31 +6072,8 @@ TEST(grapheme, iterator_09_36_baf)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 1);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 1);
-        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -6281,7 +6086,7 @@ TEST(grapheme, iterator_09_36_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0xAC01 };
+        uint32_t const cps[] = { 0xAC01, 0x200D };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -6304,17 +6109,8 @@ TEST(grapheme, iterator_09_36_utf8)
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
         EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
-
-        ++it;
-
-        EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
         EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
 
         ++it;
@@ -6326,20 +6122,14 @@ TEST(grapheme, iterator_09_36_utf8)
 
 TEST(grapheme, iterator_09_37_fwd)
 {
-    // ÷ AC01 × 0308 ÷ AC01 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] HANGUL SYLLABLE GAG (LVT) ÷ [0.3]
+    // ÷ AC01 × 0308 × 200D ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) × [9.0] ZERO WIDTH JOINER (ZWJ_ExtCccZwj) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC01 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -6352,7 +6142,7 @@ TEST(grapheme, iterator_09_37_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC01 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -6360,44 +6150,20 @@ TEST(grapheme, iterator_09_37_rev)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
     }
 }
 TEST(grapheme, iterator_09_37_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC01 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 0);
-        EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -6407,22 +6173,16 @@ TEST(grapheme, iterator_09_37_fab)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
     }
 }
 TEST(grapheme, iterator_09_37_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC01 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x200D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -6430,31 +6190,8 @@ TEST(grapheme, iterator_09_37_baf)
 
         --it;
 
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 3);
-        EXPECT_EQ((*it).begin(), (*it).end());
-
-        --it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
-        EXPECT_EQ((*it).end(), cps + 3);
-
-        --it;
-
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
-
-        ++it;
-
-        EXPECT_EQ(it.base(), cps + 2);
-        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -6467,7 +6204,7 @@ TEST(grapheme, iterator_09_37_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0xAC01 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x200D };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -6490,17 +6227,8 @@ TEST(grapheme, iterator_09_37_utf8)
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
         EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
-
-        ++it;
-
-        EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
         EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
 
         ++it;
@@ -6512,10 +6240,10 @@ TEST(grapheme, iterator_09_37_utf8)
 
 TEST(grapheme, iterator_09_38_fwd)
 {
-    // ÷ AC01 ÷ 1F1E6 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    // ÷ AC01 ÷ 0378 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x1F1E6 };
+        uint32_t const cps[] = { 0xAC01, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -6538,7 +6266,7 @@ TEST(grapheme, iterator_09_38_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x1F1E6 };
+        uint32_t const cps[] = { 0xAC01, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -6561,7 +6289,7 @@ TEST(grapheme, iterator_09_38_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x1F1E6 };
+        uint32_t const cps[] = { 0xAC01, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -6608,7 +6336,7 @@ TEST(grapheme, iterator_09_38_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x1F1E6 };
+        uint32_t const cps[] = { 0xAC01, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -6653,7 +6381,7 @@ TEST(grapheme, iterator_09_38_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x1F1E6 };
+        uint32_t const cps[] = { 0xAC01, 0x0378 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -6698,10 +6426,10 @@ TEST(grapheme, iterator_09_38_utf8)
 
 TEST(grapheme, iterator_09_39_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 1F1E6 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] REGIONAL INDICATOR SYMBOL LETTER A (RI) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ 0378 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] <reserved-0378> (Other) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F1E6 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -6724,7 +6452,7 @@ TEST(grapheme, iterator_09_39_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F1E6 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -6747,7 +6475,7 @@ TEST(grapheme, iterator_09_39_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F1E6 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -6794,7 +6522,7 @@ TEST(grapheme, iterator_09_39_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F1E6 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0378 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -6839,7 +6567,7 @@ TEST(grapheme, iterator_09_39_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F1E6 };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0x0378 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -6884,10 +6612,10 @@ TEST(grapheme, iterator_09_39_utf8)
 
 TEST(grapheme, iterator_09_40_fwd)
 {
-    // ÷ AC01 ÷ 261D ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
+    // ÷ AC01 ÷ D800 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x261D };
+        uint32_t const cps[] = { 0xAC01, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -6910,7 +6638,7 @@ TEST(grapheme, iterator_09_40_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x261D };
+        uint32_t const cps[] = { 0xAC01, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -6933,7 +6661,7 @@ TEST(grapheme, iterator_09_40_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x261D };
+        uint32_t const cps[] = { 0xAC01, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -6980,7 +6708,7 @@ TEST(grapheme, iterator_09_40_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x261D };
+        uint32_t const cps[] = { 0xAC01, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -7021,59 +6749,14 @@ TEST(grapheme, iterator_09_40_baf)
         EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
-TEST(grapheme, iterator_09_40_utf8)
-{
-    {
-        // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x261D };
-        char cus[1024] = { 0 };
-        int cp_indices[1024] = { 0 };
-
-        std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 2),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 2, cps + 2),
-            cus);
-
-        boost::text::utf8::null_sentinel sentinel;
-        int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
-            *index_it++ = it.base() - cus;
-            if (it == sentinel)
-                break;
-        }
-
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
-        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
-
-        EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[1]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
-
-        ++it;
-
-        EXPECT_EQ(*it.base(), cps[1]);
-        EXPECT_EQ(*it->begin(), cps[1]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
-
-        ++it;
-
-        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin(), (*it).end());
-    }
-}
+// Skipping from-utf8 test due to presence of surrogate code point.
 
 TEST(grapheme, iterator_09_41_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 261D ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] WHITE UP POINTING INDEX (E_Base) ÷ [0.3]
+    // ÷ AC01 × 0308 ÷ D800 ÷	
+    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <surrogate-D800> (Control) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x261D };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -7096,7 +6779,7 @@ TEST(grapheme, iterator_09_41_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x261D };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -7119,7 +6802,7 @@ TEST(grapheme, iterator_09_41_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x261D };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -7166,7 +6849,7 @@ TEST(grapheme, iterator_09_41_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x261D };
+        uint32_t const cps[] = { 0xAC01, 0x0308, 0xD800 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -7207,59 +6890,14 @@ TEST(grapheme, iterator_09_41_baf)
         EXPECT_EQ((*it).begin(), (*it).end());
     }
 }
-TEST(grapheme, iterator_09_41_utf8)
-{
-    {
-        // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x261D };
-        char cus[1024] = { 0 };
-        int cp_indices[1024] = { 0 };
-
-        std::copy(
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps, cps + 3),
-            boost::text::utf8::from_utf32_iterator<uint32_t const *>(cps, cps + 3, cps + 3),
-            cus);
-
-        boost::text::utf8::null_sentinel sentinel;
-        int * index_it = cp_indices;
-        for (boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel> it(cus, cus, boost::text::utf8::null_sentinel{}); ; ++it) {
-            *index_it++ = it.base() - cus;
-            if (it == sentinel)
-                break;
-        }
-
-        using iter_t = boost::text::utf8::to_utf32_iterator<char const *, boost::text::utf8::null_sentinel>;
-        boost::text::grapheme_iterator<iter_t, boost::text::utf8::null_sentinel> it(
-            iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, iter_t{cus, cus, boost::text::utf8::null_sentinel{}}, sentinel);
-
-        EXPECT_EQ(*it.base(), cps[0]);
-        EXPECT_EQ(*it->begin(), cps[0]);
-        EXPECT_EQ(*it->end(), cps[2]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
-
-        ++it;
-
-        EXPECT_EQ(*it.base(), cps[2]);
-        EXPECT_EQ(*it->begin(), cps[2]);
-        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
-        EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
-
-        ++it;
-
-        EXPECT_EQ(it.base().base(), cus + cp_indices[3]);
-        EXPECT_EQ(it->begin(), (*it).end());
-    }
-}
+// Skipping from-utf8 test due to presence of surrogate code point.
 
 TEST(grapheme, iterator_09_42_fwd)
 {
-    // ÷ AC01 ÷ 1F3FB ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
+    // ÷ 231A ÷ 0020 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x1F3FB };
+        uint32_t const cps[] = { 0x231A, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -7282,7 +6920,7 @@ TEST(grapheme, iterator_09_42_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x1F3FB };
+        uint32_t const cps[] = { 0x231A, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -7305,7 +6943,7 @@ TEST(grapheme, iterator_09_42_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x1F3FB };
+        uint32_t const cps[] = { 0x231A, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -7352,7 +6990,7 @@ TEST(grapheme, iterator_09_42_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x1F3FB };
+        uint32_t const cps[] = { 0x231A, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -7397,7 +7035,7 @@ TEST(grapheme, iterator_09_42_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x1F3FB };
+        uint32_t const cps[] = { 0x231A, 0x0020 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -7442,10 +7080,10 @@ TEST(grapheme, iterator_09_42_utf8)
 
 TEST(grapheme, iterator_09_43_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 1F3FB ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (E_Modifier) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0020 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [999.0] SPACE (Other) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F3FB };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -7468,7 +7106,7 @@ TEST(grapheme, iterator_09_43_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F3FB };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -7491,7 +7129,7 @@ TEST(grapheme, iterator_09_43_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F3FB };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -7538,7 +7176,7 @@ TEST(grapheme, iterator_09_43_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F3FB };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x0020 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -7583,7 +7221,7 @@ TEST(grapheme, iterator_09_43_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F3FB };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x0020 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -7628,14 +7266,20 @@ TEST(grapheme, iterator_09_43_utf8)
 
 TEST(grapheme, iterator_09_44_fwd)
 {
-    // ÷ AC01 × 200D ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
+    // ÷ 231A ÷ 000D ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x200D };
+        uint32_t const cps[] = { 0x231A, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -7648,7 +7292,7 @@ TEST(grapheme, iterator_09_44_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x200D };
+        uint32_t const cps[] = { 0x231A, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -7656,20 +7300,44 @@ TEST(grapheme, iterator_09_44_rev)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 1);
     }
 }
 TEST(grapheme, iterator_09_44_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x200D };
+        uint32_t const cps[] = { 0x231A, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -7679,16 +7347,22 @@ TEST(grapheme, iterator_09_44_fab)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 1);
     }
 }
 TEST(grapheme, iterator_09_44_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x200D };
+        uint32_t const cps[] = { 0x231A, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -7696,8 +7370,31 @@ TEST(grapheme, iterator_09_44_baf)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 1);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 1);
+        EXPECT_EQ((*it).begin(), cps + 1);
         EXPECT_EQ((*it).end(), cps + 2);
 
         ++it;
@@ -7710,7 +7407,7 @@ TEST(grapheme, iterator_09_44_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x200D };
+        uint32_t const cps[] = { 0x231A, 0x000D };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -7733,8 +7430,17 @@ TEST(grapheme, iterator_09_44_utf8)
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(*it->end(), cps[1]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
         EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->end().base(), cus + cp_indices[1]);
+
+        ++it;
+
+        EXPECT_EQ(*it.base(), cps[1]);
+        EXPECT_EQ(*it->begin(), cps[1]);
+        EXPECT_EQ(it.base().base(), cus + cp_indices[1]);
+        EXPECT_EQ(it->begin().base(), cus + cp_indices[1]);
         EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
 
         ++it;
@@ -7746,14 +7452,20 @@ TEST(grapheme, iterator_09_44_utf8)
 
 TEST(grapheme, iterator_09_45_fwd)
 {
-    // ÷ AC01 × 0308 × 200D ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) × [9.0] ZERO WIDTH JOINER (ZWJ) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 000D ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <CARRIAGE RETURN (CR)> (CR) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x200D };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -7766,7 +7478,7 @@ TEST(grapheme, iterator_09_45_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x200D };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -7774,20 +7486,44 @@ TEST(grapheme, iterator_09_45_rev)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_45_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x200D };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 0);
+        EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -7797,16 +7533,22 @@ TEST(grapheme, iterator_09_45_fab)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
-        EXPECT_EQ((*it).end(), cps + 3);
+        EXPECT_EQ((*it).end(), cps + 2);
     }
 }
 TEST(grapheme, iterator_09_45_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x200D };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x000D };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -7814,8 +7556,31 @@ TEST(grapheme, iterator_09_45_baf)
 
         --it;
 
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 3);
+        EXPECT_EQ((*it).begin(), (*it).end());
+
+        --it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
+        EXPECT_EQ((*it).end(), cps + 3);
+
+        --it;
+
         EXPECT_EQ(it.base(), cps + 0);
         EXPECT_EQ((*it).begin(), cps + 0);
+        EXPECT_EQ((*it).end(), cps + 2);
+
+        ++it;
+
+        EXPECT_EQ(it.base(), cps + 2);
+        EXPECT_EQ((*it).begin(), cps + 2);
         EXPECT_EQ((*it).end(), cps + 3);
 
         ++it;
@@ -7828,7 +7593,7 @@ TEST(grapheme, iterator_09_45_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x200D };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x000D };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -7851,8 +7616,17 @@ TEST(grapheme, iterator_09_45_utf8)
 
         EXPECT_EQ(*it.base(), cps[0]);
         EXPECT_EQ(*it->begin(), cps[0]);
+        EXPECT_EQ(*it->end(), cps[2]);
         EXPECT_EQ(it.base().base(), cus + cp_indices[0]);
         EXPECT_EQ(it->begin().base(), cus + cp_indices[0]);
+        EXPECT_EQ(it->end().base(), cus + cp_indices[2]);
+
+        ++it;
+
+        EXPECT_EQ(*it.base(), cps[2]);
+        EXPECT_EQ(*it->begin(), cps[2]);
+        EXPECT_EQ(it.base().base(), cus + cp_indices[2]);
+        EXPECT_EQ(it->begin().base(), cus + cp_indices[2]);
         EXPECT_EQ(it->end().base(), cus + cp_indices[3]);
 
         ++it;
@@ -7864,10 +7638,10 @@ TEST(grapheme, iterator_09_45_utf8)
 
 TEST(grapheme, iterator_09_46_fwd)
 {
-    // ÷ AC01 ÷ 2640 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
+    // ÷ 231A ÷ 000A ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x2640 };
+        uint32_t const cps[] = { 0x231A, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -7890,7 +7664,7 @@ TEST(grapheme, iterator_09_46_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x2640 };
+        uint32_t const cps[] = { 0x231A, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -7913,7 +7687,7 @@ TEST(grapheme, iterator_09_46_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x2640 };
+        uint32_t const cps[] = { 0x231A, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -7960,7 +7734,7 @@ TEST(grapheme, iterator_09_46_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x2640 };
+        uint32_t const cps[] = { 0x231A, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -8005,7 +7779,7 @@ TEST(grapheme, iterator_09_46_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x2640 };
+        uint32_t const cps[] = { 0x231A, 0x000A };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -8050,10 +7824,10 @@ TEST(grapheme, iterator_09_46_utf8)
 
 TEST(grapheme, iterator_09_47_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 2640 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] FEMALE SIGN (Glue_After_Zwj) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 000A ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <LINE FEED (LF)> (LF) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x2640 };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -8076,7 +7850,7 @@ TEST(grapheme, iterator_09_47_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x2640 };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -8099,7 +7873,7 @@ TEST(grapheme, iterator_09_47_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x2640 };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -8146,7 +7920,7 @@ TEST(grapheme, iterator_09_47_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x2640 };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x000A };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -8191,7 +7965,7 @@ TEST(grapheme, iterator_09_47_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x2640 };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x000A };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -8236,10 +8010,10 @@ TEST(grapheme, iterator_09_47_utf8)
 
 TEST(grapheme, iterator_09_48_fwd)
 {
-    // ÷ AC01 ÷ 1F466 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) ÷ [999.0] BOY (EBG) ÷ [0.3]
+    // ÷ 231A ÷ 0001 ÷	
+    // ÷ [0.2] WATCH (ExtPict) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x1F466 };
+        uint32_t const cps[] = { 0x231A, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -8262,7 +8036,7 @@ TEST(grapheme, iterator_09_48_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x1F466 };
+        uint32_t const cps[] = { 0x231A, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -8285,7 +8059,7 @@ TEST(grapheme, iterator_09_48_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x1F466 };
+        uint32_t const cps[] = { 0x231A, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -8332,7 +8106,7 @@ TEST(grapheme, iterator_09_48_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x1F466 };
+        uint32_t const cps[] = { 0x231A, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 2, cps + 2);
 
         EXPECT_EQ(it.base(), cps + 2);
@@ -8377,7 +8151,7 @@ TEST(grapheme, iterator_09_48_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x1F466 };
+        uint32_t const cps[] = { 0x231A, 0x0001 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 
@@ -8422,10 +8196,10 @@ TEST(grapheme, iterator_09_48_utf8)
 
 TEST(grapheme, iterator_09_49_fwd)
 {
-    // ÷ AC01 × 0308 ÷ 1F466 ÷	
-    // ÷ [0.2] HANGUL SYLLABLE GAG (LVT) × [9.0] COMBINING DIAERESIS (Extend) ÷ [999.0] BOY (EBG) ÷ [0.3]
+    // ÷ 231A × 0308 ÷ 0001 ÷	
+    // ÷ [0.2] WATCH (ExtPict) × [9.0] COMBINING DIAERESIS (Extend_ExtCccZwj) ÷ [5.0] <START OF HEADING> (Control) ÷ [0.3]
     {
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F466 };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -8448,7 +8222,7 @@ TEST(grapheme, iterator_09_49_rev)
 {
     {
         // reverse
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F466 };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -8471,7 +8245,7 @@ TEST(grapheme, iterator_09_49_fab)
 {
     {
         // forth and back
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F466 };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 0);
@@ -8518,7 +8292,7 @@ TEST(grapheme, iterator_09_49_baf)
 {
     {
         // back and forth
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F466 };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x0001 };
         boost::text::grapheme_iterator<uint32_t const *> it(cps, cps + 3, cps + 3);
 
         EXPECT_EQ(it.base(), cps + 3);
@@ -8563,7 +8337,7 @@ TEST(grapheme, iterator_09_49_utf8)
 {
     {
         // from UTF8
-        uint32_t const cps[] = { 0xAC01, 0x0308, 0x1F466 };
+        uint32_t const cps[] = { 0x231A, 0x0308, 0x0001 };
         char cus[1024] = { 0 };
         int cp_indices[1024] = { 0 };
 

@@ -12,12 +12,12 @@ TEST(line, breaks_71)
     // × [0.3] HIRAGANA LETTER SMALL A (CJ_NS) × [21.02] HYPHEN-MINUS (HY) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x3041, 0x2d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -25,12 +25,12 @@ TEST(line, breaks_71)
     // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [22.01] ONE DOT LEADER (IN) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0xe01, 0x2024 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -38,12 +38,12 @@ TEST(line, breaks_71)
     // × [0.3] EXCLAMATION MARK (EX) × [22.02] ONE DOT LEADER (IN) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x21, 0x2024 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -51,12 +51,12 @@ TEST(line, breaks_71)
     // × [0.3] ONE DOT LEADER (IN) × [22.04] ONE DOT LEADER (IN) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x2024, 0x2024 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -64,12 +64,12 @@ TEST(line, breaks_71)
     // × [0.3] DIGIT ZERO (NU) × [22.05] ONE DOT LEADER (IN) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x30, 0x2024 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -77,12 +77,12 @@ TEST(line, breaks_71)
     // × [0.3] WHITE UP POINTING INDEX (EB) × [23.13] PERCENT SIGN (PO) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x261d, 0x25 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -90,12 +90,12 @@ TEST(line, breaks_71)
     // × [0.3] THAI CHARACTER KO KAI (SA_AL) × [23.02] DIGIT ZERO (NU) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0xe01, 0x30 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -103,12 +103,12 @@ TEST(line, breaks_71)
     // × [0.3] DOLLAR SIGN (PR) × [23.12] WHITE UP POINTING INDEX (EB) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x261d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -116,12 +116,12 @@ TEST(line, breaks_71)
     // × [0.3] DOLLAR SIGN (PR) × [24.02] THAI CHARACTER KO KAI (SA_AL) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0xe01 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -129,12 +129,12 @@ TEST(line, breaks_71)
     // × [0.3] PERCENT SIGN (PO) × [24.02] THAI CHARACTER KO KAI (SA_AL) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x25, 0xe01 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -142,12 +142,12 @@ TEST(line, breaks_71)
     // × [0.3] HANGUL CHOSEONG KIYEOK (JL) × [26.01] HANGUL JUNGSEONG FILLER (JV) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x1100, 0x1160 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -155,12 +155,12 @@ TEST(line, breaks_71)
     // × [0.3] HANGUL JUNGSEONG FILLER (JV) × [26.02] HANGUL JUNGSEONG FILLER (JV) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x1160, 0x1160 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -168,12 +168,12 @@ TEST(line, breaks_71)
     // × [0.3] HANGUL JONGSEONG KIYEOK (JT) × [26.03] HANGUL JONGSEONG KIYEOK (JT) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x11a8, 0x11a8 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -181,12 +181,12 @@ TEST(line, breaks_71)
     // × [0.3] HANGUL JUNGSEONG FILLER (JV) × [27.01] ONE DOT LEADER (IN) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x1160, 0x2024 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -194,12 +194,12 @@ TEST(line, breaks_71)
     // × [0.3] HANGUL JUNGSEONG FILLER (JV) × [27.02] PERCENT SIGN (PO) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x1160, 0x25 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -207,12 +207,12 @@ TEST(line, breaks_71)
     // × [0.3] DOLLAR SIGN (PR) × [27.03] HANGUL JUNGSEONG FILLER (JV) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x24, 0x1160 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -220,12 +220,12 @@ TEST(line, breaks_71)
     // × [0.3] WHITE UP POINTING INDEX (EB) × [30.2] EMOJI MODIFIER FITZPATRICK TYPE-1-2 (EM) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x261d, 0x1f3fb }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -233,18 +233,18 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER F (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER L (AL) ÷ [0.3]
     {
         std::array<uint32_t, 5> cps = {{ 0x66, 0x69, 0x6e, 0x61, 0x6c }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
     }
 
 
@@ -252,18 +252,18 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [19.01] APOSTROPHE (QU) × [19.02] LATIN SMALL LETTER T (AL) ÷ [0.3]
     {
         std::array<uint32_t, 5> cps = {{ 0x63, 0x61, 0x6e, 0x27, 0x74 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
     }
 
 
@@ -271,18 +271,18 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [19.01] RIGHT SINGLE QUOTATION MARK (QU) × [19.02] LATIN SMALL LETTER T (AL) ÷ [0.3]
     {
         std::array<uint32_t, 5> cps = {{ 0x63, 0x61, 0x6e, 0x2019, 0x74 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
     }
 
 
@@ -290,26 +290,26 @@ TEST(line, breaks_71)
     // × [0.3] APOSTROPHE (QU) × [19.02] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [19.01] APOSTROPHE (QU) × [7.01] SPACE (SP) ÷ [18.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER T (AL) ÷ [0.3]
     {
         std::array<uint32_t, 9> cps = {{ 0x27, 0x63, 0x61, 0x6e, 0x27, 0x20, 0x6e, 0x6f, 0x74 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 9);
     }
 
 
@@ -317,26 +317,26 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [7.01] SPACE (SP) ÷ [18.0] APOSTROPHE (QU) × [19.02] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER T (AL) × [19.01] APOSTROPHE (QU) ÷ [0.3]
     {
         std::array<uint32_t, 9> cps = {{ 0x63, 0x61, 0x6e, 0x20, 0x27, 0x6e, 0x6f, 0x74, 0x27 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 9);
     }
 
 
@@ -344,30 +344,30 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER U (AL) × [28.0] LATIN SMALL LETTER G (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [7.01] SPACE (SP) × [7.01] SPACE (SP) × [7.01] SPACE (SP) × [7.01] SPACE (SP) × [7.01] SPACE (SP) ÷ [0.3]
     {
         std::array<uint32_t, 11> cps = {{ 0x62, 0x75, 0x67, 0x28, 0x73, 0x29, 0x20, 0x20, 0x20, 0x20, 0x20 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
     }
 
 
@@ -375,32 +375,32 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER U (AL) × [28.0] LATIN SMALL LETTER G (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [12.1] NO-BREAK SPACE (GL) × [7.01] SPACE (SP) × [7.01] SPACE (SP) × [7.01] SPACE (SP) × [7.01] SPACE (SP) × [7.01] SPACE (SP) ÷ [0.3]
     {
         std::array<uint32_t, 12> cps = {{ 0x62, 0x75, 0x67, 0x28, 0x73, 0x29, 0xa0, 0x20, 0x20, 0x20, 0x20, 0x20 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 12);
     }
 
 
@@ -408,30 +408,30 @@ TEST(line, breaks_71)
     // × [0.3] FULL STOP (IS) × [13.02] FULL STOP (IS) ÷ [999.0] HIRAGANA LETTER MA (ID) ÷ [999.0] HIRAGANA LETTER SU (ID) × [13.02] IDEOGRAPHIC FULL STOP (CL) ÷ [999.0] LATIN CAPITAL LETTER X (AL) × [28.0] LATIN CAPITAL LETTER M (AL) × [28.0] LATIN CAPITAL LETTER L (AL) ÷ [999.0] HIRAGANA LETTER NO (ID) × [13.02] FULL STOP (IS) × [13.02] FULL STOP (IS) ÷ [0.3]
     {
         std::array<uint32_t, 11> cps = {{ 0x2e, 0x2e, 0x307e, 0x3059, 0x3002, 0x58, 0x4d, 0x4c, 0x306e, 0x2e, 0x2e }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
     }
 
 
@@ -439,18 +439,18 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER B (AL) × [21.01] SOFT HYPHEN (BA) ÷ [999.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER Y (AL) ÷ [0.3]
     {
         std::array<uint32_t, 5> cps = {{ 0x61, 0x62, 0xad, 0x62, 0x79 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
     }
 
 
@@ -458,12 +458,12 @@ TEST(line, breaks_71)
     // × [0.3] HYPHEN-MINUS (HY) × [25.02] DIGIT THREE (NU) ÷ [0.3]
     {
         std::array<uint32_t, 2> cps = {{ 0x2d, 0x33 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
     }
 
 
@@ -471,16 +471,16 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER E (AL) × [13.02] FULL STOP (IS) × [29.0] LATIN SMALL LETTER G (AL) × [13.02] FULL STOP (IS) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x65, 0x2e, 0x67, 0x2e }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -488,16 +488,16 @@ TEST(line, breaks_71)
     // × [0.3] CJK UNIFIED IDEOGRAPH-4E00 (ID) × [13.02] FULL STOP (IS) ÷ [999.0] CJK UNIFIED IDEOGRAPH-4E00 (ID) × [13.02] FULL STOP (IS) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x4e00, 0x2e, 0x4e00, 0x2e }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -505,16 +505,16 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [7.01] SPACE (SP) × [7.01] SPACE (SP) ÷ [18.0] LATIN SMALL LETTER B (AL) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x61, 0x20, 0x20, 0x62 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -522,18 +522,18 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [7.01] SPACE (SP) × [7.01] SPACE (SP) × [7.02] ZERO WIDTH SPACE (ZW) ÷ [8.0] LATIN SMALL LETTER B (AL) ÷ [0.3]
     {
         std::array<uint32_t, 5> cps = {{ 0x61, 0x20, 0x20, 0x200b, 0x62 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
     }
 
 
@@ -541,16 +541,16 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [7.01] SPACE (SP) ÷ [18.0] COMBINING DIAERESIS (CM1_CM) × [28.0] LATIN SMALL LETTER B (AL) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x61, 0x20, 0x308, 0x62 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 2);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 2, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 2);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 2, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -558,28 +558,28 @@ TEST(line, breaks_71)
     // × [0.3] DIGIT ONE (NU) × [9.0] COMBINING DIAERESIS (CM1_CM) × [23.03] LATIN SMALL LETTER B (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER A (AL) × [13.02] RIGHT PARENTHESIS (CP) × [21.02] HYPHEN-MINUS (HY) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER B (AL) × [13.02] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x31, 0x308, 0x62, 0x28, 0x61, 0x29, 0x2d, 0x28, 0x62, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -587,34 +587,34 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER V (AL) × [28.0] LATIN SMALL LETTER E (AL) × [7.01] SPACE (SP) ÷ [18.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER K (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] FULL STOP (IS) ÷ [0.3]
     {
         std::array<uint32_t, 13> cps = {{ 0x67, 0x69, 0x76, 0x65, 0x20, 0x62, 0x6f, 0x6f, 0x6b, 0x28, 0x73, 0x29, 0x2e }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
     }
 
 
@@ -622,16 +622,16 @@ TEST(line, breaks_71)
     // × [0.3] HIRAGANA LETTER MA (ID) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] HIRAGANA LETTER SU (ID) × [13.02] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 4> cps = {{ 0x307e, 0x28, 0x3059, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
     }
 
 
@@ -639,26 +639,26 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER F (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER D (AL) × [7.01] SPACE (SP) × [13.02] FULL STOP (IS) × [29.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER M (AL) ÷ [0.3]
     {
         std::array<uint32_t, 9> cps = {{ 0x66, 0x69, 0x6e, 0x64, 0x20, 0x2e, 0x63, 0x6f, 0x6d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
     }
 
 
@@ -666,40 +666,40 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER Q (AL) × [28.0] LATIN SMALL LETTER U (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER S (AL) × [7.01] SPACE (SP) × [13.02] FULL STOP (IS) ÷ [999.0] DIGIT THREE (NU) × [25.03] DIGIT FIVE (NU) × [7.01] SPACE (SP) ÷ [18.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER T (AL) × [28.0] LATIN SMALL LETTER S (AL) ÷ [0.3]
     {
         std::array<uint32_t, 16> cps = {{ 0x65, 0x71, 0x75, 0x61, 0x6c, 0x73, 0x20, 0x2e, 0x33, 0x35, 0x20, 0x63, 0x65, 0x6e, 0x74, 0x73 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 16);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 16);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 16);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 16);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 16);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 16);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 16);
     }
 
 
@@ -707,18 +707,18 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [30.02] LATIN SMALL LETTER H (AL) × [28.0] LATIN SMALL LETTER E (AL) ÷ [0.3]
     {
         std::array<uint32_t, 5> cps = {{ 0x28, 0x73, 0x29, 0x68, 0x65 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
     }
 
 
@@ -726,18 +726,18 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] LATIN SMALL LETTER H (AL) × [28.0] LATIN SMALL LETTER E (AL) ÷ [0.3]
     {
         std::array<uint32_t, 5> cps = {{ 0x7b, 0x73, 0x7d, 0x68, 0x65 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 3);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 3, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 3);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 3, cps.end()).iter - cps.begin(), 5);
     }
 
 
@@ -745,28 +745,28 @@ TEST(line, breaks_71)
     // × [0.3] MODIFIER LETTER VERTICAL LINE (BB) × [21.04] LATIN SMALL LETTER S (AL) × [28.0] LATIN CAPITAL LETTER I (AL) × [28.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER SCHWA (AL) × [28.0] LATIN SMALL LETTER B (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER SCHWA (AL) × [13.02] RIGHT PARENTHESIS (CP) × [30.02] LATIN SMALL LETTER L (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x2c8, 0x73, 0x49, 0x6c, 0x259, 0x62, 0x28, 0x259, 0x29, 0x6c }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -774,28 +774,28 @@ TEST(line, breaks_71)
     // × [0.3] MODIFIER LETTER VERTICAL LINE (BB) × [21.04] LATIN SMALL LETTER S (AL) × [28.0] LATIN CAPITAL LETTER I (AL) × [28.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER SCHWA (AL) × [28.0] LATIN SMALL LETTER B (AL) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER SCHWA (AL) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] LATIN SMALL LETTER L (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x2c8, 0x73, 0x49, 0x6c, 0x259, 0x62, 0x7b, 0x259, 0x7d, 0x6c }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -803,24 +803,24 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] FULL STOP (IS) ÷ [0.3]
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x28, 0x73, 0x29, 0x2e }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
     }
 
 
@@ -828,24 +828,24 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] FULL STOP (IS) × [13.02] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x28, 0x73, 0x2e, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
     }
 
 
@@ -853,24 +853,24 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [13.01] EXCLAMATION MARK (EX) ÷ [0.3]
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x28, 0x73, 0x29, 0x21 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
     }
 
 
@@ -878,69 +878,53 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.01] EXCLAMATION MARK (EX) × [13.02] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x28, 0x73, 0x21, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
     }
 
 
     // × 0063 × 006F × 0064 × 0065 × 005C ÷ 0028 × 0073 × 005C × 0029 ÷	
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [24.03] REVERSE SOLIDUS (PR) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [24.03] REVERSE SOLIDUS (PR) × [13.02] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
+#if 0 // LB25 has explicit rule "CP x PR"
         std::array<uint32_t, 9> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x5c, 0x28, 0x73, 0x5c, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
 #endif
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -948,26 +932,26 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [30.01] LEFT PARENTHESIS (OP) × [7.01] SPACE (SP) × [14.0] LATIN SMALL LETTER S (AL) × [7.01] SPACE (SP) × [13.02] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 9> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x28, 0x20, 0x73, 0x20, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
     }
 
 
@@ -975,22 +959,22 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [0.3]
     {
         std::array<uint32_t, 7> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x7b, 0x73, 0x7d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
     }
 
 
@@ -998,24 +982,24 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT CURLY BRACKET (CL) × [13.02] FULL STOP (IS) ÷ [0.3]
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x7b, 0x73, 0x7d, 0x2e }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
     }
 
 
@@ -1023,69 +1007,53 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT CURLY BRACKET (CL) × [13.01] EXCLAMATION MARK (EX) ÷ [0.3]
     {
         std::array<uint32_t, 8> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x7b, 0x73, 0x7d, 0x21 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
     }
 
 
     // × 0063 × 006F × 0064 × 0065 × 005C ÷ 007B × 0073 × 005C × 007D ÷	
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [24.03] REVERSE SOLIDUS (PR) ÷ [999.0] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER S (AL) × [24.03] REVERSE SOLIDUS (PR) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [0.3]
     {
+#if 0 // LB25 has explicit rule "CP x PR"
         std::array<uint32_t, 9> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x5c, 0x7b, 0x73, 0x5c, 0x7d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 9);
 #endif
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
-#if 0 // This does not fit LB25 rule "PR x OP"
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 5);
-#endif
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 9);
     }
 
 
@@ -1093,26 +1061,26 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [28.0] LATIN SMALL LETTER E (AL) × [30.01] LEFT CURLY BRACKET (OP) × [7.01] SPACE (SP) × [14.0] LATIN SMALL LETTER S (AL) × [7.01] SPACE (SP) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [0.3]
     {
         std::array<uint32_t, 9> cps = {{ 0x63, 0x6f, 0x64, 0x65, 0x7b, 0x20, 0x73, 0x20, 0x7d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
     }
 
 
@@ -1120,28 +1088,28 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] HORIZONTAL ELLIPSIS (IN) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x63, 0x6f, 0x64, 0x28, 0x65, 0x29, 0x2026, 0x28, 0x73, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1149,28 +1117,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] HORIZONTAL ELLIPSIS (IN) × [13.02] RIGHT PARENTHESIS (CP) × [30.02] LATIN SMALL LETTER S (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x64, 0x28, 0x65, 0x29, 0x2026, 0x29, 0x73 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1178,28 +1146,28 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER E (AL) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] HORIZONTAL ELLIPSIS (IN) ÷ [999.0] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x63, 0x6f, 0x64, 0x7b, 0x65, 0x7d, 0x2026, 0x7b, 0x73, 0x7d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1207,28 +1175,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER D (AL) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER E (AL) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] HORIZONTAL ELLIPSIS (IN) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] LATIN SMALL LETTER S (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x64, 0x7b, 0x65, 0x7d, 0x2026, 0x7d, 0x73 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1236,28 +1204,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [21.02] HYPHEN-MINUS (HY) × [13.02] RIGHT PARENTHESIS (CP) × [30.02] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0x2d, 0x29, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1265,28 +1233,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [21.01] SOFT HYPHEN (BA) × [13.02] RIGHT PARENTHESIS (CP) × [30.02] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0xad, 0x29, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1294,28 +1262,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [12.1] NON-BREAKING HYPHEN (GL) × [12.0] RIGHT PARENTHESIS (CP) × [30.02] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0x2011, 0x29, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1323,28 +1291,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [13.02] RIGHT PARENTHESIS (CP) × [21.02] HYPHEN-MINUS (HY) ÷ [999.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0x29, 0x2d, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1352,28 +1320,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [13.02] RIGHT PARENTHESIS (CP) × [21.01] SOFT HYPHEN (BA) ÷ [999.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0x29, 0xad, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1381,28 +1349,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [13.02] RIGHT PARENTHESIS (CP) × [12.1] NON-BREAKING HYPHEN (GL) × [12.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x28, 0x63, 0x6f, 0x6e, 0x29, 0x2011, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1410,28 +1378,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [21.02] HYPHEN-MINUS (HY) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0x2d, 0x7d, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1439,28 +1407,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [21.01] SOFT HYPHEN (BA) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0xad, 0x7d, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1468,28 +1436,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [12.1] NON-BREAKING HYPHEN (GL) × [12.0] RIGHT CURLY BRACKET (CL) ÷ [999.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0x2011, 0x7d, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1497,28 +1465,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [13.02] RIGHT CURLY BRACKET (CL) × [21.02] HYPHEN-MINUS (HY) ÷ [999.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0x7d, 0x2d, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1526,28 +1494,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [13.02] RIGHT CURLY BRACKET (CL) × [21.01] SOFT HYPHEN (BA) ÷ [999.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0x7d, 0xad, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1555,28 +1523,28 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [13.02] RIGHT CURLY BRACKET (CL) × [12.1] NON-BREAKING HYPHEN (GL) × [12.0] LATIN SMALL LETTER L (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER G (AL) ÷ [0.3]
     {
         std::array<uint32_t, 10> cps = {{ 0x7b, 0x63, 0x6f, 0x6e, 0x7d, 0x2011, 0x6c, 0x61, 0x6e, 0x67 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
     }
 
 
@@ -1584,30 +1552,30 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING ACUTE ACCENT (CM1_CM) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING ACUTE ACCENT (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [13.02] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 11> cps = {{ 0x63, 0x72, 0x65, 0x301, 0x28, 0x65, 0x301, 0x29, 0x28, 0x65, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 11);
     }
 
 
@@ -1615,42 +1583,42 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING ACUTE ACCENT (CM1_CM) × [30.01] LEFT SQUARE BRACKET (OP) × [14.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER R (AL) × [21.01] VERTICAL LINE (BA) ÷ [999.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING ACUTE ACCENT (CM1_CM) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] RIGHT SQUARE BRACKET (CP) ÷ [0.3]
     {
         std::array<uint32_t, 17> cps = {{ 0x63, 0x72, 0x65, 0x301, 0x5b, 0x65, 0x72, 0x7c, 0x65, 0x301, 0x28, 0x65, 0x29, 0x28, 0x73, 0x29, 0x5d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
     }
 
 
@@ -1658,42 +1626,42 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING ACUTE ACCENT (CM1_CM) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER R (AL) × [21.01] VERTICAL LINE (BA) ÷ [999.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING ACUTE ACCENT (CM1_CM) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER S (AL) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [0.3]
     {
         std::array<uint32_t, 17> cps = {{ 0x63, 0x72, 0x65, 0x301, 0x7b, 0x65, 0x72, 0x7c, 0x65, 0x301, 0x28, 0x65, 0x29, 0x28, 0x73, 0x29, 0x7d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
     }
 
 
@@ -1701,34 +1669,34 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [30.01] LEFT PARENTHESIS (OP) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 13> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x28, 0x308, 0x29, 0x28, 0x65, 0x308, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
     }
 
 
@@ -1736,38 +1704,38 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [9.0] COMBINING DIAERESIS (CM1_CM) × [19.01] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 15> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x28, 0xab, 0x308, 0xbb, 0x29, 0x28, 0x65, 0x308, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 15);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 15);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 15);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 15);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 15);
     }
 
 
@@ -1775,42 +1743,42 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [30.01] LEFT PARENTHESIS (OP) × [14.0] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [7.01] SPACE (SP) ÷ [18.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 17> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x28, 0xab, 0x20, 0x308, 0x20, 0xbb, 0x29, 0x28, 0x65, 0x308, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
     }
 
 
@@ -1818,46 +1786,46 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [19.01] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [7.01] SPACE (SP) × [15.0] LEFT PARENTHESIS (OP) × [7.01] SPACE (SP) × [14.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [13.02] RIGHT PARENTHESIS (CP) × [7.01] SPACE (SP) ÷ [18.0] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [15.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 19> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0xab, 0x20, 0x28, 0x20, 0x308, 0x20, 0x29, 0x20, 0xbb, 0x28, 0x65, 0x308, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
     }
 
 
@@ -1865,46 +1833,46 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [19.01] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [12.1] NARROW NO-BREAK SPACE (GL) × [12.0] LEFT PARENTHESIS (OP) × [7.01] SPACE (SP) × [14.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [13.02] RIGHT PARENTHESIS (CP) × [12.1] NARROW NO-BREAK SPACE (GL) × [12.0] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [15.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 19> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0xab, 0x202f, 0x28, 0x20, 0x308, 0x20, 0x29, 0x202f, 0xbb, 0x28, 0x65, 0x308, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
     }
 
 
@@ -1912,34 +1880,34 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [30.01] LEFT CURLY BRACKET (OP) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT CURLY BRACKET (CL) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 13> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x7b, 0x308, 0x7d, 0x28, 0x65, 0x308, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 13);
     }
 
 
@@ -1947,38 +1915,38 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [9.0] COMBINING DIAERESIS (CM1_CM) × [19.01] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 15> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x7b, 0xab, 0x308, 0xbb, 0x7d, 0x28, 0x65, 0x308, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 15);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 15);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 15);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 15);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 15);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 15);
     }
 
 
@@ -1986,42 +1954,42 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [30.01] LEFT CURLY BRACKET (OP) × [14.0] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [7.01] SPACE (SP) ÷ [18.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) ÷ [18.0] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 17> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0x7b, 0xab, 0x20, 0x308, 0x20, 0xbb, 0x7d, 0x28, 0x65, 0x308, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 9, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 13, cps.end()) - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 9, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 13, cps.end()).iter - cps.begin(), 17);
     }
 
 
@@ -2029,46 +1997,46 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [19.01] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [7.01] SPACE (SP) × [15.0] LEFT CURLY BRACKET (OP) × [7.01] SPACE (SP) × [14.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [13.02] RIGHT CURLY BRACKET (CL) × [7.01] SPACE (SP) ÷ [18.0] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [15.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 19> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0xab, 0x20, 0x7b, 0x20, 0x308, 0x20, 0x7d, 0x20, 0xbb, 0x28, 0x65, 0x308, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 14, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 14, cps.end()).iter - cps.begin(), 19);
     }
 
 
@@ -2076,46 +2044,46 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER M (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER G (AL) × [28.0] LATIN SMALL LETTER U (AL) × [19.01] LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [12.1] NARROW NO-BREAK SPACE (GL) × [12.0] LEFT CURLY BRACKET (OP) × [7.01] SPACE (SP) × [14.0] COMBINING DIAERESIS (CM1_CM) × [7.01] SPACE (SP) × [13.02] RIGHT CURLY BRACKET (CL) × [12.1] NARROW NO-BREAK SPACE (GL) × [12.0] RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (QU) × [15.0] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER E (AL) × [9.0] COMBINING DIAERESIS (CM1_CM) × [13.03] RIGHT PARENTHESIS (CP) ÷ [0.3]
     {
         std::array<uint32_t, 19> cps = {{ 0x61, 0x6d, 0x62, 0x69, 0x67, 0x75, 0xab, 0x202f, 0x7b, 0x20, 0x308, 0x20, 0x7d, 0x202f, 0xbb, 0x28, 0x65, 0x308, 0x29 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 19);
     }
 
 
@@ -2123,50 +2091,50 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER Z (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER W (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER O (AL) × [21.01] SOFT HYPHEN (BA) ÷ [999.0] NON-BREAKING HYPHEN (GL) × [12.0] RIGHT PARENTHESIS (CP) × [30.02] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER S (AL) × [28.0] LATIN SMALL LETTER K (AL) × [28.0] LATIN SMALL LETTER A (AL) ÷ [0.3]
     {
         std::array<uint32_t, 21> cps = {{ 0x28, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0xad, 0x2011, 0x29, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 20, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 21, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 21);
     }
 
 
@@ -2174,50 +2142,50 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER Z (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER W (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER O (AL) × [21.01] SOFT HYPHEN (BA) × [13.02] RIGHT PARENTHESIS (CP) × [12.1] NON-BREAKING HYPHEN (GL) × [12.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER S (AL) × [28.0] LATIN SMALL LETTER K (AL) × [28.0] LATIN SMALL LETTER A (AL) ÷ [0.3]
     {
         std::array<uint32_t, 21> cps = {{ 0x28, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0xad, 0x29, 0x2011, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 20, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 21, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
     }
 
 
@@ -2225,50 +2193,50 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER Z (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER W (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER O (AL) × [13.02] RIGHT PARENTHESIS (CP) × [21.01] SOFT HYPHEN (BA) ÷ [999.0] NON-BREAKING HYPHEN (GL) × [12.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER S (AL) × [28.0] LATIN SMALL LETTER K (AL) × [28.0] LATIN SMALL LETTER A (AL) ÷ [0.3]
     {
         std::array<uint32_t, 21> cps = {{ 0x28, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0x29, 0xad, 0x2011, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 20, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 21, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
     }
 
 
@@ -2276,50 +2244,50 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER Z (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER W (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER O (AL) × [21.01] SOFT HYPHEN (BA) ÷ [999.0] NON-BREAKING HYPHEN (GL) × [12.0] RIGHT CURLY BRACKET (CL) ÷ [999.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER S (AL) × [28.0] LATIN SMALL LETTER K (AL) × [28.0] LATIN SMALL LETTER A (AL) ÷ [0.3]
     {
         std::array<uint32_t, 21> cps = {{ 0x7b, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0xad, 0x2011, 0x7d, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 20, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 21, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 21);
     }
 
 
@@ -2327,50 +2295,50 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER Z (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER W (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER O (AL) × [21.01] SOFT HYPHEN (BA) × [13.02] RIGHT CURLY BRACKET (CL) × [12.1] NON-BREAKING HYPHEN (GL) × [12.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER S (AL) × [28.0] LATIN SMALL LETTER K (AL) × [28.0] LATIN SMALL LETTER A (AL) ÷ [0.3]
     {
         std::array<uint32_t, 21> cps = {{ 0x7b, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0xad, 0x7d, 0x2011, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 20, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 21, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 21);
     }
 
 
@@ -2378,50 +2346,50 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] LATIN SMALL LETTER C (AL) × [28.0] LATIN SMALL LETTER Z (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER W (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER O (AL) × [13.02] RIGHT CURLY BRACKET (CL) × [21.01] SOFT HYPHEN (BA) ÷ [999.0] NON-BREAKING HYPHEN (GL) × [12.0] LATIN SMALL LETTER N (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER B (AL) × [28.0] LATIN SMALL LETTER I (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER S (AL) × [28.0] LATIN SMALL LETTER K (AL) × [28.0] LATIN SMALL LETTER A (AL) ÷ [0.3]
     {
         std::array<uint32_t, 21> cps = {{ 0x7b, 0x63, 0x7a, 0x65, 0x72, 0x77, 0x6f, 0x6e, 0x6f, 0x7d, 0xad, 0x2011, 0x6e, 0x69, 0x65, 0x62, 0x69, 0x65, 0x73, 0x6b, 0x61 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 15, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 16, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 17, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 18, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 19, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 20, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 21, cps.end()) - cps.begin(), 11);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 11, cps.end()) - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 15, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 16, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 17, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 18, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 19, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 20, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 21, cps.end()).iter - cps.begin(), 11);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 11, cps.end()).iter - cps.begin(), 21);
     }
 
 
@@ -2429,36 +2397,36 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER P (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER T (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER R (AL) × [30.01] LEFT SQUARE BRACKET (OP) × [13.02] RIGHT SQUARE BRACKET (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] DIGIT ZERO (NU) × [25.04] RIGHT PARENTHESIS (CP) × [13.02] SEMICOLON (IS) ÷ [0.3]
     {
         std::array<uint32_t, 14> cps = {{ 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x5b, 0x5d, 0x28, 0x30, 0x29, 0x3b }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 14);
     }
 
 
@@ -2466,36 +2434,36 @@ TEST(line, breaks_71)
     // × [0.3] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER P (AL) × [28.0] LATIN SMALL LETTER E (AL) × [28.0] LATIN SMALL LETTER R (AL) × [28.0] LATIN SMALL LETTER A (AL) × [28.0] LATIN SMALL LETTER T (AL) × [28.0] LATIN SMALL LETTER O (AL) × [28.0] LATIN SMALL LETTER R (AL) × [30.01] LEFT SQUARE BRACKET (OP) × [13.02] RIGHT SQUARE BRACKET (CP) ÷ [999.0] LEFT PARENTHESIS (OP) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] LEFT CURLY BRACKET (OP) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [0.3]
     {
         std::array<uint32_t, 14> cps = {{ 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x6f, 0x72, 0x5b, 0x5d, 0x28, 0x29, 0x7b, 0x7d }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 10);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 10, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 14);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 14, cps.end()) - cps.begin(), 12);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 12, cps.end()) - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 10);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 10, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 14);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 14, cps.end()).iter - cps.begin(), 12);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 12, cps.end()).iter - cps.begin(), 14);
     }
 
 
@@ -2503,20 +2471,20 @@ TEST(line, breaks_71)
     // × [0.3] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] HIRAGANA LETTER WO (ID) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] CJK UNIFIED IDEOGRAPH-8AAD (ID) ÷ [999.0] HIRAGANA LETTER MU (ID) ÷ [0.3]
     {
         std::array<uint32_t, 6> cps = {{ 0x672c, 0x28, 0x3092, 0x29, 0x8aad, 0x3080 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
     }
 
 
@@ -2524,24 +2492,24 @@ TEST(line, breaks_71)
     // × [0.3] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [999.0] LEFT PARENTHESIS (OP) × [14.0] LEFT CORNER BRACKET (OP) × [14.0] HIRAGANA LETTER WO (ID) × [13.02] RIGHT CORNER BRACKET (CL) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] CJK UNIFIED IDEOGRAPH-8AAD (ID) ÷ [999.0] HIRAGANA LETTER MU (ID) ÷ [0.3]
     {
         std::array<uint32_t, 8> cps = {{ 0x672c, 0x28, 0x300c, 0x3092, 0x300d, 0x29, 0x8aad, 0x3080 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
     }
 
 
@@ -2549,24 +2517,24 @@ TEST(line, breaks_71)
     // × [0.3] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [999.0] LEFT CORNER BRACKET (OP) × [14.0] LEFT PARENTHESIS (OP) × [14.0] HIRAGANA LETTER WO (ID) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] RIGHT CORNER BRACKET (CL) ÷ [999.0] CJK UNIFIED IDEOGRAPH-8AAD (ID) ÷ [999.0] HIRAGANA LETTER MU (ID) ÷ [0.3]
     {
         std::array<uint32_t, 8> cps = {{ 0x672c, 0x300c, 0x28, 0x3092, 0x29, 0x300d, 0x8aad, 0x3080 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
     }
 
 
@@ -2574,20 +2542,20 @@ TEST(line, breaks_71)
     // × [0.3] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [999.0] LEFT CURLY BRACKET (OP) × [14.0] HIRAGANA LETTER WO (ID) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] CJK UNIFIED IDEOGRAPH-8AAD (ID) ÷ [999.0] HIRAGANA LETTER MU (ID) ÷ [0.3]
     {
         std::array<uint32_t, 6> cps = {{ 0x672c, 0x7b, 0x3092, 0x7d, 0x8aad, 0x3080 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 4);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 4, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 4);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 4, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 6);
     }
 
 
@@ -2595,24 +2563,24 @@ TEST(line, breaks_71)
     // × [0.3] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [999.0] LEFT CURLY BRACKET (OP) × [14.0] LEFT CORNER BRACKET (OP) × [14.0] HIRAGANA LETTER WO (ID) × [13.02] RIGHT CORNER BRACKET (CL) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] CJK UNIFIED IDEOGRAPH-8AAD (ID) ÷ [999.0] HIRAGANA LETTER MU (ID) ÷ [0.3]
     {
         std::array<uint32_t, 8> cps = {{ 0x672c, 0x7b, 0x300c, 0x3092, 0x300d, 0x7d, 0x8aad, 0x3080 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
     }
 
 
@@ -2620,24 +2588,24 @@ TEST(line, breaks_71)
     // × [0.3] CJK UNIFIED IDEOGRAPH-672C (ID) ÷ [999.0] LEFT SQUARE BRACKET (OP) × [14.0] LEFT PARENTHESIS (OP) × [14.0] HIRAGANA LETTER WO (ID) × [13.02] RIGHT PARENTHESIS (CP) × [13.02] RIGHT SQUARE BRACKET (CP) ÷ [999.0] CJK UNIFIED IDEOGRAPH-8AAD (ID) ÷ [999.0] HIRAGANA LETTER MU (ID) ÷ [0.3]
     {
         std::array<uint32_t, 8> cps = {{ 0x672c, 0x5b, 0x28, 0x3092, 0x29, 0x5d, 0x8aad, 0x3080 }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 1);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 1, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 7);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 7, cps.end()) - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 1);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 1, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 7);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 7, cps.end()).iter - cps.begin(), 8);
     }
 
 
@@ -2645,26 +2613,26 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] KATAKANA LETTER NI (ID) × [21.03] KATAKANA LETTER SMALL YU (CJ_NS) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) × [21.03] KATAKANA MIDDLE DOT (NS) × [13.02] RIGHT PARENTHESIS (CP) ÷ [999.0] KATAKANA LETTER YO (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] KATAKANA LETTER KU (ID) ÷ [0.3]
     {
         std::array<uint32_t, 9> cps = {{ 0x28, 0x30cb, 0x30e5, 0x30fc, 0x30fb, 0x29, 0x30e8, 0x30fc, 0x30af }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
     }
 
 
@@ -2672,26 +2640,26 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] KATAKANA LETTER NI (ID) × [21.03] KATAKANA LETTER SMALL YU (CJ_NS) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) × [13.02] RIGHT PARENTHESIS (CP) × [16.0] KATAKANA MIDDLE DOT (NS) ÷ [999.0] KATAKANA LETTER YO (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] KATAKANA LETTER KU (ID) ÷ [0.3]
     {
         std::array<uint32_t, 9> cps = {{ 0x28, 0x30cb, 0x30e5, 0x30fc, 0x29, 0x30fb, 0x30e8, 0x30fc, 0x30af }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
     }
 
 
@@ -2699,26 +2667,26 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] KATAKANA LETTER NI (ID) × [21.03] KATAKANA LETTER SMALL YU (CJ_NS) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) × [21.03] KATAKANA MIDDLE DOT (NS) × [13.02] RIGHT CURLY BRACKET (CL) ÷ [999.0] KATAKANA LETTER YO (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] KATAKANA LETTER KU (ID) ÷ [0.3]
     {
         std::array<uint32_t, 9> cps = {{ 0x7b, 0x30cb, 0x30e5, 0x30fc, 0x30fb, 0x7d, 0x30e8, 0x30fc, 0x30af }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
     }
 
 
@@ -2726,26 +2694,26 @@ TEST(line, breaks_71)
     // × [0.3] LEFT CURLY BRACKET (OP) × [14.0] KATAKANA LETTER NI (ID) × [21.03] KATAKANA LETTER SMALL YU (CJ_NS) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) × [13.02] RIGHT CURLY BRACKET (CL) × [16.0] KATAKANA MIDDLE DOT (NS) ÷ [999.0] KATAKANA LETTER YO (ID) × [21.03] KATAKANA-HIRAGANA PROLONGED SOUND MARK (CJ_NS) ÷ [999.0] KATAKANA LETTER KU (ID) ÷ [0.3]
     {
         std::array<uint32_t, 9> cps = {{ 0x7b, 0x30cb, 0x30e5, 0x30fc, 0x7d, 0x30fb, 0x30e8, 0x30fc, 0x30af }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 6);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 6, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 8);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 8, cps.end()) - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 6);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 6, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 8);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 8, cps.end()).iter - cps.begin(), 9);
     }
 
 
@@ -2753,34 +2721,34 @@ TEST(line, breaks_71)
     // × [0.3] LEFT PARENTHESIS (OP) × [14.0] MONGOLIAN LETTER TODO TA (AL) × [28.0] MONGOLIAN LETTER TODO O (AL) × [28.0] MONGOLIAN LETTER TODO DA (AL) × [28.0] MONGOLIAN LETTER TODO O (AL) ÷ [999.0] MONGOLIAN TODO SOFT HYPHEN (BB) × [13.02] RIGHT PARENTHESIS (CP) × [30.02] MONGOLIAN LETTER BA (AL) × [28.0] MONGOLIAN LETTER I (AL) × [28.0] MONGOLIAN LETTER CHA (AL) × [28.0] MONGOLIAN LETTER I (AL) × [28.0] MONGOLIAN LETTER GA (AL) × [9.0] MONGOLIAN FREE VARIATION SELECTOR TWO (CM1_CM) ÷ [0.3]
     {
         std::array<uint32_t, 13> cps = {{ 0x28, 0x1850, 0x1846, 0x1851, 0x1846, 0x1806, 0x29, 0x182a, 0x1822, 0x1834, 0x1822, 0x182d, 0x180c }};
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 0, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 1, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 2, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 3, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 4, cps.end()) - cps.begin(), 0);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 0, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 5, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 6, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 7, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 8, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 9, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 10, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 11, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 12, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
-        EXPECT_EQ(boost::text::prev_possible_line_break(cps.begin(), cps.begin() + 13, cps.end()) - cps.begin(), 5);
-        EXPECT_EQ(boost::text::next_possible_line_break(cps.begin() + 5, cps.end()) - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 0, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 1, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 2, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 3, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 4, cps.end()).iter - cps.begin(), 0);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 0, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 5, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 6, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 7, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 8, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 9, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 10, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 11, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 12, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
+        EXPECT_EQ(boost::text::prev_allowed_line_break(cps.begin(), cps.begin() + 13, cps.end()).iter - cps.begin(), 5);
+        EXPECT_EQ(boost::text::next_allowed_line_break(cps.begin() + 5, cps.end()).iter - cps.begin(), 13);
     }
 
 

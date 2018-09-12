@@ -39,7 +39,7 @@ namespace boost { namespace trie {
         auto operator=(U && u)
             -> decltype(*this->t_ = static_cast<U &&>(u), *this)
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             *t_ = static_cast<U &&>(u);
             return *this;
         }
@@ -49,37 +49,129 @@ namespace boost { namespace trie {
 
         T const & operator*() const noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return *t_;
         }
         T const * operator->() const noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return t_;
         }
 
-        operator T() const & noexcept
+        operator T const &() const & noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
+            return *t_;
+        }
+
+        operator T const &() const && noexcept
+        {
+            BOOST_ASSERT(t_);
             return *t_;
         }
 
         T & operator*() noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return *t_;
         }
 
         T * operator->() noexcept
         {
-            assert(t_);
+            BOOST_ASSERT(t_);
             return t_;
         }
 
-        operator T() && noexcept
+        operator T &() & noexcept
         {
-            assert(t_);
-            return std::move(*t_);
+            BOOST_ASSERT(t_);
+            return *t_;
+        }
+
+        operator T &() && noexcept
+        {
+            BOOST_ASSERT(t_);
+            return *t_;
+        }
+    };
+
+    template<>
+    struct optional_ref<bool>
+    {
+    private:
+        bool * t_;
+
+    public:
+        optional_ref() : t_(nullptr) {}
+        optional_ref(bool & t) : t_(&t) {}
+
+        template<typename U>
+        auto operator=(U && u)
+            -> decltype(*this->t_ = static_cast<U &&>(u), *this)
+        {
+            BOOST_ASSERT(t_);
+            *t_ = static_cast<U &&>(u);
+            return *this;
+        }
+
+        explicit operator bool() const & noexcept { return t_ != nullptr; }
+        explicit operator bool() && noexcept { return t_ != nullptr; }
+
+        bool const & operator*() const noexcept
+        {
+            BOOST_ASSERT(t_);
+            return *t_;
+        }
+        bool const * operator->() const noexcept
+        {
+            BOOST_ASSERT(t_);
+            return t_;
+        }
+
+        bool & operator*() noexcept
+        {
+            BOOST_ASSERT(t_);
+            return *t_;
+        }
+
+        bool * operator->() noexcept
+        {
+            BOOST_ASSERT(t_);
+            return t_;
+        }
+    };
+
+    template<>
+    struct optional_ref<bool const>
+    {
+    private:
+        bool const * t_;
+
+    public:
+        optional_ref() : t_(nullptr) {}
+        optional_ref(bool const & t) : t_(&t) {}
+
+        template<typename U>
+        auto operator=(U && u)
+            -> decltype(*this->t_ = static_cast<U &&>(u), *this)
+        {
+            BOOST_ASSERT(t_);
+            *t_ = static_cast<U &&>(u);
+            return *this;
+        }
+
+        explicit operator bool() const & noexcept { return t_ != nullptr; }
+        explicit operator bool() && noexcept { return t_ != nullptr; }
+
+        bool const & operator*() const noexcept
+        {
+            BOOST_ASSERT(t_);
+            return *t_;
+        }
+        bool const * operator->() const noexcept
+        {
+            BOOST_ASSERT(t_);
+            return t_;
         }
     };
 
@@ -92,7 +184,7 @@ namespace boost { namespace trie {
         {
             std::size_t value() const noexcept
             {
-                assert(!"This should never be called.");
+                BOOST_ASSERT(!"This should never be called.");
                 return 0;
             }
 
@@ -132,6 +224,56 @@ namespace boost { namespace trie {
         {};
     }
 
+    /** A key/value pair found in a trie or trie_map. */
+    template<typename Key, typename Value>
+    struct trie_element
+    {
+        trie_element() {}
+        trie_element(Key k, Value v) : key(k), value(v) {}
+
+        template<typename KeyT, typename ValueT>
+        trie_element(trie_element<KeyT, ValueT> const & rhs) :
+            key(rhs.key),
+            value(rhs.value)
+        {}
+
+        template<typename KeyT, typename ValueT>
+        trie_element(trie_element<KeyT, ValueT> && rhs) :
+            key(std::move(rhs.key)),
+            value(std::move(rhs.value))
+        {}
+
+        template<typename KeyT, typename ValueT>
+        trie_element & operator=(trie_element<KeyT, ValueT> const & rhs)
+        {
+            key = rhs.key;
+            value = rhs.value;
+            return *this;
+        }
+
+        template<typename KeyT, typename ValueT>
+        trie_element & operator=(trie_element<KeyT, ValueT> && rhs)
+        {
+            key = std::move(rhs.key);
+            value = std::move(rhs.value);
+            return *this;
+        }
+
+        Key key;
+        Value value;
+
+        friend bool
+        operator==(trie_element const & lhs, trie_element const & rhs)
+        {
+            return lhs.key == rhs.key && lhs.value == rhs.value;
+        }
+        friend bool
+        operator!=(trie_element const & lhs, trie_element const & rhs)
+        {
+            return !(lhs == rhs);
+        }
+    };
+
     /** The result type for trie operations that produce a matching
         subsequence. */
     struct trie_match_result
@@ -148,17 +290,18 @@ namespace boost { namespace trie {
         /** An opaque pointer to the underlying trie node. */
         void const * node;
 
-        /** The size/length of the match, from the root through \a node,
-            inclusive. */
+        /** The size/length of the match, from the root through
+            <code>node</code>, inclusive. */
         std::ptrdiff_t size;
 
-        /** True iff this result represents a match.  Stated another way, \a
-            match is true iff \a node represents an element in the trie
-            (whether or not \a node has children). */
+        /** True iff this result represents a match.  Stated another way,
+            <code>match</code> is true iff <code>node</code> represents an
+            element in the trie (whether or not <code>node</code> has
+            children). */
         bool match;
 
-        /** True iff \a node is a leaf (that is, that \a node hs no
-            children). */
+        /** True iff <code>node</code> is a leaf (that is, that
+            <code>node</code> hs no children). */
         bool leaf;
 
         friend bool
@@ -208,6 +351,7 @@ namespace boost { namespace trie {
             detail::trie_node_t<detail::no_index_within_parent_t, Key, Value>;
 
     public:
+        using key_type = Key;
         using value_type = Value;
         using key_compare = Compare;
         using key_element_type = typename Key::value_type;
@@ -223,8 +367,8 @@ namespace boost { namespace trie {
 
         trie(Compare const & comp) : size_(0), comp_(comp) {}
 
-        template<typename Iter>
-        trie(Iter first, Iter last, Compare const & comp = Compare()) :
+        template<typename Iter, typename Sentinel>
+        trie(Iter first, Sentinel last, Compare const & comp = Compare()) :
             size_(0),
             comp_(comp)
         {
@@ -235,13 +379,16 @@ namespace boost { namespace trie {
             size_(0),
             comp_(comp)
         {
-            using std::begin;
-            using std::end;
-            insert(begin(r), end(r));
+            insert(std::begin(r), std::end(r));
         }
-        trie(std::initializer_list<value_type> il) : size_(0) { insert(il); }
+        trie(std::initializer_list<trie_element<key_type, value_type>> il) :
+            size_(0)
+        {
+            insert(il);
+        }
 
-        trie & operator=(std::initializer_list<value_type> il)
+        trie &
+        operator=(std::initializer_list<trie_element<key_type, value_type>> il)
         {
             clear();
             for (auto const & x : il) {
@@ -253,6 +400,8 @@ namespace boost { namespace trie {
         bool empty() const noexcept { return size_ == 0; }
         size_type size() const noexcept { return size_; }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
 #define BOOST_TRIE_C_STR_OVERLOAD(rtype, func, quals)                          \
     template<typename Char, std::size_t N>                                     \
     rtype func(Char const(&chars)[N]) quals                                    \
@@ -263,71 +412,67 @@ namespace boost { namespace trie {
         return func(detail::char_range<Char const>{chars, chars + N - 1});     \
     }
 
-        /** Returns true if \a key is found in *this. */
+#endif
+
+        /** Returns true if <code>key</code> is found in *this. */
         template<typename KeyRange>
         bool contains(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
+            auto first = std::begin(key);
+            auto const last = std::end(key);
             auto match = longest_match_impl(first, last);
             return first == last && match.match;
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_C_STR_OVERLOAD(bool, contains, const noexcept)
+#endif
 
-        /** Returns the longeset subsequence of <code>[first, last)</code>
+        /** Returns the longest subsequence of <code>[first, last)</code>
             found in *this, whether or not it is a match. */
-        template<typename KeyIter>
-        match_result longest_subsequence(KeyIter first, KeyIter last) const
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_subsequence(KeyIter first, Sentinel last) const
             noexcept
         {
             return longest_match_impl(first, last);
         }
 
-        /** Returns the longeset subsequence of \a key found in *this, whether
-            or not it is a match. */
+        /** Returns the longest subsequence of <code>key</code> found in *this,
+           whether or not it is a match. */
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            return longest_subsequence(begin(key), end(key));
+            return longest_subsequence(std::begin(key), std::end(key));
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_C_STR_OVERLOAD(
             match_result, longest_subsequence, const noexcept)
+#endif
 
-        /** Returns the longeset matching subsequence of <code>[first,
+        /** Returns the longest matching subsequence of <code>[first,
             last)</code> found in *this. */
-        template<typename KeyIter>
-        match_result longest_match(KeyIter first, KeyIter last) const noexcept
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_match(KeyIter first, Sentinel last) const noexcept
         {
-            auto retval = longest_match_impl(first, last);
-            auto node = to_node_ptr(retval.node);
-            while (node->parent() && !node->value()) {
-                retval.node = node = node->parent();
-                --retval.size;
-            }
-            if (!!node->value())
-                retval.match = true;
-            return retval;
+            auto const retval = longest_match_impl(first, last);
+            return back_up_to_match(retval);
         }
 
-        /** Returns the longeset matching subsequence of \a key found in
-            *this. */
+        /** Returns the longest matching subsequence of <code>key</code> found
+         *in this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
-            using std::begin;
-            using std::end;
-            return longest_match(begin(key), end(key));
+            return longest_match(std::begin(key), std::end(key));
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_C_STR_OVERLOAD(match_result, longest_match, const noexcept)
+#endif
 
-        /** Returns the result of extending \a prev by one element, \a e. */
+        /** Returns the result of extending <code>prev</code> by one element,
+            <code>e</code>. */
         template<typename KeyElementT>
         match_result extend_subsequence(match_result prev, KeyElementT e) const
             noexcept
@@ -337,19 +482,45 @@ namespace boost { namespace trie {
                 match_result{prev}, e_ptr, e_ptr + 1);
         }
 
-        /** Returns the result of extending \a prev by the longeset
+        /** Returns the result of extending <code>prev</code> by the longest
             subsequence of <code>[first, last)</code> found in *this. */
-        template<typename KeyIter>
-        match_result
-        extend_subsequence(match_result prev, KeyIter first, KeyIter last) const
-            noexcept
+        template<typename KeyIter, typename Sentinel>
+        match_result extend_subsequence(
+            match_result prev, KeyIter first, Sentinel last) const noexcept
         {
             return extend_subsequence_impl(match_result{prev}, first, last);
         }
 
-        /** Writes the sequence of elements that would advance \a prev by one
-            element to \a out, and returns the final value of \out after the
-            writes. */
+        /** Returns the result of extending <code>prev</code> by one element,
+            <code>e</code>, if that would form a match, and <code>prev</code>
+            otherwise.  <code>prev</code> must be a match. */
+        template<typename KeyElementT>
+        match_result extend_match(match_result prev, KeyElementT e) const
+            noexcept
+        {
+            BOOST_ASSERT(prev.match);
+            auto e_ptr = &e;
+            auto const retval = extend_subsequence_impl(prev, e_ptr, e_ptr + 1);
+            return back_up_to_match(retval);
+        }
+
+        /** Returns the result of extending <code>prev</code> by the longest
+            subsequence of <code>[first, last)</code> found in *this, if that
+            would form a match, and <code>prev</code> otherwise.
+            <code>prev</code> must be a match. */
+        template<typename KeyIter, typename Sentinel>
+        match_result
+        extend_match(match_result prev, KeyIter first, Sentinel last) const
+            noexcept
+        {
+            BOOST_ASSERT(prev.match);
+            auto const retval = extend_subsequence_impl(prev, first, last);
+            return back_up_to_match(retval);
+        }
+
+        /** Writes the sequence of elements that would advance
+            <code>prev</code> by one element to <code>out</code>, and returns
+            the final value of \out after the writes. */
         template<typename OutIter>
         OutIter copy_next_key_elements(match_result prev, OutIter out) const
         {
@@ -358,23 +529,33 @@ namespace boost { namespace trie {
         }
 
         /** Returns an optional reference to the const value associated with
-            \a key in *this (if any). */
+            <code>key</code> in *this (if any). */
         template<typename KeyRange>
         optional_ref<value_type const> operator[](KeyRange const & key) const
             noexcept
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
+            auto first = std::begin(key);
+            auto const last = std::end(key);
             auto match = longest_match_impl(first, last);
             if (first != last || !match.match)
                 return {};
             return *to_node_ptr(match.node)->value();
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_C_STR_OVERLOAD(
             optional_ref<value_type const>, operator[], const noexcept)
+#endif
+
+        /** Returns an optional reference to the const value associated with
+            <code>match</code> in *this (if any). */
+        optional_ref<value_type const> operator[](match_result match) const
+            noexcept
+        {
+            if (!match.match)
+                return {};
+            return *to_node_ptr(match.node)->value();
+        }
 
         void clear() noexcept
         {
@@ -382,29 +563,38 @@ namespace boost { namespace trie {
             size_ = 0;
         }
 
-        /** Returns an optional reference to the value associated with \a key
-            in *this (if any). */
+        /** Returns an optional reference to the value associated with
+           <code>key</code> in *this (if any). */
         template<typename KeyRange>
         optional_ref<value_type> operator[](KeyRange const & key) noexcept
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
+            auto first = std::begin(key);
+            auto const last = std::end(key);
             auto match = longest_match_impl(first, last);
             if (first != last || !match.match)
                 return {};
             return *const_cast<node_t *>(to_node_ptr(match.node))->value();
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_C_STR_OVERLOAD(
             optional_ref<value_type>, operator[], noexcept)
+#endif
 
-        /** Inserts the key/value pair <code>[first, last)</code>, \a value
-            into *this.  Returns false if the key already exists in *this,
-            true otherwise. */
-        template<typename KeyIter>
-        bool insert(KeyIter first, KeyIter last, Value value)
+        /** Returns an optional reference to the value associated with
+            <code>match</code> in *this (if any). */
+        optional_ref<value_type> operator[](match_result match) noexcept
+        {
+            if (!match.match)
+                return {};
+            return *const_cast<node_t *>(to_node_ptr(match.node))->value();
+        }
+
+        /** Inserts the key/value pair <code>[first, last)</code>,
+            <code>value</code> into *this.  Returns false if the key already
+            exists in *this, true otherwise. */
+        template<typename KeyIter, typename Sentinel>
+        bool insert(KeyIter first, Sentinel last, Value value)
         {
             if (empty()) {
                 std::unique_ptr<node_t> new_node(new node_t(&header_));
@@ -423,14 +613,13 @@ namespace boost { namespace trie {
             return true;
         }
 
-        /** Inserts the key/value pair \a key, \a value into *this.  Returns
-            false if the key already exists in *this, true otherwise. */
+        /** Inserts the key/value pair <code>key</code>, <code>value</code>
+            into *this.  Returns false if the key already exists in *this,
+            true otherwise. */
         template<typename KeyRange>
         bool insert(KeyRange const & key, Value value)
         {
-            using std::begin;
-            using std::end;
-            return insert(begin(key), end(key), std::move(value));
+            return insert(std::begin(key), std::end(key), std::move(value));
         }
 
         template<typename Char, std::size_t N>
@@ -444,42 +633,47 @@ namespace boost { namespace trie {
                 std::move(value));
         }
 
-        /** Inserts the the sequence of key/value pairs <code>[first,
+        /** Inserts the sequence of key/value pairs <code>[first,
             last)</code> into *this. */
-        template<typename Iter>
-        void insert(Iter first, Iter last)
+        template<typename Iter, typename Sentinel>
+        void insert(Iter first, Sentinel last)
         {
             for (; first != last; ++first) {
                 insert(first->key, first->value);
             }
         }
 
-        /** Inserts the the sequence of key/value pairs \a r into *this. */
+        /** Inserts the element e.key, e.value into *this. */
+        bool insert(trie_element<key_type, value_type> const & e)
+        {
+            return insert(e.key, e.value);
+        }
+
+        /** Inserts the sequence of key/value pairs <code>r</code> into
+         *this. */
         template<typename Range>
         bool insert(Range const & r)
         {
-            using std::begin;
-            using std::end;
-            return insert(begin(r), end(r));
+            return insert(std::begin(r), std::end(r));
         }
 
-        /** Inserts the the sequence of key/value pairs \a il into *this. */
-        void insert(std::initializer_list<value_type> il)
+        /** Inserts the sequence of key/value pairs <code>il</code> into
+         *this. */
+        void
+        insert(std::initializer_list<trie_element<key_type, value_type>> il)
         {
             for (auto const & x : il) {
                 insert(x);
             }
         }
 
-        /** Erases the key/value pair associated with \a key from *this.
-            Returns true if the key is found in *this, false otherwise. */
+        /** Erases the key/value pair associated with <code>key</code> from
+           *this. Returns true if the key is found in *this, false otherwise. */
         template<typename KeyRange>
         bool erase(KeyRange const & key)
         {
-            using std::begin;
-            using std::end;
-            auto first = begin(key);
-            auto const last = end(key);
+            auto first = std::begin(key);
+            auto const last = std::end(key);
             auto match = longest_match_impl(first, last);
             if (first != last || !match.match)
                 return false;
@@ -507,7 +701,9 @@ namespace boost { namespace trie {
             return true;
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_C_STR_OVERLOAD(bool, erase, noexcept)
+#endif
 
         void swap(trie & other)
         {
@@ -516,6 +712,8 @@ namespace boost { namespace trie {
             std::swap(comp_, other.comp_);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
     private:
         trie const * const_this() { return const_cast<trie const *>(this); }
         static node_t const * to_node_ptr(void const * ptr)
@@ -523,17 +721,17 @@ namespace boost { namespace trie {
             return static_cast<node_t const *>(ptr);
         }
 
-        template<typename KeyIter>
-        match_result longest_match_impl(KeyIter & first, KeyIter last) const
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_match_impl(KeyIter & first, Sentinel last) const
             noexcept
         {
             return extend_subsequence_impl(
                 match_result{&header_, 0, false, true}, first, last);
         }
 
-        template<typename KeyIter>
+        template<typename KeyIter, typename Sentinel>
         match_result extend_subsequence_impl(
-            match_result prev, KeyIter & first, KeyIter last) const noexcept
+            match_result prev, KeyIter & first, Sentinel last) const noexcept
         {
             if (to_node_ptr(prev.node) == &header_) {
                 if (header_.empty())
@@ -561,8 +759,20 @@ namespace boost { namespace trie {
             return match_result{node, size, !!node->value(), node->empty()};
         }
 
-        template<typename KeyIter>
-        node_t * create_children(node_t * node, KeyIter first, KeyIter last)
+        static match_result back_up_to_match(match_result retval) noexcept
+        {
+            auto node = to_node_ptr(retval.node);
+            while (node->parent() && !node->value()) {
+                retval.node = node = node->parent();
+                --retval.size;
+            }
+            if (!!node->value())
+                retval.match = true;
+            return retval;
+        }
+
+        template<typename KeyIter, typename Sentinel>
+        node_t * create_children(node_t * node, KeyIter first, Sentinel last)
         {
             auto retval = node;
             for (; first != last; ++first) {
@@ -576,6 +786,8 @@ namespace boost { namespace trie {
         node_t header_;
         size_type size_;
         key_compare comp_;
+
+#endif
     };
 
     namespace detail {
@@ -611,7 +823,7 @@ namespace boost { namespace trie {
             }
             trie_node_t & operator=(trie_node_t const & rhs)
             {
-                assert(
+                BOOST_ASSERT(
                     parent_ == nullptr &&
                     "Assignment of trie_node_ts are defined only for the "
                     "header node.");
@@ -621,7 +833,7 @@ namespace boost { namespace trie {
             }
             trie_node_t & operator=(trie_node_t && rhs)
             {
-                assert(
+                BOOST_ASSERT(
                     parent_ == nullptr &&
                     "Move assignments of trie_node_ts are defined only for the "
                     "header node.");
@@ -716,7 +928,7 @@ namespace boost { namespace trie {
 
             void swap(trie_node_t & other)
             {
-                assert(
+                BOOST_ASSERT(
                     parent_ == nullptr &&
                     "Swaps of trie_node_ts are defined only for the header "
                     "node.");
@@ -743,7 +955,7 @@ namespace boost { namespace trie {
                 Compare const & comp,
                 std::unique_ptr<trie_node_t> && child)
             {
-                assert(child->empty());
+                BOOST_ASSERT(child->empty());
                 auto it = std::lower_bound(keys_.begin(), keys_.end(), e, comp);
                 it = keys_.insert(it, e);
                 auto const offset = it - keys_.begin();
@@ -754,7 +966,7 @@ namespace boost { namespace trie {
             }
             iterator insert(std::unique_ptr<trie_node_t> && child)
             {
-                assert(empty());
+                BOOST_ASSERT(empty());
                 index_within_parent_.insert_ptr(child);
                 return children_.insert(children_.begin(), std::move(child));
             }
@@ -774,7 +986,7 @@ namespace boost { namespace trie {
                     [child](std::unique_ptr<trie_node_t> const & ptr) {
                         return child == ptr.get();
                     });
-                assert(it != children_.end());
+                BOOST_ASSERT(it != children_.end());
                 erase(it - children_.begin());
             }
 

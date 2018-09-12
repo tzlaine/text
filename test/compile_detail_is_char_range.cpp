@@ -17,22 +17,7 @@
 #include <vector>
 
 
-struct a_t
-{
-    using iterator = std::array<char, 4>::const_iterator;
-    std::array<char, 4> chars_;
-};
-
-std::array<char, 4>::const_iterator begin(a_t const & a)
-{
-    return a.chars_.begin();
-}
-std::array<char, 4>::const_iterator end(a_t const & a)
-{
-    return a.chars_.end();
-}
-
-struct b_t
+struct inline_t
 {
     using iterator = std::array<char, 4>::const_iterator;
 
@@ -67,27 +52,24 @@ static_assert(
         iterator_range<std::vector<char>::iterator const>>::value,
     "");
 
-static_assert(text::detail::is_char_range<a_t>::value, "");
-static_assert(text::detail::is_char_range<a_t const>::value, "");
-static_assert(text::detail::is_char_range<b_t>::value, "");
-static_assert(text::detail::is_char_range<b_t const>::value, "");
+static_assert(text::detail::is_char_range<inline_t>::value, "");
+static_assert(text::detail::is_char_range<inline_t const>::value, "");
 
-static_assert(!text::detail::is_char_range<std::list<char>>::value, "");
+// These don't work because their value types narrow when converted to char.
 static_assert(!text::detail::is_char_range<std::vector<wchar_t>>::value, "");
 static_assert(!text::detail::is_char_range<std::vector<int>>::value, "");
 static_assert(!text::detail::is_char_range<std::array<float, 5>>::value, "");
+static_assert(
+    !text::detail::is_char_range<iterator_range<wchar_t *>>::value, "");
+static_assert(
+    !text::detail::is_char_range<
+        iterator_range<std::vector<int>::iterator>>::value,
+    "");
+
+static_assert(text::detail::is_char_range<std::list<char>>::value, "");
+
 static_assert(!text::detail::is_char_range<char>::value, "");
 static_assert(!text::detail::is_char_range<int>::value, "");
-static_assert(!text::detail::is_char_range<iterator_range<wchar_t *>>::value, "");
-static_assert(
-    !text::detail::is_char_range<iterator_range<std::vector<int>::iterator>>::value,
-    "");
-static_assert(!text::detail::is_char_range<wchar_t[5]>::value, "");
-static_assert(!text::detail::is_char_range<int[5]>::value, "");
-
-// This may look wrong, but we don't care, because this decays to a char *
-// anyway!
-static_assert(!text::detail::is_char_range<char[5]>::value, "");
 
 static_assert(!text::detail::is_char_range<text::text>::value, "");
 static_assert(!text::detail::is_char_range<text::text_view>::value, "");

@@ -1,7 +1,7 @@
 #ifndef BOOST_TEXT_DETAIL_ROPE_ITERATOR_HPP
 #define BOOST_TEXT_DETAIL_ROPE_ITERATOR_HPP
 
-#include <iterator>
+#include <boost/text/detail/iterator.hpp>
 
 
 namespace boost { namespace text {
@@ -28,7 +28,8 @@ namespace boost { namespace text { namespace detail {
             leaf_start_(-1)
         {}
 
-        const_rope_iterator(unencoded_rope const & r, difference_type n) noexcept :
+        const_rope_iterator(
+            unencoded_rope const & r, difference_type n) noexcept :
             rope_(&r),
             n_(n),
             leaf_(nullptr),
@@ -135,29 +136,20 @@ namespace boost { namespace text { namespace detail {
             return lhs += rhs;
         }
         friend const_rope_iterator
-        operator+(difference_type lhs, const_rope_iterator rhs) noexcept
-        {
-            return rhs += lhs;
-        }
-        friend const_rope_iterator
         operator-(const_rope_iterator lhs, difference_type rhs) noexcept
         {
             return lhs -= rhs;
         }
-        friend const_rope_iterator
-        operator-(difference_type lhs, const_rope_iterator rhs) noexcept
-        {
-            return rhs -= lhs;
-        }
         friend difference_type
         operator-(const_rope_iterator lhs, const_rope_iterator rhs) noexcept
         {
-            assert(lhs.rope_ == rhs.rope_);
+            BOOST_ASSERT(lhs.rope_ == rhs.rope_);
             return lhs.n_ - rhs.n_;
         }
 
     private:
-        const_rope_iterator(unencoded_rope const * r, difference_type n) noexcept :
+        const_rope_iterator(
+            unencoded_rope const * r, difference_type n) noexcept :
             rope_(r),
             n_(n),
             leaf_(nullptr),
@@ -181,7 +173,7 @@ namespace boost { namespace text { namespace detail {
                     static_cast<detail::reference<rope_tag> *>(leaf_->buf_ptr_);
                 return *(ref->ref_.begin() + (n_ - leaf_start_));
             }
-            default: assert(!"unhandled rope node case"); break;
+            default: BOOST_ASSERT(!"unhandled rope node case"); break;
             }
             return '\0'; // This should never execute.
         }
@@ -193,129 +185,6 @@ namespace boost { namespace text { namespace detail {
 
         friend struct ::boost::text::unencoded_rope_view;
         friend struct ::boost::text::rope_view;
-    };
-
-    struct const_reverse_rope_iterator
-    {
-        using value_type = char;
-        using difference_type = std::ptrdiff_t;
-        using pointer = char const *;
-        using reference = char;
-        using iterator_category = std::random_access_iterator_tag;
-
-        const_reverse_rope_iterator() noexcept : base_() {}
-        explicit const_reverse_rope_iterator(const_rope_iterator it) noexcept :
-            base_(it)
-        {}
-
-        const_rope_iterator base() const { return base_ + 1; }
-
-        reference operator*() const noexcept { return *base_; }
-        value_type operator[](difference_type n) const noexcept
-        {
-            return base_[-n];
-        }
-
-        const_reverse_rope_iterator & operator++() noexcept
-        {
-            --base_;
-            return *this;
-        }
-        const_reverse_rope_iterator operator++(int)noexcept
-        {
-            const_reverse_rope_iterator retval = *this;
-            --base_;
-            return retval;
-        }
-        const_reverse_rope_iterator & operator+=(difference_type n) noexcept
-        {
-            base_ -= n;
-            return *this;
-        }
-
-        const_reverse_rope_iterator & operator--() noexcept
-        {
-            ++base_;
-            return *this;
-        }
-        const_reverse_rope_iterator operator--(int)noexcept
-        {
-            const_reverse_rope_iterator retval = *this;
-            ++base_;
-            return retval;
-        }
-        const_reverse_rope_iterator & operator-=(difference_type n) noexcept
-        {
-            base_ += n;
-            return *this;
-        }
-
-        friend bool operator==(
-            const_reverse_rope_iterator lhs,
-            const_reverse_rope_iterator rhs) noexcept
-        {
-            return lhs.base_ == rhs.base_;
-        }
-        friend bool operator!=(
-            const_reverse_rope_iterator lhs,
-            const_reverse_rope_iterator rhs) noexcept
-        {
-            return !(lhs == rhs);
-        }
-        friend bool operator<(
-            const_reverse_rope_iterator lhs,
-            const_reverse_rope_iterator rhs) noexcept
-        {
-            return rhs.base_ < lhs.base_;
-        }
-        friend bool operator<=(
-            const_reverse_rope_iterator lhs,
-            const_reverse_rope_iterator rhs) noexcept
-        {
-            return rhs.base_ <= lhs.base_;
-        }
-        friend bool operator>(
-            const_reverse_rope_iterator lhs,
-            const_reverse_rope_iterator rhs) noexcept
-        {
-            return rhs.base_ > lhs.base_;
-        }
-        friend bool operator>=(
-            const_reverse_rope_iterator lhs,
-            const_reverse_rope_iterator rhs) noexcept
-        {
-            return rhs.base_ >= lhs.base_;
-        }
-
-        friend const_reverse_rope_iterator
-        operator+(const_reverse_rope_iterator lhs, difference_type rhs) noexcept
-        {
-            return lhs += rhs;
-        }
-        friend const_reverse_rope_iterator
-        operator+(difference_type lhs, const_reverse_rope_iterator rhs) noexcept
-        {
-            return rhs += lhs;
-        }
-        friend const_reverse_rope_iterator
-        operator-(const_reverse_rope_iterator lhs, difference_type rhs) noexcept
-        {
-            return lhs -= rhs;
-        }
-        friend const_reverse_rope_iterator
-        operator-(difference_type lhs, const_reverse_rope_iterator rhs) noexcept
-        {
-            return rhs -= lhs;
-        }
-        friend difference_type operator-(
-            const_reverse_rope_iterator lhs,
-            const_reverse_rope_iterator rhs) noexcept
-        {
-            return rhs.base_ - lhs.base_;
-        }
-
-    private:
-        const_rope_iterator base_;
     };
 
     struct const_rope_view_iterator
@@ -343,7 +212,7 @@ namespace boost { namespace text { namespace detail {
 
         const_rope_iterator as_rope_iter() const
         {
-            assert(which_ == which::r);
+            BOOST_ASSERT(which_ == which::r);
             return r_;
         }
 
@@ -467,19 +336,9 @@ namespace boost { namespace text { namespace detail {
             return lhs += rhs;
         }
         friend const_rope_view_iterator
-        operator+(difference_type lhs, const_rope_view_iterator rhs) noexcept
-        {
-            return rhs += lhs;
-        }
-        friend const_rope_view_iterator
         operator-(const_rope_view_iterator lhs, difference_type rhs) noexcept
         {
             return lhs -= rhs;
-        }
-        friend const_rope_view_iterator
-        operator-(difference_type lhs, const_rope_view_iterator rhs) noexcept
-        {
-            return rhs -= lhs;
         }
         friend difference_type operator-(
             const_rope_view_iterator lhs, const_rope_view_iterator rhs) noexcept
@@ -502,132 +361,6 @@ namespace boost { namespace text { namespace detail {
         const_repeated_chars_iterator rtv_;
 
         which which_;
-    };
-
-    struct const_reverse_rope_view_iterator
-    {
-        using value_type = char;
-        using difference_type = std::ptrdiff_t;
-        using pointer = char const *;
-        using reference = char;
-        using iterator_category = std::random_access_iterator_tag;
-
-        const_reverse_rope_view_iterator() noexcept : base_() {}
-        explicit const_reverse_rope_view_iterator(
-            const_rope_view_iterator it) noexcept :
-            base_(it)
-        {}
-
-        const_rope_view_iterator base() const { return base_ + 1; }
-
-        reference operator*() const noexcept { return *base_; }
-        value_type operator[](difference_type n) const noexcept
-        {
-            return base_[-n];
-        }
-
-        const_reverse_rope_view_iterator & operator++() noexcept
-        {
-            --base_;
-            return *this;
-        }
-        const_reverse_rope_view_iterator operator++(int)noexcept
-        {
-            const_reverse_rope_view_iterator retval = *this;
-            --base_;
-            return retval;
-        }
-        const_reverse_rope_view_iterator &
-        operator+=(difference_type n) noexcept
-        {
-            base_ -= n;
-            return *this;
-        }
-
-        const_reverse_rope_view_iterator & operator--() noexcept
-        {
-            ++base_;
-            return *this;
-        }
-        const_reverse_rope_view_iterator operator--(int)noexcept
-        {
-            const_reverse_rope_view_iterator retval = *this;
-            ++base_;
-            return retval;
-        }
-        const_reverse_rope_view_iterator &
-        operator-=(difference_type n) noexcept
-        {
-            base_ += n;
-            return *this;
-        }
-
-        friend bool operator==(
-            const_reverse_rope_view_iterator lhs,
-            const_reverse_rope_view_iterator rhs) noexcept
-        {
-            return lhs.base_ == rhs.base_;
-        }
-        friend bool operator!=(
-            const_reverse_rope_view_iterator lhs,
-            const_reverse_rope_view_iterator rhs) noexcept
-        {
-            return !(lhs == rhs);
-        }
-        friend bool operator<(
-            const_reverse_rope_view_iterator lhs,
-            const_reverse_rope_view_iterator rhs) noexcept
-        {
-            return rhs.base_ < lhs.base_;
-        }
-        friend bool operator<=(
-            const_reverse_rope_view_iterator lhs,
-            const_reverse_rope_view_iterator rhs) noexcept
-        {
-            return rhs.base_ <= lhs.base_;
-        }
-        friend bool operator>(
-            const_reverse_rope_view_iterator lhs,
-            const_reverse_rope_view_iterator rhs) noexcept
-        {
-            return rhs.base_ > lhs.base_;
-        }
-        friend bool operator>=(
-            const_reverse_rope_view_iterator lhs,
-            const_reverse_rope_view_iterator rhs) noexcept
-        {
-            return rhs.base_ >= lhs.base_;
-        }
-
-        friend const_reverse_rope_view_iterator operator+(
-            const_reverse_rope_view_iterator lhs, difference_type rhs) noexcept
-        {
-            return lhs += rhs;
-        }
-        friend const_reverse_rope_view_iterator operator+(
-            difference_type lhs, const_reverse_rope_view_iterator rhs) noexcept
-        {
-            return rhs += lhs;
-        }
-        friend const_reverse_rope_view_iterator operator-(
-            const_reverse_rope_view_iterator lhs, difference_type rhs) noexcept
-        {
-            return lhs -= rhs;
-        }
-        friend const_reverse_rope_view_iterator operator-(
-            difference_type lhs, const_reverse_rope_view_iterator rhs) noexcept
-        {
-            return rhs -= lhs;
-        }
-        friend difference_type operator-(
-            const_reverse_rope_view_iterator lhs,
-            const_reverse_rope_view_iterator rhs) noexcept
-        {
-            return rhs.base_ - lhs.base_;
-        }
-
-    private:
-        const_rope_view_iterator base_;
     };
 
 }}}

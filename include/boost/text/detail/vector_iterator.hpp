@@ -156,7 +156,7 @@ namespace boost { namespace text { namespace detail {
         friend difference_type
         operator-(const_vector_iterator lhs, const_vector_iterator rhs) noexcept
         {
-            assert(lhs.vec_ == rhs.vec_);
+            BOOST_ASSERT(lhs.vec_ == rhs.vec_);
             return lhs.n_ - rhs.n_;
         }
 
@@ -172,7 +172,7 @@ namespace boost { namespace text { namespace detail {
         T const & deref() const
         {
             switch (leaf_->which_) {
-            default: assert(!"unhandled leaf node case");
+            default: BOOST_ASSERT(!"unhandled leaf node case");
             case leaf_node_t<T>::which::vec: {
                 std::vector<T> const * v =
                     static_cast<std::vector<T> *>(leaf_->buf_ptr_);
@@ -192,133 +192,6 @@ namespace boost { namespace text { namespace detail {
         difference_type n_;
         mutable leaf_node_t<T> const * leaf_;
         mutable difference_type leaf_start_;
-    };
-
-    template<typename T>
-    struct const_reverse_vector_iterator
-    {
-        using value_type = T;
-        using difference_type = std::ptrdiff_t;
-        using pointer = T const *;
-        using reference = T const &;
-        using iterator_category = std::random_access_iterator_tag;
-
-        const_reverse_vector_iterator() noexcept : base_() {}
-        explicit const_reverse_vector_iterator(
-            const_vector_iterator<T> it) noexcept :
-            base_(it)
-        {}
-
-        const_vector_iterator<T> base() const { return base_ + 1; }
-
-        reference operator*() const noexcept { return *base_; }
-        pointer operator->() const noexcept { return &**this; }
-
-        value_type operator[](difference_type n) const noexcept
-        {
-            return base_[-n];
-        }
-
-        const_reverse_vector_iterator & operator++() noexcept
-        {
-            --base_;
-            return *this;
-        }
-        const_reverse_vector_iterator operator++(int)noexcept
-        {
-            const_reverse_vector_iterator retval = *this;
-            --base_;
-            return retval;
-        }
-        const_reverse_vector_iterator & operator+=(difference_type n) noexcept
-        {
-            base_ -= n;
-            return *this;
-        }
-
-        const_reverse_vector_iterator & operator--() noexcept
-        {
-            ++base_;
-            return *this;
-        }
-        const_reverse_vector_iterator operator--(int)noexcept
-        {
-            const_reverse_vector_iterator retval = *this;
-            ++base_;
-            return retval;
-        }
-        const_reverse_vector_iterator & operator-=(difference_type n) noexcept
-        {
-            base_ += n;
-            return *this;
-        }
-
-        friend bool operator==(
-            const_reverse_vector_iterator lhs,
-            const_reverse_vector_iterator rhs) noexcept
-        {
-            return lhs.base_ == rhs.base_;
-        }
-        friend bool operator!=(
-            const_reverse_vector_iterator lhs,
-            const_reverse_vector_iterator rhs) noexcept
-        {
-            return !(lhs == rhs);
-        }
-        friend bool operator<(
-            const_reverse_vector_iterator lhs,
-            const_reverse_vector_iterator rhs) noexcept
-        {
-            return rhs.base_ < lhs.base_;
-        }
-        friend bool operator<=(
-            const_reverse_vector_iterator lhs,
-            const_reverse_vector_iterator rhs) noexcept
-        {
-            return rhs.base_ <= lhs.base_;
-        }
-        friend bool operator>(
-            const_reverse_vector_iterator lhs,
-            const_reverse_vector_iterator rhs) noexcept
-        {
-            return rhs.base_ > lhs.base_;
-        }
-        friend bool operator>=(
-            const_reverse_vector_iterator lhs,
-            const_reverse_vector_iterator rhs) noexcept
-        {
-            return rhs.base_ >= lhs.base_;
-        }
-
-        friend const_reverse_vector_iterator operator+(
-            const_reverse_vector_iterator lhs, difference_type rhs) noexcept
-        {
-            return lhs += rhs;
-        }
-        friend const_reverse_vector_iterator operator+(
-            difference_type lhs, const_reverse_vector_iterator rhs) noexcept
-        {
-            return rhs += lhs;
-        }
-        friend const_reverse_vector_iterator operator-(
-            const_reverse_vector_iterator lhs, difference_type rhs) noexcept
-        {
-            return lhs -= rhs;
-        }
-        friend const_reverse_vector_iterator operator-(
-            difference_type lhs, const_reverse_vector_iterator rhs) noexcept
-        {
-            return rhs -= lhs;
-        }
-        friend difference_type operator-(
-            const_reverse_vector_iterator lhs,
-            const_reverse_vector_iterator rhs) noexcept
-        {
-            return rhs.base_ - lhs.base_;
-        }
-
-    private:
-        const_vector_iterator<T> base_;
     };
 
 }}}

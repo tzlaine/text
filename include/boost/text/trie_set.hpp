@@ -68,8 +68,8 @@ namespace boost { namespace trie {
 
         trie_set(Compare const & comp) : trie_(comp) {}
 
-        template<typename Iter>
-        trie_set(Iter first, Iter last, Compare const & comp = Compare()) :
+        template<typename Iter, typename Sentinel>
+        trie_set(Iter first, Sentinel last, Compare const & comp = Compare()) :
             trie_(comp)
         {
             insert(first, last);
@@ -78,9 +78,7 @@ namespace boost { namespace trie {
         explicit trie_set(Range r, Compare const & comp = Compare()) :
             trie_(comp)
         {
-            using std::begin;
-            using std::end;
-            insert(begin(r), end(r));
+            insert(std::begin(r), std::end(r));
         }
         trie_set(std::initializer_list<value_type> il) : trie_() { insert(il); }
 
@@ -131,6 +129,8 @@ namespace boost { namespace trie {
             return const_reverse_iterator(trie_.rend().state_);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
 #define BOOST_TRIE_SET_C_STR_OVERLOAD(rtype, func, quals)                      \
     template<typename Char, std::size_t N>                                     \
     rtype func(Char const(&chars)[N]) quals                                    \
@@ -141,46 +141,58 @@ namespace boost { namespace trie {
         return func(detail::char_range<Char const>{chars, chars + N - 1});     \
     }
 
-        /** Returns true if \a key is found in *this. */
+#endif
+
+        /** Returns true if <code>key</code> is found in *this. */
         template<typename KeyRange>
         bool contains(KeyRange const & key) const noexcept
         {
             return trie_.contains(key);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(bool, contains, const noexcept)
+#endif
 
-        /** Returns the iterator pointing to the key, if \a key is found in
-            *this.  Returns end() otherwise. */
+        /** Returns the iterator pointing to the key, if <code>key</code> is
+         *found in this.  Returns end() otherwise. */
         template<typename KeyRange>
         const_iterator find(KeyRange const & key) const noexcept
         {
             return const_iterator(trie_.find(key).state_);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(const_iterator, find, const noexcept)
+#endif
 
         /** Returns the iterator pointing to the first key that is not less
-            than \a key.  Returns end() if no such key can be found. */
+            than <code>key</code>.  Returns end() if no such key can be found.
+         */
         template<typename KeyRange>
         const_iterator lower_bound(KeyRange const & key) const noexcept
         {
             return const_iterator(trie_.lower_bound(key).state_);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(
             const_iterator, lower_bound, const noexcept)
+#endif
 
         /** Returns the iterator pointing to the first key that is greater
-            than \a key.  Returns end() if no such key can be found. */
+            than <code>key</code>.  Returns end() if no such key can be found.
+         */
         template<typename KeyRange>
         const_iterator upper_bound(KeyRange const & key) const noexcept
         {
             return const_iterator(trie_.upper_bound(key).state_);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(
             const_iterator, upper_bound, const noexcept)
+#endif
 
         /** Returns the <code>const_range(lower_bound(key),
             upper_bound(key))</code>.*/
@@ -190,48 +202,55 @@ namespace boost { namespace trie {
             return {lower_bound(key), upper_bound(key)};
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(const_range, equal_range, const noexcept)
+#endif
 
-        /** Returns the longeset subsequence of <code>[first, last)</code>
+        /** Returns the longest subsequence of <code>[first, last)</code>
             found in *this, whether or not it is a match. */
-        template<typename KeyIter>
-        match_result longest_subsequence(KeyIter first, KeyIter last) const
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_subsequence(KeyIter first, Sentinel last) const
             noexcept
         {
             return trie_.longest_subsequence(first, last);
         }
 
-        /** Returns the longeset subsequence of \a key found in *this, whether
-            or not it is a match. */
+        /** Returns the longest subsequence of <code>key</code> found in *this,
+           whether or not it is a match. */
         template<typename KeyRange>
         match_result longest_subsequence(KeyRange const & key) const noexcept
         {
             return trie_.longest_subsequence(key);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(
             match_result, longest_subsequence, const noexcept)
+#endif
 
-        /** Returns the longeset matching subsequence of <code>[first,
+        /** Returns the longest matching subsequence of <code>[first,
             last)</code> found in *this. */
-        template<typename KeyIter>
-        match_result longest_match(KeyIter first, KeyIter last) const noexcept
+        template<typename KeyIter, typename Sentinel>
+        match_result longest_match(KeyIter first, Sentinel last) const noexcept
         {
             return trie_.longest_match(first, last);
         }
 
-        /** Returns the longeset matching subsequence of \a key found in
-            *this. */
+        /** Returns the longest matching subsequence of <code>key</code> found
+         *in this. */
         template<typename KeyRange>
         match_result longest_match(KeyRange const & key) const noexcept
         {
             return trie_.longest_match(key);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(
             match_result, longest_match, const noexcept)
+#endif
 
-        /** Returns the result of extending \a prev by one element, \a e. */
+        /** Returns the result of extending <code>prev</code> by one element,
+         * <code>e</code>. */
         template<typename KeyElementT>
         match_result extend_subsequence(match_result prev, KeyElementT e) const
             noexcept
@@ -239,19 +258,40 @@ namespace boost { namespace trie {
             return trie_.extend_subsequence(prev, e);
         }
 
-        /** Returns the result of extending \a prev by the longeset
+        /** Returns the result of extending <code>prev</code> by the longest
             subsequence of <code>[first, last)</code> found in *this. */
-        template<typename KeyIter>
-        match_result
-        extend_subsequence(match_result prev, KeyIter first, KeyIter last) const
-            noexcept
+        template<typename KeyIter, typename Sentinel>
+        match_result extend_subsequence(
+            match_result prev, KeyIter first, Sentinel last) const noexcept
         {
             return trie_.extend_subsequence(prev, first, last);
         }
 
-        /** Writes the sequence of elements that would advance \a prev by one
-            element to \a out, and returns the final value of \out after the
-            writes. */
+        /** Returns the result of extending <code>prev</code> by one element,
+           <code>e</code>, if that would form a match, and <code>prev</code>
+           otherwise.  <code>prev</code> must be a match. */
+        template<typename KeyElementT>
+        match_result extend_match(match_result prev, KeyElementT e) const
+            noexcept
+        {
+            return trie_.extend_match(prev, e);
+        }
+
+        /** Returns the result of extending <code>prev</code> by the longest
+            subsequence of <code>[first, last)</code> found in *this, if that
+            would form a match, and <code>prev</code> otherwise.
+           <code>prev</code> must be a match. */
+        template<typename KeyIter, typename Sentinel>
+        match_result
+        extend_match(match_result prev, KeyIter first, Sentinel last) const
+            noexcept
+        {
+            return trie_.extend_match(prev, first, last);
+        }
+
+        /** Writes the sequence of elements that would advance <code>prev</code>
+           by one element to <code>out</code>, and returns the final value of
+           \out after the writes. */
         template<typename OutIter>
         OutIter copy_next_key_elements(match_result prev, OutIter out) const
         {
@@ -266,35 +306,43 @@ namespace boost { namespace trie {
 
         void clear() noexcept { trie_.clear(); }
 
-        /** Returns the iterator pointing to the key, if \a key is found in
-            *this.  Returns end() otherwise. */
+        /** Returns the iterator pointing to the key, if <code>key</code> is
+         *found in this.  Returns end() otherwise. */
         template<typename KeyRange>
         iterator find(KeyRange const & key) noexcept
         {
             return iterator(const_this()->find(key));
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(iterator, find, noexcept)
+#endif
 
         /** Returns the iterator pointing to the first key that is not less
-            than \a key.  Returns end() if no such key can be found. */
+            than <code>key</code>.  Returns end() if no such key can be found.
+         */
         template<typename KeyRange>
         iterator lower_bound(KeyRange const & key) noexcept
         {
             return iterator(const_this()->lower_bound(key));
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(iterator, lower_bound, noexcept)
+#endif
 
         /** Returns the iterator pointing to the first key that is greater
-            than \a key.  Returns end() if no such key can be found. */
+            than <code>key</code>.  Returns end() if no such key can be found.
+         */
         template<typename KeyRange>
         iterator upper_bound(KeyRange const & key) noexcept
         {
             return iterator(const_this()->upper_bound(key));
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(iterator, upper_bound, noexcept)
+#endif
 
         /** Returns the <code>const_range(lower_bound(key),
             upper_bound(key))</code>.*/
@@ -304,49 +352,49 @@ namespace boost { namespace trie {
             return {lower_bound(key), upper_bound(key)};
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(range, equal_range, noexcept)
+#endif
 
-        /** Inserts the key <code>[first, last)</code> into *this.  The \a
-            inserted field of the result will be true if the operation
-            resulted in a new insertion, or false otherwise. */
-        template<typename KeyIter>
-        auto insert(KeyIter first, KeyIter last) -> decltype(
+        /** Inserts the key <code>[first, last)</code> into *this.  The
+            <code>inserted</code> field of the result will be true if the
+            operation resulted in a new insertion, or false otherwise. */
+        template<typename KeyIter, typename Sentinel>
+        auto insert(KeyIter first, Sentinel last) -> decltype(
             translate_insert_result(trie_.insert(first, last, detail::void_{})))
         {
             auto const trie_result = trie_.insert(first, last, detail::void_{});
             return translate_insert_result(trie_result);
         }
 
-        /** Inserts the key \a key into *this.  The \a inserted field of the
-            result will be true if the operation resulted in a new insertion,
-            or false otherwise. */
+        /** Inserts the key <code>key</code> into *this.  The
+           <code>inserted</code> field of the result will be true if the
+           operation resulted in a new insertion, or false otherwise. */
         template<typename KeyRange>
         insert_result insert(KeyRange const & key)
         {
-            using std::begin;
-            using std::end;
             auto const trie_result =
-                trie_.insert(begin(key), end(key), detail::void_{});
+                trie_.insert(std::begin(key), std::end(key), detail::void_{});
             return translate_insert_result(trie_result);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(insert_result, insert, /**/)
+#endif
 
-        /** Inserts the ke \a key into *this.  The \a inserted field of the
-            result will be true if the operation resulted in a new insertion,
-            or false otherwise. */
+        /** Inserts the ke <code>key</code> into *this.  The
+           <code>inserted</code> field of the result will be true if the
+           operation resulted in a new insertion, or false otherwise. */
         insert_result insert(Key const & key)
         {
-            using std::begin;
-            using std::end;
-            return insert(begin(key), end(key));
+            return insert(std::begin(key), std::end(key));
         }
 
         /** Inserts the the sequence of keys <code>[first, last)</code> into
-            *this.  The \a inserted field of the result will be true if the
-            operation resulted in a new insertion, or false otherwise. */
-        template<typename Iter>
-        auto insert(Iter first, Iter last)
+            *this.  The <code>inserted</code> field of the result will be true
+           if the operation resulted in a new insertion, or false otherwise. */
+        template<typename Iter, typename Sentinel>
+        auto insert(Iter first, Sentinel last)
             -> decltype(trie_.insert(first, last))
         {
             trie_.insert(first, last);
@@ -356,15 +404,13 @@ namespace boost { namespace trie {
         template<typename Range>
         insert_result insert(Range const & r)
         {
-            using std::begin;
-            using std::end;
-            trie_.insert(begin(r), end(r));
+            trie_.insert(std::begin(r), std::end(r));
         }
 #endif
 
-        /** Inserts the the sequence of keys \a il into *this.  The \a
-            inserted field of the result will be true if the operation
-            resulted in a new insertion, or false otherwise. */
+        /** Inserts the the sequence of keys <code>il</code> into *this.  The
+            <code>inserted</code> field of the result will be true if the
+            operation resulted in a new insertion, or false otherwise. */
         void insert(std::initializer_list<value_type> il)
         {
             for (auto const & x : il) {
@@ -372,17 +418,19 @@ namespace boost { namespace trie {
             }
         }
 
-        /** Erases \a key from *this.  Returns true if the key is found in
-            *this, false otherwise. */
+        /** Erases <code>key</code> from *this.  Returns true if the key is
+            found in this, false otherwise. */
         template<typename KeyRange>
         bool erase(KeyRange const & key) noexcept
         {
             return trie_.erase(key);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
         BOOST_TRIE_SET_C_STR_OVERLOAD(bool, erase, noexcept)
+#endif
 
-        /** Erases the key pointed to by \a it from *this.  Returns an
+        /** Erases the key pointed to by <code>it</code> from *this.  Returns an
             iterator to the next key in *this. */
         iterator erase(iterator it)
         {
@@ -411,6 +459,8 @@ namespace boost { namespace trie {
             return !(lhs == rhs);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
     private:
         trie_set const * const_this()
         {
@@ -423,6 +473,8 @@ namespace boost { namespace trie {
             return insert_result{iterator(trie_result.iter.it_.state_),
                                  trie_result.inserted};
         }
+
+#endif
     };
 
     namespace detail {
@@ -497,6 +549,8 @@ namespace boost { namespace trie {
             return !(lhs == rhs);
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
     private:
         using state_t = detail::trie_iterator_state_t<Key, detail::void_>;
 
@@ -508,6 +562,8 @@ namespace boost { namespace trie {
         friend struct trie_set;
         template<typename KeyT>
         friend struct trie_set_iterator;
+
+#endif
     };
 
     template<typename Key>
@@ -559,6 +615,8 @@ namespace boost { namespace trie {
             return lhs.it_ != rhs.it_;
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
     private:
         explicit trie_set_iterator(
             detail::trie_iterator_state_t<Key, detail::void_> state) :
@@ -570,6 +628,8 @@ namespace boost { namespace trie {
 
         template<typename KeyT, typename Compare>
         friend struct trie_set;
+
+#endif
     };
 
     template<typename Key>

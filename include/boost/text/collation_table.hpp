@@ -3,11 +3,17 @@
 
 #include <boost/text/normalize.hpp>
 #include <boost/text/segmented_vector.hpp>
+#include <boost/text/string_utility.hpp>
+#include <boost/text/detail/canonical_closure.hpp>
 #include <boost/text/detail/collation_data.hpp>
 #include <boost/text/detail/parser.hpp>
 
+#include <boost/throw_exception.hpp>
+
 #include <numeric>
 #include <vector>
+
+#ifndef BOOST_TEXT_DOXYGEN
 
 #define BOOST_TEXT_TAILORING_INSTRUMENTATION 0
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
@@ -18,6 +24,8 @@
 namespace boost { namespace filesystem {
     class path;
 }}
+
+#endif
 
 namespace boost { namespace text {
 
@@ -43,8 +51,8 @@ namespace boost { namespace text {
             return !(lhs == rhs);
         }
 
-        using nonsimple_reorders_t = container::
-            static_vector<nonsimple_script_reorder, g_reorder_groups.size()>;
+        using nonsimple_reorders_t =
+            container::static_vector<nonsimple_script_reorder, 140>;
 
         inline uint32_t lead_byte(
             collation_element cce,
@@ -208,14 +216,17 @@ namespace boost { namespace text {
     /** A collation table.  Such a table is necessary to use the collation
         API.
 
-        collation_table has the semantics of a shared_ptr to const.  It can be
-        copied cheaply; copies should be made freely.
+        collation_table has the semantics of a <code>std::shared_ptr</code> to
+        <code>const</code>.  It can be copied cheaply; copies should be made
+        freely.
 
         \see default_collation_table()
         \see tailored_collation_table()
     */
     struct collation_table
     {
+#ifndef BOOST_TEXT_DOXYGEN
+
         /** Returns a comparison object. */
         collation_compare compare(
             collation_strength strength = collation_strength::tertiary,
@@ -224,32 +235,22 @@ namespace boost { namespace text {
             variable_weighting weighting = variable_weighting::non_ignorable,
             l2_weight_order l2_order = l2_weight_order::forward) const;
 
-        template<typename Iter>
-        container::small_vector<detail::collation_element, 1024>
-        collation_elements(
-            Iter first,
-            Iter last,
-            collation_strength strength = collation_strength::tertiary,
-            case_first case_1st = case_first::off,
-            case_level case_lvl = case_level::off,
-            variable_weighting weighting =
-                variable_weighting::non_ignorable) const;
+        /** Returns a comparison object. */
+        collation_compare compare(collation_flags flags) const;
 
-        template<typename CPRange>
-        container::small_vector<detail::collation_element, 1024>
-        collation_elements(
-            CPRange & r,
+        template<
+            typename CPIter,
+            typename CPOutIter,
+            typename SizeOutIter = std::ptrdiff_t *>
+        CPOutIter copy_collation_elements(
+            CPIter first,
+            CPIter last,
+            CPOutIter out,
             collation_strength strength = collation_strength::tertiary,
             case_first case_1st = case_first::off,
             case_level case_lvl = case_level::off,
-            variable_weighting weighting =
-                variable_weighting::non_ignorable) const
-        {
-            using std::begin;
-            using std::end;
-            return collation_elements(
-                begin(r), end(r), strength, case_1st, case_lvl, weighting);
-        }
+            variable_weighting weighting = variable_weighting::non_ignorable,
+            SizeOutIter * size_out = nullptr) const;
 
         optional<l2_weight_order> l2_order() const noexcept
         {
@@ -315,7 +316,16 @@ namespace boost { namespace text {
         friend void save_table(
             collation_table const & table, filesystem::path const & path);
         friend collation_table load_table(filesystem::path const & path);
+
+#endif
     };
+
+#ifdef BOOST_TEXT_DOXYGEN
+
+    bool operator==(collation_table const & lhs, collation_table const & rhs);
+    bool operator!=(collation_table const & lhs, collation_table const & rhs);
+
+#endif
 
     /** A function object suitable for use with standard algorithms that
         accept a comparison object. */
@@ -336,6 +346,15 @@ namespace boost { namespace text {
             l2_order_(l2_order)
         {}
 
+        collation_compare(collation_table table, collation_flags flags) :
+            table_(std::move(table)),
+            strength_(detail::to_strength(flags)),
+            case_first_(detail::to_case_first(flags)),
+            case_level_(detail::to_case_level(flags)),
+            weighting_(detail::to_weighting(flags)),
+            l2_order_(detail::to_l2_order(flags))
+        {}
+
         template<typename CPRange1, typename CPRange2>
         bool operator()(CPRange1 const & r1, CPRange2 const & r2) const;
 
@@ -352,17 +371,17 @@ namespace boost { namespace text {
         inline temp_table_t make_temp_table()
         {
             temp_table_t retval;
-            for (int i = 0, end = g_num_trie_elements; i != end; ++i) {
+            for (int i = 0, end = trie_keys().size(); i != end; ++i) {
                 temp_table_element element;
                 element.cps_.assign(
-                    g_trie_keys_first[i].begin(), g_trie_keys_first[i].end());
+                    trie_keys()[i].begin(), trie_keys()[i].end());
                 element.ces_.assign(
-                    g_trie_values_first[i].begin(g_collation_elements_first),
-                    g_trie_values_first[i].end(g_collation_elements_first));
+                    trie_values()[i].begin(collation_elements_ptr()),
+                    trie_values()[i].end(collation_elements_ptr()));
                 retval = retval.push_back(element);
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
-                if (g_trie_keys_first[i].size_ == 1 &&
-                    *g_trie_keys_first[i].begin() == 0xe5b) {
+                if (trie_keys()[i].size_ == 1 &&
+                    *trie_keys()[i].begin() == 0xe5b) {
                     std::cerr << "========== 0xe5b\n";
                     for (auto ce : element.ces_) {
                         std::cerr << "[" << std::hex << std::setw(8)
@@ -460,9 +479,9 @@ namespace boost { namespace text {
             w += 1;
             uint32_t const lead_byte = w & 0xff000000;
             if (lead_byte != initial_lead_byte && is_primary) {
-                throw tailoring_error(
+                boost::throw_exception(tailoring_error(
                     "Unable to increment collation element value "
-                    "without changing its lead bytes");
+                    "without changing its lead bytes"));
             }
 
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
@@ -477,14 +496,14 @@ namespace boost { namespace text {
             temp_table_element::ces_t const & ces, temp_table_t & temp_table)
         {
             temp_table_element::ces_t group_first_ces;
-            group_first_ces.push_back(g_reorder_groups[0].first_);
+            group_first_ces.push_back(reorder_groups()[0].first_);
             if (less(ces, group_first_ces)) {
                 return std::lower_bound(
                     temp_table.begin(), temp_table.end(), group_first_ces);
             }
 
             temp_table_element::ces_t group_last_ces;
-            for (auto const & group : g_reorder_groups) {
+            for (auto const & group : reorder_groups()) {
                 group_first_ces.clear();
                 group_first_ces.push_back(group.first_);
                 group_last_ces.clear();
@@ -498,6 +517,62 @@ namespace boost { namespace text {
             }
 
             return temp_table.end();
+        }
+
+        inline uint8_t increment_l2_byte(uint8_t byte)
+        {
+            if (byte < min_secondary_byte) {
+                return min_secondary_byte;
+            } else {
+                ++byte;
+                if (max_secondary_byte < byte)
+                    return 0;
+                return byte;
+            }
+        }
+
+        inline uint16_t increment_l2(uint16_t l2)
+        {
+            uint8_t bytes[] = {uint8_t(l2 >> 8), uint8_t(l2 & 0xff)};
+
+            bytes[1] = increment_l2_byte(bytes[1]);
+            if (!bytes[1])
+                bytes[0] = increment_l2_byte(bytes[0]);
+
+            return (uint16_t(bytes[0]) << 8) | bytes[1];
+        }
+
+        inline uint8_t increment_l3_byte(uint8_t byte)
+        {
+            if (byte < min_tertiary_byte) {
+                return min_tertiary_byte;
+            } else {
+                ++byte;
+                if (max_tertiary_byte < byte)
+                    return 0;
+                return byte;
+            }
+        }
+
+        inline uint16_t increment_l3(uint16_t l3)
+        {
+            uint8_t const byte_mask = case_level_bits_mask >> 8;
+            uint8_t const byte_disable_mask = disable_case_level_mask >> 8;
+
+            uint8_t bytes[] = {uint8_t(l3 >> 8), uint8_t(l3 & 0xff)};
+            uint8_t const case_masks[] = {uint8_t(bytes[0] & byte_mask),
+                                          uint8_t(bytes[1] & byte_mask)};
+            bytes[0] &= byte_disable_mask;
+            bytes[1] &= byte_disable_mask;
+
+            bytes[1] = increment_l3_byte(bytes[1]);
+            if (!bytes[1])
+                bytes[0] = increment_l3_byte(bytes[0]);
+
+            bytes[0] |= case_masks[0];
+            bytes[1] |= case_masks[1];
+
+            return (uint16_t(bytes[0]) << 8) | bytes[1];
         }
 
         inline void increment_ce(
@@ -515,20 +590,14 @@ namespace boost { namespace text {
                 }
                 break;
             case collation_strength::secondary:
-                if (ce.l2_ & 0xff00)
-                    ce.l2_ += 1;
-                else
-                    ce.l2_ += 0x0100;
+                ce.l2_ = increment_l2(ce.l2_);
                 if (initial_bump) {
                     auto const case_bits = ce.l3_ & case_level_bits_mask;
                     ce.l3_ = common_l3_weight_compressed | case_bits;
                 }
                 break;
             case collation_strength::tertiary:
-                if ((((ce.l3_ & 0x3f00) + 0x0100) & case_level_bits_mask) == 0)
-                    ce.l3_ += 0x0100;
-                else
-                    ++ce.l3_;
+                ce.l3_ = increment_l3(ce.l3_);
                 break;
             case collation_strength::quaternary:
                 ce.l4_ = increment_32_bit(ce.l4_, false);
@@ -780,7 +849,7 @@ namespace boost { namespace text {
                 auto const strength = ce_strength(ces[0]);
                 if (strength == collation_strength::primary) {
                     if (ces < logical_positions[first_variable]) {
-                        assert(
+                        BOOST_ASSERT(
                             (ces[0].l1_ & 0xff000000) ==
                             (logical_positions[first_variable][0].l1_ &
                              0xff000000));
@@ -915,7 +984,7 @@ namespace boost { namespace text {
                 reset_ces.push_back(ce);
                 auto it = std::lower_bound(
                     temp_table.begin(), temp_table.end(), reset_ces);
-                assert(it != temp_table.begin());
+                BOOST_ASSERT(it != temp_table.begin());
                 auto prev_it = temp_table.end();
                 while (it != temp_table.begin()) {
                     --it;
@@ -937,9 +1006,9 @@ namespace boost { namespace text {
                     }
                 }
                 if (prev_it == temp_table.end()) {
-                    throw tailoring_error(
+                    boost::throw_exception(tailoring_error(
                         "Could not find the collation table element before the "
-                        "one requested here");
+                        "one requested here"));
                 }
                 reset_ces.assign(prev_it->ces_.begin(), prev_it->ces_.end());
 
@@ -1015,23 +1084,23 @@ namespace boost { namespace text {
                 // "Weights must be allocated in accordance with the UCA
                 // well-formedness conditions."
                 if (!well_formed_1(reset_ces)) {
-                    throw tailoring_error(
+                    boost::throw_exception(tailoring_error(
                         "Unable to implement this tailoring rule, because it "
                         "was not possible to meet UCA well-formedness "
                         "condition 1; see "
-                        "http://www.unicode.org/reports/tr10/#WF1");
+                        "http://www.unicode.org/reports/tr10/#WF1"));
                 }
                 if (!well_formed_2(reset_ces, tailoring_state)) {
-                    throw tailoring_error(
+                    boost::throw_exception(tailoring_error(
                         "Unable to implement this tailoring rule, because it "
                         "was not possible to meet UCA well-formedness "
                         "condition 2; see "
-                        "http://www.unicode.org/reports/tr10/#WF2");
+                        "http://www.unicode.org/reports/tr10/#WF2"));
                 }
 
                 update_key_ces(reset_ces, logical_positions, tailoring_state);
 
-                assert(table_target_it != temp_table.end());
+                BOOST_ASSERT(table_target_it != temp_table.end());
 
                 // The checks in here only need to be performed if the increment
                 // above did not slot cleanly between two existing CEs.
@@ -1056,8 +1125,9 @@ namespace boost { namespace text {
                         }
                         element.tailored_ = true;
                         add_temp_tailoring(table, element.cps_, element.ces_);
-                        assert(well_formed_1(element.ces_));
-                        assert(well_formed_2(element.ces_, tailoring_state));
+                        BOOST_ASSERT(well_formed_1(element.ces_));
+                        BOOST_ASSERT(
+                            well_formed_2(element.ces_, tailoring_state));
                         update_key_ces(
                             element.ces_, logical_positions, tailoring_state);
                         temp_table.replace(temp_table.begin() + i, element);
@@ -1091,16 +1161,43 @@ namespace boost { namespace text {
                 }
             }
 
-            // TODO: Call add_temp_tailoring() for all prefixes of relation,
-            // when relation.size() > 2, for WF5.
+            boost::container::
+                small_vector<detail::canonical_closure_string_t, 64>
+                    relation_closure;
+#ifndef BOOST_TEXT_DOXYGEN
+#define BOOST_TEXT_DO_CANONICAL_CLOSURE 0
+#if BOOST_TEXT_DO_CANONICAL_CLOSURE
+            detail::canonical_closure(
+                relation.begin(),
+                relation.end(),
+                std::back_inserter(relation_closure));
 
-            add_temp_tailoring(table, relation, reset_ces);
-            temp_table_element element;
-            element.cps_ = std::move(relation);
-            element.ces_ = std::move(reset_ces);
-            element.tailored_ = true;
+            for (auto & rel : relation_closure) {
+                detail::canonical_closure_string_t str;
+                normalize_to_fcc(rel, std::back_inserter(str));
+                rel = std::move(str);
+            }
+            std::sort(relation_closure.begin(), relation_closure.end());
+            relation_closure.erase(
+                std::unique(relation_closure.begin(), relation_closure.end()),
+                relation_closure.end());
+#else
+            relation_closure.push_back(relation);
+#endif
+#endif
 
-            temp_table.insert(table_target_it, std::move(element));
+            for (auto & rel : relation_closure) {
+                // TODO: Call add_temp_tailoring() for all prefixes of rel,
+                // when 2 < rel.size(), for WF5?
+
+                add_temp_tailoring(table, rel, reset_ces);
+                temp_table_element element;
+                element.cps_ = std::move(rel);
+                element.ces_ = std::move(reset_ces);
+                element.tailored_ = true;
+
+                temp_table.insert(table_target_it, std::move(element));
+            }
         }
 
         inline void suppress_impl(
@@ -1132,6 +1229,8 @@ namespace boost { namespace text {
     }
 }}
 
+#ifndef BOOST_TEXT_DOXYGEN
+
 namespace std {
     template<>
     struct hash<boost::text::detail::temp_table_element::ces_t>
@@ -1142,20 +1241,16 @@ namespace std {
         {
             result_type retval = ces.size();
             for (auto ce : ces) {
-                retval = combine(
+                retval = boost::text::detail::hash_combine_(
                     retval,
-                    (result_type(ce.l1_) << 32) | (ce.l2_ << 16) | ce.l1_);
+                    (result_type(ce.l1_) << 32) | (ce.l2_ << 16) | ce.l3_);
             }
             return retval;
         }
-
-    private:
-        static result_type combine(result_type seed, result_type value) noexcept
-        {
-            return seed ^= value + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-        }
     };
 }
+
+#endif
 
 namespace boost { namespace text {
 
@@ -1185,10 +1280,11 @@ namespace boost { namespace text {
             collation_trie_t retval;
             std::vector<key_and_index_t> key_and_indices;
             {
-                key_and_indices.resize(g_num_trie_elements);
-                for (int i = 0, end = g_num_trie_elements; i < end; ++i) {
+                key_and_indices.resize(trie_keys().size());
+                for (int i = 0, end = (int)key_and_indices.size(); i < end;
+                     ++i) {
                     auto & kai = key_and_indices[i];
-                    auto key = g_trie_keys_first[i];
+                    auto key = trie_keys()[i];
                     std::copy(key.begin(), key.end(), kai.cps_.begin());
                     kai.index_ = i;
                 }
@@ -1196,8 +1292,7 @@ namespace boost { namespace text {
             }
             for (auto kai : key_and_indices) {
                 retval.insert(
-                    g_trie_keys_first[kai.index_],
-                    g_trie_values_first[kai.index_]);
+                    trie_keys()[kai.index_], trie_values()[kai.index_]);
             }
             return retval;
         }
@@ -1208,22 +1303,24 @@ namespace boost { namespace text {
     inline collation_table default_collation_table()
     {
         collation_table retval;
-        retval.data_->collation_elements_ = detail::g_collation_elements_first;
+        retval.data_->collation_elements_ = detail::collation_elements_ptr();
         retval.data_->trie_ = detail::make_default_trie();
         return retval;
     }
 
-    /** Returns a collation table tailored using the tailoring specified in \a
-        tailoring.
+    /** Returns a collation table tailored using the tailoring specified in
+        <code>tailoring</code>.
 
-        If \a report_errors and/or \a report_warnings are provided, they will
-        be used to report warnings and errors, respectively.
+        If <code>report_errors</code> and/or <code>report_warnings</code> are
+        provided, they will be used to report parse warnings and errors,
+        respectively.
 
-        \note The suppressContractions element only supports code points and
-        code point ranges of the form "cp0-cp1".
-        \throws parse_error when a parse error is encountered.
-        \throws tailoring_error when some aspect of the requested tailoring
-        cannot be satisfied. */
+        \note The <code>suppressContractions</code> element only supports code
+        points and code point ranges of the form "cp0-cp1".
+
+        \throws parse_error when a parse error is encountered, or
+        tailoring_error when some aspect of the requested tailoring cannot be
+        satisfied. */
     inline collation_table tailored_collation_table(
         string_view tailoring,
         string_view tailoring_filename = "",
@@ -1248,15 +1345,22 @@ namespace boost { namespace text {
             *this, strength, case_1st, case_lvl, weighting, l2_order);
     }
 
-    template<typename Iter>
-    container::small_vector<detail::collation_element, 1024>
-    collation_table::collation_elements(
-        Iter first,
-        Iter last,
+    inline collation_compare
+    collation_table::compare(collation_flags flags) const
+    {
+        return collation_compare(*this, flags);
+    }
+
+    template<typename CPIter, typename CPOutIter, typename SizeOutIter>
+    CPOutIter collation_table::copy_collation_elements(
+        CPIter first,
+        CPIter last,
+        CPOutIter out,
         collation_strength strength,
         case_first case_1st,
         case_level case_lvl,
-        variable_weighting weighting) const
+        variable_weighting weighting,
+        SizeOutIter * size_out) const
     {
         if (data_->weighting_)
             weighting = *data_->weighting_;
@@ -1268,11 +1372,10 @@ namespace boost { namespace text {
             case_1st != case_first::off || case_lvl != case_level::off
                 ? detail::retain_case_bits_t::yes
                 : detail::retain_case_bits_t::no;
-        container::small_vector<detail::collation_element, 1024> retval;
-        detail::s2(
+        return detail::s2(
             first,
             last,
-            retval,
+            out,
             data_->trie_,
             collation_elements_begin(),
             [&](detail::collation_element ce) {
@@ -1281,8 +1384,8 @@ namespace boost { namespace text {
             },
             strength,
             weighting,
-            retain_case_bits);
-        return retval;
+            retain_case_bits,
+            size_out);
     }
 
     template<typename CPRange1, typename CPRange2>
@@ -1290,8 +1393,10 @@ namespace boost { namespace text {
     operator()(CPRange1 const & r1, CPRange2 const & r2) const
     {
         return collate(
-                   r1,
-                   r2,
+                   r1.begin(),
+                   r1.end(),
+                   r2.begin(),
+                   r2.end(),
                    table_,
                    strength_,
                    case_first_,
@@ -1311,9 +1416,9 @@ namespace boost { namespace text {
         collation_table table;
         table.data_->trie_ = detail::make_default_trie();
         table.data_->collation_element_vec_.assign(
-            detail::g_collation_elements_first,
-            detail::g_collation_elements_first +
-                detail::g_num_collation_elements);
+            detail::collation_elements_ptr(),
+            detail::collation_elements_ptr() +
+                detail::collation_elements_().size());
 
         uint32_t const symbol_lookup[] = {
             detail::initial_first_tertiary_ignorable,
@@ -1336,8 +1441,8 @@ namespace boost { namespace text {
                     symbol_lookup[symbol - detail::first_tertiary_ignorable];
                 auto const elems = table.data_->trie_[detail::cp_rng{cp}];
                 logical_positions[symbol].assign(
-                    elems->begin(detail::g_collation_elements_first),
-                    elems->end(detail::g_collation_elements_first));
+                    elems->begin(detail::collation_elements_ptr()),
+                    elems->end(detail::collation_elements_ptr()));
             };
             lookup_and_assign(detail::first_tertiary_ignorable);
             lookup_and_assign(detail::last_tertiary_ignorable);
@@ -1418,7 +1523,7 @@ namespace boost { namespace text {
             },
             [&](std::vector<detail::reorder_group> const & reorder_groups) {
                 uint32_t curr_reorder_lead_byte =
-                    (detail::g_reorder_groups[0].first_.l1_ & 0xff000000) -
+                    (detail::reorder_groups()[0].first_.l1_ & 0xff000000) -
                     0x01000000;
                 bool prev_group_compressible = false;
                 detail::collation_element prev_group_first = {
@@ -1462,11 +1567,11 @@ namespace boost { namespace text {
 
                     if ((detail::implicit_weights_final_lead_byte << 24) <
                         curr_reorder_lead_byte) {
-                        throw tailoring_error(
+                        boost::throw_exception(tailoring_error(
                             "It was not possible to tailor the "
                             "collation in the way you requested.  "
                             "Try using fewer groups in '[reorder "
-                            "...]'.");
+                            "...]'."));
                     }
 
 #if BOOST_TEXT_TAILORING_INSTRUMENTATION
@@ -1590,11 +1695,10 @@ namespace boost { namespace text {
         {
             temp_table_element::ces_t retval;
 
-            container::small_vector<collation_element, 1024> ces;
             detail::s2(
                 cps.begin(),
                 cps.end(),
-                ces,
+                std::back_inserter(retval),
                 table.trie_,
                 table.collation_elements_ ? table.collation_elements_
                                           : &table.collation_element_vec_[0],
@@ -1627,9 +1731,6 @@ namespace boost { namespace text {
             }
             std::cerr << "\n++++++++++\n";
 #endif
-
-            retval.resize(ces.size());
-            std::copy(ces.begin(), ces.end(), retval.begin());
 
             return retval;
         }

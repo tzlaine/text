@@ -14,7 +14,7 @@ _trie_\/_trie_m_\/_trie_s_.
 [heading The _s_ Layer]
 
 The types in this layer are encoding-agnostic.  Together, they form an
-exocsystem of types that consitutes "a better `std::string`".  The types in
+ecosystem of types that consitutes "a better `std::string`".  The types in
 this layer are: _s_, _sv_, _rsv_, _ur_, and _urv_.
 
 
@@ -26,11 +26,12 @@ of the standard algorithms, with range-friendly interfaces.  There are
 algorithms for these Unicode operations:
 
 * UTF-8 <-> UTF-16, UTF-8 <-> UTF-32
-* Text segmentation (line breaks, word breaks, etc.)
 * Normalization, including the four Unicode normalization forms, plus the FCC form from _tn5_
+* Text segmentation (line breaks, word breaks, etc.)
+* Case mapping (`to_upper()`, `is_lower()`, etc.)
 * Collation, including tailoring using the _ldml_coll_tail_ and serialization of collation tables
-* The Unicode Bidirectional Algorithm
-* TODO: Searching, Case-mapping, anything else?
+* Collation-aware searching, including caseless searching
+* The Unicode Bidirectional Algorithm, for laying out text that includes both left-to-right and right-to-left text
 
 These algorithms are independent of the other two layers; it is possible to
 use _Text_ as a Unicode library without using the either of the _s_ or _t_
@@ -59,5 +60,20 @@ The remaining assorted types are _trie_, _trie_m_, and _trie_s_.  The first of
 these is a trie that is not a valid C++ container.  The latter two are
 analogous to `std::map` and `std::set`, respectively, just built on a trie
 instead of a binary tree.
+
+[endsect]
+
+[section A Big, Fat Warning About Proxy Iterators]
+
+Before we go any further, I just want to make you aware that _Text_ makes
+extensive use of proxy iterators (see _to_32_iter_ and friends).  This is fine
+in C++20 and later, but is not fine in earlier versions of standard.  In fact,
+in earlier versions proxy iterators are not iterators at all, by the
+standard's formal definition.
+
+This does not come up a lot in practice.  I have yet to run into any code that
+does not compile or that does not work due to the use of these proxy
+iterators, but it is a potential problem about which you should know.
+Consider yourself warned.
 
 [endsect]

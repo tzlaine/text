@@ -57,7 +57,7 @@ namespace boost { namespace text { namespace detail {
             which_(which::t)
         {
             auto at = placement_address<string>(buf_, sizeof(buf_));
-            assert(at);
+            BOOST_ASSERT(at);
             buf_ptr_ = new (at) string(std::move(t));
         }
 
@@ -67,7 +67,7 @@ namespace boost { namespace text { namespace detail {
             which_(which::t)
         {
             auto at = placement_address<string_view>(buf_, sizeof(buf_));
-            assert(at);
+            BOOST_ASSERT(at);
             buf_ptr_ = new (at) string(tv);
         }
 
@@ -78,7 +78,7 @@ namespace boost { namespace text { namespace detail {
         {
             auto at =
                 placement_address<repeated_string_view>(buf_, sizeof(buf_));
-            assert(at);
+            BOOST_ASSERT(at);
             buf_ptr_ = new (at) repeated_string_view(rtv);
         }
 
@@ -90,14 +90,14 @@ namespace boost { namespace text { namespace detail {
             switch (which_) {
             case which::t: {
                 auto at = placement_address<string>(buf_, sizeof(buf_));
-                assert(at);
+                BOOST_ASSERT(at);
                 buf_ptr_ = new (at) string(rhs.as_string());
                 break;
             }
             case which::rtv: {
                 auto at =
                     placement_address<repeated_string_view>(buf_, sizeof(buf_));
-                assert(at);
+                BOOST_ASSERT(at);
                 buf_ptr_ = new (at)
                     repeated_string_view(rhs.as_repeated_string_view());
                 break;
@@ -105,11 +105,11 @@ namespace boost { namespace text { namespace detail {
             case which::ref: {
                 auto at =
                     placement_address<reference<rope_tag>>(buf_, sizeof(buf_));
-                assert(at);
+                BOOST_ASSERT(at);
                 buf_ptr_ = new (at) reference<rope_tag>(rhs.as_reference());
                 break;
             }
-            default: assert(!"unhandled rope node case"); break;
+            default: BOOST_ASSERT(!"unhandled rope node case"); break;
             }
         }
 
@@ -128,7 +128,7 @@ namespace boost { namespace text { namespace detail {
                 as_repeated_string_view().~repeated_string_view();
                 break;
             case which::ref: as_reference().~reference(); break;
-            default: assert(!"unhandled rope node case"); break;
+            default: BOOST_ASSERT(!"unhandled rope node case"); break;
             }
         }
 
@@ -138,44 +138,44 @@ namespace boost { namespace text { namespace detail {
             case which::t: return as_string().size(); break;
             case which::rtv: return as_repeated_string_view().size(); break;
             case which::ref: return as_reference().ref_.size(); break;
-            default: assert(!"unhandled rope node case"); break;
+            default: BOOST_ASSERT(!"unhandled rope node case"); break;
             }
             return -(1 << 30); // This should never execute.
         }
 
         string const & as_string() const noexcept
         {
-            assert(which_ == which::t);
+            BOOST_ASSERT(which_ == which::t);
             return *static_cast<string *>(buf_ptr_);
         }
 
         repeated_string_view const & as_repeated_string_view() const noexcept
         {
-            assert(which_ == which::rtv);
+            BOOST_ASSERT(which_ == which::rtv);
             return *static_cast<repeated_string_view *>(buf_ptr_);
         }
 
         reference<rope_tag> const & as_reference() const noexcept
         {
-            assert(which_ == which::ref);
+            BOOST_ASSERT(which_ == which::ref);
             return *static_cast<reference<rope_tag> *>(buf_ptr_);
         }
 
         string & as_string() noexcept
         {
-            assert(which_ == which::t);
+            BOOST_ASSERT(which_ == which::t);
             return *static_cast<string *>(buf_ptr_);
         }
 
         repeated_string_view & as_repeated_string_view() noexcept
         {
-            assert(which_ == which::rtv);
+            BOOST_ASSERT(which_ == which::rtv);
             return *static_cast<repeated_string_view *>(buf_ptr_);
         }
 
         reference<rope_tag> & as_reference() noexcept
         {
-            assert(which_ == which::ref);
+            BOOST_ASSERT(which_ == which::ref);
             return *static_cast<reference<rope_tag> *>(buf_ptr_);
         }
 
@@ -195,7 +195,7 @@ namespace boost { namespace text { namespace detail {
         std::ptrdiff_t n,
         found_char & retval) noexcept
     {
-        assert(node);
+        BOOST_ASSERT(node);
         find_leaf(node, n, retval.leaf_);
 
         leaf_node_t<rope_tag> const * leaf =
@@ -212,7 +212,7 @@ namespace boost { namespace text { namespace detail {
         case which::ref:
             c = *(leaf->as_reference().ref_.begin() + retval.leaf_.offset_);
             break;
-        default: assert(!"unhandled rope node case"); break;
+        default: BOOST_ASSERT(!"unhandled rope node case"); break;
         }
         retval.c_ = c;
     }
@@ -222,9 +222,9 @@ namespace boost { namespace text { namespace detail {
         string_(string_node),
         ref_(ref)
     {
-        assert(string_node);
-        assert(string_node->leaf_);
-        assert(string_node.as_leaf()->which_ == which::t);
+        BOOST_ASSERT(string_node);
+        BOOST_ASSERT(string_node->leaf_);
+        BOOST_ASSERT(string_node.as_leaf()->which_ == which::t);
     }
 
     inline node_ptr<rope_tag> make_node(string const & t)
@@ -255,7 +255,7 @@ namespace boost { namespace text { namespace detail {
     inline node_ptr<rope_tag> make_ref(
         leaf_node_t<rope_tag> const * t, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
-        assert(t->which_ == which::t);
+        BOOST_ASSERT(t->which_ == which::t);
         string_view const tv =
             string_view(t->as_string().begin() + lo, hi - lo);
 
@@ -264,7 +264,7 @@ namespace boost { namespace text { namespace detail {
         leaf->which_ = which::ref;
         auto at = placement_address<reference<rope_tag>>(
             leaf->buf_, sizeof(leaf->buf_));
-        assert(at);
+        BOOST_ASSERT(at);
         leaf->buf_ptr_ =
             new (at) reference<rope_tag>(node_ptr<rope_tag>(t), tv);
         return retval;
@@ -286,17 +286,17 @@ namespace boost { namespace text { namespace detail {
         std::ptrdiff_t hi,
         bool immutable)
     {
-        assert(node);
-        assert(0 <= lo && lo <= size(node.get()));
-        assert(0 <= hi && hi <= size(node.get()));
-        assert(lo < hi);
+        BOOST_ASSERT(node);
+        BOOST_ASSERT(0 <= lo && lo <= size(node.get()));
+        BOOST_ASSERT(0 <= hi && hi <= size(node.get()));
+        BOOST_ASSERT(lo < hi);
 
         bool const leaf_mutable = !immutable && node->refs_ == 1;
 
         switch (node.as_leaf()->which_) {
         case which::t:
-            assert(lo < INT_MAX);
-            assert(hi < INT_MAX);
+            BOOST_ASSERT(lo < INT_MAX);
+            BOOST_ASSERT(hi < INT_MAX);
             if (!leaf_mutable)
                 return make_ref(node.as_leaf(), lo, hi);
             {
@@ -324,8 +324,8 @@ namespace boost { namespace text { namespace detail {
             return node;
         }
         case which::ref: {
-            assert(lo < INT_MAX);
-            assert(hi < INT_MAX);
+            BOOST_ASSERT(lo < INT_MAX);
+            BOOST_ASSERT(hi < INT_MAX);
             if (!leaf_mutable)
                 return make_ref(node.as_leaf()->as_reference(), lo, hi);
             {
@@ -335,7 +335,7 @@ namespace boost { namespace text { namespace detail {
             }
             return node;
         }
-        default: assert(!"unhandled rope node case"); break;
+        default: BOOST_ASSERT(!"unhandled rope node case"); break;
         }
         return node_ptr<rope_tag>(); // This should never execute.
     }
@@ -343,10 +343,10 @@ namespace boost { namespace text { namespace detail {
     inline leaf_slices<rope_tag>
     erase_leaf(node_ptr<rope_tag> & node, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
-        assert(node);
-        assert(0 <= lo && lo <= size(node.get()));
-        assert(0 <= hi && hi <= size(node.get()));
-        assert(lo < hi);
+        BOOST_ASSERT(node);
+        BOOST_ASSERT(0 <= lo && lo <= size(node.get()));
+        BOOST_ASSERT(0 <= hi && hi <= size(node.get()));
+        BOOST_ASSERT(lo < hi);
 
         bool const leaf_mutable = node.as_leaf()->refs_ == 1;
         auto const leaf_size = size(node.get());
@@ -392,27 +392,6 @@ namespace boost { namespace text { namespace detail {
         }
 
         std::ostream & os_;
-    };
-
-    template<typename Segment>
-    bool encoded(Segment const & segment)
-    {
-        return utf8::encoded(segment.begin(), segment.end());
-    }
-
-    inline bool encoded(repeated_string_view rtv)
-    {
-        return utf8::encoded(rtv.view().begin(), rtv.view().end());
-    }
-
-    struct segment_encoding_checker
-    {
-        template<typename Segment>
-        void operator()(Segment const & s) const
-        {
-            if (!encoded(s))
-                throw std::invalid_argument("Invalid UTF-8 encoding");
-        }
     };
 
     struct repeated_range

@@ -1,11 +1,12 @@
 #ifndef BOOST_TEXT_NORMALIZE_HPP
 #define BOOST_TEXT_NORMALIZE_HPP
 
-#include <boost/text/string.hpp>
 #include <boost/text/utility.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
 #include <boost/container/static_vector.hpp>
+
+#include <algorithm>
 
 
 namespace boost { namespace text {
@@ -18,7 +19,7 @@ namespace boost { namespace text {
             Iter last,
             container::static_vector<int, Capacity> & cccs) noexcept
         {
-            assert(first != last);
+            BOOST_ASSERT(first != last);
 
             std::transform(first, last, cccs.begin(), ccc);
 
@@ -60,12 +61,13 @@ namespace boost { namespace text {
 
         template<
             typename Iter,
+            typename Sentinel,
             std::size_t Capacity,
             typename DecomposeFunc,
             typename FlushFunc>
         bool normalize_to_decomposed_impl(
             Iter first,
-            Iter last,
+            Sentinel last,
             container::static_vector<uint32_t, Capacity> & buffer,
             DecomposeFunc && decompose,
             FlushFunc && flush)
@@ -84,9 +86,13 @@ namespace boost { namespace text {
             return true;
         }
 
-        template<typename Iter, typename OutIter, typename DecomposeFunc>
+        template<
+            typename Iter,
+            typename Sentinel,
+            typename OutIter,
+            typename DecomposeFunc>
         OutIter normalize_to_decomposed(
-            Iter first, Iter last, OutIter out, DecomposeFunc && decompose)
+            Iter first, Sentinel last, OutIter out, DecomposeFunc && decompose)
         {
             container::static_vector<uint32_t, 64> buffer;
             using buffer_iterator =
@@ -123,14 +129,14 @@ namespace boost { namespace text {
             container::static_vector<uint32_t, Capacity> & buffer,
             container::static_vector<int, Capacity> & cccs)
         {
-            assert(buffer.size() == cccs.size());
-            assert(2 <= buffer.size());
+            BOOST_ASSERT(buffer.size() == cccs.size());
+            BOOST_ASSERT(2 <= buffer.size());
 
             auto starter_it = buffer.begin();
             auto it = std::next(buffer.begin());
             auto ccc_it = std::next(cccs.begin());
             while (it != buffer.end()) {
-                // Hangul composition as described in Unicode 10.0 Section 3.12.
+                // Hangul composition as described in Unicode 11.0 Section 3.12.
                 auto const hangul_cp0 = *starter_it;
                 auto const hangul_cp1 = *it;
                 if (it == starter_it + 1 && hangul_l(hangul_cp0) &&
@@ -213,13 +219,14 @@ namespace boost { namespace text {
         template<
             bool DisallowDiscontiguous,
             typename Iter,
+            typename Sentinel,
             std::size_t Capacity,
             typename DecomposeFunc,
             typename QuickCheckFunc,
             typename FlushFunc>
         bool normalize_to_composed_impl(
             Iter first,
-            Iter last,
+            Sentinel last,
             container::static_vector<uint32_t, Capacity> & buffer,
             DecomposeFunc && decompose,
             QuickCheckFunc && quick_check_,
@@ -254,12 +261,13 @@ namespace boost { namespace text {
         template<
             bool DisallowDiscontiguous,
             typename Iter,
+            typename Sentinel,
             typename OutIter,
             typename DecomposeFunc,
             typename QuickCheckFunc>
         OutIter normalize_to_composed(
             Iter first,
-            Iter last,
+            Sentinel last,
             OutIter out,
             DecomposeFunc && decompose,
             QuickCheckFunc && quick_check_)
@@ -298,9 +306,9 @@ namespace boost { namespace text {
 
         // TODO: Experiment with writing out the ccc values for reuse in case
         // the result is not quick_check::yes.
-        template<typename Iter, typename QuickCheckFunc>
+        template<typename Iter, typename Sentinel, typename QuickCheckFunc>
         quick_check normalized_quick_check(
-            Iter first, Iter last, QuickCheckFunc && quick_check_) noexcept
+            Iter first, Sentinel last, QuickCheckFunc && quick_check_) noexcept
         {
             quick_check retval = quick_check::yes;
             int prev_ccc = 0;
@@ -325,10 +333,14 @@ namespace boost { namespace text {
             return retval;
         }
 
-        template<typename Iter, typename DecomposeFunc, typename QuickCheckFunc>
+        template<
+            typename Iter,
+            typename Sentinel,
+            typename DecomposeFunc,
+            typename QuickCheckFunc>
         bool normalized_decomposed(
             Iter first,
-            Iter last,
+            Sentinel last,
             DecomposeFunc && decompose,
             QuickCheckFunc && quick_check_) noexcept
         {
@@ -356,10 +368,14 @@ namespace boost { namespace text {
             return check == quick_check::yes;
         }
 
-        template<typename Iter, typename DecomposeFunc, typename QuickCheckFunc>
+        template<
+            typename Iter,
+            typename Sentinel,
+            typename DecomposeFunc,
+            typename QuickCheckFunc>
         bool normalized_composed(
             Iter first,
-            Iter last,
+            Sentinel last,
             DecomposeFunc && decompose,
             QuickCheckFunc && quick_check_) noexcept
         {
@@ -390,9 +406,13 @@ namespace boost { namespace text {
     }
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
-        form NFD to \a out. */
-    template<typename CPIter, typename OutIter>
-    inline OutIter normalize_to_nfd(CPIter first, CPIter last, OutIter out)
+        form NFD to <code>out</code>.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto normalize_to_nfd(CPIter first, Sentinel last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
@@ -400,46 +420,22 @@ namespace boost { namespace text {
             });
     }
 
-    /** Writes sequence \a r in Unicode normalization form NFD to \a out. */
+    /** Writes sequence <code>r</code> in Unicode normalization form NFD to
+        <code>out</code>. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfd(CPRange const & r, OutIter out)
     {
-        using std::begin;
-        using std::end;
-        return normalize_to_nfd(begin(r), end(r), out);
-    }
-
-    /** Puts the contents of \a s in Unicode normalization form NFD.
-        Normalization is not performed if \a s passes a normalization
-        quick-check. */
-    inline void normalize_to_nfd(string & s)
-    {
-        utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
-                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfd_code_point(cp);
-                }) == detail::quick_check::yes) {
-            return;
-        }
-
-        string temp;
-        temp.reserve(s.size());
-
-        normalize_to_nfd(
-            as_utf32.begin(),
-            as_utf32.end(),
-            utf8::from_utf32_inserter(temp, temp.end()));
-
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
+        return normalize_to_nfd(std::begin(r), std::end(r), out);
     }
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
-        form NFKD to \a out. */
-    template<typename CPIter, typename OutIter>
-    inline OutIter normalize_to_nfkd(CPIter first, CPIter last, OutIter out)
+        form NFKD to <code>out</code>.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto normalize_to_nfkd(CPIter first, Sentinel last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_decomposed(
             first, last, out, [](uint32_t cp) {
@@ -447,46 +443,22 @@ namespace boost { namespace text {
             });
     }
 
-    /** Writes sequence \a r in Unicode normalization form NFKD to \a out. */
+    /** Writes sequence <code>r</code> in Unicode normalization form NFKD to
+     * <code>out</code>. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfkd(CPRange const & r, OutIter out)
     {
-        using std::begin;
-        using std::end;
-        return normalize_to_nfkd(begin(r), end(r), out);
-    }
-
-    /** Puts the contents of \a s in Unicode normalization form NFKD.
-        Normalization is not performed if \a s passes a normalization
-        quick-check. */
-    inline void normalize_to_nfkd(string & s)
-    {
-        utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
-                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfkd_code_point(cp);
-                }) == detail::quick_check::yes) {
-            return;
-        }
-
-        string temp;
-        temp.reserve(s.size());
-
-        normalize_to_nfkd(
-            as_utf32.begin(),
-            as_utf32.end(),
-            utf8::from_utf32_inserter(temp, temp.end()));
-
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
+        return normalize_to_nfkd(std::begin(r), std::end(r), out);
     }
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
-        form NFC to \a out. */
-    template<typename CPIter, typename OutIter>
-    inline OutIter normalize_to_nfc(CPIter first, CPIter last, OutIter out)
+        form NFC to <code>out</code>.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto normalize_to_nfc(CPIter first, Sentinel last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_composed<false>(
             first,
@@ -496,46 +468,22 @@ namespace boost { namespace text {
             [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
-    /** Writes sequence \a r in Unicode normalization form NFC to \a out. */
+    /** Writes sequence <code>r</code> in Unicode normalization form NFC to
+     * <code>out</code>. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfc(CPRange const & r, OutIter out)
     {
-        using std::begin;
-        using std::end;
-        return normalize_to_nfc(begin(r), end(r), out);
-    }
-
-    /** Puts the contents of \a s in Unicode normalization form NFC.
-        Normalization is not performed if \a s passes a normalization
-        quick-check. */
-    inline void normalize_to_nfc(string & s)
-    {
-        utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
-                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfc_code_point(cp);
-                }) == detail::quick_check::yes) {
-            return;
-        }
-
-        string temp;
-        temp.reserve(temp.size());
-
-        normalize_to_nfc(
-            as_utf32.begin(),
-            as_utf32.end(),
-            utf8::from_utf32_inserter(temp, temp.end()));
-
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
+        return normalize_to_nfc(std::begin(r), std::end(r), out);
     }
 
     /** Writes sequence <code>[first, last)</code> in Unicode normalization
-        form NFKC to \a out. */
-    template<typename CPIter, typename OutIter>
-    inline OutIter normalize_to_nfkc(CPIter first, CPIter last, OutIter out)
+        form NFKC to <code>out</code>.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto normalize_to_nfkc(CPIter first, Sentinel last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_composed<false>(
             first,
@@ -547,52 +495,22 @@ namespace boost { namespace text {
             });
     }
 
-    /** Writes sequence \a r in Unicode normalization form NFKC to \a out. */
+    /** Writes sequence <code>r</code> in Unicode normalization form NFKC to
+     * <code>out</code>. */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_nfkc(CPRange const & r, OutIter out)
     {
-        using std::begin;
-        using std::end;
-        return normalize_to_nfkc(begin(r), end(r), out);
+        return normalize_to_nfkc(std::begin(r), std::end(r), out);
     }
-
-    /** Puts the contents of \a s in Unicode normalization form NFKC.
-        Normalization is not performed if \a s passes a normalization
-        quick-check. */
-    inline void normalize_to_nfkc(string & s)
-    {
-        utf32_range as_utf32(s);
-        if (detail::normalized_quick_check(
-                as_utf32.begin(), as_utf32.end(), [](uint32_t cp) {
-                    return detail::quick_check_nfkc_code_point(cp);
-                }) == detail::quick_check::yes) {
-            return;
-        }
-
-        string temp;
-        temp.reserve(s.size());
-
-        normalize_to_nfkc(
-            as_utf32.begin(),
-            as_utf32.end(),
-            utf8::from_utf32_inserter(temp, temp.end()));
-
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
-    }
-
-    // TODO: Docuement a CPIter iterator concept.  Must be bidi at least.
-    // TODO: Document CPRange.
-
-    // TODO: Document how the normalized_*() functions should be used.
-    // TODO: Document the assumption of safe stream format.
 
     /** Returns true iff the given sequence of code points is normalized
-        NFD. */
-    template<typename CPIter>
-    bool normalized_nfd(CPIter first, CPIter last) noexcept
+        NFD.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    auto normalized_nfd(CPIter first, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_decomposed(
             first,
@@ -606,15 +524,17 @@ namespace boost { namespace text {
     template<typename CPRange>
     bool normalized_nfd(CPRange const & r) noexcept
     {
-        using std::begin;
-        using std::end;
-        return normalized_nfd(begin(r), end(r));
+        return normalized_nfd(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is normalized
-        NFKD. */
-    template<typename CPIter>
-    bool normalized_nfkd(CPIter first, CPIter last) noexcept
+        NFKD.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    auto normalized_nfkd(CPIter first, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_decomposed(
             first,
@@ -630,15 +550,17 @@ namespace boost { namespace text {
     template<typename CPRange>
     bool normalized_nfkd(CPRange const & r) noexcept
     {
-        using std::begin;
-        using std::end;
-        return normalized_nfkd(begin(r), end(r));
+        return normalized_nfkd(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is normalized
-        NFC. */
-    template<typename CPIter>
-    bool normalized_nfc(CPIter first, CPIter last) noexcept
+        NFC.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    auto normalized_nfc(CPIter first, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_composed(
             first,
@@ -652,15 +574,17 @@ namespace boost { namespace text {
     template<typename CPRange>
     bool normalized_nfc(CPRange const & r) noexcept
     {
-        using std::begin;
-        using std::end;
-        return normalized_nfc(begin(r), end(r));
+        return normalized_nfc(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is normalized
-        NFKC. */
-    template<typename CPIter>
-    bool normalized_nfkc(CPIter first, CPIter last) noexcept
+        NFKC.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    auto normalized_nfkc(CPIter first, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
     {
         return detail::normalized_composed(
             first,
@@ -676,15 +600,17 @@ namespace boost { namespace text {
     template<typename CPRange>
     bool normalized_nfkc(CPRange const & r) noexcept
     {
-        using std::begin;
-        using std::end;
-        return normalized_nfkc(begin(r), end(r));
+        return normalized_nfkc(std::begin(r), std::end(r));
     }
 
     /** Returns true iff the given sequence of code points is in an FCD
-        form. */
-    template<typename CPIter>
-    bool fcd_form(CPIter first, CPIter last) noexcept
+        form.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<typename CPIter, typename Sentinel>
+    auto fcd_form(CPIter first, Sentinel last) noexcept
+        -> detail::cp_iter_ret_t<bool, CPIter>
     {
         // http://www.unicode.org/notes/tn5/#FCD_Test
         int prev_ccc = 0;
@@ -698,25 +624,27 @@ namespace boost { namespace text {
                 decomp.size_ == 1 ? ccc : detail::ccc(*(decomp.end() - 1));
             ++first;
         }
-        return false;
+        return true;
     }
 
     /** Returns true iff the given range of code points is in an FCD form. */
     template<typename CPRange>
     bool fcd_form(CPRange const & r) noexcept
     {
-        using std::begin;
-        using std::end;
-        return fcd_form(begin(r), end(r));
+        return fcd_form(std::begin(r), std::end(r));
     }
 
     /** Writes sequence <code>[first, last)</code> in normalization
-        form FCC to \a out.
+        form FCC to <code>out</code>.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept.
 
         \see https://unicode.org/notes/tn5
     */
-    template<typename CPIter, typename OutIter>
-    inline OutIter normalize_to_fcc(CPIter first, CPIter last, OutIter out)
+    template<typename CPIter, typename Sentinel, typename OutIter>
+    inline auto normalize_to_fcc(CPIter first, Sentinel last, OutIter out)
+        -> detail::cp_iter_ret_t<OutIter, CPIter>
     {
         return detail::normalize_to_composed<true>(
             first,
@@ -726,39 +654,15 @@ namespace boost { namespace text {
             [](uint32_t cp) { return detail::quick_check_nfc_code_point(cp); });
     }
 
-    /** Writes sequence \a r in normalization form FCC to \a out.
+    /** Writes sequence <code>r</code> in normalization form FCC to
+       <code>out</code>.
 
         \see https://unicode.org/notes/tn5
     */
     template<typename CPRange, typename OutIter>
     inline OutIter normalize_to_fcc(CPRange const & r, OutIter out)
     {
-        using std::begin;
-        using std::end;
-        return normalize_to_fcc(begin(r), end(r), out);
-    }
-
-    /** Puts the contents of \a s in normalization form FCC.  Normalization is
-        not performed if \a s passes a normalization quick-check. */
-    inline void normalize_to_fcc(string & s)
-    {
-        // http://www.unicode.org/notes/tn5/#FCC
-        utf32_range as_utf32(s);
-        if (fcd_form(as_utf32.begin(), as_utf32.end()))
-            return;
-
-        string temp;
-        temp.reserve(s.size());
-
-        normalize_to_fcc(
-            as_utf32.begin(),
-            as_utf32.end(),
-            utf8::from_utf32_inserter(temp, temp.end()));
-
-        if (temp.size() <= s.capacity())
-            s = temp;
-        else
-            s.swap(temp);
+        return normalize_to_fcc(std::begin(r), std::end(r), out);
     }
 
 }}

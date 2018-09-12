@@ -1,5 +1,32 @@
 [section:concepts Concepts]
 
+[heading CharIter]
+
+A _CharIter_ is a bidirectional iterator over a sequence of `char`.
+
+Example: _r_`::iterator`.
+
+Requirements on _CharIter_.  In the table below, `Iter` is a type that models
+_CharIter_.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]    [Notes]]
+    [
+        [
+``typename std::remove_cv<
+    typename std::remove_reference<
+        typename std::iterator_traits<Iter>::value_type
+    >::type
+>::type`` ]
+        [ `char` ]
+        [ The `value_type` of `Iter` must be convertible to `char`. ]
+        [ The size of  the `value_type` of `Iter` must also be `1`. ]
+    ]
+]
+
+_CharIter_ does *not* need to be a contiguous iterator.
+
+
 [heading CharRange]
 
 A _CharRng_ is a possibly-discontiguous sequence of `char`.
@@ -7,34 +34,31 @@ A _CharRng_ is a possibly-discontiguous sequence of `char`.
 Example: _ur_.
 
 Requirements on _CharRng_.  In the table below, `R` is a type that models
-_CharRng_; `r` is an object of type `R`; `Iter` is an iterator type; and `it`
-is an object of type `Iter`.
+_CharRng_; `r` is an object of type `R`; `Iter` is an iterator type whose
+value type is (possibly cv-qualified) `char`; and `Sentinel` is a type
+equality comparable to `Iter`.
 
 [table Expression Requirements
-    [[Expression]    [Type]     [Description]                      [Notes]]
+    [[Expression]    [Type]     [Description]]
     [
-        [ `begin(r)` or `r.begin()` or `std::begin(r)` ]
+        [ `std::begin(r)` ]
         [ Iter ]
         [ The begin-iterator for `r`. ]
-        [ If multiple `begin()` overloads exist, they are prefered in the order listed. ]
     ]
     [
-        [ `end(r)` or `r.end()` or `std::end(r)` ]
-        [ Iter ]
-        [ The end-iterator for `r`. ]
-        [ If multiple `end()` overloads exist, they are prefered in the order listed. ]
+        [ `std::end(r)` ]
+        [ Sentinel ]
+        [ The end-iterator or end-sentinel for `r`. ]
     ]
     [
-        [ `typename std::iterator_traits<R::iterator>::iterator_category` ]
-        [ std::random_access_iterator_tag ]
-        [ `R::iterator` must be a random access iterator. ]
-        []
+        [ `typename std::iterator_traits<decltype(std::begin(r))>::iterator_category` ]
+        [ std::bidirectional_iterator_tag ]
+        [ `decltype(std::begin(r))` must be a bidirectional iterator. ]
     ]
     [
-        [ `*it` ]
+        [ `*std::begin(r)` ]
         [ `char` ]
         [ It must be possible to access the `char` sequence underlying `r`. ]
-        []
     ]
 ]
 
@@ -47,95 +71,31 @@ Example: _s_.
 
 Requirements on _ContCharRng_.  All the requirements on _CharRng_ apply, in
 addition to the following table.  In the table, `R` is a type that models
-_ContCharRng_; `r` is an object of type `R`; `Iter` is an iterator type; and
-`it` is an object of type `Iter`.
+_ContCharRng_; `r` is an object of type `R`; and `Iter` is an iterator type
+whose value type is (possibly cv-qualified) `char`.
 
 [table Expression Requirements
     [[Expression]    [Type]     [Description]                      [Notes]]
     [
-        [ `&*it` ]
+        [ `std::addressof(*std::begin(r))` ]
         [ `char *` ]
         [ It must be possible to access the `char` sequence underlying `r` as an array. ]
-        [ The result will be `char const *` if `Iter` is a `const_iterator`. ]
+        [ The result will be `char const *` if `r` is `const`. ]
     ]
 ]
 
-Additionally, `Iter` must be a contiguous iterator.
+Additionally, `Iter` must be a contiguous random access iterator.
 
 
-[heading GraphemeRange]
+[heading CPIter]
 
-A _GrRng_ is a sequence of graphemes over an underlying possibly-discontiguous
-sequence of `char`.
+A _CPIter_ is a bidirectional iterator over a sequence whose element type is
+an unsigned 32-bit integral type.
 
-Example: _r_.
+Example: `std::array<uint32_t, 5>::iterator`.
 
-Requirements on _GrRng_.  In the table below, `R` is a type that models
-_GrRng_; `r` is an object of type `R`; `Iter` is an iterator type; and `it` is
-an object of type `Iter`.
-
-[table Expression Requirements
-    [[Expression]    [Type]     [Description]                      [Notes]]
-    [
-        [ `begin(r).base().base()` or `r.begin().base().base()` or `std::begin(r).base().base()` ]
-        [ Iter ]
-        [ The begin-iterator for the underlying sequence of `char` delimited by `r`. ]
-        [ If multiple `begin()` overloads exist, they are prefered in the order listed. ]
-    ]
-    [
-        [ `end(r).base().base()` or `r.end().base().base()` or `std::end(r).base().base()` ]
-        [ Iter ]
-        [ The end-iterator for the underlying sequence of `char` delimited by `r`. ]
-        [ If multiple `end()` overloads exist, they are prefered in the order listed. ]
-    ]
-    [
-        [ `typename std::iterator_traits<Iter>::iterator_category` ]
-        [ std::random_access_iterator_tag ]
-        [ `Iter` must be a random access iterator. ]
-        []
-    ]
-    [
-        [ `*it->base().base()` ]
-        [ `char` ]
-        [ It must be possible to access the `char` sequence underlying `r`. ]
-        []
-    ]
-]
-
-
-[heading ContigGraphemeRange]
-
-A _ContGrRng_ is a sequence of graphemes over an underlying contiguous
-sequence of `char`.
-
-Example: _t_.
-
-Requirements on _ContGrRng_.  All the requirements on _GrRng_ apply, in
-addition to the following table.  In the table, `R` is a type that models
-_ContGrRng_; `r` is an object of type `R`; `Iter` is an iterator type; and
-`it` is an object of type `Iter`.
-
-[table Expression Requirements
-    [[Expression]    [Type]     [Description]                      [Notes]]
-    [
-        [ `&*it->base().base()` ]
-        [ `char *` ]
-        [ It must be possible to access the `char` sequence underlying `r` as an array. ]
-        [ The result will be `char const *` if `Iter` is a `const_iterator`. ]
-    ]
-]
-
-Additionally, `Iter` must be a contiguous iterator.
-
-
-[heading CharIter]
-
-A _CharIter_ is a bidirectional iterator over a sequence of `char`.
-
-Example: _r_`::iterator`.
-
-Requirements on _CharIter_.  In the table below, `Iter` is a type that models
-_CharIter_.
+Requirements on _CPIter_.  In the table below, `Iter` is a type that models
+_CPIter_.
 
 [table Expression Requirements
     [[Expression]    [Type]     [Description]]
@@ -146,11 +106,327 @@ _CharIter_.
         typename std::iterator_traits<Iter>::value_type
     >::type
 >::type`` ]
-        [ `char` ]
-        [ The value_type of `Iter` must be convertible to `char`. ]
+        [ any unsigned 32-bit integral convertible to `uint32_t` ]
+        [ The `value_type` of `Iter` must be convertible to `uint32_t`. ]
     ]
 ]
 
-_CharIter_ does not need to be a contiguous iterator.
+_CPIter_ does not need to be a contiguous iterator.
+
+
+[heading CPRange]
+
+A _CPRng_ is a possibly-discontiguous sequence whose element type is an
+unsigned 32-bit integral type.
+
+Example: _cpr_.
+
+Requirements on _CPRng_.  In the table below, `R` is a type that models
+_CPRng_; `r` is an object of type `R`; `Iter` is an iterator type whose
+(possibly cv-qualified) value type is convertible to `uint32_t`; and
+`Sentinel` is a type equality comparable to `Iter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]]
+    [
+        [ `std::begin(r)` ]
+        [ Iter ]
+        [ The begin-iterator for `r`. ]
+    ]
+    [
+        [ `std::end(r)` ]
+        [ Sentinel ]
+        [ The end-iterator or end-sentinel for `r`. ]
+    ]
+    [
+        [ `typename std::iterator_traits<decltype(std::begin(r))>::iterator_category` ]
+        [ std::bidirectional_iterator_tag ]
+        [ `decltype(std::begin(r))` must be a bidirectional iterator. ]
+    ]
+    [
+        [ `*decltype(std::begin(r))` ]
+        [ any unsigned 32-bit integral convertible to `uint32_t` ]
+        [ It must be possible to access the sequence underlying `r`. ]
+    ]
+]
+
+
+[heading GraphemeIterator]
+
+A _GrIter_ is a converting bidirectional iterator that produces grapheme
+subranges from an underlying sequence of UTF-8-encoded `char`, using an
+intervening _CPIter_ iterator.
+
+Example: _t_::iterator.
+
+Requirements on _GrIter_.  In the table below, `Iter` is a type that models
+_GrIter_; `it` is an object of type `Iter`; `CPIter` is an iterator type whose
+(possibly cv-qualified) value type is convertible to `uint32_t`; `CharIter` is
+an iterator type whose value type is (possibly cv-qualified) `char`; and
+`char_it` is an object of type `CharIter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]]
+    [
+        [ `it.base()` ]
+        [ CPIter ]
+        [ The iterator for the underlying sequence of `uint32_t` delimited by `it`. ]
+    ]
+    [
+        [ `it.base().base()` ]
+        [ CharIter ]
+        [ The iterator for the underlying sequence of `char` delimited by `it`. ]
+    ]
+    [
+        [ `typename std::iterator_traits<decltype(it.base())>::iterator_category` ]
+        [ std::bidirectional_iterator_tag ]
+        [ `CPIter` must be a bidirectional iterator. ]
+    ]
+    [
+        [ `*it.base()` ]
+        [ any type convertible to `uint32_t` ]
+        [ It must be possible to access the `uint32_t` sequence underlying `r`. ]
+    ]
+    [
+        [ `*it.base().base()` ]
+        [ `char` ]
+        [ It must be possible to access the `char` sequence underlying `r`. ]
+    ]
+]
+
+
+[heading GraphemeRange]
+
+A _GrRng_ is a sequence of graphemes over an underlying possibly-discontiguous
+sequence of UTF-8-encoded `char`, using an intervening _CPIter_ iterator.
+
+Example: _r_.
+
+Requirements on _GrRng_.  In the table below, `R` is a type that models
+_GrRng_; `r` is an object of type `R`; `CPIter` is an iterator type whose
+(possibly cv-qualified) value type is convertible to `uint32_t`; `Iter` is an
+iterator type whose value type is (possibly cv-qualified) `char`; and `it` is
+an object of type `Iter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]]
+    [
+        [ `std::begin(r).base()` ]
+        [ CPIter ]
+        [ The begin-iterator for the underlying sequence of `uint32_t` delimited by `r`. ]
+    ]
+    [
+        [ `std::end(r).base()` ]
+        [ CPIter or some sentinel type equality comparable to `std::begin(r).base()` ]
+        [ The end-iterator or end-sentinel for the underlying sequence of `uint32_t` delimited by `r`. ]
+    ]
+    [
+        [ `std::begin(r).base().base()` ]
+        [ Iter ]
+        [ The begin-iterator for the underlying sequence of `char` delimited by `r`. ]
+    ]
+    [
+        [ `std::end(r).base().base()` ]
+        [ Sentinel ]
+        [ The end-iterator or end-sentinel for the underlying sequence of `char` delimited by `r`. ]
+    ]
+    [
+        [ `typename std::iterator_traits<decltype(std::begin(r))>::iterator_category` ]
+        [ std::bidirectional_iterator_tag ]
+        [ `decltype(std::begin(r))` must be a bidirectional iterator. ]
+    ]
+    [
+        [ `*std::begin(r).base()` ]
+        [ any type convertible to `uint32_t` ]
+        [ It must be possible to access the `uint32_t` sequence underlying `r`. ]
+    ]
+    [
+        [ `*std::begin(r).base().base()` ]
+        [ `char` ]
+        [ It must be possible to access the `char` sequence underlying `r`. ]
+    ]
+]
+
+
+[heading ContigGraphemeRange]
+
+A _ContGrRng_ is a sequence of graphemes over an underlying contiguous
+sequence of UTF-8-encoded `char`.
+
+Example: _t_.
+
+Requirements on _ContGrRng_.  All the requirements on _GrRng_ apply, in
+addition to the following table.  In the table, `R` is a type that models
+_ContGrRng_; `r` is an object of type `R`; and `Iter` is an iterator type
+whose value type is (possibly cv-qualified) `char`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]                      [Notes]]
+    [
+        [ `std::addressof(*std::begin(r).base().base())` ]
+        [ `char *` ]
+        [ It must be possible to access the `char` sequence underlying `r` as an array. ]
+        [ The result will be `char const *` if `R` is `const`. ]
+    ]
+]
+
+Additionally, `Iter` must be a contiguous random access iterator.
+
+
+[heading WordPropFunc]
+
+A _WordPropFunc_ is a callable taking a code point that returns the
+_word_property_ for that code point.  A _WordPropFunc_ must be stateless.
+
+Example:
+```
+    struct default_word_prop
+    {
+        boost::text::word_property operator()(uint32_t cp)
+        {
+            return boost::text::word_prop(cp);
+        }
+    };
+```
+
+Requirements on _WordPropFunc_.  In the table below, `F` is a type that models
+_WordPropFunc_; `f` is an object of type `f`; and `cp` is an object
+convertible to `uint32_t`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]     [Notes]]
+    [
+        [ `f(cp)` ]
+        [ _word_property_ ]
+        [ Returns the _word_property_ associated with `cp`. ]
+        [ The _word_property_ produced by `f` may be different than the one indicated by the Unicode standard; this allows customization of word boundaries.  `f` may not rely on its state being preserved between calls. ]
+    ]
+]
+
+_WordPropFunc_ is used in some of the word breaking API to tailor word
+breaking behavior.
+
+
+[heading CPWordBreakFunc]
+
+A _CPWordBreakFunc_ is a callable taking a several code points that returns
+`true` or `false` indicating whether to break at the middle code point.  A
+_CPWordBreakFunc_ must be stateless.
+
+Example:
+```
+    struct default_cp_break
+    {
+        bool operator()(uint32_t prev_prev,
+                        uint32_t prev,
+                        uint32_t curr,
+                        uint32_t next,
+                        uint32_t next_next) const noexcept
+        {
+            return false;
+        }
+    };
+```
+
+Requirements on _CPWordBreakFunc_.  In the table below, `F` is a type that
+models _CPWordBreakFunc_; `f` is an object of type `f`; and `prev_prev`,
+`prev`, `curr`, `next`, and `next_next` are objects convertible to `uint32_t`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]     [Notes]]
+    [
+        [ `f(prev_prev, prev, curr, next, next_next)` ]
+        [ a type convertible to `bool` ]
+        [ Returns `true` if a word break at `curr` is indicated, and `false` otherwise. ]
+        [ The result produced by `f` may be different than the one indicated by the Unicode standard; this allows customization of word boundaries.  `f` may not rely on its state being preserved between calls. ]
+    ]
+]
+
+_CPWordBreakFunc_ is used in some of the word breaking API to tailor word
+breaking behavior.
+
+
+[heading CPExtentFunc]
+
+A _CPExtentFunc_ is a callable taking a pair of iterators to a range of code
+points that returns the horizontal extent of the code points.  A
+_CPExtentFunc_ may be stateful.
+
+Example:
+```
+    struct no_op_cp_extent
+    {
+        int operator()(uint32_t * first, uint32_t * last)
+        {
+            // Extent is always zero, regardless of the code points given.
+            return 0;
+        }
+    };
+```
+
+Requirements on _CPExtentFunc_.  In the table below, `F` is a type that models
+_CPExtentFunc_; `f` is an object of type `f`; `CPIter` is the parameter type
+of `F`; and `first` and `last` are objects of type `CPIter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]     [Notes]]
+    [
+        [ `f(first, last)` ]
+        [ an integral type ]
+        [ Returns the horizontal width of the given range of code points. ]
+        [ `f` may have state that is mutated in the call. ]
+    ]
+]
+
+_CPExtentFunc_ is used in some of the line breaking API.
+
+
+[heading BreakFunc]
+
+A _BreakFunc_ is a callable taking three iterators to a range of code points
+that indicates whether the middle iterator is at a text break (word break,
+grapheme break, etc.).  A _BreakFunc_ may not be stateful.
+
+Example: _prev_graph_
+
+Requirements on _BreakFunc_.  In the table below, `F` is a type that models
+_BreakFunc_; `f` is an object of type `f`; `CPIter` is the parameter type of
+`F`; and `first`, `it`, and `last` are objects of type `CPIter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]     [Notes]]
+    [
+        [ `f(first, it, last)` ]
+        [ a type convertible to `bool` ]
+        [ Returns `true` if `it` is at a text break, and `false` otherwise. ]
+        [ `f` may not rely on its state being preserved between calls. ]
+    ]
+]
+
+_BreakFunc_ is used in some of the collation-aware searching API.
+
+
+[heading Searcher]
+
+A _Searcher_ is a callable taking a pair of iterators to a corpus of code
+points to search.  It returns a range of code points from the corpus that is
+equal to the sequence of code points the _Searcher_ was configured to find.
+
+Example: _bm_searcher_
+
+Requirements on _Searcher_.  In the table below, `F` is a type that models
+_Searcher_; `f` is an object of type `f`; `CPIter` is the parameter type of
+`F`; and `first`, `it`, and `last` are objects of type `CPIter`.
+
+[table Expression Requirements
+    [[Expression]    [Type]     [Description]]
+    [
+        [ `f(first, last)` ]
+        [ a type that models _CPRng_ ]
+        [ Returns the range within (`first`, `last`\] that matches the code point sequence `f` was configured to find. ]
+    ]
+]
+
+_Searcher_ is used in some of the collation-aware searching API.
 
 [endsect]

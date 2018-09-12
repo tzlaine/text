@@ -2,16 +2,18 @@
 #define BOOST_TEXT_WORD_BREAK_HPP
 
 #include <boost/text/algorithm.hpp>
+#include <boost/text/grapheme_range.hpp>
 #include <boost/text/lazy_segment_range.hpp>
 
 #include <array>
+#include <unordered_map>
 
 #include <stdint.h>
 
 
 namespace boost { namespace text {
 
-    /** The word properties outlined in Unicode 10. */
+    /** The word properties defined by Unicode. */
     enum class word_property {
         Other,
         CR,
@@ -28,19 +30,64 @@ namespace boost { namespace text {
         Hebrew_Letter,
         Double_Quote,
         Single_Quote,
-        E_Base,
-        E_Modifier,
-        Glue_After_Zwj,
-        E_Base_GAZ,
+        ExtPict,
+        WSegSpace,
         Format,
         Extend,
         ZWJ
     };
 
-    /** Returns the word property associated with code point \a cp. */
-    word_property word_prop(uint32_t cp) noexcept;
+    namespace detail {
+        struct word_prop_interval
+        {
+            uint32_t lo_;
+            uint32_t hi_;
+            word_property prop_;
+        };
+
+        inline bool
+        operator<(word_prop_interval lhs, word_prop_interval rhs) noexcept
+        {
+            return lhs.hi_ <= rhs.lo_;
+        }
+
+        BOOST_TEXT_DECL std::array<word_prop_interval, 24> const &
+        make_word_prop_intervals();
+        BOOST_TEXT_DECL std::unordered_map<uint32_t, word_property>
+        make_word_prop_map();
+    }
+
+    /** Returns the word property associated with code point
+        <code>cp</code>. */
+    inline word_property word_prop(uint32_t cp) noexcept
+    {
+        static auto const map = detail::make_word_prop_map();
+        static auto const intervals = detail::make_word_prop_intervals();
+
+        auto const it = map.find(cp);
+        if (it == map.end()) {
+            auto const it2 = std::lower_bound(
+                intervals.begin(),
+                intervals.end(),
+                detail::word_prop_interval{cp, cp + 1});
+            if (it2 == intervals.end() || cp < it2->lo_ || it2->hi_ <= cp)
+                return word_property::Other;
+            return it2->prop_;
+        }
+        return it->second;
+    }
 
     namespace detail {
+        struct default_cp_break
+        {
+            bool
+            operator()(uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) const
+                noexcept
+            {
+                return false;
+            }
+        };
+
         inline bool skippable(word_property prop) noexcept
         {
             return prop == word_property::Extend ||
@@ -82,17 +129,34 @@ namespace boost { namespace text {
             second_emoji // Indicates that prop points to an even-count emoji.
         };
 
+        struct ph
+        {
+            enum { prev_prev, prev, curr, next, next_next };
+        };
+
+        struct cp_and_word_prop
+        {
+            cp_and_word_prop() {}
+
+            template<typename WordPropFunc>
+            cp_and_word_prop(uint32_t c, WordPropFunc word_prop) :
+                cp(c),
+                prop(word_prop(c))
+            {}
+
+            uint32_t cp = 0;
+            word_property prop = word_property::Other;
+        };
+
         template<typename CPIter>
         struct word_break_state
         {
+            word_break_state() {}
+
             CPIter it;
             bool it_points_to_prev = false;
 
-            word_property prev_prev_prop;
-            word_property prev_prop;
-            word_property prop;
-            word_property next_prop;
-            word_property next_next_prop;
+            std::array<cp_and_word_prop, 5> caps;
 
             word_break_emoji_state_t emoji_state;
         };
@@ -101,10 +165,8 @@ namespace boost { namespace text {
         word_break_state<CPIter> next(word_break_state<CPIter> state)
         {
             ++state.it;
-            state.prev_prev_prop = state.prev_prop;
-            state.prev_prop = state.prop;
-            state.prop = state.next_prop;
-            state.next_prop = state.next_next_prop;
+            std::copy(
+                state.caps.begin() + 1, state.caps.end(), state.caps.begin());
             return state;
         }
 
@@ -114,48 +176,40 @@ namespace boost { namespace text {
             if (!state.it_points_to_prev)
                 --state.it;
             state.it_points_to_prev = false;
-            state.next_next_prop = state.next_prop;
-            state.next_prop = state.prop;
-            state.prop = state.prev_prop;
-            state.prev_prop = state.prev_prev_prop;
+            std::copy_backward(
+                state.caps.begin(), state.caps.end() - 1, state.caps.end());
             return state;
         }
 
         inline bool table_word_break(word_property lhs, word_property rhs)
         {
+            // Note that WSegSpace.WSegSpace was changed to '1' since that
+            // case is handled in the word break FSM.
+
             // clang-format off
 // See chart at http://www.unicode.org/Public/UCD/latest/ucd/auxiliary/WordBreakTest.html.
-constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
-//  Other CR LF NL Ktk AL ML MN MNL Num ENL RI HL DQ SQ E_Bse E_Mod GAZ EBG Fmt Extd ZWJ
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Other
-    {{1,   1, 0, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  1,  1,   1}}, // CR
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  1,  1,   1}}, // LF
-                                                                                     
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  1,  1,   1}}, // Newline
-    {{1,   1, 1, 1, 0,  1, 1, 1, 1,  1,  0,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Katakana
-    {{1,   1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // ALetter
-                                                                                     
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // MidLetter
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // MidNum
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // MidNumLet
-                                                                                     
-    {{1,   1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Numeric
-    {{1,   1, 1, 1, 0,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // ExtendNumLet
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  0, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // RI
-                                                                                     
-    {{1,   1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 0, 1,    1,    1,  1,  0,  0,   0}}, // Hebrew_Letter
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Double_Quote
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Single_Quote
-                                                                                     
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    0,    1,  1,  0,  0,   0}}, // E_Base
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // E_Modifier
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Glue_After_Zwj
-                                                                                     
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    0,    1,  1,  0,  0,   0}}, // EBG
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Format
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    1,  1,  0,  0,   0}}, // Extend
-                                                                                     
-    {{1,   1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1,    1,    0,  0,  0,  0,   0}}, // ZWJ
+constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
+// Other CR LF NL Ktk AL ML MN MNL Num ENL RI HL DQ SQ EP WSSp Fmt Extd ZWJ
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Other
+    {{1, 1, 0, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   1,  1,   1}}, // CR
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   1,  1,   1}}, // LF
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   1,  1,   1}}, // Newline
+    {{1, 1, 1, 1, 0,  1, 1, 1, 1,  1,  0,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Katakana
+    {{1, 1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1, 1,   0,  0,   0}}, // ALetter
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // MidLetter
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // MidNum
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // MidNumLet
+    {{1, 1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1, 1,   0,  0,   0}}, // Numeric
+    {{1, 1, 1, 1, 0,  0, 1, 1, 1,  0,  0,  1, 0, 1, 1, 1, 1,   0,  0,   0}}, // ExtendNumLet
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  0, 1, 1, 1, 1, 1,   0,  0,   0}}, // RI
+    {{1, 1, 1, 1, 1,  0, 1, 1, 1,  0,  0,  1, 0, 1, 0, 1, 1,   0,  0,   0}}, // Hebrew_Letter
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Double_Quote
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Single_Quote
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // ExtPict
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // WSegSpace
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Format
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 1, 1,   0,  0,   0}}, // Extend
+    {{1, 1, 1, 1, 1,  1, 1, 1, 1,  1,  1,  1, 1, 1, 1, 0, 1,   0,  0,   0}}, // ZWJ
 }};
             // clang-format on
             auto const lhs_int = static_cast<int>(lhs);
@@ -165,41 +219,242 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
         // WB4: Except after line breaks, ignore/skip (Extend | Format |
         // ZWJ)*
-        template<typename CPIter, typename Sentinel>
+        template<typename CPIter, typename Sentinel, typename WordPropFunc>
         word_break_state<CPIter> skip_forward(
-            word_break_state<CPIter> state, CPIter first, Sentinel last)
+            word_break_state<CPIter> state,
+            CPIter first,
+            Sentinel last,
+            WordPropFunc word_prop)
         {
-            if (state.it != first && !skippable(state.prev_prop) &&
-                skippable(state.prop)) {
-                auto temp_it = find_if_not(state.it, last, [](uint32_t cp) {
-                    return skippable(word_prop(cp));
-                });
-                if (temp_it == last)
+            if (state.it != first && !skippable(state.caps[ph::prev].prop) &&
+                skippable(state.caps[ph::curr].prop)) {
+                auto last_prop = word_property::Other;
+                auto temp_it = find_if_not(
+                    state.it, last, [word_prop, &last_prop](uint32_t cp) {
+                        last_prop = word_prop(cp);
+                        return skippable(last_prop);
+                    });
+                if (temp_it == last) {
                     --temp_it;
-                auto const temp_prop = word_prop(*temp_it);
+                } else if (last_prop == word_property::ExtPict) {
+                    auto const next_to_last_prop =
+                        word_prop(*std::prev(temp_it));
+                    if (next_to_last_prop == word_property::ZWJ)
+                        --temp_it;
+                }
                 state.it = temp_it;
-                state.prop = temp_prop;
-                state.next_prop = word_property::Other;
-                state.next_next_prop = word_property::Other;
+                state.caps[ph::curr] = cp_and_word_prop(*temp_it, word_prop);
+                state.caps[ph::next] = cp_and_word_prop();
+                state.caps[ph::next_next] = cp_and_word_prop();
                 if (std::next(state.it) != last) {
-                    state.next_prop = word_prop(*std::next(state.it));
+                    state.caps[ph::next] =
+                        cp_and_word_prop(*std::next(state.it), word_prop);
                     if (std::next(state.it, 2) != last) {
-                        state.next_next_prop =
-                            word_prop(*std::next(state.it, 2));
+                        state.caps[ph::next_next] = cp_and_word_prop(
+                            *std::next(state.it, 2), word_prop);
                     }
                 }
             }
             return state;
         }
+
+        template<typename T>
+        using word_prop_func_ =
+            decltype(std::declval<T>()(std::declval<uint32_t>()));
+
+        template<
+            typename T,
+            typename F,
+            typename R,
+            bool RIsCPRange = is_cp_iter<iterator_t<R>>::value,
+            bool FIsWordPropFunc = std::
+                is_same<detected_t<word_prop_func_, F>, word_property>::value>
+        struct word_prop_func_ret
+        {
+        };
+
+        template<typename T, typename F, typename R>
+        struct word_prop_func_ret<T, F, R, true, true>
+        {
+            using type = T;
+        };
+
+        template<
+            typename T,
+            typename F,
+            typename R = ::boost::text::cp_range<uint32_t *>>
+        using word_prop_func_ret_t = typename word_prop_func_ret<T, F, R>::type;
+
+        template<
+            typename T,
+            typename F,
+            typename R,
+            bool RIsCPRange = is_grapheme_char_range<R>::value,
+            bool FIsWordPropFunc = std::
+                is_same<detected_t<word_prop_func_, F>, word_property>::value>
+        struct graph_word_prop_func_ret
+        {
+        };
+
+        template<typename T, typename F, typename R>
+        struct graph_word_prop_func_ret<T, F, R, true, true>
+        {
+            using type = T;
+        };
+
+        template<typename T, typename F, typename R>
+        using graph_word_prop_func_ret_t =
+            typename graph_word_prop_func_ret<T, F, R>::type;
     }
+
+    /** A callable type that returns the next word_property for the given code
+        point <code>cp</code>.  This is the default used with the word
+        breaking functions. */
+    struct word_prop_callable
+    {
+        word_property operator()(uint32_t cp) const noexcept
+        {
+            return word_prop(cp);
+        }
+    };
+
+#ifdef BOOST_TEXT_DOXYGEN
 
     /** Finds the nearest word break at or before before <code>it</code>.  If
         <code>it == first</code>, that is returned.  Otherwise, the first code
         point of the word that <code>it</code> is within is returned (even if
-        <code>it</code> is already at the first code point of a word). */
-    template<typename CPIter, typename Sentinel>
-    CPIter prev_word_break(CPIter first, CPIter it, Sentinel last) noexcept
+        <code>it</code> is already at the first code point of a word).
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept. */
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    CPIter prev_word_break(
+        CPIter first,
+        CPIter it,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Finds the next word break after <code>first</code>.  This will be the
+        first code point after the current word, or <code>last</code> if no
+        next word exists.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept.
+
+        \pre <code>first</code> is at the beginning of a word. */
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    CPIter next_word_break(
+        CPIter first,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Finds the nearest word break at or before before <code>it</code>.  If
+        <code>it == range.begin()</code>, that is returned.  Otherwise, the
+        first code point of the word that <code>it</code> is within is
+        returned (even if <code>it</code> is already at the first code point
+        of a word).
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined prev_word_break(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a grapheme_iterator to the nearest word break at or before
+        before <code>it</code>.  If <code>it == range.begin()</code>, that is
+        returned.  Otherwise, the first grapheme of the word that
+        <code>it</code> is within is returned (even if <code>it</code> is
+        already at the first grapheme of a word).
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined prev_word_break(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Finds the next word break after <code>it</code>.  This will be the
+        first code point after the current word, or <code>range.end()</code>
+        if no next word exists.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept.
+
+        \pre <code>it</code> is at the beginning of a word. */
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined next_word_break(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{});
+
+    /** Returns a grapheme_iterator to the next word break after
+        <code>it</code>.  This will be the first grapheme after the current
+        word, or <code>range.end()</code> if no next word exists.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept.
+
+        \pre <code>it</code> is at the beginning of a word. */
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined next_word_break(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+#else
+
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto prev_word_break(
+        CPIter first,
+        CPIter it,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
+        using detail::ph;
+        using detail::cp_and_word_prop;
+
         if (it == first)
             return it;
 
@@ -210,37 +465,73 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
         state.it = it;
 
-        state.prop = word_prop(*state.it);
+        state.caps[ph::curr] = cp_and_word_prop(*state.it, word_prop);
 
-        // Special case: If state.prop is skippable, we need to skip backward
-        // until we find a non-skippable.
-        if (detail::skippable(state.prop)) {
-            state.it = find_if_not_backward(first, it, [](uint32_t cp) {
-                return detail::skippable(word_prop(cp));
-            });
-            state.next_prop = word_prop(*std::next(state.it));
-            state.prop = word_prop(*state.it);
+        // Since cp_break is evaluated unconditionally before the other rules,
+        // we need to do all this her before the special-casing below.
+        if (it != first) {
+            state.caps[ph::prev] =
+                cp_and_word_prop(*std::prev(state.it), word_prop);
+            if (std::prev(state.it) != first) {
+                state.caps[ph::prev_prev] =
+                    cp_and_word_prop(*std::prev(state.it, 2), word_prop);
+            }
+        }
+        if (std::next(state.it) != last) {
+            state.caps[ph::next] =
+                cp_and_word_prop(*std::next(state.it), word_prop);
+            if (std::next(state.it, 2) != last) {
+                state.caps[ph::next_next] =
+                    cp_and_word_prop(*std::next(state.it, 2), word_prop);
+            }
+        }
+        if (cp_break(
+                state.caps[ph::prev_prev].cp,
+                state.caps[ph::prev].cp,
+                state.caps[ph::curr].cp,
+                state.caps[ph::next].cp,
+                state.caps[ph::next_next].cp)) {
+            return state.it;
+        }
+
+        // Special case: If state.caps[ph::curr].prop is skippable, we need to
+        // skip backward until we find a non-skippable.
+        if (detail::skippable(state.caps[ph::curr].prop)) {
+            state.it =
+                find_if_not_backward(first, it, [word_prop](uint32_t cp) {
+                    return detail::skippable(word_prop(cp));
+                });
+            state.caps[ph::next] =
+                cp_and_word_prop(*std::next(state.it), word_prop);
+            state.caps[ph::curr] = cp_and_word_prop(*state.it, word_prop);
 
             // If we end up on a non-skippable that should break before the
             // skippable(s) we just moved over, break on the last skippable.
-            if (!detail::skippable(state.prop) &&
-                detail::table_word_break(state.prop, state.next_prop)) {
+            if (!detail::skippable(state.caps[ph::curr].prop) &&
+                detail::table_word_break(
+                    state.caps[ph::curr].prop, state.caps[ph::next].prop)) {
                 return ++state.it;
             }
             if (state.it == first)
                 return first;
         }
 
-        state.prev_prev_prop = word_property::Other;
-        if (std::prev(state.it) != first)
-            state.prev_prev_prop = word_prop(*std::prev(state.it, 2));
-        state.prev_prop = word_prop(*std::prev(state.it));
-        state.next_prop = word_property::Other;
-        state.next_next_prop = word_property::Other;
+        state.caps[ph::prev_prev] = cp_and_word_prop();
+        if (std::prev(state.it) != first) {
+            state.caps[ph::prev_prev] =
+                cp_and_word_prop(*std::prev(state.it, 2), word_prop);
+        }
+        state.caps[ph::prev] =
+            cp_and_word_prop(*std::prev(state.it), word_prop);
+        state.caps[ph::next] = cp_and_word_prop();
+        state.caps[ph::next_next] = cp_and_word_prop();
         if (std::next(state.it) != last) {
-            state.next_prop = word_prop(*std::next(state.it));
-            if (std::next(state.it, 2) != last)
-                state.next_next_prop = word_prop(*std::next(state.it, 2));
+            state.caps[ph::next] =
+                cp_and_word_prop(*std::next(state.it), word_prop);
+            if (std::next(state.it, 2) != last) {
+                state.caps[ph::next_next] =
+                    cp_and_word_prop(*std::next(state.it, 2), word_prop);
+            }
         }
 
         // Since 'it' may be anywhere within the word in which it sits, we
@@ -250,20 +541,23 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             if (std::next(state.it) != last) {
                 auto temp_state = state;
                 temp_state = next(temp_state);
-                temp_state = detail::skip_forward(temp_state, first, last);
+                temp_state =
+                    detail::skip_forward(temp_state, first, last, word_prop);
                 if (temp_state.it == last) {
-                    state.next_prop = word_property::Other;
-                    state.next_next_prop = word_property::Other;
+                    state.caps[ph::next] = cp_and_word_prop();
+                    state.caps[ph::next_next] = cp_and_word_prop();
                 } else {
-                    state.next_prop = temp_state.prop;
+                    state.caps[ph::next] = temp_state.caps[ph::curr];
                     if (std::next(temp_state.it) != last) {
                         temp_state = next(temp_state);
-                        temp_state =
-                            detail::skip_forward(temp_state, first, last);
-                        if (temp_state.it == last)
-                            state.next_next_prop = word_property::Other;
-                        else
-                            state.next_next_prop = temp_state.prop;
+                        temp_state = detail::skip_forward(
+                            temp_state, first, last, word_prop);
+                        if (temp_state.it == last) {
+                            state.caps[ph::next_next] = cp_and_word_prop();
+                        } else {
+                            state.caps[ph::next_next] =
+                                temp_state.caps[ph::curr];
+                        }
                     }
                 }
             }
@@ -273,58 +567,74 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
 
         // WB4: Except after line breaks, ignore/skip (Extend | Format |
         // ZWJ)*
-        auto skip = [](detail::word_break_state<CPIter> state, CPIter first) {
-            if (detail::skippable(state.prev_prop)) {
-                auto temp_it =
-                    find_if_not_backward(first, state.it, [](uint32_t cp) {
+        auto skip = [word_prop](
+                        detail::word_break_state<CPIter> state, CPIter first) {
+            if (detail::skippable(state.caps[ph::prev].prop)) {
+                auto temp_it = find_if_not_backward(
+                    first, state.it, [word_prop](uint32_t cp) {
                         return detail::skippable(word_prop(cp));
                     });
                 if (temp_it == state.it)
                     return state;
-                auto temp_prev_prop = word_prop(*temp_it);
-                if (!detail::linebreak(temp_prev_prop)) {
+                auto temp_prev_cap = cp_and_word_prop(*temp_it, word_prop);
+                if (!detail::linebreak(temp_prev_cap.prop)) {
                     state.it = temp_it;
                     state.it_points_to_prev = true;
-                    state.prev_prop = temp_prev_prop;
-                    if (temp_it == first)
-                        state.prev_prev_prop = word_property::Other;
-                    else
-                        state.prev_prev_prop = word_prop(*std::prev(temp_it));
+                    state.caps[ph::prev] = temp_prev_cap;
+                    if (temp_it == first) {
+                        state.caps[ph::prev_prev] = cp_and_word_prop();
+                    } else {
+                        state.caps[ph::prev_prev] =
+                            cp_and_word_prop(*std::prev(temp_it), word_prop);
+                    }
                 }
             }
             return state;
         };
 
         for (; state.it != first; state = prev(state)) {
-            if (std::prev(state.it) != first)
-                state.prev_prev_prop = word_prop(*std::prev(state.it, 2));
-            else
-                state.prev_prev_prop = word_property::Other;
+            if (std::prev(state.it) != first) {
+                state.caps[ph::prev_prev] =
+                    cp_and_word_prop(*std::prev(state.it, 2), word_prop);
+            } else {
+                state.caps[ph::prev_prev] = cp_and_word_prop();
+            }
+
+            // Check cp_break before anything else.
+            if (cp_break(
+                    state.caps[ph::prev_prev].cp,
+                    state.caps[ph::prev].cp,
+                    state.caps[ph::curr].cp,
+                    state.caps[ph::next].cp,
+                    state.caps[ph::next_next].cp)) {
+                return state.it;
+            }
 
             // When we see an RI, back up to the first RI so we can see what
             // emoji state we're supposed to be in here.
             if (state.emoji_state == detail::word_break_emoji_state_t::none &&
-                state.prop == word_property::Regional_Indicator) {
+                state.caps[ph::curr].prop ==
+                    word_property::Regional_Indicator) {
                 auto temp_state = state;
                 int ris_before = 0;
                 while (temp_state.it != first) {
                     temp_state = skip(temp_state, first);
                     if (temp_state.it == first) {
-                        if (temp_state.prev_prop ==
+                        if (temp_state.caps[ph::prev].prop ==
                             word_property::Regional_Indicator) {
                             ++ris_before;
                         }
                         break;
                     }
-                    if (temp_state.prev_prop ==
+                    if (temp_state.caps[ph::prev].prop ==
                         word_property::Regional_Indicator) {
                         temp_state = prev(temp_state);
                         if (temp_state.it != first &&
                             std::prev(temp_state.it) != first) {
-                            temp_state.prev_prev_prop =
-                                word_prop(*std::prev(temp_state.it, 2));
+                            temp_state.caps[ph::prev_prev] = cp_and_word_prop(
+                                *std::prev(temp_state.it, 2), word_prop);
                         } else {
-                            temp_state.prev_prev_prop = word_property::Other;
+                            temp_state.caps[ph::prev_prev] = cp_and_word_prop();
                         }
                         ++ris_before;
                     } else {
@@ -338,29 +648,34 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             }
 
             // WB3
-            if (state.prev_prop == word_property::CR &&
-                state.prop == word_property::LF) {
+            if (state.caps[ph::prev].prop == word_property::CR &&
+                state.caps[ph::curr].prop == word_property::LF) {
                 continue;
             }
 
             // WB3a
-            if (state.prev_prop == word_property::CR ||
-                state.prev_prop == word_property::LF ||
-                state.prev_prop == word_property::Newline) {
+            if (state.caps[ph::prev].prop == word_property::CR ||
+                state.caps[ph::prev].prop == word_property::LF ||
+                state.caps[ph::prev].prop == word_property::Newline) {
                 return state.it;
             }
 
             // WB3b
-            if (state.prop == word_property::CR ||
-                state.prop == word_property::LF ||
-                state.prop == word_property::Newline) {
+            if (state.caps[ph::curr].prop == word_property::CR ||
+                state.caps[ph::curr].prop == word_property::LF ||
+                state.caps[ph::curr].prop == word_property::Newline) {
                 return state.it;
             }
 
             // WB3c
-            if (state.prev_prop == word_property::ZWJ &&
-                (state.prop == word_property::Glue_After_Zwj ||
-                 state.prop == word_property::E_Base_GAZ)) {
+            if (state.caps[ph::prev].prop == word_property::ZWJ &&
+                state.caps[ph::curr].prop == word_property::ExtPict) {
+                continue;
+            }
+
+            // WB3d
+            if (state.caps[ph::prev].prop == word_property::WSegSpace &&
+                state.caps[ph::curr].prop == word_property::WSegSpace) {
                 continue;
             }
 
@@ -376,54 +691,58 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             state = skip(state, first);
 
             // WB6
-            if (detail::ah_letter(state.prev_prop) &&
-                detail::mid_ah(state.prop) &&
-                detail::ah_letter(state.next_prop)) {
+            if (detail::ah_letter(state.caps[ph::prev].prop) &&
+                detail::mid_ah(state.caps[ph::curr].prop) &&
+                detail::ah_letter(state.caps[ph::next].prop)) {
                 continue;
             }
 
             // WB7
-            if (detail::mid_ah(state.prev_prop) &&
-                detail::ah_letter(state.prop) && state.it != first) {
+            if (detail::mid_ah(state.caps[ph::prev].prop) &&
+                detail::ah_letter(state.caps[ph::curr].prop) &&
+                state.it != first) {
                 auto const temp_state = skip(prev(state), first);
-                if (detail::ah_letter(temp_state.prev_prop))
+                if (detail::ah_letter(temp_state.caps[ph::prev].prop))
                     continue;
             }
 
             // WB7b
-            if (state.prev_prop == word_property::Hebrew_Letter &&
-                state.prop == word_property::Double_Quote &&
-                state.next_prop == word_property::Hebrew_Letter) {
+            if (state.caps[ph::prev].prop == word_property::Hebrew_Letter &&
+                state.caps[ph::curr].prop == word_property::Double_Quote &&
+                state.caps[ph::next].prop == word_property::Hebrew_Letter) {
                 continue;
             }
 
             // WB7c
-            if (state.prev_prop == word_property::Double_Quote &&
-                state.prop == word_property::Hebrew_Letter &&
+            if (state.caps[ph::prev].prop == word_property::Double_Quote &&
+                state.caps[ph::curr].prop == word_property::Hebrew_Letter &&
                 state.it != first) {
                 auto const temp_state = skip(prev(state), first);
-                if (temp_state.prev_prop == word_property::Hebrew_Letter)
+                if (temp_state.caps[ph::prev].prop ==
+                    word_property::Hebrew_Letter)
                     continue;
             }
 
             // WB11
-            if (detail::mid_num(state.prev_prop) &&
-                state.prop == word_property::Numeric && state.it != first) {
+            if (detail::mid_num(state.caps[ph::prev].prop) &&
+                state.caps[ph::curr].prop == word_property::Numeric &&
+                state.it != first) {
                 auto const temp_state = skip(prev(state), first);
-                if (temp_state.prev_prop == word_property::Numeric)
+                if (temp_state.caps[ph::prev].prop == word_property::Numeric)
                     continue;
             }
 
             // WB12
-            if (state.prev_prop == word_property::Numeric &&
-                detail::mid_num(state.prop) &&
-                state.next_prop == word_property::Numeric) {
+            if (state.caps[ph::prev].prop == word_property::Numeric &&
+                detail::mid_num(state.caps[ph::curr].prop) &&
+                state.caps[ph::next].prop == word_property::Numeric) {
                 continue;
             }
 
             if (state.emoji_state ==
                 detail::word_break_emoji_state_t::first_emoji) {
-                if (state.prev_prop == word_property::Regional_Indicator) {
+                if (state.caps[ph::prev].prop ==
+                    word_property::Regional_Indicator) {
                     state.emoji_state =
                         detail::word_break_emoji_state_t::second_emoji;
                     return after_skip_it;
@@ -433,27 +752,36 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
             } else if (
                 state.emoji_state ==
                     detail::word_break_emoji_state_t::second_emoji &&
-                state.prev_prop == word_property::Regional_Indicator) {
+                state.caps[ph::prev].prop ==
+                    word_property::Regional_Indicator) {
                 state.emoji_state =
                     detail::word_break_emoji_state_t::first_emoji;
                 continue;
             }
 
-            if (detail::table_word_break(state.prev_prop, state.prop))
+            if (detail::table_word_break(
+                    state.caps[ph::prev].prop, state.caps[ph::curr].prop))
                 return after_skip_it;
         }
 
         return first;
     }
 
-    /** Finds the next word break after <code>first</code>.  This will be the
-        first code point after the current word, or <code>last</code> if no
-        next word exists.
-
-        \pre <code>first</code> is at the beginning of a word. */
-    template<typename CPIter, typename Sentinel>
-    CPIter next_word_break(CPIter first, Sentinel last) noexcept
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto next_word_break(
+        CPIter first,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::cp_iter_ret_t<CPIter, CPIter>
     {
+        using detail::ph;
+        using detail::cp_and_word_prop;
+
         if (first == last)
             return first;
 
@@ -463,220 +791,668 @@ constexpr std::array<std::array<bool, 22>, 22> word_breaks = {{
         if (++state.it == last)
             return state.it;
 
-        state.prev_prev_prop = word_property::Other;
-        state.prev_prop = word_prop(*std::prev(state.it));
-        state.prop = word_prop(*state.it);
-        state.next_prop = word_property::Other;
-        state.next_next_prop = word_property::Other;
+        state.caps[ph::prev_prev] = cp_and_word_prop();
+        state.caps[ph::prev] =
+            cp_and_word_prop(*std::prev(state.it), word_prop);
+        state.caps[ph::curr] = cp_and_word_prop(*state.it, word_prop);
+        state.caps[ph::next] = cp_and_word_prop();
+        state.caps[ph::next_next] = cp_and_word_prop();
         if (std::next(state.it) != last) {
-            state.next_prop = word_prop(*std::next(state.it));
-            if (std::next(state.it, 2) != last)
-                state.next_next_prop = word_prop(*std::next(state.it, 2));
+            state.caps[ph::next] =
+                cp_and_word_prop(*std::next(state.it), word_prop);
+            if (std::next(state.it, 2) != last) {
+                state.caps[ph::next_next] =
+                    cp_and_word_prop(*std::next(state.it, 2), word_prop);
+            }
         }
 
-        state.emoji_state = state.prev_prop == word_property::Regional_Indicator
-                                ? detail::word_break_emoji_state_t::first_emoji
-                                : detail::word_break_emoji_state_t::none;
+        state.emoji_state =
+            state.caps[ph::prev].prop == word_property::Regional_Indicator
+                ? detail::word_break_emoji_state_t::first_emoji
+                : detail::word_break_emoji_state_t::none;
 
         for (; state.it != last; state = next(state)) {
-            if (std::next(state.it) != last && std::next(state.it, 2) != last)
-                state.next_next_prop = word_prop(*std::next(state.it, 2));
-            else
-                state.next_next_prop = word_property::Other;
+            if (std::next(state.it) != last && std::next(state.it, 2) != last) {
+                state.caps[ph::next_next] =
+                    cp_and_word_prop(*std::next(state.it, 2), word_prop);
+            } else {
+                state.caps[ph::next_next] = cp_and_word_prop();
+            }
+
+            // Check cp_break before anything else.
+            if (cp_break(
+                    state.caps[ph::prev_prev].cp,
+                    state.caps[ph::prev].cp,
+                    state.caps[ph::curr].cp,
+                    state.caps[ph::next].cp,
+                    state.caps[ph::next_next].cp)) {
+                return state.it;
+            }
 
             // WB3
-            if (state.prev_prop == word_property::CR &&
-                state.prop == word_property::LF) {
+            if (state.caps[ph::prev].prop == word_property::CR &&
+                state.caps[ph::curr].prop == word_property::LF) {
                 continue;
             }
 
             // WB3a
-            if (state.prev_prop == word_property::CR ||
-                state.prev_prop == word_property::LF ||
-                state.prev_prop == word_property::Newline) {
+            if (state.caps[ph::prev].prop == word_property::CR ||
+                state.caps[ph::prev].prop == word_property::LF ||
+                state.caps[ph::prev].prop == word_property::Newline) {
                 return state.it;
             }
 
             // WB3b
-            if (state.prop == word_property::CR ||
-                state.prop == word_property::LF ||
-                state.prop == word_property::Newline) {
+            if (state.caps[ph::curr].prop == word_property::CR ||
+                state.caps[ph::curr].prop == word_property::LF ||
+                state.caps[ph::curr].prop == word_property::Newline) {
                 return state.it;
             }
 
             // WB3c
-            if (state.prev_prop == word_property::ZWJ &&
-                (state.prop == word_property::Glue_After_Zwj ||
-                 state.prop == word_property::E_Base_GAZ)) {
+            if (state.caps[ph::prev].prop == word_property::ZWJ &&
+                state.caps[ph::curr].prop == word_property::ExtPict) {
                 continue;
             }
 
-            // Puting this here means not having to do it explicitly below
+            // WB3d
+            if (state.caps[ph::prev].prop == word_property::WSegSpace &&
+                state.caps[ph::curr].prop == word_property::WSegSpace) {
+                continue;
+            }
+
+            // Putting this here means not having to do it explicitly below
             // between prop and next_prop (and transitively, between prev_prop
             // and prop).
-            state = detail::skip_forward(state, first, last);
+            state = detail::skip_forward(state, first, last, word_prop);
             if (state.it == last)
                 return state.it;
 
             // WB6
-            if (detail::ah_letter(state.prev_prop) &&
-                detail::mid_ah(state.prop) && std::next(state.it) != last) {
+            if (detail::ah_letter(state.caps[ph::prev].prop) &&
+                detail::mid_ah(state.caps[ph::curr].prop) &&
+                std::next(state.it) != last) {
                 auto const temp_state =
-                    detail::skip_forward(next(state), first, last);
+                    detail::skip_forward(next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
-                if (detail::ah_letter(temp_state.prop))
+                if (detail::ah_letter(temp_state.caps[ph::curr].prop))
                     continue;
             }
 
             // WB7
-            if (detail::ah_letter(state.prev_prev_prop) &&
-                detail::mid_ah(state.prev_prop) &&
-                detail::ah_letter(state.prop)) {
+            if (detail::ah_letter(state.caps[ph::prev_prev].prop) &&
+                detail::mid_ah(state.caps[ph::prev].prop) &&
+                detail::ah_letter(state.caps[ph::curr].prop)) {
                 continue;
             }
 
             // WB7b
-            if (state.prev_prop == word_property::Hebrew_Letter &&
-                state.prop == word_property::Double_Quote &&
+            if (state.caps[ph::prev].prop == word_property::Hebrew_Letter &&
+                state.caps[ph::curr].prop == word_property::Double_Quote &&
                 std::next(state.it) != last) {
                 auto const temp_state =
-                    detail::skip_forward(next(state), first, last);
+                    detail::skip_forward(next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
-                if (temp_state.prop == word_property::Hebrew_Letter)
+                if (temp_state.caps[ph::curr].prop ==
+                    word_property::Hebrew_Letter)
                     continue;
             }
 
             // WB7c
-            if (state.prev_prev_prop == word_property::Hebrew_Letter &&
-                state.prev_prop == word_property::Double_Quote &&
-                state.prop == word_property::Hebrew_Letter) {
+            if (state.caps[ph::prev_prev].prop ==
+                    word_property::Hebrew_Letter &&
+                state.caps[ph::prev].prop == word_property::Double_Quote &&
+                state.caps[ph::curr].prop == word_property::Hebrew_Letter) {
                 continue;
             }
 
             // WB11
-            if (state.prev_prev_prop == word_property::Numeric &&
-                detail::mid_num(state.prev_prop) &&
-                state.prop == word_property::Numeric) {
+            if (state.caps[ph::prev_prev].prop == word_property::Numeric &&
+                detail::mid_num(state.caps[ph::prev].prop) &&
+                state.caps[ph::curr].prop == word_property::Numeric) {
                 continue;
             }
 
             // WB12
-            if (state.prev_prop == word_property::Numeric &&
-                detail::mid_num(state.prop) && std::next(state.it) != last) {
+            if (state.caps[ph::prev].prop == word_property::Numeric &&
+                detail::mid_num(state.caps[ph::curr].prop) &&
+                std::next(state.it) != last) {
                 auto const temp_state =
-                    detail::skip_forward(next(state), first, last);
+                    detail::skip_forward(next(state), first, last, word_prop);
                 if (temp_state.it == last)
                     return temp_state.it;
-                if (temp_state.prop == word_property::Numeric)
+                if (temp_state.caps[ph::curr].prop == word_property::Numeric)
                     continue;
             }
 
             if (state.emoji_state ==
                 detail::word_break_emoji_state_t::first_emoji) {
-                if (state.prop == word_property::Regional_Indicator) {
+                if (state.caps[ph::curr].prop ==
+                    word_property::Regional_Indicator) {
                     state.emoji_state = detail::word_break_emoji_state_t::none;
                     continue;
                 } else {
                     state.emoji_state = detail::word_break_emoji_state_t::none;
                 }
-            } else if (state.prop == word_property::Regional_Indicator) {
+            } else if (
+                state.caps[ph::curr].prop ==
+                word_property::Regional_Indicator) {
                 state.emoji_state =
                     detail::word_break_emoji_state_t::first_emoji;
                 return state.it;
             }
 
-            if (detail::table_word_break(state.prev_prop, state.prop))
+            if (detail::table_word_break(
+                    state.caps[ph::prev].prop, state.caps[ph::curr].prop))
                 return state.it;
         }
         return state.it;
     }
 
-    /** Finds the nearest word break at or before before <code>it</code>.  If
-        <code>it == range.begin()</code>, that is returned.  Otherwise, the
-        first code point of the word that <code>it</code> is within is
-        returned (even if <code>it</code> is already at the first code point
-        of a word). */
-    template<typename CPRange, typename CPIter>
-    auto prev_word_break(CPRange & range, CPIter it) noexcept
-        -> detail::iterator_t<CPRange>
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto prev_word_break(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept -> detail::
+        word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
     {
-        using std::begin;
-        using std::end;
-        return prev_word_break(begin(range), it, end(range));
+        return prev_word_break(
+            std::begin(range), it, std::end(range), word_prop, cp_break);
     }
 
-    /** Finds the next word break after <code>range.begin()</code>.  This will
-        be the first code point after the current word, or
-        <code>range.end()</code> if no next word exists.
-
-        \pre <code>range.begin()</code> is at the beginning of a word. */
-    template<typename CPRange>
-    auto next_word_break(CPRange & range) noexcept
-        -> detail::iterator_t<CPRange>
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto prev_word_break(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<
+            detail::iterator_t<GraphemeRange const>,
+            WordPropFunc,
+            GraphemeRange>
     {
-        using std::begin;
-        using std::end;
-        return next_word_break(begin(range), end(range));
+        using cp_iter_t = decltype(range.begin().base());
+        return {range.begin().base(),
+                prev_word_break(
+                    range.begin().base(),
+                    static_cast<cp_iter_t>(it.base()),
+                    range.end().base(),
+                    word_prop,
+                    cp_break),
+                range.end().base()};
     }
+
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto next_word_break(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept -> detail::
+        word_prop_func_ret_t<detail::iterator_t<CPRange>, WordPropFunc, CPRange>
+    {
+        return next_word_break(it, std::end(range), word_prop, cp_break);
+    }
+
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto next_word_break(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<
+            detail::iterator_t<GraphemeRange const>,
+            WordPropFunc,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        return {range.begin().base(),
+                next_word_break(
+                    static_cast<cp_iter_t>(it.base()),
+                    range.end().base(),
+                    word_prop,
+                    cp_break),
+                range.end().base()};
+    }
+
+#endif
 
     namespace detail {
-        template<typename CPIter, typename Sentinel>
+        template<
+            typename CPIter,
+            typename Sentinel,
+            typename WordPropFunc,
+            typename CPWordBreakFunc>
         struct next_word_callable
         {
-            CPIter operator()(CPIter it, Sentinel last) noexcept
+            auto operator()(CPIter it, Sentinel last) const noexcept
+                -> detail::cp_iter_ret_t<CPIter, CPIter>
             {
-                return next_word_break(it, last);
+                return next_word_break(it, last, word_prop_, cp_break_);
             }
+
+            WordPropFunc word_prop_;
+            CPWordBreakFunc cp_break_;
+        };
+
+        template<
+            typename CPIter,
+            typename WordPropFunc,
+            typename CPWordBreakFunc>
+        struct prev_word_callable
+        {
+            auto operator()(CPIter first, CPIter it, CPIter last) const noexcept
+                -> detail::cp_iter_ret_t<CPIter, CPIter>
+            {
+                return prev_word_break(first, it, last, word_prop_, cp_break_);
+            }
+
+            WordPropFunc word_prop_;
+            CPWordBreakFunc cp_break_;
         };
     }
 
     /** Returns the bounds of the word that <code>it</code> lies within. */
-    template<typename CPIter, typename Sentinel>
-    cp_range<CPIter> word(CPIter first, CPIter it, Sentinel last) noexcept
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    cp_range<CPIter> word(
+        CPIter first,
+        CPIter it,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
     {
-        first = prev_word_break(first, it, last);
-        return cp_range<CPIter>{first, next_word_break(first, last)};
+        first = prev_word_break(first, it, last, word_prop, cp_break);
+        return cp_range<CPIter>{
+            first, next_word_break(first, last, word_prop, cp_break)};
     }
 
-    /** Returns the bounds of the word that <code>it</code> lies within. */
-    template<typename CPRange, typename CPIter>
-    auto word(CPRange & range, CPIter it) noexcept
-        -> cp_range<detail::iterator_t<CPRange>>
-    {
-        using std::begin;
-        using std::end;
-        auto first = prev_word_break(begin(range), it, end(range));
-        return cp_range<CPIter>{first, next_word_break(first, end(range))};
-    }
+#ifdef BOOST_TEXT_DOXYGEN
+
+    /** Returns the bounds of the word that <code>it</code> lies within, as a
+        cp_range.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined word(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns grapheme range delimiting the bounds of the word that
+        <code>it</code> lies within, as a grapheme_range.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined word(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting words in
-        <code>[first, last)</code>. */
-    template<typename CPIter, typename Sentinel>
-    lazy_segment_range<
-        CPIter,
-        Sentinel,
-        detail::next_word_callable<CPIter, Sentinel>>
-    words(CPIter first, Sentinel last) noexcept
-    {
-        return {{first, last}, {last}};
-    }
+        <code>[first, last)</code>.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept and CPIter is equality
+        comparable with Sentinel. */
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined words(
+        CPIter first,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
 
     /** Returns a lazy range of the code point ranges delimiting words in
-        <code>range</code>. */
-    template<typename CPRange>
-    auto words(CPRange & range) noexcept -> lazy_segment_range<
-        detail::iterator_t<CPRange>,
-        detail::sentinel_t<CPRange>,
+        <code>range</code>.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename CPRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined words(
+        CPRange & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a lazy range of the grapheme ranges delimiting words in
+        <code>range</code>.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename GraphemeRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined words(
+        GraphemeRange const & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>[first, last)</code>, in reverse.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept and CPIter is equality
+        comparable with Sentinel. */
+    template<
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined reversed_words(
+        CPIter first,
+        CPIter last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a lazy range of the code point ranges delimiting words in
+        <code>range</code>, in reverse.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename CPRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined reversed_words(
+        CPRange & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+    /** Returns a lazy range of the grapheme ranges delimiting words in
+        <code>range</code>, in reverse.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept and
+        <code>WordPropFunc</code> models the WordPropFunc concept. */
+    template<
+        typename GraphemeRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::undefined>
+    detail::undefined reversed_words(
+        GraphemeRange const & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept;
+
+#else
+
+    template<
+        typename CPRange,
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto word(
+        CPRange & range,
+        CPIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::word_prop_func_ret_t<
+            cp_range<detail::iterator_t<CPRange>>,
+            WordPropFunc,
+            CPRange>
+    {
+        auto first = prev_word_break(
+            std::begin(range), it, std::end(range), word_prop, cp_break);
+        return cp_range<CPIter>{
+            first,
+            next_word_break(first, std::end(range), word_prop, cp_break)};
+    }
+
+    template<
+        typename GraphemeRange,
+        typename GraphemeIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto word(
+        GraphemeRange const & range,
+        GraphemeIter it,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<
+            grapheme_range<decltype(range.begin().base())>,
+            WordPropFunc,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        auto first = prev_word_break(
+            range.begin().base(),
+            static_cast<cp_iter_t>(it.base()),
+            range.end().base(),
+            word_prop,
+            cp_break);
+        return {
+            first,
+            next_word_break(first, range.end().base(), word_prop, cp_break)};
+    }
+
+    template<
+        typename CPIter,
+        typename Sentinel,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto words(
+        CPIter first,
+        Sentinel last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::cp_iter_sntl_ret_t<
+            lazy_segment_range<
+                CPIter,
+                Sentinel,
+                detail::next_word_callable<
+                    CPIter,
+                    Sentinel,
+                    WordPropFunc,
+                    CPWordBreakFunc>,
+                cp_range<CPIter>,
+                detail::const_lazy_segment_iterator,
+                false>,
+            CPIter,
+            Sentinel>
+    {
+        detail::
+            next_word_callable<CPIter, Sentinel, WordPropFunc, CPWordBreakFunc>
+                next{word_prop, cp_break};
+        return {std::move(next), {first, last}, {last}};
+    }
+
+    template<
+        typename CPRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto words(
+        CPRange & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::word_prop_func_ret_t<
+            lazy_segment_range<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>,
+                detail::next_word_callable<
+                    detail::iterator_t<CPRange>,
+                    detail::sentinel_t<CPRange>,
+                    WordPropFunc,
+                    CPWordBreakFunc>>,
+            WordPropFunc,
+            CPRange>
+    {
         detail::next_word_callable<
             detail::iterator_t<CPRange>,
-            detail::sentinel_t<CPRange>>>
-    {
-        using std::begin;
-        using std::end;
-        return {{begin(range), end(range)}, {end(range)}};
+            detail::sentinel_t<CPRange>,
+            WordPropFunc,
+            CPWordBreakFunc>
+            next{word_prop, cp_break};
+        return {std::move(next),
+                {std::begin(range), std::end(range)},
+                {std::end(range)}};
     }
+
+    template<
+        typename GraphemeRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto words(
+        GraphemeRange const & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<
+            lazy_segment_range<
+                decltype(range.begin().base()),
+                decltype(range.begin().base()),
+                detail::next_word_callable<
+                    decltype(range.begin().base()),
+                    decltype(range.begin().base()),
+                    WordPropFunc,
+                    CPWordBreakFunc>,
+                grapheme_range<decltype(range.begin().base())>>,
+            WordPropFunc,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        detail::next_word_callable<
+            cp_iter_t,
+            cp_iter_t,
+            WordPropFunc,
+            CPWordBreakFunc>
+            next{word_prop, cp_break};
+        return {std::move(next),
+                {range.begin().base(), range.end().base()},
+                {range.end().base()}};
+    }
+
+    template<
+        typename CPIter,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto reversed_words(
+        CPIter first,
+        CPIter last,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::cp_iter_sntl_ret_t<
+            lazy_segment_range<
+                CPIter,
+                CPIter,
+                detail::
+                    prev_word_callable<CPIter, WordPropFunc, CPWordBreakFunc>,
+                cp_range<CPIter>,
+                detail::const_reverse_lazy_segment_iterator,
+                true>,
+            CPIter,
+            CPIter>
+    {
+        detail::prev_word_callable<CPIter, WordPropFunc, CPWordBreakFunc> prev{
+            word_prop, cp_break};
+        return {std::move(prev), {first, last, last}, {first, first, last}};
+    }
+
+    template<
+        typename CPRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto reversed_words(
+        CPRange & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::word_prop_func_ret_t<
+            lazy_segment_range<
+                detail::iterator_t<CPRange>,
+                detail::sentinel_t<CPRange>,
+                detail::prev_word_callable<
+                    detail::iterator_t<CPRange>,
+                    WordPropFunc,
+                    CPWordBreakFunc>,
+                cp_range<detail::iterator_t<CPRange>>,
+                detail::const_reverse_lazy_segment_iterator,
+                true>,
+            WordPropFunc,
+            CPRange>
+    {
+        detail::prev_word_callable<
+            detail::iterator_t<CPRange>,
+            WordPropFunc,
+            CPWordBreakFunc>
+            prev{word_prop, cp_break};
+        return {std::move(prev),
+                {std::begin(range), std::end(range), std::end(range)},
+                {std::begin(range), std::begin(range), std::end(range)}};
+    }
+
+    template<
+        typename GraphemeRange,
+        typename WordPropFunc = word_prop_callable,
+        typename CPWordBreakFunc = detail::default_cp_break>
+    auto reversed_words(
+        GraphemeRange const & range,
+        WordPropFunc word_prop = WordPropFunc{},
+        CPWordBreakFunc cp_break = CPWordBreakFunc{}) noexcept
+        -> detail::graph_word_prop_func_ret_t<
+            lazy_segment_range<
+                decltype(range.begin().base()),
+                decltype(range.begin().base()),
+                detail::prev_word_callable<
+                    decltype(range.begin().base()),
+                    WordPropFunc,
+                    CPWordBreakFunc>,
+                grapheme_range<decltype(range.begin().base())>,
+                detail::const_reverse_lazy_segment_iterator,
+                true>,
+            WordPropFunc,
+            GraphemeRange>
+    {
+        using cp_iter_t = decltype(range.begin().base());
+        detail::prev_word_callable<cp_iter_t, WordPropFunc, CPWordBreakFunc>
+            prev{word_prop, cp_break};
+        return {
+            std::move(prev),
+            {range.begin().base(), range.end().base(), range.end().base()},
+            {range.begin().base(), range.begin().base(), range.end().base()}};
+    }
+
+#endif
 
 }}
 

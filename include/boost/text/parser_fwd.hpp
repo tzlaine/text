@@ -18,7 +18,7 @@ namespace boost { namespace text {
     using parser_diagnostic_callback = std::function<void(string const &)>;
 
     /** The type of exception thrown when some aspect of the requested
-        tailoring cannot be satisfied. */
+        tailoring cannot be performed. */
     struct tailoring_error : std::exception
     {
         tailoring_error(string_view msg) : msg_(msg) {}

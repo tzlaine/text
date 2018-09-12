@@ -5,6 +5,7 @@
 #include <boost/text/string_view.hpp>
 #include <boost/text/trie_map.hpp>
 #include <boost/text/detail/collation_constants.hpp>
+#include <boost/text/detail/lzw.hpp>
 #include <boost/text/detail/normalization_data.hpp>
 
 #include <boost/optional.hpp>
@@ -13,11 +14,9 @@
 
 #include <cstdint>
 
+
 #ifndef BOOST_TEXT_COLLATION_DATA_INSTRUMENTATION
 #define BOOST_TEXT_COLLATION_DATA_INSTRUMENTATION 0
-#endif
-#if BOOST_TEXT_COLLATION_DATA_INSTRUMENTATION
-#include <boost/container/small_vector.hpp>
 #endif
 
 
@@ -97,8 +96,24 @@ namespace boost { namespace text { namespace detail {
         return collation_strength::identical;
     }
 
-    extern int const g_num_collation_elements;
-    extern collation_element const * g_collation_elements_first;
+    BOOST_TEXT_DECL void
+        make_collation_elements(std::array<collation_element, 39841> &);
+
+    inline std::array<collation_element, 39841> const & collation_elements_()
+    {
+        static std::array<collation_element, 39841> retval;
+        static bool once = true;
+        if (once) {
+            make_collation_elements(retval);
+            once = false;
+        }
+        return retval;
+    }
+
+    inline collation_element const * collation_elements_ptr()
+    {
+        return &collation_elements_()[0];
+    }
 
     struct collation_elements
     {
@@ -164,8 +179,8 @@ namespace boost { namespace text { namespace detail {
 
         iterator insert(iterator at, uint32_t cp) noexcept
         {
-            assert(at == end());
-            assert(size_ < N);
+            BOOST_ASSERT(at == end());
+            BOOST_ASSERT(size_ < N);
             *at = cp;
             ++size_;
             return at;
@@ -194,14 +209,37 @@ namespace boost { namespace text { namespace detail {
     using trie_iterator_t = collation_trie_t::iterator;
     using const_trie_iterator_t = collation_trie_t::const_iterator;
 
-    extern int const g_num_trie_elements;
-    extern collation_trie_key<3> const * g_trie_keys_first;
-    extern collation_elements const * g_trie_values_first;
-    extern int const * g_trie_element_original_order_first;
+    BOOST_TEXT_DECL void
+        make_trie_keys(std::array<collation_trie_key<3>, 39272> &);
+    BOOST_TEXT_DECL void
+        make_trie_values(std::array<collation_elements, 39272> &);
+
+    inline std::array<collation_trie_key<3>, 39272> const & trie_keys()
+    {
+        static std::array<collation_trie_key<3>, 39272> retval;
+        static bool once = true;
+        if (once) {
+            make_trie_keys(retval);
+            once = false;
+        }
+        return retval;
+    }
+    inline std::array<collation_elements, 39272> const & trie_values()
+    {
+        static std::array<collation_elements, 39272> retval;
+        static bool once = true;
+        if (once) {
+            make_trie_values(retval);
+            once = false;
+        }
+        return retval;
+    }
 
     struct reorder_group
     {
-        string_view name_;
+        // string_view is not constexpr constructible from a string literal in
+        // C++11; C++14 constexpr support is required.
+        char const * name_;
         collation_element first_;
         collation_element last_;
         bool simple_;
@@ -210,12 +248,19 @@ namespace boost { namespace text { namespace detail {
 
     inline bool operator==(reorder_group lhs, reorder_group rhs) noexcept
     {
-        return lhs.name_ == rhs.name_ && lhs.first_ == rhs.first_ &&
+        return !strcmp(lhs.name_, rhs.name_) && lhs.first_ == rhs.first_ &&
                lhs.last_ == rhs.last_ && lhs.simple_ == rhs.simple_ &&
                lhs.compressible_ == rhs.compressible_;
     }
 
-    extern std::array<reorder_group, 140> const g_reorder_groups;
+    BOOST_TEXT_DECL std::array<reorder_group, 145> const &
+    make_reorder_groups();
+
+    inline std::array<reorder_group, 145> const & reorder_groups()
+    {
+        static auto const retval = make_reorder_groups();
+        return retval;
+    }
 
     inline optional<reorder_group> find_reorder_group(string_view name) noexcept
     {
@@ -227,11 +272,112 @@ namespace boost { namespace text { namespace detail {
             name = "Hani";
         if (name == "Hant")
             name = "Hani";
-        for (auto group : g_reorder_groups) {
+        for (auto group : reorder_groups()) {
             if (group.name_ == name)
                 return group;
         }
         return {};
+    }
+
+    template<typename OutIter>
+    struct lzw_to_coll_elem_iter
+    {
+        using value_type = collation_element;
+        using difference_type = int;
+        using pointer = value_type *;
+        using reference = value_type &;
+        using iterator_category = std::output_iterator_tag;
+        using buffer_t = container::small_vector<unsigned char, 256>;
+
+        lzw_to_coll_elem_iter(OutIter out, buffer_t & buf) :
+            out_(out),
+            buf_(&buf)
+        {}
+
+        template<typename BidiRange>
+        lzw_to_coll_elem_iter & operator=(BidiRange const & r)
+        {
+            buf_->insert(buf_->end(), r.rbegin(), r.rend());
+            auto const element_bytes = 8;
+            auto it = buf_->begin();
+            for (auto end = buf_->end() - buf_->size() % element_bytes;
+                 it != end;
+                 it += element_bytes) {
+                collation_element element;
+                element.l1_ = bytes_to_uint32_t(&*it);
+                element.l2_ = bytes_to_uint16_t(&*it + 4);
+                element.l3_ = bytes_to_uint16_t(&*it + 6);
+                element.l4_ = 0;
+                *out_++ = element;
+            }
+            buf_->erase(buf_->begin(), it);
+            return *this;
+        }
+        lzw_to_coll_elem_iter & operator*() { return *this; }
+        lzw_to_coll_elem_iter & operator++() { return *this; }
+        lzw_to_coll_elem_iter & operator++(int) { return *this; }
+
+    private:
+        OutIter out_;
+        buffer_t * buf_;
+    };
+    template<typename OutIter>
+    lzw_to_coll_elem_iter<OutIter> make_lzw_to_coll_elem_iter(
+        OutIter out, container::small_vector<unsigned char, 256> & buf)
+    {
+        return lzw_to_coll_elem_iter<OutIter>(out, buf);
+    }
+
+    template<typename OutIter>
+    struct lzw_to_trie_key_iter
+    {
+        using value_type = collation_trie_key<3>;
+        using difference_type = int;
+        using pointer = value_type *;
+        using reference = value_type &;
+        using iterator_category = std::output_iterator_tag;
+        using buffer_t = container::small_vector<unsigned char, 256>;
+
+        lzw_to_trie_key_iter(OutIter out, buffer_t & buf) :
+            out_(out),
+            buf_(&buf),
+            element_bytes_(0)
+        {}
+
+        template<typename BidiRange>
+        lzw_to_trie_key_iter & operator=(BidiRange const & r)
+        {
+            buf_->insert(buf_->end(), r.rbegin(), r.rend());
+            while (4 <= (int)buf_->size()) {
+                if (!element_bytes_)
+                    element_bytes_ = buf_->front() * 3 + 1;
+                if ((int)buf_->size() < element_bytes_)
+                    break;
+                collation_trie_key<3> element;
+                for (int i = 1; i != element_bytes_; i += 3) {
+                    element.insert(
+                        element.end(), bytes_to_cp(buf_->data() + i));
+                }
+                *out_++ = element;
+                buf_->erase(buf_->begin(), buf_->begin() + element_bytes_);
+                element_bytes_ = 0;
+            }
+            return *this;
+        }
+        lzw_to_trie_key_iter & operator*() { return *this; }
+        lzw_to_trie_key_iter & operator++() { return *this; }
+        lzw_to_trie_key_iter & operator++(int) { return *this; }
+
+    private:
+        OutIter out_;
+        buffer_t * buf_;
+        int element_bytes_;
+    };
+    template<typename OutIter>
+    lzw_to_trie_key_iter<OutIter> make_lzw_to_trie_key_iter(
+        OutIter out, container::small_vector<unsigned char, 256> & buf)
+    {
+        return lzw_to_trie_key_iter<OutIter>(out, buf);
     }
 
 }}}

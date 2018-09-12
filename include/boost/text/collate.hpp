@@ -1,20 +1,25 @@
 #ifndef BOOST_TEXT_COLLATE_HPP
 #define BOOST_TEXT_COLLATE_HPP
 
+#include <boost/text/algorithm.hpp>
 #include <boost/text/collation_fwd.hpp>
 #include <boost/text/normalize.hpp>
 #include <boost/text/string.hpp>
 #include <boost/text/utility.hpp>
 #include <boost/text/detail/collation_data.hpp>
 
+#include <boost/algorithm/cxx14/equal.hpp>
 #include <boost/algorithm/cxx14/mismatch.hpp>
 #include <boost/container/small_vector.hpp>
-#include <boost/container/static_vector.hpp>
 
 #include <vector>
 
+#ifndef BOOST_TEXT_DOXYGEN
+
 #ifndef BOOST_TEXT_COLLATE_INSTRUMENTATION
 #define BOOST_TEXT_COLLATE_INSTRUMENTATION 0
+#endif
+
 #endif
 
 
@@ -31,6 +36,8 @@ namespace boost { namespace text {
         explicit text_sort_key(std::vector<uint32_t> bytes) :
             storage_(std::move(bytes))
         {}
+
+        std::size_t size() const noexcept { return storage_.size(); }
 
         const_iterator begin() const noexcept { return storage_.begin(); }
         const_iterator end() const noexcept { return storage_.end(); }
@@ -51,8 +58,9 @@ namespace boost { namespace text {
     }
 #endif
 
-    /** Returns 0 if the given sort keys are equal, a value < 0 if \a lhs is
-        less than \a rhs, and a value > 0 otehrwise. */
+    /** Returns 0 if the given sort keys are equal, a value < 0 if
+        <code>lhs</code> is less than <code>rhs</code>, and a value > 0
+        otherwise. */
     inline int
     compare(text_sort_key const & lhs, text_sort_key const & rhs) noexcept
     {
@@ -75,6 +83,38 @@ namespace boost { namespace text {
         }
     }
 
+    inline bool operator==(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return algorithm::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+
+    inline bool operator!=(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    inline bool operator<(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return std::lexicographical_compare(
+            lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+
+    inline bool operator<=(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return compare(lhs, rhs) < 0;
+    }
+
+    inline bool operator>(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return std::lexicographical_compare(
+            rhs.begin(), rhs.end(), lhs.begin(), lhs.end());
+    }
+
+    inline bool operator>=(text_sort_key const & lhs, text_sort_key const & rhs)
+    {
+        return 0 < compare(lhs, rhs);
+    }
+
     // The code in this file implements the UCA as described in
     // http://www.unicode.org/reports/tr10/#Main_Algorithm .  The numbering
     // and some variable naming comes from there.
@@ -94,17 +134,16 @@ namespace boost { namespace text {
         {
             if (hangul_syllable(cp)) {
                 auto cps = decompose_hangul_syllable<3>(cp);
-                container::small_vector<collation_element, 1024> ces;
-                s2(cps.begin(),
-                   cps.end(),
-                   ces,
-                   trie,
-                   collation_elements_first,
-                   lead_byte,
-                   strength,
-                   weighting,
-                   retain_case_bits);
-                return std::copy(ces.begin(), ces.end(), out);
+                return s2(
+                    cps.begin(),
+                    cps.end(),
+                    out,
+                    trie,
+                    collation_elements_first,
+                    lead_byte,
+                    strength,
+                    weighting,
+                    retain_case_bits);
             }
 
             // Core Han Unified Ideographs
@@ -158,7 +197,7 @@ namespace boost { namespace text {
 
             double const spacing = implicit_weights_spacing_times_ten / 10.0;
 
-            for (auto seg : g_implicit_weights_segments) {
+            for (auto seg : make_implicit_weights_segments()) {
                 if (seg.first_ <= cp && cp < seg.last_) {
                     if (seg.first_ == CJK_Compatibility_Ideographs[0] &&
                         ((cp & ~OR_CJK_Compatibility_Ideographs) ||
@@ -180,7 +219,7 @@ namespace boost { namespace text {
 
                     uint32_t const primary_weight_low_bits =
                         seg.primary_offset_ + (cp - seg.first_) * spacing;
-                    assert(
+                    BOOST_ASSERT(
                         (primary_weight_low_bits & 0xfffff) ==
                         primary_weight_low_bits);
                     uint32_t const bytes[4] = {
@@ -221,18 +260,18 @@ namespace boost { namespace text {
         }
 
         // http://www.unicode.org/reports/tr10/#Variable_Weighting
+        template<typename CEIter>
         inline bool s2_3(
-            collation_element * first,
-            collation_element * last,
+            CEIter first,
+            CEIter last,
             collation_strength strength,
             variable_weighting weighting,
             bool after_variable,
             retain_case_bits_t retain_case_bits)
         {
             if (retain_case_bits == retain_case_bits_t::no) {
-                auto it = first;
-                while (it != last) {
-                    auto & ce = *it++;
+                for (auto it = first; it != last; ++it) {
+                    auto & ce = *it;
                     // The top two bits in each byte in FractionalUCA.txt's L3
                     // weights are for the case level.
                     // http://www.unicode.org/reports/tr35/tr35-collation.html#File_Format_FractionalUCA_txt
@@ -260,9 +299,8 @@ namespace boost { namespace text {
             // since that's what CollationTest_SHIFTED.txt expects.
             bool second_of_implicit_weight_pair = false;
 
-            auto it = first;
-            while (it != last) {
-                auto & ce = *it++;
+            for (auto it = first; it != last; ++it) {
+                auto & ce = *it;
                 if (after_variable && ignorable(ce)) {
                     ce.l1_ = 0;
                     ce.l2_ = 0;
@@ -275,8 +313,6 @@ namespace boost { namespace text {
                         if (after_variable)
                             ce.l4_ = 0x0000;
                         else
-                            // TODO: Needs to be the same number of bits set as
-                            // in the L1 initially.
                             ce.l4_ = 0xffffffff;
                     }
                     after_variable = false;
@@ -308,18 +344,26 @@ namespace boost { namespace text {
             return after_variable;
         }
 
-        template<typename CPIter, typename LeadByteFunc>
-        void
+        template<
+            typename CPIter,
+            typename CPOutIter,
+            typename LeadByteFunc,
+            typename SizeOutIter = std::ptrdiff_t *>
+        auto
         s2(CPIter first,
            CPIter last,
-           container::small_vector<collation_element, 1024> & ces,
+           CPOutIter out,
            detail::collation_trie_t const & trie,
            collation_element const * collation_elements_first,
            LeadByteFunc const & lead_byte,
            collation_strength strength,
            variable_weighting weighting,
-           retain_case_bits_t retain_case_bits)
+           retain_case_bits_t retain_case_bits,
+           SizeOutIter * size_out = nullptr)
+            -> detail::cp_iter_ret_t<CPOutIter, CPIter>
         {
+            container::small_vector<collation_element, 64> ce_buffer;
+
             bool after_variable = false;
             while (first != last) {
                 // S2.1 Find longest prefix that results in a collation trie
@@ -345,8 +389,9 @@ namespace boost { namespace text {
                         weighting,
                         after_variable,
                         retain_case_bits);
-                    std::copy(
-                        derived_ces, derived_ces_end, std::back_inserter(ces));
+                    out = std::copy(derived_ces, derived_ces_end, out);
+                    if (size_out)
+                        *(*size_out)++ = 1;
                     continue;
                 }
                 first += collation_.size;
@@ -380,19 +425,159 @@ namespace boost { namespace text {
                 auto const collation_it = const_trie_iterator_t(collation_);
 
                 // S2.4
-                ces.insert(
-                    ces.end(),
+                ce_buffer.resize(collation_it->value.size());
+                auto const ce_buffer_first = ce_buffer.begin();
+                auto const ce_buffer_last = std::copy(
                     collation_it->value.begin(collation_elements_first),
-                    collation_it->value.end(collation_elements_first));
+                    collation_it->value.end(collation_elements_first),
+                    ce_buffer_first);
 
                 // S2.3
                 after_variable = s2_3(
-                    &*(ces.end() - collation_it->value.size()),
-                    &*ces.end(),
+                    ce_buffer_first,
+                    ce_buffer_last,
                     strength,
                     weighting,
                     after_variable,
                     retain_case_bits);
+
+                out = std::copy(ce_buffer_first, ce_buffer_last, out);
+                if (size_out) {
+                    *(*size_out)++ = collation_it->value.size();
+                    for (int i = 1; i < collation_.size; ++i) {
+                        *(*size_out)++ = 0;
+                    }
+                }
+            }
+
+            return out;
+        }
+
+        using level_sort_key_values_t = container::small_vector<uint32_t, 256>;
+        using level_sort_key_bytes_t = container::small_vector<uint8_t, 1024>;
+
+        // In-place compression of values such that 8-bit byte values are
+        // packed into a 32-bit dwords (e.g. 0x0000XX00, 0x0000YYZZ ->
+        // 0x00XXYYZZ), based on
+        // https://www.unicode.org/reports/tr10/#Reducing_Sort_Key_Lengths
+        // 9.1.3.
+        inline level_sort_key_bytes_t
+        pack_words(level_sort_key_values_t const & values)
+        {
+            level_sort_key_bytes_t retval;
+
+            // We cannot treat the inputs naively as a sequence of bytes,
+            // because we don't know the endianness.
+            for (auto x : values) {
+                uint8_t const bytes[4] = {
+                    uint8_t(x >> 24),
+                    uint8_t((x >> 16) & 0xff),
+                    uint8_t((x >> 8) & 0xff),
+                    uint8_t(x & 0xff),
+                };
+                if (bytes[0])
+                    retval.push_back(bytes[0]);
+                if (bytes[1])
+                    retval.push_back(bytes[1]);
+                if (bytes[2])
+                    retval.push_back(bytes[2]);
+                if (bytes[3])
+                    retval.push_back(bytes[3]);
+            }
+
+            return retval;
+        }
+
+        // In-place run-length encoding, based on
+        // https://www.unicode.org/reports/tr10/#Reducing_Sort_Key_Lengths
+        // 9.1.4.
+        inline void
+        rle(level_sort_key_bytes_t & bytes,
+            uint8_t min_,
+            uint8_t common,
+            uint8_t max_)
+        {
+            uint8_t const min_top = (common - 1) - (min_ - 1);
+            uint8_t const max_bottom = (common + 1) + (0xff - max_);
+            int const bound = (min_top + max_bottom) / 2;
+
+            auto it = bytes.begin();
+            auto const end = bytes.end();
+            auto out = bytes.begin();
+            while (it != end) {
+                if (*it == common) {
+                    auto const last_common = find_not(it, end, common);
+                    auto const size = last_common - it;
+                    if (last_common == end || *last_common < common) {
+                        int const synthetic_low = min_top + size;
+                        if (bound <= synthetic_low) {
+                            auto const max_compressible_copies =
+                                (bound - 1) - min_top;
+                            auto const repetitions =
+                                size / max_compressible_copies;
+                            out = std::fill_n(out, repetitions, bound - 1);
+                            auto const remainder =
+                                size % max_compressible_copies;
+                            if (remainder)
+                                *out++ = min_top + remainder;
+                        } else {
+                            *out++ = synthetic_low;
+                        }
+                    } else {
+                        int const synthetic_high = max_bottom - size;
+                        if (synthetic_high < bound) {
+                            auto const max_compressible_copies =
+                                max_bottom - bound;
+                            auto const repetitions =
+                                size / max_compressible_copies;
+                            out = std::fill_n(out, repetitions, bound);
+                            auto const remainder =
+                                size % max_compressible_copies;
+                            if (remainder)
+                                *out++ = max_bottom - remainder;
+                        } else {
+                            *out++ = synthetic_high;
+                        }
+                    }
+                    it = last_common;
+                } else {
+                    if (min_ <= *it && *it < common)
+                        *out = *it - (min_ - 1);
+                    else if (common < *it && *it <= max_)
+                        *out = *it + 0xff - max_;
+                    else
+                        *out = *it;
+                    ++it;
+                    ++out;
+                }
+            }
+
+            bytes.erase(out, end);
+        }
+
+        inline void pad_words(level_sort_key_bytes_t & bytes)
+        {
+            int remainder = bytes.size() % 4;
+            if (remainder) {
+                remainder = 4 - remainder;
+                bytes.resize(bytes.size() + remainder, 0);
+            }
+        }
+
+        inline void level_bytes_to_values(
+            level_sort_key_bytes_t const & bytes,
+            level_sort_key_values_t & values)
+        {
+            BOOST_ASSERT(bytes.size() % 4 == 0);
+
+            values.resize(bytes.size() / 4);
+
+            auto out = values.begin();
+            for (auto it = bytes.begin(), end = bytes.end(); it != end;
+                 it += 4) {
+                uint32_t const x = *(it + 0) << 24 | *(it + 1) << 16 |
+                                   *(it + 2) << 8 | *(it + 3) << 0;
+                *out++ = x;
             }
         }
 
@@ -423,6 +608,8 @@ namespace boost { namespace text {
 
             if (case_lvl == case_level::on) {
                 if (strength == collation_strength::primary) {
+                    // Ensure we use values >= min_secondary_byte.
+                    c += min_secondary_byte - 1;
                     if (!ce.l1_)
                         ce.l2_ = 0;
                     else
@@ -430,6 +617,8 @@ namespace boost { namespace text {
                     ce.l3_ = 0;
                 } else {
                     ce.l4_ = ce.l3_ & disable_case_level_mask;
+                    // Ensure we use values >= min_tertiary_byte.
+                    c += min_tertiary_byte - 1;
                     if (!ce.l1_ && !ce.l2_)
                         ce.l3_ = 0;
                     else
@@ -446,8 +635,12 @@ namespace boost { namespace text {
             return ce;
         }
 
-        template<typename CEIter, typename CPIter, typename Container>
-        void
+        template<
+            typename CEIter,
+            typename CPIter,
+            typename Sentinel,
+            typename Container>
+        auto
         s3(CEIter ces_first,
            CEIter ces_last,
            int ces_size,
@@ -456,27 +649,16 @@ namespace boost { namespace text {
            case_level case_lvl,
            l2_weight_order l2_order,
            CPIter cps_first,
-           CPIter cps_last,
+           Sentinel cps_last,
            int cps_size,
-           Container & bytes)
+           Container & bytes) -> detail::cp_iter_ret_t<void, CPIter>
         {
-            container::small_vector<uint32_t, 256> l1;
-            container::small_vector<uint32_t, 256> l2;
-            container::small_vector<uint32_t, 256> l3;
-            container::small_vector<uint32_t, 256> l4;
+            level_sort_key_values_t l1;
+            level_sort_key_values_t l2;
+            level_sort_key_values_t l3;
+            level_sort_key_values_t l4;
             // For when case level bumps L4.
-            container::small_vector<uint32_t, 256> l4_overflow;
-#if 0 // Superfluous!  We already reserved 256 elements by using a small_vector.
-            l1.reserve(ces_size);
-            if (collation_strength::primary < strength) {
-                l2.reserve(ces_size);
-                if (collation_strength::secondary < strength) {
-                    l3.reserve(ces_size);
-                    if (collation_strength::tertiary < strength)
-                        l4.reserve(ces_size);
-                }
-            }
-#endif
+            level_sort_key_values_t l4_overflow;
 
             auto const strength_for_copies =
                 case_lvl == case_level::on
@@ -510,10 +692,30 @@ namespace boost { namespace text {
                 return;
             }
 
-            // TODO: Needs to change under certain compression schemes.
+            if (!l2.empty()) {
+                if (l2_order == l2_weight_order::backward)
+                    std::reverse(l2.begin(), l2.end());
+                auto packed_l2 = pack_words(l2);
+                rle(packed_l2,
+                    min_secondary_byte,
+                    common_secondary_byte,
+                    max_secondary_byte);
+                pad_words(packed_l2);
+                level_bytes_to_values(packed_l2, l2);
+                if (!l3.empty()) {
+                    auto packed_l3 = pack_words(l3);
+                    rle(packed_l3,
+                        min_tertiary_byte,
+                        common_tertiary_byte,
+                        max_tertiary_byte);
+                    pad_words(packed_l3);
+                    level_bytes_to_values(packed_l3, l3);
+                }
+            }
+
             int const separators = static_cast<int>(strength_for_copies);
 
-            container::small_vector<uint32_t, 256> nfd;
+            level_sort_key_values_t nfd;
             if (collation_strength::quaternary < strength)
                 normalize_to_nfd(cps_first, cps_last, std::back_inserter(nfd));
 
@@ -542,10 +744,7 @@ namespace boost { namespace text {
             it = std::copy(l1.begin(), l1.end(), it);
             if (collation_strength::primary < strength_for_copies) {
                 *it++ = 0x0000;
-                if (l2_order == l2_weight_order::forward)
-                    it = std::copy(l2.begin(), l2.end(), it);
-                else
-                    it = std::copy(l2.rbegin(), l2.rend(), it);
+                it = std::copy(l2.begin(), l2.end(), it);
                 if (collation_strength::secondary < strength_for_copies) {
                     *it++ = 0x0000;
                     it = std::copy(l3.begin(), l3.end(), it);
@@ -565,32 +764,38 @@ namespace boost { namespace text {
                     }
                 }
             }
-            assert(it == bytes.end());
+            BOOST_ASSERT(it == bytes.end());
         }
 
-        template<typename CPIter>
-        text_sort_key collation_sort_key(
+        template<typename CPIter, typename Sentinel>
+        auto collation_sort_key(
             CPIter first,
-            CPIter last,
-            collation_strength strength,
-            case_first case_1st,
-            case_level case_lvl,
-            variable_weighting weighting,
-            l2_weight_order l2_order,
-            collation_table const & table);
-
-        template<typename CPIter1, typename CPIter2>
-        int collate(
-            CPIter1 lhs_first,
-            CPIter1 lhs_last,
-            CPIter2 rhs_first,
-            CPIter2 rhs_last,
+            Sentinel last,
             collation_strength strength,
             case_first case_1st,
             case_level case_lvl,
             variable_weighting weighting,
             l2_weight_order l2_order,
             collation_table const & table)
+            -> detail::cp_iter_ret_t<text_sort_key, CPIter>;
+
+        template<
+            typename CPIter1,
+            typename Sentinel1,
+            typename CPIter2,
+            typename Sentinel2>
+        auto collate(
+            CPIter1 lhs_first,
+            Sentinel1 lhs_last,
+            CPIter2 rhs_first,
+            Sentinel2 rhs_last,
+            collation_strength strength,
+            case_first case_1st,
+            case_level case_lvl,
+            variable_weighting weighting,
+            l2_weight_order l2_order,
+            collation_table const & table)
+            -> detail::cp_iter_ret_t<int, CPIter1>
         {
             text_sort_key const lhs_sk = collation_sort_key(
                 lhs_first,
@@ -614,22 +819,178 @@ namespace boost { namespace text {
         }
     }
 
-    // TODO: Versions of the functions below that do not assume FCC.
+#ifdef BOOST_TEXT_DOXYGEN
 
     /** Returns a collation sort key for the code points in <code>[first,
         last)</code>, using the given collation table.  Any optional settings
-        such as case_first will be honored, so long as they do not conlfict
-        with the settings on the given table. */
-    template<typename CPIter>
+        such as <code>case_1st</code> will be honored, so long as they do not
+        conflict with the settings on the given table.
+
+        Consider using one of the overloads that takes collation_flags
+        instead.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept.
+
+        \pre <code>[first, last)</code> is normalized FCC. */
+    template<typename CPIter, typename Sentinel>
     text_sort_key collation_sort_key(
         CPIter first,
-        CPIter last,
+        Sentinel last,
+        collation_table const & table,
+        collation_strength strength = collation_strength::tertiary,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
+        variable_weighting weighting = variable_weighting::non_ignorable,
+        l2_weight_order l2_order = l2_weight_order::forward);
+
+    /** Returns a collation sort key for the code points in <code>[first,
+        last)</code>, using the given collation table.  Any optional settings
+        flags will be honored, so long as they do not conflict with the
+        settings on the given table.
+
+        This function only participates in overload resolution if
+        <code>CPIter</code> models the CPIter concept.
+
+        \pre <code>[first, last)</code> is normalized FCC. */
+    template<typename CPIter, typename Sentinel>
+    text_sort_key collation_sort_key(
+        CPIter first,
+        Sentinel last,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none);
+
+    /** Returns a collation sort key for the code points in <code>r</code>,
+        using the given collation table.  Any optional settings flags will be
+        honored, so long as they do not conflict with the settings on the
+        given table.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept.
+
+        \pre r is normalized FCC. */
+    template<typename CPRange>
+    text_sort_key collation_sort_key(
+        CPRange const & r,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none);
+
+    /** Returns a collation sort key for the graphemes in <code>r</code>,
+        using the given collation table.  Any optional settings flags will be
+        honored, so long as they do not conflict with the settings on the
+        given table.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange</code> models the GraphemeRange concept.
+
+        \pre r is normalized FCC. */
+    template<typename GraphemeRange>
+    text_sort_key collation_sort_key(
+        GraphemeRange const & r,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none);
+
+    /** Creates sort keys for <code>[lhs_first, lhs_last)</code> and
+        <code>[rhs_first, rhs_last)</code>, then returns the result of calling
+        compare() on the keys. Any optional settings such as
+        <code>case_1st</code> will be honored, so long as they do not conflict
+        with the settings on the given table.
+
+        Consider using one of the overloads that takes collation_flags
+        instead.
+
+        This function only participates in overload resolution if
+        <code>CPIter1</code> models the CPIter concept.
+
+        \pre <code>[lhs_first, lhs_last)</code> is normalized FCC.
+        \pre <code>[rhs_first, rhs_last)</code> is normalized FCC. */
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    int collate(
+        CPIter1 lhs_first,
+        Sentinel1 lhs_last,
+        CPIter2 rhs_first,
+        Sentinel2 rhs_last,
+        collation_table const & table,
+        collation_strength strength = collation_strength::tertiary,
+        case_first case_1st = case_first::off,
+        case_level case_lvl = case_level::off,
+        variable_weighting weighting = variable_weighting::non_ignorable,
+        l2_weight_order l2_order = l2_weight_order::forward);
+
+    /** Creates sort keys for <code>[lhs_first, lhs_last)</code> and
+        <code>[rhs_first, rhs_last)</code>, then returns the result of calling
+        compare() on the keys.  Any optional settings flags will be honored,
+        so long as they do not conflict with the settings on the given table.
+
+        This function only participates in overload resolution if
+        <code>CPIter1</code> models the CPIter concept.
+
+        \pre <code>[lhs_first, lhs_last)</code> is normalized FCC.
+        \pre <code>[rhs_first, rhs_last)</code> is normalized FCC. */
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    int collate(
+        CPIter1 lhs_first,
+        Sentinel1 lhs_last,
+        CPIter2 rhs_first,
+        Sentinel2 rhs_last,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none);
+
+    /** Creates sort keys for <code>r1</code> and <code>r2</code>, then
+        returns the result of calling compare() on the keys.  Any optional
+        settings flags will be honored, so long as they do not conflict with
+        the settings on the given table.
+
+        This function only participates in overload resolution if
+        <code>CPRange1</code> models the CPRange concept.
+
+        \pre <code>r1</code> is normalized FCC.
+        \pre <code>r2</code> is normalized FCC. */
+    template<typename CPRange1, typename CPRange2>
+    int collate(
+        CPRange1 const & r1,
+        CPRange2 const & r2,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none);
+
+    /** Creates sort keys for <code>r1</code> and <code>r2</code>, then
+        returns the result of calling compare() on the keys.  Any optional
+        settings flags will be honored, so long as they do not conflict with
+        the settings on the given table.
+
+        This function only participates in overload resolution if
+        <code>GraphemeRange1</code> models the GraphemeRange concept.
+
+        \pre <code>r1</code> is normalized FCC.
+        \pre <code>r2</code> is normalized FCC. */
+    template<typename GraphemeRange1, typename GraphemeRange2>
+    int collate(
+        GraphemeRange1 const & r1,
+        GraphemeRange2 const & r2,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none);
+
+#else
+
+    template<typename CPIter, typename Sentinel>
+    auto collation_sort_key(
+        CPIter first,
+        Sentinel last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
+        -> detail::cp_iter_ret_t<text_sort_key, CPIter>
     {
         return detail::collation_sort_key(
             first,
@@ -642,51 +1003,78 @@ namespace boost { namespace text {
             table);
     }
 
-    /** Returns a collation sort key for the code points in \a r, using the
-        given collation table.  Any optional settings such as case_first will
-        be honored, so long as they do not conlfict with the settings on the
-        given table. */
-    template<typename CPRange>
-    text_sort_key collation_sort_key(
-        CPRange const & r,
+    template<typename CPIter, typename Sentinel>
+    auto collation_sort_key(
+        CPIter first,
+        Sentinel last,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable,
-        l2_weight_order l2_order = l2_weight_order::forward)
+        collation_flags flags = collation_flags::none)
+        -> detail::cp_iter_ret_t<text_sort_key, CPIter>
     {
-        using std::begin;
-        using std::end;
-        return collation_sort_key(
-            begin(r),
-            end(r),
-            table,
-            strength,
-            case_1st,
-            case_lvl,
-            weighting,
-            l2_order);
+        return detail::collation_sort_key(
+            first,
+            last,
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags),
+            table);
     }
 
+    template<typename CPRange>
+    auto collation_sort_key(
+        CPRange const & r,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::cp_rng_alg_ret_t<text_sort_key, CPRange>
+    {
+        return detail::collation_sort_key(
+            std::begin(r),
+            std::end(r),
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags),
+            table);
+    }
 
-    /** Returns the result of calling compare() on collation sort keys
-        produced using <code>[lhs_first, lhs_last)</code> and
-        <code>[rhs_first, rhs_last)</code>, respectively.  Any optional
-        settings such as case_first will be honored, so long as they do not
-        conlfict with the settings on the given table. */
-    template<typename CPIter1, typename CPIter2>
-    int collate(
+    template<typename GraphemeRange>
+    auto collation_sort_key(
+        GraphemeRange const & r,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::graph_rng_alg_ret_t<text_sort_key, GraphemeRange>
+    {
+        return detail::collation_sort_key(
+            std::begin(r).base(),
+            std::end(r).base(),
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags),
+            table);
+    }
+
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    auto collate(
         CPIter1 lhs_first,
-        CPIter1 lhs_last,
+        Sentinel1 lhs_last,
         CPIter2 rhs_first,
-        CPIter2 rhs_last,
+        Sentinel2 rhs_last,
         collation_table const & table,
         collation_strength strength = collation_strength::tertiary,
         case_first case_1st = case_first::off,
         case_level case_lvl = case_level::off,
         variable_weighting weighting = variable_weighting::non_ignorable,
         l2_weight_order l2_order = l2_weight_order::forward)
+        -> detail::cp_iter_ret_t<int, CPIter1>
     {
         return detail::collate(
             lhs_first,
@@ -701,35 +1089,76 @@ namespace boost { namespace text {
             table);
     }
 
-    /** Returns the result of calling compare() on collation sort keys
-        produced using \a r1 and \a r2, respectively.  Any optional settings
-        such as case_first will be honored, so long as they do not conlfict
-        with the settings on the given table. */
+    template<
+        typename CPIter1,
+        typename Sentinel1,
+        typename CPIter2,
+        typename Sentinel2>
+    auto collate(
+        CPIter1 lhs_first,
+        Sentinel1 lhs_last,
+        CPIter2 rhs_first,
+        Sentinel2 rhs_last,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::cp_iter_ret_t<int, CPIter1>
+    {
+        return detail::collate(
+            lhs_first,
+            lhs_last,
+            rhs_first,
+            rhs_last,
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags),
+            table);
+    }
+
     template<typename CPRange1, typename CPRange2>
-    int collate(
+    auto collate(
         CPRange1 const & r1,
         CPRange2 const & r2,
         collation_table const & table,
-        collation_strength strength = collation_strength::tertiary,
-        case_first case_1st = case_first::off,
-        case_level case_lvl = case_level::off,
-        variable_weighting weighting = variable_weighting::non_ignorable,
-        l2_weight_order l2_order = l2_weight_order::forward)
+        collation_flags flags = collation_flags::none)
+        -> detail::cp_rng_alg_ret_t<int, CPRange1>
     {
-        using std::begin;
-        using std::end;
         return collate(
-            begin(r1),
-            end(r1),
-            begin(r2),
-            end(r2),
+            std::begin(r1),
+            std::end(r1),
+            std::begin(r2),
+            std::end(r2),
             table,
-            strength,
-            case_1st,
-            case_lvl,
-            weighting,
-            l2_order);
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags));
     }
+
+    template<typename GraphemeRange1, typename GraphemeRange2>
+    auto collate(
+        GraphemeRange1 const & r1,
+        GraphemeRange2 const & r2,
+        collation_table const & table,
+        collation_flags flags = collation_flags::none)
+        -> detail::graph_rng_alg_ret_t<int, GraphemeRange1>
+    {
+        return collate(
+            std::begin(r1).base(),
+            std::end(r1).base(),
+            std::begin(r2).base(),
+            std::end(r2).base(),
+            table,
+            detail::to_strength(flags),
+            detail::to_case_first(flags),
+            detail::to_case_level(flags),
+            detail::to_weighting(flags),
+            detail::to_l2_order(flags));
+    }
+
+#endif
 
 }}
 
@@ -737,16 +1166,17 @@ namespace boost { namespace text {
 
 namespace boost { namespace text { namespace detail {
 
-    template<typename CPIter>
-    text_sort_key collation_sort_key(
+    template<typename CPIter, typename Sentinel>
+    auto collation_sort_key(
         CPIter first,
-        CPIter last,
+        Sentinel last,
         collation_strength strength,
         case_first case_1st,
         case_level case_lvl,
         variable_weighting weighting,
         l2_weight_order l2_order,
         collation_table const & table)
+        -> detail::cp_iter_ret_t<text_sort_key, CPIter>
     {
         auto const initial_first = first;
 
@@ -790,15 +1220,14 @@ namespace boost { namespace text { namespace detail {
             }
 
             auto const end_of_raw_input = std::prev(it, s2_it - buf_it);
-            container::small_vector<collation_element, 1024> const temp =
-                table.collation_elements(
-                    buffer.begin(),
-                    s2_it,
-                    strength,
-                    case_1st,
-                    case_lvl,
-                    weighting);
-            ces.insert(ces.end(), temp.begin(), temp.end());
+            table.copy_collation_elements(
+                buffer.begin(),
+                s2_it,
+                std::back_inserter(ces),
+                strength,
+                case_1st,
+                case_lvl,
+                weighting);
             buf_it = std::copy(s2_it, buf_it, buffer.begin());
             first = end_of_raw_input;
         }
@@ -820,5 +1249,26 @@ namespace boost { namespace text { namespace detail {
     }
 
 }}}
+
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::text_sort_key>
+    {
+        using argument_type = boost::text::text_sort_key;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & key) const noexcept
+        {
+            return std::accumulate(
+                key.begin(),
+                key.end(),
+                result_type(key.size()),
+                boost::text::detail::hash_combine_);
+        }
+    };
+}
+
+#endif
 
 #endif

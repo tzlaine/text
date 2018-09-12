@@ -2,6 +2,7 @@
 #define BOOST_TEXT_ROPE_VIEW_HPP
 
 #include <boost/text/grapheme_iterator.hpp>
+#include <boost/text/unencoded_rope_view.hpp>
 #include <boost/text/utf8.hpp>
 
 #include <iterator>
@@ -12,13 +13,14 @@ namespace boost { namespace text {
     namespace detail {
         struct rope_iterator;
         struct const_rope_iterator;
+        struct const_rope_view_iterator;
     }
 
     struct text;
     struct text_view;
     struct rope;
 
-    /** TODO. */
+    /** A reference to a substring of a rope, text, or text_view. */
     struct rope_view
     {
         using value_type =
@@ -27,7 +29,7 @@ namespace boost { namespace text {
         using iterator = grapheme_iterator<
             utf8::to_utf32_iterator<detail::const_rope_view_iterator>>;
         using const_iterator = iterator;
-        using reverse_iterator = std::reverse_iterator<iterator>;
+        using reverse_iterator = detail::reverse_iterator<iterator>;
         using const_reverse_iterator = reverse_iterator;
 
         using rope_iterator =
@@ -52,11 +54,6 @@ namespace boost { namespace text {
 
         /** Disable construction from a temporary rope. */
         rope_view(rope && r) noexcept = delete;
-
-#if 0 // TODO
-        /** Constructs a rope_view from a pair of rope_iterators. */
-        rope_view(rope_iterator first, rope_iterator last) noexcept;
-#endif
 
         /** Constructs a rope_view from a pair of const_rope_iterators. */
         rope_view(const_rope_iterator first, const_rope_iterator last) noexcept;
@@ -92,8 +89,8 @@ namespace boost { namespace text {
             return std::distance(begin(), end());
         }
 
-        /** Returns the maximum size a rope_view can have. */
-        size_type max_size() const noexcept { return PTRDIFF_MAX; }
+        /** Returns the maximum size in bytes a rope_view can have. */
+        size_type max_bytes() const noexcept { return PTRDIFF_MAX; }
 
         /** Visits each segment s of the underlying unencoded_rope and calls
             f(s).  Each segment is a value whose type models a CharIter
@@ -123,6 +120,8 @@ namespace boost { namespace text {
             return os;
         }
 
+#ifndef BOOST_TEXT_DOXYGEN
+
     private:
         static iterator make_iter(
             detail::const_rope_view_iterator first,
@@ -130,6 +129,8 @@ namespace boost { namespace text {
             detail::const_rope_view_iterator last) noexcept;
 
         unencoded_rope_view view_;
+
+#endif
     };
 
     inline bool operator==(rope_view lhs, rope_view rhs) noexcept
@@ -191,17 +192,6 @@ namespace boost { namespace text {
 
     inline rope_view::rope_view(rope const & r) noexcept : view_(r.rope_) {}
 
-#if 0 // TODO
-    inline rope_view::rope_view(
-        rope_iterator first, rope_iterator last) noexcept
-    {
-        auto const lo =
-            first.base().base() - first.base().base().rope_->begin();
-        auto const hi = last.base().base() - last.base().base().rope_->begin();
-        view_ = unencoded_rope_view(*first.base().base().rope_, lo, hi);
-    }
-#endif
-
     inline rope_view::rope_view(
         const_rope_iterator first, const_rope_iterator last) noexcept
     {
@@ -251,5 +241,22 @@ namespace boost { namespace text {
     }
 
 }}
+
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::rope_view>
+    {
+        using argument_type = boost::text::rope_view;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & rv) const noexcept
+        {
+            return boost::text::detail::hash_grapheme_range(rv);
+        }
+    };
+}
+
+#endif
 
 #endif

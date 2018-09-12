@@ -19,6 +19,18 @@ add_sample(hello_world)
 add_sample(param_conventions)
 add_sample(code_point_to_utf8)
 
+add_sample(utf8)
+add_sample(normalize)
+add_sample(breaks)
+add_sample(case_mapping)
+add_sample(collation)
+add_sample(collation_search)
+add_sample(bidirectional)
+add_sample(graphemes)
+add_sample(segmented_vector)
+add_sample(string_builder)
+add_sample(trie)
+
 
 if (BUILD_EDITOR)
     find_package(Curses)

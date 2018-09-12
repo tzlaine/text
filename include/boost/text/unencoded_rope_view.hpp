@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_UNENCODED_ROPE_VIEW_HPP
 #define BOOST_TEXT_UNENCODED_ROPE_VIEW_HPP
 
+#include <boost/text/detail/iterator.hpp>
 #include <boost/text/detail/rope.hpp>
 
 
@@ -10,11 +11,12 @@ namespace boost { namespace text {
 
     namespace detail {
         struct const_rope_view_iterator;
-        struct const_reverse_rope_view_iterator;
+        using const_reverse_rope_view_iterator =
+            reverse_iterator<const_rope_view_iterator>;
     }
 
-    /** A reference to a substring of an unencoded_rope, string, or
-        repeated_string_view. */
+    /** A reference to a substring of an unencoded_rope, string, string_view,
+        or repeated_string_view. */
     struct unencoded_rope_view
     {
         using value_type = char;
@@ -107,8 +109,8 @@ namespace boost { namespace text {
             \pre 0 <= lo && lo <= rsv.size()
             \pre 0 <= hi && lhi <= rsv.size()
             \pre lo <= hi
-            \post size() == rsv.size() && begin() == rsv.begin() + lo && end() ==
-            rsv.begin() + hi */
+            \post size() == rsv.size() && begin() == rsv.begin() + lo && end()
+           == rsv.begin() + hi */
         unencoded_rope_view(
             repeated_string_view rsv, size_type lo, size_type hi);
 
@@ -117,7 +119,8 @@ namespace boost { namespace text {
         /** Constructs a unencoded_rope_view from a range of char.
 
             This function only participates in overload resolution if
-            ContigCharRange models the ContigCharRange concept. */
+            <code>ContigCharRange</code> models the ContigCharRange
+            concept. */
         template<typename ContigCharRange>
         explicit unencoded_rope_view(ContigCharRange const & r);
 
@@ -125,7 +128,8 @@ namespace boost { namespace text {
             underlying range of char.
 
             This function only participates in overload resolution if
-            ContigGraphemeRange models the ContigGraphemeRange concept. */
+            <code>ContigGraphemeRange</code> models the ContigGraphemeRange
+            concept. */
         template<typename ContigGraphemeRange>
         explicit unencoded_rope_view(ContigGraphemeRange const & r);
 
@@ -189,8 +193,8 @@ namespace boost { namespace text {
                 lo = cut + size();
                 hi = size();
             }
-            assert(0 <= lo && lo <= size());
-            assert(0 <= hi && hi <= size());
+            BOOST_ASSERT(0 <= lo && lo <= size());
+            BOOST_ASSERT(0 <= hi && hi <= size());
             return operator()(lo, hi);
         }
 
@@ -256,7 +260,8 @@ namespace boost { namespace text {
         /** Assignment from a range of char.
 
             This function only participates in overload resolution if
-            ContigCharRange models the ContigCharRange concept. */
+            <code>ContigCharRange</code> models the ContigCharRange
+            concept. */
         template<typename ContigCharRange>
         unencoded_rope_view & operator=(ContigCharRange const & r);
 
@@ -264,7 +269,8 @@ namespace boost { namespace text {
             char.
 
             This function only participates in overload resolution if
-            ContigGraphemeRange models the ContigGraphemeRange concept. */
+            <code>ContigGraphemeRange</code> models the ContigGraphemeRange
+            concept. */
         template<typename ContigGraphemeRange>
         unencoded_rope_view & operator=(ContigGraphemeRange const & r);
 
@@ -424,5 +430,22 @@ namespace boost { namespace text {
     }
 
 }}
+
+#ifndef BOOST_TEXT_DOXYGEN
+
+namespace std {
+    template<>
+    struct hash<boost::text::unencoded_rope_view>
+    {
+        using argument_type = boost::text::unencoded_rope_view;
+        using result_type = std::size_t;
+        result_type operator()(argument_type const & urv) const noexcept
+        {
+            return boost::text::detail::hash_char_range(urv);
+        }
+    };
+}
+
+#endif
 
 #endif
