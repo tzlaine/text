@@ -38,6 +38,7 @@
 [import ../example/bidirectional.cpp]
 [import ../example/graphemes.cpp]
 [import ../example/segmented_vector.cpp]
+[import ../example/string_builder.cpp]
 
 [/ Images ]
 
@@ -77,6 +78,11 @@
 [def _urs_                 [classref boost::text::unencoded_rope `unencoded_rope`s]]
 [def _urv_                 [classref boost::text::unencoded_rope_view `unencoded_rope_view`]]
 [def _urvs_                [classref boost::text::unencoded_rope_view `unencoded_rope_view`s]]
+
+[def _sb_                  [classref boost::text::string_builder `string_builder`]]
+[def _sbs_                 [classref boost::text::string_builder `string_builder`s]]
+[def _ssb_                 [classref boost::text::static_string_builder `static_string_builder`]]
+[def _ssbs_                [classref boost::text::static_string_builder `static_string_builder`s]]
 
 [def _cu_                  code unit]
 [def _cus_                 code units]

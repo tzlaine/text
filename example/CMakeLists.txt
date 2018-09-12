@@ -28,6 +28,7 @@ add_sample(collation_search)
 add_sample(bidirectional)
 add_sample(graphemes)
 add_sample(segmented_vector)
+add_sample(string_builder)
 
 
 if (BUILD_EDITOR)

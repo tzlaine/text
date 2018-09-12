@@ -357,4 +357,30 @@ since they are each implicitly constructible from `char const *`.  This will
 require you also to add a third overload `foo(char const *)`, so try to stick
 to one view type or the other when you can.]
 
+
+[heading String Builders]
+
+Sometimes you need to build a string in a hot code path.  The default behavior
+of _s_ is not quite optimal.  It must write a null-terminator during almost
+any mutating operation, even if that null terminator will be overwritten in
+the next operation.  It may also allocate memory multiple times during a
+series of append operations.
+
+_Text_ provides two types to make optimal string building easier: _sb_ and
+_ssb_.
+
+_sb_ builds strings dynamically, much like _s_ does, except that it is
+append-only.  It allocates memory as it you append to it, but it skips writing
+the terminating null.  This can make it measurably faster in string building
+operations that involve a high number of small appends:
+
+[string_builder]
+
+_ssb_ can avoid allocations entirely until the final step.  The type of the
+builder object changes with each operation, though, so _ssb_ cannot be used in
+some contexts, for example in a loop.  _ssb_ is _ce_-friendly in C++14 and
+later.  Here it is in action:
+
+[static_string_builder]
+
 [endsect]
