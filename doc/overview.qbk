@@ -62,3 +62,18 @@ analogous to `std::map` and `std::set`, respectively, just built on a trie
 instead of a binary tree.
 
 [endsect]
+
+[section A Big, Fat Warning About Proxy Iterators]
+
+Before we go any further, I just want to make you aware that _Text_ makes
+extensive use of proxy iterators (see _to_32_iter_ and friends).  This is fine
+in C++20 and later, but is not fine in earlier versions of standard.  In fact,
+in earlier versions proxy iterators are not iterators at all, by the
+standard's formal definition.
+
+This does not come up a lot in practice.  I have yet to run into any code that
+does not compile or that does not work due to the use of these proxy
+iterators, but it is a potential problem about which you should know.
+Consider yourself warned.
+
+[endsect]
