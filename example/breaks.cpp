@@ -31,12 +31,6 @@ assert(at_or_before_3 == first + 2);
 auto after_0 = boost::text::next_grapheme_break(first, last);
 assert(after_0 == first + 2);
 
-#if 0
-auto around_1 = boost::text::grapheme(cps, first + 1);
-assert(around_1.begin() == first + 0);
-assert(around_1.end() == first + 2);
-#endif
-
 // Prints "[0, 2) [2, 3)".
 for (auto range : boost::text::graphemes(cps)) {
     std::cout << '[' << std::distance(first, range.begin()) << ", "
