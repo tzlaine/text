@@ -25,39 +25,39 @@
 </span>
 <span class="keyword">struct</span> <a class="link" href="collation_compare.html" title="Struct collation_compare">collation_compare</a> <span class="special">{</span>
   <span class="comment">// <a class="link" href="collation_compare.html#boost.text.collation_compareconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="collation_compare.html#idm13239-bb"><span class="identifier">collation_compare</span></a><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a><span class="special">,</span> <span class="identifier">collation_strength</span><span class="special">,</span> 
+  <a class="link" href="collation_compare.html#idm13335-bb"><span class="identifier">collation_compare</span></a><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a><span class="special">,</span> <span class="identifier">collation_strength</span><span class="special">,</span> 
                     <span class="identifier">case_first</span> <span class="special">=</span> <span class="identifier">case_first</span><span class="special">::</span><span class="identifier">off</span><span class="special">,</span> 
                     <span class="identifier">case_level</span> <span class="special">=</span> <span class="identifier">case_level</span><span class="special">::</span><span class="identifier">off</span><span class="special">,</span> 
                     <span class="identifier">variable_weighting</span> <span class="special">=</span> <span class="identifier">variable_weighting</span><span class="special">::</span><span class="identifier">non_ignorable</span><span class="special">,</span> 
                     <span class="identifier">l2_weight_order</span> <span class="special">=</span> <span class="identifier">l2_weight_order</span><span class="special">::</span><span class="identifier">forward</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="collation_compare.html#idm13257-bb"><span class="identifier">collation_compare</span></a><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a><span class="special">,</span> <span class="identifier">collation_flags</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="collation_compare.html#idm13353-bb"><span class="identifier">collation_compare</span></a><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a><span class="special">,</span> <span class="identifier">collation_flags</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="collation_compare.html#idm13229-bb">public member functions</a></span>
+  <span class="comment">// <a class="link" href="collation_compare.html#idm13325-bb">public member functions</a></span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPRange1<span class="special">,</span> <span class="keyword">typename</span> CPRange2<span class="special">&gt;</span> 
-    <span class="keyword">bool</span> <a class="link" href="collation_compare.html#idm13230-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">CPRange1</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">CPRange2</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="keyword">bool</span> <a class="link" href="collation_compare.html#idm13326-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">CPRange1</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">CPRange2</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm18092"></a><h2>Description</h2>
+<a name="idm18186"></a><h2>Description</h2>
 <p>A function object suitable for use with standard algorithms that accept a comparison object. </p>
 <div class="refsect2">
-<a name="idm18095"></a><h3>
+<a name="idm18189"></a><h3>
 <a name="boost.text.collation_compareconstruct-copy-destruct"></a><code class="computeroutput">collation_compare</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm13239-bb"></a><span class="identifier">collation_compare</span><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> table<span class="special">,</span> <span class="identifier">collation_strength</span> strength<span class="special">,</span> 
+<li class="listitem"><pre class="literallayout"><a name="idm13335-bb"></a><span class="identifier">collation_compare</span><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> table<span class="special">,</span> <span class="identifier">collation_strength</span> strength<span class="special">,</span> 
                   <span class="identifier">case_first</span> case_1st <span class="special">=</span> <span class="identifier">case_first</span><span class="special">::</span><span class="identifier">off</span><span class="special">,</span> 
                   <span class="identifier">case_level</span> case_lvl <span class="special">=</span> <span class="identifier">case_level</span><span class="special">::</span><span class="identifier">off</span><span class="special">,</span> 
                   <span class="identifier">variable_weighting</span> weighting <span class="special">=</span> <span class="identifier">variable_weighting</span><span class="special">::</span><span class="identifier">non_ignorable</span><span class="special">,</span> 
                   <span class="identifier">l2_weight_order</span> l2_order <span class="special">=</span> <span class="identifier">l2_weight_order</span><span class="special">::</span><span class="identifier">forward</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm13257-bb"></a><span class="identifier">collation_compare</span><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> table<span class="special">,</span> <span class="identifier">collation_flags</span> flags<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm13353-bb"></a><span class="identifier">collation_compare</span><span class="special">(</span><a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> table<span class="special">,</span> <span class="identifier">collation_flags</span> flags<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm18146"></a><h3>
-<a name="idm13229-bb"></a><code class="computeroutput">collation_compare</code> public member functions</h3>
+<a name="idm18240"></a><h3>
+<a name="idm13325-bb"></a><code class="computeroutput">collation_compare</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPRange1<span class="special">,</span> <span class="keyword">typename</span> CPRange2<span class="special">&gt;</span> 
-  <span class="keyword">bool</span> <a name="idm13230-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">CPRange1</span> <span class="keyword">const</span> <span class="special">&amp;</span> r1<span class="special">,</span> <span class="identifier">CPRange2</span> <span class="keyword">const</span> <span class="special">&amp;</span> r2<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
+  <span class="keyword">bool</span> <a name="idm13326-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">CPRange1</span> <span class="keyword">const</span> <span class="special">&amp;</span> r1<span class="special">,</span> <span class="identifier">CPRange2</span> <span class="keyword">const</span> <span class="special">&amp;</span> r2<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>
