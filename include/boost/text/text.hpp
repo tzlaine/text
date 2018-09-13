@@ -483,7 +483,9 @@ namespace boost { namespace text {
         mutable_utf32_iter next_stable_cp(mutable_utf32_iter first) noexcept;
 
         // https://www.unicode.org/reports/tr15/#Concatenation
-        void normalize_subrange(int from_near_offset, int to_near_offset);
+        int normalize_subrange(int from_near_offset, int to_near_offset);
+
+        iterator insert_impl_suffix(int lo, int hi, bool normalized);
 
         template<typename CharIter, typename Sentinel>
         iterator insert_impl(
@@ -892,7 +894,7 @@ namespace boost { namespace text {
         return it;
     }
 
-    inline void
+    inline int
     text::normalize_subrange(int from_near_offset, int to_near_offset)
     {
         mutable_utf32_iter first(
@@ -903,57 +905,66 @@ namespace boost { namespace text {
         last = next_stable_cp(last);
 
         if (first == last)
-            return;
+            return from_near_offset;
 
-        container::small_vector<char, 1024> buf;
+        container::small_vector<char, 256> buf;
         normalize_to_fcc(first, last, utf8::from_utf32_back_inserter(buf));
+        auto const initial_cp =
+            *utf8::make_to_utf32_iterator(&buf[0], &buf[0], &*buf.end());
+        auto const prev_initial_cp = *first;
 
         str_.replace(
             string_view(first.base(), last.base() - first.base()),
             string_view(&buf[0], buf.size()));
+
+        // Return the new lo offset if the first normalized CP changed.
+        return initial_cp == prev_initial_cp ? from_near_offset
+                                             : first.base() - str_.begin();
+    }
+
+    inline text::iterator
+    text::insert_impl_suffix(int lo, int hi, bool normalized)
+    {
+        int new_lo = lo;
+        if (normalized) {
+            if (hi < str_.size())
+                normalize_subrange(hi, hi);
+            if (lo)
+                new_lo = normalize_subrange(lo, lo);
+        } else {
+            new_lo = normalize_subrange(lo, hi);
+        }
+        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
+
+        // The insertion that just happened might be merged into the CP or
+        // grapheme ending at the offset of the inserted char(s); if so, back
+        // up and return an iterator to that.
+        auto insertion_cp_it =
+            mutable_utf32_iter(str_.begin(), str_.begin() + new_lo, str_.end());
+        auto const first_cp_of_grapheme_it =
+            prev_grapheme_break(begin().base(), insertion_cp_it, end().base());
+
+        return make_iter(
+            str_.begin(), first_cp_of_grapheme_it.base(), str_.end());
     }
 
     template<typename CharIter, typename Sentinel>
     text::iterator text::insert_impl(
         iterator at, CharIter first, Sentinel last, bool first_last_normalized)
     {
-        int const offset = at.base().base() - str_.begin();
-
         int const lo = at.base().base() - str_.begin();
         auto const insertion_it = str_.insert(at.base().base(), first, last);
         int const hi = insertion_it - str_.begin();
-        if (first_last_normalized) {
-            if (hi < str_.size())
-                normalize_subrange(hi, hi);
-            if (lo)
-                normalize_subrange(lo, lo);
-        } else {
-            normalize_subrange(lo, hi);
-        }
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-
-        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
+        return insert_impl_suffix(lo, hi, first_last_normalized);
     }
 
     inline text::iterator
     text::insert_impl(iterator at, string_view sv, bool sv_normalized)
     {
-        int const offset = at.base().base() - str_.begin();
-
         int const lo = at.base().base() - str_.begin();
         auto const insertion_it = str_.insert(at.base().base(), sv);
         int const hi = insertion_it - str_.begin();
-        if (sv_normalized) {
-            if (hi < str_.size())
-                normalize_subrange(hi, hi);
-            if (lo)
-                normalize_subrange(lo, lo);
-        } else {
-            normalize_subrange(lo, hi);
-        }
-        BOOST_TEXT_CHECK_TEXT_NORMALIZATION();
-
-        return make_iter(str_.begin(), str_.begin() + offset, str_.end());
+        return insert_impl_suffix(lo, hi, sv_normalized);
     }
 
     template<typename CharIter, typename Sentinel>

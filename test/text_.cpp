@@ -293,6 +293,52 @@ TEST(text_tests, test_insert)
             EXPECT_EQ(t, "text"_t); // no nulls in the middle
         }
     }
+
+    {
+        {
+            text::text t("e");
+            auto const it = t.insert(t.begin(), "f");
+            EXPECT_EQ(t.distance(), 2);
+            EXPECT_EQ(it, t.begin());
+        }
+        {
+            text::text t("e");
+            auto const it = t.insert(t.end(), "f");
+            EXPECT_EQ(t.distance(), 2);
+            EXPECT_EQ(it, std::next(t.begin()));
+        }
+
+        char const * combining_diaeresis = u8"\u0308";
+
+        {
+            text::text t("e");
+            auto const it = t.insert(t.begin(), combining_diaeresis);
+            EXPECT_EQ(t.distance(), 2);
+            EXPECT_EQ(it, t.begin());
+        }
+        {
+            text::text t("e");
+
+            auto it = t.insert(t.end(), combining_diaeresis);
+            EXPECT_EQ(t.distance(), 1);
+            EXPECT_EQ(it, t.begin());
+
+            it = t.insert(t.end(), combining_diaeresis);
+            EXPECT_EQ(t.distance(), 1);
+            EXPECT_EQ(it, t.begin());
+        }
+        {
+            text::text t("et");
+
+            auto it = t.insert(std::next(t.begin()), combining_diaeresis);
+            EXPECT_EQ(t.distance(), 2);
+            EXPECT_EQ(it, t.begin());
+
+            it = t.insert(std::next(t.begin()), combining_diaeresis);
+            EXPECT_EQ(t.distance(), 2);
+            EXPECT_EQ(it, t.begin());
+        }
+    }
 }
 
 TEST(text_tests, test_erase)
