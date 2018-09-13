@@ -525,6 +525,9 @@ namespace boost { namespace text {
         static text::iterator
         call(text & t, text::iterator at, grapheme_view<CPIter> g)
         {
+            if (g.empty())
+                return at;
+
             container::small_vector<char, 16> grapheme_chars;
             std::copy(
                 g.begin(),
@@ -537,15 +540,34 @@ namespace boost { namespace text {
         }
     };
 
-    template<typename Iter, typename Sentinel, typename ErrorHandler>
+    template<typename Sentinel, typename ErrorHandler>
     struct text::insert_grapheme_view_impl<
-        utf8::to_utf32_iterator<Iter, Sentinel, ErrorHandler>>
+        utf8::to_utf32_iterator<char const *, Sentinel, ErrorHandler>>
     {
         static text::iterator call(
             text & t,
             text::iterator at,
-            grapheme_view<utf8::to_utf32_iterator<Iter, Sentinel, ErrorHandler>>
+            grapheme_view<
+                utf8::to_utf32_iterator<char const *, Sentinel, ErrorHandler>>
                 g)
+        {
+            return t.insert_impl(
+                at,
+                string_view(
+                    g.begin().base(), g.end().base() - g.begin().base()),
+                true);
+        }
+    };
+
+    template<typename Sentinel, typename ErrorHandler>
+    struct text::insert_grapheme_view_impl<
+        utf8::to_utf32_iterator<char *, Sentinel, ErrorHandler>>
+    {
+        static text::iterator call(
+            text & t,
+            text::iterator at,
+            grapheme_view<
+                utf8::to_utf32_iterator<char *, Sentinel, ErrorHandler>> g)
         {
             return t.insert_impl(
                 at,

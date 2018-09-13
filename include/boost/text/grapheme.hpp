@@ -79,14 +79,14 @@ namespace boost { namespace text {
 
         const_iterator begin() const noexcept
         {
-            auto const first = &chars_[0];
+            auto const first = &*chars_.begin();
             auto const last = first + chars_.size();
             return grapheme::const_iterator{first, first, last};
         }
 
         const_iterator end() const noexcept
         {
-            auto const first = &chars_[0];
+            auto const first = &*chars_.begin();
             auto const last = first + chars_.size();
             return grapheme::const_iterator{first, last, last};
         }

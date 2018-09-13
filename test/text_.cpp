@@ -339,6 +339,51 @@ TEST(text_tests, test_insert)
             EXPECT_EQ(it, t.begin());
         }
     }
+
+    {
+        {
+            text::text t;
+            t.insert(t.begin(), 'g'); // text::grapheme
+            EXPECT_EQ(t, text::text("g"));
+        }
+        {
+            text::text t;
+            t.insert(t.begin(), text::grapheme());
+            EXPECT_EQ(t, text::text(""));
+        }
+
+        {
+            text::text t_0("g");
+            text::text t;
+            t.insert(t.end(), *t_0.begin()); // text::grapheme_view
+            EXPECT_EQ(t, text::text("g"));
+        }
+        {
+            text::text const t_0("g");
+            text::text t;
+            t.insert(t.end(), *t_0.begin());
+            EXPECT_EQ(t, text::text("g"));
+        }
+        {
+            text::rope r("g");
+            text::text t;
+            t.insert(t.end(), *r.begin()); // text::grapheme_view
+            EXPECT_EQ(t, text::text("g"));
+        }
+        {
+            text::rope const r("g");
+            text::text t;
+            t.insert(t.end(), *r.begin());
+            EXPECT_EQ(t, text::text("g"));
+        }
+        {
+            text::text t;
+            t.insert(
+                t.begin(),
+                text::grapheme_view<text::rope::iterator::iterator_type>());
+            EXPECT_EQ(t, text::text(""));
+        }
+    }
 }
 
 TEST(text_tests, test_erase)

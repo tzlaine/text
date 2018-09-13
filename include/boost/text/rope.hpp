@@ -399,6 +399,9 @@ namespace boost { namespace text {
         static rope::const_iterator
         call(rope & r, rope::const_iterator at, grapheme_view<CPIter> g)
         {
+            if (g.empty())
+                return at;
+
             string s;
             std::copy(
                 g.begin(), g.end(), utf8::from_utf32_inserter(s, s.end()));
@@ -406,14 +409,31 @@ namespace boost { namespace text {
         }
     };
 
-    template<typename Iter, typename Sentinel, typename ErrorHandler>
+    template<typename Sentinel, typename ErrorHandler>
     struct rope::insert_grapheme_view_impl<
-        utf8::to_utf32_iterator<Iter, Sentinel, ErrorHandler>>
+        utf8::to_utf32_iterator<char const *, Sentinel, ErrorHandler>>
     {
         static rope::const_iterator call(
             rope & r,
             rope::const_iterator at,
-            grapheme_view<utf8::to_utf32_iterator<Iter, Sentinel, ErrorHandler>> g)
+            grapheme_view<
+                utf8::to_utf32_iterator<char const *, Sentinel, ErrorHandler>>
+                g)
+        {
+            return r.insert_impl(
+                at, string(g.begin().base(), g.end().base()), true);
+        }
+    };
+
+    template<typename Sentinel, typename ErrorHandler>
+    struct rope::insert_grapheme_view_impl<
+        utf8::to_utf32_iterator<char *, Sentinel, ErrorHandler>>
+    {
+        static rope::const_iterator call(
+            rope & r,
+            rope::const_iterator at,
+            grapheme_view<
+                utf8::to_utf32_iterator<char *, Sentinel, ErrorHandler>> g)
         {
             return r.insert_impl(
                 at, string(g.begin().base(), g.end().base()), true);

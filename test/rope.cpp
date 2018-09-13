@@ -531,6 +531,51 @@ TEST(rope, test_insert)
             EXPECT_EQ(it, r.begin());
         }
     }
+
+    {
+        {
+            text::rope r;
+            r.insert(r.begin(), 'g'); // text::grapheme
+            EXPECT_EQ(r, text::text("g"));
+        }
+        {
+            text::rope r;
+            r.insert(r.begin(), text::grapheme());
+            EXPECT_EQ(r, text::text(""));
+        }
+
+        {
+            text::text t("g");
+            text::rope r;
+            r.insert(r.end(), *t.begin()); // text::grapheme_view
+            EXPECT_EQ(r, text::text("g"));
+        }
+        {
+            text::text const t("g");
+            text::rope r;
+            r.insert(r.end(), *t.begin());
+            EXPECT_EQ(r, text::text("g"));
+        }
+        {
+            text::rope r_0("g");
+            text::rope r;
+            r.insert(r.end(), *r_0.begin()); // text::grapheme_view
+            EXPECT_EQ(r, text::text("g"));
+        }
+        {
+            text::rope const r_0("g");
+            text::rope r;
+            r.insert(r.end(), *r_0.begin());
+            EXPECT_EQ(r, text::text("g"));
+        }
+        {
+            text::rope r;
+            r.insert(
+                r.begin(),
+                text::grapheme_view<text::rope::iterator::iterator_type>());
+            EXPECT_EQ(r, text::text(""));
+        }
+    }
 }
 
 #if 0 // Correct, but takes more than a minute in debug builds.
