@@ -12,9 +12,6 @@ endmacro()
 
 add_sample(slicing)
 
-add_sample(string_view_snippets)
-add_sample(string_snippets)
-
 add_sample(hello_world)
 add_sample(param_conventions)
 add_sample(code_point_to_utf8)

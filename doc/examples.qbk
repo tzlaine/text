@@ -44,17 +44,16 @@ _sv_.]
 
 A key use of ropes is in text editors.  Every text editor you've ever used
 that handles large files gracefully has done something to break the file into
-chunks -- editing the beginning of a 64MB file that is stored in a contiguous
+chunks -- editing the beginning of a 16GB file that is stored in a contiguous
 sequence in memory is way too slow.  The use of a rope is a common approach to
 remedy this.
 
-In the example directory, there are two programs, `text_editor` and
-`rope_editor`.  The first uses an in-memory _s_ object to store text that is
-edited.  It is unusably slow.  The second does nearly the same thing, but uses
-a _ur_.  It is way more usable.
+In the example directory, there is a program `rope_editor`.  It uses a _r_ to
+store the file you're editing.  Even when typing at the beginning of a 1GB
+file, it's very snappy.
 
 [note These editors are pretty lame.  They don't have cut/copy/paste, and
 can't even save your file!  They use Emacs keybindings for what little they
-do.  They use the ncurses library, which is apparently pretty buggy on MacOS.]
+do. ]
 
 [endsect]
