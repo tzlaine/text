@@ -14,8 +14,10 @@
 
 namespace boost { namespace text {
 
+    struct grapheme;
     template<typename CPIter>
     struct grapheme_view;
+    int storage_bytes(grapheme const & g) noexcept;
 
     /** An owning sequence of code points that comprise a grapheme. */
     struct grapheme
@@ -96,9 +98,16 @@ namespace boost { namespace text {
                 g.begin().base(), g.end().base() - g.begin().base());
         }
 
+        /** Returns the number of bytes controlled by g. */
+        friend int storage_bytes(grapheme const & g) noexcept
+        {
+            return g.chars_.size();
+        }
+
     private:
         container::small_vector<char, 8> chars_;
     };
+
 
     /** A non-owning view of a range of code points that comprise a
         grapheme. */
@@ -168,6 +177,13 @@ namespace boost { namespace text {
         iterator first_;
         iterator last_;
     };
+
+    /** Returns the number of bytes g refers to. */
+    template<typename CPIter>
+    int storage_bytes(grapheme_view<CPIter> g) noexcept
+    {
+        return std::distance(g.begin().base(), g.end().base());
+    }
 
     /** Returns true if lhs the same sequence of code points as rhs. */
     template<typename CPIter1, typename CPIter2>
