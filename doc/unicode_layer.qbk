@@ -20,7 +20,7 @@ There are multiple encoding types defined in Unicode: UTF-8, UTF-16, and
 UTF-32.  A /_cu_/ is the lowest-level datum-type in your Unicode
 data. Examples are a `char` in UTF-8 and a `uint32_t` in UTF-32.  A /_cp_/ is
 a 32-bit unsigned value that represents a single Unicode value. Examples are
-U+0041 "A" "LATIN CAPITAL LETTER A" and U+0308 " ̈" "COMBINING DIAERESIS".
+U+0041 "A" "LATIN CAPITAL LETTER A" and U+0308 "¨" "COMBINING DIAERESIS".
 
 There are four different Unicode normalization forms.  Normalization is
 necessary because Unicode requires that certain combinations of code points be

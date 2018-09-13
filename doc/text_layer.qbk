@@ -147,4 +147,35 @@ handy table in the string layer documentation.  The text layer types have the
 same relationships among each other that the string layer types do among
 themselves.
 
+[heading An Odd Thing About Insertions]
+
+When you insert into a _t_ or _r_, you get back an iterator that points to the
+copy of the beginning of the inserted text.  This is what the standard C++
+containers do too.
+
+So, if I insert, I get an iterator that points to the start of the insertion:
+
+    boost::text::rope r("e");
+    auto it = r.insert(r.end(), 'f');
+    assert(r.distance() == 2);           // We added a grapheme.
+    assert(it == std::next(r.begin()));  // This one, in fact.
+
+Not so fast.  If I insert a sequence starting with one or more combining
+_cps_, the beginning of the insertion might get combined with the preceding
+_cp_ (due to FCC normalization) or _gr_ (because combining marks at the end of
+a grapheme are just part of that grapheme):
+
+    char const * combining_diaeresis = u8"\u0308";
+    text::text t("e");
+
+    auto it = t.insert(t.end(), combining_diaeresis);
+    assert(t.distance() == 1);    // No new grapheme!  We now have the single code point 'ë'.
+    assert(it == t.begin());
+
+    it = t.insert(t.end(), combining_diaeresis);
+    assert(t.distance() == 1);    // Still no new grapheme.  We now have a grapheme with the code points 'ë' and '¨'.
+    assert(it == t.begin());
+
+This behavior is correct, but a bit surprising when you first see it.
+
 [endsect]
