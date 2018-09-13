@@ -485,6 +485,52 @@ TEST(rope, test_insert)
             EXPECT_EQ(t, "text"_t); // no nulls in the middle
         }
     }
+
+    {
+        {
+            text::rope r("e");
+            auto const it = r.insert(r.begin(), "f");
+            EXPECT_EQ(r.distance(), 2);
+            EXPECT_EQ(it, r.begin());
+        }
+        {
+            text::rope r("e");
+            auto const it = r.insert(r.end(), "f");
+            EXPECT_EQ(r.distance(), 2);
+            EXPECT_EQ(it, std::next(r.begin()));
+        }
+
+        char const * combining_diaeresis = u8"\u0308";
+
+        {
+            text::rope r("e");
+            auto const it = r.insert(r.begin(), combining_diaeresis);
+            EXPECT_EQ(r.distance(), 2);
+            EXPECT_EQ(it, r.begin());
+        }
+        {
+            text::rope r("e");
+
+            auto it = r.insert(r.end(), combining_diaeresis);
+            EXPECT_EQ(r.distance(), 1);
+            EXPECT_EQ(it, r.begin());
+
+            it = r.insert(r.end(), combining_diaeresis);
+            EXPECT_EQ(r.distance(), 1);
+            EXPECT_EQ(it, r.begin());
+        }
+        {
+            text::rope r("et");
+
+            auto it = r.insert(std::next(r.begin()), combining_diaeresis);
+            EXPECT_EQ(r.distance(), 2);
+            EXPECT_EQ(it, r.begin());
+
+            it = r.insert(std::next(r.begin()), combining_diaeresis);
+            EXPECT_EQ(r.distance(), 2);
+            EXPECT_EQ(it, r.begin());
+        }
+    }
 }
 
 #if 0 // Correct, but takes more than a minute in debug builds.

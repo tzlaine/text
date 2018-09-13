@@ -375,7 +375,7 @@ namespace boost { namespace text {
 
         const_iterator
         insert_impl(iterator at, string str, bool str_normalized);
-        rope &
+        const_iterator
         replace_impl(rope_view old_substr, string str, bool str_normalized);
 
         template <typename CPIter>
@@ -693,23 +693,26 @@ namespace boost { namespace text {
 
     inline rope & rope::replace(rope_view old_substr, rope_view new_substr)
     {
-        return replace_impl(
+        replace_impl(
             old_substr,
             string(
                 new_substr.begin().base().base(),
                 new_substr.end().base().base()),
             true);
+        return *this;
     }
 
     inline rope & rope::replace(rope_view old_substr, string_view new_substr)
     {
-        return replace_impl(old_substr, string(new_substr), false);
+        replace_impl(old_substr, string(new_substr), false);
+        return *this;
     }
 
     inline rope &
     rope::replace(rope_view old_substr, repeated_string_view new_substr)
     {
-        return replace_impl(old_substr, string(new_substr), false);
+        replace_impl(old_substr, string(new_substr), false);
+        return *this;
     }
 
     template<typename CharRange>
@@ -724,7 +727,8 @@ namespace boost { namespace text {
     auto rope::replace(rope_view old_substr, CharIter first, Sentinel last)
         -> detail::char_iter_ret_t<rope &, CharIter>
     {
-        return replace_impl(old_substr, string(first, last), false);
+        replace_impl(old_substr, string(first, last), false);
+        return *this;
     }
 
     inline rope & rope::replace(
@@ -814,21 +818,20 @@ namespace boost { namespace text {
     inline rope::const_iterator
     rope::insert_impl(const_iterator at, string str, bool str_normalized)
     {
-        int const offset = at.base().base() - rope_.begin();
-        replace_impl(rope_view(at, at), std::move(str), str_normalized);
-        return make_iter(rope_.begin(), rope_.begin() + offset, rope_.end());
+        return replace_impl(rope_view(at, at), std::move(str), str_normalized);
     }
 
-    inline rope &
+    inline rope::const_iterator
     rope::replace_impl(rope_view old_substr, string str, bool str_normalized)
     {
         rope_view const this_rv(*this);
 
-        auto const rope_first =
-            rope_.begin() +
-            (old_substr.begin().base().base() - this_rv.begin().base().base());
-        auto const rope_last = rope_.begin() + (old_substr.end().base().base() -
-                                                this_rv.begin().base().base());
+        auto const lo =
+            old_substr.begin().base().base() - this_rv.begin().base().base();
+        auto const hi =
+            old_substr.end().base().base() - this_rv.begin().base().base();
+        auto const rope_first = rope_.begin() + lo;
+        auto const rope_last = rope_.begin() + hi;
 
         mutable_utf32_iter first(rope_.begin(), rope_first, rope_.end());
         first = prev_stable_cp(first);
@@ -851,7 +854,7 @@ namespace boost { namespace text {
                         detail::stable_fcc_code_point)
                         .base();
                 auto const suffix = str(str_last - str.end()); // negative index
-                container::small_vector<char, 128> buf;
+                container::small_vector<char, 256> buf;
                 normalize_to_fcc(
                     utf32_range(suffix.begin(), suffix.end()),
                     utf8::from_utf32_back_inserter(buf));
@@ -868,7 +871,7 @@ namespace boost { namespace text {
                         detail::stable_fcc_code_point)
                         .base();
                 auto const prefix = str(str_last - str.begin());
-                container::small_vector<char, 128> buf;
+                container::small_vector<char, 256> buf;
                 normalize_to_fcc(
                     utf32_range(prefix.begin(), prefix.end()),
                     utf8::from_utf32_back_inserter(buf));
@@ -878,13 +881,25 @@ namespace boost { namespace text {
             normalize_to_fcc(str);
         }
 
+        auto const prev_initial_cp = *first;
+        auto const initial_cp =
+            *utf8::make_to_utf32_iterator(str.begin(), str.begin(), str.end());
+        auto const new_lo =
+            initial_cp == prev_initial_cp ? lo : first.base() - rope_.begin();
+
         rope_.replace(
             rope_(first.base() - rope_.begin(), last.base() - rope_.begin()),
             std::move(str));
 
         BOOST_TEXT_CHECK_ROPE_NORMALIZATION();
 
-        return *this;
+        auto insertion_cp_it = mutable_utf32_iter(
+            rope_.begin(), rope_.begin() + new_lo, rope_.end());
+        auto const first_cp_of_grapheme_it =
+            prev_grapheme_break(begin().base(), insertion_cp_it, end().base());
+
+        return make_iter(
+            rope_.begin(), first_cp_of_grapheme_it.base(), rope_.end());
     }
 
 }}
@@ -1081,11 +1096,12 @@ namespace boost { namespace text {
 
     inline text & text::replace(text_view old_substr, rope_view new_substr)
     {
-        return replace_impl(
+        replace_impl(
             old_substr,
             new_substr.begin().base().base(),
             new_substr.end().base().base(),
             true);
+        return *this;
     }
 
 }}
