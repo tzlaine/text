@@ -15,6 +15,11 @@ curses_interface_t::curses_interface_t() : win_(initscr())
     keypad(stdscr, true);
     start_color();
     use_default_colors();
+    mmask_t old_mouse_events;
+    mousemask(
+        BUTTON1_CLICKED | BUTTON1_DOUBLE_CLICKED | BUTTON1_TRIPLE_CLICKED |
+            REPORT_MOUSE_POSITION,
+        &old_mouse_events);
 }
 
 curses_interface_t::~curses_interface_t() { endwin(); }
@@ -27,25 +32,17 @@ screen_pos_t curses_interface_t::screen_size() const
 event_t curses_interface_t::next_event() const
 {
     int const k = wgetch(win_);
-    int mod = 0;
-    constexpr std::array<int, 10> key_codes = {{
-        KEY_UP,
-        KEY_DOWN,
-        KEY_LEFT,
-        KEY_RIGHT,
-        KEY_HOME,
-        KEY_END,
-        KEY_BACKSPACE,
-        KEY_DC,
-        KEY_PPAGE,
-        KEY_NPAGE,
-    }};
-    if (std::any_of(key_codes.begin(), key_codes.end(), [k](int key_code) {
-            return key_code == k;
-        })) {
-        mod = KEY_CODE_YES;
+
+    // Mouse events.
+    if (k == KEY_MOUSE) {
+        MEVENT e;
+        if (getmouse(&e) == ERR)
+            return {key_code_t{KEY_MAX}, screen_size()};
+        return {key_code_t{(int)e.bstate, e.x, e.y}, screen_size()};
     }
-    return {key_code_t(mod, k), screen_size()};
+
+    // Everything else.
+    return {key_code_t{k}, screen_size()};
 }
 
 namespace {
@@ -57,8 +54,8 @@ namespace {
         std::ptrdiff_t pos = snapshot.first_char_index_;
         auto line_first = snapshot.first_row_;
         auto const line_last = (std::min)(
-            line_first + screen_size.row_ - 2,
-            (int)snapshot.lines_.size());
+            (ptrdiff_t)line_first + screen_size.row_ - 2,
+            snapshot.lines_.size());
         for (; line_first != line_last; ++line_first) {
             auto const line = snapshot.lines_[line_first];
             auto first = snapshot.content_.begin().base().base() + pos;

@@ -18,7 +18,7 @@ struct line_t
 {
     int code_units_ = 0;
     int graphemes_ = 0;
-    bool hard_break = false;
+    bool hard_break_ = false;
 };
 
 struct snapshot_t
@@ -46,6 +46,11 @@ inline bool dirty(buffer_t const & b)
 inline int cursor_line(snapshot_t const & snapshot)
 {
     return snapshot.first_row_ + snapshot.cursor_pos_.row_;
+}
+
+inline int cursor_at_last_line(snapshot_t const & snapshot)
+{
+    return cursor_line(snapshot) == snapshot.lines_.size();
 }
 
 struct cursor_iterators_t
@@ -108,7 +113,7 @@ inline buffer_t load(boost::filesystem::path path, int screen_width)
     }
 
     for (auto line : boost::text::lines(
-             retval.snapshot_.content_, screen_width, cp_extent{})) {
+             retval.snapshot_.content_, screen_width - 1, cp_extent{})) {
         line_t const line_{
             int(line.end().base().base() - line.begin().base().base()),
             (int)std::distance(line.begin(), line.end()) -

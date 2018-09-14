@@ -12,42 +12,39 @@ struct app_state_t;
 struct key_sequence_t;
 struct screen_pos_t;
 
+// These are the special keys we support.  Anything that is not UTF-8 or one
+// of these is ignored.
 enum key {
-    up,
+    up = 256,
     down,
     left,
     right,
     home,
     end,
-    backspace,
-    delete_,
     page_up,
-    page_down
+    page_down,
+    left_click,
+    left_double_click,
+    left_triple_click,
+    backspace,
+    delete_
 };
 
 struct key_code_t
 {
-    key_code_t() {}
-    key_code_t(char c);
+    key_code_t() : key_(0), x_(0), y_(0) {}
+    key_code_t(int c) : key_(c), x_(0), y_(0) {}
     key_code_t(key k);
-    key_code_t(int mod, int key) : mod_(mod), key_(key) {}
+    key_code_t(int k, int x, int y) : key_(k), x_(x), y_(y) {}
 
-    bool operator==(key_code_t rhs) const
-    {
-        return mod_ == rhs.mod_ && key_ == rhs.key_;
-    }
-
+    bool operator==(key_code_t rhs) const { return key_ == rhs.key_; }
     bool operator!=(key_code_t rhs) const { return !(*this == rhs); }
-
-    bool operator<(key_code_t rhs) const
-    {
-        return mod_ < rhs.mod_ || (mod_ == rhs.mod_ && key_ < rhs.key_);
-    }
 
     key_sequence_t operator,(key_code_t rhs) &&;
 
-    int mod_;
     int key_;
+    int x_;
+    int y_;
 };
 
 struct key_sequence_t
@@ -63,6 +60,7 @@ struct key_sequence_t
     key_sequence_t(key_code_t k) { keys_.push_back(k); }
 
     bool operator==(key_sequence_t rhs) const { return keys_ == rhs.keys_; }
+    bool operator!=(key_sequence_t rhs) const { return !(*this == rhs); }
 
     bool single_key() const { return keys_.size() == 1; }
 
@@ -89,8 +87,8 @@ private:
     boost::container::static_vector<key_code_t, max_size> keys_;
 };
 
-using command_t =
-    boost::function<boost::optional<app_state_t>(app_state_t, screen_pos_t)>;
+using command_t = boost::function<boost::optional<app_state_t>(
+    app_state_t, screen_pos_t screen_size, screen_pos_t xy)>;
 
 struct key_map_entry_t
 {
@@ -113,6 +111,7 @@ key_code_t operator-(ctrl_t, key k);
 key_sequence_t operator-(alt_t, char c);
 key_code_t operator-(alt_t, key k);
 
+// A key mapping that uses a subset of the Emacs key bindings.
 key_map_t emacs_lite();
 
 

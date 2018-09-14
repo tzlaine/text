@@ -7,47 +7,61 @@
 
 namespace {
 
-    boost::optional<app_state_t> move_up(app_state_t state, screen_pos_t)
+    void up_one_row(snapshot_t & snapshot)
+    {
+        snapshot.first_row_ -= 1;
+        snapshot.first_char_index_ -=
+            snapshot.lines_[snapshot.first_row_].code_units_;
+    }
+
+    boost::optional<app_state_t>
+    move_up(app_state_t state, screen_pos_t, screen_pos_t)
     {
         auto & s = state.buffer_.snapshot_;
-        if (s.first_row_ + s.cursor_pos_.row_ == 0) {
+        if (cursor_line(s) == 0)
             return state;
-        } else if (s.cursor_pos_.row_ == 0) {
-            s.first_row_ -= 1;
-            s.first_char_index_ -= s.lines_[s.first_row_].code_units_;
-        } else {
+        else if (s.cursor_pos_.row_ == 0)
+            up_one_row(s);
+        else
             --s.cursor_pos_.row_;
-        }
         if (s.cursor_pos_.col_ != s.desired_col_)
             s.cursor_pos_.col_ = s.desired_col_;
-        int const line =
-            s.first_row_ + s.cursor_pos_.row_ == s.lines_.size()
-                ? 0
-                : s.lines_[s.first_row_ + s.cursor_pos_.row_].graphemes_;
+        int const line = cursor_line(s) == s.lines_.size()
+                             ? 0
+                             : s.lines_[cursor_line(s)].graphemes_;
         if (line - 1 < s.cursor_pos_.col_)
             s.cursor_pos_.col_ = line;
         return state;
     }
 
+    // -2 for two bottom rows
+    int nonstatus_height(screen_pos_t screen_size)
+    {
+        return screen_size.row_ - 2;
+    }
+
+    void down_one_row(snapshot_t & snapshot)
+    {
+        snapshot.first_char_index_ +=
+            snapshot.lines_[snapshot.first_row_].code_units_;
+        snapshot.first_row_ += 1;
+    }
+
     boost::optional<app_state_t>
-    move_down(app_state_t state, screen_pos_t screen_size)
+    move_down(app_state_t state, screen_pos_t screen_size, screen_pos_t)
     {
         auto & s = state.buffer_.snapshot_;
-        if (s.first_row_ + s.cursor_pos_.row_ == s.lines_.size()) {
+        if (cursor_line(s) == s.lines_.size())
             return state;
-        } else if (s.cursor_pos_.row_ == screen_size.row_ - 1 - 2) {
-            // -2 for two bottom rows
-            s.first_char_index_ += s.lines_[s.first_row_].code_units_;
-            s.first_row_ += 1;
-        } else {
+        else if (s.cursor_pos_.row_ == nonstatus_height(screen_size) - 1)
+            down_one_row(s);
+        else
             ++s.cursor_pos_.row_;
-        }
         if (s.cursor_pos_.col_ != s.desired_col_)
             s.cursor_pos_.col_ = s.desired_col_;
-        int const line =
-            s.first_row_ + s.cursor_pos_.row_ == s.lines_.size()
-                ? 0
-                : s.lines_[s.first_row_ + s.cursor_pos_.row_].graphemes_;
+        int const line = cursor_line(s) == s.lines_.size()
+                             ? 0
+                             : s.lines_[cursor_line(s)].graphemes_;
         if (line - 1 < s.cursor_pos_.col_)
             s.cursor_pos_.col_ = line;
         return state;
@@ -58,11 +72,12 @@ namespace {
         snapshot.desired_col_ = snapshot.cursor_pos_.col_;
     }
 
-    boost::optional<app_state_t> move_left(app_state_t state, screen_pos_t)
+    boost::optional<app_state_t>
+    move_left(app_state_t state, screen_pos_t, screen_pos_t)
     {
         auto & s = state.buffer_.snapshot_;
         if (s.cursor_pos_.col_ == 0) {
-            if (s.first_row_ + s.cursor_pos_.row_ == 0) {
+            if (cursor_line(s) == 0) {
                 return state;
             } else if (s.cursor_pos_.row_ == 0) {
                 s.first_row_ -= 1;
@@ -70,8 +85,7 @@ namespace {
             } else {
                 --s.cursor_pos_.row_;
             }
-            s.cursor_pos_.col_ =
-                s.lines_[s.first_row_ + s.cursor_pos_.row_].graphemes_;
+            s.cursor_pos_.col_ = s.lines_[cursor_line(s)].graphemes_;
         } else {
             s.cursor_pos_.col_ -= 1;
         }
@@ -80,19 +94,17 @@ namespace {
     }
 
     boost::optional<app_state_t>
-    move_right(app_state_t state, screen_pos_t screen_size)
+    move_right(app_state_t state, screen_pos_t screen_size, screen_pos_t)
     {
         auto & s = state.buffer_.snapshot_;
-        int const line =
-            s.first_row_ + s.cursor_pos_.row_ == s.lines_.size()
-                ? 0
-                : s.lines_[s.first_row_ + s.cursor_pos_.row_].graphemes_;
+        int const line = cursor_line(s) == s.lines_.size()
+                             ? 0
+                             : s.lines_[cursor_line(s)].graphemes_;
         if (s.cursor_pos_.col_ == line) {
-            if (s.first_row_ + s.cursor_pos_.row_ == s.lines_.size()) {
+            if (cursor_line(s) == s.lines_.size()) {
                 return state;
             } else if (
-                s.cursor_pos_.row_ ==
-                screen_size.row_ - 1 - 2) { // -2 for two bottom rows
+                s.cursor_pos_.row_ == nonstatus_height(screen_size) - 1) {
                 s.first_char_index_ += s.lines_[s.first_row_].graphemes_;
                 s.first_row_ += 1;
             } else {
@@ -103,6 +115,143 @@ namespace {
             s.cursor_pos_.col_ += 1;
         }
         set_desired_col(s);
+        return state;
+    }
+
+    boost::optional<app_state_t>
+    move_home(app_state_t state, screen_pos_t, screen_pos_t)
+    {
+        auto & s = state.buffer_.snapshot_;
+        s.cursor_pos_.col_ = 0;
+        set_desired_col(s);
+        return state;
+    }
+
+    boost::optional<app_state_t>
+    move_end(app_state_t state, screen_pos_t, screen_pos_t)
+    {
+        auto & s = state.buffer_.snapshot_;
+        if (cursor_at_last_line(s)) {
+            s.cursor_pos_.col_ = 0;
+        } else {
+            auto const line = s.lines_[cursor_line(s)];
+            s.cursor_pos_.col_ = line.graphemes_;
+        }
+        set_desired_col(s);
+        return state;
+    }
+
+    boost::optional<app_state_t>
+    click(app_state_t state, screen_pos_t, screen_pos_t xy)
+    {
+        auto & s = state.buffer_.snapshot_;
+        s.cursor_pos_ = xy;
+        s.cursor_pos_.row_ =
+            (std::min)(s.lines_.size(), (ptrdiff_t)s.cursor_pos_.row_);
+        if (cursor_at_last_line(s)) {
+            s.cursor_pos_.col_ = 0;
+            return state;
+        }
+        auto const line = s.lines_[cursor_line(s)];
+        s.cursor_pos_.col_ = (std::min)(line.graphemes_, s.cursor_pos_.col_);
+        set_desired_col(s);
+        return state;
+    }
+
+    boost::optional<app_state_t>
+    double_click(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
+    {
+        state = *click(state, screen_size, xy);
+        // TODO: Select word.
+        return state;
+    }
+
+    boost::optional<app_state_t>
+    triple_click(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
+    {
+        state = *click(state, screen_size, xy);
+        // TODO: Select sentence.
+        return state;
+    }
+
+    boost::optional<app_state_t>
+    move_page_up(app_state_t state, screen_pos_t screen_size, screen_pos_t)
+    {
+        auto & s = state.buffer_.snapshot_;
+        auto const page = nonstatus_height(screen_size);
+        if (s.lines_.size() <= page)
+            return state;
+        for (ptrdiff_t i = 0; i < page; ++i) {
+            if (!s.first_row_)
+                break;
+            up_one_row(s);
+        }
+        return *click(state, screen_size, s.cursor_pos_);
+    }
+
+    boost::optional<app_state_t>
+    move_page_down(app_state_t state, screen_pos_t screen_size, screen_pos_t)
+    {
+        auto & s = state.buffer_.snapshot_;
+        auto const page = nonstatus_height(screen_size);
+        if (s.lines_.size() <= page || s.lines_.size() < s.first_row_ + page)
+            return state;
+        for (ptrdiff_t i = 0; i < page; ++i) {
+            down_one_row(s);
+        }
+        return *click(state, screen_size, s.cursor_pos_);
+    }
+
+    boost::optional<app_state_t>
+    erase_at(app_state_t state, screen_pos_t, screen_pos_t)
+    {
+        auto & s = state.buffer_.snapshot_;
+        state.buffer_.history_.push_back(s);
+
+        auto const cursor_its = cursor_iterators(s);
+        if (cursor_at_last_line(s) || cursor_its.cursor_ == s.content_.end())
+            return state;
+
+        auto const cursor_grapheme_cus =
+            boost::text::storage_bytes(*cursor_its.cursor_);
+        auto const line_index = cursor_line(s);
+
+        if (cursor_its.cursor_ == cursor_its.last_) {
+            auto const line = s.lines_[cursor_line(s)];
+            if (line.hard_break_) {
+                // TODO: Broken.
+                auto line = s.lines_[line_index];
+                auto const next_line = s.lines_[line_index + 1];
+                line.code_units_ += next_line.code_units_ - cursor_grapheme_cus;
+                line.graphemes_ += next_line.graphemes_ - 1;
+                s.lines_.replace(s.lines_.begin() + line_index, line);
+                s.lines_.erase(s.lines_.begin() + line_index + 1);
+            } else {
+                // TODO: Broken.
+                auto next_line = s.lines_[line_index + 1];
+                next_line.code_units_ -= cursor_grapheme_cus;
+                next_line.graphemes_ -= 1;
+                s.lines_.replace(s.lines_.begin() + line_index + 1, next_line);
+            }
+        } else {
+            auto line = s.lines_[line_index];
+            line.code_units_ -= cursor_grapheme_cus;
+            line.graphemes_ -= 1;
+            s.lines_.replace(s.lines_.begin() + line_index, line);
+        }
+
+        s.content_.erase(cursor_its.cursor_, std::next(cursor_its.cursor_));
+
+        return state;
+    }
+
+    boost::optional<app_state_t>
+    erase_before(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
+    {
+        auto const initial_pos = state.buffer_.snapshot_.cursor_pos_;
+        state = *move_left(state, screen_size, xy);
+        if (state.buffer_.snapshot_.cursor_pos_ != initial_pos)
+            return *erase_at(state, screen_size, xy);
         return state;
     }
 
@@ -143,7 +292,8 @@ namespace {
     {
         return [grapheme](
                    app_state_t state,
-                   screen_pos_t screen_size) -> boost::optional<app_state_t> {
+                   screen_pos_t screen_size,
+                   screen_pos_t) -> boost::optional<app_state_t> {
             auto & snapshot = state.buffer_.snapshot_;
             state.buffer_.history_.push_back(snapshot);
 
@@ -196,11 +346,17 @@ namespace {
                     curr_line_delta.graphemes_ += deltas.prev_.graphemes_;
                 }
 
-                line_t line = snapshot.lines_[line_index];
+                line_t line;
+                if (!cursor_at_last_line(snapshot))
+                    line = snapshot.lines_[line_index];
                 line.code_units_ += curr_line_delta.code_units_;
                 line.graphemes_ += curr_line_delta.graphemes_;
-                snapshot.lines_.replace(
-                    snapshot.lines_.begin() + line_index, line);
+                if (cursor_at_last_line(snapshot)) {
+                    snapshot.lines_.insert(snapshot.lines_.end(), line);
+                } else {
+                    snapshot.lines_.replace(
+                        snapshot.lines_.begin() + line_index, line);
+                }
 
                 snapshot.content_.insert(cursor_its.cursor_, grapheme);
                 snapshot.cursor_pos_.col_ += 1;
@@ -216,7 +372,8 @@ namespace {
         };
     }
 
-    boost::optional<app_state_t> undo(app_state_t state, screen_pos_t)
+    boost::optional<app_state_t>
+    undo(app_state_t state, screen_pos_t, screen_pos_t)
     {
         state.buffer_.snapshot_ = state.buffer_.history_.back();
         if (1 < state.buffer_.history_.size())
@@ -224,7 +381,7 @@ namespace {
         return state;
     }
 
-    boost::optional<app_state_t> quit(app_state_t, screen_pos_t)
+    boost::optional<app_state_t> quit(app_state_t, screen_pos_t, screen_pos_t)
     {
         return boost::none;
     }
@@ -254,7 +411,7 @@ namespace {
 
         if (input_seq.single_key()) {
             auto const key_code = input_seq.get_single_key();
-            if (key_code.mod_ == 0) {
+            if (key_code.key_ <= 256) {
                 if (key_code.key_ == '\n') {
                     return eval_input_t{insert(boost::text::grapheme('\n')),
                                         true};
@@ -274,14 +431,33 @@ namespace {
 key_map_t emacs_lite()
 {
     key_map_t retval = {
+        key_map_entry_t{ctrl-'p', move_up},
         key_map_entry_t{up, move_up},
+        key_map_entry_t{ctrl-'n', move_down},
         key_map_entry_t{down, move_down},
+        key_map_entry_t{ctrl-'b', move_left},
         key_map_entry_t{left, move_left},
+        key_map_entry_t{ctrl-'f', move_right},
         key_map_entry_t{right, move_right},
 
-        key_map_entry_t{ctrl - '_', undo},
+        key_map_entry_t{ctrl-'a', move_home},
+        key_map_entry_t{home, move_home},
+        key_map_entry_t{ctrl-'e', move_end},
+        key_map_entry_t{end, move_end},
 
-        key_map_entry_t{(ctrl - 'x', ctrl - 'c'), quit},
+        key_map_entry_t{page_up, move_page_up},
+        key_map_entry_t{page_down, move_page_down},
+
+        key_map_entry_t{left_click, click},
+        key_map_entry_t{left_double_click, double_click},
+        key_map_entry_t{left_triple_click, triple_click},
+
+        key_map_entry_t{backspace, erase_before},
+        key_map_entry_t{delete_, erase_at},
+
+        key_map_entry_t{ctrl-'_', undo},
+
+        key_map_entry_t{(ctrl-'x', ctrl-'c'), quit},
     };
 
     return retval;
@@ -294,7 +470,9 @@ boost::optional<app_state_t> update(app_state_t state, event_t event)
         eval_input(state.key_map_, state.input_seq_);
     if (input_evaluation.reset_input_)
         state.input_seq_ = key_sequence_t();
-    if (input_evaluation.command_)
-        return input_evaluation.command_(state, event.screen_size_);
+    if (input_evaluation.command_) {
+        screen_pos_t const xy{event.key_code_.y_, event.key_code_.x_};
+        return input_evaluation.command_(state, event.screen_size_, xy);
+    }
     return state;
 }
