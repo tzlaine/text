@@ -1016,12 +1016,8 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 }
 
                 // LB8a
-                if (state.prev_prop == line_property::ZWJ &&
-                    (state.prop == line_property::ID ||
-                     state.prop == line_property::EB ||
-                     state.prop == line_property::EM)) {
+                if (state.prev_prop == line_property::ZWJ)
                     continue;
-                }
 
                 // LB9
                 // Puting this here means not having to do it explicitly
