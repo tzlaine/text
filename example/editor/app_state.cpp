@@ -14,18 +14,18 @@ namespace {
             return state;
         } else if (s.cursor_pos_.row_ == 0) {
             s.first_row_ -= 1;
-            s.first_char_index_ -= s.line_sizes_[s.first_row_].code_units_;
+            s.first_char_index_ -= s.lines_[s.first_row_].code_units_;
         } else {
             --s.cursor_pos_.row_;
         }
         if (s.cursor_pos_.col_ != s.desired_col_)
             s.cursor_pos_.col_ = s.desired_col_;
-        int const line_size =
-            s.first_row_ + s.cursor_pos_.row_ == s.line_sizes_.size()
+        int const line =
+            s.first_row_ + s.cursor_pos_.row_ == s.lines_.size()
                 ? 0
-                : s.line_sizes_[s.first_row_ + s.cursor_pos_.row_].code_points_;
-        if (line_size - 1 < s.cursor_pos_.col_)
-            s.cursor_pos_.col_ = line_size;
+                : s.lines_[s.first_row_ + s.cursor_pos_.row_].graphemes_;
+        if (line - 1 < s.cursor_pos_.col_)
+            s.cursor_pos_.col_ = line;
         return state;
     }
 
@@ -33,26 +33,29 @@ namespace {
     move_down(app_state_t state, screen_pos_t screen_size)
     {
         auto & s = state.buffer_.snapshot_;
-        if (s.first_row_ + s.cursor_pos_.row_ == s.line_sizes_.size()) {
+        if (s.first_row_ + s.cursor_pos_.row_ == s.lines_.size()) {
             return state;
-        } else if (s.cursor_pos_.row_ == screen_size.row_ - 1 - 2) { // -2 for
-                                                                     // two
-                                                                     // bottom
-                                                                     // rows
-            s.first_char_index_ += s.line_sizes_[s.first_row_].code_units_;
+        } else if (s.cursor_pos_.row_ == screen_size.row_ - 1 - 2) {
+            // -2 for two bottom rows
+            s.first_char_index_ += s.lines_[s.first_row_].code_units_;
             s.first_row_ += 1;
         } else {
             ++s.cursor_pos_.row_;
         }
         if (s.cursor_pos_.col_ != s.desired_col_)
             s.cursor_pos_.col_ = s.desired_col_;
-        int const line_size =
-            s.first_row_ + s.cursor_pos_.row_ == s.line_sizes_.size()
+        int const line =
+            s.first_row_ + s.cursor_pos_.row_ == s.lines_.size()
                 ? 0
-                : s.line_sizes_[s.first_row_ + s.cursor_pos_.row_].code_points_;
-        if (line_size - 1 < s.cursor_pos_.col_)
-            s.cursor_pos_.col_ = line_size;
+                : s.lines_[s.first_row_ + s.cursor_pos_.row_].graphemes_;
+        if (line - 1 < s.cursor_pos_.col_)
+            s.cursor_pos_.col_ = line;
         return state;
+    }
+
+    void set_desired_col(snapshot_t & snapshot)
+    {
+        snapshot.desired_col_ = snapshot.cursor_pos_.col_;
     }
 
     boost::optional<app_state_t> move_left(app_state_t state, screen_pos_t)
@@ -63,16 +66,16 @@ namespace {
                 return state;
             } else if (s.cursor_pos_.row_ == 0) {
                 s.first_row_ -= 1;
-                s.first_char_index_ -= s.line_sizes_[s.first_row_].code_units_;
+                s.first_char_index_ -= s.lines_[s.first_row_].graphemes_;
             } else {
                 --s.cursor_pos_.row_;
             }
             s.cursor_pos_.col_ =
-                s.line_sizes_[s.first_row_ + s.cursor_pos_.row_].code_points_;
+                s.lines_[s.first_row_ + s.cursor_pos_.row_].graphemes_;
         } else {
             s.cursor_pos_.col_ -= 1;
         }
-        s.desired_col_ = s.cursor_pos_.col_;
+        set_desired_col(s);
         return state;
     }
 
@@ -80,17 +83,17 @@ namespace {
     move_right(app_state_t state, screen_pos_t screen_size)
     {
         auto & s = state.buffer_.snapshot_;
-        int const line_size =
-            s.first_row_ + s.cursor_pos_.row_ == s.line_sizes_.size()
+        int const line =
+            s.first_row_ + s.cursor_pos_.row_ == s.lines_.size()
                 ? 0
-                : s.line_sizes_[s.first_row_ + s.cursor_pos_.row_].code_points_;
-        if (s.cursor_pos_.col_ == line_size) {
-            if (s.first_row_ + s.cursor_pos_.row_ == s.line_sizes_.size()) {
+                : s.lines_[s.first_row_ + s.cursor_pos_.row_].graphemes_;
+        if (s.cursor_pos_.col_ == line) {
+            if (s.first_row_ + s.cursor_pos_.row_ == s.lines_.size()) {
                 return state;
             } else if (
                 s.cursor_pos_.row_ ==
                 screen_size.row_ - 1 - 2) { // -2 for two bottom rows
-                s.first_char_index_ += s.line_sizes_[s.first_row_].code_units_;
+                s.first_char_index_ += s.lines_[s.first_row_].graphemes_;
                 s.first_row_ += 1;
             } else {
                 ++s.cursor_pos_.row_;
@@ -99,113 +102,120 @@ namespace {
         } else {
             s.cursor_pos_.col_ += 1;
         }
-        s.desired_col_ = s.cursor_pos_.col_;
+        set_desired_col(s);
         return state;
     }
 
-    template<typename Iter>
-    void fixup_lines(
-        boost::text::segmented_vector<line_size_t> & line_sizes,
-        int line,
-        Iter line_it,
-        int cols)
+    struct edit_deltas
     {
-        while (line < (int)line_sizes.size() &&
-               cols < line_sizes[line].code_points_) {
-            auto line_size = line_sizes[line];
-            auto const line_end = advance_by_code_point(line_it, cols);
-            auto const excess_units =
-                line_size.code_units_ - int(line_end - line_it);
-            auto const excess_points = std::distance(
-                boost::text::utf8::to_utf32_iterator<Iter>(
-                    line_end, line_end, line_end + excess_units),
-                boost::text::utf8::to_utf32_iterator<Iter>(
-                    line_end,
-                    line_end + excess_units,
-                    line_end + excess_units));
-            line_size.code_units_ -= excess_units;
-            line_size.code_points_ -= excess_points;
-            line_sizes.replace(line_sizes.begin() + line, line_size);
+        line_t prev_;
+        line_t next_;
+    };
 
-            if (line_end[excess_units - 1] == '\n') {
-                auto insert_it = line + 1 <= line_sizes.size()
-                                     ? line_sizes.begin() + line + 1
-                                     : line_sizes.end();
-                line_sizes.insert(
-                    insert_it, line_size_t{excess_units, excess_points});
-            } else {
-                line_size = line_sizes[line + 1];
-                line_size.code_units_ += excess_units;
-                line_size.code_points_ += excess_points;
-                line_sizes.replace(line_sizes.begin() + line + 1, line_size);
-            }
-
-            line_it = line_end;
-            ++line;
+    template<typename CPIter>
+    edit_deltas grapheme_insertion_deltas(
+        boost::text::grapheme_view<CPIter> prev_grapheme,
+        boost::text::grapheme insertion,
+        boost::text::grapheme_view<CPIter> next_grapheme)
+    {
+        boost::text::text t;
+        t.insert(t.end(), prev_grapheme);
+        auto it = t.insert(t.end(), next_grapheme);
+        auto const initial_distance = t.distance();
+        t.insert(it, insertion);
+        auto const distance = t.distance();
+        if (distance == initial_distance + 1) {
+            return {{}, {boost::text::storage_bytes(insertion), 1}};
+        } else {
+            assert(distance == initial_distance);
+            int const prev_sizes[2] = {
+                boost::text::storage_bytes(prev_grapheme),
+                boost::text::storage_bytes(next_grapheme)};
+            int const sizes[2] = {
+                boost::text::storage_bytes(*t.begin()),
+                boost::text::storage_bytes(*std::next(t.begin()))};
+            return {{sizes[0] - prev_sizes[0], 0},
+                    {sizes[1] - prev_sizes[1], 0}};
         }
     }
 
-    command_t insert(boost::text::string_view tv)
+    command_t insert(boost::text::grapheme grapheme)
     {
-        return [tv](
+        return [grapheme](
                    app_state_t state,
                    screen_pos_t screen_size) -> boost::optional<app_state_t> {
-            auto & s = state.buffer_.snapshot_;
-#ifdef USE_ROPES
-            state.buffer_.history_.push_back(s);
-#endif
-            auto const offset = cursor_offset(s);
-            if (tv == "\n") {
-                s.content_.insert(offset.rope_offset_, tv);
-                auto const line = cursor_line(s);
-                line_size_t line_size;
-                if (line < s.line_sizes_.size())
-                    line_size = s.line_sizes_[line];
-                line_size_t const new_line_size{
-                    line_size.code_units_ - offset.line_offset_.code_units_,
-                    line_size.code_points_ - offset.line_offset_.code_points_};
-                auto insert_it = line + 1 <= s.line_sizes_.size()
-                                     ? s.line_sizes_.begin() + line + 1
-                                     : s.line_sizes_.end();
-                s.line_sizes_.insert(insert_it, new_line_size);
-                line_size.code_units_ = offset.line_offset_.code_units_ + 1;
-                line_size.code_points_ = offset.line_offset_.code_points_ + 1;
-                s.line_sizes_.replace(s.line_sizes_.begin() + line, line_size);
-                ++s.cursor_pos_.row_;
-                s.cursor_pos_.col_ = 0;
+            auto & snapshot = state.buffer_.snapshot_;
+            state.buffer_.history_.push_back(snapshot);
+
+            auto const line_index = cursor_line(snapshot);
+            auto const cursor_its = cursor_iterators(snapshot);
+            int const code_unit_offset = cursor_its.cursor_.base().base() -
+                                         cursor_its.first_.base().base();
+            int const grapheme_offset = snapshot.cursor_pos_.col_;
+
+            if (boost::text::storage_bytes(grapheme) == 1 &&
+                *grapheme.begin() == '\n') {
+                snapshot.content_.insert(cursor_its.cursor_, grapheme);
+                line_t line;
+                if (line_index < snapshot.lines_.size())
+                    line = snapshot.lines_[line_index];
+                line_t const new_line{line.code_units_ - code_unit_offset,
+                                      line.graphemes_ - grapheme_offset};
+                auto insert_it = line_index + 1 <= snapshot.lines_.size()
+                                     ? snapshot.lines_.begin() + line_index + 1
+                                     : snapshot.lines_.end();
+                snapshot.lines_.insert(insert_it, new_line);
+                line.code_units_ = code_unit_offset + 1;
+                line.graphemes_ = grapheme_offset;
+                snapshot.lines_.replace(
+                    snapshot.lines_.begin() + line_index, line);
+                ++snapshot.cursor_pos_.row_;
+                snapshot.cursor_pos_.col_ = 0;
             } else {
-                auto const cols = screen_size.col_;
-                s.content_.insert(offset.rope_offset_, tv);
-                auto const line = cursor_line(s);
-                line_size_t line_size;
-                if (line < s.line_sizes_.size())
-                    line_size = s.line_sizes_[line];
-                line_size.code_units_ += tv.size();
-                line_size.code_points_ += 1;
-                s.cursor_pos_.col_ += 1;
-                if (cols <= s.cursor_pos_.col_) {
-                    ++s.cursor_pos_.row_;
-                    s.cursor_pos_.col_ = 0;
+                using graphme_view = decltype(*cursor_its.first_);
+                graphme_view prev_grapheme;
+                if (cursor_its.cursor_ != snapshot.content_.begin())
+                    prev_grapheme = *std::prev(cursor_its.cursor_);
+                graphme_view next_grapheme;
+                if (cursor_its.cursor_ != snapshot.content_.end())
+                    next_grapheme = *cursor_its.cursor_;
+                auto const deltas = grapheme_insertion_deltas(
+                    prev_grapheme, grapheme, next_grapheme);
+
+                auto curr_line_delta = deltas.next_;
+                if (!snapshot.cursor_pos_.col_ && deltas.prev_.code_units_) {
+                    assert(0 < deltas.prev_.code_units_);
+                    assert(!deltas.prev_.graphemes_);
+                    line_t prev_line = snapshot.lines_[line_index - 1];
+                    prev_line.code_units_ += deltas.prev_.code_units_;
+                    prev_line.graphemes_ += deltas.prev_.graphemes_;
+                    snapshot.lines_.replace(
+                        snapshot.lines_.begin() + line_index - 1, prev_line);
+                } else {
+                    curr_line_delta.code_units_ += deltas.prev_.code_units_;
+                    curr_line_delta.graphemes_ += deltas.prev_.graphemes_;
                 }
 
-                if (line < s.line_sizes_.size()) {
-                    s.line_sizes_.replace(
-                        s.line_sizes_.begin() + line, line_size);
-                    fixup_lines(
-                        s.line_sizes_,
-                        line,
-                        s.content_.begin() + offset.rope_offset_ -
-                            offset.line_offset_.code_units_,
-                        cols);
-                } else {
-                    s.line_sizes_.insert(s.line_sizes_.end(), line_size);
+                line_t line = snapshot.lines_[line_index];
+                line.code_units_ += curr_line_delta.code_units_;
+                line.graphemes_ += curr_line_delta.graphemes_;
+                snapshot.lines_.replace(
+                    snapshot.lines_.begin() + line_index, line);
+
+                snapshot.content_.insert(cursor_its.cursor_, grapheme);
+                snapshot.cursor_pos_.col_ += 1;
+                if (screen_size.col_ <= snapshot.cursor_pos_.col_) {
+                    ++snapshot.cursor_pos_.row_;
+                    snapshot.cursor_pos_.col_ = 0;
                 }
             }
+
+            set_desired_col(snapshot);
+
             return state;
         };
     }
 
-#if USE_ROPES
     boost::optional<app_state_t> undo(app_state_t state, screen_pos_t)
     {
         state.buffer_.snapshot_ = state.buffer_.history_.back();
@@ -213,7 +223,6 @@ namespace {
             state.buffer_.history_.pop_back();
         return state;
     }
-#endif
 
     boost::optional<app_state_t> quit(app_state_t, screen_pos_t)
     {
@@ -247,20 +256,13 @@ namespace {
             auto const key_code = input_seq.get_single_key();
             if (key_code.mod_ == 0) {
                 if (key_code.key_ == '\n') {
-                    return eval_input_t{insert("\n"), true};
+                    return eval_input_t{insert(boost::text::grapheme('\n')),
+                                        true};
                 } else if (
                     ' ' <= key_code.key_ && key_code.key_ <= '~' &&
                     boost::text::utf8::valid_code_point(key_code.key_)) {
-                    static char buf[4];
-                    int const * const key_ptr = &key_code.key_;
-                    auto const last = std::copy(
-                        boost::text::utf8::from_utf32_iterator<int const *>(
-                            key_ptr, key_ptr, key_ptr + 1),
-                        boost::text::utf8::from_utf32_iterator<int const *>(
-                            key_ptr, key_ptr + 1, key_ptr + 1),
-                        buf);
                     return eval_input_t{
-                        insert(boost::text::string_view(buf, last - buf)), true};
+                        insert(boost::text::grapheme(key_code.key_)), true};
                 }
             }
         }
@@ -277,9 +279,7 @@ key_map_t emacs_lite()
         key_map_entry_t{left, move_left},
         key_map_entry_t{right, move_right},
 
-#if USE_ROPES
         key_map_entry_t{ctrl - '_', undo},
-#endif
 
         key_map_entry_t{(ctrl - 'x', ctrl - 'c'), quit},
     };
