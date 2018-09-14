@@ -42,14 +42,7 @@
       You can write very extensive compile-time operations using <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>.
     </p>
 <p>
-</p>
-<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">BOOST_TEXT_NO_CXX14_CONSTEXPR</span> <span class="comment">// Requires C++14 constexpr support.</span>
-<span class="keyword">constexpr</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span> <span class="identifier">tv_1</span> <span class="special">=</span> <span class="string">"Compile-time value."</span><span class="special">;</span>
-<span class="keyword">constexpr</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span> <span class="identifier">tv_2</span> <span class="special">=</span> <span class="identifier">tv_1</span><span class="special">(</span><span class="number">0</span><span class="special">,</span> <span class="number">7</span><span class="special">);</span> <span class="comment">// Slice off a prefix.</span>
-<span class="keyword">static_assert</span><span class="special">(</span><span class="identifier">tv_2</span> <span class="special">==</span> <span class="string">"Compile"</span><span class="special">,</span> <span class="string">"Something is really wrong."</span><span class="special">);</span>
-<span class="preprocessor">#endif</span>
-</pre>
-<p>
+      [string_view_lotsa_constexpr]
     </p>
 <p>
       <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>
@@ -111,11 +104,7 @@
       Of course, there is a user-defined literal for <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>:
     </p>
 <p>
-</p>
-<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">literals</span><span class="special">;</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span> <span class="identifier">tv</span> <span class="special">=</span> <span class="string">"UDLs are, literally, the best idea."</span><span class="identifier">_sv</span><span class="special">;</span>
-</pre>
-<p>
+      [string_view_literal]
     </p>
 <p>
       Also, there is an <code class="computeroutput"><span class="keyword">explicit</span></code> conversion
@@ -168,11 +157,7 @@
       has its own user-defined literals:
     </p>
 <p>
-</p>
-<pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">literals</span><span class="special">;</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">t1</span> <span class="special">=</span> <span class="string">"UDL here."</span><span class="identifier">_s</span><span class="special">;</span>
-</pre>
-<p>
+      [string_literal]
     </p>
 <p>
       Unlike <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>

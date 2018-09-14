@@ -35,7 +35,7 @@
 <span class="keyword">int</span> <span class="identifier">main</span> <span class="special">()</span>
 <span class="special">{</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string_view</span> <span class="keyword">const</span> <span class="identifier">string_view</span><span class="special">(</span><span class="string">"Hello, world!\n"</span><span class="special">);</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="keyword">const</span> <span class="identifier">string</span><span class="special">(</span><span class="string">"&#1074;&#1089;&#1077;&#1084; &#1087;&#1088;&#1080;&#1074;&#1077;&#1090;!\n"</span><span class="special">);</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="keyword">const</span> <span class="identifier">string</span><span class="special">(</span><span class="identifier">u8</span><span class="string">"&#1074;&#1089;&#1077;&#1084; &#1087;&#1088;&#1080;&#1074;&#1077;&#1090;!\n"</span><span class="special">);</span>
 
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">string_view</span><span class="special">;</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">string</span><span class="special">;</span>
@@ -144,17 +144,15 @@
 <p>
       A key use of ropes is in text editors. Every text editor you've ever used that
       handles large files gracefully has done something to break the file into chunks
-      -- editing the beginning of a 64MB file that is stored in a contiguous sequence
+      -- editing the beginning of a 16GB file that is stored in a contiguous sequence
       in memory is way too slow. The use of a rope is a common approach to remedy
       this.
     </p>
 <p>
-      In the example directory, there are two programs, <code class="computeroutput"><span class="identifier">text_editor</span></code>
-      and <code class="computeroutput"><span class="identifier">rope_editor</span></code>. The first
-      uses an in-memory <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
-      object to store text that is edited. It is unusably slow. The second does nearly
-      the same thing, but uses a <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>. It is way more
-      usable.
+      In the example directory, there is a program <code class="computeroutput"><span class="identifier">rope_editor</span></code>.
+      It uses a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>
+      to store the file you're editing. Even when typing at the beginning of a 1GB
+      file, it's very snappy.
     </p>
 <div class="note"><table border="0" summary="Note">
 <tr>
@@ -164,7 +162,6 @@
 <tr><td align="left" valign="top"><p>
         These editors are pretty lame. They don't have cut/copy/paste, and can't
         even save your file! They use Emacs keybindings for what little they do.
-        They use the ncurses library, which is apparently pretty buggy on MacOS.
       </p></td></tr>
 </table></div>
 </div>
