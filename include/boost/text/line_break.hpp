@@ -362,6 +362,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             return state;
         }
 
+        inline bool hard_break_cp(uint32_t cp)
+        {
+            auto const prop = line_prop(cp);
+            return prop == line_property::BK || prop == line_property::CR ||
+                   prop == line_property::LF || prop == line_property::NL;
+        }
+
         template<typename CPIter>
         struct scoped_emoji_state
         {
@@ -394,7 +401,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                 return result_t{it, false};
 
             if (it == last && --it == first)
-                return result_t{it, false};
+                return result_t{it, hard_break_cp(*it)};
 
             detail::line_break_state<CPIter> state;
 
@@ -851,7 +858,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             state.it = first;
 
             if (++state.it == last)
-                return result_t{state.it, false};
+                return result_t{state.it, hard_break_cp(*first)};
 
             state.prev_prev_prop = line_property::AL;
             state.prev_prop = line_prop(*first);
@@ -873,6 +880,9 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                                    first,
                                    break_overlong_lines,
                                    max_extent](result_t result) {
+                if (!result.hard_break)
+                    result.hard_break = hard_break_cp(*std::prev(result.iter));
+
                 if (break_overlong_lines) {
                     CPIter const latest_extent_it =
                         latest_result ? latest_result->iter : first;
@@ -919,7 +929,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                                &latest_extent,
                                first,
                                max_extent](CPIter it) {
-                auto const result = result_t{it, false};
+                auto const result = result_t{it, hard_break_cp(*std::prev(it))};
                 auto const extent =
                     cp_extent(latest_result ? latest_result->iter : first, it);
                 auto const exceeds = max_extent < latest_extent + extent;
@@ -2393,8 +2403,11 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
         detail::
             prev_allowed_line_break_callable<CPIter, line_break_result<CPIter>>
                 prev;
+        bool const ends_in_hard_break =
+            first != last && detail::hard_break_cp(*std::prev(last));
         auto const first_result = line_break_result<CPIter>{first, false};
-        auto const last_result = line_break_result<CPIter>{last, false};
+        auto const last_result =
+            line_break_result<CPIter>{last, ends_in_hard_break};
         return {std::move(prev),
                 {first, last_result, last_result},
                 {first, first_result, last_result}};
@@ -2419,10 +2432,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             line_break_result<detail::iterator_t<CPRange>>>
             prev;
         auto const begin = std::begin(range);
+        auto const end = std::end(range);
+        bool const ends_in_hard_break =
+            begin != end && detail::hard_break_cp(*std::prev(end));
         auto const begin_result =
             line_break_result<detail::iterator_t<CPRange>>{begin, false};
         auto const end_result = line_break_result<detail::iterator_t<CPRange>>{
-            std::end(range), false};
+            end, ends_in_hard_break};
         return {std::move(prev),
                 {begin, end_result, end_result},
                 {begin, begin_result, end_result}};
@@ -2447,10 +2463,13 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
             cp_iter_t,
             line_break_result<cp_iter_t>>
             prev;
+        bool const ends_in_hard_break =
+            range.begin() != range.end() &&
+            detail::hard_break_cp(*std::prev(range.end().base()));
         auto const begin_result =
             line_break_result<cp_iter_t>{range.begin().base(), false};
-        auto const end_result =
-            line_break_result<cp_iter_t>{range.end().base(), false};
+        auto const end_result = line_break_result<cp_iter_t>{
+            range.end().base(), ends_in_hard_break};
         return {std::move(prev),
                 {range.begin().base(), end_result, end_result},
                 {range.begin().base(), begin_result, end_result}};

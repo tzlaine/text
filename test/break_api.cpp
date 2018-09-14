@@ -5,6 +5,7 @@
 #include <boost/text/paragraph_break.hpp>
 #include <boost/text/bidirectional.hpp>
 #include <boost/text/string_utility.hpp>
+#include <boost/text/text.hpp>
 #include <boost/text/utf8.hpp>
 
 #include <boost/algorithm/cxx14/equal.hpp>
@@ -1216,6 +1217,58 @@ TEST(break_apis, line_break)
             EXPECT_EQ(line.end() - cps.begin(), line_bounds[i].second)
                 << "i=" << i;
             EXPECT_EQ(line.hard_break(), false);
+        }
+        EXPECT_EQ(i, 0);
+    }
+}
+
+TEST(break_apis, line_break_terminal_newline)
+{
+    {
+        boost::text::text t("A line. Another line.\nYet one more.");
+        int i = 0;
+        for (auto line : boost::text::allowed_lines(t)) {
+            EXPECT_EQ(line.hard_break(), i == 3);
+#if 0
+            std::cout << (line.hard_break() ? "*" : " ") << " i=" << i
+                      << " line="
+                      << boost::text::text_view(line.begin(), line.end())
+                      << "\n";
+#endif
+            ++i;
+        }
+        EXPECT_EQ(i, 7);
+        for (auto line : boost::text::reversed_allowed_lines(t)) {
+            --i;
+            EXPECT_EQ(line.hard_break(), i == 3);
+        }
+        EXPECT_EQ(i, 0);
+    }
+    {
+        boost::text::text t("A line. Another line.\nYet one more.\n");
+        int i = 0;
+        for (auto line : boost::text::allowed_lines(t)) {
+            EXPECT_EQ(line.hard_break(), i == 3 || i == 6);
+            ++i;
+        }
+        EXPECT_EQ(i, 7);
+        for (auto line : boost::text::reversed_allowed_lines(t)) {
+            --i;
+            EXPECT_EQ(line.hard_break(), i == 3 || i == 6);
+        }
+        EXPECT_EQ(i, 0);
+    }
+    {
+        boost::text::text t("\n");
+        int i = 0;
+        for (auto line : boost::text::allowed_lines(t)) {
+            EXPECT_TRUE(line.hard_break());
+            ++i;
+        }
+        EXPECT_EQ(i, 1);
+        for (auto line : boost::text::reversed_allowed_lines(t)) {
+            --i;
+            EXPECT_TRUE(line.hard_break());
         }
         EXPECT_EQ(i, 0);
     }
