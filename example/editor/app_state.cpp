@@ -139,31 +139,26 @@ namespace {
         auto & s = state.buffer_.snapshot_;
         auto const word_and_it = cursor_word(s);
         auto it = word_and_it.cursor_;
-        auto content_first = s.content_.begin();
 
-        std::ptrdiff_t graphemes_to_move = 0;
+        auto content_first = s.content_.begin();
         if (it == word_and_it.word_.begin()) {
             // We're already at the beginning of a word; back up to the
             // previous one.
-            if (it != content_first) {
-                auto const prev_it = it;
-                it = boost::text::word(s.content_, std::prev(it)).begin();
-                graphemes_to_move += std::distance(it, prev_it);
-            }
+            if (it != content_first)
+                it = boost::text::prev_word_break(s.content_, std::prev(it));
         } else {
             it = word_and_it.word_.begin();
-            graphemes_to_move = std::distance(it, word_and_it.cursor_);
         }
 
         // The word break algorithm finds anything bounded by word breaks to
         // be a word, even whitespace sequences; keep backing up until we hit
         // a "word" that a starts with a letter, number, etc.
         while (it != content_first && between_words(it)) {
-            auto const prev_it = it;
-            it = boost::text::word(s.content_, std::prev(it)).begin();
-            graphemes_to_move += std::distance(it, prev_it);
+            it = boost::text::prev_word_break(s.content_, std::prev(it));
         }
 
+        std::ptrdiff_t graphemes_to_move =
+            std::distance(it, word_and_it.cursor_);
         for (std::ptrdiff_t i = 0; i < graphemes_to_move; ++i) {
             state = *move_left(state, screen_width, xy);
         }
@@ -171,14 +166,9 @@ namespace {
         return state;
     }
 
-    // Unfortunately, we can't just use !between_words() when moving just past
-    // words moving to the right.  If we did, we'd stop on the word "\"".
     bool after_a_word(content_t::iterator it)
     {
-        auto const prop = boost::text::word_prop(*it->begin());
-        return between_words(it) &&
-               prop != boost::text::word_property::Double_Quote &&
-               prop != boost::text::word_property::Single_Quote;
+        return !between_words(std::prev(it));
     }
 
     boost::optional<app_state_t> word_move_right(
@@ -187,25 +177,16 @@ namespace {
         auto & s = state.buffer_.snapshot_;
         auto const word_and_it = cursor_word(s);
         auto it = word_and_it.cursor_;
-        auto content_last = s.content_.end();
 
-        // TODO: Simplify!
-
-        std::ptrdiff_t graphemes_to_move =
-            std::distance(it, word_and_it.word_.end());
         it = word_and_it.word_.end();
-        auto curr_word = boost::text::word(s.content_, it);
-        assert(curr_word.begin() == it);
-        auto const word_dist =
-            std::distance(curr_word.begin(), curr_word.end());
-        auto const it_dist = std::distance(it, curr_word.end());
 
+        auto content_last = s.content_.end();
         while (it != content_last && !after_a_word(it)) {
-            graphemes_to_move += std::distance(it, curr_word.end());
-            it = curr_word.end();
-            curr_word = boost::text::word(s.content_, it);
+            it = boost::text::next_word_break(s.content_, it);
         }
 
+        std::ptrdiff_t graphemes_to_move =
+            std::distance(word_and_it.cursor_, it);
         for (std::ptrdiff_t i = 0; i < graphemes_to_move; ++i) {
             state = *move_right(state, screen_width, xy);
         }
