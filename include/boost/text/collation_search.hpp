@@ -42,8 +42,8 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>searcher(first, last)</code> is well formed. */
     template<typename CPRange, typename Searcher>
-    cp_range<CPIter>
-    auto collation_search(CPRange & r, Searcher const & searcher);
+    cp_range<CPIter> auto
+    collation_search(CPRange & r, Searcher const & searcher);
 
     /** Returns the grapheme subrange within <code>r</code> in which
         <code>searcher</code> finds its pattern.  If the pattern is not found,
@@ -52,7 +52,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>GraphemeRange</code> models the GraphemeRange concept. */
     template<typename GraphemeRange, typename Searcher>
-    grapheme_range<detail::unspecified>
+    detail::unspecified
     collation_search(GraphemeRange const & r, Searcher const & searcher);
 
 #else
@@ -816,8 +816,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPIter</code> models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
-    simple_collation_searcher<detail::unspecified>
-    make_simple_collation_searcher(
+    detail::unspecified make_simple_collation_searcher(
         CPIter first,
         Sentinel last,
         collation_table const & table,
@@ -831,8 +830,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPIter</code> models the CPIter concept. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
-    simple_collation_searcher<detail::unspecified>
-    make_simple_collation_searcher(
+    detail::unspecified make_simple_collation_searcher(
         CPIter first,
         Sentinel last,
         BreakFunc break_fn,
@@ -845,8 +843,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPRange</code> models the CPRange concept. */
     template<typename CPRange>
-    simple_collation_searcher<detail::unspecified>
-    make_simple_collation_searcher(
+    detail::unspecified make_simple_collation_searcher(
         CPRange & r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -857,8 +854,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>GraphemeRange</code> models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    simple_collation_searcher<detail::unspecified>
-    make_simple_collation_searcher(
+    detail::unspecified make_simple_collation_searcher(
         GraphemeRange const & r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -871,8 +867,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPRange</code> models the CPRange concept. */
     template<typename CPRange, typename BreakFunc>
-    simple_collation_searcher<detail::unspecified>
-    make_simple_collation_searcher(
+    detail::unspecified make_simple_collation_searcher(
         CPRange & r,
         BreakFunc break_fn,
         collation_table const & table,
@@ -886,8 +881,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>GraphemeRange</code> models the GraphemeRange concept. */
     template<typename GraphemeRange, typename BreakFunc>
-    simple_collation_searcher<detail::unspecified>
-    make_simple_collation_searcher(
+    detail::unspecified make_simple_collation_searcher(
         GraphemeRange const & r,
         BreakFunc break_fn,
         collation_table const & table,
@@ -1142,8 +1136,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPIter</code> models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
-    boyer_moore_horspool_collation_searcher<detail::unspecified>
-    make_boyer_moore_horspool_collation_searcher(
+    detail::unspecified make_boyer_moore_horspool_collation_searcher(
         CPIter first,
         Sentinel last,
         collation_table const & table,
@@ -1157,8 +1150,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPIter</code> models the CPIter concept. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
-    boyer_moore_horspool_collation_searcher<detail::unspecified>
-    make_boyer_moore_horspool_collation_searcher(
+    detail::unspecified make_boyer_moore_horspool_collation_searcher(
         CPIter first,
         Sentinel last,
         BreakFunc break_fn,
@@ -1172,8 +1164,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPRange</code> models the CPRange concept. */
     template<typename CPRange>
-    boyer_moore_horspool_collation_searcher<detail::unspecified>
-    make_boyer_moore_horspool_collation_searcher(
+    detail::unspecified make_boyer_moore_horspool_collation_searcher(
         CPRange & r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -1185,8 +1176,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>GraphemeRange</code> models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    boyer_moore_horspool_collation_searcher<detail::unspecified>
-    make_boyer_moore_horspool_collation_searcher(
+    detail::unspecified make_boyer_moore_horspool_collation_searcher(
         GraphemeRange const & r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -1199,8 +1189,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPRange</code> models the CPRange concept). */
     template<typename CPRange, typename BreakFunc>
-    boyer_moore_horspool_collation_searcher<detail::unspecified>
-    make_boyer_moore_horspool_collation_searcher(
+    detail::unspecified make_boyer_moore_horspool_collation_searcher(
         CPRange & r,
         BreakFunc break_fn,
         collation_table const & table,
@@ -1214,8 +1203,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>GraphemeRange</code> models the GraphemeRange concept. */
     template<typename GraphemeRange, typename BreakFunc>
-    boyer_moore_horspool_collation_searcher<detail::unspecified>
-    make_boyer_moore_horspool_collation_searcher(
+    detail::unspecified make_boyer_moore_horspool_collation_searcher(
         GraphemeRange const & r,
         BreakFunc break_fn,
         collation_table const & table,
@@ -1540,8 +1528,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPIter</code> models the CPIter concept. */
     template<typename CPIter, typename Sentinel>
-    boyer_moore_collation_searcher<detail::unspecified>
-    make_boyer_moore_collation_searcher(
+    detail::unspecified make_boyer_moore_collation_searcher(
         CPIter first,
         Sentinel last,
         collation_table const & table,
@@ -1555,8 +1542,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPIter</code> models the CPIter concept. */
     template<typename CPIter, typename Sentinel, typename BreakFunc>
-    boyer_moore_collation_searcher<detail::unspecified>
-    make_boyer_moore_collation_searcher(
+    detail::unspecified make_boyer_moore_collation_searcher(
         CPIter first,
         Sentinel last,
         BreakFunc break_fn,
@@ -1569,8 +1555,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPRange</code> models the CPRange concept. */
     template<typename CPRange>
-    boyer_moore_collation_searcher<detail::unspecified>
-    make_boyer_moore_collation_searcher(
+    detail::unspecified make_boyer_moore_collation_searcher(
         CPRange & r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -1581,8 +1566,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>GraphemeRange</code> models the GraphemeRange concept. */
     template<typename GraphemeRange>
-    boyer_moore_collation_searcher<detail::unspecified>
-    make_boyer_moore_collation_searcher(
+    detail::unspecified make_boyer_moore_collation_searcher(
         GraphemeRange const & r,
         collation_table const & table,
         collation_flags flags = collation_flags::none);
@@ -1595,8 +1579,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>CPRange</code> models the CPRange concept. */
     template<typename CPRange, typename BreakFunc>
-    boyer_moore_collation_searcher<detail::unspecified>
-    make_boyer_moore_collation_searcher(
+    detail::unspecified make_boyer_moore_collation_searcher(
         CPRange & r,
         BreakFunc break_fn,
         collation_table const & table,
@@ -1610,8 +1593,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>GraphemeRange</code> models the GraphemeRange concept. */
     template<typename GraphemeRange, typename BreakFunc>
-    boyer_moore_collation_searcher<detail::unspecified>
-    make_boyer_moore_collation_searcher(
+    detail::unspecified make_boyer_moore_collation_searcher(
         GraphemeRange const & r,
         BreakFunc break_fn,
         collation_table const & table,
@@ -1831,7 +1813,7 @@ namespace boost { namespace text {
         typename GraphemeRange1,
         typename GraphemeRange2,
         typename BreakFunc>
-    grapheme_range<detail::unspecified> collation_search(
+    detail::unspecified collation_search(
         GraphemeRange1 const & str,
         GraphemeRange2 const & pattern,
         BreakFunc break_fn,
@@ -1939,7 +1921,7 @@ namespace boost { namespace text {
         This function only participates in overload resolution if
         <code>GraphemeRange1</code> models the GraphemeRange concept. */
     template<typename GraphemeRange1, typename GraphemeRange2>
-    grapheme_range<detail::unspecified> collation_search(
+    detail::unspecified collation_search(
         GraphemeRange1 const & str,
         GraphemeRange2 const & pattern,
         collation_table const & table,
