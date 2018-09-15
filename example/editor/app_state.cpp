@@ -4,9 +4,6 @@
 
 #include <boost/algorithm/cxx14/mismatch.hpp>
 
-#include <iostream> // TODO
-#include <fstream> // TODO
-
 
 namespace {
 
@@ -37,9 +34,8 @@ namespace {
             --s.cursor_pos_.row_;
         if (s.cursor_pos_.col_ != s.desired_col_)
             s.cursor_pos_.col_ = s.desired_col_;
-        int const line = cursor_line(s) == s.lines_.size()
-                             ? 0
-                             : s.lines_[cursor_line(s)].graphemes_;
+        int const line =
+            cursor_at_last_line(s) ? 0 : s.lines_[cursor_line(s)].graphemes_;
         if (line - 1 < s.cursor_pos_.col_)
             s.cursor_pos_.col_ = line;
         return std::move(state);
@@ -70,9 +66,8 @@ namespace {
             ++s.cursor_pos_.row_;
         if (s.cursor_pos_.col_ != s.desired_col_)
             s.cursor_pos_.col_ = s.desired_col_;
-        int const line = cursor_line(s) == s.lines_.size()
-                             ? 0
-                             : s.lines_[cursor_line(s)].graphemes_;
+        int const line =
+            cursor_at_last_line(s) ? 0 : s.lines_[cursor_line(s)].graphemes_;
         if (line - 1 < s.cursor_pos_.col_)
             s.cursor_pos_.col_ = line;
         return std::move(state);
@@ -106,9 +101,8 @@ namespace {
     move_right(app_state_t state, screen_pos_t screen_size, screen_pos_t)
     {
         auto & s = state.buffer_.snapshot_;
-        int const line = cursor_line(s) == s.lines_.size()
-                             ? 0
-                             : s.lines_[cursor_line(s)].graphemes_;
+        int const line =
+            cursor_at_last_line(s) ? 0 : s.lines_[cursor_line(s)].graphemes_;
         if (s.cursor_pos_.col_ == line) {
             if (cursor_line(s) == max_row(s))
                 return std::move(state);
@@ -244,7 +238,7 @@ namespace {
     double_click(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
     {
         state = *click(std::move(state), screen_size, xy);
-        // TODO: Select word.
+        // TODO: Select word; requires changing the cursor to a range.
         return std::move(state);
     }
 
@@ -252,7 +246,7 @@ namespace {
     triple_click(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
     {
         state = *click(std::move(state), screen_size, xy);
-        // TODO: Select sentence.
+        // TODO: Select sentence; requires changing the cursor to a range.
         return std::move(state);
     }
 
@@ -284,22 +278,11 @@ namespace {
         return *click(std::move(state), screen_size, s.cursor_pos_);
     }
 
-    void dump_lines(std::ostream & os, snapshot_t const & snapshot)
-    {
-        os << "lines:" << std::endl;
-        for (auto line : snapshot.lines_) {
-            os << line.code_units_ << "/" << line.graphemes_
-               << (line.hard_break_ ? " *" : "") << std::endl;
-        }
-        os << std::endl;
-    }
-
     // When an insertion or erasure happens on line line_index, and line_index
     // does not end in a hard break, we need to re-break the lines from the
     // line of the edit to the next hard-break-line, or the end if there is no
     // later hard break.
     void rebreak_wrapped_line(
-        std::ostream & os,
         app_state_t & state,
         std::ptrdiff_t line_index,
         screen_pos_t screen_size)
@@ -309,10 +292,7 @@ namespace {
 
         auto const lines_it = s.lines_.begin() + line_index;
         auto lines_last =
-            std::find_if(lines_it, s.lines_.end(), [&os](line_t line) {
-                os << "EXAMINING LINE " << line.code_units_ << "/"
-                   << line.graphemes_ << (line.hard_break_ ? " *" : "")
-                   << std::endl;
+            std::find_if(lines_it, s.lines_.end(), [](line_t line) {
                 return line.hard_break_;
             });
         if (lines_last != s.lines_.end())
@@ -327,56 +307,17 @@ namespace {
         // Include the hard line break grapheme, if any.
         int const hard_break_grapheme = int(lines_last != s.lines_.end());
 
-        os << "REBREAK" << "\n";
-        os << "lines [" << (lines_it - s.lines_.begin()) << ", "
-           << (lines_last - s.lines_.begin()) << ")\n";
-        os << total.code_units_ << "/" << total.graphemes_
-           << (total.hard_break_ ? " *" : "") << std::endl;
-
         auto const grapheme_first = iterator_at_start_of_line(s, line_index);
         auto const grapheme_last =
             std::next(grapheme_first, total.graphemes_ + hard_break_grapheme);
         boost::text::grapheme_range<content_t::iterator::iterator_type> const
             graphemes(grapheme_first, grapheme_last);
 
-        os << "Unbroken line:\n\"";
-        for (auto g : graphemes) {
-            os << g;
-        }
-        os << "\"" << std::endl;
-
         std::vector<line_t> replacements;
-        line_t new_total;
-        // TODO: Refactor.
-        for (auto line : boost::text::lines(
-                 graphemes,
-                 screen_size.col_ - 1,
-                 [](content_t::const_iterator::iterator_type first,
-                    content_t::const_iterator::iterator_type last) noexcept {
-                     boost::text::grapheme_range<
-                         content_t::const_iterator::iterator_type>
-                         range(first, last);
-                     return std::distance(range.begin(), range.end());
-                 })) {
-            line_t const line_{
-                int(line.end().base().base() - line.begin().base().base()),
-                (int)std::distance(line.begin(), line.end()) -
-                    (line.hard_break() ? 1 : 0),
-                line.hard_break()};
-            replacements.push_back(line_);
-            new_total.code_units_ += line_.code_units_;
-            new_total.graphemes_ += line_.graphemes_;
-        }
+        get_lines(graphemes, screen_size.col_, replacements);
 
-        if (replacements.empty())
-            return;
-
-        os << new_total.code_units_ << "/" << new_total.graphemes_
-           << (new_total.hard_break_ ? " *" : "") << std::endl;
-
-        // TODO: Remove.
-        assert(new_total.code_units_ == total.code_units_);
-        assert(new_total.graphemes_ == total.graphemes_);
+        if (!std::prev(lines_last)->code_units_)
+            replacements.push_back(*std::prev(lines_last));
 
         s.lines_.replace(lines_it, lines_last, std::move(replacements));
     }
@@ -386,22 +327,16 @@ namespace {
     {
         auto & s = state.buffer_.snapshot_;
 
-        std::ofstream os("log");
-        os << "ERASE_AT" << std::endl;
-
         auto const cursor_its = cursor_iterators(s);
         if (cursor_at_last_line(s) || cursor_its.cursor_ == s.content_.end())
             return std::move(state);
 
-        os << "history push_back" << std::endl;
         state.buffer_.history_.push_back(s);
 
         auto const cursor_grapheme_cus =
             boost::text::storage_bytes(*cursor_its.cursor_);
         auto line_index = cursor_line(s);
 
-        os << "erasing on line " << line_index << std::endl;
-        dump_lines(os, s);
         auto line = s.lines_[line_index];
         if (cursor_its.cursor_ == cursor_its.last_ && line.hard_break_) {
             line.hard_break_ = false;
@@ -420,14 +355,8 @@ namespace {
         }
 
         s.lines_.replace(s.lines_.begin() + line_index, line);
-        dump_lines(os, s);
-
         s.content_.erase(cursor_its.cursor_, std::next(cursor_its.cursor_));
-
-        os << "rebreaking ..." << std::endl;
-        dump_lines(os, s);
-        rebreak_wrapped_line(os, state, line_index, screen_size);
-        dump_lines(os, s);
+        rebreak_wrapped_line(state, line_index, screen_size);
 
         return std::move(state);
     }
@@ -496,20 +425,23 @@ namespace {
                 line_t line;
                 if (line_index < snapshot.lines_.size())
                     line = snapshot.lines_[line_index];
+
                 line_t const new_line{line.code_units_ - code_unit_offset,
-                                      line.graphemes_ - grapheme_offset};
-                auto insert_it = line_index + 1 <= snapshot.lines_.size()
-                                     ? snapshot.lines_.begin() + line_index + 1
-                                     : snapshot.lines_.end();
-                snapshot.lines_.insert(insert_it, new_line);
+                                      line.graphemes_ - grapheme_offset,
+                                      line.hard_break_};
+                snapshot.lines_.insert(
+                    snapshot.lines_.begin() + line_index + 1, new_line);
+
                 line.code_units_ = code_unit_offset + 1;
                 line.graphemes_ = grapheme_offset;
+                line.hard_break_ = true;
                 snapshot.lines_.replace(
                     snapshot.lines_.begin() + line_index, line);
+
                 ++snapshot.cursor_pos_.row_;
                 snapshot.cursor_pos_.col_ = 0;
-                rebreak_wrapped_line(
-                    std::cerr, state, line_index + 1, screen_size);
+
+                rebreak_wrapped_line(state, line_index + 1, screen_size);
             } else {
                 using graphme_view = decltype(*cursor_its.first_);
                 graphme_view prev_grapheme;
@@ -556,8 +488,7 @@ namespace {
                     snapshot.cursor_pos_.col_ = 0;
                 }
 
-                rebreak_wrapped_line(
-                    std::cerr, state, rebreak_line_index, screen_size);
+                rebreak_wrapped_line(state, rebreak_line_index, screen_size);
             }
 
             set_desired_col(snapshot);
@@ -634,9 +565,9 @@ key_map_t emacs_lite()
         key_map_entry_t{ctrl-'f', move_right},
         key_map_entry_t{right, move_right},
 
-        key_map_entry_t{ctrl-'a', erase_at},//move_home},
+        key_map_entry_t{ctrl-'a', move_home},
         key_map_entry_t{home, move_home},
-        key_map_entry_t{ctrl-'e', erase_at},//move_end},
+        key_map_entry_t{ctrl-'e', move_end},
         key_map_entry_t{end, move_end},
 
         key_map_entry_t{page_up, move_page_up},
@@ -647,7 +578,6 @@ key_map_t emacs_lite()
         key_map_entry_t{left_triple_click, triple_click},
 
         key_map_entry_t{backspace, erase_before},
-        key_map_entry_t{ctrl-'d', erase_at},
         key_map_entry_t{delete_, erase_at},
 
         key_map_entry_t{alt-'f', word_move_right},

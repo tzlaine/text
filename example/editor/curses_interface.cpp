@@ -20,6 +20,7 @@ curses_interface_t::curses_interface_t() : win_(initscr())
         BUTTON1_CLICKED | BUTTON1_DOUBLE_CLICKED | BUTTON1_TRIPLE_CLICKED |
             REPORT_MOUSE_POSITION,
         &old_mouse_events);
+    set_tabsize(1);
 }
 
 curses_interface_t::~curses_interface_t() { endwin(); }

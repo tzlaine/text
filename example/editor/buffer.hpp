@@ -118,6 +118,29 @@ inline cursor_word_t cursor_word(snapshot_t const & snapshot)
             iterators.cursor_};
 }
 
+template<typename GraphemeRange, typename LinesContainer>
+inline void get_lines(
+    GraphemeRange const & range, int screen_width, LinesContainer & container)
+{
+    for (auto line : boost::text::lines(
+             range,
+             screen_width - 1,
+             [](content_t::const_iterator::iterator_type first,
+                content_t::const_iterator::iterator_type last) noexcept {
+                 boost::text::grapheme_range<
+                     content_t::const_iterator::iterator_type>
+                     range(first, last);
+                 return std::distance(range.begin(), range.end());
+             })) {
+        line_t const line_{
+            int(line.end().base().base() - line.begin().base().base()),
+            (int)std::distance(line.begin(), line.end()) -
+                (line.hard_break() ? 1 : 0),
+            line.hard_break()};
+        container.push_back(line_);
+    }
+}
+
 inline buffer_t load(boost::filesystem::path path, int screen_width)
 {
     boost::filesystem::ifstream ifs(path);
@@ -137,23 +160,7 @@ inline buffer_t load(boost::filesystem::path path, int screen_width)
         retval.snapshot_.content_ += std::move(chunk);
     }
 
-    for (auto line : boost::text::lines(
-             retval.snapshot_.content_,
-             screen_width - 1,
-             [](content_t::const_iterator::iterator_type first,
-                content_t::const_iterator::iterator_type last) noexcept {
-                 boost::text::grapheme_range<
-                     content_t::const_iterator::iterator_type>
-                     range(first, last);
-                 return std::distance(range.begin(), range.end());
-             })) {
-        line_t const line_{
-            int(line.end().base().base() - line.begin().base().base()),
-            (int)std::distance(line.begin(), line.end()) -
-                (line.hard_break() ? 1 : 0),
-            line.hard_break()};
-        retval.snapshot_.lines_.push_back(line_);
-    }
+    get_lines(retval.snapshot_.content_, screen_width, retval.snapshot_.lines_);
 
     retval.history_.push_back(retval.snapshot_);
 
