@@ -531,9 +531,7 @@ key_map_t emacs_lite()
         key_map_entry_t{delete_, erase_at},
 
         key_map_entry_t{alt-'f', word_move_right},
-//        key_map_entry_t{alt-right, word_move_right}, // TODO: These crash!
         key_map_entry_t{alt-'b', word_move_left},
-//        key_map_entry_t{alt-left, word_move_left},
 
         key_map_entry_t{ctrl-'_', undo},
 
