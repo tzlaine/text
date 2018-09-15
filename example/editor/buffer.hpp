@@ -78,7 +78,7 @@ inline cursor_iterators_t cursor_iterators(snapshot_t const & snapshot)
             std::next(line_grapheme_first, snapshot.cursor_pos_.col_),
             std::next(
                 line_grapheme_first,
-                snapshot.lines_[snapshot.first_row_].graphemes_)};
+                snapshot.lines_[snapshot.cursor_pos_.row_].graphemes_)};
 }
 
 using content_cp_iter_t = content_t::const_iterator::iterator_type;

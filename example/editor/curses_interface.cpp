@@ -63,9 +63,9 @@ namespace {
             move(row, 0);
             buf.clear();
             std::copy(first, last, std::back_inserter(buf));
-            if (buf.back() == '\n')
+            if (!buf.empty() && buf.back() == '\n')
                 buf.pop_back();
-            if (buf.back() == '\r')
+            if (!buf.empty() && buf.back() == '\r')
                 buf.pop_back();
             buf.push_back('\0');
             addstr(&buf[0]);

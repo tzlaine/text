@@ -219,15 +219,13 @@ namespace {
         if (cursor_its.cursor_ == cursor_its.last_) {
             auto const line = s.lines_[cursor_line(s)];
             if (line.hard_break_) {
-                // TODO: Broken.
                 auto line = s.lines_[line_index];
                 auto const next_line = s.lines_[line_index + 1];
                 line.code_units_ += next_line.code_units_ - cursor_grapheme_cus;
-                line.graphemes_ += next_line.graphemes_ - 1;
+                line.graphemes_ += next_line.graphemes_;
                 s.lines_.replace(s.lines_.begin() + line_index, line);
                 s.lines_.erase(s.lines_.begin() + line_index + 1);
             } else {
-                // TODO: Broken.
                 auto next_line = s.lines_[line_index + 1];
                 next_line.code_units_ -= cursor_grapheme_cus;
                 next_line.graphemes_ -= 1;
