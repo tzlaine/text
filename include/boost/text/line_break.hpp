@@ -917,7 +917,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                             }
 #endif
 
-                        result.iter = it;
+                        result = {it, false};
                     }
                 }
                 return result;
