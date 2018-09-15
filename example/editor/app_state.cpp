@@ -19,7 +19,7 @@ namespace {
     {
         auto & s = state.buffer_.snapshot_;
         if (cursor_line(s) == 0)
-            return state;
+            return std::move(state);
         else if (s.cursor_pos_.row_ == 0)
             up_one_row(s);
         else
@@ -31,7 +31,7 @@ namespace {
                              : s.lines_[cursor_line(s)].graphemes_;
         if (line - 1 < s.cursor_pos_.col_)
             s.cursor_pos_.col_ = line;
-        return state;
+        return std::move(state);
     }
 
     // -2 for two bottom rows
@@ -52,7 +52,7 @@ namespace {
     {
         auto & s = state.buffer_.snapshot_;
         if (cursor_line(s) == s.lines_.size())
-            return state;
+            return std::move(state);
         else if (s.cursor_pos_.row_ == nonstatus_height(screen_size) - 1)
             down_one_row(s);
         else
@@ -64,7 +64,7 @@ namespace {
                              : s.lines_[cursor_line(s)].graphemes_;
         if (line - 1 < s.cursor_pos_.col_)
             s.cursor_pos_.col_ = line;
-        return state;
+        return std::move(state);
     }
 
     void set_desired_col(snapshot_t & snapshot)
@@ -78,7 +78,7 @@ namespace {
         auto & s = state.buffer_.snapshot_;
         if (s.cursor_pos_.col_ == 0) {
             if (cursor_line(s) == 0) {
-                return state;
+                return std::move(state);
             } else if (s.cursor_pos_.row_ == 0) {
                 s.first_row_ -= 1;
                 s.first_char_index_ -= s.lines_[s.first_row_].graphemes_;
@@ -90,7 +90,7 @@ namespace {
             s.cursor_pos_.col_ -= 1;
         }
         set_desired_col(s);
-        return state;
+        return std::move(state);
     }
 
     boost::optional<app_state_t>
@@ -102,7 +102,7 @@ namespace {
                              : s.lines_[cursor_line(s)].graphemes_;
         if (s.cursor_pos_.col_ == line) {
             if (cursor_line(s) == s.lines_.size()) {
-                return state;
+                return std::move(state);
             } else if (
                 s.cursor_pos_.row_ == nonstatus_height(screen_size) - 1) {
                 s.first_char_index_ += s.lines_[s.first_row_].graphemes_;
@@ -115,7 +115,7 @@ namespace {
             s.cursor_pos_.col_ += 1;
         }
         set_desired_col(s);
-        return state;
+        return std::move(state);
     }
 
     // Returns true if 'it' starts with a code point that has a property that
@@ -160,10 +160,10 @@ namespace {
         std::ptrdiff_t graphemes_to_move =
             std::distance(it, word_and_it.cursor_);
         for (std::ptrdiff_t i = 0; i < graphemes_to_move; ++i) {
-            state = *move_left(state, screen_width, xy);
+            state = *move_left(std::move(state), screen_width, xy);
         }
 
-        return state;
+        return std::move(state);
     }
 
     bool after_a_word(content_t::iterator it)
@@ -188,10 +188,10 @@ namespace {
         std::ptrdiff_t graphemes_to_move =
             std::distance(word_and_it.cursor_, it);
         for (std::ptrdiff_t i = 0; i < graphemes_to_move; ++i) {
-            state = *move_right(state, screen_width, xy);
+            state = *move_right(std::move(state), screen_width, xy);
         }
 
-        return state; // TODO: Moves!
+        return std::move(state);
     }
 
     boost::optional<app_state_t>
@@ -200,7 +200,7 @@ namespace {
         auto & s = state.buffer_.snapshot_;
         s.cursor_pos_.col_ = 0;
         set_desired_col(s);
-        return state;
+        return std::move(state);
     }
 
     boost::optional<app_state_t>
@@ -214,7 +214,7 @@ namespace {
             s.cursor_pos_.col_ = line.graphemes_;
         }
         set_desired_col(s);
-        return state;
+        return std::move(state);
     }
 
     boost::optional<app_state_t>
@@ -226,28 +226,28 @@ namespace {
             (std::min)(s.lines_.size(), (ptrdiff_t)s.cursor_pos_.row_);
         if (cursor_at_last_line(s)) {
             s.cursor_pos_.col_ = 0;
-            return state;
+            return std::move(state);
         }
         auto const line = s.lines_[cursor_line(s)];
         s.cursor_pos_.col_ = (std::min)(line.graphemes_, s.cursor_pos_.col_);
         set_desired_col(s);
-        return state;
+        return std::move(state);
     }
 
     boost::optional<app_state_t>
     double_click(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
     {
-        state = *click(state, screen_size, xy);
+        state = *click(std::move(state), screen_size, xy);
         // TODO: Select word.
-        return state;
+        return std::move(state);
     }
 
     boost::optional<app_state_t>
     triple_click(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
     {
-        state = *click(state, screen_size, xy);
+        state = *click(std::move(state), screen_size, xy);
         // TODO: Select sentence.
-        return state;
+        return std::move(state);
     }
 
     boost::optional<app_state_t>
@@ -256,13 +256,13 @@ namespace {
         auto & s = state.buffer_.snapshot_;
         auto const page = nonstatus_height(screen_size);
         if (s.lines_.size() <= page)
-            return state;
+            return std::move(state);
         for (ptrdiff_t i = 0; i < page; ++i) {
             if (!s.first_row_)
                 break;
             up_one_row(s);
         }
-        return *click(state, screen_size, s.cursor_pos_);
+        return *click(std::move(state), screen_size, s.cursor_pos_);
     }
 
     boost::optional<app_state_t>
@@ -271,11 +271,11 @@ namespace {
         auto & s = state.buffer_.snapshot_;
         auto const page = nonstatus_height(screen_size);
         if (s.lines_.size() <= page || s.lines_.size() < s.first_row_ + page)
-            return state;
+            return std::move(state);
         for (ptrdiff_t i = 0; i < page; ++i) {
             down_one_row(s);
         }
-        return *click(state, screen_size, s.cursor_pos_);
+        return *click(std::move(state), screen_size, s.cursor_pos_);
     }
 
     boost::optional<app_state_t>
@@ -286,7 +286,7 @@ namespace {
 
         auto const cursor_its = cursor_iterators(s);
         if (cursor_at_last_line(s) || cursor_its.cursor_ == s.content_.end())
-            return state;
+            return std::move(state);
 
         auto const cursor_grapheme_cus =
             boost::text::storage_bytes(*cursor_its.cursor_);
@@ -316,17 +316,17 @@ namespace {
 
         s.content_.erase(cursor_its.cursor_, std::next(cursor_its.cursor_));
 
-        return state;
+        return std::move(state);
     }
 
     boost::optional<app_state_t>
     erase_before(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
     {
         auto const initial_pos = state.buffer_.snapshot_.cursor_pos_;
-        state = *move_left(state, screen_size, xy);
+        state = *move_left(std::move(state), screen_size, xy);
         if (state.buffer_.snapshot_.cursor_pos_ != initial_pos)
-            return *erase_at(state, screen_size, xy);
-        return state;
+            return *erase_at(std::move(state), screen_size, xy);
+        return std::move(state);
     }
 
     struct edit_deltas
@@ -442,7 +442,7 @@ namespace {
 
             set_desired_col(snapshot);
 
-            return state;
+            return std::move(state);
         };
     }
 
@@ -452,7 +452,7 @@ namespace {
         state.buffer_.snapshot_ = state.buffer_.history_.back();
         if (1 < state.buffer_.history_.size())
             state.buffer_.history_.pop_back();
-        return state;
+        return std::move(state);
     }
 
     boost::optional<app_state_t> quit(app_state_t, screen_pos_t, screen_pos_t)
@@ -552,7 +552,8 @@ boost::optional<app_state_t> update(app_state_t state, event_t event)
         state.input_seq_ = key_sequence_t();
     if (input_evaluation.command_) {
         screen_pos_t const xy{event.key_code_.y_, event.key_code_.x_};
-        return input_evaluation.command_(state, event.screen_size_, xy);
+        return input_evaluation.command_(
+            std::move(state), event.screen_size_, xy);
     }
-    return state;
+    return std::move(state);
 }

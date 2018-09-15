@@ -41,7 +41,8 @@ int main(int argc, char * argv[])
     // to update(), which returns the new app state.
     boost::optional<app_state_t> next_app_state;
     while (
-        (next_app_state = update(app_state, curses_interface.next_event()))) {
+        (next_app_state =
+             update(std::move(app_state), curses_interface.next_event()))) {
         app_state = *next_app_state;
         render(app_state.buffer_, screen_size);
     }
