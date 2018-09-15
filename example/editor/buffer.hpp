@@ -62,20 +62,26 @@ struct cursor_iterators_t
     content_t::iterator last_;
 };
 
-inline cursor_iterators_t cursor_iterators(snapshot_t const & snapshot)
+inline content_t::iterator
+iterator_at_start_of_line(snapshot_t const & snapshot, std::ptrdiff_t line_index)
 {
+    assert(snapshot.first_row_ <= line_index);
     std::ptrdiff_t offset = snapshot.first_char_index_;
-    for (int i = snapshot.first_row_, end = cursor_line(snapshot); i < end;
-         ++i) {
+    for (std::ptrdiff_t i = snapshot.first_row_; i < line_index; ++i) {
         offset += snapshot.lines_[i].code_units_;
     }
     auto const first = snapshot.content_.begin().base().base();
     auto const it = first + offset;
     auto const last = snapshot.content_.end().base().base();
-    auto const line_grapheme_first = content_t::iterator{
-        content_t::iterator::iterator_type{first, first, last},
-        content_t::iterator::iterator_type{first, it, last},
-        content_t::iterator::iterator_type{first, last, last}};
+    return {content_t::iterator::iterator_type{first, first, last},
+            content_t::iterator::iterator_type{first, it, last},
+            content_t::iterator::iterator_type{first, last, last}};
+}
+
+inline cursor_iterators_t cursor_iterators(snapshot_t const & snapshot)
+{
+    auto const line_grapheme_first =
+        iterator_at_start_of_line(snapshot, cursor_line(snapshot));
     return {line_grapheme_first,
             std::next(line_grapheme_first, snapshot.cursor_pos_.col_),
             std::next(
@@ -91,6 +97,11 @@ struct cursor_word_t
 
 inline cursor_word_t cursor_word(snapshot_t const & snapshot)
 {
+    if (cursor_at_last_line(snapshot)) {
+        return {
+            {snapshot.content_.end().base(), snapshot.content_.end().base()},
+            snapshot.content_.end()};
+    }
     auto const iterators = cursor_iterators(snapshot);
     return {boost::text::word(snapshot.content_, iterators.cursor_),
             iterators.cursor_};

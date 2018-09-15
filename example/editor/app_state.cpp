@@ -278,8 +278,76 @@ namespace {
         return *click(std::move(state), screen_size, s.cursor_pos_);
     }
 
+    // When an insertion or erasure happens on line line_index, and line_index
+    // does not end in a hard break, we need to re-break the lines from the
+    // line of the edit to the next hard-break-line, or the end if there is no
+    // later hard break.
+    void rebreak_wrapped_line(
+        app_state_t & state,
+        std::ptrdiff_t line_index,
+        screen_pos_t screen_size)
+    {
+        auto & s = state.buffer_.snapshot_;
+        assert(line_index < s.lines_.size());
+
+        auto const lines_it = s.lines_.begin() + line_index;
+        auto lines_last =
+            std::find_if(lines_it, s.lines_.end(), [](line_t line) {
+                return line.hard_break_;
+            });
+        if (lines_last != s.lines_.end())
+            ++lines_last;
+
+        auto total = std::accumulate(
+            lines_it, lines_last, line_t{}, [](line_t result, line_t line) {
+                result.code_units_ += line.code_units_;
+                result.graphemes_ += line.graphemes_;
+                return result;
+            });
+        // Count the hard line break grapheme.
+        if (lines_last != s.lines_.end())
+            ++total.graphemes_;
+
+        auto const grapheme_first = iterator_at_start_of_line(s, line_index);
+        auto const grapheme_last = std::next(grapheme_first, total.graphemes_);
+        boost::text::grapheme_range<content_t::iterator::iterator_type> const
+            graphemes(grapheme_first, grapheme_last);
+
+        std::vector<line_t> replaced(lines_it, lines_last);
+
+        std::vector<line_t> replacements;
+        line_t new_total;
+        for (auto line : boost::text::lines(
+                 graphemes,
+                 screen_size.col_ - 1,
+                 [](content_t::const_iterator::iterator_type first,
+                    content_t::const_iterator::iterator_type last) noexcept {
+                     boost::text::grapheme_range<
+                         content_t::const_iterator::iterator_type>
+                         range(first, last);
+                     return std::distance(range.begin(), range.end());
+                 })) {
+            line_t const line_{
+                int(line.end().base().base() - line.begin().base().base()),
+                (int)std::distance(line.begin(), line.end()) -
+                    (line.hard_break() ? 1 : 0),
+                line.hard_break()};
+            replacements.push_back(line_);
+            new_total.code_units_ += line_.code_units_;
+            new_total.graphemes_ += line_.graphemes_;
+        }
+
+        if (replacements.empty())
+            return;
+
+        assert(new_total.code_units_ == total.code_units_);
+        assert(new_total.graphemes_ == total.graphemes_);
+
+        s.lines_.replace(lines_it, lines_last, std::move(replacements));
+    }
+
     boost::optional<app_state_t>
-    erase_at(app_state_t state, screen_pos_t, screen_pos_t)
+    erase_at(app_state_t state, screen_pos_t screen_size, screen_pos_t)
     {
         auto & s = state.buffer_.snapshot_;
         state.buffer_.history_.push_back(s);
@@ -290,8 +358,9 @@ namespace {
 
         auto const cursor_grapheme_cus =
             boost::text::storage_bytes(*cursor_its.cursor_);
-        auto const line_index = cursor_line(s);
+        auto line_index = cursor_line(s);
 
+#if 1
         if (cursor_its.cursor_ == cursor_its.last_) {
             auto const line = s.lines_[cursor_line(s)];
             if (line.hard_break_) {
@@ -299,6 +368,7 @@ namespace {
                 auto const next_line = s.lines_[line_index + 1];
                 line.code_units_ += next_line.code_units_ - cursor_grapheme_cus;
                 line.graphemes_ += next_line.graphemes_;
+                line.hard_break_ = next_line.hard_break_;
                 s.lines_.replace(s.lines_.begin() + line_index, line);
                 s.lines_.erase(s.lines_.begin() + line_index + 1);
             } else {
@@ -315,6 +385,29 @@ namespace {
         }
 
         s.content_.erase(cursor_its.cursor_, std::next(cursor_its.cursor_));
+#else
+        auto line = s.lines_[cursor_line(s)];
+        if (cursor_its.cursor_ == cursor_its.last_ && line.hard_break_) {
+            line.hard_break_ = false;
+            line.code_units_ -= 1;
+        } else {
+            line.code_units_ -= cursor_grapheme_cus;
+            line.graphemes_ -= 1;
+        }
+
+        if (!line.hard_break_) {
+            auto const next_line = s.lines_[line_index + 1];
+            line.code_units_ += next_line.code_units_;
+            line.graphemes_ += next_line.graphemes_;
+            s.lines_.erase(s.lines_.begin() + line_index + 1);
+        }
+
+        s.lines_.replace(s.lines_.begin() + line_index, line);
+
+        s.content_.erase(cursor_its.cursor_, std::next(cursor_its.cursor_));
+
+        rebreak_wrapped_line(state, line_index, screen_size);
+#endif
 
         return std::move(state);
     }
@@ -364,6 +457,7 @@ namespace {
 
     command_t insert(boost::text::grapheme grapheme)
     {
+        // TODO: Typing at the end of the buffer crashes!
         return [grapheme](
                    app_state_t state,
                    screen_pos_t screen_size,
