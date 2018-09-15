@@ -66,6 +66,10 @@ inline content_t::iterator
 iterator_at_start_of_line(snapshot_t const & snapshot, std::ptrdiff_t line_index)
 {
     assert(snapshot.first_row_ <= line_index);
+
+    if (line_index == snapshot.lines_.size())
+        return snapshot.content_.end();
+
     std::ptrdiff_t offset = snapshot.first_char_index_;
     for (std::ptrdiff_t i = snapshot.first_row_; i < line_index; ++i) {
         offset += snapshot.lines_[i].code_units_;
@@ -80,8 +84,15 @@ iterator_at_start_of_line(snapshot_t const & snapshot, std::ptrdiff_t line_index
 
 inline cursor_iterators_t cursor_iterators(snapshot_t const & snapshot)
 {
+    auto const line_index = cursor_line(snapshot);
+    if (line_index == snapshot.lines_.size()) {
+        return {snapshot.content_.end(),
+                snapshot.content_.end(),
+                snapshot.content_.end()};
+    }
+
     auto const line_grapheme_first =
-        iterator_at_start_of_line(snapshot, cursor_line(snapshot));
+        iterator_at_start_of_line(snapshot, line_index);
     return {line_grapheme_first,
             std::next(line_grapheme_first, snapshot.cursor_pos_.col_),
             std::next(
