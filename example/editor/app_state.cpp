@@ -118,6 +118,101 @@ namespace {
         return state;
     }
 
+    // Returns true if 'it' starts with a code point that has a property that
+    // is not a letter or number -- which is what the user intuitively expects
+    // a word to be.  Note that this only needs to be checked at word
+    // beginnings, so we leave out the "extend" properties below.
+    bool between_words(content_t::iterator it)
+    {
+        auto const prop = boost::text::word_prop(*it->begin());
+        return !(
+            prop == boost::text::word_property::Katakana ||
+            prop == boost::text::word_property::ALetter ||
+            prop == boost::text::word_property::Numeric ||
+            prop == boost::text::word_property::Regional_Indicator ||
+            prop == boost::text::word_property::Hebrew_Letter);
+    }
+
+    boost::optional<app_state_t> word_move_left(
+        app_state_t state, screen_pos_t screen_width, screen_pos_t xy)
+    {
+        auto & s = state.buffer_.snapshot_;
+        auto const word_and_it = cursor_word(s);
+        auto it = word_and_it.cursor_;
+        auto content_first = s.content_.begin();
+
+        std::ptrdiff_t graphemes_to_move = 0;
+        if (it == word_and_it.word_.begin()) {
+            // We're already at the beginning of a word; back up to the
+            // previous one.
+            if (it != content_first) {
+                auto const prev_it = it;
+                it = boost::text::word(s.content_, std::prev(it)).begin();
+                graphemes_to_move += std::distance(it, prev_it);
+            }
+        } else {
+            it = word_and_it.word_.begin();
+            graphemes_to_move = std::distance(it, word_and_it.cursor_);
+        }
+
+        // The word break algorithm finds anything bounded by word breaks to
+        // be a word, even whitespace sequences; keep backing up until we hit
+        // a "word" that a starts with a letter, number, etc.
+        while (it != content_first && between_words(it)) {
+            auto const prev_it = it;
+            it = boost::text::word(s.content_, std::prev(it)).begin();
+            graphemes_to_move += std::distance(it, prev_it);
+        }
+
+        for (std::ptrdiff_t i = 0; i < graphemes_to_move; ++i) {
+            state = *move_left(state, screen_width, xy);
+        }
+
+        return state;
+    }
+
+    // Unfortunately, we can't just use !between_words() when moving just past
+    // words moving to the right.  If we did, we'd stop on the word "\"".
+    bool after_a_word(content_t::iterator it)
+    {
+        auto const prop = boost::text::word_prop(*it->begin());
+        return between_words(it) &&
+               prop != boost::text::word_property::Double_Quote &&
+               prop != boost::text::word_property::Single_Quote;
+    }
+
+    boost::optional<app_state_t> word_move_right(
+        app_state_t state, screen_pos_t screen_width, screen_pos_t xy)
+    {
+        auto & s = state.buffer_.snapshot_;
+        auto const word_and_it = cursor_word(s);
+        auto it = word_and_it.cursor_;
+        auto content_last = s.content_.end();
+
+        // TODO: Simplify!
+
+        std::ptrdiff_t graphemes_to_move =
+            std::distance(it, word_and_it.word_.end());
+        it = word_and_it.word_.end();
+        auto curr_word = boost::text::word(s.content_, it);
+        assert(curr_word.begin() == it);
+        auto const word_dist =
+            std::distance(curr_word.begin(), curr_word.end());
+        auto const it_dist = std::distance(it, curr_word.end());
+
+        while (it != content_last && !after_a_word(it)) {
+            graphemes_to_move += std::distance(it, curr_word.end());
+            it = curr_word.end();
+            curr_word = boost::text::word(s.content_, it);
+        }
+
+        for (std::ptrdiff_t i = 0; i < graphemes_to_move; ++i) {
+            state = *move_right(state, screen_width, xy);
+        }
+
+        return state; // TODO: Moves!
+    }
+
     boost::optional<app_state_t>
     move_home(app_state_t state, screen_pos_t, screen_pos_t)
     {
@@ -451,7 +546,13 @@ key_map_t emacs_lite()
         key_map_entry_t{left_triple_click, triple_click},
 
         key_map_entry_t{backspace, erase_before},
+        key_map_entry_t{ctrl-'d', erase_at},
         key_map_entry_t{delete_, erase_at},
+
+        key_map_entry_t{alt-'f', word_move_right},
+//        key_map_entry_t{alt-right, word_move_right}, // TODO: These crash!
+        key_map_entry_t{alt-'b', word_move_left},
+//        key_map_entry_t{alt-left, word_move_left},
 
         key_map_entry_t{ctrl-'_', undo},
 

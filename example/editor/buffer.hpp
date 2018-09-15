@@ -7,6 +7,8 @@
 #include <boost/text/rope.hpp>
 #include <boost/text/text.hpp>
 #include <boost/text/segmented_vector.hpp>
+#include <boost/text/word_break.hpp>
+
 #include <boost/filesystem/fstream.hpp>
 
 #include <vector>
@@ -81,17 +83,18 @@ inline cursor_iterators_t cursor_iterators(snapshot_t const & snapshot)
                 snapshot.lines_[snapshot.cursor_pos_.row_].graphemes_)};
 }
 
-using content_cp_iter_t = content_t::const_iterator::iterator_type;
-
-struct cp_extent
+struct cursor_word_t
 {
-    int operator()(content_cp_iter_t first, content_cp_iter_t last) const
-        noexcept
-    {
-        boost::text::grapheme_range<content_cp_iter_t> range(first, last);
-        return std::distance(range.begin(), range.end());
-    }
+    boost::text::grapheme_range<content_t::iterator::iterator_type> word_;
+    content_t::iterator cursor_;
 };
+
+inline cursor_word_t cursor_word(snapshot_t const & snapshot)
+{
+    auto const iterators = cursor_iterators(snapshot);
+    return {boost::text::word(snapshot.content_, iterators.cursor_),
+            iterators.cursor_};
+}
 
 inline buffer_t load(boost::filesystem::path path, int screen_width)
 {
@@ -113,7 +116,15 @@ inline buffer_t load(boost::filesystem::path path, int screen_width)
     }
 
     for (auto line : boost::text::lines(
-             retval.snapshot_.content_, screen_width - 1, cp_extent{})) {
+             retval.snapshot_.content_,
+             screen_width - 1,
+             [](content_t::const_iterator::iterator_type first,
+                content_t::const_iterator::iterator_type last) noexcept {
+                 boost::text::grapheme_range<
+                     content_t::const_iterator::iterator_type>
+                     range(first, last);
+                 return std::distance(range.begin(), range.end());
+             })) {
         line_t const line_{
             int(line.end().base().base() - line.begin().base().base()),
             (int)std::distance(line.begin(), line.end()) -
