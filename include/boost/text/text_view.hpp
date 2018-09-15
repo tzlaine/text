@@ -47,14 +47,6 @@ namespace boost { namespace text {
         template <typename CPIter>
         text_view(grapheme_range<CPIter> range) noexcept;
 
-        /** Constructs a text_view from a pair of text_iterators. */
-        text_view(text_iterator first, text_iterator last) noexcept :
-            first_(make_iter(
-                first.base().base(), first.base().base(), last.base().base())),
-            last_(make_iter(
-                first.base().base(), last.base().base(), last.base().base()))
-        {}
-
         /** Constructs a text_view from a pair of const_text_iterators. */
         text_view(
             const_text_iterator first, const_text_iterator last) noexcept :
