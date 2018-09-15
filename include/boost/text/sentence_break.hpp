@@ -842,7 +842,10 @@ constexpr std::array<std::array<bool, 15>, 15> sentence_breaks = {{
             range.begin().base(),
             static_cast<cp_iter_t>(it.base()),
             range.end().base());
-        return {first, next_sentence_break(first, range.end().base())};
+        return {range.begin().base(),
+                first,
+                next_sentence_break(first, range.end().base()),
+                range.end().base()};
     }
 
     template<typename CPIter, typename Sentinel>

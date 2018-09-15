@@ -14,9 +14,20 @@ namespace boost { namespace text {
 
         grapheme_range() : first_(), last_() {}
 
+        /** Construct a grapheme range that covers the entirety of the range
+            of graphemes that <code>begin()</code> and <code>end()</code> lie
+            within. */
         grapheme_range(CPIter first, CPIter last) :
             first_(first, first, last),
             last_(first, last, last)
+        {}
+
+        /** Construct a range covering a subset of the range of graphemes that
+            <code>begin()</code> and <code>end()</code> lie within. */
+        grapheme_range(
+            CPIter first, CPIter range_first, CPIter range_last, CPIter last) :
+            first_(first, range_first, last),
+            last_(first, range_last, last)
         {}
 
         bool empty() const noexcept { return first_ == last_; }

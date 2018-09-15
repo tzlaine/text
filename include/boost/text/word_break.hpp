@@ -1263,9 +1263,10 @@ constexpr std::array<std::array<bool, 20>, 20> word_breaks = {{
             range.end().base(),
             word_prop,
             cp_break);
-        return {
-            first,
-            next_word_break(first, range.end().base(), word_prop, cp_break)};
+        return {range.begin().base(),
+                first,
+                next_word_break(first, range.end().base(), word_prop, cp_break),
+                range.end().base()};
     }
 
     template<

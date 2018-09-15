@@ -82,7 +82,10 @@ namespace boost { namespace text {
     {
         using cp_iter_t = decltype(r.begin().base());
         auto const cp_result = searcher(r.begin().base(), r.end().base());
-        return grapheme_range<cp_iter_t>{cp_result.begin(), cp_result.end()};
+        return grapheme_range<cp_iter_t>{r.begin().base(),
+                                         cp_result.begin(),
+                                         cp_result.end(),
+                                         r.end().base()};
     }
 
 #endif
@@ -1874,7 +1877,10 @@ namespace boost { namespace text {
             flags);
         auto const cp_result =
             collation_search(str.begin().base(), str.end().base(), s);
-        return grapheme_range<cp_iter_t>{cp_result.begin(), cp_result.end()};
+        return grapheme_range<cp_iter_t>{str.begin().base(),
+                                         cp_result.begin(),
+                                         cp_result.end(),
+                                         str.end().base()};
     }
 
 #endif
@@ -1976,7 +1982,10 @@ namespace boost { namespace text {
             flags);
         auto const cp_result =
             collation_search(str.begin().base(), str.end().base(), s);
-        return grapheme_range<cp_iter_t>{cp_result.begin(), cp_result.end()};
+        return grapheme_range<cp_iter_t>{str.begin().base(),
+                                         cp_result.begin(),
+                                         cp_result.end(),
+                                         str.end().base()};
     }
 
 #endif
