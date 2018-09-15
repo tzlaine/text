@@ -84,13 +84,16 @@ namespace boost { namespace text {
 
         size_type size() const noexcept { return detail::size(ptr_.get()); }
 
-        /** Returns a const reference to the i-th element of *this.
+        /** Returns a const reference to the *element of this at index n, or
+            the char at index -n when n < 0.
 
-            \pre 0 <= i && i < size() */
+            \pre 0 <= n && n <= size() || 0 <= -n && -n <= size()  */
         T const & operator[](size_type n) const noexcept
         {
             BOOST_ASSERT(ptr_);
-            BOOST_ASSERT(n < size());
+            if (n < 0)
+                n += size();
+            BOOST_ASSERT(0 <= n && n < size());
             detail::found_element<T> found;
             find_element(ptr_, n, found);
             return *found.element_;
