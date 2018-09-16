@@ -1,3 +1,4 @@
+//[ editor_buffer
 #ifndef EDITOR_BUFFER_HPP
 #define EDITOR_BUFFER_HPP
 
@@ -29,8 +30,8 @@ struct line_t
     bool hard_break_ = false;
 };
 
-// Represents an applcation state that we may want to return to later, say do
-// to an undo operation.
+// Represents an applcation state that we may want to return to later, say
+// becauee of an undo operation.
 struct snapshot_t
 {
     content_t content_;
@@ -43,8 +44,8 @@ struct snapshot_t
 
 // A single editable buffer in the editor (the editor currently only supports
 // one).  It contains a current state, snapshot_, plus a copy of the content
-// so we know what the latest saved state it, and a history for performing
-// undo operations.
+// so we know what the latest saved state, and a history for performing undo
+// operations.
 //
 // Note that the only element here that is not cheap to copy is history_.  Due
 // to history_'s unbounded size and potentially costly copy, you should move
@@ -57,7 +58,7 @@ struct buffer_t
     std::vector<snapshot_t> history_;
 };
 
-// This is our dirt-buffer predicate.  We use this to show a '**' in the
+// This is our dirty-buffer predicate.  We use this to show a '**' in the
 // status line when there are unsaved changes.  Try implementing this without
 // the equal_root() trick here -- it's very difficult to get right.
 inline bool dirty(buffer_t const & buffer)
@@ -143,9 +144,9 @@ inline cursor_word_t cursor_word(snapshot_t const & snapshot)
 
 // This will fill container with pairs of code unit and grapheme extents for
 // each line.  A line may end in a hard line break like '\n', or it mey be
-// broken because there's just no room left on that line within thw screen
+// broken because there's just no room left on that line within the screen
 // width.  This works for getting the line breaks for all lines in the buffer
-// contents, and we can reuse it to re-break lines as we edit the buffer too,
+// contents, and we can reuse it to re-break lines as we edit the buffer too.
 template<typename GraphemeRange, typename LinesContainer>
 inline void get_lines(
     GraphemeRange const & range, int screen_width, LinesContainer & container)
@@ -206,3 +207,4 @@ inline void save_buffer(boost::filesystem::path path, buffer_t const & buffer)
 }
 
 #endif
+//]

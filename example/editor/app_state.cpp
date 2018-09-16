@@ -23,6 +23,7 @@ namespace {
             snapshot.lines_[snapshot.first_row_].code_units_;
     }
 
+//[ editor_app_state_move_up
     // Move the cursor up one row.  Put the cursor at or before the desired
     // column.  Slide the buffer view up one row if necessary.
     boost::optional<app_state_t>
@@ -43,6 +44,7 @@ namespace {
             s.cursor_pos_.col_ = line;
         return std::move(state);
     }
+//]
 
     // -2 for two bottom rows
     int nonstatus_height(screen_pos_t screen_size)
@@ -107,6 +109,7 @@ namespace {
         return std::move(state);
     }
 
+//[ editor_app_state_move_right
     // Move the cursor left one column/grapheme, wrapping around to the first
     // column of the next row if necessary.  Slide the buffer view down one
     // row if necessary.
@@ -130,11 +133,13 @@ namespace {
         set_desired_col(s);
         return std::move(state);
     }
+//]
 
+//[ editor_app_state_word_move_left
     // Returns true if 'it' starts with a code point that has a property that
     // is not a letter or number -- which is what the user intuitively expects
     // a word to be.  Note that this only needs to be checked at word
-    // beginnings, so we leave out the "extend" properties below.
+    // beginnings and endings, so we leave out the "Mid*" properties below.
     bool non_word_grapheme(content_t::iterator it)
     {
         auto const prop = boost::text::word_prop(*it->begin());
@@ -142,14 +147,18 @@ namespace {
             prop == boost::text::word_property::Katakana ||
             prop == boost::text::word_property::ALetter ||
             prop == boost::text::word_property::Numeric ||
+            prop == boost::text::word_property::ExtendNumLet ||
             prop == boost::text::word_property::Regional_Indicator ||
-            prop == boost::text::word_property::Hebrew_Letter);
+            prop == boost::text::word_property::Hebrew_Letter ||
+            prop == boost::text::word_property::ExtPict ||
+            prop == boost::text::word_property::Extend);
     }
 
     // Move to the beginning of the current word if the cursor is in one, or
-    // the beginning of the previous word otherwise.  "Word" in this context
-    // means those things with letters and/or numbers, not punctuation or
-    // whitespace.
+    // the beginning of the previous word otherwise.  If the cursor is at the
+    // start of a word, though, move to the previous one.  "Word" in this
+    // context means those things with letters and/or numbers, not punctuation
+    // or whitespace.
     boost::optional<app_state_t> word_move_left(
         app_state_t state, screen_pos_t screen_width, screen_pos_t xy)
     {
@@ -182,6 +191,7 @@ namespace {
 
         return std::move(state);
     }
+//]
 
     bool after_a_word(content_t::iterator it)
     {
@@ -306,6 +316,7 @@ namespace {
         return *click(std::move(state), screen_size, s.cursor_pos_);
     }
 
+//[ editor_app_state_rebreak
     // When an insertion or erasure happens on line line_index, and line_index
     // does not end in a hard break, we need to re-break the lines from the
     // line of the edit to the next hard-break-line, or the end if there is no
@@ -351,7 +362,9 @@ namespace {
 
         state = *click(std::move(state), screen_size, s.cursor_pos_);
     }
+//]
 
+//[ editor_app_state_erase_at
     boost::optional<app_state_t>
     erase_at(app_state_t state, screen_pos_t screen_size, screen_pos_t)
     {
@@ -399,6 +412,7 @@ namespace {
 
         return std::move(state);
     }
+//]
 
     // If there's room, back up one and then call erase_at().
     boost::optional<app_state_t>
@@ -417,13 +431,14 @@ namespace {
         line_t next_;
     };
 
+//[ editor_app_state_insertion_deltas
     // Ok, this is a little wierd.  When you insert a grapheme into text,
     // sometimes it just vanishes, sort of.  Unicode!  In particular, a
     // combining code point like a 'COMBINING DIAERESIS' (U+0308) is a
     // grapheme when it's all by itself.  So, if you insert this particular
     // grapheme at location 'it', the grapheme at location 'std::prev(it)'
     // might just absorb your inserted grapheme (the combining diaresis).
-    // This funtion tries to insert a grapheme between two other graphemes,
+    // This function tries to insert a grapheme between two other graphemes,
     // either or both of which may be empty.  From how and if the inserted
     // grapheme is absorbed (or absorbs -- Unicode!) its neighbors, we can
     // determine the number of inserted graphemes and code points that
@@ -454,7 +469,9 @@ namespace {
                     {sizes[1] - prev_sizes[1], 0}};
         }
     }
+//]
 
+//[ editor_app_state_insert
     // Returns a callable that inserts the given grapheme into the text.
     command_t insert(boost::text::grapheme grapheme)
     {
@@ -559,10 +576,11 @@ namespace {
             return std::move(state);
         };
     }
+//]
 
+//[ editor_app_state_undo_save_quit
     // Undo by restoring the most recent state in the history.  Note that this
-    // undo is destructive, since there's no redo to worry abount
-    // implementing.
+    // undo is destructive, since there's no redo to worry about implementing.
     boost::optional<app_state_t>
     undo(app_state_t state, screen_pos_t, screen_pos_t)
     {
@@ -583,14 +601,16 @@ namespace {
     {
         return boost::none;
     }
+//]
 
+//[ editor_app_state_eval_input
     struct eval_input_t
     {
         command_t command_;
         bool reset_input_;
     };
 
-    // Process teh current input.  If it is a sequence, try to match it to the
+    // Process the current input.  If it is a sequence, try to match it to the
     // key bindings.  If it does not match any prefix of any key binding,
     // indicate that the current input sequence should be cleared.  Failing
     // all that, treat the input as a keyboard input,
@@ -631,23 +651,25 @@ namespace {
 
         return eval_input_t{{}, input_greater_than_all};
     }
+//]
 }
 
+//[ editor_app_state_bindings_and_update
 key_map_t emacs_lite()
 {
     key_map_t retval = {
-        key_map_entry_t{ctrl-'p', move_up},
+        key_map_entry_t{ctrl - 'p', move_up},
         key_map_entry_t{up, move_up},
-        key_map_entry_t{ctrl-'n', move_down},
+        key_map_entry_t{ctrl - 'n', move_down},
         key_map_entry_t{down, move_down},
-        key_map_entry_t{ctrl-'b', move_left},
+        key_map_entry_t{ctrl - 'b', move_left},
         key_map_entry_t{left, move_left},
-        key_map_entry_t{ctrl-'f', move_right},
+        key_map_entry_t{ctrl - 'f', move_right},
         key_map_entry_t{right, move_right},
 
-        key_map_entry_t{ctrl-'a', move_home},
+        key_map_entry_t{ctrl - 'a', move_home},
         key_map_entry_t{home, move_home},
-        key_map_entry_t{ctrl-'e', move_end},
+        key_map_entry_t{ctrl - 'e', move_end},
         key_map_entry_t{end, move_end},
 
         key_map_entry_t{page_up, move_page_up},
@@ -660,13 +682,13 @@ key_map_t emacs_lite()
         key_map_entry_t{backspace, erase_before},
         key_map_entry_t{delete_, erase_at},
 
-        key_map_entry_t{alt-'f', word_move_right},
-        key_map_entry_t{alt-'b', word_move_left},
+        key_map_entry_t{alt - 'f', word_move_right},
+        key_map_entry_t{alt - 'b', word_move_left},
 
-        key_map_entry_t{ctrl-'_', undo},
+        key_map_entry_t{ctrl - '_', undo},
 
-        key_map_entry_t{(ctrl-'x', ctrl-'s'), save},
-        key_map_entry_t{(ctrl-'x', ctrl-'c'), quit},
+        key_map_entry_t{(ctrl - 'x', ctrl - 's'), save},
+        key_map_entry_t{(ctrl - 'x', ctrl - 'c'), quit},
     };
 
     return retval;
@@ -686,3 +708,4 @@ boost::optional<app_state_t> update(app_state_t state, event_t event)
     }
     return std::move(state);
 }
+//]

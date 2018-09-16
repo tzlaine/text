@@ -1,3 +1,4 @@
+//[ editor_app_state_header
 #ifndef EDITOR_APP_STATE_HPP
 #define EDITOR_APP_STATE_HPP
 
@@ -26,3 +27,4 @@ struct app_state_t
 boost::optional<app_state_t> update(app_state_t state, event_t event);
 
 #endif
+//]

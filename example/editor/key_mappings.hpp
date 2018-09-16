@@ -30,6 +30,7 @@ enum key {
     delete_
 };
 
+//[ editor_key_mappings_0
 // Represents a key press or a mouse event.
 struct key_code_t
 {
@@ -89,6 +90,7 @@ struct key_sequence_t
 private:
     boost::container::static_vector<key_code_t, max_size> keys_;
 };
+//]
 
 // This is the type of function object used to store all the possible commands
 // we can execute in the editor.
@@ -118,8 +120,10 @@ key_code_t operator-(ctrl_t, key k);
 key_sequence_t operator-(alt_t, char c);
 key_code_t operator-(alt_t, key k);
 
+//[ editor_key_mappings_1
 // A key mapping that uses a subset of the Emacs key bindings.
 key_map_t emacs_lite();
+//]
 
 
 // implementations

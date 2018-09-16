@@ -39,6 +39,12 @@
 [import ../example/string_builder.cpp]
 [import ../example/trie.cpp]
 
+[import ../example/editor/main.cpp]
+[import ../example/editor/key_mappings.hpp]
+[import ../example/editor/buffer.hpp]
+[import ../example/editor/app_state.hpp]
+[import ../example/editor/app_state.cpp]
+
 [/ Images ]
 
 [def __note__              [$images/note.png]]
@@ -176,6 +182,7 @@
 [def _ldml_coll_tail_      [@https://unicode.org/reports/tr35/tr35-collation.html LDML syntax]]
 [def _ldml_                [@https://unicode.org/reports/tr35/tr35-collation.html LDML]]
 [def _str_safe_            [@https://unicode.org/reports/tr15/#Stream_Safe_Text_Format Stream-Safe Format]]
+[def _curses_              [@https://en.wikipedia.org/wiki/Ncurses libcurses]]
 
 [/ TODO: Relative link! /]
 [def _StringAlgo_          [@https://www.boost.org/doc/libs/1_68_0/doc/html/string_algo.html Boost.StringAlgo]]

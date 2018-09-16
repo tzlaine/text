@@ -1,3 +1,4 @@
+//[ editor_main
 #include "app_state.hpp"
 #include "curses_interface.hpp"
 
@@ -47,3 +48,4 @@ int main(int argc, char * argv[])
         render(app_state.buffer_, screen_size);
     }
 }
+//]
