@@ -134,7 +134,8 @@ grapheme that is under the cursor, if any.  Note that we're inserting and
 replacing elements in a sequence container of unbounded size.  This is still
 an efficient operation because our sequence container is a _segv_.  Even if
 there are millions of lines, inserting and erasing is an `O(1)` operation at
-every place in the sequence (see the _seg_vec_docs_ for why).
+every place in the sequence (see the _ur_ part of the string layer
+documentation for why).
 
 [editor_app_state_rebreak]
 
