@@ -30,7 +30,7 @@ int main(int argc, char * argv[])
 
     app_state_t app_state = {
         // Initial state is the contents of the file from the command line.
-        load(path, curses_interface.screen_size().col_),
+        load_buffer(path, curses_interface.screen_size().col_),
         // Keybindings are simplified Emacs.
         emacs_lite()};
     // Initial render.

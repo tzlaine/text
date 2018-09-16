@@ -36,13 +36,14 @@ struct snapshot_t
 struct buffer_t
 {
     snapshot_t snapshot_;
+    content_t latest_save_;
     boost::filesystem::path path_;
     std::vector<snapshot_t> history_;
 };
 
-inline bool dirty(buffer_t const & b)
+inline bool dirty(buffer_t const & buffer)
 {
-    return !b.snapshot_.content_.equal_root(b.history_.front().content_);
+    return !buffer.snapshot_.content_.equal_root(buffer.latest_save_);
 }
 
 inline int cursor_line(snapshot_t const & snapshot)
@@ -141,7 +142,7 @@ inline void get_lines(
     }
 }
 
-inline buffer_t load(boost::filesystem::path path, int screen_width)
+inline buffer_t load_buffer(boost::filesystem::path path, int screen_width)
 {
     boost::filesystem::ifstream ifs(path);
 
@@ -162,9 +163,16 @@ inline buffer_t load(boost::filesystem::path path, int screen_width)
 
     get_lines(retval.snapshot_.content_, screen_width, retval.snapshot_.lines_);
 
+    retval.latest_save_ = retval.snapshot_.content_;
     retval.history_.push_back(retval.snapshot_);
 
     return retval;
+}
+
+inline void save_buffer(boost::filesystem::path path, buffer_t const & buffer)
+{
+    boost::filesystem::ofstream ofs(path);
+    ofs << buffer.snapshot_.content_;
 }
 
 #endif

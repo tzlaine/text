@@ -506,6 +506,13 @@ namespace {
         return std::move(state);
     }
 
+    boost::optional<app_state_t> save(app_state_t state, screen_pos_t, screen_pos_t)
+    {
+        save_buffer(state.buffer_.path_, state.buffer_);
+        state.buffer_.latest_save_ = state.buffer_.snapshot_.content_;
+        return std::move(state);
+    }
+
     boost::optional<app_state_t> quit(app_state_t, screen_pos_t, screen_pos_t)
     {
         return boost::none;
@@ -585,6 +592,7 @@ key_map_t emacs_lite()
 
         key_map_entry_t{ctrl-'_', undo},
 
+        key_map_entry_t{(ctrl-'x', ctrl-'s'), save},
         key_map_entry_t{(ctrl-'x', ctrl-'c'), quit},
     };
 
