@@ -821,7 +821,7 @@ namespace boost { namespace text { namespace utf8 {
             } else {
                 ErrorHandler{}(
                     "Invalid UTF-8 sequence; an expected continuation "
-                    "character is missing.");
+                    "code unit is missing.");
                 return false;
             }
         }
@@ -1020,7 +1020,7 @@ namespace boost { namespace text { namespace utf8 {
                 value = (value << 6) + (curr_c & 0b00111111);
                 ++next;
             } else {
-                value = ErrorHandler{}("Invalid initial UTF-8 character.");
+                value = ErrorHandler{}("Invalid initial UTF-8 code unit.");
                 ++next;
             }
 
@@ -1301,7 +1301,7 @@ namespace boost { namespace text { namespace utf8 {
                     }
                 }
             } else if (surrogate(first)) {
-                ErrorHandler{}("Invalid initial UTF-16 character.");
+                ErrorHandler{}("Invalid initial UTF-16 code unit.");
                 cp = replacement_character();
             }
 

@@ -39,8 +39,8 @@ namespace boost { namespace text {
         make_bidi_prop_map();
     }
 
-    /** Returns the bidirectional algorithm character property associated with
-        code point <code>cp</code>. */
+    /** Returns the bidirectional algorithm property associated with code
+        point <code>cp</code>. */
     inline bidi_property bidi_prop(uint32_t cp) noexcept
     {
         static auto const map = detail::make_bidi_prop_map();
@@ -2230,8 +2230,8 @@ namespace boost { namespace text {
                     auto out_last = out_value.end();
 
                     // If this run's directionality is R (aka odd, aka
-                    // reversed), produce 1-code-point ranges for the
-                    // mirrored characters in the run, if any.
+                    // reversed), produce 1-code-point ranges for the mirrored
+                    // code points in the run, if any.
                     while (out_first != out_last) {
                         int mirror_index = -1;
                         auto it = std::find_if(

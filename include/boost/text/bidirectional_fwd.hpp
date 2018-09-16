@@ -4,8 +4,7 @@
 
 namespace boost { namespace text {
 
-    /** The bidirectional algorithm character properties outlined in Unicode
-        10. */
+    /** The bidirectional algorithm properties defined by Unicode. */
     enum class bidi_property : uint8_t {
         L,
         R,

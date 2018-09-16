@@ -294,7 +294,7 @@ namespace boost { namespace text {
 #if 0
         // NOTE: The logic in
         // http://www.unicode.org/reports/tr15/tr15-45.html#Detecting_Normalization_Forms
-        // seems to indicate that if a supplementary character is encountered
+        // seems to indicate that if a supplementary code point is encountered
         // in normalized_quick_check(), then we should proceed as normal for
         // this iteration, but then do a double increment of the loop control
         // variable.  That looks wrong, so I'm leaving that out for now.

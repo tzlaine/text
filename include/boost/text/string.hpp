@@ -204,8 +204,8 @@ namespace boost { namespace text {
             An empty string is still a valid null-terminated empty string. */
         bool empty() const noexcept { return size_ == 0; }
 
-        /** Returns the number of characters controlled by *this, not
-            including the null terminator. */
+        /** Returns the number of elements controlled by *this, not including
+            the null terminator. */
         int size() const noexcept { return size_; }
 
         /** Returns the number of bytes of storage currently in use by *this.

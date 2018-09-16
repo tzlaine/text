@@ -505,7 +505,7 @@ constexpr std::array<std::array<bool, 42>, 42> line_breaks = {{
                         return state;
                     auto temp_prev_prop = line_prop(*temp_it);
                     // Don't skip over the skippables id they are immediately
-                    // preceded by a breaking character.
+                    // preceded by a hard-break property.
                     if (temp_prev_prop != line_property::BK &&
                         temp_prev_prop != line_property::CR &&
                         temp_prev_prop != line_property::LF &&

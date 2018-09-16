@@ -122,9 +122,9 @@ recommendations.  See Unicode, "Best Practices for Using U+FFFD" and Table
 The converting iterators are pretty straightforward, but there is an important
 caveat.  Because each of these converting iterators does a substantial amount
 of work in increment and decrement operations, including in some cases caching
-the result of reading several characters of a multi-character encoding,
-post-increment and post-decrement can be quite a bit more expensive than
-pre-increment and pre-decrement.
+the result of reading several bytes of a multi-byte encoding, post-increment
+and post-decrement can be quite a bit more expensive than pre-increment and
+pre-decrement.
 
 To use a converting iterator, you must provide it with an underlying iterator
 that models the _CPIter_ concept.  Note that these converting iterators each
@@ -417,7 +417,7 @@ From _text_seg_, here are some other _cps_ you might want to treat as
 Another example from _text_seg_ is to treat spaces as `MidNum` to support
 languages that use spaces as thousands separators, as in `"€1 234,56"`.
 `MidNum` is like `MidLetter`, but for the interior _cps_ of numbers instead of
-words containing letters.  Here are the space characters you might want to do
+words containing letters.  Here are the space code points you might want to do
 that with:
 
 [table `MidNum` Candidates
@@ -602,10 +602,10 @@ languages sort based on accents, and some do not; collation must know whether
 
 To handle this correctly, collation sort keys are created with support for
 four levels of comparison.  The primary level (/L1/) represents differences in
-the base character being represented; the secondary level (/L2/) represents
-differences in accent; the tertiary level (/L3/) represents differences in
-case, or variants of characters; and the quaternary level (/L4/) represents
-differences in punctuation.
+the base letter or symbol being represented; the secondary level (/L2/)
+represents differences in accent; the tertiary level (/L3/) represents
+differences in case, or variants of symbols; and the quaternary level (/L4/)
+represents differences in punctuation.
 
 From the Unicde documentation:
 
