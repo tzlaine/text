@@ -14,8 +14,14 @@
 #include <vector>
 
 
+// This is our underlying storage type.  This editor takes advantage of the
+// efficient copies this type provides.  If you change this to
+// boost::text::text, the editor becomes unusably slow.
 using content_t = boost::text::rope;
 
+// This is the data needed for laying out and editing within a single line as
+// it appears in one of the editor's buffers.  Each column in the editor
+// represents a single grapheme.
 struct line_t
 {
     int code_units_ = 0;
@@ -23,6 +29,8 @@ struct line_t
     bool hard_break_ = false;
 };
 
+// Represents an applcation state that we may want to return to later, say do
+// to an undo operation.
 struct snapshot_t
 {
     content_t content_;
@@ -33,6 +41,14 @@ struct snapshot_t
     std::ptrdiff_t first_char_index_ = 0;
 };
 
+// A single editable buffer in the editor (the editor currently only supports
+// one).  It contains a current state, snapshot_, plus a copy of the content
+// so we know what the latest saved state it, and a history for performing
+// undo operations.
+//
+// Note that the only element here that is not cheap to copy is history_.  Due
+// to history_'s unbounded size and potentially costly copy, you should move
+// buffer_t's when possible.
 struct buffer_t
 {
     snapshot_t snapshot_;
@@ -41,6 +57,9 @@ struct buffer_t
     std::vector<snapshot_t> history_;
 };
 
+// This is our dirt-buffer predicate.  We use this to show a '**' in the
+// status line when there are unsaved changes.  Try implementing this without
+// the equal_root() trick here -- it's very difficult to get right.
 inline bool dirty(buffer_t const & buffer)
 {
     return !buffer.snapshot_.content_.equal_root(buffer.latest_save_);
@@ -51,7 +70,7 @@ inline int cursor_line(snapshot_t const & snapshot)
     return snapshot.first_row_ + snapshot.cursor_pos_.row_;
 }
 
-inline int cursor_at_last_line(snapshot_t const & snapshot)
+inline bool cursor_at_last_line(snapshot_t const & snapshot)
 {
     return cursor_line(snapshot) == snapshot.lines_.size();
 }
@@ -75,6 +94,9 @@ iterator_at_start_of_line(snapshot_t const & snapshot, std::ptrdiff_t line_index
     for (std::ptrdiff_t i = snapshot.first_row_; i < line_index; ++i) {
         offset += snapshot.lines_[i].code_units_;
     }
+
+    // Here we peel back the curtain a bit and show how a graphem_iterator is
+    // constructed from code point iterators constructed from char iterators.
     auto const first = snapshot.content_.begin().base().base();
     auto const it = first + offset;
     auto const last = snapshot.content_.end().base().base();
@@ -119,6 +141,11 @@ inline cursor_word_t cursor_word(snapshot_t const & snapshot)
             iterators.cursor_};
 }
 
+// This will fill container with pairs of code unit and grapheme extents for
+// each line.  A line may end in a hard line break like '\n', or it mey be
+// broken because there's just no room left on that line within thw screen
+// width.  This works for getting the line breaks for all lines in the buffer
+// contents, and we can reuse it to re-break lines as we edit the buffer too,
 template<typename GraphemeRange, typename LinesContainer>
 inline void get_lines(
     GraphemeRange const & range, int screen_width, LinesContainer & container)
@@ -133,6 +160,9 @@ inline void get_lines(
                      range(first, last);
                  return std::distance(range.begin(), range.end());
              })) {
+        // Note that we don't count the terminating hard line break grapheme
+        // here.  This requires special casing in some places, but makes much
+        // of the logic simpler.
         line_t const line_{
             int(line.end().base().base() - line.begin().base().base()),
             (int)std::distance(line.begin(), line.end()) -

@@ -30,6 +30,7 @@ enum key {
     delete_
 };
 
+// Represents a key press or a mouse event.
 struct key_code_t
 {
     key_code_t() : key_(0), x_(0), y_(0) {}
@@ -47,9 +48,12 @@ struct key_code_t
     int y_;
 };
 
+// A sequence of key_code_ts.  Using the ctrl_t and alt_t types and the
+// function below, a key_sequence_t can be made using a natural syntax like
+// "ctrl-'x', ctrl-'c'" (which means a Control-x followed by a Control-C.
 struct key_sequence_t
 {
-    static const int max_size = 32;
+    static const int max_size = 8;
 
     using iterator =
         boost::container::static_vector<key_code_t, max_size>::const_iterator;
@@ -71,7 +75,6 @@ struct key_sequence_t
     }
 
     iterator begin() const { return keys_.begin(); }
-
     iterator end() const { return keys_.end(); }
 
     void append(key_code_t k) { keys_.push_back(k); }
@@ -87,9 +90,13 @@ private:
     boost::container::static_vector<key_code_t, max_size> keys_;
 };
 
+// This is the type of function object used to store all the possible commands
+// we can execute in the editor.
 using command_t = boost::function<boost::optional<app_state_t>(
     app_state_t, screen_pos_t screen_size, screen_pos_t xy)>;
 
+// A pairing of a single key sequence with the function that implements its
+// behavior.
 struct key_map_entry_t
 {
     key_sequence_t key_seq_;

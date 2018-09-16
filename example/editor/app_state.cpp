@@ -15,6 +15,7 @@ namespace {
         return retval;
     }
 
+    // Slide the buffer view up one row.
     void up_one_row(snapshot_t & snapshot)
     {
         snapshot.first_row_ -= 1;
@@ -22,6 +23,8 @@ namespace {
             snapshot.lines_[snapshot.first_row_].code_units_;
     }
 
+    // Move the cursor up one row.  Put the cursor at or before the desired
+    // column.  Slide the buffer view up one row if necessary.
     boost::optional<app_state_t>
     move_up(app_state_t state, screen_pos_t, screen_pos_t)
     {
@@ -47,6 +50,7 @@ namespace {
         return screen_size.row_ - 2;
     }
 
+    // Slide the buffer view down one row.
     void down_one_row(snapshot_t & snapshot)
     {
         snapshot.first_char_index_ +=
@@ -54,6 +58,8 @@ namespace {
         snapshot.first_row_ += 1;
     }
 
+    // Move the cursor down one row.  Put the cursor at or before the desired
+    // column.  Slide the buffer view down one row if necessary.
     boost::optional<app_state_t>
     move_down(app_state_t state, screen_pos_t screen_size, screen_pos_t)
     {
@@ -73,11 +79,15 @@ namespace {
         return std::move(state);
     }
 
+    // Set the desired column to be the column we've just moved to.
     void set_desired_col(snapshot_t & snapshot)
     {
         snapshot.desired_col_ = snapshot.cursor_pos_.col_;
     }
 
+    // Move the cursor left one column/grapheme, wrapping around to the last
+    // column of the previous row if necessary.  Slide the buffer view up one
+    // row if necessary.
     boost::optional<app_state_t>
     move_left(app_state_t state, screen_pos_t, screen_pos_t)
     {
@@ -97,6 +107,9 @@ namespace {
         return std::move(state);
     }
 
+    // Move the cursor left one column/grapheme, wrapping around to the first
+    // column of the next row if necessary.  Slide the buffer view down one
+    // row if necessary.
     boost::optional<app_state_t>
     move_right(app_state_t state, screen_pos_t screen_size, screen_pos_t)
     {
@@ -133,6 +146,10 @@ namespace {
             prop == boost::text::word_property::Hebrew_Letter);
     }
 
+    // Move to the beginning of the current word if the cursor is in one, or
+    // the beginning of the previous word otherwise.  "Word" in this context
+    // means those things with letters and/or numbers, not punctuation or
+    // whitespace.
     boost::optional<app_state_t> word_move_left(
         app_state_t state, screen_pos_t screen_width, screen_pos_t xy)
     {
@@ -171,6 +188,9 @@ namespace {
         return !non_word_grapheme(std::prev(it));
     }
 
+    // Move to the grapheme just after the next word break that ends on a
+    // word-grapheme.  "Word" in this context means those things with letters
+    // and/or numbers, not punctuation or whitespace.
     boost::optional<app_state_t> word_move_right(
         app_state_t state, screen_pos_t screen_width, screen_pos_t xy)
     {
@@ -217,6 +237,8 @@ namespace {
         return std::move(state);
     }
 
+    // Place the cursor at the grapheme clicked, or the nearest legal text
+    // position if the clicked row and column are not on a grapheme.
     boost::optional<app_state_t>
     click(app_state_t state, screen_pos_t, screen_pos_t xy)
     {
@@ -238,7 +260,8 @@ namespace {
     double_click(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
     {
         state = *click(std::move(state), screen_size, xy);
-        // TODO: Select word; requires changing the cursor to a range.
+        // TODO: Select/highlight a word; requires changing the cursor to a
+        // range.  This is left as an exercise for the reader.
         return std::move(state);
     }
 
@@ -246,10 +269,13 @@ namespace {
     triple_click(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
     {
         state = *click(std::move(state), screen_size, xy);
-        // TODO: Select sentence; requires changing the cursor to a range.
+        // TODO: Select/highlight a sentence; requires changing the cursor to
+        // a range.  This is left as an exercise for the reader.
         return std::move(state);
     }
 
+    // Move the editor view up one page, within the limits of available
+    // preceding lines.
     boost::optional<app_state_t>
     move_page_up(app_state_t state, screen_pos_t screen_size, screen_pos_t)
     {
@@ -265,6 +291,8 @@ namespace {
         return *click(std::move(state), screen_size, s.cursor_pos_);
     }
 
+    // Move the editor view down one page, within the limits of available
+    // succeding lines.
     boost::optional<app_state_t>
     move_page_down(app_state_t state, screen_pos_t screen_size, screen_pos_t)
     {
@@ -298,24 +326,24 @@ namespace {
         if (lines_last != s.lines_.end())
             ++lines_last;
 
-        auto total = std::accumulate(
-            lines_it, lines_last, line_t{}, [](line_t result, line_t line) {
-                result.code_units_ += line.code_units_;
-                result.graphemes_ += line.graphemes_;
-                return result;
+        auto total_graphemes = std::accumulate(
+            lines_it, lines_last, 0, [](int result, line_t line) {
+                return result + line.graphemes_;
             });
         // Include the hard line break grapheme, if any.
         int const hard_break_grapheme = int(lines_last != s.lines_.end());
 
         auto const grapheme_first = iterator_at_start_of_line(s, line_index);
         auto const grapheme_last =
-            std::next(grapheme_first, total.graphemes_ + hard_break_grapheme);
+            std::next(grapheme_first, total_graphemes + hard_break_grapheme);
         boost::text::grapheme_range<content_t::iterator::iterator_type> const
             graphemes(grapheme_first, grapheme_last);
 
         std::vector<line_t> replacements;
         get_lines(graphemes, screen_size.col_, replacements);
 
+        // If the edited text ends in a hard line break, we'll end up with an
+        // extra line with no code units or graphemes.  If so, keep that.
         if (!std::prev(lines_last)->code_units_)
             replacements.push_back(*std::prev(lines_last));
 
@@ -341,13 +369,22 @@ namespace {
 
         auto line = s.lines_[line_index];
         if (cursor_its.cursor_ == cursor_its.last_ && line.hard_break_) {
+            // End-of-line hard breaks are a special case.
             line.hard_break_ = false;
             line.code_units_ -= 1;
         } else {
+            // The cursor may sit just past the last grapheme on a line with
+            // no hard break, so the erase may need to happen on the next
+            // line.  But who cares!  We're going to re-break this line and
+            // all lines until the next hard break anyway.
             line.code_units_ -= cursor_grapheme_cus;
             line.graphemes_ -= 1;
         }
 
+        // If there is a next line, combine it with the current line before we
+        // re-break lines below.  This gets rid of the special case that we're
+        // erasing at a spot one past the end of the current line (i.e. the
+        // first grapheme of the next line.)
         if (!line.hard_break_ && line_index + 1 < s.lines_.size()) {
             auto const next_line = s.lines_[line_index + 1];
             line.code_units_ += next_line.code_units_;
@@ -363,6 +400,7 @@ namespace {
         return std::move(state);
     }
 
+    // If there's room, back up one and then call erase_at().
     boost::optional<app_state_t>
     erase_before(app_state_t state, screen_pos_t screen_size, screen_pos_t xy)
     {
@@ -379,6 +417,17 @@ namespace {
         line_t next_;
     };
 
+    // Ok, this is a little wierd.  When you insert a grapheme into text,
+    // sometimes it just vanishes, sort of.  Unicode!  In particular, a
+    // combining code point like a 'COMBINING DIAERESIS' (U+0308) is a
+    // grapheme when it's all by itself.  So, if you insert this particular
+    // grapheme at location 'it', the grapheme at location 'std::prev(it)'
+    // might just absorb your inserted grapheme (the combining diaresis).
+    // This funtion tries to insert a grapheme between two other graphemes,
+    // either or both of which may be empty.  From how and if the inserted
+    // grapheme is absorbed (or absorbs -- Unicode!) its neighbors, we can
+    // determine the number of inserted graphemes and code points that
+    // results.
     template<typename CPIter>
     edit_deltas grapheme_insertion_deltas(
         boost::text::grapheme_view<CPIter> prev_grapheme,
@@ -406,15 +455,19 @@ namespace {
         }
     }
 
+    // Returns a callable that inserts the given grapheme into the text.
     command_t insert(boost::text::grapheme grapheme)
     {
         return [grapheme](
                    app_state_t state,
                    screen_pos_t screen_size,
-                   screen_pos_t) -> boost::optional<app_state_t> {
+                   screen_pos_t xy) -> boost::optional<app_state_t> {
             auto & snapshot = state.buffer_.snapshot_;
             state.buffer_.history_.push_back(snapshot);
 
+            // Determine the line we're at, the iteratos into the text for
+            // that line and poisition, and the offset within the line, in
+            // terms of code units and graphemes.
             auto const line_index = cursor_line(snapshot);
             auto const cursor_its = cursor_iterators(snapshot);
             int const code_unit_offset = cursor_its.cursor_.base().base() -
@@ -423,6 +476,10 @@ namespace {
 
             if (boost::text::storage_bytes(grapheme) == 1 &&
                 *grapheme.begin() == '\n') {
+                // Inserting a newline is a special case.  We need to mark the
+                // current line as having a hard break, and tear off all the
+                // code units and graphemes after the insertion point to form
+                // a new line.
                 snapshot.content_.insert(cursor_its.cursor_, grapheme);
                 line_t line;
                 if (line_index < snapshot.lines_.size())
@@ -440,11 +497,16 @@ namespace {
                 snapshot.lines_.replace(
                     snapshot.lines_.begin() + line_index, line);
 
-                ++snapshot.cursor_pos_.row_;
-                snapshot.cursor_pos_.col_ = 0;
-
                 rebreak_wrapped_line(state, line_index + 1, screen_size);
+
+                snapshot.cursor_pos_.col_ = 0;
+                set_desired_col(snapshot);
+                state = *move_down(std::move(state), screen_size, xy);
             } else {
+                // Insertion of a non-newline is the general case.  First, we
+                // need to figure out if the insertion affects the cursor
+                // grapheme or the one previous. See
+                // grapheme_insertion_deltas() for why.
                 using graphme_view = decltype(*cursor_its.first_);
                 graphme_view prev_grapheme;
                 if (cursor_its.cursor_ != snapshot.content_.begin())
@@ -458,6 +520,8 @@ namespace {
                 auto rebreak_line_index = line_index;
                 auto curr_line_delta = deltas.next_;
                 if (!snapshot.cursor_pos_.col_ && deltas.prev_.code_units_) {
+                    // For changes to the previous grapheme when we're at the
+                    // start of the line:
                     assert(0 < deltas.prev_.code_units_);
                     assert(!deltas.prev_.graphemes_);
                     line_t prev_line = snapshot.lines_[line_index - 1];
@@ -467,10 +531,13 @@ namespace {
                         snapshot.lines_.begin() + line_index - 1, prev_line);
                     --rebreak_line_index;
                 } else {
+                    // For the typical case, in which only the cursor grapheme
+                    // is affected:
                     curr_line_delta.code_units_ += deltas.prev_.code_units_;
                     curr_line_delta.graphemes_ += deltas.prev_.graphemes_;
                 }
 
+                // Modify the current line, or create a new one.
                 line_t line;
                 if (!cursor_at_last_line(snapshot))
                     line = snapshot.lines_[line_index];
@@ -484,21 +551,18 @@ namespace {
                 }
 
                 snapshot.content_.insert(cursor_its.cursor_, grapheme);
-                snapshot.cursor_pos_.col_ += 1;
-                if (screen_size.col_ <= snapshot.cursor_pos_.col_) {
-                    ++snapshot.cursor_pos_.row_;
-                    snapshot.cursor_pos_.col_ = 0;
-                }
-
                 rebreak_wrapped_line(state, rebreak_line_index, screen_size);
-            }
 
-            set_desired_col(snapshot);
+                state = *move_right(std::move(state), screen_size, xy);
+            }
 
             return std::move(state);
         };
     }
 
+    // Undo by restoring the most recent state in the history.  Note that this
+    // undo is destructive, since there's no redo to worry abount
+    // implementing.
     boost::optional<app_state_t>
     undo(app_state_t state, screen_pos_t, screen_pos_t)
     {
@@ -526,6 +590,10 @@ namespace {
         bool reset_input_;
     };
 
+    // Process teh current input.  If it is a sequence, try to match it to the
+    // key bindings.  If it does not match any prefix of any key binding,
+    // indicate that the current input sequence should be cleared.  Failing
+    // all that, treat the input as a keyboard input,
     eval_input_t eval_input(key_map_t const & key_map, key_sequence_t input_seq)
     {
         bool input_greater_than_all = true;
@@ -552,6 +620,9 @@ namespace {
                 } else if (
                     ' ' <= key_code.key_ && key_code.key_ <= '~' &&
                     boost::text::utf8::valid_code_point(key_code.key_)) {
+                    // We ignore anything not in this narrow range of ASCII.
+                    // This is a limitation of my ability to understand
+                    // libcurses, not a limitation of Boost.Text.
                     return eval_input_t{
                         insert(boost::text::grapheme(key_code.key_)), true};
                 }
