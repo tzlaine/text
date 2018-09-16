@@ -59,7 +59,7 @@
         The converting iterators are pretty straightforward, but there is an important
         caveat. Because each of these converting iterators does a substantial amount
         of work in increment and decrement operations, including in some cases caching
-        the result of reading several characters of a multi-character encoding, post-increment
+        the result of reading several bytes of a multi-byte encoding, post-increment
         and post-decrement can be quite a bit more expensive than pre-increment and
         pre-decrement.
       </p>

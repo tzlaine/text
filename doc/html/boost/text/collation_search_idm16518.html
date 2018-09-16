@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Function template collation_search</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/collation_search_hpp.html" title="Header &lt;boost/text/collation_search.hpp&gt;">
+<link rel="prev" href="collation_search_idm16491.html" title="Function template collation_search">
+<link rel="next" href="collation_search_idm16545.html" title="Function template collation_search">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="collation_search_idm16491.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/collation_search_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="collation_search_idm16545.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.collation_search_idm16518"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Function template collation_search</span></h2>
+<p>boost::text::collation_search</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/collation_search_hpp.html" title="Header &lt;boost/text/collation_search.hpp&gt;">boost/text/collation_search.hpp</a>&gt;
+
+</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter1<span class="special">,</span> <span class="keyword">typename</span> Sentinel1<span class="special">,</span> <span class="keyword">typename</span> CPIter2<span class="special">,</span> 
+         <span class="keyword">typename</span> Sentinel2<span class="special">&gt;</span> 
+  <a class="link" href="cp_range.html" title="Struct template cp_range">cp_range</a><span class="special">&lt;</span> <span class="identifier">CPIter1</span> <span class="special">&gt;</span> 
+  <span class="identifier">collation_search</span><span class="special">(</span><span class="identifier">CPIter1</span> first<span class="special">,</span> <span class="identifier">Sentinel1</span> last<span class="special">,</span> <span class="identifier">CPIter2</span> pattern_first<span class="special">,</span> 
+                   <span class="identifier">Sentinel2</span> pattern_last<span class="special">,</span> <a class="link" href="collation_table.html" title="Struct collation_table">collation_table</a> <span class="keyword">const</span> <span class="special">&amp;</span> table<span class="special">,</span> 
+                   <span class="identifier">collation_flags</span> flags <span class="special">=</span> <span class="identifier">collation_flags</span><span class="special">::</span><span class="identifier">none</span><span class="special">)</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm21200"></a><h2>Description</h2>
+<p>Returns a code point range indicating the first occurrence of the subsequence <code class="computeroutput">[pattern_first, pattern_last)</code> in the range <code class="computeroutput">[first, last)</code>, or an empty range if no such occurrence is found. A match must begin and end at a grapheme boundary. This function uses the same simple brute-force matching approach as <code class="computeroutput">std::search()</code>. </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="collation_search_idm16491.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/collation_search_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="collation_search_idm16545.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

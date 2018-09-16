@@ -25,34 +25,48 @@
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> 
 <span class="keyword">struct</span> <a class="link" href="grapheme_range.html" title="Struct template grapheme_range">grapheme_range</a> <span class="special">{</span>
   <span class="comment">// <a class="link" href="grapheme_range.html#boost.text.grapheme_rangeconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="grapheme_range.html#idm19548-bb"><span class="identifier">grapheme_range</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="grapheme_range.html#idm19549-bb"><span class="identifier">grapheme_range</span></a><span class="special">(</span><span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="grapheme_range.html#idm23774-bb"><span class="identifier">grapheme_range</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="grapheme_range.html#idm23775-bb"><span class="identifier">grapheme_range</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="grapheme_range.html#idm23784-bb"><span class="identifier">grapheme_range</span></a><span class="special">(</span><span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="grapheme_range.html#idm23793-bb"><span class="identifier">grapheme_range</span></a><span class="special">(</span><span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="grapheme_range.html#idm19541-bb">public member functions</a></span>
-  <span class="keyword">bool</span> <a class="link" href="grapheme_range.html#idm19542-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="grapheme_range.html#idm19544-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="grapheme_range.html#idm19546-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="grapheme_range.html#idm23767-bb">public member functions</a></span>
+  <span class="keyword">bool</span> <a class="link" href="grapheme_range.html#idm23768-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="grapheme_range.html#idm23770-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="grapheme_range.html#idm23772-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm39150"></a><h2>Description</h2>
+<a name="idm43389"></a><h2>Description</h2>
 <p>A range of graphemes. </p>
 <div class="refsect2">
-<a name="idm39153"></a><h3>
+<a name="idm43392"></a><h3>
 <a name="boost.text.grapheme_rangeconstruct-copy-destruct"></a><code class="computeroutput">grapheme_range</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="idm19548-bb"></a><span class="identifier">grapheme_range</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="idm19549-bb"></a><span class="identifier">grapheme_range</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">CPIter</span> last<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idm23774-bb"></a><span class="identifier">grapheme_range</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm23775-bb"></a><span class="identifier">grapheme_range</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Construct a grapheme range that covers the entirety of the range of graphemes that <code class="computeroutput">begin()</code> and <code class="computeroutput">end()</code> lie within. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm23784-bb"></a><span class="identifier">grapheme_range</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">CPIter</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Construct a grapheme range that covers the entirety of the range of graphemes that <code class="computeroutput">begin()</code> and <code class="computeroutput">end()</code> lie within. </p>
+</li>
+<li class="listitem">
+<pre class="literallayout"><a name="idm23793-bb"></a><span class="identifier">grapheme_range</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">CPIter</span> range_first<span class="special">,</span> <span class="identifier">CPIter</span> range_last<span class="special">,</span> 
+               <span class="identifier">CPIter</span> last<span class="special">)</span><span class="special">;</span></pre>
+<p>Construct a range covering a subset of the range of graphemes that <code class="computeroutput">begin()</code> and <code class="computeroutput">end()</code> lie within. </p>
+</li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm39177"></a><h3>
-<a name="idm19541-bb"></a><code class="computeroutput">grapheme_range</code> public member functions</h3>
+<a name="idm43451"></a><h3>
+<a name="idm23767-bb"></a><code class="computeroutput">grapheme_range</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm19542-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm19544-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm19546-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">bool</span> <a name="idm23768-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm23770-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">iterator</span> <a name="idm23772-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

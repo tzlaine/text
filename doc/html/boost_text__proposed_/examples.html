@@ -160,10 +160,1011 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        These editors are pretty lame. They don't have cut/copy/paste, and can't
-        even save your file! They use Emacs keybindings for what little they do.
+        This editor is pretty lame. It doesn't have cut/copy/paste, and can't even
+        open a new file! It uses Emacs keybindings for what little it does.
       </p></td></tr>
 </table></div>
+<p>
+      Let's take a look at the editor. We'll get a sense for how Boost.Text is used
+      in a larger example. The editor is built using <a href="https://en.wikipedia.org/wiki/Ncurses" target="_top">libcurses</a>,
+      a popular Unix library for for making character-based UIs suitable for terminals.
+      It stores the file to edit in a single <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code>, and uses Boost.Text's line
+      breaking algorithm to determine what portions of the <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> are on each line. Each character
+      cell in the editor is a grapheme, not a code point or code unit. It probably
+      mis-renders graphemes containing multiple combining code points &#8212; it's
+      very minimal. However, all the logic is done in terms of graphemes.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="string">"app_state.hpp"</span>
+<span class="preprocessor">#include</span> <span class="string">"curses_interface.hpp"</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">filesystem</span><span class="special">/</span><span class="identifier">operations</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">filesystem</span><span class="special">/</span><span class="identifier">path</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+
+
+<span class="keyword">int</span> <span class="identifier">main</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">argc</span><span class="special">,</span> <span class="keyword">char</span> <span class="special">*</span> <span class="identifier">argv</span><span class="special">[])</span>
+<span class="special">{</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">argc</span> <span class="special">&lt;</span> <span class="number">2</span><span class="special">)</span> <span class="special">{</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cerr</span> <span class="special">&lt;&lt;</span> <span class="string">"error: You must supply at least a filename.\n"</span><span class="special">;</span>
+        <span class="keyword">return</span> <span class="number">1</span><span class="special">;</span>
+    <span class="special">}</span>
+
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="identifier">path</span><span class="special">(</span><span class="identifier">argv</span><span class="special">[</span><span class="number">1</span><span class="special">]);</span>
+    <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">exists</span><span class="special">(</span><span class="identifier">path</span><span class="special">))</span> <span class="special">{</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cerr</span> <span class="special">&lt;&lt;</span> <span class="string">"error: Could not access filename "</span> <span class="special">&lt;&lt;</span> <span class="identifier">argv</span><span class="special">[</span><span class="number">1</span><span class="special">]</span> <span class="special">&lt;&lt;</span> <span class="string">".\n"</span><span class="special">;</span>
+        <span class="keyword">return</span> <span class="number">1</span><span class="special">;</span>
+    <span class="special">}</span>
+
+    <span class="comment">// Requirement of libcurses.</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span><span class="special">::</span><span class="identifier">global</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span><span class="special">(</span><span class="string">""</span><span class="special">));</span>
+
+    <span class="identifier">curses_interface_t</span> <span class="identifier">curses_interface</span><span class="special">;</span>
+
+    <span class="comment">// Read the size, but just this once; resizing is not supported.</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">screen_size</span> <span class="special">=</span> <span class="identifier">curses_interface</span><span class="special">.</span><span class="identifier">screen_size</span><span class="special">();</span>
+
+    <span class="identifier">app_state_t</span> <span class="identifier">app_state</span> <span class="special">=</span> <span class="special">{</span>
+        <span class="comment">// Initial state is the contents of the file from the command line.</span>
+        <span class="identifier">load_buffer</span><span class="special">(</span><span class="identifier">path</span><span class="special">,</span> <span class="identifier">curses_interface</span><span class="special">.</span><span class="identifier">screen_size</span><span class="special">().</span><span class="identifier">col_</span><span class="special">),</span>
+        <span class="comment">// Keybindings are simplified Emacs.</span>
+        <span class="identifier">emacs_lite</span><span class="special">()};</span>
+    <span class="comment">// Initial render.</span>
+    <span class="identifier">render</span><span class="special">(</span><span class="identifier">app_state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">,</span> <span class="identifier">screen_size</span><span class="special">);</span>
+
+    <span class="comment">// Loop until the user says we're done.  Each iteration blocks for an</span>
+    <span class="comment">// event from libcurses, then passes the current app state and the event</span>
+    <span class="comment">// to update(), which returns the new app state.</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span> <span class="identifier">next_app_state</span><span class="special">;</span>
+    <span class="keyword">while</span> <span class="special">(</span>
+        <span class="special">(</span><span class="identifier">next_app_state</span> <span class="special">=</span>
+             <span class="identifier">update</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">app_state</span><span class="special">),</span> <span class="identifier">curses_interface</span><span class="special">.</span><span class="identifier">next_event</span><span class="special">())))</span> <span class="special">{</span>
+        <span class="identifier">app_state</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">next_app_state</span><span class="special">;</span>
+        <span class="identifier">render</span><span class="special">(</span><span class="identifier">app_state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">,</span> <span class="identifier">screen_size</span><span class="special">);</span>
+    <span class="special">}</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      First, here's main.cpp. It's not terribly interesting; it's little more than
+      an event loop. Do take note of one thing, though. The main update loop uses
+      no reference semantics. The application state is moved into the <code class="computeroutput"><span class="identifier">update</span><span class="special">()</span></code>
+      function, and a new state is returned. This pattern is attractive when your
+      primary data structure is a <code class="computeroutput"><a class="link" href="../boost/text/rope.html" title="Struct rope">rope</a></code> or <code class="computeroutput"><a class="link" href="../boost/text/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>, since they're
+      so cheap to copy. The only reason for the move here is that the undo history
+      uses a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>, which is a lot less copy friendly.
+      Without that <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>, we could use value semantics even
+      without the moves.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Represents a key press or a mouse event.</span>
+<span class="keyword">struct</span> <span class="identifier">key_code_t</span>
+<span class="special">{</span>
+    <span class="identifier">key_code_t</span><span class="special">()</span> <span class="special">:</span> <span class="identifier">key_</span><span class="special">(</span><span class="number">0</span><span class="special">),</span> <span class="identifier">x_</span><span class="special">(</span><span class="number">0</span><span class="special">),</span> <span class="identifier">y_</span><span class="special">(</span><span class="number">0</span><span class="special">)</span> <span class="special">{}</span>
+    <span class="identifier">key_code_t</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">:</span> <span class="identifier">key_</span><span class="special">(</span><span class="identifier">c</span><span class="special">),</span> <span class="identifier">x_</span><span class="special">(</span><span class="number">0</span><span class="special">),</span> <span class="identifier">y_</span><span class="special">(</span><span class="number">0</span><span class="special">)</span> <span class="special">{}</span>
+    <span class="identifier">key_code_t</span><span class="special">(</span><span class="identifier">key</span> <span class="identifier">k</span><span class="special">);</span>
+    <span class="identifier">key_code_t</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">y</span><span class="special">)</span> <span class="special">:</span> <span class="identifier">key_</span><span class="special">(</span><span class="identifier">k</span><span class="special">),</span> <span class="identifier">x_</span><span class="special">(</span><span class="identifier">x</span><span class="special">),</span> <span class="identifier">y_</span><span class="special">(</span><span class="identifier">y</span><span class="special">)</span> <span class="special">{}</span>
+
+    <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">==(</span><span class="identifier">key_code_t</span> <span class="identifier">rhs</span><span class="special">)</span> <span class="keyword">const</span> <span class="special">{</span> <span class="keyword">return</span> <span class="identifier">key_</span> <span class="special">==</span> <span class="identifier">rhs</span><span class="special">.</span><span class="identifier">key_</span><span class="special">;</span> <span class="special">}</span>
+    <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">!=(</span><span class="identifier">key_code_t</span> <span class="identifier">rhs</span><span class="special">)</span> <span class="keyword">const</span> <span class="special">{</span> <span class="keyword">return</span> <span class="special">!(*</span><span class="keyword">this</span> <span class="special">==</span> <span class="identifier">rhs</span><span class="special">);</span> <span class="special">}</span>
+
+    <span class="identifier">key_sequence_t</span> <span class="keyword">operator</span><span class="special">,(</span><span class="identifier">key_code_t</span> <span class="identifier">rhs</span><span class="special">)</span> <span class="special">&amp;&amp;;</span>
+
+    <span class="keyword">int</span> <span class="identifier">key_</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">x_</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">y_</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="comment">// A sequence of key_code_ts.  Using the ctrl_t and alt_t types and the</span>
+<span class="comment">// function below, a key_sequence_t can be made using a natural syntax like</span>
+<span class="comment">// "ctrl-'x', ctrl-'c'" (which means a Control-x followed by a Control-C.</span>
+<span class="keyword">struct</span> <span class="identifier">key_sequence_t</span>
+<span class="special">{</span>
+    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> <span class="identifier">max_size</span> <span class="special">=</span> <span class="number">8</span><span class="special">;</span>
+
+    <span class="keyword">using</span> <span class="identifier">iterator</span> <span class="special">=</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">static_vector</span><span class="special">&lt;</span><span class="identifier">key_code_t</span><span class="special">,</span> <span class="identifier">max_size</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span><span class="special">;</span>
+
+    <span class="identifier">key_sequence_t</span><span class="special">()</span> <span class="special">{}</span>
+    <span class="identifier">key_sequence_t</span><span class="special">(</span><span class="keyword">char</span> <span class="identifier">c</span><span class="special">)</span> <span class="special">{</span> <span class="identifier">keys_</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">c</span><span class="special">);</span> <span class="special">}</span>
+    <span class="identifier">key_sequence_t</span><span class="special">(</span><span class="identifier">key</span> <span class="identifier">k</span><span class="special">)</span> <span class="special">{</span> <span class="identifier">keys_</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">k</span><span class="special">);</span> <span class="special">}</span>
+    <span class="identifier">key_sequence_t</span><span class="special">(</span><span class="identifier">key_code_t</span> <span class="identifier">k</span><span class="special">)</span> <span class="special">{</span> <span class="identifier">keys_</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">k</span><span class="special">);</span> <span class="special">}</span>
+
+    <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">==(</span><span class="identifier">key_sequence_t</span> <span class="identifier">rhs</span><span class="special">)</span> <span class="keyword">const</span> <span class="special">{</span> <span class="keyword">return</span> <span class="identifier">keys_</span> <span class="special">==</span> <span class="identifier">rhs</span><span class="special">.</span><span class="identifier">keys_</span><span class="special">;</span> <span class="special">}</span>
+    <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">!=(</span><span class="identifier">key_sequence_t</span> <span class="identifier">rhs</span><span class="special">)</span> <span class="keyword">const</span> <span class="special">{</span> <span class="keyword">return</span> <span class="special">!(*</span><span class="keyword">this</span> <span class="special">==</span> <span class="identifier">rhs</span><span class="special">);</span> <span class="special">}</span>
+
+    <span class="keyword">bool</span> <span class="identifier">single_key</span><span class="special">()</span> <span class="keyword">const</span> <span class="special">{</span> <span class="keyword">return</span> <span class="identifier">keys_</span><span class="special">.</span><span class="identifier">size</span><span class="special">()</span> <span class="special">==</span> <span class="number">1</span><span class="special">;</span> <span class="special">}</span>
+
+    <span class="identifier">key_code_t</span> <span class="identifier">get_single_key</span><span class="special">()</span> <span class="keyword">const</span>
+    <span class="special">{</span>
+        <span class="identifier">assert</span><span class="special">(</span><span class="identifier">single_key</span><span class="special">());</span>
+        <span class="keyword">return</span> <span class="identifier">keys_</span><span class="special">.</span><span class="identifier">front</span><span class="special">();</span>
+    <span class="special">}</span>
+
+    <span class="identifier">iterator</span> <span class="identifier">begin</span><span class="special">()</span> <span class="keyword">const</span> <span class="special">{</span> <span class="keyword">return</span> <span class="identifier">keys_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span> <span class="special">}</span>
+    <span class="identifier">iterator</span> <span class="identifier">end</span><span class="special">()</span> <span class="keyword">const</span> <span class="special">{</span> <span class="keyword">return</span> <span class="identifier">keys_</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> <span class="special">}</span>
+
+    <span class="keyword">void</span> <span class="identifier">append</span><span class="special">(</span><span class="identifier">key_code_t</span> <span class="identifier">k</span><span class="special">)</span> <span class="special">{</span> <span class="identifier">keys_</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">k</span><span class="special">);</span> <span class="special">}</span>
+
+    <span class="identifier">key_sequence_t</span> <span class="keyword">operator</span><span class="special">,(</span><span class="identifier">key_code_t</span> <span class="identifier">k</span><span class="special">)</span> <span class="special">&amp;&amp;</span>
+    <span class="special">{</span>
+        <span class="identifier">key_sequence_t</span> <span class="identifier">retval</span><span class="special">(*</span><span class="keyword">this</span><span class="special">);</span>
+        <span class="identifier">keys_</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">k</span><span class="special">);</span>
+        <span class="keyword">return</span> <span class="identifier">retval</span><span class="special">;</span>
+    <span class="special">}</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">static_vector</span><span class="special">&lt;</span><span class="identifier">key_code_t</span><span class="special">,</span> <span class="identifier">max_size</span><span class="special">&gt;</span> <span class="identifier">keys_</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<p>
+    </p>
+<p>
+      Here we define what a key or mouse event looks like, and how to represent a
+      chain of them for making commands that require multiple keystrokes.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// A key mapping that uses a subset of the Emacs key bindings.</span>
+<span class="identifier">key_map_t</span> <span class="identifier">emacs_lite</span><span class="special">();</span>
+</pre>
+<p>
+    </p>
+<p>
+      We'll see this function defined later, and we saw it used in main to provide
+      the key bindings used to initialize the app state.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">EDITOR_BUFFER_HPP</span>
+<span class="preprocessor">#define</span> <span class="identifier">EDITOR_BUFFER_HPP</span>
+
+<span class="preprocessor">#include</span> <span class="string">"event.hpp"</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">text</span><span class="special">/</span><span class="identifier">line_break</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">text</span><span class="special">/</span><span class="identifier">rope</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">text</span><span class="special">/</span><span class="identifier">text</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">text</span><span class="special">/</span><span class="identifier">segmented_vector</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">text</span><span class="special">/</span><span class="identifier">word_break</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">filesystem</span><span class="special">/</span><span class="identifier">fstream</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">vector</span><span class="special">&gt;</span>
+
+
+<span class="comment">// This is our underlying storage type.  This editor takes advantage of the</span>
+<span class="comment">// efficient copies this type provides.  If you change this to</span>
+<span class="comment">// boost::text::text, the editor becomes unusably slow.</span>
+<span class="keyword">using</span> <span class="identifier">content_t</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">rope</span><span class="special">;</span>
+
+<span class="comment">// This is the data needed for laying out and editing within a single line as</span>
+<span class="comment">// it appears in one of the editor's buffers.  Each column in the editor</span>
+<span class="comment">// represents a single grapheme.</span>
+<span class="keyword">struct</span> <span class="identifier">line_t</span>
+<span class="special">{</span>
+    <span class="keyword">int</span> <span class="identifier">code_units_</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">graphemes_</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+    <span class="keyword">bool</span> <span class="identifier">hard_break_</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="comment">// Represents an applcation state that we may want to return to later, say</span>
+<span class="comment">// becauee of an undo operation.</span>
+<span class="keyword">struct</span> <span class="identifier">snapshot_t</span>
+<span class="special">{</span>
+    <span class="identifier">content_t</span> <span class="identifier">content_</span><span class="special">;</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">line_t</span><span class="special">&gt;</span> <span class="identifier">lines_</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">first_row_</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">desired_col_</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+    <span class="identifier">screen_pos_t</span> <span class="identifier">cursor_pos_</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> <span class="identifier">first_char_index_</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="comment">// A single editable buffer in the editor (the editor currently only supports</span>
+<span class="comment">// one).  It contains a current state, snapshot_, plus a copy of the content</span>
+<span class="comment">// so we know what the latest saved state, and a history for performing undo</span>
+<span class="comment">// operations.</span>
+<span class="comment">//</span>
+<span class="comment">// Note that the only element here that is not cheap to copy is history_.  Due</span>
+<span class="comment">// to history_'s unbounded size and potentially costly copy, you should move</span>
+<span class="comment">// buffer_t's when possible.</span>
+<span class="keyword">struct</span> <span class="identifier">buffer_t</span>
+<span class="special">{</span>
+    <span class="identifier">snapshot_t</span> <span class="identifier">snapshot_</span><span class="special">;</span>
+    <span class="identifier">content_t</span> <span class="identifier">latest_save_</span><span class="special">;</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="identifier">path_</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">snapshot_t</span><span class="special">&gt;</span> <span class="identifier">history_</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="comment">// This is our dirty-buffer predicate.  We use this to show a '**' in the</span>
+<span class="comment">// status line when there are unsaved changes.  Try implementing this without</span>
+<span class="comment">// the equal_root() trick here -- it's very difficult to get right.</span>
+<span class="keyword">inline</span> <span class="keyword">bool</span> <span class="identifier">dirty</span><span class="special">(</span><span class="identifier">buffer_t</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">buffer</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="special">!</span><span class="identifier">buffer</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">equal_root</span><span class="special">(</span><span class="identifier">buffer</span><span class="special">.</span><span class="identifier">latest_save_</span><span class="special">);</span>
+<span class="special">}</span>
+
+<span class="keyword">inline</span> <span class="keyword">int</span> <span class="identifier">cursor_line</span><span class="special">(</span><span class="identifier">snapshot_t</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">snapshot</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">first_row_</span> <span class="special">+</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">row_</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="keyword">inline</span> <span class="keyword">bool</span> <span class="identifier">cursor_at_last_line</span><span class="special">(</span><span class="identifier">snapshot_t</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">snapshot</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">cursor_line</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">size</span><span class="special">();</span>
+<span class="special">}</span>
+
+<span class="keyword">struct</span> <span class="identifier">cursor_iterators_t</span>
+<span class="special">{</span>
+    <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">first_</span><span class="special">;</span>
+    <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">cursor_</span><span class="special">;</span>
+    <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">last_</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="keyword">inline</span> <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span>
+<span class="identifier">iterator_at_start_of_line</span><span class="special">(</span><span class="identifier">snapshot_t</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">snapshot</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> <span class="identifier">line_index</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">assert</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">first_row_</span> <span class="special">&lt;=</span> <span class="identifier">line_index</span><span class="special">);</span>
+
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">line_index</span> <span class="special">==</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">size</span><span class="special">())</span>
+        <span class="keyword">return</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> <span class="identifier">offset</span> <span class="special">=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">first_char_index_</span><span class="special">;</span>
+    <span class="keyword">for</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">first_row_</span><span class="special">;</span> <span class="identifier">i</span> <span class="special">&lt;</span> <span class="identifier">line_index</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span> <span class="special">{</span>
+        <span class="identifier">offset</span> <span class="special">+=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">[</span><span class="identifier">i</span><span class="special">].</span><span class="identifier">code_units_</span><span class="special">;</span>
+    <span class="special">}</span>
+
+    <span class="comment">// Here we peel back the curtain a bit and show how a graphem_iterator is</span>
+    <span class="comment">// constructed from code point iterators constructed from char iterators.</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">first</span> <span class="special">=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">().</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">();</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">first</span> <span class="special">+</span> <span class="identifier">offset</span><span class="special">;</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">last</span> <span class="special">=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">end</span><span class="special">().</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">();</span>
+    <span class="keyword">return</span> <span class="special">{</span><span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">{</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">},</span>
+            <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">{</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">it</span><span class="special">,</span> <span class="identifier">last</span><span class="special">},</span>
+            <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">{</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">,</span> <span class="identifier">last</span><span class="special">}};</span>
+<span class="special">}</span>
+
+<span class="keyword">inline</span> <span class="identifier">cursor_iterators_t</span> <span class="identifier">cursor_iterators</span><span class="special">(</span><span class="identifier">snapshot_t</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">snapshot</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">line_index</span> <span class="special">=</span> <span class="identifier">cursor_line</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">);</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">line_index</span> <span class="special">==</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">size</span><span class="special">())</span> <span class="special">{</span>
+        <span class="keyword">return</span> <span class="special">{</span><span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span>
+                <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span>
+                <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">end</span><span class="special">()};</span>
+    <span class="special">}</span>
+
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">line_grapheme_first</span> <span class="special">=</span>
+        <span class="identifier">iterator_at_start_of_line</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">,</span> <span class="identifier">line_index</span><span class="special">);</span>
+    <span class="keyword">return</span> <span class="special">{</span><span class="identifier">line_grapheme_first</span><span class="special">,</span>
+            <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">line_grapheme_first</span><span class="special">,</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span><span class="special">),</span>
+            <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span>
+                <span class="identifier">line_grapheme_first</span><span class="special">,</span>
+                <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">[</span><span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">row_</span><span class="special">].</span><span class="identifier">graphemes_</span><span class="special">)};</span>
+<span class="special">}</span>
+
+<span class="keyword">struct</span> <span class="identifier">cursor_word_t</span>
+<span class="special">{</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_range</span><span class="special">&lt;</span><span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span> <span class="identifier">word_</span><span class="special">;</span>
+    <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">cursor_</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="keyword">inline</span> <span class="identifier">cursor_word_t</span> <span class="identifier">cursor_word</span><span class="special">(</span><span class="identifier">snapshot_t</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">snapshot</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">cursor_at_last_line</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">))</span> <span class="special">{</span>
+        <span class="keyword">return</span> <span class="special">{</span>
+            <span class="special">{</span><span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">end</span><span class="special">().</span><span class="identifier">base</span><span class="special">(),</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">end</span><span class="special">().</span><span class="identifier">base</span><span class="special">()},</span>
+            <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">end</span><span class="special">()};</span>
+    <span class="special">}</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">iterators</span> <span class="special">=</span> <span class="identifier">cursor_iterators</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">);</span>
+    <span class="keyword">return</span> <span class="special">{</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">,</span> <span class="identifier">iterators</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">),</span>
+            <span class="identifier">iterators</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">};</span>
+<span class="special">}</span>
+
+<span class="comment">// This will fill container with pairs of code unit and grapheme extents for</span>
+<span class="comment">// each line.  A line may end in a hard line break like '\n', or it mey be</span>
+<span class="comment">// broken because there's just no room left on that line within the screen</span>
+<span class="comment">// width.  This works for getting the line breaks for all lines in the buffer</span>
+<span class="comment">// contents, and we can reuse it to re-break lines as we edit the buffer too.</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GraphemeRange</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">LinesContainer</span><span class="special">&gt;</span>
+<span class="keyword">inline</span> <span class="keyword">void</span> <span class="identifier">get_lines</span><span class="special">(</span>
+    <span class="identifier">GraphemeRange</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">range</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">screen_width</span><span class="special">,</span> <span class="identifier">LinesContainer</span> <span class="special">&amp;</span> <span class="identifier">container</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">line</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">lines</span><span class="special">(</span>
+             <span class="identifier">range</span><span class="special">,</span>
+             <span class="identifier">screen_width</span> <span class="special">-</span> <span class="number">1</span><span class="special">,</span>
+             <span class="special">[](</span><span class="identifier">content_t</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span> <span class="identifier">first</span><span class="special">,</span>
+                <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span> <span class="identifier">last</span><span class="special">)</span> <span class="keyword">noexcept</span> <span class="special">{</span>
+                 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_range</span><span class="special">&lt;</span>
+                     <span class="identifier">content_t</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span>
+                     <span class="identifier">range</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">);</span>
+                 <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">range</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">range</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
+             <span class="special">}))</span> <span class="special">{</span>
+        <span class="comment">// Note that we don't count the terminating hard line break grapheme</span>
+        <span class="comment">// here.  This requires special casing in some places, but makes much</span>
+        <span class="comment">// of the logic simpler.</span>
+        <span class="identifier">line_t</span> <span class="keyword">const</span> <span class="identifier">line_</span><span class="special">{</span>
+            <span class="keyword">int</span><span class="special">(</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">end</span><span class="special">().</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">begin</span><span class="special">().</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()),</span>
+            <span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">-</span>
+                <span class="special">(</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break</span><span class="special">()</span> <span class="special">?</span> <span class="number">1</span> <span class="special">:</span> <span class="number">0</span><span class="special">),</span>
+            <span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break</span><span class="special">()};</span>
+        <span class="identifier">container</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">line_</span><span class="special">);</span>
+    <span class="special">}</span>
+<span class="special">}</span>
+
+<span class="keyword">inline</span> <span class="identifier">buffer_t</span> <span class="identifier">load_buffer</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="identifier">path</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">screen_width</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">ifstream</span> <span class="identifier">ifs</span><span class="special">(</span><span class="identifier">path</span><span class="special">);</span>
+
+    <span class="identifier">buffer_t</span> <span class="identifier">retval</span><span class="special">;</span>
+    <span class="identifier">retval</span><span class="special">.</span><span class="identifier">path_</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">path</span><span class="special">);</span>
+
+    <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">chunk_size</span> <span class="special">=</span> <span class="number">1</span> <span class="special">&lt;&lt;</span> <span class="number">16</span><span class="special">;</span>
+    <span class="keyword">while</span> <span class="special">(</span><span class="identifier">ifs</span><span class="special">.</span><span class="identifier">good</span><span class="special">())</span> <span class="special">{</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">chunk</span><span class="special">;</span>
+        <span class="identifier">chunk</span><span class="special">.</span><span class="identifier">resize</span><span class="special">(</span><span class="identifier">chunk_size</span><span class="special">,</span> <span class="char">' '</span><span class="special">);</span>
+
+        <span class="identifier">ifs</span><span class="special">.</span><span class="identifier">read</span><span class="special">(</span><span class="identifier">chunk</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">chunk_size</span><span class="special">);</span>
+        <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">ifs</span><span class="special">.</span><span class="identifier">good</span><span class="special">())</span>
+            <span class="identifier">chunk</span><span class="special">.</span><span class="identifier">resize</span><span class="special">(</span><span class="identifier">ifs</span><span class="special">.</span><span class="identifier">gcount</span><span class="special">(),</span> <span class="char">' '</span><span class="special">);</span>
+
+        <span class="identifier">retval</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">.</span><span class="identifier">content_</span> <span class="special">+=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">chunk</span><span class="special">);</span>
+    <span class="special">}</span>
+
+    <span class="identifier">get_lines</span><span class="special">(</span><span class="identifier">retval</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">.</span><span class="identifier">content_</span><span class="special">,</span> <span class="identifier">screen_width</span><span class="special">,</span> <span class="identifier">retval</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">);</span>
+
+    <span class="identifier">retval</span><span class="special">.</span><span class="identifier">latest_save_</span> <span class="special">=</span> <span class="identifier">retval</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">.</span><span class="identifier">content_</span><span class="special">;</span>
+    <span class="identifier">retval</span><span class="special">.</span><span class="identifier">history_</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">retval</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">);</span>
+
+    <span class="keyword">return</span> <span class="identifier">retval</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="keyword">inline</span> <span class="keyword">void</span> <span class="identifier">save_buffer</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">path</span> <span class="identifier">path</span><span class="special">,</span> <span class="identifier">buffer_t</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">buffer</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">ofstream</span> <span class="identifier">ofs</span><span class="special">(</span><span class="identifier">path</span><span class="special">);</span>
+    <span class="identifier">ofs</span> <span class="special">&lt;&lt;</span> <span class="identifier">buffer</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">.</span><span class="identifier">content_</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="preprocessor">#endif</span>
+</pre>
+<p>
+    </p>
+<p>
+      Here is the full buffer.hpp header. The inline comments tell the story. The
+      types here used in the <code class="computeroutput"><span class="identifier">app_state_t</span></code>
+      type:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#ifndef</span> <span class="identifier">EDITOR_APP_STATE_HPP</span>
+<span class="preprocessor">#define</span> <span class="identifier">EDITOR_APP_STATE_HPP</span>
+
+<span class="preprocessor">#include</span> <span class="string">"buffer.hpp"</span>
+<span class="preprocessor">#include</span> <span class="string">"event.hpp"</span>
+<span class="preprocessor">#include</span> <span class="string">"key_mappings.hpp"</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">optional</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+
+<span class="comment">// The state of our entire editor.  This consists of a single buffer, the key</span>
+<span class="comment">// bindings in use, and the current incomplete key sequence, if any.</span>
+<span class="comment">//</span>
+<span class="comment">// Due to buffer_'s unbounded hostory size and therefore potentially costly</span>
+<span class="comment">// copy, you should move app_state_t's when possible.</span>
+<span class="keyword">struct</span> <span class="identifier">app_state_t</span>
+<span class="special">{</span>
+    <span class="identifier">buffer_t</span> <span class="identifier">buffer_</span><span class="special">;</span>
+    <span class="identifier">key_map_t</span> <span class="identifier">key_map_</span><span class="special">;</span>
+    <span class="identifier">key_sequence_t</span> <span class="identifier">input_seq_</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="comment">// Takes the current state of the editor and an event, and returns the new</span>
+<span class="comment">// state.  It is expected that when the returned optional is empty, the editor</span>
+<span class="comment">// exits.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span> <span class="identifier">update</span><span class="special">(</span><span class="identifier">app_state_t</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">event_t</span> <span class="identifier">event</span><span class="special">);</span>
+
+<span class="preprocessor">#endif</span>
+</pre>
+<p>
+    </p>
+<p>
+      Ok, with this in mind, let's look at the keybindings and <code class="computeroutput"><span class="identifier">update</span><span class="special">()</span></code> we saw in main:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">key_map_t</span> <span class="identifier">emacs_lite</span><span class="special">()</span>
+<span class="special">{</span>
+    <span class="identifier">key_map_t</span> <span class="identifier">retval</span> <span class="special">=</span> <span class="special">{</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'p'</span><span class="special">,</span> <span class="identifier">move_up</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">up</span><span class="special">,</span> <span class="identifier">move_up</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'n'</span><span class="special">,</span> <span class="identifier">move_down</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">down</span><span class="special">,</span> <span class="identifier">move_down</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'b'</span><span class="special">,</span> <span class="identifier">move_left</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">left</span><span class="special">,</span> <span class="identifier">move_left</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'f'</span><span class="special">,</span> <span class="identifier">move_right</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">right</span><span class="special">,</span> <span class="identifier">move_right</span><span class="special">},</span>
+
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'a'</span><span class="special">,</span> <span class="identifier">move_home</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">home</span><span class="special">,</span> <span class="identifier">move_home</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'e'</span><span class="special">,</span> <span class="identifier">move_end</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">end</span><span class="special">,</span> <span class="identifier">move_end</span><span class="special">},</span>
+
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">page_up</span><span class="special">,</span> <span class="identifier">move_page_up</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">page_down</span><span class="special">,</span> <span class="identifier">move_page_down</span><span class="special">},</span>
+
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">left_click</span><span class="special">,</span> <span class="identifier">click</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">left_double_click</span><span class="special">,</span> <span class="identifier">double_click</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">left_triple_click</span><span class="special">,</span> <span class="identifier">triple_click</span><span class="special">},</span>
+
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">backspace</span><span class="special">,</span> <span class="identifier">erase_before</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">delete_</span><span class="special">,</span> <span class="identifier">erase_at</span><span class="special">},</span>
+
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">alt</span> <span class="special">-</span> <span class="char">'f'</span><span class="special">,</span> <span class="identifier">word_move_right</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">alt</span> <span class="special">-</span> <span class="char">'b'</span><span class="special">,</span> <span class="identifier">word_move_left</span><span class="special">},</span>
+
+        <span class="identifier">key_map_entry_t</span><span class="special">{</span><span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'_'</span><span class="special">,</span> <span class="identifier">undo</span><span class="special">},</span>
+
+        <span class="identifier">key_map_entry_t</span><span class="special">{(</span><span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'x'</span><span class="special">,</span> <span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'s'</span><span class="special">),</span> <span class="identifier">save</span><span class="special">},</span>
+        <span class="identifier">key_map_entry_t</span><span class="special">{(</span><span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'x'</span><span class="special">,</span> <span class="identifier">ctrl</span> <span class="special">-</span> <span class="char">'c'</span><span class="special">),</span> <span class="identifier">quit</span><span class="special">},</span>
+    <span class="special">};</span>
+
+    <span class="keyword">return</span> <span class="identifier">retval</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span> <span class="identifier">update</span><span class="special">(</span><span class="identifier">app_state_t</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">event_t</span> <span class="identifier">event</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">state</span><span class="special">.</span><span class="identifier">input_seq_</span><span class="special">.</span><span class="identifier">append</span><span class="special">(</span><span class="identifier">event</span><span class="special">.</span><span class="identifier">key_code_</span><span class="special">);</span>
+    <span class="identifier">eval_input_t</span> <span class="keyword">const</span> <span class="identifier">input_evaluation</span> <span class="special">=</span>
+        <span class="identifier">eval_input</span><span class="special">(</span><span class="identifier">state</span><span class="special">.</span><span class="identifier">key_map_</span><span class="special">,</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">input_seq_</span><span class="special">);</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">input_evaluation</span><span class="special">.</span><span class="identifier">reset_input_</span><span class="special">)</span>
+        <span class="identifier">state</span><span class="special">.</span><span class="identifier">input_seq_</span> <span class="special">=</span> <span class="identifier">key_sequence_t</span><span class="special">();</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">input_evaluation</span><span class="special">.</span><span class="identifier">command_</span><span class="special">)</span> <span class="special">{</span>
+        <span class="identifier">screen_pos_t</span> <span class="keyword">const</span> <span class="identifier">xy</span><span class="special">{</span><span class="identifier">event</span><span class="special">.</span><span class="identifier">key_code_</span><span class="special">.</span><span class="identifier">y_</span><span class="special">,</span> <span class="identifier">event</span><span class="special">.</span><span class="identifier">key_code_</span><span class="special">.</span><span class="identifier">x_</span><span class="special">};</span>
+        <span class="keyword">return</span> <span class="identifier">input_evaluation</span><span class="special">.</span><span class="identifier">command_</span><span class="special">(</span>
+            <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">),</span> <span class="identifier">event</span><span class="special">.</span><span class="identifier">screen_size_</span><span class="special">,</span> <span class="identifier">xy</span><span class="special">);</span>
+    <span class="special">}</span>
+    <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      They key bindings are quite minimal. You can use the arrow keys to move the
+      cursor one cell an any direction; you can move forward or backward one word
+      at a time; you can click on a spot to move the cursor there; you can use backspace
+      and delete; you can undo; and you can save and exit.
+    </p>
+<p>
+      As for <code class="computeroutput"><span class="identifier">update</span><span class="special">()</span></code>,
+      it simply calls <code class="computeroutput"><span class="identifier">eval_input</span><span class="special">()</span></code>, and if <code class="computeroutput"><span class="identifier">eval_input</span><span class="special">()</span></code> indicates that a command should be excecuted,
+      it executes that command.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">eval_input_t</span>
+<span class="special">{</span>
+    <span class="identifier">command_t</span> <span class="identifier">command_</span><span class="special">;</span>
+    <span class="keyword">bool</span> <span class="identifier">reset_input_</span><span class="special">;</span>
+<span class="special">};</span>
+
+<span class="comment">// Process the current input.  If it is a sequence, try to match it to the</span>
+<span class="comment">// key bindings.  If it does not match any prefix of any key binding,</span>
+<span class="comment">// indicate that the current input sequence should be cleared.  Failing</span>
+<span class="comment">// all that, treat the input as a keyboard input,</span>
+<span class="identifier">eval_input_t</span> <span class="identifier">eval_input</span><span class="special">(</span><span class="identifier">key_map_t</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">key_map</span><span class="special">,</span> <span class="identifier">key_sequence_t</span> <span class="identifier">input_seq</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">bool</span> <span class="identifier">input_greater_than_all</span> <span class="special">=</span> <span class="keyword">true</span><span class="special">;</span>
+    <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">key_map_entry</span> <span class="special">:</span> <span class="identifier">key_map</span><span class="special">)</span> <span class="special">{</span>
+        <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">iters</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">algorithm</span><span class="special">::</span><span class="identifier">mismatch</span><span class="special">(</span>
+            <span class="identifier">input_seq</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span>
+            <span class="identifier">input_seq</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span>
+            <span class="identifier">key_map_entry</span><span class="special">.</span><span class="identifier">key_seq_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span>
+            <span class="identifier">key_map_entry</span><span class="special">.</span><span class="identifier">key_seq_</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
+
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">iters</span><span class="special">.</span><span class="identifier">first</span> <span class="special">==</span> <span class="identifier">input_seq</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span> <span class="special">{</span>
+            <span class="keyword">if</span> <span class="special">(</span><span class="identifier">iters</span><span class="special">.</span><span class="identifier">second</span> <span class="special">==</span> <span class="identifier">key_map_entry</span><span class="special">.</span><span class="identifier">key_seq_</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span>
+                <span class="keyword">return</span> <span class="identifier">eval_input_t</span><span class="special">{</span><span class="identifier">key_map_entry</span><span class="special">.</span><span class="identifier">command_</span><span class="special">,</span> <span class="keyword">true</span><span class="special">};</span>
+            <span class="identifier">input_greater_than_all</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">;</span>
+        <span class="special">}</span>
+    <span class="special">}</span>
+
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">input_seq</span><span class="special">.</span><span class="identifier">single_key</span><span class="special">())</span> <span class="special">{</span>
+        <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">key_code</span> <span class="special">=</span> <span class="identifier">input_seq</span><span class="special">.</span><span class="identifier">get_single_key</span><span class="special">();</span>
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">key_code</span><span class="special">.</span><span class="identifier">key_</span> <span class="special">&lt;=</span> <span class="number">256</span><span class="special">)</span> <span class="special">{</span>
+            <span class="keyword">if</span> <span class="special">(</span><span class="identifier">key_code</span><span class="special">.</span><span class="identifier">key_</span> <span class="special">==</span> <span class="char">'\n'</span><span class="special">)</span> <span class="special">{</span>
+                <span class="keyword">return</span> <span class="identifier">eval_input_t</span><span class="special">{</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme</span><span class="special">(</span><span class="char">'\n'</span><span class="special">)),</span>
+                                    <span class="keyword">true</span><span class="special">};</span>
+            <span class="special">}</span> <span class="keyword">else</span> <span class="keyword">if</span> <span class="special">(</span>
+                <span class="char">' '</span> <span class="special">&lt;=</span> <span class="identifier">key_code</span><span class="special">.</span><span class="identifier">key_</span> <span class="special">&amp;&amp;</span> <span class="identifier">key_code</span><span class="special">.</span><span class="identifier">key_</span> <span class="special">&lt;=</span> <span class="char">'~'</span> <span class="special">&amp;&amp;</span>
+                <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">utf8</span><span class="special">::</span><span class="identifier">valid_code_point</span><span class="special">(</span><span class="identifier">key_code</span><span class="special">.</span><span class="identifier">key_</span><span class="special">))</span> <span class="special">{</span>
+                <span class="comment">// We ignore anything not in this narrow range of ASCII.</span>
+                <span class="comment">// This is a limitation of my ability to understand</span>
+                <span class="comment">// libcurses, not a limitation of Boost.Text.</span>
+                <span class="keyword">return</span> <span class="identifier">eval_input_t</span><span class="special">{</span>
+                    <span class="identifier">insert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme</span><span class="special">(</span><span class="identifier">key_code</span><span class="special">.</span><span class="identifier">key_</span><span class="special">)),</span> <span class="keyword">true</span><span class="special">};</span>
+            <span class="special">}</span>
+        <span class="special">}</span>
+    <span class="special">}</span>
+
+    <span class="keyword">return</span> <span class="identifier">eval_input_t</span><span class="special">{{},</span> <span class="identifier">input_greater_than_all</span><span class="special">};</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      As it says inline, this function simply proceses keyboard input as it occurs,
+      indicating that a command should be executed when the input matches one of
+      the sequences defined in the key bindings. Now let's look at the implementations
+      of two of the cursor movement actions:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Move the cursor up one row.  Put the cursor at or before the desired</span>
+<span class="comment">// column.  Slide the buffer view up one row if necessary.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span>
+<span class="identifier">move_up</span><span class="special">(</span><span class="identifier">app_state_t</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">screen_pos_t</span><span class="special">,</span> <span class="identifier">screen_pos_t</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">auto</span> <span class="special">&amp;</span> <span class="identifier">s</span> <span class="special">=</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">;</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">cursor_line</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span> <span class="special">==</span> <span class="number">0</span><span class="special">)</span>
+        <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+    <span class="keyword">else</span> <span class="keyword">if</span> <span class="special">(</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">row_</span> <span class="special">==</span> <span class="number">0</span><span class="special">)</span>
+        <span class="identifier">up_one_row</span><span class="special">(</span><span class="identifier">s</span><span class="special">);</span>
+    <span class="keyword">else</span>
+        <span class="special">--</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">row_</span><span class="special">;</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span> <span class="special">!=</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">desired_col_</span><span class="special">)</span>
+        <span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span> <span class="special">=</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">desired_col_</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">line</span> <span class="special">=</span>
+        <span class="identifier">cursor_at_last_line</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span> <span class="special">?</span> <span class="number">0</span> <span class="special">:</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">[</span><span class="identifier">cursor_line</span><span class="special">(</span><span class="identifier">s</span><span class="special">)].</span><span class="identifier">graphemes_</span><span class="special">;</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">line</span> <span class="special">-</span> <span class="number">1</span> <span class="special">&lt;</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span><span class="special">)</span>
+        <span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span> <span class="special">=</span> <span class="identifier">line</span><span class="special">;</span>
+    <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Move the cursor left one column/grapheme, wrapping around to the first</span>
+<span class="comment">// column of the next row if necessary.  Slide the buffer view down one</span>
+<span class="comment">// row if necessary.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span>
+<span class="identifier">move_right</span><span class="special">(</span><span class="identifier">app_state_t</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">screen_pos_t</span> <span class="identifier">screen_size</span><span class="special">,</span> <span class="identifier">screen_pos_t</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">auto</span> <span class="special">&amp;</span> <span class="identifier">s</span> <span class="special">=</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">line</span> <span class="special">=</span>
+        <span class="identifier">cursor_at_last_line</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span> <span class="special">?</span> <span class="number">0</span> <span class="special">:</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">[</span><span class="identifier">cursor_line</span><span class="special">(</span><span class="identifier">s</span><span class="special">)].</span><span class="identifier">graphemes_</span><span class="special">;</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span> <span class="special">==</span> <span class="identifier">line</span><span class="special">)</span> <span class="special">{</span>
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">cursor_line</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">max_row</span><span class="special">(</span><span class="identifier">s</span><span class="special">))</span>
+            <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">row_</span> <span class="special">==</span> <span class="identifier">nonstatus_height</span><span class="special">(</span><span class="identifier">screen_size</span><span class="special">)</span> <span class="special">-</span> <span class="number">1</span><span class="special">)</span>
+            <span class="identifier">down_one_row</span><span class="special">(</span><span class="identifier">s</span><span class="special">);</span>
+        <span class="keyword">else</span>
+            <span class="special">++</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">row_</span><span class="special">;</span>
+        <span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+    <span class="special">}</span> <span class="keyword">else</span> <span class="special">{</span>
+        <span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span> <span class="special">+=</span> <span class="number">1</span><span class="special">;</span>
+    <span class="special">}</span>
+    <span class="identifier">set_desired_col</span><span class="special">(</span><span class="identifier">s</span><span class="special">);</span>
+    <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      The details here are not that important, but what I'm trying to show here is
+      how relatively simple these implementations are. There are multple cases that
+      must be dealt with, but those are inherent to moving a cursor around in variable-length
+      rows. What we <span class="bold"><strong>don't</strong></span> have to deal with are
+      all the cases that would come up if we dealt with text as code points or code
+      units.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Returns true if 'it' starts with a code point that has a property that</span>
+<span class="comment">// is not a letter or number -- which is what the user intuitively expects</span>
+<span class="comment">// a word to be.  Note that this only needs to be checked at word</span>
+<span class="comment">// beginnings and endings, so we leave out the "Mid*" properties below.</span>
+<span class="keyword">bool</span> <span class="identifier">non_word_grapheme</span><span class="special">(</span><span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">it</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">prop</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_prop</span><span class="special">(*</span><span class="identifier">it</span><span class="special">-&gt;</span><span class="identifier">begin</span><span class="special">());</span>
+    <span class="keyword">return</span> <span class="special">!(</span>
+        <span class="identifier">prop</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_property</span><span class="special">::</span><span class="identifier">Katakana</span> <span class="special">||</span>
+        <span class="identifier">prop</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_property</span><span class="special">::</span><span class="identifier">ALetter</span> <span class="special">||</span>
+        <span class="identifier">prop</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_property</span><span class="special">::</span><span class="identifier">Numeric</span> <span class="special">||</span>
+        <span class="identifier">prop</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_property</span><span class="special">::</span><span class="identifier">ExtendNumLet</span> <span class="special">||</span>
+        <span class="identifier">prop</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_property</span><span class="special">::</span><span class="identifier">Regional_Indicator</span> <span class="special">||</span>
+        <span class="identifier">prop</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_property</span><span class="special">::</span><span class="identifier">Hebrew_Letter</span> <span class="special">||</span>
+        <span class="identifier">prop</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_property</span><span class="special">::</span><span class="identifier">ExtPict</span> <span class="special">||</span>
+        <span class="identifier">prop</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">word_property</span><span class="special">::</span><span class="identifier">Extend</span><span class="special">);</span>
+<span class="special">}</span>
+
+<span class="comment">// Move to the beginning of the current word if the cursor is in one, or</span>
+<span class="comment">// the beginning of the previous word otherwise.  If the cursor is at the</span>
+<span class="comment">// start of a word, though, move to the previous one.  "Word" in this</span>
+<span class="comment">// context means those things with letters and/or numbers, not punctuation</span>
+<span class="comment">// or whitespace.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span> <span class="identifier">word_move_left</span><span class="special">(</span>
+    <span class="identifier">app_state_t</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">screen_pos_t</span> <span class="identifier">screen_width</span><span class="special">,</span> <span class="identifier">screen_pos_t</span> <span class="identifier">xy</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">auto</span> <span class="special">&amp;</span> <span class="identifier">s</span> <span class="special">=</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">;</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">word_and_it</span> <span class="special">=</span> <span class="identifier">cursor_word</span><span class="special">(</span><span class="identifier">s</span><span class="special">);</span>
+    <span class="keyword">auto</span> <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">word_and_it</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">;</span>
+
+    <span class="keyword">auto</span> <span class="identifier">content_first</span> <span class="special">=</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">it</span> <span class="special">==</span> <span class="identifier">word_and_it</span><span class="special">.</span><span class="identifier">word_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span> <span class="special">{</span>
+        <span class="comment">// We're already at the beginning of a word; back up to the</span>
+        <span class="comment">// previous one.</span>
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">it</span> <span class="special">!=</span> <span class="identifier">content_first</span><span class="special">)</span>
+            <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_word_break</span><span class="special">(</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">content_</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">prev</span><span class="special">(</span><span class="identifier">it</span><span class="special">));</span>
+    <span class="special">}</span> <span class="keyword">else</span> <span class="special">{</span>
+        <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">word_and_it</span><span class="special">.</span><span class="identifier">word_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
+    <span class="special">}</span>
+
+    <span class="comment">// The word break algorithm finds anything bounded by word breaks to</span>
+    <span class="comment">// be a word, even whitespace sequences; keep backing up until we hit</span>
+    <span class="comment">// a "word" that a starts with a letter, number, etc.</span>
+    <span class="keyword">while</span> <span class="special">(</span><span class="identifier">it</span> <span class="special">!=</span> <span class="identifier">content_first</span> <span class="special">&amp;&amp;</span> <span class="identifier">non_word_grapheme</span><span class="special">(</span><span class="identifier">it</span><span class="special">))</span> <span class="special">{</span>
+        <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_word_break</span><span class="special">(</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">content_</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">prev</span><span class="special">(</span><span class="identifier">it</span><span class="special">));</span>
+    <span class="special">}</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> <span class="identifier">graphemes_to_move</span> <span class="special">=</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span><span class="special">(</span><span class="identifier">it</span><span class="special">,</span> <span class="identifier">word_and_it</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">);</span>
+    <span class="keyword">for</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span> <span class="identifier">i</span> <span class="special">&lt;</span> <span class="identifier">graphemes_to_move</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span> <span class="special">{</span>
+        <span class="identifier">state</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">move_left</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">),</span> <span class="identifier">screen_width</span><span class="special">,</span> <span class="identifier">xy</span><span class="special">);</span>
+    <span class="special">}</span>
+
+    <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      Even this implementation, which is certainly more complicated than the previous
+      two, is relatively simple thanks to the grapheme-based overload of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">prev_word_brek</span><span class="special">()</span></code>.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span>
+<span class="identifier">erase_at</span><span class="special">(</span><span class="identifier">app_state_t</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">screen_pos_t</span> <span class="identifier">screen_size</span><span class="special">,</span> <span class="identifier">screen_pos_t</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">auto</span> <span class="special">&amp;</span> <span class="identifier">s</span> <span class="special">=</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">;</span>
+
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">cursor_its</span> <span class="special">=</span> <span class="identifier">cursor_iterators</span><span class="special">(</span><span class="identifier">s</span><span class="special">);</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">cursor_at_last_line</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span> <span class="special">||</span> <span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span> <span class="special">==</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span>
+        <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+
+    <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">history_</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">s</span><span class="special">);</span>
+
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">cursor_grapheme_cus</span> <span class="special">=</span>
+        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">storage_bytes</span><span class="special">(*</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">);</span>
+    <span class="keyword">auto</span> <span class="identifier">line_index</span> <span class="special">=</span> <span class="identifier">cursor_line</span><span class="special">(</span><span class="identifier">s</span><span class="special">);</span>
+
+    <span class="keyword">auto</span> <span class="identifier">line</span> <span class="special">=</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">[</span><span class="identifier">line_index</span><span class="special">];</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span> <span class="special">==</span> <span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">last_</span> <span class="special">&amp;&amp;</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break_</span><span class="special">)</span> <span class="special">{</span>
+        <span class="comment">// End-of-line hard breaks are a special case.</span>
+        <span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break_</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">;</span>
+        <span class="identifier">line</span><span class="special">.</span><span class="identifier">code_units_</span> <span class="special">-=</span> <span class="number">1</span><span class="special">;</span>
+    <span class="special">}</span> <span class="keyword">else</span> <span class="special">{</span>
+        <span class="comment">// The cursor may sit just past the last grapheme on a line with</span>
+        <span class="comment">// no hard break, so the erase may need to happen on the next</span>
+        <span class="comment">// line.  But who cares!  We're going to re-break this line and</span>
+        <span class="comment">// all lines until the next hard break anyway.</span>
+        <span class="identifier">line</span><span class="special">.</span><span class="identifier">code_units_</span> <span class="special">-=</span> <span class="identifier">cursor_grapheme_cus</span><span class="special">;</span>
+        <span class="identifier">line</span><span class="special">.</span><span class="identifier">graphemes_</span> <span class="special">-=</span> <span class="number">1</span><span class="special">;</span>
+    <span class="special">}</span>
+
+    <span class="comment">// If there is a next line, combine it with the current line before we</span>
+    <span class="comment">// re-break lines below.  This gets rid of the special case that we're</span>
+    <span class="comment">// erasing at a spot one past the end of the current line (i.e. the</span>
+    <span class="comment">// first grapheme of the next line.)</span>
+    <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break_</span> <span class="special">&amp;&amp;</span> <span class="identifier">line_index</span> <span class="special">+</span> <span class="number">1</span> <span class="special">&lt;</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">size</span><span class="special">())</span> <span class="special">{</span>
+        <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">next_line</span> <span class="special">=</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">[</span><span class="identifier">line_index</span> <span class="special">+</span> <span class="number">1</span><span class="special">];</span>
+        <span class="identifier">line</span><span class="special">.</span><span class="identifier">code_units_</span> <span class="special">+=</span> <span class="identifier">next_line</span><span class="special">.</span><span class="identifier">code_units_</span><span class="special">;</span>
+        <span class="identifier">line</span><span class="special">.</span><span class="identifier">graphemes_</span> <span class="special">+=</span> <span class="identifier">next_line</span><span class="special">.</span><span class="identifier">graphemes_</span><span class="special">;</span>
+        <span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break_</span> <span class="special">=</span> <span class="identifier">next_line</span><span class="special">.</span><span class="identifier">hard_break_</span><span class="special">;</span>
+        <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">erase</span><span class="special">(</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">line_index</span> <span class="special">+</span> <span class="number">1</span><span class="special">);</span>
+    <span class="special">}</span>
+
+    <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">replace</span><span class="special">(</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">line_index</span><span class="special">,</span> <span class="identifier">line</span><span class="special">);</span>
+    <span class="identifier">s</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">erase</span><span class="special">(</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">));</span>
+    <span class="identifier">rebreak_wrapped_line</span><span class="special">(</span><span class="identifier">state</span><span class="special">,</span> <span class="identifier">line_index</span><span class="special">,</span> <span class="identifier">screen_size</span><span class="special">);</span>
+
+    <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      This is the action invoked when you hit the delete key. It erases a single
+      grapheme that is under the cursor, if any. Note that we're inserting and replacing
+      elements in a sequence container of unbounded size. This is still an efficient
+      operation because our sequence container is a <code class="computeroutput"><a class="link" href="../boost/text/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>. Even if there
+      are millions of lines, inserting and erasing is an <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="number">1</span><span class="special">)</span></code>
+      operation at every place in the sequence (see the <a class="link" href="_segmented_vector__.html" title="segmented_vector"><code class="computeroutput"><span class="identifier">segmented_vector</span> <span class="identifier">documentation</span></code></a>
+      for why).
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// When an insertion or erasure happens on line line_index, and line_index</span>
+<span class="comment">// does not end in a hard break, we need to re-break the lines from the</span>
+<span class="comment">// line of the edit to the next hard-break-line, or the end if there is no</span>
+<span class="comment">// later hard break.</span>
+<span class="keyword">void</span> <span class="identifier">rebreak_wrapped_line</span><span class="special">(</span>
+    <span class="identifier">app_state_t</span> <span class="special">&amp;</span> <span class="identifier">state</span><span class="special">,</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span> <span class="identifier">line_index</span><span class="special">,</span>
+    <span class="identifier">screen_pos_t</span> <span class="identifier">screen_size</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">auto</span> <span class="special">&amp;</span> <span class="identifier">s</span> <span class="special">=</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">;</span>
+    <span class="identifier">assert</span><span class="special">(</span><span class="identifier">line_index</span> <span class="special">&lt;</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">size</span><span class="special">());</span>
+
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">lines_it</span> <span class="special">=</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">line_index</span><span class="special">;</span>
+    <span class="keyword">auto</span> <span class="identifier">lines_last</span> <span class="special">=</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">find_if</span><span class="special">(</span><span class="identifier">lines_it</span><span class="special">,</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="special">[](</span><span class="identifier">line_t</span> <span class="identifier">line</span><span class="special">)</span> <span class="special">{</span>
+            <span class="keyword">return</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break_</span><span class="special">;</span>
+        <span class="special">});</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">lines_last</span> <span class="special">!=</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span>
+        <span class="special">++</span><span class="identifier">lines_last</span><span class="special">;</span>
+
+    <span class="keyword">auto</span> <span class="identifier">total_graphemes</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">accumulate</span><span class="special">(</span>
+        <span class="identifier">lines_it</span><span class="special">,</span> <span class="identifier">lines_last</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span> <span class="special">[](</span><span class="keyword">int</span> <span class="identifier">result</span><span class="special">,</span> <span class="identifier">line_t</span> <span class="identifier">line</span><span class="special">)</span> <span class="special">{</span>
+            <span class="keyword">return</span> <span class="identifier">result</span> <span class="special">+</span> <span class="identifier">line</span><span class="special">.</span><span class="identifier">graphemes_</span><span class="special">;</span>
+        <span class="special">});</span>
+    <span class="comment">// Include the hard line break grapheme, if any.</span>
+    <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">hard_break_grapheme</span> <span class="special">=</span> <span class="keyword">int</span><span class="special">(</span><span class="identifier">lines_last</span> <span class="special">!=</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
+
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">grapheme_first</span> <span class="special">=</span> <span class="identifier">iterator_at_start_of_line</span><span class="special">(</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">line_index</span><span class="special">);</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">grapheme_last</span> <span class="special">=</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">grapheme_first</span><span class="special">,</span> <span class="identifier">total_graphemes</span> <span class="special">+</span> <span class="identifier">hard_break_grapheme</span><span class="special">);</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_range</span><span class="special">&lt;</span><span class="identifier">content_t</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">::</span><span class="identifier">iterator_type</span><span class="special">&gt;</span> <span class="keyword">const</span>
+        <span class="identifier">graphemes</span><span class="special">(</span><span class="identifier">grapheme_first</span><span class="special">,</span> <span class="identifier">grapheme_last</span><span class="special">);</span>
+
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">line_t</span><span class="special">&gt;</span> <span class="identifier">replacements</span><span class="special">;</span>
+    <span class="identifier">get_lines</span><span class="special">(</span><span class="identifier">graphemes</span><span class="special">,</span> <span class="identifier">screen_size</span><span class="special">.</span><span class="identifier">col_</span><span class="special">,</span> <span class="identifier">replacements</span><span class="special">);</span>
+
+    <span class="comment">// If the edited text ends in a hard line break, we'll end up with an</span>
+    <span class="comment">// extra line with no code units or graphemes.  If so, keep that.</span>
+    <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">prev</span><span class="special">(</span><span class="identifier">lines_last</span><span class="special">)-&gt;</span><span class="identifier">code_units_</span><span class="special">)</span>
+        <span class="identifier">replacements</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(*</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">prev</span><span class="special">(</span><span class="identifier">lines_last</span><span class="special">));</span>
+
+    <span class="identifier">s</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">replace</span><span class="special">(</span><span class="identifier">lines_it</span><span class="special">,</span> <span class="identifier">lines_last</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">replacements</span><span class="special">));</span>
+
+    <span class="identifier">state</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">click</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">),</span> <span class="identifier">screen_size</span><span class="special">,</span> <span class="identifier">s</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      In <code class="computeroutput"><span class="identifier">erase_at</span><span class="special">()</span></code>,
+      we could take some shortcuts because we knew we were going to re-break from
+      the line where the cursor is until the next line break. We have to do this
+      because a line of text might be broken into an arbitrary number of lines in
+      our editor. If we make an edit on line N, it may end up affecting line breaks
+      all the way to line N + 1000. Notice that again the logic is pretty straightforward.
+      Almost all the logic is devoted to figuring out the range of graphemes we want
+      to re-break. The actual line breaking is just a call to <code class="computeroutput"><span class="identifier">get_lines</span><span class="special">()</span></code>, which is itself just a single call to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">lines</span><span class="special">()</span></code>,
+      as we saw earier.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Returns a callable that inserts the given grapheme into the text.</span>
+<span class="identifier">command_t</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme</span> <span class="identifier">grapheme</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="special">[</span><span class="identifier">grapheme</span><span class="special">](</span>
+               <span class="identifier">app_state_t</span> <span class="identifier">state</span><span class="special">,</span>
+               <span class="identifier">screen_pos_t</span> <span class="identifier">screen_size</span><span class="special">,</span>
+               <span class="identifier">screen_pos_t</span> <span class="identifier">xy</span><span class="special">)</span> <span class="special">-&gt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span> <span class="special">{</span>
+        <span class="keyword">auto</span> <span class="special">&amp;</span> <span class="identifier">snapshot</span> <span class="special">=</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">;</span>
+        <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">history_</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">);</span>
+
+        <span class="comment">// Determine the line we're at, the iteratos into the text for</span>
+        <span class="comment">// that line and poisition, and the offset within the line, in</span>
+        <span class="comment">// terms of code units and graphemes.</span>
+        <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">line_index</span> <span class="special">=</span> <span class="identifier">cursor_line</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">);</span>
+        <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">cursor_its</span> <span class="special">=</span> <span class="identifier">cursor_iterators</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">);</span>
+        <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">code_unit_offset</span> <span class="special">=</span> <span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">.</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">()</span> <span class="special">-</span>
+                                     <span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">first_</span><span class="special">.</span><span class="identifier">base</span><span class="special">().</span><span class="identifier">base</span><span class="special">();</span>
+        <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">grapheme_offset</span> <span class="special">=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span><span class="special">;</span>
+
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">storage_bytes</span><span class="special">(</span><span class="identifier">grapheme</span><span class="special">)</span> <span class="special">==</span> <span class="number">1</span> <span class="special">&amp;&amp;</span>
+            <span class="special">*</span><span class="identifier">grapheme</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">==</span> <span class="char">'\n'</span><span class="special">)</span> <span class="special">{</span>
+            <span class="comment">// Inserting a newline is a special case.  We need to mark the</span>
+            <span class="comment">// current line as having a hard break, and tear off all the</span>
+            <span class="comment">// code units and graphemes after the insertion point to form</span>
+            <span class="comment">// a new line.</span>
+            <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">,</span> <span class="identifier">grapheme</span><span class="special">);</span>
+            <span class="identifier">line_t</span> <span class="identifier">line</span><span class="special">;</span>
+            <span class="keyword">if</span> <span class="special">(</span><span class="identifier">line_index</span> <span class="special">&lt;</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">size</span><span class="special">())</span>
+                <span class="identifier">line</span> <span class="special">=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">[</span><span class="identifier">line_index</span><span class="special">];</span>
+
+            <span class="identifier">line_t</span> <span class="keyword">const</span> <span class="identifier">new_line</span><span class="special">{</span><span class="identifier">line</span><span class="special">.</span><span class="identifier">code_units_</span> <span class="special">-</span> <span class="identifier">code_unit_offset</span><span class="special">,</span>
+                                  <span class="identifier">line</span><span class="special">.</span><span class="identifier">graphemes_</span> <span class="special">-</span> <span class="identifier">grapheme_offset</span><span class="special">,</span>
+                                  <span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break_</span><span class="special">};</span>
+            <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span>
+                <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">line_index</span> <span class="special">+</span> <span class="number">1</span><span class="special">,</span> <span class="identifier">new_line</span><span class="special">);</span>
+
+            <span class="identifier">line</span><span class="special">.</span><span class="identifier">code_units_</span> <span class="special">=</span> <span class="identifier">code_unit_offset</span> <span class="special">+</span> <span class="number">1</span><span class="special">;</span>
+            <span class="identifier">line</span><span class="special">.</span><span class="identifier">graphemes_</span> <span class="special">=</span> <span class="identifier">grapheme_offset</span><span class="special">;</span>
+            <span class="identifier">line</span><span class="special">.</span><span class="identifier">hard_break_</span> <span class="special">=</span> <span class="keyword">true</span><span class="special">;</span>
+            <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">replace</span><span class="special">(</span>
+                <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">line_index</span><span class="special">,</span> <span class="identifier">line</span><span class="special">);</span>
+
+            <span class="identifier">rebreak_wrapped_line</span><span class="special">(</span><span class="identifier">state</span><span class="special">,</span> <span class="identifier">line_index</span> <span class="special">+</span> <span class="number">1</span><span class="special">,</span> <span class="identifier">screen_size</span><span class="special">);</span>
+
+            <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+            <span class="identifier">set_desired_col</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">);</span>
+            <span class="identifier">state</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">move_down</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">),</span> <span class="identifier">screen_size</span><span class="special">,</span> <span class="identifier">xy</span><span class="special">);</span>
+        <span class="special">}</span> <span class="keyword">else</span> <span class="special">{</span>
+            <span class="comment">// Insertion of a non-newline is the general case.  First, we</span>
+            <span class="comment">// need to figure out if the insertion affects the cursor</span>
+            <span class="comment">// grapheme or the one previous. See</span>
+            <span class="comment">// grapheme_insertion_deltas() for why.</span>
+            <span class="keyword">using</span> <span class="identifier">graphme_view</span> <span class="special">=</span> <span class="keyword">decltype</span><span class="special">(*</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">first_</span><span class="special">);</span>
+            <span class="identifier">graphme_view</span> <span class="identifier">prev_grapheme</span><span class="special">;</span>
+            <span class="keyword">if</span> <span class="special">(</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span> <span class="special">!=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span>
+                <span class="identifier">prev_grapheme</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">prev</span><span class="special">(</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">);</span>
+            <span class="identifier">graphme_view</span> <span class="identifier">next_grapheme</span><span class="special">;</span>
+            <span class="keyword">if</span> <span class="special">(</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span> <span class="special">!=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span>
+                <span class="identifier">next_grapheme</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">;</span>
+            <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">deltas</span> <span class="special">=</span> <span class="identifier">grapheme_insertion_deltas</span><span class="special">(</span>
+                <span class="identifier">prev_grapheme</span><span class="special">,</span> <span class="identifier">grapheme</span><span class="special">,</span> <span class="identifier">next_grapheme</span><span class="special">);</span>
+
+            <span class="keyword">auto</span> <span class="identifier">rebreak_line_index</span> <span class="special">=</span> <span class="identifier">line_index</span><span class="special">;</span>
+            <span class="keyword">auto</span> <span class="identifier">curr_line_delta</span> <span class="special">=</span> <span class="identifier">deltas</span><span class="special">.</span><span class="identifier">next_</span><span class="special">;</span>
+            <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">cursor_pos_</span><span class="special">.</span><span class="identifier">col_</span> <span class="special">&amp;&amp;</span> <span class="identifier">deltas</span><span class="special">.</span><span class="identifier">prev_</span><span class="special">.</span><span class="identifier">code_units_</span><span class="special">)</span> <span class="special">{</span>
+                <span class="comment">// For changes to the previous grapheme when we're at the</span>
+                <span class="comment">// start of the line:</span>
+                <span class="identifier">assert</span><span class="special">(</span><span class="number">0</span> <span class="special">&lt;</span> <span class="identifier">deltas</span><span class="special">.</span><span class="identifier">prev_</span><span class="special">.</span><span class="identifier">code_units_</span><span class="special">);</span>
+                <span class="identifier">assert</span><span class="special">(!</span><span class="identifier">deltas</span><span class="special">.</span><span class="identifier">prev_</span><span class="special">.</span><span class="identifier">graphemes_</span><span class="special">);</span>
+                <span class="identifier">line_t</span> <span class="identifier">prev_line</span> <span class="special">=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">[</span><span class="identifier">line_index</span> <span class="special">-</span> <span class="number">1</span><span class="special">];</span>
+                <span class="identifier">prev_line</span><span class="special">.</span><span class="identifier">code_units_</span> <span class="special">+=</span> <span class="identifier">deltas</span><span class="special">.</span><span class="identifier">prev_</span><span class="special">.</span><span class="identifier">code_units_</span><span class="special">;</span>
+                <span class="identifier">prev_line</span><span class="special">.</span><span class="identifier">graphemes_</span> <span class="special">+=</span> <span class="identifier">deltas</span><span class="special">.</span><span class="identifier">prev_</span><span class="special">.</span><span class="identifier">graphemes_</span><span class="special">;</span>
+                <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">replace</span><span class="special">(</span>
+                    <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">line_index</span> <span class="special">-</span> <span class="number">1</span><span class="special">,</span> <span class="identifier">prev_line</span><span class="special">);</span>
+                <span class="special">--</span><span class="identifier">rebreak_line_index</span><span class="special">;</span>
+            <span class="special">}</span> <span class="keyword">else</span> <span class="special">{</span>
+                <span class="comment">// For the typical case, in which only the cursor grapheme</span>
+                <span class="comment">// is affected:</span>
+                <span class="identifier">curr_line_delta</span><span class="special">.</span><span class="identifier">code_units_</span> <span class="special">+=</span> <span class="identifier">deltas</span><span class="special">.</span><span class="identifier">prev_</span><span class="special">.</span><span class="identifier">code_units_</span><span class="special">;</span>
+                <span class="identifier">curr_line_delta</span><span class="special">.</span><span class="identifier">graphemes_</span> <span class="special">+=</span> <span class="identifier">deltas</span><span class="special">.</span><span class="identifier">prev_</span><span class="special">.</span><span class="identifier">graphemes_</span><span class="special">;</span>
+            <span class="special">}</span>
+
+            <span class="comment">// Modify the current line, or create a new one.</span>
+            <span class="identifier">line_t</span> <span class="identifier">line</span><span class="special">;</span>
+            <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">cursor_at_last_line</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">))</span>
+                <span class="identifier">line</span> <span class="special">=</span> <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">[</span><span class="identifier">line_index</span><span class="special">];</span>
+            <span class="identifier">line</span><span class="special">.</span><span class="identifier">code_units_</span> <span class="special">+=</span> <span class="identifier">curr_line_delta</span><span class="special">.</span><span class="identifier">code_units_</span><span class="special">;</span>
+            <span class="identifier">line</span><span class="special">.</span><span class="identifier">graphemes_</span> <span class="special">+=</span> <span class="identifier">curr_line_delta</span><span class="special">.</span><span class="identifier">graphemes_</span><span class="special">;</span>
+            <span class="keyword">if</span> <span class="special">(</span><span class="identifier">cursor_at_last_line</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">))</span> <span class="special">{</span>
+                <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">line</span><span class="special">);</span>
+            <span class="special">}</span> <span class="keyword">else</span> <span class="special">{</span>
+                <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">replace</span><span class="special">(</span>
+                    <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">lines_</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">line_index</span><span class="special">,</span> <span class="identifier">line</span><span class="special">);</span>
+            <span class="special">}</span>
+
+            <span class="identifier">snapshot</span><span class="special">.</span><span class="identifier">content_</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">cursor_its</span><span class="special">.</span><span class="identifier">cursor_</span><span class="special">,</span> <span class="identifier">grapheme</span><span class="special">);</span>
+            <span class="identifier">rebreak_wrapped_line</span><span class="special">(</span><span class="identifier">state</span><span class="special">,</span> <span class="identifier">rebreak_line_index</span><span class="special">,</span> <span class="identifier">screen_size</span><span class="special">);</span>
+
+            <span class="identifier">state</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">move_right</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">),</span> <span class="identifier">screen_size</span><span class="special">,</span> <span class="identifier">xy</span><span class="special">);</span>
+        <span class="special">}</span>
+
+        <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+    <span class="special">};</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      Finally, we see an implementation that's pretty complicated. Part of the reason
+      for this is that I've chosen to treat hard line breaks specially, so there's
+      special handling for inserting one. But the main complication is that graphemes
+      themselves are complicated. This is because they are context sensitive &#8212;
+      the code points before and after a grapheme may affect that grapheme's boundaries.
+      The next function explains why. Note that erases don't have to deal with this,
+      because they always deal in whole graphemes.
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Ok, this is a little wierd.  When you insert a grapheme into text,</span>
+<span class="comment">// sometimes it just vanishes, sort of.  Unicode!  In particular, a</span>
+<span class="comment">// combining code point like a 'COMBINING DIAERESIS' (U+0308) is a</span>
+<span class="comment">// grapheme when it's all by itself.  So, if you insert this particular</span>
+<span class="comment">// grapheme at location 'it', the grapheme at location 'std::prev(it)'</span>
+<span class="comment">// might just absorb your inserted grapheme (the combining diaresis).</span>
+<span class="comment">// This function tries to insert a grapheme between two other graphemes,</span>
+<span class="comment">// either or both of which may be empty.  From how and if the inserted</span>
+<span class="comment">// grapheme is absorbed (or absorbs -- Unicode!) its neighbors, we can</span>
+<span class="comment">// determine the number of inserted graphemes and code points that</span>
+<span class="comment">// results.</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CPIter</span><span class="special">&gt;</span>
+<span class="identifier">edit_deltas</span> <span class="identifier">grapheme_insertion_deltas</span><span class="special">(</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_view</span><span class="special">&lt;</span><span class="identifier">CPIter</span><span class="special">&gt;</span> <span class="identifier">prev_grapheme</span><span class="special">,</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme</span> <span class="identifier">insertion</span><span class="special">,</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">grapheme_view</span><span class="special">&lt;</span><span class="identifier">CPIter</span><span class="special">&gt;</span> <span class="identifier">next_grapheme</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">text</span> <span class="identifier">t</span><span class="special">;</span>
+    <span class="identifier">t</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">prev_grapheme</span><span class="special">);</span>
+    <span class="keyword">auto</span> <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">next_grapheme</span><span class="special">);</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">initial_distance</span> <span class="special">=</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">distance</span><span class="special">();</span>
+    <span class="identifier">t</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">it</span><span class="special">,</span> <span class="identifier">insertion</span><span class="special">);</span>
+    <span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">distance</span> <span class="special">=</span> <span class="identifier">t</span><span class="special">.</span><span class="identifier">distance</span><span class="special">();</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">distance</span> <span class="special">==</span> <span class="identifier">initial_distance</span> <span class="special">+</span> <span class="number">1</span><span class="special">)</span> <span class="special">{</span>
+        <span class="keyword">return</span> <span class="special">{{},</span> <span class="special">{</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">storage_bytes</span><span class="special">(</span><span class="identifier">insertion</span><span class="special">),</span> <span class="number">1</span><span class="special">}};</span>
+    <span class="special">}</span> <span class="keyword">else</span> <span class="special">{</span>
+        <span class="identifier">assert</span><span class="special">(</span><span class="identifier">distance</span> <span class="special">==</span> <span class="identifier">initial_distance</span><span class="special">);</span>
+        <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">prev_sizes</span><span class="special">[</span><span class="number">2</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span>
+            <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">storage_bytes</span><span class="special">(</span><span class="identifier">prev_grapheme</span><span class="special">),</span>
+            <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">storage_bytes</span><span class="special">(</span><span class="identifier">next_grapheme</span><span class="special">)};</span>
+        <span class="keyword">int</span> <span class="keyword">const</span> <span class="identifier">sizes</span><span class="special">[</span><span class="number">2</span><span class="special">]</span> <span class="special">=</span> <span class="special">{</span>
+            <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">storage_bytes</span><span class="special">(*</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()),</span>
+            <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">storage_bytes</span><span class="special">(*</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">t</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()))};</span>
+        <span class="keyword">return</span> <span class="special">{{</span><span class="identifier">sizes</span><span class="special">[</span><span class="number">0</span><span class="special">]</span> <span class="special">-</span> <span class="identifier">prev_sizes</span><span class="special">[</span><span class="number">0</span><span class="special">],</span> <span class="number">0</span><span class="special">},</span>
+                <span class="special">{</span><span class="identifier">sizes</span><span class="special">[</span><span class="number">1</span><span class="special">]</span> <span class="special">-</span> <span class="identifier">prev_sizes</span><span class="special">[</span><span class="number">1</span><span class="special">],</span> <span class="number">0</span><span class="special">}};</span>
+    <span class="special">}</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      That's messed up. So when I insert arbitrary text that is considered a whole
+      grapheme, it may contextually stop being a whole grapheme, and instead be merged
+      into another existing one. Still, figuring out if and how this happens is not
+      much code.
+    </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        <code class="computeroutput"><span class="identifier">grapheme_insertion_deltas</span><span class="special">()</span></code> probably doesn't need to allocate, considering
+        that <code class="computeroutput"><a class="link" href="../boost/text/text.html" title="Struct text">text</a></code>
+        is implemented in terms of <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>, which has a small-buffer
+        optimization. Very large graphemes will of course make this function allocate.
+        I could also use a fixed-capacity array of <code class="computeroutput"><span class="number">4</span>
+        <span class="special">*</span> <span class="number">32</span> <span class="special">*</span> <span class="number">3</span></code> bytes and
+        be guaranteed not to allocate. The <code class="computeroutput"><span class="number">4</span></code>
+        is for the maximum code units per code point, the <code class="computeroutput"><span class="number">32</span></code>
+        is for the maximum code points per grapheme (because of the <a href="https://unicode.org/reports/tr15/#Stream_Safe_Text_Format" target="_top">Stream-Safe
+        Format</a> assumption), and the <code class="computeroutput"><span class="number">3</span></code>
+        is the number of graphemes we're working with.
+      </p></td></tr>
+</table></div>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Undo by restoring the most recent state in the history.  Note that this</span>
+<span class="comment">// undo is destructive, since there's no redo to worry about implementing.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span>
+<span class="identifier">undo</span><span class="special">(</span><span class="identifier">app_state_t</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">screen_pos_t</span><span class="special">,</span> <span class="identifier">screen_pos_t</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">snapshot_</span> <span class="special">=</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">history_</span><span class="special">.</span><span class="identifier">back</span><span class="special">();</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="number">1</span> <span class="special">&lt;</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">history_</span><span class="special">.</span><span class="identifier">size</span><span class="special">())</span>
+        <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">history_</span><span class="special">.</span><span class="identifier">pop_back</span><span class="special">();</span>
+    <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+<span class="special">}</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span> <span class="identifier">save</span><span class="special">(</span><span class="identifier">app_state_t</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">screen_pos_t</span><span class="special">,</span> <span class="identifier">screen_pos_t</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">save_buffer</span><span class="special">(</span><span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">path_</span><span class="special">,</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">);</span>
+    <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">latest_save_</span> <span class="special">=</span> <span class="identifier">state</span><span class="special">.</span><span class="identifier">buffer_</span><span class="special">.</span><span class="identifier">snapshot_</span><span class="special">.</span><span class="identifier">content_</span><span class="special">;</span>
+    <span class="keyword">return</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">state</span><span class="special">);</span>
+<span class="special">}</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span><span class="identifier">app_state_t</span><span class="special">&gt;</span> <span class="identifier">quit</span><span class="special">(</span><span class="identifier">app_state_t</span><span class="special">,</span> <span class="identifier">screen_pos_t</span><span class="special">,</span> <span class="identifier">screen_pos_t</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">none</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      The implementation of <code class="computeroutput"><span class="identifier">undo</span><span class="special">()</span></code> is a punch line of sorts. If you look back
+      at all the branches required to implement all the actions in the editor, it
+      seems stunning that the undo action could be so simple. It's also surprising
+      that it does what looks like a bulk copy in <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="number">1</span><span class="special">)</span></code>,
+      making it efficient as well.
+    </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

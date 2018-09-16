@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Function template bidirectional_subranges</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../../header/boost/text/bidirectional_hpp.html" title="Header &lt;boost/text/bidirectional.hpp&gt;">
+<link rel="prev" href="bidi_prop.html" title="Function bidi_prop">
+<link rel="next" href="bidirectional_sub_idm15761.html" title="Function template bidirectional_subranges">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="bidi_prop.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/bidirectional_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="bidirectional_sub_idm15761.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.text.bidirectional_sub_idm15737"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Function template bidirectional_subranges</span></h2>
+<p>boost::text::bidirectional_subranges</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../header/boost/text/bidirectional_hpp.html" title="Header &lt;boost/text/bidirectional.hpp&gt;">boost/text/bidirectional.hpp</a>&gt;
+
+</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">,</span> <span class="keyword">typename</span> Sentinel<span class="special">&gt;</span> 
+  <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <span class="identifier">bidirectional_subranges</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">Sentinel</span> last<span class="special">,</span> 
+                                      <span class="keyword">int</span> paragraph_embedding_level <span class="special">=</span> <span class="special">-</span><span class="number">1</span><span class="special">)</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idm16800"></a><h2>Description</h2>
+<p>Returns a lazy range of code point subranges in <code class="computeroutput">[first, last)</code>; each subrange is one of three kinds: a forward-subrange; a reverse-subrange; or a one-code-point subrange used to subtitute a reversed bracketing code point (e.g. <code class="computeroutput">'['</code>) for its couterpart (e.g. <code class="computeroutput">']'</code>). There is a single iterator type used in the resulting subranges, so this distinction is not exposed in the subrange API.</p>
+<p>Line breaks are determined within the algorithm by calling <code class="computeroutput">lines(first, last)</code>; only hard line breaks are considered.</p>
+<p>If a non-negative <code class="computeroutput">paragraph_embedding_level</code> is provided, it will be used instead of the initial paragraph embedding level computed by the bidirectional algorithm. This applies to all paragraphs found in <code class="computeroutput">[first, last)</code>.</p>
+<p>Code points that are used to control the left-to-right or right-to-left direction of code points within the text will not appear in the output. The Unicode bidirectional algorithm specifies that code points with classes RLE, LRE, RLO, LRO, PDF, and BN not appear in the output; this implementation additionally removes code points with classes FSI, LRI, RLI, and PDI. </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="bidi_prop.html"><img src="../../images/prev.png" alt="Prev"></a><a accesskey="u" href="../../header/boost/text/bidirectional_hpp.html"><img src="../../images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../images/home.png" alt="Home"></a><a accesskey="n" href="bidirectional_sub_idm15761.html"><img src="../../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

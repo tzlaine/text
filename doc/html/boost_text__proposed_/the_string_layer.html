@@ -141,10 +141,10 @@
     </p>
 <p>
       <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>'s
-      character type is <code class="computeroutput"><span class="keyword">char</span></code> and its
-      size/index type is <code class="computeroutput"><span class="keyword">int</span></code>, for the
-      same reasons given for <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>. It is also slice-able
-      in the same way that <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code> is.
+      element type is <code class="computeroutput"><span class="keyword">char</span></code> and its size/index
+      type is <code class="computeroutput"><span class="keyword">int</span></code>, for the same reasons
+      given for <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>.
+      It is also slice-able in the same way that <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code> is.
     </p>
 <p>
       <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
@@ -179,17 +179,17 @@
       and <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
       is that <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
       is missing all those overloads (including constructors) that take a number
-      of characters to repeat. For example, <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code> has no function for inserting
-      a single character N times. Instead of having all those overloads and using
-      a heap-allocating type like <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code> to represent repeated
-      characters, Boost.Text introduces a new non-allocating type for this, <code class="computeroutput"><a class="link" href="../boost/text/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>.
+      of elements to repeat. For example, <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code> has no function for inserting
+      a single element N times. Instead of having all those overloads and using a
+      heap-allocating type like <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code> to represent repeated
+      elements, Boost.Text introduces a new non-allocating type for this, <code class="computeroutput"><a class="link" href="../boost/text/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>.
     </p>
 <p>
       <code class="computeroutput"><a class="link" href="../boost/text/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>
       has semantics and an interface much like <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>: it is near-immutable;
       it uses a signed size/index type (though a typically-larger one, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span></code>);
-      it uses <code class="computeroutput"><span class="keyword">char</span></code> as its character
-      type; and it is slice-able in the same way.
+      it uses <code class="computeroutput"><span class="keyword">char</span></code> as its element type;
+      and it is slice-able in the same way.
     </p>
 <p>
       With <code class="computeroutput"><a class="link" href="../boost/text/repeated_string_view.html" title="Struct repeated_string_view">repeated_string_view</a></code>
@@ -261,9 +261,9 @@
       No copying was done, nor allocations performed. Copying an entire tree only
       requires copying a pointer and incrementing a reference count. The string in
       this <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
-      leaf is only four characters, but let's suppose it was megabytes instead. Inserting
+      leaf is only four elements, but let's suppose it was megabytes instead. Inserting
       even a small sequence near the beginning of the string would be costly, since
-      we'd have to copy all the characters after the insertion point. And since the
+      we'd have to copy all the elements after the insertion point. And since the
       <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code>
       leaf may be shared, we would have to copy everything <span class="emphasis"><em>before</em></span>
       the insertion, too! For large <code class="computeroutput"><a class="link" href="../boost/text/string.html" title="Struct string">string</a></code> leaves, insertions into
@@ -346,8 +346,8 @@
       other properties you need to know about. A <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> as a whole is
       copy-on-write; it is also therefore thread-safe for reading and writing; it
       is not null-terminated; it uses a signed size/index type (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span></code>);
-      it uses <code class="computeroutput"><span class="keyword">char</span></code> as its character
-      type; and it is slice-able.
+      it uses <code class="computeroutput"><span class="keyword">char</span></code> as its element type;
+      and it is slice-able.
     </p>
 <p>
       Insertions, erasures, and indexing each happen in <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="identifier">log_B</span><span class="special">(</span><span class="identifier">N</span><span class="special">))</span></code> time,
@@ -494,8 +494,8 @@
       <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code>
       has semantics and an interface much like <code class="computeroutput"><a class="link" href="../boost/text/string_view.html" title="Struct string_view">string_view</a></code>: it is near-immutable;
       it uses a signed size/index type (<code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span></code>);
-      it uses <code class="computeroutput"><span class="keyword">char</span></code> as its character
-      type; and it is slice-able.
+      it uses <code class="computeroutput"><span class="keyword">char</span></code> as its element type;
+      and it is slice-able.
     </p>
 <p>
       A key use of <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope_view.html" title="Struct unencoded_rope_view">unencoded_rope_view</a></code> is that it
