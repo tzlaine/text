@@ -320,6 +320,8 @@ namespace {
             replacements.push_back(*std::prev(lines_last));
 
         s.lines_.replace(lines_it, lines_last, std::move(replacements));
+
+        state = *click(std::move(state), screen_size, s.cursor_pos_);
     }
 
     boost::optional<app_state_t>
