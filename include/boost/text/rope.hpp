@@ -298,6 +298,14 @@ namespace boost { namespace text {
 #endif
 
         /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from c_str.
+
+            \pre !std::less(old_substr.begin().base().base(),
+            begin().base().base()) && !std::less(end().base().base(),
+            old_substr.end().base().base()) */
+        rope & replace(rope_view old_substr, char const * c_str);
+
+        /** Replaces the portion of *this delimited by old_substr with the
             sequence [first, last).
 
             \pre !std::less(old_substr.begin().base().base(),
@@ -740,6 +748,12 @@ namespace boost { namespace text {
         -> detail::rng_alg_ret_t<rope &, CharRange>
     {
         replace(old_substr, std::begin(r), std::end(r));
+        return *this;
+    }
+
+    inline rope & rope::replace(rope_view old_substr, char const * str)
+    {
+        replace(old_substr, string_view(str));
         return *this;
     }
 

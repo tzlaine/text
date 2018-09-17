@@ -392,6 +392,12 @@ namespace boost { namespace text {
 
 #endif
 
+        /** Inserts the sequence of char from c_str into *this starting at offset at. */
+        string & insert(int at, char const * c_str);
+
+        /** Inserts the sequence of char from c_str into *this starting at position at. */
+        iterator insert(iterator at, char const * c_str);
+
         /** Erases the portion of *this delimited by sv.
 
             \pre !std::less(tv.begin(), begin()) && !std::less(end(),
@@ -518,6 +524,13 @@ namespace boost { namespace text {
         }
 
 #endif
+
+        /** Replaces the portion of *this delimited by old_substr with the
+            sequence of char from c_str.
+
+            \pre !std::less(old_substr.begin(), begin()) && !std::less(end(),
+            old_substr.end()) */
+        string & replace(string_view old_substr, char const * c_str);
 
         /** Changes the size of *this to new_size.  Truncates if new_size <
             size(), and appends new_size - size() repetitions of c it size() <
@@ -1147,6 +1160,16 @@ namespace boost { namespace text {
             at, std::begin(r).base().base(), std::end(r).base().base());
     }
 
+    inline string & string::insert(int at, char const * c_str)
+    {
+        return insert(at, string_view(c_str));
+    }
+
+    inline string::iterator string::insert(iterator at, char const * c_str)
+    {
+        return insert(at, string_view(c_str));
+    }
+
     inline string & string::erase(string_view sv) noexcept
     {
         BOOST_ASSERT(0 <= sv.size());
@@ -1292,6 +1315,11 @@ namespace boost { namespace text {
 
         char * old_first = const_cast<char *>(old_substr.begin());
         return replace(old_first, old_first + old_substr.size(), first, last);
+    }
+
+    inline string & string::replace(string_view old_substr, char const * c_str)
+    {
+        return replace(old_substr, string_view(c_str));
     }
 
     inline string & string::operator+=(char c) { return insert(size(), c); }
