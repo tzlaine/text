@@ -21,7 +21,7 @@ TEST(bidi, bidi_162_000)
         // CS RLE WS LRE; 4 ('RTL') (line 81001)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x0020, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -32,7 +32,7 @@ TEST(bidi, bidi_162_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -71,7 +71,7 @@ TEST(bidi, bidi_162_000)
         // CS RLE WS LRO; 4 ('RTL') (line 81002)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x0020, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -82,7 +82,7 @@ TEST(bidi, bidi_162_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -121,7 +121,7 @@ TEST(bidi, bidi_162_000)
         // CS RLE WS RLE; 4 ('RTL') (line 81003)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x0020, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -132,7 +132,7 @@ TEST(bidi, bidi_162_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -171,7 +171,7 @@ TEST(bidi, bidi_162_000)
         // CS RLE WS RLO; 4 ('RTL') (line 81004)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x0020, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -182,7 +182,7 @@ TEST(bidi, bidi_162_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -221,7 +221,7 @@ TEST(bidi, bidi_162_000)
         // CS RLE WS PDF; 4 ('RTL') (line 81005)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x0020, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -232,7 +232,7 @@ TEST(bidi, bidi_162_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -271,7 +271,7 @@ TEST(bidi, bidi_162_000)
         // CS RLE WS BN; 4 ('RTL') (line 81006)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x0020, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -282,7 +282,7 @@ TEST(bidi, bidi_162_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -321,7 +321,7 @@ TEST(bidi, bidi_162_000)
         // CS RLE LRI LRE; 4 ('RTL') (line 81007)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2066, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -332,7 +332,7 @@ TEST(bidi, bidi_162_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -371,7 +371,7 @@ TEST(bidi, bidi_162_000)
         // CS RLE LRI LRO; 4 ('RTL') (line 81008)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2066, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -382,7 +382,7 @@ TEST(bidi, bidi_162_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -421,7 +421,7 @@ TEST(bidi, bidi_162_000)
         // CS RLE LRI RLE; 4 ('RTL') (line 81009)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2066, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -432,7 +432,7 @@ TEST(bidi, bidi_162_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -471,7 +471,7 @@ TEST(bidi, bidi_162_000)
         // CS RLE LRI RLO; 4 ('RTL') (line 81010)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2066, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -482,7 +482,7 @@ TEST(bidi, bidi_162_000)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -528,7 +528,7 @@ TEST(bidi, bidi_162_001)
         // CS RLE LRI PDF; 4 ('RTL') (line 81011)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2066, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -539,7 +539,7 @@ TEST(bidi, bidi_162_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -578,7 +578,7 @@ TEST(bidi, bidi_162_001)
         // CS RLE LRI BN; 4 ('RTL') (line 81012)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2066, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -589,7 +589,7 @@ TEST(bidi, bidi_162_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -628,7 +628,7 @@ TEST(bidi, bidi_162_001)
         // CS RLE RLI LRE; 4 ('RTL') (line 81013)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2067, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -639,7 +639,7 @@ TEST(bidi, bidi_162_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -678,7 +678,7 @@ TEST(bidi, bidi_162_001)
         // CS RLE RLI LRO; 4 ('RTL') (line 81014)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2067, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -689,7 +689,7 @@ TEST(bidi, bidi_162_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -728,7 +728,7 @@ TEST(bidi, bidi_162_001)
         // CS RLE RLI RLE; 4 ('RTL') (line 81015)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2067, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -739,7 +739,7 @@ TEST(bidi, bidi_162_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -778,7 +778,7 @@ TEST(bidi, bidi_162_001)
         // CS RLE RLI RLO; 4 ('RTL') (line 81016)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2067, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -789,7 +789,7 @@ TEST(bidi, bidi_162_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -828,7 +828,7 @@ TEST(bidi, bidi_162_001)
         // CS RLE RLI PDF; 4 ('RTL') (line 81017)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2067, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -839,7 +839,7 @@ TEST(bidi, bidi_162_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -878,7 +878,7 @@ TEST(bidi, bidi_162_001)
         // CS RLE RLI BN; 4 ('RTL') (line 81018)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2067, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -889,7 +889,7 @@ TEST(bidi, bidi_162_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -928,7 +928,7 @@ TEST(bidi, bidi_162_001)
         // CS RLE FSI LRE; 4 ('RTL') (line 81019)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2068, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -939,7 +939,7 @@ TEST(bidi, bidi_162_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -978,7 +978,7 @@ TEST(bidi, bidi_162_001)
         // CS RLE FSI LRO; 4 ('RTL') (line 81020)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2068, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -989,7 +989,7 @@ TEST(bidi, bidi_162_001)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1035,7 +1035,7 @@ TEST(bidi, bidi_162_002)
         // CS RLE FSI RLE; 4 ('RTL') (line 81021)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2068, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1046,7 +1046,7 @@ TEST(bidi, bidi_162_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1085,7 +1085,7 @@ TEST(bidi, bidi_162_002)
         // CS RLE FSI RLO; 4 ('RTL') (line 81022)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2068, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1096,7 +1096,7 @@ TEST(bidi, bidi_162_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1135,7 +1135,7 @@ TEST(bidi, bidi_162_002)
         // CS RLE FSI PDF; 4 ('RTL') (line 81023)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2068, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1146,7 +1146,7 @@ TEST(bidi, bidi_162_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1185,7 +1185,7 @@ TEST(bidi, bidi_162_002)
         // CS RLE FSI BN; 4 ('RTL') (line 81024)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2068, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1196,7 +1196,7 @@ TEST(bidi, bidi_162_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1235,7 +1235,7 @@ TEST(bidi, bidi_162_002)
         // CS RLE PDI LRE; 4 ('RTL') (line 81025)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2069, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1246,7 +1246,7 @@ TEST(bidi, bidi_162_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1285,7 +1285,7 @@ TEST(bidi, bidi_162_002)
         // CS RLE PDI LRO; 4 ('RTL') (line 81026)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2069, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1296,7 +1296,7 @@ TEST(bidi, bidi_162_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1335,7 +1335,7 @@ TEST(bidi, bidi_162_002)
         // CS RLE PDI RLE; 4 ('RTL') (line 81027)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2069, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1346,7 +1346,7 @@ TEST(bidi, bidi_162_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1385,7 +1385,7 @@ TEST(bidi, bidi_162_002)
         // CS RLE PDI RLO; 4 ('RTL') (line 81028)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2069, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1396,7 +1396,7 @@ TEST(bidi, bidi_162_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1435,7 +1435,7 @@ TEST(bidi, bidi_162_002)
         // CS RLE PDI PDF; 4 ('RTL') (line 81029)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2069, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1446,7 +1446,7 @@ TEST(bidi, bidi_162_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1485,7 +1485,7 @@ TEST(bidi, bidi_162_002)
         // CS RLE PDI BN; 4 ('RTL') (line 81030)
         std::vector<uint32_t> const cps = { 0x002C, 0x202B, 0x2069, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1496,7 +1496,7 @@ TEST(bidi, bidi_162_002)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1542,7 +1542,7 @@ TEST(bidi, bidi_162_003)
         // CS RLO S LRE; 4 ('RTL') (line 81031)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0009, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1553,7 +1553,7 @@ TEST(bidi, bidi_162_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1592,7 +1592,7 @@ TEST(bidi, bidi_162_003)
         // CS RLO S LRO; 4 ('RTL') (line 81032)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0009, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1603,7 +1603,7 @@ TEST(bidi, bidi_162_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1642,7 +1642,7 @@ TEST(bidi, bidi_162_003)
         // CS RLO S RLE; 4 ('RTL') (line 81033)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0009, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1653,7 +1653,7 @@ TEST(bidi, bidi_162_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1692,7 +1692,7 @@ TEST(bidi, bidi_162_003)
         // CS RLO S RLO; 4 ('RTL') (line 81034)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0009, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1703,7 +1703,7 @@ TEST(bidi, bidi_162_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1742,7 +1742,7 @@ TEST(bidi, bidi_162_003)
         // CS RLO S PDF; 4 ('RTL') (line 81035)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0009, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1753,7 +1753,7 @@ TEST(bidi, bidi_162_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1792,7 +1792,7 @@ TEST(bidi, bidi_162_003)
         // CS RLO S BN; 4 ('RTL') (line 81036)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0009, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1803,7 +1803,7 @@ TEST(bidi, bidi_162_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1842,7 +1842,7 @@ TEST(bidi, bidi_162_003)
         // CS RLO WS LRE; 4 ('RTL') (line 81037)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0020, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1853,7 +1853,7 @@ TEST(bidi, bidi_162_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1892,7 +1892,7 @@ TEST(bidi, bidi_162_003)
         // CS RLO WS LRO; 4 ('RTL') (line 81038)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0020, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1903,7 +1903,7 @@ TEST(bidi, bidi_162_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1942,7 +1942,7 @@ TEST(bidi, bidi_162_003)
         // CS RLO WS RLE; 4 ('RTL') (line 81039)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0020, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1953,7 +1953,7 @@ TEST(bidi, bidi_162_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -1992,7 +1992,7 @@ TEST(bidi, bidi_162_003)
         // CS RLO WS RLO; 4 ('RTL') (line 81040)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0020, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2003,7 +2003,7 @@ TEST(bidi, bidi_162_003)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2049,7 +2049,7 @@ TEST(bidi, bidi_162_004)
         // CS RLO WS PDF; 4 ('RTL') (line 81041)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0020, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2060,7 +2060,7 @@ TEST(bidi, bidi_162_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2099,7 +2099,7 @@ TEST(bidi, bidi_162_004)
         // CS RLO WS BN; 4 ('RTL') (line 81042)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x0020, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2110,7 +2110,7 @@ TEST(bidi, bidi_162_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2149,7 +2149,7 @@ TEST(bidi, bidi_162_004)
         // CS RLO LRI LRE; 4 ('RTL') (line 81043)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2066, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2160,7 +2160,7 @@ TEST(bidi, bidi_162_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2199,7 +2199,7 @@ TEST(bidi, bidi_162_004)
         // CS RLO LRI LRO; 4 ('RTL') (line 81044)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2066, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2210,7 +2210,7 @@ TEST(bidi, bidi_162_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2249,7 +2249,7 @@ TEST(bidi, bidi_162_004)
         // CS RLO LRI RLE; 4 ('RTL') (line 81045)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2066, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2260,7 +2260,7 @@ TEST(bidi, bidi_162_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2299,7 +2299,7 @@ TEST(bidi, bidi_162_004)
         // CS RLO LRI RLO; 4 ('RTL') (line 81046)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2066, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2310,7 +2310,7 @@ TEST(bidi, bidi_162_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2349,7 +2349,7 @@ TEST(bidi, bidi_162_004)
         // CS RLO LRI PDF; 4 ('RTL') (line 81047)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2066, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2360,7 +2360,7 @@ TEST(bidi, bidi_162_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2399,7 +2399,7 @@ TEST(bidi, bidi_162_004)
         // CS RLO LRI BN; 4 ('RTL') (line 81048)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2066, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2410,7 +2410,7 @@ TEST(bidi, bidi_162_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2449,7 +2449,7 @@ TEST(bidi, bidi_162_004)
         // CS RLO RLI LRE; 4 ('RTL') (line 81049)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2067, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2460,7 +2460,7 @@ TEST(bidi, bidi_162_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2499,7 +2499,7 @@ TEST(bidi, bidi_162_004)
         // CS RLO RLI LRO; 4 ('RTL') (line 81050)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2067, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2510,7 +2510,7 @@ TEST(bidi, bidi_162_004)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2556,7 +2556,7 @@ TEST(bidi, bidi_162_005)
         // CS RLO RLI RLE; 4 ('RTL') (line 81051)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2067, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2567,7 +2567,7 @@ TEST(bidi, bidi_162_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2606,7 +2606,7 @@ TEST(bidi, bidi_162_005)
         // CS RLO RLI RLO; 4 ('RTL') (line 81052)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2067, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2617,7 +2617,7 @@ TEST(bidi, bidi_162_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2656,7 +2656,7 @@ TEST(bidi, bidi_162_005)
         // CS RLO RLI PDF; 4 ('RTL') (line 81053)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2067, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2667,7 +2667,7 @@ TEST(bidi, bidi_162_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2706,7 +2706,7 @@ TEST(bidi, bidi_162_005)
         // CS RLO RLI BN; 4 ('RTL') (line 81054)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2067, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2717,7 +2717,7 @@ TEST(bidi, bidi_162_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2756,7 +2756,7 @@ TEST(bidi, bidi_162_005)
         // CS RLO FSI LRE; 4 ('RTL') (line 81055)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2068, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2767,7 +2767,7 @@ TEST(bidi, bidi_162_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2806,7 +2806,7 @@ TEST(bidi, bidi_162_005)
         // CS RLO FSI LRO; 4 ('RTL') (line 81056)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2068, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2817,7 +2817,7 @@ TEST(bidi, bidi_162_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2856,7 +2856,7 @@ TEST(bidi, bidi_162_005)
         // CS RLO FSI RLE; 4 ('RTL') (line 81057)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2068, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2867,7 +2867,7 @@ TEST(bidi, bidi_162_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2906,7 +2906,7 @@ TEST(bidi, bidi_162_005)
         // CS RLO FSI RLO; 4 ('RTL') (line 81058)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2068, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2917,7 +2917,7 @@ TEST(bidi, bidi_162_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -2956,7 +2956,7 @@ TEST(bidi, bidi_162_005)
         // CS RLO FSI PDF; 4 ('RTL') (line 81059)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2068, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2967,7 +2967,7 @@ TEST(bidi, bidi_162_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3006,7 +3006,7 @@ TEST(bidi, bidi_162_005)
         // CS RLO FSI BN; 4 ('RTL') (line 81060)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2068, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3017,7 +3017,7 @@ TEST(bidi, bidi_162_005)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3063,7 +3063,7 @@ TEST(bidi, bidi_162_006)
         // CS RLO PDI LRE; 4 ('RTL') (line 81061)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2069, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3074,7 +3074,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3113,7 +3113,7 @@ TEST(bidi, bidi_162_006)
         // CS RLO PDI LRO; 4 ('RTL') (line 81062)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2069, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3124,7 +3124,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3163,7 +3163,7 @@ TEST(bidi, bidi_162_006)
         // CS RLO PDI RLE; 4 ('RTL') (line 81063)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2069, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3174,7 +3174,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3213,7 +3213,7 @@ TEST(bidi, bidi_162_006)
         // CS RLO PDI RLO; 4 ('RTL') (line 81064)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2069, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3224,7 +3224,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3263,7 +3263,7 @@ TEST(bidi, bidi_162_006)
         // CS RLO PDI PDF; 4 ('RTL') (line 81065)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2069, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3274,7 +3274,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3313,7 +3313,7 @@ TEST(bidi, bidi_162_006)
         // CS RLO PDI BN; 4 ('RTL') (line 81066)
         std::vector<uint32_t> const cps = { 0x002C, 0x202E, 0x2069, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3324,7 +3324,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3363,7 +3363,7 @@ TEST(bidi, bidi_162_006)
         // CS PDF R LRE; 5 ('auto') (line 81067)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3374,7 +3374,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3413,7 +3413,7 @@ TEST(bidi, bidi_162_006)
         // CS PDF R LRE; 5 ('RTL') (line 81067)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3424,7 +3424,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3463,7 +3463,7 @@ TEST(bidi, bidi_162_006)
         // CS PDF R LRO; 5 ('auto') (line 81068)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3474,7 +3474,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3513,7 +3513,7 @@ TEST(bidi, bidi_162_006)
         // CS PDF R LRO; 5 ('RTL') (line 81068)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3524,7 +3524,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3563,7 +3563,7 @@ TEST(bidi, bidi_162_006)
         // CS PDF R RLE; 5 ('auto') (line 81069)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3574,7 +3574,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3613,7 +3613,7 @@ TEST(bidi, bidi_162_006)
         // CS PDF R RLE; 5 ('RTL') (line 81069)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3624,7 +3624,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3663,7 +3663,7 @@ TEST(bidi, bidi_162_006)
         // CS PDF R RLO; 5 ('auto') (line 81070)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3674,7 +3674,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3713,7 +3713,7 @@ TEST(bidi, bidi_162_006)
         // CS PDF R RLO; 5 ('RTL') (line 81070)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3724,7 +3724,7 @@ TEST(bidi, bidi_162_006)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3770,7 +3770,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF R PDF; 5 ('auto') (line 81071)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3781,7 +3781,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3820,7 +3820,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF R PDF; 5 ('RTL') (line 81071)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3831,7 +3831,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3870,7 +3870,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF R BN; 5 ('auto') (line 81072)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3881,7 +3881,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3920,7 +3920,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF R BN; 5 ('RTL') (line 81072)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x05BE, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3931,7 +3931,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -3970,7 +3970,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL LRE; 5 ('auto') (line 81073)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3981,7 +3981,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4020,7 +4020,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL LRE; 5 ('RTL') (line 81073)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4031,7 +4031,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4070,7 +4070,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL LRO; 5 ('auto') (line 81074)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4081,7 +4081,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4120,7 +4120,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL LRO; 5 ('RTL') (line 81074)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4131,7 +4131,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4170,7 +4170,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL RLE; 5 ('auto') (line 81075)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4181,7 +4181,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4220,7 +4220,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL RLE; 5 ('RTL') (line 81075)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4231,7 +4231,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4270,7 +4270,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL RLO; 5 ('auto') (line 81076)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4281,7 +4281,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4320,7 +4320,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL RLO; 5 ('RTL') (line 81076)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4331,7 +4331,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4370,7 +4370,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL PDF; 5 ('auto') (line 81077)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4381,7 +4381,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4420,7 +4420,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL PDF; 5 ('RTL') (line 81077)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4431,7 +4431,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4470,7 +4470,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL BN; 5 ('auto') (line 81078)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4481,7 +4481,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4520,7 +4520,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF AL BN; 5 ('RTL') (line 81078)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0608, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4531,7 +4531,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4570,7 +4570,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF ES LRE; 4 ('RTL') (line 81079)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002B, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4581,7 +4581,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4620,7 +4620,7 @@ TEST(bidi, bidi_162_007)
         // CS PDF ES LRO; 4 ('RTL') (line 81080)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002B, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4631,7 +4631,7 @@ TEST(bidi, bidi_162_007)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4677,7 +4677,7 @@ TEST(bidi, bidi_162_008)
         // CS PDF ES RLE; 4 ('RTL') (line 81081)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002B, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4688,7 +4688,7 @@ TEST(bidi, bidi_162_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4727,7 +4727,7 @@ TEST(bidi, bidi_162_008)
         // CS PDF ES RLO; 4 ('RTL') (line 81082)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002B, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4738,7 +4738,7 @@ TEST(bidi, bidi_162_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4777,7 +4777,7 @@ TEST(bidi, bidi_162_008)
         // CS PDF ES PDF; 4 ('RTL') (line 81083)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002B, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4788,7 +4788,7 @@ TEST(bidi, bidi_162_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4827,7 +4827,7 @@ TEST(bidi, bidi_162_008)
         // CS PDF ES BN; 4 ('RTL') (line 81084)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002B, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4838,7 +4838,7 @@ TEST(bidi, bidi_162_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4877,7 +4877,7 @@ TEST(bidi, bidi_162_008)
         // CS PDF ET LRE; 4 ('RTL') (line 81085)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0023, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4888,7 +4888,7 @@ TEST(bidi, bidi_162_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4927,7 +4927,7 @@ TEST(bidi, bidi_162_008)
         // CS PDF ET LRO; 4 ('RTL') (line 81086)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0023, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4938,7 +4938,7 @@ TEST(bidi, bidi_162_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -4977,7 +4977,7 @@ TEST(bidi, bidi_162_008)
         // CS PDF ET RLE; 4 ('RTL') (line 81087)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0023, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4988,7 +4988,7 @@ TEST(bidi, bidi_162_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5027,7 +5027,7 @@ TEST(bidi, bidi_162_008)
         // CS PDF ET RLO; 4 ('RTL') (line 81088)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0023, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5038,7 +5038,7 @@ TEST(bidi, bidi_162_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5077,7 +5077,7 @@ TEST(bidi, bidi_162_008)
         // CS PDF ET PDF; 4 ('RTL') (line 81089)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0023, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5088,7 +5088,7 @@ TEST(bidi, bidi_162_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5127,7 +5127,7 @@ TEST(bidi, bidi_162_008)
         // CS PDF ET BN; 4 ('RTL') (line 81090)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0023, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5138,7 +5138,7 @@ TEST(bidi, bidi_162_008)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5184,7 +5184,7 @@ TEST(bidi, bidi_162_009)
         // CS PDF CS LRE; 4 ('RTL') (line 81091)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002C, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5195,7 +5195,7 @@ TEST(bidi, bidi_162_009)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5234,7 +5234,7 @@ TEST(bidi, bidi_162_009)
         // CS PDF CS LRO; 4 ('RTL') (line 81092)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002C, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5245,7 +5245,7 @@ TEST(bidi, bidi_162_009)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5284,7 +5284,7 @@ TEST(bidi, bidi_162_009)
         // CS PDF CS RLE; 4 ('RTL') (line 81093)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002C, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5295,7 +5295,7 @@ TEST(bidi, bidi_162_009)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5334,7 +5334,7 @@ TEST(bidi, bidi_162_009)
         // CS PDF CS RLO; 4 ('RTL') (line 81094)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002C, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5345,7 +5345,7 @@ TEST(bidi, bidi_162_009)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5384,7 +5384,7 @@ TEST(bidi, bidi_162_009)
         // CS PDF CS PDF; 4 ('RTL') (line 81095)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002C, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5395,7 +5395,7 @@ TEST(bidi, bidi_162_009)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5434,7 +5434,7 @@ TEST(bidi, bidi_162_009)
         // CS PDF CS BN; 4 ('RTL') (line 81096)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x002C, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5445,7 +5445,7 @@ TEST(bidi, bidi_162_009)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5484,7 +5484,7 @@ TEST(bidi, bidi_162_009)
         // CS PDF NSM LRE; 4 ('RTL') (line 81097)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0300, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5495,7 +5495,7 @@ TEST(bidi, bidi_162_009)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5534,7 +5534,7 @@ TEST(bidi, bidi_162_009)
         // CS PDF NSM LRO; 4 ('RTL') (line 81098)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0300, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5545,7 +5545,7 @@ TEST(bidi, bidi_162_009)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5584,7 +5584,7 @@ TEST(bidi, bidi_162_009)
         // CS PDF NSM RLE; 4 ('RTL') (line 81099)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0300, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5595,7 +5595,7 @@ TEST(bidi, bidi_162_009)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5634,7 +5634,7 @@ TEST(bidi, bidi_162_009)
         // CS PDF NSM RLO; 4 ('RTL') (line 81100)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0300, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5645,7 +5645,7 @@ TEST(bidi, bidi_162_009)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5691,7 +5691,7 @@ TEST(bidi, bidi_162_010)
         // CS PDF NSM PDF; 4 ('RTL') (line 81101)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0300, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5702,7 +5702,7 @@ TEST(bidi, bidi_162_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5741,7 +5741,7 @@ TEST(bidi, bidi_162_010)
         // CS PDF NSM BN; 4 ('RTL') (line 81102)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0300, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5752,7 +5752,7 @@ TEST(bidi, bidi_162_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5791,7 +5791,7 @@ TEST(bidi, bidi_162_010)
         // CS PDF S LRE; 4 ('RTL') (line 81103)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0009, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5802,7 +5802,7 @@ TEST(bidi, bidi_162_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5841,7 +5841,7 @@ TEST(bidi, bidi_162_010)
         // CS PDF S LRO; 4 ('RTL') (line 81104)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0009, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5852,7 +5852,7 @@ TEST(bidi, bidi_162_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5891,7 +5891,7 @@ TEST(bidi, bidi_162_010)
         // CS PDF S RLE; 4 ('RTL') (line 81105)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0009, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5902,7 +5902,7 @@ TEST(bidi, bidi_162_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5941,7 +5941,7 @@ TEST(bidi, bidi_162_010)
         // CS PDF S RLO; 4 ('RTL') (line 81106)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0009, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5952,7 +5952,7 @@ TEST(bidi, bidi_162_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -5991,7 +5991,7 @@ TEST(bidi, bidi_162_010)
         // CS PDF S PDF; 4 ('RTL') (line 81107)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0009, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6002,7 +6002,7 @@ TEST(bidi, bidi_162_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6041,7 +6041,7 @@ TEST(bidi, bidi_162_010)
         // CS PDF S BN; 4 ('RTL') (line 81108)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0009, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6052,7 +6052,7 @@ TEST(bidi, bidi_162_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6091,7 +6091,7 @@ TEST(bidi, bidi_162_010)
         // CS PDF WS LRE; 4 ('RTL') (line 81109)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0020, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6102,7 +6102,7 @@ TEST(bidi, bidi_162_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6141,7 +6141,7 @@ TEST(bidi, bidi_162_010)
         // CS PDF WS LRO; 4 ('RTL') (line 81110)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0020, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6152,7 +6152,7 @@ TEST(bidi, bidi_162_010)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6198,7 +6198,7 @@ TEST(bidi, bidi_162_011)
         // CS PDF WS RLE; 4 ('RTL') (line 81111)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0020, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6209,7 +6209,7 @@ TEST(bidi, bidi_162_011)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6248,7 +6248,7 @@ TEST(bidi, bidi_162_011)
         // CS PDF WS RLO; 4 ('RTL') (line 81112)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0020, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6259,7 +6259,7 @@ TEST(bidi, bidi_162_011)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6298,7 +6298,7 @@ TEST(bidi, bidi_162_011)
         // CS PDF WS PDF; 4 ('RTL') (line 81113)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0020, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6309,7 +6309,7 @@ TEST(bidi, bidi_162_011)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6348,7 +6348,7 @@ TEST(bidi, bidi_162_011)
         // CS PDF WS BN; 4 ('RTL') (line 81114)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0020, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6359,7 +6359,7 @@ TEST(bidi, bidi_162_011)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6398,7 +6398,7 @@ TEST(bidi, bidi_162_011)
         // CS PDF ON LRE; 4 ('RTL') (line 81115)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0021, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6409,7 +6409,7 @@ TEST(bidi, bidi_162_011)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6448,7 +6448,7 @@ TEST(bidi, bidi_162_011)
         // CS PDF ON LRO; 4 ('RTL') (line 81116)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0021, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6459,7 +6459,7 @@ TEST(bidi, bidi_162_011)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6498,7 +6498,7 @@ TEST(bidi, bidi_162_011)
         // CS PDF ON RLE; 4 ('RTL') (line 81117)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0021, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6509,7 +6509,7 @@ TEST(bidi, bidi_162_011)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6548,7 +6548,7 @@ TEST(bidi, bidi_162_011)
         // CS PDF ON RLO; 4 ('RTL') (line 81118)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0021, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6559,7 +6559,7 @@ TEST(bidi, bidi_162_011)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6598,7 +6598,7 @@ TEST(bidi, bidi_162_011)
         // CS PDF ON PDF; 4 ('RTL') (line 81119)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0021, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6609,7 +6609,7 @@ TEST(bidi, bidi_162_011)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6648,7 +6648,7 @@ TEST(bidi, bidi_162_011)
         // CS PDF ON BN; 4 ('RTL') (line 81120)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x0021, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6659,7 +6659,7 @@ TEST(bidi, bidi_162_011)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6705,7 +6705,7 @@ TEST(bidi, bidi_162_012)
         // CS PDF LRI LRE; 4 ('RTL') (line 81121)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2066, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6716,7 +6716,7 @@ TEST(bidi, bidi_162_012)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6755,7 +6755,7 @@ TEST(bidi, bidi_162_012)
         // CS PDF LRI LRO; 4 ('RTL') (line 81122)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2066, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6766,7 +6766,7 @@ TEST(bidi, bidi_162_012)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6805,7 +6805,7 @@ TEST(bidi, bidi_162_012)
         // CS PDF LRI RLE; 4 ('RTL') (line 81123)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2066, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6816,7 +6816,7 @@ TEST(bidi, bidi_162_012)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6855,7 +6855,7 @@ TEST(bidi, bidi_162_012)
         // CS PDF LRI RLO; 4 ('RTL') (line 81124)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2066, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6866,7 +6866,7 @@ TEST(bidi, bidi_162_012)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6905,7 +6905,7 @@ TEST(bidi, bidi_162_012)
         // CS PDF LRI PDF; 4 ('RTL') (line 81125)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2066, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6916,7 +6916,7 @@ TEST(bidi, bidi_162_012)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -6955,7 +6955,7 @@ TEST(bidi, bidi_162_012)
         // CS PDF LRI BN; 4 ('RTL') (line 81126)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2066, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6966,7 +6966,7 @@ TEST(bidi, bidi_162_012)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7005,7 +7005,7 @@ TEST(bidi, bidi_162_012)
         // CS PDF RLI LRE; 4 ('RTL') (line 81127)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2067, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7016,7 +7016,7 @@ TEST(bidi, bidi_162_012)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7055,7 +7055,7 @@ TEST(bidi, bidi_162_012)
         // CS PDF RLI LRO; 4 ('RTL') (line 81128)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2067, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7066,7 +7066,7 @@ TEST(bidi, bidi_162_012)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7105,7 +7105,7 @@ TEST(bidi, bidi_162_012)
         // CS PDF RLI RLE; 4 ('RTL') (line 81129)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2067, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7116,7 +7116,7 @@ TEST(bidi, bidi_162_012)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7155,7 +7155,7 @@ TEST(bidi, bidi_162_012)
         // CS PDF RLI RLO; 4 ('RTL') (line 81130)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2067, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7166,7 +7166,7 @@ TEST(bidi, bidi_162_012)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7212,7 +7212,7 @@ TEST(bidi, bidi_162_013)
         // CS PDF RLI PDF; 4 ('RTL') (line 81131)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2067, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7223,7 +7223,7 @@ TEST(bidi, bidi_162_013)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7262,7 +7262,7 @@ TEST(bidi, bidi_162_013)
         // CS PDF RLI BN; 4 ('RTL') (line 81132)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2067, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7273,7 +7273,7 @@ TEST(bidi, bidi_162_013)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7312,7 +7312,7 @@ TEST(bidi, bidi_162_013)
         // CS PDF FSI LRE; 4 ('RTL') (line 81133)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2068, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7323,7 +7323,7 @@ TEST(bidi, bidi_162_013)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7362,7 +7362,7 @@ TEST(bidi, bidi_162_013)
         // CS PDF FSI LRO; 4 ('RTL') (line 81134)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2068, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7373,7 +7373,7 @@ TEST(bidi, bidi_162_013)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7412,7 +7412,7 @@ TEST(bidi, bidi_162_013)
         // CS PDF FSI RLE; 4 ('RTL') (line 81135)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2068, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7423,7 +7423,7 @@ TEST(bidi, bidi_162_013)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7462,7 +7462,7 @@ TEST(bidi, bidi_162_013)
         // CS PDF FSI RLO; 4 ('RTL') (line 81136)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2068, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7473,7 +7473,7 @@ TEST(bidi, bidi_162_013)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7512,7 +7512,7 @@ TEST(bidi, bidi_162_013)
         // CS PDF FSI PDF; 4 ('RTL') (line 81137)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2068, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7523,7 +7523,7 @@ TEST(bidi, bidi_162_013)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7562,7 +7562,7 @@ TEST(bidi, bidi_162_013)
         // CS PDF FSI BN; 4 ('RTL') (line 81138)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2068, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7573,7 +7573,7 @@ TEST(bidi, bidi_162_013)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7612,7 +7612,7 @@ TEST(bidi, bidi_162_013)
         // CS PDF PDI LRE; 4 ('RTL') (line 81139)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2069, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7623,7 +7623,7 @@ TEST(bidi, bidi_162_013)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7662,7 +7662,7 @@ TEST(bidi, bidi_162_013)
         // CS PDF PDI LRO; 4 ('RTL') (line 81140)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2069, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7673,7 +7673,7 @@ TEST(bidi, bidi_162_013)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7719,7 +7719,7 @@ TEST(bidi, bidi_162_014)
         // CS PDF PDI RLE; 4 ('RTL') (line 81141)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2069, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7730,7 +7730,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7769,7 +7769,7 @@ TEST(bidi, bidi_162_014)
         // CS PDF PDI RLO; 4 ('RTL') (line 81142)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2069, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7780,7 +7780,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7819,7 +7819,7 @@ TEST(bidi, bidi_162_014)
         // CS PDF PDI PDF; 4 ('RTL') (line 81143)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2069, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7830,7 +7830,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7869,7 +7869,7 @@ TEST(bidi, bidi_162_014)
         // CS PDF PDI BN; 4 ('RTL') (line 81144)
         std::vector<uint32_t> const cps = { 0x002C, 0x202C, 0x2069, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7880,7 +7880,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7919,7 +7919,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R LRE; 5 ('auto') (line 81145)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7930,7 +7930,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -7969,7 +7969,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R LRE; 5 ('RTL') (line 81145)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7980,7 +7980,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8019,7 +8019,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R LRO; 5 ('auto') (line 81146)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8030,7 +8030,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8069,7 +8069,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R LRO; 5 ('RTL') (line 81146)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8080,7 +8080,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8119,7 +8119,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R RLE; 5 ('auto') (line 81147)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8130,7 +8130,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8169,7 +8169,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R RLE; 5 ('RTL') (line 81147)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8180,7 +8180,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8219,7 +8219,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R RLO; 5 ('auto') (line 81148)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8230,7 +8230,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8269,7 +8269,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R RLO; 5 ('RTL') (line 81148)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8280,7 +8280,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8319,7 +8319,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R PDF; 5 ('auto') (line 81149)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8330,7 +8330,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8369,7 +8369,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R PDF; 5 ('RTL') (line 81149)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8380,7 +8380,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8419,7 +8419,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R BN; 5 ('auto') (line 81150)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8430,7 +8430,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8469,7 +8469,7 @@ TEST(bidi, bidi_162_014)
         // CS BN R BN; 5 ('RTL') (line 81150)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x05BE, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8480,7 +8480,7 @@ TEST(bidi, bidi_162_014)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8526,7 +8526,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL LRE; 5 ('auto') (line 81151)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8537,7 +8537,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8576,7 +8576,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL LRE; 5 ('RTL') (line 81151)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8587,7 +8587,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8626,7 +8626,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL LRO; 5 ('auto') (line 81152)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8637,7 +8637,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8676,7 +8676,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL LRO; 5 ('RTL') (line 81152)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8687,7 +8687,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8726,7 +8726,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL RLE; 5 ('auto') (line 81153)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8737,7 +8737,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8776,7 +8776,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL RLE; 5 ('RTL') (line 81153)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8787,7 +8787,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8826,7 +8826,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL RLO; 5 ('auto') (line 81154)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8837,7 +8837,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8876,7 +8876,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL RLO; 5 ('RTL') (line 81154)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8887,7 +8887,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8926,7 +8926,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL PDF; 5 ('auto') (line 81155)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8937,7 +8937,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -8976,7 +8976,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL PDF; 5 ('RTL') (line 81155)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8987,7 +8987,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9026,7 +9026,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL BN; 5 ('auto') (line 81156)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9037,7 +9037,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9076,7 +9076,7 @@ TEST(bidi, bidi_162_015)
         // CS BN AL BN; 5 ('RTL') (line 81156)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0608, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9087,7 +9087,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9126,7 +9126,7 @@ TEST(bidi, bidi_162_015)
         // CS BN ES LRE; 4 ('RTL') (line 81157)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002B, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9137,7 +9137,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9176,7 +9176,7 @@ TEST(bidi, bidi_162_015)
         // CS BN ES LRO; 4 ('RTL') (line 81158)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002B, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9187,7 +9187,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9226,7 +9226,7 @@ TEST(bidi, bidi_162_015)
         // CS BN ES RLE; 4 ('RTL') (line 81159)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002B, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9237,7 +9237,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9276,7 +9276,7 @@ TEST(bidi, bidi_162_015)
         // CS BN ES RLO; 4 ('RTL') (line 81160)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002B, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9287,7 +9287,7 @@ TEST(bidi, bidi_162_015)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9333,7 +9333,7 @@ TEST(bidi, bidi_162_016)
         // CS BN ES PDF; 4 ('RTL') (line 81161)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002B, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9344,7 +9344,7 @@ TEST(bidi, bidi_162_016)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9383,7 +9383,7 @@ TEST(bidi, bidi_162_016)
         // CS BN ES BN; 4 ('RTL') (line 81162)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002B, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9394,7 +9394,7 @@ TEST(bidi, bidi_162_016)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9433,7 +9433,7 @@ TEST(bidi, bidi_162_016)
         // CS BN ET LRE; 4 ('RTL') (line 81163)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0023, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9444,7 +9444,7 @@ TEST(bidi, bidi_162_016)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9483,7 +9483,7 @@ TEST(bidi, bidi_162_016)
         // CS BN ET LRO; 4 ('RTL') (line 81164)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0023, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9494,7 +9494,7 @@ TEST(bidi, bidi_162_016)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9533,7 +9533,7 @@ TEST(bidi, bidi_162_016)
         // CS BN ET RLE; 4 ('RTL') (line 81165)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0023, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9544,7 +9544,7 @@ TEST(bidi, bidi_162_016)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9583,7 +9583,7 @@ TEST(bidi, bidi_162_016)
         // CS BN ET RLO; 4 ('RTL') (line 81166)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0023, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9594,7 +9594,7 @@ TEST(bidi, bidi_162_016)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9633,7 +9633,7 @@ TEST(bidi, bidi_162_016)
         // CS BN ET PDF; 4 ('RTL') (line 81167)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0023, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9644,7 +9644,7 @@ TEST(bidi, bidi_162_016)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9683,7 +9683,7 @@ TEST(bidi, bidi_162_016)
         // CS BN ET BN; 4 ('RTL') (line 81168)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0023, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9694,7 +9694,7 @@ TEST(bidi, bidi_162_016)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9733,7 +9733,7 @@ TEST(bidi, bidi_162_016)
         // CS BN CS LRE; 4 ('RTL') (line 81169)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002C, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9744,7 +9744,7 @@ TEST(bidi, bidi_162_016)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9783,7 +9783,7 @@ TEST(bidi, bidi_162_016)
         // CS BN CS LRO; 4 ('RTL') (line 81170)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002C, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9794,7 +9794,7 @@ TEST(bidi, bidi_162_016)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9840,7 +9840,7 @@ TEST(bidi, bidi_162_017)
         // CS BN CS RLE; 4 ('RTL') (line 81171)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002C, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9851,7 +9851,7 @@ TEST(bidi, bidi_162_017)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9890,7 +9890,7 @@ TEST(bidi, bidi_162_017)
         // CS BN CS RLO; 4 ('RTL') (line 81172)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002C, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9901,7 +9901,7 @@ TEST(bidi, bidi_162_017)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9940,7 +9940,7 @@ TEST(bidi, bidi_162_017)
         // CS BN CS PDF; 4 ('RTL') (line 81173)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002C, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9951,7 +9951,7 @@ TEST(bidi, bidi_162_017)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -9990,7 +9990,7 @@ TEST(bidi, bidi_162_017)
         // CS BN CS BN; 4 ('RTL') (line 81174)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x002C, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10001,7 +10001,7 @@ TEST(bidi, bidi_162_017)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10040,7 +10040,7 @@ TEST(bidi, bidi_162_017)
         // CS BN NSM LRE; 4 ('RTL') (line 81175)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0300, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10051,7 +10051,7 @@ TEST(bidi, bidi_162_017)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10090,7 +10090,7 @@ TEST(bidi, bidi_162_017)
         // CS BN NSM LRO; 4 ('RTL') (line 81176)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0300, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10101,7 +10101,7 @@ TEST(bidi, bidi_162_017)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10140,7 +10140,7 @@ TEST(bidi, bidi_162_017)
         // CS BN NSM RLE; 4 ('RTL') (line 81177)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0300, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10151,7 +10151,7 @@ TEST(bidi, bidi_162_017)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10190,7 +10190,7 @@ TEST(bidi, bidi_162_017)
         // CS BN NSM RLO; 4 ('RTL') (line 81178)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0300, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10201,7 +10201,7 @@ TEST(bidi, bidi_162_017)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10240,7 +10240,7 @@ TEST(bidi, bidi_162_017)
         // CS BN NSM PDF; 4 ('RTL') (line 81179)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0300, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10251,7 +10251,7 @@ TEST(bidi, bidi_162_017)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10290,7 +10290,7 @@ TEST(bidi, bidi_162_017)
         // CS BN NSM BN; 4 ('RTL') (line 81180)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0300, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10301,7 +10301,7 @@ TEST(bidi, bidi_162_017)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10347,7 +10347,7 @@ TEST(bidi, bidi_162_018)
         // CS BN S LRE; 4 ('RTL') (line 81181)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0009, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10358,7 +10358,7 @@ TEST(bidi, bidi_162_018)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10397,7 +10397,7 @@ TEST(bidi, bidi_162_018)
         // CS BN S LRO; 4 ('RTL') (line 81182)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0009, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10408,7 +10408,7 @@ TEST(bidi, bidi_162_018)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10447,7 +10447,7 @@ TEST(bidi, bidi_162_018)
         // CS BN S RLE; 4 ('RTL') (line 81183)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0009, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10458,7 +10458,7 @@ TEST(bidi, bidi_162_018)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10497,7 +10497,7 @@ TEST(bidi, bidi_162_018)
         // CS BN S RLO; 4 ('RTL') (line 81184)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0009, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10508,7 +10508,7 @@ TEST(bidi, bidi_162_018)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10547,7 +10547,7 @@ TEST(bidi, bidi_162_018)
         // CS BN S PDF; 4 ('RTL') (line 81185)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0009, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10558,7 +10558,7 @@ TEST(bidi, bidi_162_018)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10597,7 +10597,7 @@ TEST(bidi, bidi_162_018)
         // CS BN S BN; 4 ('RTL') (line 81186)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0009, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10608,7 +10608,7 @@ TEST(bidi, bidi_162_018)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10647,7 +10647,7 @@ TEST(bidi, bidi_162_018)
         // CS BN WS LRE; 4 ('RTL') (line 81187)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0020, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10658,7 +10658,7 @@ TEST(bidi, bidi_162_018)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10697,7 +10697,7 @@ TEST(bidi, bidi_162_018)
         // CS BN WS LRO; 4 ('RTL') (line 81188)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0020, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10708,7 +10708,7 @@ TEST(bidi, bidi_162_018)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10747,7 +10747,7 @@ TEST(bidi, bidi_162_018)
         // CS BN WS RLE; 4 ('RTL') (line 81189)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0020, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10758,7 +10758,7 @@ TEST(bidi, bidi_162_018)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10797,7 +10797,7 @@ TEST(bidi, bidi_162_018)
         // CS BN WS RLO; 4 ('RTL') (line 81190)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0020, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10808,7 +10808,7 @@ TEST(bidi, bidi_162_018)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10854,7 +10854,7 @@ TEST(bidi, bidi_162_019)
         // CS BN WS PDF; 4 ('RTL') (line 81191)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0020, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10865,7 +10865,7 @@ TEST(bidi, bidi_162_019)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10904,7 +10904,7 @@ TEST(bidi, bidi_162_019)
         // CS BN WS BN; 4 ('RTL') (line 81192)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0020, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10915,7 +10915,7 @@ TEST(bidi, bidi_162_019)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -10954,7 +10954,7 @@ TEST(bidi, bidi_162_019)
         // CS BN ON LRE; 4 ('RTL') (line 81193)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0021, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10965,7 +10965,7 @@ TEST(bidi, bidi_162_019)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11004,7 +11004,7 @@ TEST(bidi, bidi_162_019)
         // CS BN ON LRO; 4 ('RTL') (line 81194)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0021, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11015,7 +11015,7 @@ TEST(bidi, bidi_162_019)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11054,7 +11054,7 @@ TEST(bidi, bidi_162_019)
         // CS BN ON RLE; 4 ('RTL') (line 81195)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0021, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11065,7 +11065,7 @@ TEST(bidi, bidi_162_019)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11104,7 +11104,7 @@ TEST(bidi, bidi_162_019)
         // CS BN ON RLO; 4 ('RTL') (line 81196)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0021, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11115,7 +11115,7 @@ TEST(bidi, bidi_162_019)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11154,7 +11154,7 @@ TEST(bidi, bidi_162_019)
         // CS BN ON PDF; 4 ('RTL') (line 81197)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0021, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11165,7 +11165,7 @@ TEST(bidi, bidi_162_019)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11204,7 +11204,7 @@ TEST(bidi, bidi_162_019)
         // CS BN ON BN; 4 ('RTL') (line 81198)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x0021, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11215,7 +11215,7 @@ TEST(bidi, bidi_162_019)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11254,7 +11254,7 @@ TEST(bidi, bidi_162_019)
         // CS BN LRI LRE; 4 ('RTL') (line 81199)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2066, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11265,7 +11265,7 @@ TEST(bidi, bidi_162_019)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11304,7 +11304,7 @@ TEST(bidi, bidi_162_019)
         // CS BN LRI LRO; 4 ('RTL') (line 81200)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2066, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11315,7 +11315,7 @@ TEST(bidi, bidi_162_019)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11361,7 +11361,7 @@ TEST(bidi, bidi_162_020)
         // CS BN LRI RLE; 4 ('RTL') (line 81201)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2066, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11372,7 +11372,7 @@ TEST(bidi, bidi_162_020)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11411,7 +11411,7 @@ TEST(bidi, bidi_162_020)
         // CS BN LRI RLO; 4 ('RTL') (line 81202)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2066, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11422,7 +11422,7 @@ TEST(bidi, bidi_162_020)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11461,7 +11461,7 @@ TEST(bidi, bidi_162_020)
         // CS BN LRI PDF; 4 ('RTL') (line 81203)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2066, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11472,7 +11472,7 @@ TEST(bidi, bidi_162_020)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11511,7 +11511,7 @@ TEST(bidi, bidi_162_020)
         // CS BN LRI BN; 4 ('RTL') (line 81204)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2066, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11522,7 +11522,7 @@ TEST(bidi, bidi_162_020)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11561,7 +11561,7 @@ TEST(bidi, bidi_162_020)
         // CS BN RLI LRE; 4 ('RTL') (line 81205)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2067, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11572,7 +11572,7 @@ TEST(bidi, bidi_162_020)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11611,7 +11611,7 @@ TEST(bidi, bidi_162_020)
         // CS BN RLI LRO; 4 ('RTL') (line 81206)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2067, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11622,7 +11622,7 @@ TEST(bidi, bidi_162_020)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11661,7 +11661,7 @@ TEST(bidi, bidi_162_020)
         // CS BN RLI RLE; 4 ('RTL') (line 81207)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2067, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11672,7 +11672,7 @@ TEST(bidi, bidi_162_020)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11711,7 +11711,7 @@ TEST(bidi, bidi_162_020)
         // CS BN RLI RLO; 4 ('RTL') (line 81208)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2067, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11722,7 +11722,7 @@ TEST(bidi, bidi_162_020)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11761,7 +11761,7 @@ TEST(bidi, bidi_162_020)
         // CS BN RLI PDF; 4 ('RTL') (line 81209)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2067, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11772,7 +11772,7 @@ TEST(bidi, bidi_162_020)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11811,7 +11811,7 @@ TEST(bidi, bidi_162_020)
         // CS BN RLI BN; 4 ('RTL') (line 81210)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2067, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11822,7 +11822,7 @@ TEST(bidi, bidi_162_020)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11868,7 +11868,7 @@ TEST(bidi, bidi_162_021)
         // CS BN FSI LRE; 4 ('RTL') (line 81211)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2068, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11879,7 +11879,7 @@ TEST(bidi, bidi_162_021)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11918,7 +11918,7 @@ TEST(bidi, bidi_162_021)
         // CS BN FSI LRO; 4 ('RTL') (line 81212)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2068, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11929,7 +11929,7 @@ TEST(bidi, bidi_162_021)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -11968,7 +11968,7 @@ TEST(bidi, bidi_162_021)
         // CS BN FSI RLE; 4 ('RTL') (line 81213)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2068, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11979,7 +11979,7 @@ TEST(bidi, bidi_162_021)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12018,7 +12018,7 @@ TEST(bidi, bidi_162_021)
         // CS BN FSI RLO; 4 ('RTL') (line 81214)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2068, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12029,7 +12029,7 @@ TEST(bidi, bidi_162_021)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12068,7 +12068,7 @@ TEST(bidi, bidi_162_021)
         // CS BN FSI PDF; 4 ('RTL') (line 81215)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2068, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12079,7 +12079,7 @@ TEST(bidi, bidi_162_021)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12118,7 +12118,7 @@ TEST(bidi, bidi_162_021)
         // CS BN FSI BN; 4 ('RTL') (line 81216)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2068, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12129,7 +12129,7 @@ TEST(bidi, bidi_162_021)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12168,7 +12168,7 @@ TEST(bidi, bidi_162_021)
         // CS BN PDI LRE; 4 ('RTL') (line 81217)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2069, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12179,7 +12179,7 @@ TEST(bidi, bidi_162_021)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12218,7 +12218,7 @@ TEST(bidi, bidi_162_021)
         // CS BN PDI LRO; 4 ('RTL') (line 81218)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2069, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12229,7 +12229,7 @@ TEST(bidi, bidi_162_021)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12268,7 +12268,7 @@ TEST(bidi, bidi_162_021)
         // CS BN PDI RLE; 4 ('RTL') (line 81219)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2069, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12279,7 +12279,7 @@ TEST(bidi, bidi_162_021)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12318,7 +12318,7 @@ TEST(bidi, bidi_162_021)
         // CS BN PDI RLO; 4 ('RTL') (line 81220)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2069, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12329,7 +12329,7 @@ TEST(bidi, bidi_162_021)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12375,7 +12375,7 @@ TEST(bidi, bidi_162_022)
         // CS BN PDI PDF; 4 ('RTL') (line 81221)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2069, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12386,7 +12386,7 @@ TEST(bidi, bidi_162_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12425,7 +12425,7 @@ TEST(bidi, bidi_162_022)
         // CS BN PDI BN; 4 ('RTL') (line 81222)
         std::vector<uint32_t> const cps = { 0x002C, 0x00AD, 0x2069, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12436,7 +12436,7 @@ TEST(bidi, bidi_162_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12475,7 +12475,7 @@ TEST(bidi, bidi_162_022)
         // NSM LRE S LRE; 4 ('RTL') (line 81223)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0009, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12486,7 +12486,7 @@ TEST(bidi, bidi_162_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12525,7 +12525,7 @@ TEST(bidi, bidi_162_022)
         // NSM LRE S LRO; 4 ('RTL') (line 81224)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0009, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12536,7 +12536,7 @@ TEST(bidi, bidi_162_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12575,7 +12575,7 @@ TEST(bidi, bidi_162_022)
         // NSM LRE S RLE; 4 ('RTL') (line 81225)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0009, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12586,7 +12586,7 @@ TEST(bidi, bidi_162_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12625,7 +12625,7 @@ TEST(bidi, bidi_162_022)
         // NSM LRE S RLO; 4 ('RTL') (line 81226)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0009, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12636,7 +12636,7 @@ TEST(bidi, bidi_162_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12675,7 +12675,7 @@ TEST(bidi, bidi_162_022)
         // NSM LRE S PDF; 4 ('RTL') (line 81227)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0009, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12686,7 +12686,7 @@ TEST(bidi, bidi_162_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12725,7 +12725,7 @@ TEST(bidi, bidi_162_022)
         // NSM LRE S BN; 4 ('RTL') (line 81228)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0009, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12736,7 +12736,7 @@ TEST(bidi, bidi_162_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12775,7 +12775,7 @@ TEST(bidi, bidi_162_022)
         // NSM LRE WS LRE; 4 ('RTL') (line 81229)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0020, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12786,7 +12786,7 @@ TEST(bidi, bidi_162_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12825,7 +12825,7 @@ TEST(bidi, bidi_162_022)
         // NSM LRE WS LRO; 4 ('RTL') (line 81230)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0020, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12836,7 +12836,7 @@ TEST(bidi, bidi_162_022)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12882,7 +12882,7 @@ TEST(bidi, bidi_162_023)
         // NSM LRE WS RLE; 4 ('RTL') (line 81231)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0020, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12893,7 +12893,7 @@ TEST(bidi, bidi_162_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12932,7 +12932,7 @@ TEST(bidi, bidi_162_023)
         // NSM LRE WS RLO; 4 ('RTL') (line 81232)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0020, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12943,7 +12943,7 @@ TEST(bidi, bidi_162_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -12982,7 +12982,7 @@ TEST(bidi, bidi_162_023)
         // NSM LRE WS PDF; 4 ('RTL') (line 81233)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0020, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12993,7 +12993,7 @@ TEST(bidi, bidi_162_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13032,7 +13032,7 @@ TEST(bidi, bidi_162_023)
         // NSM LRE WS BN; 4 ('RTL') (line 81234)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x0020, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13043,7 +13043,7 @@ TEST(bidi, bidi_162_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13082,7 +13082,7 @@ TEST(bidi, bidi_162_023)
         // NSM LRE LRI LRE; 4 ('RTL') (line 81235)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2066, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13093,7 +13093,7 @@ TEST(bidi, bidi_162_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13132,7 +13132,7 @@ TEST(bidi, bidi_162_023)
         // NSM LRE LRI LRO; 4 ('RTL') (line 81236)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2066, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13143,7 +13143,7 @@ TEST(bidi, bidi_162_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13182,7 +13182,7 @@ TEST(bidi, bidi_162_023)
         // NSM LRE LRI RLE; 4 ('RTL') (line 81237)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2066, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13193,7 +13193,7 @@ TEST(bidi, bidi_162_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13232,7 +13232,7 @@ TEST(bidi, bidi_162_023)
         // NSM LRE LRI RLO; 4 ('RTL') (line 81238)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2066, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13243,7 +13243,7 @@ TEST(bidi, bidi_162_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13282,7 +13282,7 @@ TEST(bidi, bidi_162_023)
         // NSM LRE LRI PDF; 4 ('RTL') (line 81239)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2066, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13293,7 +13293,7 @@ TEST(bidi, bidi_162_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13332,7 +13332,7 @@ TEST(bidi, bidi_162_023)
         // NSM LRE LRI BN; 4 ('RTL') (line 81240)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2066, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13343,7 +13343,7 @@ TEST(bidi, bidi_162_023)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13389,7 +13389,7 @@ TEST(bidi, bidi_162_024)
         // NSM LRE RLI LRE; 4 ('RTL') (line 81241)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2067, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13400,7 +13400,7 @@ TEST(bidi, bidi_162_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13439,7 +13439,7 @@ TEST(bidi, bidi_162_024)
         // NSM LRE RLI LRO; 4 ('RTL') (line 81242)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2067, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13450,7 +13450,7 @@ TEST(bidi, bidi_162_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13489,7 +13489,7 @@ TEST(bidi, bidi_162_024)
         // NSM LRE RLI RLE; 4 ('RTL') (line 81243)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2067, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13500,7 +13500,7 @@ TEST(bidi, bidi_162_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13539,7 +13539,7 @@ TEST(bidi, bidi_162_024)
         // NSM LRE RLI RLO; 4 ('RTL') (line 81244)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2067, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13550,7 +13550,7 @@ TEST(bidi, bidi_162_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13589,7 +13589,7 @@ TEST(bidi, bidi_162_024)
         // NSM LRE RLI PDF; 4 ('RTL') (line 81245)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2067, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13600,7 +13600,7 @@ TEST(bidi, bidi_162_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13639,7 +13639,7 @@ TEST(bidi, bidi_162_024)
         // NSM LRE RLI BN; 4 ('RTL') (line 81246)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2067, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13650,7 +13650,7 @@ TEST(bidi, bidi_162_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13689,7 +13689,7 @@ TEST(bidi, bidi_162_024)
         // NSM LRE FSI LRE; 4 ('RTL') (line 81247)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2068, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13700,7 +13700,7 @@ TEST(bidi, bidi_162_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13739,7 +13739,7 @@ TEST(bidi, bidi_162_024)
         // NSM LRE FSI LRO; 4 ('RTL') (line 81248)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2068, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13750,7 +13750,7 @@ TEST(bidi, bidi_162_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13789,7 +13789,7 @@ TEST(bidi, bidi_162_024)
         // NSM LRE FSI RLE; 4 ('RTL') (line 81249)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2068, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13800,7 +13800,7 @@ TEST(bidi, bidi_162_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13839,7 +13839,7 @@ TEST(bidi, bidi_162_024)
         // NSM LRE FSI RLO; 4 ('RTL') (line 81250)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2068, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13850,7 +13850,7 @@ TEST(bidi, bidi_162_024)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13896,7 +13896,7 @@ TEST(bidi, bidi_162_025)
         // NSM LRE FSI PDF; 4 ('RTL') (line 81251)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2068, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13907,7 +13907,7 @@ TEST(bidi, bidi_162_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13946,7 +13946,7 @@ TEST(bidi, bidi_162_025)
         // NSM LRE FSI BN; 4 ('RTL') (line 81252)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2068, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13957,7 +13957,7 @@ TEST(bidi, bidi_162_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -13996,7 +13996,7 @@ TEST(bidi, bidi_162_025)
         // NSM LRE PDI LRE; 4 ('RTL') (line 81253)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2069, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14007,7 +14007,7 @@ TEST(bidi, bidi_162_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14046,7 +14046,7 @@ TEST(bidi, bidi_162_025)
         // NSM LRE PDI LRO; 4 ('RTL') (line 81254)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2069, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14057,7 +14057,7 @@ TEST(bidi, bidi_162_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14096,7 +14096,7 @@ TEST(bidi, bidi_162_025)
         // NSM LRE PDI RLE; 4 ('RTL') (line 81255)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2069, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14107,7 +14107,7 @@ TEST(bidi, bidi_162_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14146,7 +14146,7 @@ TEST(bidi, bidi_162_025)
         // NSM LRE PDI RLO; 4 ('RTL') (line 81256)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2069, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14157,7 +14157,7 @@ TEST(bidi, bidi_162_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14196,7 +14196,7 @@ TEST(bidi, bidi_162_025)
         // NSM LRE PDI PDF; 4 ('RTL') (line 81257)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2069, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14207,7 +14207,7 @@ TEST(bidi, bidi_162_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14246,7 +14246,7 @@ TEST(bidi, bidi_162_025)
         // NSM LRE PDI BN; 4 ('RTL') (line 81258)
         std::vector<uint32_t> const cps = { 0x0300, 0x202A, 0x2069, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14257,7 +14257,7 @@ TEST(bidi, bidi_162_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14296,7 +14296,7 @@ TEST(bidi, bidi_162_025)
         // NSM LRO S LRE; 4 ('RTL') (line 81259)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0009, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14307,7 +14307,7 @@ TEST(bidi, bidi_162_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14346,7 +14346,7 @@ TEST(bidi, bidi_162_025)
         // NSM LRO S LRO; 4 ('RTL') (line 81260)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0009, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14357,7 +14357,7 @@ TEST(bidi, bidi_162_025)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14403,7 +14403,7 @@ TEST(bidi, bidi_162_026)
         // NSM LRO S RLE; 4 ('RTL') (line 81261)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0009, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14414,7 +14414,7 @@ TEST(bidi, bidi_162_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14453,7 +14453,7 @@ TEST(bidi, bidi_162_026)
         // NSM LRO S RLO; 4 ('RTL') (line 81262)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0009, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14464,7 +14464,7 @@ TEST(bidi, bidi_162_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14503,7 +14503,7 @@ TEST(bidi, bidi_162_026)
         // NSM LRO S PDF; 4 ('RTL') (line 81263)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0009, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14514,7 +14514,7 @@ TEST(bidi, bidi_162_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14553,7 +14553,7 @@ TEST(bidi, bidi_162_026)
         // NSM LRO S BN; 4 ('RTL') (line 81264)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0009, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14564,7 +14564,7 @@ TEST(bidi, bidi_162_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14603,7 +14603,7 @@ TEST(bidi, bidi_162_026)
         // NSM LRO WS LRE; 4 ('RTL') (line 81265)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0020, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14614,7 +14614,7 @@ TEST(bidi, bidi_162_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14653,7 +14653,7 @@ TEST(bidi, bidi_162_026)
         // NSM LRO WS LRO; 4 ('RTL') (line 81266)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0020, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14664,7 +14664,7 @@ TEST(bidi, bidi_162_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14703,7 +14703,7 @@ TEST(bidi, bidi_162_026)
         // NSM LRO WS RLE; 4 ('RTL') (line 81267)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0020, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14714,7 +14714,7 @@ TEST(bidi, bidi_162_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14753,7 +14753,7 @@ TEST(bidi, bidi_162_026)
         // NSM LRO WS RLO; 4 ('RTL') (line 81268)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0020, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14764,7 +14764,7 @@ TEST(bidi, bidi_162_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14803,7 +14803,7 @@ TEST(bidi, bidi_162_026)
         // NSM LRO WS PDF; 4 ('RTL') (line 81269)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0020, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14814,7 +14814,7 @@ TEST(bidi, bidi_162_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14853,7 +14853,7 @@ TEST(bidi, bidi_162_026)
         // NSM LRO WS BN; 4 ('RTL') (line 81270)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x0020, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14864,7 +14864,7 @@ TEST(bidi, bidi_162_026)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14910,7 +14910,7 @@ TEST(bidi, bidi_162_027)
         // NSM LRO LRI LRE; 4 ('RTL') (line 81271)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2066, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14921,7 +14921,7 @@ TEST(bidi, bidi_162_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -14960,7 +14960,7 @@ TEST(bidi, bidi_162_027)
         // NSM LRO LRI LRO; 4 ('RTL') (line 81272)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2066, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14971,7 +14971,7 @@ TEST(bidi, bidi_162_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15010,7 +15010,7 @@ TEST(bidi, bidi_162_027)
         // NSM LRO LRI RLE; 4 ('RTL') (line 81273)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2066, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15021,7 +15021,7 @@ TEST(bidi, bidi_162_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15060,7 +15060,7 @@ TEST(bidi, bidi_162_027)
         // NSM LRO LRI RLO; 4 ('RTL') (line 81274)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2066, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15071,7 +15071,7 @@ TEST(bidi, bidi_162_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15110,7 +15110,7 @@ TEST(bidi, bidi_162_027)
         // NSM LRO LRI PDF; 4 ('RTL') (line 81275)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2066, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15121,7 +15121,7 @@ TEST(bidi, bidi_162_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15160,7 +15160,7 @@ TEST(bidi, bidi_162_027)
         // NSM LRO LRI BN; 4 ('RTL') (line 81276)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2066, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15171,7 +15171,7 @@ TEST(bidi, bidi_162_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15210,7 +15210,7 @@ TEST(bidi, bidi_162_027)
         // NSM LRO RLI LRE; 4 ('RTL') (line 81277)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2067, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15221,7 +15221,7 @@ TEST(bidi, bidi_162_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15260,7 +15260,7 @@ TEST(bidi, bidi_162_027)
         // NSM LRO RLI LRO; 4 ('RTL') (line 81278)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2067, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15271,7 +15271,7 @@ TEST(bidi, bidi_162_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15310,7 +15310,7 @@ TEST(bidi, bidi_162_027)
         // NSM LRO RLI RLE; 4 ('RTL') (line 81279)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2067, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15321,7 +15321,7 @@ TEST(bidi, bidi_162_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15360,7 +15360,7 @@ TEST(bidi, bidi_162_027)
         // NSM LRO RLI RLO; 4 ('RTL') (line 81280)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2067, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15371,7 +15371,7 @@ TEST(bidi, bidi_162_027)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15417,7 +15417,7 @@ TEST(bidi, bidi_162_028)
         // NSM LRO RLI PDF; 4 ('RTL') (line 81281)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2067, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15428,7 +15428,7 @@ TEST(bidi, bidi_162_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15467,7 +15467,7 @@ TEST(bidi, bidi_162_028)
         // NSM LRO RLI BN; 4 ('RTL') (line 81282)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2067, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15478,7 +15478,7 @@ TEST(bidi, bidi_162_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15517,7 +15517,7 @@ TEST(bidi, bidi_162_028)
         // NSM LRO FSI LRE; 4 ('RTL') (line 81283)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2068, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15528,7 +15528,7 @@ TEST(bidi, bidi_162_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15567,7 +15567,7 @@ TEST(bidi, bidi_162_028)
         // NSM LRO FSI LRO; 4 ('RTL') (line 81284)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2068, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15578,7 +15578,7 @@ TEST(bidi, bidi_162_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15617,7 +15617,7 @@ TEST(bidi, bidi_162_028)
         // NSM LRO FSI RLE; 4 ('RTL') (line 81285)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2068, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15628,7 +15628,7 @@ TEST(bidi, bidi_162_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15667,7 +15667,7 @@ TEST(bidi, bidi_162_028)
         // NSM LRO FSI RLO; 4 ('RTL') (line 81286)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2068, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15678,7 +15678,7 @@ TEST(bidi, bidi_162_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15717,7 +15717,7 @@ TEST(bidi, bidi_162_028)
         // NSM LRO FSI PDF; 4 ('RTL') (line 81287)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2068, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15728,7 +15728,7 @@ TEST(bidi, bidi_162_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15767,7 +15767,7 @@ TEST(bidi, bidi_162_028)
         // NSM LRO FSI BN; 4 ('RTL') (line 81288)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2068, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15778,7 +15778,7 @@ TEST(bidi, bidi_162_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15817,7 +15817,7 @@ TEST(bidi, bidi_162_028)
         // NSM LRO PDI LRE; 4 ('RTL') (line 81289)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2069, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15828,7 +15828,7 @@ TEST(bidi, bidi_162_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15867,7 +15867,7 @@ TEST(bidi, bidi_162_028)
         // NSM LRO PDI LRO; 4 ('RTL') (line 81290)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2069, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15878,7 +15878,7 @@ TEST(bidi, bidi_162_028)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15924,7 +15924,7 @@ TEST(bidi, bidi_162_029)
         // NSM LRO PDI RLE; 4 ('RTL') (line 81291)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2069, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15935,7 +15935,7 @@ TEST(bidi, bidi_162_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -15974,7 +15974,7 @@ TEST(bidi, bidi_162_029)
         // NSM LRO PDI RLO; 4 ('RTL') (line 81292)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2069, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15985,7 +15985,7 @@ TEST(bidi, bidi_162_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16024,7 +16024,7 @@ TEST(bidi, bidi_162_029)
         // NSM LRO PDI PDF; 4 ('RTL') (line 81293)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2069, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16035,7 +16035,7 @@ TEST(bidi, bidi_162_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16074,7 +16074,7 @@ TEST(bidi, bidi_162_029)
         // NSM LRO PDI BN; 4 ('RTL') (line 81294)
         std::vector<uint32_t> const cps = { 0x0300, 0x202D, 0x2069, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16085,7 +16085,7 @@ TEST(bidi, bidi_162_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16124,7 +16124,7 @@ TEST(bidi, bidi_162_029)
         // NSM RLE S LRE; 4 ('RTL') (line 81295)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0009, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16135,7 +16135,7 @@ TEST(bidi, bidi_162_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16174,7 +16174,7 @@ TEST(bidi, bidi_162_029)
         // NSM RLE S LRO; 4 ('RTL') (line 81296)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0009, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16185,7 +16185,7 @@ TEST(bidi, bidi_162_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16224,7 +16224,7 @@ TEST(bidi, bidi_162_029)
         // NSM RLE S RLE; 4 ('RTL') (line 81297)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0009, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16235,7 +16235,7 @@ TEST(bidi, bidi_162_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16274,7 +16274,7 @@ TEST(bidi, bidi_162_029)
         // NSM RLE S RLO; 4 ('RTL') (line 81298)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0009, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16285,7 +16285,7 @@ TEST(bidi, bidi_162_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16324,7 +16324,7 @@ TEST(bidi, bidi_162_029)
         // NSM RLE S PDF; 4 ('RTL') (line 81299)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0009, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16335,7 +16335,7 @@ TEST(bidi, bidi_162_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16374,7 +16374,7 @@ TEST(bidi, bidi_162_029)
         // NSM RLE S BN; 4 ('RTL') (line 81300)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0009, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16385,7 +16385,7 @@ TEST(bidi, bidi_162_029)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16431,7 +16431,7 @@ TEST(bidi, bidi_162_030)
         // NSM RLE WS LRE; 4 ('RTL') (line 81301)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0020, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16442,7 +16442,7 @@ TEST(bidi, bidi_162_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16481,7 +16481,7 @@ TEST(bidi, bidi_162_030)
         // NSM RLE WS LRO; 4 ('RTL') (line 81302)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0020, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16492,7 +16492,7 @@ TEST(bidi, bidi_162_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16531,7 +16531,7 @@ TEST(bidi, bidi_162_030)
         // NSM RLE WS RLE; 4 ('RTL') (line 81303)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0020, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16542,7 +16542,7 @@ TEST(bidi, bidi_162_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16581,7 +16581,7 @@ TEST(bidi, bidi_162_030)
         // NSM RLE WS RLO; 4 ('RTL') (line 81304)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0020, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16592,7 +16592,7 @@ TEST(bidi, bidi_162_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16631,7 +16631,7 @@ TEST(bidi, bidi_162_030)
         // NSM RLE WS PDF; 4 ('RTL') (line 81305)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0020, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16642,7 +16642,7 @@ TEST(bidi, bidi_162_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16681,7 +16681,7 @@ TEST(bidi, bidi_162_030)
         // NSM RLE WS BN; 4 ('RTL') (line 81306)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x0020, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16692,7 +16692,7 @@ TEST(bidi, bidi_162_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16731,7 +16731,7 @@ TEST(bidi, bidi_162_030)
         // NSM RLE LRI LRE; 4 ('RTL') (line 81307)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2066, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16742,7 +16742,7 @@ TEST(bidi, bidi_162_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16781,7 +16781,7 @@ TEST(bidi, bidi_162_030)
         // NSM RLE LRI LRO; 4 ('RTL') (line 81308)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2066, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16792,7 +16792,7 @@ TEST(bidi, bidi_162_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16831,7 +16831,7 @@ TEST(bidi, bidi_162_030)
         // NSM RLE LRI RLE; 4 ('RTL') (line 81309)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2066, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16842,7 +16842,7 @@ TEST(bidi, bidi_162_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16881,7 +16881,7 @@ TEST(bidi, bidi_162_030)
         // NSM RLE LRI RLO; 4 ('RTL') (line 81310)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2066, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16892,7 +16892,7 @@ TEST(bidi, bidi_162_030)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16938,7 +16938,7 @@ TEST(bidi, bidi_162_031)
         // NSM RLE LRI PDF; 4 ('RTL') (line 81311)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2066, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16949,7 +16949,7 @@ TEST(bidi, bidi_162_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -16988,7 +16988,7 @@ TEST(bidi, bidi_162_031)
         // NSM RLE LRI BN; 4 ('RTL') (line 81312)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2066, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16999,7 +16999,7 @@ TEST(bidi, bidi_162_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17038,7 +17038,7 @@ TEST(bidi, bidi_162_031)
         // NSM RLE RLI LRE; 4 ('RTL') (line 81313)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2067, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17049,7 +17049,7 @@ TEST(bidi, bidi_162_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17088,7 +17088,7 @@ TEST(bidi, bidi_162_031)
         // NSM RLE RLI LRO; 4 ('RTL') (line 81314)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2067, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17099,7 +17099,7 @@ TEST(bidi, bidi_162_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17138,7 +17138,7 @@ TEST(bidi, bidi_162_031)
         // NSM RLE RLI RLE; 4 ('RTL') (line 81315)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2067, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17149,7 +17149,7 @@ TEST(bidi, bidi_162_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17188,7 +17188,7 @@ TEST(bidi, bidi_162_031)
         // NSM RLE RLI RLO; 4 ('RTL') (line 81316)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2067, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17199,7 +17199,7 @@ TEST(bidi, bidi_162_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17238,7 +17238,7 @@ TEST(bidi, bidi_162_031)
         // NSM RLE RLI PDF; 4 ('RTL') (line 81317)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2067, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17249,7 +17249,7 @@ TEST(bidi, bidi_162_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17288,7 +17288,7 @@ TEST(bidi, bidi_162_031)
         // NSM RLE RLI BN; 4 ('RTL') (line 81318)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2067, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17299,7 +17299,7 @@ TEST(bidi, bidi_162_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17338,7 +17338,7 @@ TEST(bidi, bidi_162_031)
         // NSM RLE FSI LRE; 4 ('RTL') (line 81319)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2068, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17349,7 +17349,7 @@ TEST(bidi, bidi_162_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17388,7 +17388,7 @@ TEST(bidi, bidi_162_031)
         // NSM RLE FSI LRO; 4 ('RTL') (line 81320)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2068, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17399,7 +17399,7 @@ TEST(bidi, bidi_162_031)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17445,7 +17445,7 @@ TEST(bidi, bidi_162_032)
         // NSM RLE FSI RLE; 4 ('RTL') (line 81321)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2068, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17456,7 +17456,7 @@ TEST(bidi, bidi_162_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17495,7 +17495,7 @@ TEST(bidi, bidi_162_032)
         // NSM RLE FSI RLO; 4 ('RTL') (line 81322)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2068, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17506,7 +17506,7 @@ TEST(bidi, bidi_162_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17545,7 +17545,7 @@ TEST(bidi, bidi_162_032)
         // NSM RLE FSI PDF; 4 ('RTL') (line 81323)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2068, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17556,7 +17556,7 @@ TEST(bidi, bidi_162_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17595,7 +17595,7 @@ TEST(bidi, bidi_162_032)
         // NSM RLE FSI BN; 4 ('RTL') (line 81324)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2068, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17606,7 +17606,7 @@ TEST(bidi, bidi_162_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17645,7 +17645,7 @@ TEST(bidi, bidi_162_032)
         // NSM RLE PDI LRE; 4 ('RTL') (line 81325)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2069, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17656,7 +17656,7 @@ TEST(bidi, bidi_162_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17695,7 +17695,7 @@ TEST(bidi, bidi_162_032)
         // NSM RLE PDI LRO; 4 ('RTL') (line 81326)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2069, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17706,7 +17706,7 @@ TEST(bidi, bidi_162_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17745,7 +17745,7 @@ TEST(bidi, bidi_162_032)
         // NSM RLE PDI RLE; 4 ('RTL') (line 81327)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2069, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17756,7 +17756,7 @@ TEST(bidi, bidi_162_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17795,7 +17795,7 @@ TEST(bidi, bidi_162_032)
         // NSM RLE PDI RLO; 4 ('RTL') (line 81328)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2069, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17806,7 +17806,7 @@ TEST(bidi, bidi_162_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17845,7 +17845,7 @@ TEST(bidi, bidi_162_032)
         // NSM RLE PDI PDF; 4 ('RTL') (line 81329)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2069, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17856,7 +17856,7 @@ TEST(bidi, bidi_162_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17895,7 +17895,7 @@ TEST(bidi, bidi_162_032)
         // NSM RLE PDI BN; 4 ('RTL') (line 81330)
         std::vector<uint32_t> const cps = { 0x0300, 0x202B, 0x2069, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17906,7 +17906,7 @@ TEST(bidi, bidi_162_032)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -17952,7 +17952,7 @@ TEST(bidi, bidi_162_033)
         // NSM RLO S LRE; 4 ('RTL') (line 81331)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0009, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17963,7 +17963,7 @@ TEST(bidi, bidi_162_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18002,7 +18002,7 @@ TEST(bidi, bidi_162_033)
         // NSM RLO S LRO; 4 ('RTL') (line 81332)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0009, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18013,7 +18013,7 @@ TEST(bidi, bidi_162_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18052,7 +18052,7 @@ TEST(bidi, bidi_162_033)
         // NSM RLO S RLE; 4 ('RTL') (line 81333)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0009, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18063,7 +18063,7 @@ TEST(bidi, bidi_162_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18102,7 +18102,7 @@ TEST(bidi, bidi_162_033)
         // NSM RLO S RLO; 4 ('RTL') (line 81334)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0009, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18113,7 +18113,7 @@ TEST(bidi, bidi_162_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18152,7 +18152,7 @@ TEST(bidi, bidi_162_033)
         // NSM RLO S PDF; 4 ('RTL') (line 81335)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0009, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18163,7 +18163,7 @@ TEST(bidi, bidi_162_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18202,7 +18202,7 @@ TEST(bidi, bidi_162_033)
         // NSM RLO S BN; 4 ('RTL') (line 81336)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0009, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18213,7 +18213,7 @@ TEST(bidi, bidi_162_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18252,7 +18252,7 @@ TEST(bidi, bidi_162_033)
         // NSM RLO WS LRE; 4 ('RTL') (line 81337)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0020, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18263,7 +18263,7 @@ TEST(bidi, bidi_162_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18302,7 +18302,7 @@ TEST(bidi, bidi_162_033)
         // NSM RLO WS LRO; 4 ('RTL') (line 81338)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0020, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18313,7 +18313,7 @@ TEST(bidi, bidi_162_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18352,7 +18352,7 @@ TEST(bidi, bidi_162_033)
         // NSM RLO WS RLE; 4 ('RTL') (line 81339)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0020, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18363,7 +18363,7 @@ TEST(bidi, bidi_162_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18402,7 +18402,7 @@ TEST(bidi, bidi_162_033)
         // NSM RLO WS RLO; 4 ('RTL') (line 81340)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0020, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18413,7 +18413,7 @@ TEST(bidi, bidi_162_033)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18459,7 +18459,7 @@ TEST(bidi, bidi_162_034)
         // NSM RLO WS PDF; 4 ('RTL') (line 81341)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0020, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18470,7 +18470,7 @@ TEST(bidi, bidi_162_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18509,7 +18509,7 @@ TEST(bidi, bidi_162_034)
         // NSM RLO WS BN; 4 ('RTL') (line 81342)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x0020, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18520,7 +18520,7 @@ TEST(bidi, bidi_162_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18559,7 +18559,7 @@ TEST(bidi, bidi_162_034)
         // NSM RLO LRI LRE; 4 ('RTL') (line 81343)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2066, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18570,7 +18570,7 @@ TEST(bidi, bidi_162_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18609,7 +18609,7 @@ TEST(bidi, bidi_162_034)
         // NSM RLO LRI LRO; 4 ('RTL') (line 81344)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2066, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18620,7 +18620,7 @@ TEST(bidi, bidi_162_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18659,7 +18659,7 @@ TEST(bidi, bidi_162_034)
         // NSM RLO LRI RLE; 4 ('RTL') (line 81345)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2066, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18670,7 +18670,7 @@ TEST(bidi, bidi_162_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18709,7 +18709,7 @@ TEST(bidi, bidi_162_034)
         // NSM RLO LRI RLO; 4 ('RTL') (line 81346)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2066, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18720,7 +18720,7 @@ TEST(bidi, bidi_162_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18759,7 +18759,7 @@ TEST(bidi, bidi_162_034)
         // NSM RLO LRI PDF; 4 ('RTL') (line 81347)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2066, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18770,7 +18770,7 @@ TEST(bidi, bidi_162_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18809,7 +18809,7 @@ TEST(bidi, bidi_162_034)
         // NSM RLO LRI BN; 4 ('RTL') (line 81348)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2066, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18820,7 +18820,7 @@ TEST(bidi, bidi_162_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18859,7 +18859,7 @@ TEST(bidi, bidi_162_034)
         // NSM RLO RLI LRE; 4 ('RTL') (line 81349)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2067, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18870,7 +18870,7 @@ TEST(bidi, bidi_162_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18909,7 +18909,7 @@ TEST(bidi, bidi_162_034)
         // NSM RLO RLI LRO; 4 ('RTL') (line 81350)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2067, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18920,7 +18920,7 @@ TEST(bidi, bidi_162_034)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -18966,7 +18966,7 @@ TEST(bidi, bidi_162_035)
         // NSM RLO RLI RLE; 4 ('RTL') (line 81351)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2067, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18977,7 +18977,7 @@ TEST(bidi, bidi_162_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19016,7 +19016,7 @@ TEST(bidi, bidi_162_035)
         // NSM RLO RLI RLO; 4 ('RTL') (line 81352)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2067, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19027,7 +19027,7 @@ TEST(bidi, bidi_162_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19066,7 +19066,7 @@ TEST(bidi, bidi_162_035)
         // NSM RLO RLI PDF; 4 ('RTL') (line 81353)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2067, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19077,7 +19077,7 @@ TEST(bidi, bidi_162_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19116,7 +19116,7 @@ TEST(bidi, bidi_162_035)
         // NSM RLO RLI BN; 4 ('RTL') (line 81354)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2067, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19127,7 +19127,7 @@ TEST(bidi, bidi_162_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19166,7 +19166,7 @@ TEST(bidi, bidi_162_035)
         // NSM RLO FSI LRE; 4 ('RTL') (line 81355)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2068, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19177,7 +19177,7 @@ TEST(bidi, bidi_162_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19216,7 +19216,7 @@ TEST(bidi, bidi_162_035)
         // NSM RLO FSI LRO; 4 ('RTL') (line 81356)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2068, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19227,7 +19227,7 @@ TEST(bidi, bidi_162_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19266,7 +19266,7 @@ TEST(bidi, bidi_162_035)
         // NSM RLO FSI RLE; 4 ('RTL') (line 81357)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2068, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19277,7 +19277,7 @@ TEST(bidi, bidi_162_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19316,7 +19316,7 @@ TEST(bidi, bidi_162_035)
         // NSM RLO FSI RLO; 4 ('RTL') (line 81358)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2068, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19327,7 +19327,7 @@ TEST(bidi, bidi_162_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19366,7 +19366,7 @@ TEST(bidi, bidi_162_035)
         // NSM RLO FSI PDF; 4 ('RTL') (line 81359)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2068, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19377,7 +19377,7 @@ TEST(bidi, bidi_162_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19416,7 +19416,7 @@ TEST(bidi, bidi_162_035)
         // NSM RLO FSI BN; 4 ('RTL') (line 81360)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2068, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19427,7 +19427,7 @@ TEST(bidi, bidi_162_035)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19473,7 +19473,7 @@ TEST(bidi, bidi_162_036)
         // NSM RLO PDI LRE; 4 ('RTL') (line 81361)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2069, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19484,7 +19484,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19523,7 +19523,7 @@ TEST(bidi, bidi_162_036)
         // NSM RLO PDI LRO; 4 ('RTL') (line 81362)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2069, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19534,7 +19534,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19573,7 +19573,7 @@ TEST(bidi, bidi_162_036)
         // NSM RLO PDI RLE; 4 ('RTL') (line 81363)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2069, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19584,7 +19584,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19623,7 +19623,7 @@ TEST(bidi, bidi_162_036)
         // NSM RLO PDI RLO; 4 ('RTL') (line 81364)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2069, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19634,7 +19634,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19673,7 +19673,7 @@ TEST(bidi, bidi_162_036)
         // NSM RLO PDI PDF; 4 ('RTL') (line 81365)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2069, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19684,7 +19684,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19723,7 +19723,7 @@ TEST(bidi, bidi_162_036)
         // NSM RLO PDI BN; 4 ('RTL') (line 81366)
         std::vector<uint32_t> const cps = { 0x0300, 0x202E, 0x2069, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19734,7 +19734,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19773,7 +19773,7 @@ TEST(bidi, bidi_162_036)
         // NSM PDF R LRE; 5 ('auto') (line 81367)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19784,7 +19784,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19823,7 +19823,7 @@ TEST(bidi, bidi_162_036)
         // NSM PDF R LRE; 5 ('RTL') (line 81367)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19834,7 +19834,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19873,7 +19873,7 @@ TEST(bidi, bidi_162_036)
         // NSM PDF R LRO; 5 ('auto') (line 81368)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19884,7 +19884,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19923,7 +19923,7 @@ TEST(bidi, bidi_162_036)
         // NSM PDF R LRO; 5 ('RTL') (line 81368)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19934,7 +19934,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -19973,7 +19973,7 @@ TEST(bidi, bidi_162_036)
         // NSM PDF R RLE; 5 ('auto') (line 81369)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19984,7 +19984,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20023,7 +20023,7 @@ TEST(bidi, bidi_162_036)
         // NSM PDF R RLE; 5 ('RTL') (line 81369)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20034,7 +20034,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20073,7 +20073,7 @@ TEST(bidi, bidi_162_036)
         // NSM PDF R RLO; 5 ('auto') (line 81370)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20084,7 +20084,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20123,7 +20123,7 @@ TEST(bidi, bidi_162_036)
         // NSM PDF R RLO; 5 ('RTL') (line 81370)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20134,7 +20134,7 @@ TEST(bidi, bidi_162_036)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20180,7 +20180,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF R PDF; 5 ('auto') (line 81371)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20191,7 +20191,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20230,7 +20230,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF R PDF; 5 ('RTL') (line 81371)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20241,7 +20241,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20280,7 +20280,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF R BN; 5 ('auto') (line 81372)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20291,7 +20291,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20330,7 +20330,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF R BN; 5 ('RTL') (line 81372)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x05BE, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20341,7 +20341,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20380,7 +20380,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL LRE; 5 ('auto') (line 81373)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20391,7 +20391,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20430,7 +20430,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL LRE; 5 ('RTL') (line 81373)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20441,7 +20441,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20480,7 +20480,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL LRO; 5 ('auto') (line 81374)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20491,7 +20491,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20530,7 +20530,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL LRO; 5 ('RTL') (line 81374)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20541,7 +20541,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20580,7 +20580,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL RLE; 5 ('auto') (line 81375)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20591,7 +20591,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20630,7 +20630,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL RLE; 5 ('RTL') (line 81375)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20641,7 +20641,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20680,7 +20680,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL RLO; 5 ('auto') (line 81376)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20691,7 +20691,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20730,7 +20730,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL RLO; 5 ('RTL') (line 81376)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20741,7 +20741,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20780,7 +20780,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL PDF; 5 ('auto') (line 81377)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20791,7 +20791,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20830,7 +20830,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL PDF; 5 ('RTL') (line 81377)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20841,7 +20841,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20880,7 +20880,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL BN; 5 ('auto') (line 81378)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20891,7 +20891,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20930,7 +20930,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF AL BN; 5 ('RTL') (line 81378)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0608, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20941,7 +20941,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -20980,7 +20980,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF ES LRE; 4 ('RTL') (line 81379)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002B, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20991,7 +20991,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21030,7 +21030,7 @@ TEST(bidi, bidi_162_037)
         // NSM PDF ES LRO; 4 ('RTL') (line 81380)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002B, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21041,7 +21041,7 @@ TEST(bidi, bidi_162_037)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21087,7 +21087,7 @@ TEST(bidi, bidi_162_038)
         // NSM PDF ES RLE; 4 ('RTL') (line 81381)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002B, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21098,7 +21098,7 @@ TEST(bidi, bidi_162_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21137,7 +21137,7 @@ TEST(bidi, bidi_162_038)
         // NSM PDF ES RLO; 4 ('RTL') (line 81382)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002B, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21148,7 +21148,7 @@ TEST(bidi, bidi_162_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21187,7 +21187,7 @@ TEST(bidi, bidi_162_038)
         // NSM PDF ES PDF; 4 ('RTL') (line 81383)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002B, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21198,7 +21198,7 @@ TEST(bidi, bidi_162_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21237,7 +21237,7 @@ TEST(bidi, bidi_162_038)
         // NSM PDF ES BN; 4 ('RTL') (line 81384)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002B, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21248,7 +21248,7 @@ TEST(bidi, bidi_162_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21287,7 +21287,7 @@ TEST(bidi, bidi_162_038)
         // NSM PDF ET LRE; 4 ('RTL') (line 81385)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0023, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21298,7 +21298,7 @@ TEST(bidi, bidi_162_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21337,7 +21337,7 @@ TEST(bidi, bidi_162_038)
         // NSM PDF ET LRO; 4 ('RTL') (line 81386)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0023, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21348,7 +21348,7 @@ TEST(bidi, bidi_162_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21387,7 +21387,7 @@ TEST(bidi, bidi_162_038)
         // NSM PDF ET RLE; 4 ('RTL') (line 81387)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0023, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21398,7 +21398,7 @@ TEST(bidi, bidi_162_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21437,7 +21437,7 @@ TEST(bidi, bidi_162_038)
         // NSM PDF ET RLO; 4 ('RTL') (line 81388)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0023, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21448,7 +21448,7 @@ TEST(bidi, bidi_162_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21487,7 +21487,7 @@ TEST(bidi, bidi_162_038)
         // NSM PDF ET PDF; 4 ('RTL') (line 81389)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0023, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21498,7 +21498,7 @@ TEST(bidi, bidi_162_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21537,7 +21537,7 @@ TEST(bidi, bidi_162_038)
         // NSM PDF ET BN; 4 ('RTL') (line 81390)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0023, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21548,7 +21548,7 @@ TEST(bidi, bidi_162_038)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21594,7 +21594,7 @@ TEST(bidi, bidi_162_039)
         // NSM PDF CS LRE; 4 ('RTL') (line 81391)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002C, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21605,7 +21605,7 @@ TEST(bidi, bidi_162_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21644,7 +21644,7 @@ TEST(bidi, bidi_162_039)
         // NSM PDF CS LRO; 4 ('RTL') (line 81392)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002C, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21655,7 +21655,7 @@ TEST(bidi, bidi_162_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21694,7 +21694,7 @@ TEST(bidi, bidi_162_039)
         // NSM PDF CS RLE; 4 ('RTL') (line 81393)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002C, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21705,7 +21705,7 @@ TEST(bidi, bidi_162_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21744,7 +21744,7 @@ TEST(bidi, bidi_162_039)
         // NSM PDF CS RLO; 4 ('RTL') (line 81394)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002C, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21755,7 +21755,7 @@ TEST(bidi, bidi_162_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21794,7 +21794,7 @@ TEST(bidi, bidi_162_039)
         // NSM PDF CS PDF; 4 ('RTL') (line 81395)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002C, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21805,7 +21805,7 @@ TEST(bidi, bidi_162_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21844,7 +21844,7 @@ TEST(bidi, bidi_162_039)
         // NSM PDF CS BN; 4 ('RTL') (line 81396)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x002C, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21855,7 +21855,7 @@ TEST(bidi, bidi_162_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21894,7 +21894,7 @@ TEST(bidi, bidi_162_039)
         // NSM PDF NSM LRE; 4 ('RTL') (line 81397)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0300, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21905,7 +21905,7 @@ TEST(bidi, bidi_162_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21944,7 +21944,7 @@ TEST(bidi, bidi_162_039)
         // NSM PDF NSM LRO; 4 ('RTL') (line 81398)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0300, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21955,7 +21955,7 @@ TEST(bidi, bidi_162_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -21994,7 +21994,7 @@ TEST(bidi, bidi_162_039)
         // NSM PDF NSM RLE; 4 ('RTL') (line 81399)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0300, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22005,7 +22005,7 @@ TEST(bidi, bidi_162_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22044,7 +22044,7 @@ TEST(bidi, bidi_162_039)
         // NSM PDF NSM RLO; 4 ('RTL') (line 81400)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0300, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22055,7 +22055,7 @@ TEST(bidi, bidi_162_039)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22101,7 +22101,7 @@ TEST(bidi, bidi_162_040)
         // NSM PDF NSM PDF; 4 ('RTL') (line 81401)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0300, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22112,7 +22112,7 @@ TEST(bidi, bidi_162_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22151,7 +22151,7 @@ TEST(bidi, bidi_162_040)
         // NSM PDF NSM BN; 4 ('RTL') (line 81402)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0300, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22162,7 +22162,7 @@ TEST(bidi, bidi_162_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22201,7 +22201,7 @@ TEST(bidi, bidi_162_040)
         // NSM PDF S LRE; 4 ('RTL') (line 81403)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0009, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22212,7 +22212,7 @@ TEST(bidi, bidi_162_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22251,7 +22251,7 @@ TEST(bidi, bidi_162_040)
         // NSM PDF S LRO; 4 ('RTL') (line 81404)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0009, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22262,7 +22262,7 @@ TEST(bidi, bidi_162_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22301,7 +22301,7 @@ TEST(bidi, bidi_162_040)
         // NSM PDF S RLE; 4 ('RTL') (line 81405)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0009, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22312,7 +22312,7 @@ TEST(bidi, bidi_162_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22351,7 +22351,7 @@ TEST(bidi, bidi_162_040)
         // NSM PDF S RLO; 4 ('RTL') (line 81406)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0009, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22362,7 +22362,7 @@ TEST(bidi, bidi_162_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22401,7 +22401,7 @@ TEST(bidi, bidi_162_040)
         // NSM PDF S PDF; 4 ('RTL') (line 81407)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0009, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22412,7 +22412,7 @@ TEST(bidi, bidi_162_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22451,7 +22451,7 @@ TEST(bidi, bidi_162_040)
         // NSM PDF S BN; 4 ('RTL') (line 81408)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0009, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22462,7 +22462,7 @@ TEST(bidi, bidi_162_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22501,7 +22501,7 @@ TEST(bidi, bidi_162_040)
         // NSM PDF WS LRE; 4 ('RTL') (line 81409)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0020, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22512,7 +22512,7 @@ TEST(bidi, bidi_162_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22551,7 +22551,7 @@ TEST(bidi, bidi_162_040)
         // NSM PDF WS LRO; 4 ('RTL') (line 81410)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0020, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22562,7 +22562,7 @@ TEST(bidi, bidi_162_040)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22608,7 +22608,7 @@ TEST(bidi, bidi_162_041)
         // NSM PDF WS RLE; 4 ('RTL') (line 81411)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0020, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22619,7 +22619,7 @@ TEST(bidi, bidi_162_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22658,7 +22658,7 @@ TEST(bidi, bidi_162_041)
         // NSM PDF WS RLO; 4 ('RTL') (line 81412)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0020, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22669,7 +22669,7 @@ TEST(bidi, bidi_162_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22708,7 +22708,7 @@ TEST(bidi, bidi_162_041)
         // NSM PDF WS PDF; 4 ('RTL') (line 81413)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0020, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22719,7 +22719,7 @@ TEST(bidi, bidi_162_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22758,7 +22758,7 @@ TEST(bidi, bidi_162_041)
         // NSM PDF WS BN; 4 ('RTL') (line 81414)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0020, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22769,7 +22769,7 @@ TEST(bidi, bidi_162_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22808,7 +22808,7 @@ TEST(bidi, bidi_162_041)
         // NSM PDF ON LRE; 4 ('RTL') (line 81415)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0021, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22819,7 +22819,7 @@ TEST(bidi, bidi_162_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22858,7 +22858,7 @@ TEST(bidi, bidi_162_041)
         // NSM PDF ON LRO; 4 ('RTL') (line 81416)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0021, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22869,7 +22869,7 @@ TEST(bidi, bidi_162_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22908,7 +22908,7 @@ TEST(bidi, bidi_162_041)
         // NSM PDF ON RLE; 4 ('RTL') (line 81417)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0021, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22919,7 +22919,7 @@ TEST(bidi, bidi_162_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -22958,7 +22958,7 @@ TEST(bidi, bidi_162_041)
         // NSM PDF ON RLO; 4 ('RTL') (line 81418)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0021, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -22969,7 +22969,7 @@ TEST(bidi, bidi_162_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23008,7 +23008,7 @@ TEST(bidi, bidi_162_041)
         // NSM PDF ON PDF; 4 ('RTL') (line 81419)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0021, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23019,7 +23019,7 @@ TEST(bidi, bidi_162_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23058,7 +23058,7 @@ TEST(bidi, bidi_162_041)
         // NSM PDF ON BN; 4 ('RTL') (line 81420)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x0021, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23069,7 +23069,7 @@ TEST(bidi, bidi_162_041)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23115,7 +23115,7 @@ TEST(bidi, bidi_162_042)
         // NSM PDF LRI LRE; 4 ('RTL') (line 81421)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2066, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23126,7 +23126,7 @@ TEST(bidi, bidi_162_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23165,7 +23165,7 @@ TEST(bidi, bidi_162_042)
         // NSM PDF LRI LRO; 4 ('RTL') (line 81422)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2066, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23176,7 +23176,7 @@ TEST(bidi, bidi_162_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23215,7 +23215,7 @@ TEST(bidi, bidi_162_042)
         // NSM PDF LRI RLE; 4 ('RTL') (line 81423)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2066, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23226,7 +23226,7 @@ TEST(bidi, bidi_162_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23265,7 +23265,7 @@ TEST(bidi, bidi_162_042)
         // NSM PDF LRI RLO; 4 ('RTL') (line 81424)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2066, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23276,7 +23276,7 @@ TEST(bidi, bidi_162_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23315,7 +23315,7 @@ TEST(bidi, bidi_162_042)
         // NSM PDF LRI PDF; 4 ('RTL') (line 81425)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2066, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23326,7 +23326,7 @@ TEST(bidi, bidi_162_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23365,7 +23365,7 @@ TEST(bidi, bidi_162_042)
         // NSM PDF LRI BN; 4 ('RTL') (line 81426)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2066, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23376,7 +23376,7 @@ TEST(bidi, bidi_162_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23415,7 +23415,7 @@ TEST(bidi, bidi_162_042)
         // NSM PDF RLI LRE; 4 ('RTL') (line 81427)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2067, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23426,7 +23426,7 @@ TEST(bidi, bidi_162_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23465,7 +23465,7 @@ TEST(bidi, bidi_162_042)
         // NSM PDF RLI LRO; 4 ('RTL') (line 81428)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2067, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23476,7 +23476,7 @@ TEST(bidi, bidi_162_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23515,7 +23515,7 @@ TEST(bidi, bidi_162_042)
         // NSM PDF RLI RLE; 4 ('RTL') (line 81429)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2067, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23526,7 +23526,7 @@ TEST(bidi, bidi_162_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23565,7 +23565,7 @@ TEST(bidi, bidi_162_042)
         // NSM PDF RLI RLO; 4 ('RTL') (line 81430)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2067, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23576,7 +23576,7 @@ TEST(bidi, bidi_162_042)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23622,7 +23622,7 @@ TEST(bidi, bidi_162_043)
         // NSM PDF RLI PDF; 4 ('RTL') (line 81431)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2067, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23633,7 +23633,7 @@ TEST(bidi, bidi_162_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23672,7 +23672,7 @@ TEST(bidi, bidi_162_043)
         // NSM PDF RLI BN; 4 ('RTL') (line 81432)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2067, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23683,7 +23683,7 @@ TEST(bidi, bidi_162_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23722,7 +23722,7 @@ TEST(bidi, bidi_162_043)
         // NSM PDF FSI LRE; 4 ('RTL') (line 81433)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2068, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23733,7 +23733,7 @@ TEST(bidi, bidi_162_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23772,7 +23772,7 @@ TEST(bidi, bidi_162_043)
         // NSM PDF FSI LRO; 4 ('RTL') (line 81434)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2068, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23783,7 +23783,7 @@ TEST(bidi, bidi_162_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23822,7 +23822,7 @@ TEST(bidi, bidi_162_043)
         // NSM PDF FSI RLE; 4 ('RTL') (line 81435)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2068, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23833,7 +23833,7 @@ TEST(bidi, bidi_162_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23872,7 +23872,7 @@ TEST(bidi, bidi_162_043)
         // NSM PDF FSI RLO; 4 ('RTL') (line 81436)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2068, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23883,7 +23883,7 @@ TEST(bidi, bidi_162_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23922,7 +23922,7 @@ TEST(bidi, bidi_162_043)
         // NSM PDF FSI PDF; 4 ('RTL') (line 81437)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2068, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23933,7 +23933,7 @@ TEST(bidi, bidi_162_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -23972,7 +23972,7 @@ TEST(bidi, bidi_162_043)
         // NSM PDF FSI BN; 4 ('RTL') (line 81438)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2068, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -23983,7 +23983,7 @@ TEST(bidi, bidi_162_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24022,7 +24022,7 @@ TEST(bidi, bidi_162_043)
         // NSM PDF PDI LRE; 4 ('RTL') (line 81439)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2069, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24033,7 +24033,7 @@ TEST(bidi, bidi_162_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24072,7 +24072,7 @@ TEST(bidi, bidi_162_043)
         // NSM PDF PDI LRO; 4 ('RTL') (line 81440)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2069, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24083,7 +24083,7 @@ TEST(bidi, bidi_162_043)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24129,7 +24129,7 @@ TEST(bidi, bidi_162_044)
         // NSM PDF PDI RLE; 4 ('RTL') (line 81441)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2069, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24140,7 +24140,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24179,7 +24179,7 @@ TEST(bidi, bidi_162_044)
         // NSM PDF PDI RLO; 4 ('RTL') (line 81442)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2069, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24190,7 +24190,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24229,7 +24229,7 @@ TEST(bidi, bidi_162_044)
         // NSM PDF PDI PDF; 4 ('RTL') (line 81443)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2069, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24240,7 +24240,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24279,7 +24279,7 @@ TEST(bidi, bidi_162_044)
         // NSM PDF PDI BN; 4 ('RTL') (line 81444)
         std::vector<uint32_t> const cps = { 0x0300, 0x202C, 0x2069, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24290,7 +24290,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24329,7 +24329,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R LRE; 5 ('auto') (line 81445)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24340,7 +24340,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24379,7 +24379,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R LRE; 5 ('RTL') (line 81445)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24390,7 +24390,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24429,7 +24429,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R LRO; 5 ('auto') (line 81446)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24440,7 +24440,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24479,7 +24479,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R LRO; 5 ('RTL') (line 81446)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24490,7 +24490,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24529,7 +24529,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R RLE; 5 ('auto') (line 81447)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24540,7 +24540,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24579,7 +24579,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R RLE; 5 ('RTL') (line 81447)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24590,7 +24590,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24629,7 +24629,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R RLO; 5 ('auto') (line 81448)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24640,7 +24640,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24679,7 +24679,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R RLO; 5 ('RTL') (line 81448)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24690,7 +24690,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24729,7 +24729,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R PDF; 5 ('auto') (line 81449)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24740,7 +24740,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24779,7 +24779,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R PDF; 5 ('RTL') (line 81449)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24790,7 +24790,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24829,7 +24829,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R BN; 5 ('auto') (line 81450)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24840,7 +24840,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24879,7 +24879,7 @@ TEST(bidi, bidi_162_044)
         // NSM BN R BN; 5 ('RTL') (line 81450)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x05BE, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24890,7 +24890,7 @@ TEST(bidi, bidi_162_044)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24936,7 +24936,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL LRE; 5 ('auto') (line 81451)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24947,7 +24947,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -24986,7 +24986,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL LRE; 5 ('RTL') (line 81451)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -24997,7 +24997,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25036,7 +25036,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL LRO; 5 ('auto') (line 81452)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25047,7 +25047,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25086,7 +25086,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL LRO; 5 ('RTL') (line 81452)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25097,7 +25097,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25136,7 +25136,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL RLE; 5 ('auto') (line 81453)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25147,7 +25147,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25186,7 +25186,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL RLE; 5 ('RTL') (line 81453)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25197,7 +25197,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25236,7 +25236,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL RLO; 5 ('auto') (line 81454)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25247,7 +25247,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25286,7 +25286,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL RLO; 5 ('RTL') (line 81454)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25297,7 +25297,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25336,7 +25336,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL PDF; 5 ('auto') (line 81455)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25347,7 +25347,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25386,7 +25386,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL PDF; 5 ('RTL') (line 81455)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25397,7 +25397,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25436,7 +25436,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL BN; 5 ('auto') (line 81456)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), -1);
+            bidi_levels(cps.begin(), cps.end(), -1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25447,7 +25447,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), -1);
+            bidi_reordered_indices(cps.begin(), cps.end(), -1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25486,7 +25486,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN AL BN; 5 ('RTL') (line 81456)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0608, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25497,7 +25497,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25536,7 +25536,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN ES LRE; 4 ('RTL') (line 81457)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002B, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25547,7 +25547,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25586,7 +25586,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN ES LRO; 4 ('RTL') (line 81458)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002B, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25597,7 +25597,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25636,7 +25636,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN ES RLE; 4 ('RTL') (line 81459)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002B, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25647,7 +25647,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25686,7 +25686,7 @@ TEST(bidi, bidi_162_045)
         // NSM BN ES RLO; 4 ('RTL') (line 81460)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002B, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25697,7 +25697,7 @@ TEST(bidi, bidi_162_045)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25743,7 +25743,7 @@ TEST(bidi, bidi_162_046)
         // NSM BN ES PDF; 4 ('RTL') (line 81461)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002B, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25754,7 +25754,7 @@ TEST(bidi, bidi_162_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25793,7 +25793,7 @@ TEST(bidi, bidi_162_046)
         // NSM BN ES BN; 4 ('RTL') (line 81462)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002B, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25804,7 +25804,7 @@ TEST(bidi, bidi_162_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25843,7 +25843,7 @@ TEST(bidi, bidi_162_046)
         // NSM BN ET LRE; 4 ('RTL') (line 81463)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0023, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25854,7 +25854,7 @@ TEST(bidi, bidi_162_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25893,7 +25893,7 @@ TEST(bidi, bidi_162_046)
         // NSM BN ET LRO; 4 ('RTL') (line 81464)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0023, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25904,7 +25904,7 @@ TEST(bidi, bidi_162_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25943,7 +25943,7 @@ TEST(bidi, bidi_162_046)
         // NSM BN ET RLE; 4 ('RTL') (line 81465)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0023, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -25954,7 +25954,7 @@ TEST(bidi, bidi_162_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -25993,7 +25993,7 @@ TEST(bidi, bidi_162_046)
         // NSM BN ET RLO; 4 ('RTL') (line 81466)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0023, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26004,7 +26004,7 @@ TEST(bidi, bidi_162_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26043,7 +26043,7 @@ TEST(bidi, bidi_162_046)
         // NSM BN ET PDF; 4 ('RTL') (line 81467)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0023, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26054,7 +26054,7 @@ TEST(bidi, bidi_162_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26093,7 +26093,7 @@ TEST(bidi, bidi_162_046)
         // NSM BN ET BN; 4 ('RTL') (line 81468)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0023, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26104,7 +26104,7 @@ TEST(bidi, bidi_162_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26143,7 +26143,7 @@ TEST(bidi, bidi_162_046)
         // NSM BN CS LRE; 4 ('RTL') (line 81469)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002C, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26154,7 +26154,7 @@ TEST(bidi, bidi_162_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26193,7 +26193,7 @@ TEST(bidi, bidi_162_046)
         // NSM BN CS LRO; 4 ('RTL') (line 81470)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002C, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26204,7 +26204,7 @@ TEST(bidi, bidi_162_046)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26250,7 +26250,7 @@ TEST(bidi, bidi_162_047)
         // NSM BN CS RLE; 4 ('RTL') (line 81471)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002C, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26261,7 +26261,7 @@ TEST(bidi, bidi_162_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26300,7 +26300,7 @@ TEST(bidi, bidi_162_047)
         // NSM BN CS RLO; 4 ('RTL') (line 81472)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002C, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26311,7 +26311,7 @@ TEST(bidi, bidi_162_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26350,7 +26350,7 @@ TEST(bidi, bidi_162_047)
         // NSM BN CS PDF; 4 ('RTL') (line 81473)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002C, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26361,7 +26361,7 @@ TEST(bidi, bidi_162_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26400,7 +26400,7 @@ TEST(bidi, bidi_162_047)
         // NSM BN CS BN; 4 ('RTL') (line 81474)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x002C, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26411,7 +26411,7 @@ TEST(bidi, bidi_162_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26450,7 +26450,7 @@ TEST(bidi, bidi_162_047)
         // NSM BN NSM LRE; 4 ('RTL') (line 81475)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0300, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26461,7 +26461,7 @@ TEST(bidi, bidi_162_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26500,7 +26500,7 @@ TEST(bidi, bidi_162_047)
         // NSM BN NSM LRO; 4 ('RTL') (line 81476)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0300, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26511,7 +26511,7 @@ TEST(bidi, bidi_162_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26550,7 +26550,7 @@ TEST(bidi, bidi_162_047)
         // NSM BN NSM RLE; 4 ('RTL') (line 81477)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0300, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26561,7 +26561,7 @@ TEST(bidi, bidi_162_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26600,7 +26600,7 @@ TEST(bidi, bidi_162_047)
         // NSM BN NSM RLO; 4 ('RTL') (line 81478)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0300, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26611,7 +26611,7 @@ TEST(bidi, bidi_162_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26650,7 +26650,7 @@ TEST(bidi, bidi_162_047)
         // NSM BN NSM PDF; 4 ('RTL') (line 81479)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0300, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26661,7 +26661,7 @@ TEST(bidi, bidi_162_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26700,7 +26700,7 @@ TEST(bidi, bidi_162_047)
         // NSM BN NSM BN; 4 ('RTL') (line 81480)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0300, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26711,7 +26711,7 @@ TEST(bidi, bidi_162_047)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26757,7 +26757,7 @@ TEST(bidi, bidi_162_048)
         // NSM BN S LRE; 4 ('RTL') (line 81481)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0009, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26768,7 +26768,7 @@ TEST(bidi, bidi_162_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26807,7 +26807,7 @@ TEST(bidi, bidi_162_048)
         // NSM BN S LRO; 4 ('RTL') (line 81482)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0009, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26818,7 +26818,7 @@ TEST(bidi, bidi_162_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26857,7 +26857,7 @@ TEST(bidi, bidi_162_048)
         // NSM BN S RLE; 4 ('RTL') (line 81483)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0009, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26868,7 +26868,7 @@ TEST(bidi, bidi_162_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26907,7 +26907,7 @@ TEST(bidi, bidi_162_048)
         // NSM BN S RLO; 4 ('RTL') (line 81484)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0009, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26918,7 +26918,7 @@ TEST(bidi, bidi_162_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -26957,7 +26957,7 @@ TEST(bidi, bidi_162_048)
         // NSM BN S PDF; 4 ('RTL') (line 81485)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0009, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -26968,7 +26968,7 @@ TEST(bidi, bidi_162_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27007,7 +27007,7 @@ TEST(bidi, bidi_162_048)
         // NSM BN S BN; 4 ('RTL') (line 81486)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0009, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27018,7 +27018,7 @@ TEST(bidi, bidi_162_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27057,7 +27057,7 @@ TEST(bidi, bidi_162_048)
         // NSM BN WS LRE; 4 ('RTL') (line 81487)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0020, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27068,7 +27068,7 @@ TEST(bidi, bidi_162_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27107,7 +27107,7 @@ TEST(bidi, bidi_162_048)
         // NSM BN WS LRO; 4 ('RTL') (line 81488)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0020, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27118,7 +27118,7 @@ TEST(bidi, bidi_162_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27157,7 +27157,7 @@ TEST(bidi, bidi_162_048)
         // NSM BN WS RLE; 4 ('RTL') (line 81489)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0020, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27168,7 +27168,7 @@ TEST(bidi, bidi_162_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27207,7 +27207,7 @@ TEST(bidi, bidi_162_048)
         // NSM BN WS RLO; 4 ('RTL') (line 81490)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0020, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27218,7 +27218,7 @@ TEST(bidi, bidi_162_048)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27264,7 +27264,7 @@ TEST(bidi, bidi_162_049)
         // NSM BN WS PDF; 4 ('RTL') (line 81491)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0020, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27275,7 +27275,7 @@ TEST(bidi, bidi_162_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27314,7 +27314,7 @@ TEST(bidi, bidi_162_049)
         // NSM BN WS BN; 4 ('RTL') (line 81492)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0020, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27325,7 +27325,7 @@ TEST(bidi, bidi_162_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27364,7 +27364,7 @@ TEST(bidi, bidi_162_049)
         // NSM BN ON LRE; 4 ('RTL') (line 81493)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0021, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27375,7 +27375,7 @@ TEST(bidi, bidi_162_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27414,7 +27414,7 @@ TEST(bidi, bidi_162_049)
         // NSM BN ON LRO; 4 ('RTL') (line 81494)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0021, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27425,7 +27425,7 @@ TEST(bidi, bidi_162_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27464,7 +27464,7 @@ TEST(bidi, bidi_162_049)
         // NSM BN ON RLE; 4 ('RTL') (line 81495)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0021, 0x202B };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27475,7 +27475,7 @@ TEST(bidi, bidi_162_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27514,7 +27514,7 @@ TEST(bidi, bidi_162_049)
         // NSM BN ON RLO; 4 ('RTL') (line 81496)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0021, 0x202E };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27525,7 +27525,7 @@ TEST(bidi, bidi_162_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27564,7 +27564,7 @@ TEST(bidi, bidi_162_049)
         // NSM BN ON PDF; 4 ('RTL') (line 81497)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0021, 0x202C };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27575,7 +27575,7 @@ TEST(bidi, bidi_162_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27614,7 +27614,7 @@ TEST(bidi, bidi_162_049)
         // NSM BN ON BN; 4 ('RTL') (line 81498)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x0021, 0x00AD };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27625,7 +27625,7 @@ TEST(bidi, bidi_162_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27664,7 +27664,7 @@ TEST(bidi, bidi_162_049)
         // NSM BN LRI LRE; 4 ('RTL') (line 81499)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x2066, 0x202A };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27675,7 +27675,7 @@ TEST(bidi, bidi_162_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.
@@ -27714,7 +27714,7 @@ TEST(bidi, bidi_162_049)
         // NSM BN LRI LRO; 4 ('RTL') (line 81500)
         std::vector<uint32_t> const cps = { 0x0300, 0x00AD, 0x2066, 0x202D };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -27725,7 +27725,7 @@ TEST(bidi, bidi_162_049)
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             // Skip FSI, LRI, RLI, and PDI.

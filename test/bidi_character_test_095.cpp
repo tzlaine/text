@@ -17,7 +17,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -30,7 +30,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -48,7 +48,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -61,7 +61,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -79,7 +79,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -92,7 +92,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -110,7 +110,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -123,7 +123,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -141,7 +141,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -154,7 +154,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -172,7 +172,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -185,7 +185,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -203,7 +203,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -216,7 +216,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -234,7 +234,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -247,7 +247,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -265,7 +265,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -278,7 +278,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -296,7 +296,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -309,7 +309,7 @@ TEST(bidi_character, bidi_character_095_000)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -331,7 +331,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -344,7 +344,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -362,7 +362,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -375,7 +375,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -393,7 +393,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -406,7 +406,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -424,7 +424,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -437,7 +437,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -455,7 +455,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -468,7 +468,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -486,7 +486,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -499,7 +499,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -517,7 +517,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -530,7 +530,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -548,7 +548,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -561,7 +561,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -579,7 +579,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -592,7 +592,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -610,7 +610,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -623,7 +623,7 @@ TEST(bidi_character, bidi_character_095_001)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -645,7 +645,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -658,7 +658,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -676,7 +676,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -689,7 +689,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -707,7 +707,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -720,7 +720,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -738,7 +738,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -751,7 +751,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -769,7 +769,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -782,7 +782,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -800,7 +800,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -813,7 +813,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -831,7 +831,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -844,7 +844,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -862,7 +862,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -875,7 +875,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -893,7 +893,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -906,7 +906,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -924,7 +924,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -937,7 +937,7 @@ TEST(bidi_character, bidi_character_095_002)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -959,7 +959,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -972,7 +972,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -990,7 +990,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1003,7 +1003,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1021,7 +1021,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1034,7 +1034,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1052,7 +1052,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1065,7 +1065,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1083,7 +1083,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1096,7 +1096,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1114,7 +1114,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1127,7 +1127,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1145,7 +1145,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1158,7 +1158,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1176,7 +1176,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1189,7 +1189,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1207,7 +1207,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1220,7 +1220,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1238,7 +1238,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1251,7 +1251,7 @@ TEST(bidi_character, bidi_character_095_003)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1273,7 +1273,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1286,7 +1286,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1304,7 +1304,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1317,7 +1317,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1335,7 +1335,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1348,7 +1348,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1366,7 +1366,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1379,7 +1379,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1397,7 +1397,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1410,7 +1410,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1428,7 +1428,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1441,7 +1441,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1459,7 +1459,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1472,7 +1472,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1490,7 +1490,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1503,7 +1503,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1521,7 +1521,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1534,7 +1534,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1552,7 +1552,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1565,7 +1565,7 @@ TEST(bidi_character, bidi_character_095_004)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1587,7 +1587,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1600,7 +1600,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1618,7 +1618,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1631,7 +1631,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1649,7 +1649,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1662,7 +1662,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1680,7 +1680,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1693,7 +1693,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1711,7 +1711,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1724,7 +1724,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1742,7 +1742,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1755,7 +1755,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1773,7 +1773,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1786,7 +1786,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1804,7 +1804,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1817,7 +1817,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1835,7 +1835,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1848,7 +1848,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1866,7 +1866,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1879,7 +1879,7 @@ TEST(bidi_character, bidi_character_095_005)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1901,7 +1901,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1914,7 +1914,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1932,7 +1932,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1945,7 +1945,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1963,7 +1963,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -1976,7 +1976,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -1994,7 +1994,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2007,7 +2007,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2025,7 +2025,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2038,7 +2038,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2056,7 +2056,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2069,7 +2069,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2087,7 +2087,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2100,7 +2100,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2118,7 +2118,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2131,7 +2131,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2149,7 +2149,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2162,7 +2162,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2180,7 +2180,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2193,7 +2193,7 @@ TEST(bidi_character, bidi_character_095_006)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2215,7 +2215,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2228,7 +2228,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2246,7 +2246,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2259,7 +2259,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2277,7 +2277,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2290,7 +2290,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 4, 5, 6, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2308,7 +2308,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2321,7 +2321,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2339,7 +2339,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2352,7 +2352,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<uint32_t> const expected_reordered_indices =
             { 4, 5, 6, 7, 8, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2370,7 +2370,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2383,7 +2383,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2401,7 +2401,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2414,7 +2414,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<uint32_t> const expected_reordered_indices =
             { 4, 5, 6, 7, 8, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2432,7 +2432,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2445,7 +2445,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2463,7 +2463,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2476,7 +2476,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<uint32_t> const expected_reordered_indices =
             { 4, 5, 6, 7, 8, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2494,7 +2494,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2507,7 +2507,7 @@ TEST(bidi_character, bidi_character_095_007)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2529,7 +2529,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2542,7 +2542,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<uint32_t> const expected_reordered_indices =
             { 4, 5, 6, 7, 8, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2560,7 +2560,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2573,7 +2573,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2591,7 +2591,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2604,7 +2604,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<uint32_t> const expected_reordered_indices =
             { 4, 5, 6, 7, 8, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2622,7 +2622,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2635,7 +2635,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2653,7 +2653,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2666,7 +2666,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 5, 6, 7, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2684,7 +2684,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2697,7 +2697,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2715,7 +2715,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2728,7 +2728,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2746,7 +2746,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2759,7 +2759,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2777,7 +2777,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2790,7 +2790,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2808,7 +2808,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2821,7 +2821,7 @@ TEST(bidi_character, bidi_character_095_008)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2843,7 +2843,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2856,7 +2856,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<uint32_t> const expected_reordered_indices =
             { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2874,7 +2874,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2887,7 +2887,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2905,7 +2905,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2918,7 +2918,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<uint32_t> const expected_reordered_indices =
             { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2936,7 +2936,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2949,7 +2949,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2967,7 +2967,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -2980,7 +2980,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<uint32_t> const expected_reordered_indices =
             { 3, 4, 5, 6, 7, 8, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -2998,7 +2998,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3011,7 +3011,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3029,7 +3029,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3042,7 +3042,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3060,7 +3060,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3073,7 +3073,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3091,7 +3091,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3104,7 +3104,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3122,7 +3122,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3135,7 +3135,7 @@ TEST(bidi_character, bidi_character_095_009)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3157,7 +3157,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3170,7 +3170,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3188,7 +3188,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3201,7 +3201,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3219,7 +3219,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3232,7 +3232,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3250,7 +3250,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3263,7 +3263,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3281,7 +3281,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3294,7 +3294,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3312,7 +3312,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3325,7 +3325,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3343,7 +3343,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3356,7 +3356,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3374,7 +3374,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3387,7 +3387,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3405,7 +3405,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3418,7 +3418,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3436,7 +3436,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3449,7 +3449,7 @@ TEST(bidi_character, bidi_character_095_010)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3471,7 +3471,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3484,7 +3484,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3502,7 +3502,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3515,7 +3515,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3533,7 +3533,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3546,7 +3546,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3564,7 +3564,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3577,7 +3577,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3595,7 +3595,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3608,7 +3608,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3626,7 +3626,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3639,7 +3639,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3657,7 +3657,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3670,7 +3670,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3688,7 +3688,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3701,7 +3701,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3719,7 +3719,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3732,7 +3732,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3750,7 +3750,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3763,7 +3763,7 @@ TEST(bidi_character, bidi_character_095_011)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3785,7 +3785,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3798,7 +3798,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3816,7 +3816,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3829,7 +3829,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3847,7 +3847,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3860,7 +3860,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3878,7 +3878,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3891,7 +3891,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3909,7 +3909,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3922,7 +3922,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3940,7 +3940,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3953,7 +3953,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -3971,7 +3971,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -3984,7 +3984,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4002,7 +4002,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4015,7 +4015,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4033,7 +4033,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4046,7 +4046,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4064,7 +4064,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4077,7 +4077,7 @@ TEST(bidi_character, bidi_character_095_012)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4099,7 +4099,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4112,7 +4112,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4130,7 +4130,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4143,7 +4143,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4161,7 +4161,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4174,7 +4174,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4192,7 +4192,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4205,7 +4205,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4223,7 +4223,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4236,7 +4236,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4254,7 +4254,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4267,7 +4267,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4285,7 +4285,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4298,7 +4298,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4316,7 +4316,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4329,7 +4329,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4347,7 +4347,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4360,7 +4360,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4378,7 +4378,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4391,7 +4391,7 @@ TEST(bidi_character, bidi_character_095_013)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4413,7 +4413,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4426,7 +4426,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4444,7 +4444,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4457,7 +4457,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4475,7 +4475,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4488,7 +4488,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4506,7 +4506,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4519,7 +4519,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4537,7 +4537,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4550,7 +4550,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4568,7 +4568,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4581,7 +4581,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4599,7 +4599,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4612,7 +4612,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4630,7 +4630,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4643,7 +4643,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4661,7 +4661,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4674,7 +4674,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4692,7 +4692,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4705,7 +4705,7 @@ TEST(bidi_character, bidi_character_095_014)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4727,7 +4727,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4740,7 +4740,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4758,7 +4758,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4771,7 +4771,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4789,7 +4789,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4802,7 +4802,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4820,7 +4820,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4833,7 +4833,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4851,7 +4851,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4864,7 +4864,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4882,7 +4882,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4895,7 +4895,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4913,7 +4913,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4926,7 +4926,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4944,7 +4944,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4957,7 +4957,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -4975,7 +4975,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -4988,7 +4988,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5006,7 +5006,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5019,7 +5019,7 @@ TEST(bidi_character, bidi_character_095_015)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5041,7 +5041,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5054,7 +5054,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5072,7 +5072,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5085,7 +5085,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5103,7 +5103,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5116,7 +5116,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5134,7 +5134,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5147,7 +5147,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5165,7 +5165,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5178,7 +5178,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5196,7 +5196,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5209,7 +5209,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5227,7 +5227,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5240,7 +5240,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5258,7 +5258,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5271,7 +5271,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5289,7 +5289,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5302,7 +5302,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5320,7 +5320,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5333,7 +5333,7 @@ TEST(bidi_character, bidi_character_095_016)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5355,7 +5355,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5368,7 +5368,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5386,7 +5386,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5399,7 +5399,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5417,7 +5417,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5430,7 +5430,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5448,7 +5448,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5461,7 +5461,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5479,7 +5479,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5492,7 +5492,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5510,7 +5510,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5523,7 +5523,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5541,7 +5541,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5554,7 +5554,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5572,7 +5572,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5585,7 +5585,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5603,7 +5603,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5616,7 +5616,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5634,7 +5634,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5647,7 +5647,7 @@ TEST(bidi_character, bidi_character_095_017)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5669,7 +5669,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5682,7 +5682,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5700,7 +5700,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5713,7 +5713,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5731,7 +5731,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5744,7 +5744,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5762,7 +5762,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5775,7 +5775,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5793,7 +5793,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5806,7 +5806,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5824,7 +5824,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5837,7 +5837,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5855,7 +5855,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5868,7 +5868,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5886,7 +5886,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5899,7 +5899,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5917,7 +5917,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5930,7 +5930,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5948,7 +5948,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5961,7 +5961,7 @@ TEST(bidi_character, bidi_character_095_018)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -5983,7 +5983,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -5996,7 +5996,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6014,7 +6014,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6027,7 +6027,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6045,7 +6045,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6058,7 +6058,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6076,7 +6076,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6089,7 +6089,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6107,7 +6107,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6120,7 +6120,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6138,7 +6138,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6151,7 +6151,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6169,7 +6169,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6182,7 +6182,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6200,7 +6200,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6213,7 +6213,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6231,7 +6231,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6244,7 +6244,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6262,7 +6262,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6275,7 +6275,7 @@ TEST(bidi_character, bidi_character_095_019)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6297,7 +6297,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6310,7 +6310,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 1, 2, 3, 4, 5, 6, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6328,7 +6328,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6341,7 +6341,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6359,7 +6359,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6372,7 +6372,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6390,7 +6390,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6403,7 +6403,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6421,7 +6421,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6434,7 +6434,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6452,7 +6452,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6465,7 +6465,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6483,7 +6483,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6496,7 +6496,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6514,7 +6514,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6527,7 +6527,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6545,7 +6545,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6558,7 +6558,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6576,7 +6576,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6589,7 +6589,7 @@ TEST(bidi_character, bidi_character_095_020)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6611,7 +6611,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6624,7 +6624,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6642,7 +6642,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6655,7 +6655,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6673,7 +6673,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6686,7 +6686,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6704,7 +6704,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6717,7 +6717,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6735,7 +6735,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6748,7 +6748,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6766,7 +6766,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6779,7 +6779,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6797,7 +6797,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6810,7 +6810,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6828,7 +6828,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6841,7 +6841,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6859,7 +6859,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6872,7 +6872,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6890,7 +6890,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6903,7 +6903,7 @@ TEST(bidi_character, bidi_character_095_021)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6925,7 +6925,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6938,7 +6938,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6956,7 +6956,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -6969,7 +6969,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -6987,7 +6987,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7000,7 +7000,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 3, 4, 5, 6, 7, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7018,7 +7018,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7031,7 +7031,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7049,7 +7049,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7062,7 +7062,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 3, 4, 5, 6, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7080,7 +7080,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7093,7 +7093,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7111,7 +7111,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7124,7 +7124,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7142,7 +7142,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7155,7 +7155,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7173,7 +7173,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7186,7 +7186,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7204,7 +7204,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7217,7 +7217,7 @@ TEST(bidi_character, bidi_character_095_022)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7239,7 +7239,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7252,7 +7252,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7270,7 +7270,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7283,7 +7283,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7301,7 +7301,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7314,7 +7314,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7332,7 +7332,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7345,7 +7345,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7363,7 +7363,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7376,7 +7376,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7394,7 +7394,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7407,7 +7407,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7425,7 +7425,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7438,7 +7438,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7456,7 +7456,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7469,7 +7469,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7487,7 +7487,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7500,7 +7500,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7518,7 +7518,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7531,7 +7531,7 @@ TEST(bidi_character, bidi_character_095_023)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7553,7 +7553,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7566,7 +7566,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7584,7 +7584,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7597,7 +7597,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7615,7 +7615,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7628,7 +7628,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7646,7 +7646,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7659,7 +7659,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7677,7 +7677,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7690,7 +7690,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7708,7 +7708,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7721,7 +7721,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7739,7 +7739,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7752,7 +7752,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7770,7 +7770,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7783,7 +7783,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7801,7 +7801,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7814,7 +7814,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7832,7 +7832,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7845,7 +7845,7 @@ TEST(bidi_character, bidi_character_095_024)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7867,7 +7867,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7880,7 +7880,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7898,7 +7898,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7911,7 +7911,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7929,7 +7929,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7942,7 +7942,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7960,7 +7960,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -7973,7 +7973,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -7991,7 +7991,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8004,7 +8004,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8022,7 +8022,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8035,7 +8035,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8053,7 +8053,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8066,7 +8066,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8084,7 +8084,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8097,7 +8097,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8115,7 +8115,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8128,7 +8128,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8146,7 +8146,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8159,7 +8159,7 @@ TEST(bidi_character, bidi_character_095_025)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8181,7 +8181,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8194,7 +8194,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8212,7 +8212,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8225,7 +8225,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8243,7 +8243,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8256,7 +8256,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8274,7 +8274,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8287,7 +8287,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8305,7 +8305,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8318,7 +8318,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8336,7 +8336,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8349,7 +8349,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8367,7 +8367,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8380,7 +8380,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8398,7 +8398,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8411,7 +8411,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8429,7 +8429,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8442,7 +8442,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8460,7 +8460,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8473,7 +8473,7 @@ TEST(bidi_character, bidi_character_095_026)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8495,7 +8495,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8508,7 +8508,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8526,7 +8526,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8539,7 +8539,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8557,7 +8557,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8570,7 +8570,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<uint32_t> const expected_reordered_indices =
             { 4, 5, 6, 7, 8, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8588,7 +8588,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8601,7 +8601,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8619,7 +8619,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8632,7 +8632,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 4, 5, 6, 7, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8650,7 +8650,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8663,7 +8663,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8681,7 +8681,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8694,7 +8694,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 0, 1, 2, 3, 4, 5, 6 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8712,7 +8712,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8725,7 +8725,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8743,7 +8743,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8756,7 +8756,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8774,7 +8774,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8787,7 +8787,7 @@ TEST(bidi_character, bidi_character_095_027)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8809,7 +8809,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8822,7 +8822,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8840,7 +8840,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8853,7 +8853,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8871,7 +8871,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8884,7 +8884,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8902,7 +8902,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8915,7 +8915,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8933,7 +8933,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8946,7 +8946,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8964,7 +8964,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -8977,7 +8977,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -8995,7 +8995,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9008,7 +9008,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9026,7 +9026,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9039,7 +9039,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9057,7 +9057,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9070,7 +9070,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9088,7 +9088,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9101,7 +9101,7 @@ TEST(bidi_character, bidi_character_095_028)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9123,7 +9123,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9136,7 +9136,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9154,7 +9154,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9167,7 +9167,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9185,7 +9185,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9198,7 +9198,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9216,7 +9216,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9229,7 +9229,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9247,7 +9247,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9260,7 +9260,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9278,7 +9278,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9291,7 +9291,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9309,7 +9309,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9322,7 +9322,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9340,7 +9340,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9353,7 +9353,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9371,7 +9371,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9384,7 +9384,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9402,7 +9402,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9415,7 +9415,7 @@ TEST(bidi_character, bidi_character_095_029)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9437,7 +9437,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9450,7 +9450,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9468,7 +9468,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9481,7 +9481,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9499,7 +9499,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9512,7 +9512,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<uint32_t> const expected_reordered_indices =
             { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9530,7 +9530,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9543,7 +9543,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9561,7 +9561,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 2, 2, 2, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9574,7 +9574,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<uint32_t> const expected_reordered_indices =
             { 4, 5, 6, 7, 8, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9592,7 +9592,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9605,7 +9605,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9623,7 +9623,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9636,7 +9636,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9654,7 +9654,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9667,7 +9667,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9685,7 +9685,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9698,7 +9698,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9716,7 +9716,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9729,7 +9729,7 @@ TEST(bidi_character, bidi_character_095_030)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9751,7 +9751,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9764,7 +9764,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9782,7 +9782,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9795,7 +9795,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9813,7 +9813,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9826,7 +9826,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9844,7 +9844,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9857,7 +9857,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9875,7 +9875,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9888,7 +9888,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9906,7 +9906,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9919,7 +9919,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9937,7 +9937,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9950,7 +9950,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9968,7 +9968,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -9981,7 +9981,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -9999,7 +9999,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10012,7 +10012,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10030,7 +10030,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10043,7 +10043,7 @@ TEST(bidi_character, bidi_character_095_031)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10065,7 +10065,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10078,7 +10078,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10096,7 +10096,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10109,7 +10109,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10127,7 +10127,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10140,7 +10140,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10158,7 +10158,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10171,7 +10171,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10189,7 +10189,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10202,7 +10202,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10220,7 +10220,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10233,7 +10233,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10251,7 +10251,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10264,7 +10264,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10282,7 +10282,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10295,7 +10295,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10313,7 +10313,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10326,7 +10326,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 0, 1, 2, 3, 4, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10344,7 +10344,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10357,7 +10357,7 @@ TEST(bidi_character, bidi_character_095_032)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10379,7 +10379,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10392,7 +10392,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10410,7 +10410,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10423,7 +10423,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10441,7 +10441,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10454,7 +10454,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10472,7 +10472,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10485,7 +10485,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10503,7 +10503,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10516,7 +10516,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10534,7 +10534,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10547,7 +10547,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10565,7 +10565,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10578,7 +10578,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10596,7 +10596,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10609,7 +10609,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10627,7 +10627,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10640,7 +10640,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10658,7 +10658,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10671,7 +10671,7 @@ TEST(bidi_character, bidi_character_095_033)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10693,7 +10693,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10706,7 +10706,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10724,7 +10724,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10737,7 +10737,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10755,7 +10755,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10768,7 +10768,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 1, 2, 3, 4, 5, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10786,7 +10786,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10799,7 +10799,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10817,7 +10817,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10830,7 +10830,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10848,7 +10848,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10861,7 +10861,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10879,7 +10879,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10892,7 +10892,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10910,7 +10910,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10923,7 +10923,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10941,7 +10941,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10954,7 +10954,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -10972,7 +10972,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -10985,7 +10985,7 @@ TEST(bidi_character, bidi_character_095_034)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11007,7 +11007,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11020,7 +11020,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 1, 2, 3, 4, 5, 6, 7, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11038,7 +11038,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11051,7 +11051,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11069,7 +11069,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11082,7 +11082,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11100,7 +11100,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11113,7 +11113,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11131,7 +11131,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 2, 2, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11144,7 +11144,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 4, 5, 6, 7, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11162,7 +11162,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11175,7 +11175,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11193,7 +11193,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11206,7 +11206,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11224,7 +11224,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11237,7 +11237,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11255,7 +11255,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11268,7 +11268,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11286,7 +11286,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11299,7 +11299,7 @@ TEST(bidi_character, bidi_character_095_035)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11321,7 +11321,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11334,7 +11334,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11352,7 +11352,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11365,7 +11365,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11383,7 +11383,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11396,7 +11396,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11414,7 +11414,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11427,7 +11427,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11445,7 +11445,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11458,7 +11458,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11476,7 +11476,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11489,7 +11489,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11507,7 +11507,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11520,7 +11520,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11538,7 +11538,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11551,7 +11551,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11569,7 +11569,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11582,7 +11582,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11600,7 +11600,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11613,7 +11613,7 @@ TEST(bidi_character, bidi_character_095_036)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11635,7 +11635,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11648,7 +11648,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11666,7 +11666,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11679,7 +11679,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11697,7 +11697,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11710,7 +11710,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11728,7 +11728,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11741,7 +11741,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11759,7 +11759,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11772,7 +11772,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11790,7 +11790,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11803,7 +11803,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11821,7 +11821,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11834,7 +11834,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11852,7 +11852,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11865,7 +11865,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11883,7 +11883,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11896,7 +11896,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11914,7 +11914,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11927,7 +11927,7 @@ TEST(bidi_character, bidi_character_095_037)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11949,7 +11949,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11962,7 +11962,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -11980,7 +11980,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -11993,7 +11993,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12011,7 +12011,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12024,7 +12024,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12042,7 +12042,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12055,7 +12055,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12073,7 +12073,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12086,7 +12086,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12104,7 +12104,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12117,7 +12117,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12135,7 +12135,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12148,7 +12148,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12166,7 +12166,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12179,7 +12179,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12197,7 +12197,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12210,7 +12210,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12228,7 +12228,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12241,7 +12241,7 @@ TEST(bidi_character, bidi_character_095_038)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12263,7 +12263,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12276,7 +12276,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12294,7 +12294,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12307,7 +12307,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12325,7 +12325,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12338,7 +12338,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12356,7 +12356,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12369,7 +12369,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12387,7 +12387,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12400,7 +12400,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12418,7 +12418,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12431,7 +12431,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12449,7 +12449,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12462,7 +12462,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12480,7 +12480,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12493,7 +12493,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12511,7 +12511,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12524,7 +12524,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12542,7 +12542,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12555,7 +12555,7 @@ TEST(bidi_character, bidi_character_095_039)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12577,7 +12577,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12590,7 +12590,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12608,7 +12608,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12621,7 +12621,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12639,7 +12639,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12652,7 +12652,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12670,7 +12670,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12683,7 +12683,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12701,7 +12701,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12714,7 +12714,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12732,7 +12732,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12745,7 +12745,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12763,7 +12763,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12776,7 +12776,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12794,7 +12794,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12807,7 +12807,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12825,7 +12825,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12838,7 +12838,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12856,7 +12856,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12869,7 +12869,7 @@ TEST(bidi_character, bidi_character_095_040)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12891,7 +12891,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12904,7 +12904,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12922,7 +12922,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12935,7 +12935,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12953,7 +12953,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12966,7 +12966,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -12984,7 +12984,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -12997,7 +12997,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13015,7 +13015,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13028,7 +13028,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13046,7 +13046,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13059,7 +13059,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13077,7 +13077,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13090,7 +13090,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13108,7 +13108,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13121,7 +13121,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13139,7 +13139,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13152,7 +13152,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13170,7 +13170,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13183,7 +13183,7 @@ TEST(bidi_character, bidi_character_095_041)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13205,7 +13205,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13218,7 +13218,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13236,7 +13236,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13249,7 +13249,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13267,7 +13267,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13280,7 +13280,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13298,7 +13298,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13311,7 +13311,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13329,7 +13329,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13342,7 +13342,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13360,7 +13360,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13373,7 +13373,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13391,7 +13391,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13404,7 +13404,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13422,7 +13422,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13435,7 +13435,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13453,7 +13453,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13466,7 +13466,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13484,7 +13484,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13497,7 +13497,7 @@ TEST(bidi_character, bidi_character_095_042)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13519,7 +13519,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13532,7 +13532,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13550,7 +13550,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13563,7 +13563,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13581,7 +13581,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13594,7 +13594,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13612,7 +13612,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13625,7 +13625,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13643,7 +13643,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13656,7 +13656,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13674,7 +13674,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13687,7 +13687,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13705,7 +13705,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13718,7 +13718,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13736,7 +13736,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13749,7 +13749,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13767,7 +13767,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13780,7 +13780,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13798,7 +13798,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13811,7 +13811,7 @@ TEST(bidi_character, bidi_character_095_043)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13833,7 +13833,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13846,7 +13846,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13864,7 +13864,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13877,7 +13877,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13895,7 +13895,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13908,7 +13908,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13926,7 +13926,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13939,7 +13939,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13957,7 +13957,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -13970,7 +13970,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -13988,7 +13988,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14001,7 +14001,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14019,7 +14019,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14032,7 +14032,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14050,7 +14050,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14063,7 +14063,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14081,7 +14081,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14094,7 +14094,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14112,7 +14112,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14125,7 +14125,7 @@ TEST(bidi_character, bidi_character_095_044)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14147,7 +14147,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14160,7 +14160,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14178,7 +14178,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14191,7 +14191,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14209,7 +14209,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14222,7 +14222,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14240,7 +14240,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14253,7 +14253,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14271,7 +14271,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14284,7 +14284,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14302,7 +14302,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14315,7 +14315,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14333,7 +14333,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14346,7 +14346,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14364,7 +14364,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14377,7 +14377,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14395,7 +14395,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14408,7 +14408,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14426,7 +14426,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14439,7 +14439,7 @@ TEST(bidi_character, bidi_character_095_045)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14461,7 +14461,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14474,7 +14474,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14492,7 +14492,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14505,7 +14505,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14523,7 +14523,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14536,7 +14536,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14554,7 +14554,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14567,7 +14567,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14585,7 +14585,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14598,7 +14598,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14616,7 +14616,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14629,7 +14629,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14647,7 +14647,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14660,7 +14660,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14678,7 +14678,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14691,7 +14691,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14709,7 +14709,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14722,7 +14722,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14740,7 +14740,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14753,7 +14753,7 @@ TEST(bidi_character, bidi_character_095_046)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14775,7 +14775,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14788,7 +14788,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14806,7 +14806,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14819,7 +14819,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14837,7 +14837,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14850,7 +14850,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14868,7 +14868,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14881,7 +14881,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14899,7 +14899,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14912,7 +14912,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14930,7 +14930,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14943,7 +14943,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14961,7 +14961,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -14974,7 +14974,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -14992,7 +14992,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15005,7 +15005,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15023,7 +15023,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15036,7 +15036,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15054,7 +15054,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15067,7 +15067,7 @@ TEST(bidi_character, bidi_character_095_047)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15089,7 +15089,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15102,7 +15102,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15120,7 +15120,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15133,7 +15133,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15151,7 +15151,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15164,7 +15164,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15182,7 +15182,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15195,7 +15195,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15213,7 +15213,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15226,7 +15226,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15244,7 +15244,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15257,7 +15257,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15275,7 +15275,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15288,7 +15288,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15306,7 +15306,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15319,7 +15319,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15337,7 +15337,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15350,7 +15350,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15368,7 +15368,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15381,7 +15381,7 @@ TEST(bidi_character, bidi_character_095_048)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15403,7 +15403,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15416,7 +15416,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15434,7 +15434,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15447,7 +15447,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15465,7 +15465,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15478,7 +15478,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15496,7 +15496,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15509,7 +15509,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15527,7 +15527,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15540,7 +15540,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15558,7 +15558,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15571,7 +15571,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15589,7 +15589,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15602,7 +15602,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15620,7 +15620,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15633,7 +15633,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15651,7 +15651,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15664,7 +15664,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15682,7 +15682,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15695,7 +15695,7 @@ TEST(bidi_character, bidi_character_095_049)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15717,7 +15717,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15730,7 +15730,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15748,7 +15748,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15761,7 +15761,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15779,7 +15779,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15792,7 +15792,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15810,7 +15810,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15823,7 +15823,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15841,7 +15841,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15854,7 +15854,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15872,7 +15872,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15885,7 +15885,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15903,7 +15903,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15916,7 +15916,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15934,7 +15934,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15947,7 +15947,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15965,7 +15965,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -15978,7 +15978,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -15996,7 +15996,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16009,7 +16009,7 @@ TEST(bidi_character, bidi_character_095_050)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16031,7 +16031,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16044,7 +16044,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16062,7 +16062,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16075,7 +16075,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16093,7 +16093,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16106,7 +16106,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16124,7 +16124,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16137,7 +16137,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16155,7 +16155,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16168,7 +16168,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16186,7 +16186,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16199,7 +16199,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16217,7 +16217,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16230,7 +16230,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16248,7 +16248,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16261,7 +16261,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16279,7 +16279,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16292,7 +16292,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16310,7 +16310,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16323,7 +16323,7 @@ TEST(bidi_character, bidi_character_095_051)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16345,7 +16345,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16358,7 +16358,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16376,7 +16376,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16389,7 +16389,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16407,7 +16407,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 2, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16420,7 +16420,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16438,7 +16438,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16451,7 +16451,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16469,7 +16469,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 2, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16482,7 +16482,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16500,7 +16500,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16513,7 +16513,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16531,7 +16531,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16544,7 +16544,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16562,7 +16562,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16575,7 +16575,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16593,7 +16593,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16606,7 +16606,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16624,7 +16624,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16637,7 +16637,7 @@ TEST(bidi_character, bidi_character_095_052)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16659,7 +16659,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16672,7 +16672,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16690,7 +16690,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16703,7 +16703,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16721,7 +16721,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16734,7 +16734,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16752,7 +16752,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16765,7 +16765,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16783,7 +16783,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16796,7 +16796,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16814,7 +16814,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16827,7 +16827,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16845,7 +16845,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16858,7 +16858,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16876,7 +16876,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16889,7 +16889,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16907,7 +16907,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16920,7 +16920,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16938,7 +16938,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16951,7 +16951,7 @@ TEST(bidi_character, bidi_character_095_053)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -16973,7 +16973,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -16986,7 +16986,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17004,7 +17004,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17017,7 +17017,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17035,7 +17035,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17048,7 +17048,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17066,7 +17066,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17079,7 +17079,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17097,7 +17097,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17110,7 +17110,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17128,7 +17128,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17141,7 +17141,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17159,7 +17159,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17172,7 +17172,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17190,7 +17190,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17203,7 +17203,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17221,7 +17221,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17234,7 +17234,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17252,7 +17252,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17265,7 +17265,7 @@ TEST(bidi_character, bidi_character_095_054)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17287,7 +17287,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17300,7 +17300,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17318,7 +17318,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17331,7 +17331,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17349,7 +17349,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17362,7 +17362,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17380,7 +17380,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17393,7 +17393,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17411,7 +17411,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 2, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17424,7 +17424,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17442,7 +17442,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17455,7 +17455,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17473,7 +17473,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 2, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17486,7 +17486,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17504,7 +17504,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17517,7 +17517,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17535,7 +17535,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 2, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17548,7 +17548,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17566,7 +17566,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17579,7 +17579,7 @@ TEST(bidi_character, bidi_character_095_055)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17601,7 +17601,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17614,7 +17614,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17632,7 +17632,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17645,7 +17645,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17663,7 +17663,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17676,7 +17676,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17694,7 +17694,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17707,7 +17707,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17725,7 +17725,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17738,7 +17738,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17756,7 +17756,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17769,7 +17769,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17787,7 +17787,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17800,7 +17800,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17818,7 +17818,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17831,7 +17831,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17849,7 +17849,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17862,7 +17862,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17880,7 +17880,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17893,7 +17893,7 @@ TEST(bidi_character, bidi_character_095_056)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17915,7 +17915,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17928,7 +17928,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17946,7 +17946,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17959,7 +17959,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -17977,7 +17977,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 1, 2, 1, 2, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -17990,7 +17990,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18008,7 +18008,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18021,7 +18021,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18039,7 +18039,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 1, 2, 1, 1, 2 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18052,7 +18052,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18070,7 +18070,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 1, 1, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18083,7 +18083,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 6, 5, 4, 3, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18101,7 +18101,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18114,7 +18114,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18132,7 +18132,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 1, 1, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18145,7 +18145,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 6, 5, 4, 3, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18163,7 +18163,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18176,7 +18176,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18194,7 +18194,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18207,7 +18207,7 @@ TEST(bidi_character, bidi_character_095_057)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 8, 7, 6, 5, 4, 3 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18229,7 +18229,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18242,7 +18242,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18260,7 +18260,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18273,7 +18273,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 8, 7, 6, 5, 4, 3 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18291,7 +18291,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18304,7 +18304,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18322,7 +18322,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18335,7 +18335,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18353,7 +18353,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18366,7 +18366,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18384,7 +18384,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18397,7 +18397,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18415,7 +18415,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18428,7 +18428,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18446,7 +18446,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18459,7 +18459,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18477,7 +18477,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18490,7 +18490,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18508,7 +18508,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18521,7 +18521,7 @@ TEST(bidi_character, bidi_character_095_058)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18543,7 +18543,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18556,7 +18556,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18574,7 +18574,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18587,7 +18587,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18605,7 +18605,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18618,7 +18618,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18636,7 +18636,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18649,7 +18649,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18667,7 +18667,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18680,7 +18680,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 0, 1, 2 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18698,7 +18698,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18711,7 +18711,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18729,7 +18729,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18742,7 +18742,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18760,7 +18760,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18773,7 +18773,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18791,7 +18791,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18804,7 +18804,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18822,7 +18822,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18835,7 +18835,7 @@ TEST(bidi_character, bidi_character_095_059)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18857,7 +18857,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18870,7 +18870,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18888,7 +18888,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18901,7 +18901,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18919,7 +18919,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18932,7 +18932,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18950,7 +18950,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18963,7 +18963,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -18981,7 +18981,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -18994,7 +18994,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19012,7 +19012,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19025,7 +19025,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19043,7 +19043,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19056,7 +19056,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19074,7 +19074,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19087,7 +19087,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19105,7 +19105,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19118,7 +19118,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19136,7 +19136,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19149,7 +19149,7 @@ TEST(bidi_character, bidi_character_095_060)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19171,7 +19171,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19184,7 +19184,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19202,7 +19202,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19215,7 +19215,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19233,7 +19233,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<int> const expected_levels =
             { 2, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19246,7 +19246,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 0, 1, 2, 3, 4 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19264,7 +19264,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19277,7 +19277,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19295,7 +19295,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19308,7 +19308,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19326,7 +19326,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 1, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19339,7 +19339,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19357,7 +19357,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19370,7 +19370,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19388,7 +19388,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 1, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19401,7 +19401,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19419,7 +19419,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19432,7 +19432,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19450,7 +19450,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19463,7 +19463,7 @@ TEST(bidi_character, bidi_character_095_061)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19485,7 +19485,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 2, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19498,7 +19498,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19516,7 +19516,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19529,7 +19529,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19547,7 +19547,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19560,7 +19560,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19578,7 +19578,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19591,7 +19591,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19609,7 +19609,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19622,7 +19622,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19640,7 +19640,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19653,7 +19653,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19671,7 +19671,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19684,7 +19684,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19702,7 +19702,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19715,7 +19715,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19733,7 +19733,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19746,7 +19746,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19764,7 +19764,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19777,7 +19777,7 @@ TEST(bidi_character, bidi_character_095_062)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19799,7 +19799,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19812,7 +19812,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19830,7 +19830,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19843,7 +19843,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19861,7 +19861,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<int> const expected_levels =
             { 1, 2, 2, 2, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19874,7 +19874,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 1, 2, 3, 4, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19892,7 +19892,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19905,7 +19905,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19923,7 +19923,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<int> const expected_levels =
             { 1, 2, 1, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19936,7 +19936,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19954,7 +19954,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19967,7 +19967,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -19985,7 +19985,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -19998,7 +19998,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20016,7 +20016,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20029,7 +20029,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 8, 7, 6, 5 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20047,7 +20047,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20060,7 +20060,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20078,7 +20078,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20091,7 +20091,7 @@ TEST(bidi_character, bidi_character_095_063)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20113,7 +20113,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 2, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20126,7 +20126,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20144,7 +20144,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20157,7 +20157,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20175,7 +20175,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<int> const expected_levels =
             { 1, 1, 2, 1, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20188,7 +20188,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20206,7 +20206,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 0, 1, 0, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20219,7 +20219,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20237,7 +20237,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<int> const expected_levels =
             { 1, 1, 1, 2, 1, 2, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20250,7 +20250,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20268,7 +20268,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<int> const expected_levels =
             { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20281,7 +20281,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20299,7 +20299,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20312,7 +20312,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20330,7 +20330,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<int> const expected_levels =
             { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20343,7 +20343,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20361,7 +20361,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20374,7 +20374,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20392,7 +20392,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<int> const expected_levels =
             { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20405,7 +20405,7 @@ TEST(bidi_character, bidi_character_095_064)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20427,7 +20427,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20440,7 +20440,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20458,7 +20458,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<int> const expected_levels =
             { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20471,7 +20471,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20489,7 +20489,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20502,7 +20502,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20520,7 +20520,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<int> const expected_levels =
             { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20533,7 +20533,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20551,7 +20551,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20564,7 +20564,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20582,7 +20582,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<int> const expected_levels =
             { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20595,7 +20595,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20613,7 +20613,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20626,7 +20626,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20644,7 +20644,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<int> const expected_levels =
             { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20657,7 +20657,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20675,7 +20675,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20688,7 +20688,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20706,7 +20706,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<int> const expected_levels =
             { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20719,7 +20719,7 @@ TEST(bidi_character, bidi_character_095_065)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20741,7 +20741,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20754,7 +20754,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20772,7 +20772,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<int> const expected_levels =
             { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20785,7 +20785,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20803,7 +20803,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20816,7 +20816,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20834,7 +20834,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<int> const expected_levels =
             { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20847,7 +20847,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20865,7 +20865,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20878,7 +20878,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20896,7 +20896,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20909,7 +20909,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20927,7 +20927,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20940,7 +20940,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20958,7 +20958,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -20971,7 +20971,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -20989,7 +20989,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21002,7 +21002,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21020,7 +21020,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21033,7 +21033,7 @@ TEST(bidi_character, bidi_character_095_066)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21055,7 +21055,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21068,7 +21068,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21086,7 +21086,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21099,7 +21099,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21117,7 +21117,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21130,7 +21130,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21148,7 +21148,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21161,7 +21161,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21179,7 +21179,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21192,7 +21192,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21210,7 +21210,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 1, 0, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21223,7 +21223,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21241,7 +21241,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21254,7 +21254,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21272,7 +21272,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21285,7 +21285,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21303,7 +21303,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21316,7 +21316,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21334,7 +21334,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21347,7 +21347,7 @@ TEST(bidi_character, bidi_character_095_067)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21369,7 +21369,7 @@ TEST(bidi_character, bidi_character_095_068)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21382,7 +21382,7 @@ TEST(bidi_character, bidi_character_095_068)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21400,7 +21400,7 @@ TEST(bidi_character, bidi_character_095_068)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 1, 0, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21413,7 +21413,7 @@ TEST(bidi_character, bidi_character_095_068)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21431,7 +21431,7 @@ TEST(bidi_character, bidi_character_095_068)
         std::vector<int> const expected_levels =
             { 2, 1, 1, 1, 1, 1, 1, 1, 1 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 1);
+            bidi_levels(cps.begin(), cps.end(), 1);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21444,7 +21444,7 @@ TEST(bidi_character, bidi_character_095_068)
         std::vector<uint32_t> const expected_reordered_indices =
             { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 1);
+            bidi_reordered_indices(cps.begin(), cps.end(), 1);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])
@@ -21462,7 +21462,7 @@ TEST(bidi_character, bidi_character_095_068)
         std::vector<int> const expected_levels =
             { 0, 0, 0, 0, 0, 1, 0, 0, 0 };
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), 0);
+            bidi_levels(cps.begin(), cps.end(), 0);
         int i = 0;
         for (int l : expected_levels) {
             if (0 <= l) {
@@ -21475,7 +21475,7 @@ TEST(bidi_character, bidi_character_095_068)
         std::vector<uint32_t> const expected_reordered_indices =
             { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), 0);
+            bidi_reordered_indices(cps.begin(), cps.end(), 0);
         i = 0;
         for (int idx : expected_reordered_indices) {
             EXPECT_EQ(reordered[i], cps[idx])

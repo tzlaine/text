@@ -90,7 +90,7 @@ bidi_test_form = '''
         // {0} ('{5}') (line {3})
         std::vector<uint32_t> const cps = {{ {1} }};
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), {4});
+            bidi_levels(cps.begin(), cps.end(), {4});
         int i = 0;
         for (int l : expected_levels) {{
             if (0 <= l) {{
@@ -101,7 +101,7 @@ bidi_test_form = '''
         EXPECT_EQ((int)levels.size(), i);
 
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), {4});
+            bidi_reordered_indices(cps.begin(), cps.end(), {4});
         i = 0;
         for (int idx : expected_reordered_indices) {{
             // Skip FSI, LRI, RLI, and PDI.
@@ -163,7 +163,7 @@ bidi_character_test_form = '''
         std::vector<int> const expected_levels =
             {{ {2} }};
         std::vector<int> const levels =
-            bidi_levels(&*cps.begin(), &*cps.end(), {1});
+            bidi_levels(cps.begin(), cps.end(), {1});
         int i = 0;
         for (int l : expected_levels) {{
             if (0 <= l) {{
@@ -176,7 +176,7 @@ bidi_character_test_form = '''
         std::vector<uint32_t> const expected_reordered_indices =
             {{ {3} }};
         std::vector<int> const reordered =
-            bidi_reordered_indices(&*cps.begin(), &*cps.end(), {1});
+            bidi_reordered_indices(cps.begin(), cps.end(), {1});
         i = 0;
         for (int idx : expected_reordered_indices) {{
             EXPECT_EQ(reordered[i], cps[idx])

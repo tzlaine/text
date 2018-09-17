@@ -6,18 +6,17 @@
 #include <iostream>
 
 
-using str_iter_t = uint32_t const *;
-
-inline std::vector<int> bidi_levels(
-    str_iter_t first, str_iter_t last, int paragraph_embedding_level = -1)
+template<typename CPIter>
+std::vector<int>
+bidi_levels(CPIter first, CPIter last, int paragraph_embedding_level = -1)
 {
     using namespace boost::text;
 
     std::vector<int> retval;
 
     detail::bidi_subrange_state<
-        str_iter_t,
-        str_iter_t,
+        CPIter,
+        CPIter,
         detail::bidi_next_hard_line_break_callable,
         int,
         detail::bidi_mode::level_test>
@@ -35,18 +34,19 @@ inline std::vector<int> bidi_levels(
     return retval;
 }
 
-inline std::vector<int> bidi_reordered_indices(
-    str_iter_t first, str_iter_t last, int paragraph_embedding_level = -1)
+template<typename CPIter>
+std::vector<int> bidi_reordered_indices(
+    CPIter first, CPIter last, int paragraph_embedding_level = -1)
 {
     using namespace boost::text;
 
     std::vector<int> retval;
 
     detail::bidi_subrange_state<
-        str_iter_t,
-        str_iter_t,
+        CPIter,
+        CPIter,
         detail::bidi_next_hard_line_break_callable,
-        bidirectional_cp_subrange<str_iter_t>,
+        bidirectional_cp_subrange<CPIter>,
         detail::bidi_mode::reorder_test>
         state{first,
               last,
