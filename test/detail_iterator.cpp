@@ -24,8 +24,8 @@ TEST(reverse_char_iterator, test_default_ctor)
 TEST(reverse_char_iterator, test_c_str_ctor)
 {
     {
-        std::string tv_empty("");
-        text::detail::reverse_char_iterator it(&tv_empty[0]);
+        text::string tv_empty("");
+        text::detail::reverse_char_iterator it(tv_empty.end() + 1);
 
         EXPECT_EQ(*it, '\0');
         EXPECT_EQ(it[0], '\0');
@@ -42,9 +42,9 @@ TEST(reverse_char_iterator, test_c_str_ctor)
     }
 
     {
-        std::string tv_a("a");
-        text::detail::reverse_char_iterator first(&*tv_a.begin() + tv_a.size());
-        text::detail::reverse_char_iterator last(&*tv_a.begin() + tv_a.size() - 1);
+        text::string tv_a("a");
+        text::detail::reverse_char_iterator first(tv_a.begin() + tv_a.size());
+        text::detail::reverse_char_iterator last(tv_a.begin() + tv_a.size() - 1);
 
         EXPECT_EQ(last.base(), &*first);
 
@@ -139,7 +139,7 @@ TEST(const_reverse_char_iterator, test_default_ctor)
 
         static_assert(it1 == it2, "");
         static_assert(!(it1 != it2), "");
-#if !defined(_MSC_VER) || 1910 < _MSC_VER
+#if !defined(_MSC_VER) || 1915 < _MSC_VER
         static_assert(!(it1 < it2), "");
         static_assert(it1 <= it2, "");
         static_assert(!(it1 > it2), "");
