@@ -1234,7 +1234,7 @@ TEST(tailoring, th)
         [](text::string const & s) { std::cout << s; },
         [](text::string const & s) { std::cout << s; });
 
-    std::ifstream ifs("test/riwords.txt");
+    std::ifstream ifs("test/riwords.txt", std::ios_base::binary);
     std::vector<text::string> lines;
     while (ifs) {
         text::string line;
@@ -1267,34 +1267,34 @@ TEST(tailoring, th)
     {
         int const cases = 13;
         std::array<text::string_view, cases> const lhs = {
-            {"\u0e01",
-             "\u0e01\u0e32",
-             "\u0e01\u0e32",
-             "\u0e01\u0e32\u0e01\u0e49\u0e32",
-             "\u0e01\u0e32",
-             "\u0e01\u0e32-",
-             "\u0e01\u0e32",
-             "\u0e01\u0e32\u0e46",
-             "\u0e24\u0e29\u0e35",
-             "\u0e26\u0e29\u0e35",
-             "\u0e40\u0e01\u0e2d",
-             "\u0e01\u0e32\u0e01\u0e48\u0e32",
-             "\u0e01.\u0e01."}};
+            {u8"\u0e01",
+             u8"\u0e01\u0e32",
+             u8"\u0e01\u0e32",
+             u8"\u0e01\u0e32\u0e01\u0e49\u0e32",
+             u8"\u0e01\u0e32",
+             u8"\u0e01\u0e32-",
+             u8"\u0e01\u0e32",
+             u8"\u0e01\u0e32\u0e46",
+             u8"\u0e24\u0e29\u0e35",
+             u8"\u0e26\u0e29\u0e35",
+             u8"\u0e40\u0e01\u0e2d",
+             u8"\u0e01\u0e32\u0e01\u0e48\u0e32",
+             u8"\u0e01.\u0e01."}};
 
         std::array<text::string_view, cases> const rhs = {
-            {"\u0e01\u0e01",
-             "\u0e01\u0e49\u0e32",
-             "\u0e01\u0e32\u0e4c",
-             "\u0e01\u0e48\u0e32\u0e01\u0e49\u0e32",
-             "\u0e01\u0e32-",
-             "\u0e01\u0e32\u0e01\u0e32",
-             "\u0e01\u0e32\u0e46",
-             "\u0e01\u0e32\u0e01\u0e32",
-             "\u0e24\u0e45\u0e29\u0e35",
-             "\u0e26\u0e45\u0e29\u0e35",
-             "\u0e40\u0e01\u0e34",
-             "\u0e01\u0e49\u0e32\u0e01\u0e32",
-             "\u0e01\u0e32"}};
+            {u8"\u0e01\u0e01",
+             u8"\u0e01\u0e49\u0e32",
+             u8"\u0e01\u0e32\u0e4c",
+             u8"\u0e01\u0e48\u0e32\u0e01\u0e49\u0e32",
+             u8"\u0e01\u0e32-",
+             u8"\u0e01\u0e32\u0e01\u0e32",
+             u8"\u0e01\u0e32\u0e46",
+             u8"\u0e01\u0e32\u0e01\u0e32",
+             u8"\u0e24\u0e45\u0e29\u0e35",
+             u8"\u0e26\u0e45\u0e29\u0e35",
+             u8"\u0e40\u0e01\u0e34",
+             u8"\u0e01\u0e49\u0e32\u0e01\u0e32",
+             u8"\u0e01\u0e32"}};
 
         std::array<int, cases> const tertiary_result = {
             {-1, -1, -1, -1, 0, -1, 0, -1, -1, -1, -1, -1, -1}};
@@ -1323,47 +1323,47 @@ TEST(tailoring, th)
     {
         int const cases = 26;
         std::array<text::string_view, cases> const lhs = {
-            {"\u0E41c\u0301",          "\u0E41\U0001D7CE",
-             "\u0E41\U0001D15F",       "\u0E41\U0002F802",
-             "\u0E41\u0301",           "\u0E41\u0301\u0316",
-             "\u0e24\u0e41",           "\u0e3f\u0e3f\u0e24\u0e41",
-             "abc\u0E41c\u0301",       "abc\u0E41\U0001D000",
-             "abc\u0E41\U0001D15F",    "abc\u0E41\U0002F802",
-             "abc\u0E41\u0301",        "abc\u0E41\u0301\u0316",
-             "\u0E41c\u0301abc",       "\u0E41\U0001D000abc",
-             "\u0E41\U0001D15Fabc",    "\u0E41\U0002F802abc",
-             "\u0E41\u0301abc",        "\u0E41\u0301\u0316abc",
-             "abc\u0E41c\u0301abc",    "abc\u0E41\U0001D000abc",
-             "abc\u0E41\U0001D15Fabc", "abc\u0E41\U0002F802abc",
-             "abc\u0E41\u0301abc",     "abc\u0E41\u0301\u0316abc"}};
+            {u8"\u0E41c\u0301",          u8"\u0E41\U0001D7CE",
+             u8"\u0E41\U0001D15F",       u8"\u0E41\U0002F802",
+             u8"\u0E41\u0301",           u8"\u0E41\u0301\u0316",
+             u8"\u0e24\u0e41",           u8"\u0e3f\u0e3f\u0e24\u0e41",
+             u8"abc\u0E41c\u0301",       u8"abc\u0E41\U0001D000",
+             u8"abc\u0E41\U0001D15F",    u8"abc\u0E41\U0002F802",
+             u8"abc\u0E41\u0301",        u8"abc\u0E41\u0301\u0316",
+             u8"\u0E41c\u0301abc",       u8"\u0E41\U0001D000abc",
+             u8"\u0E41\U0001D15Fabc",    u8"\u0E41\U0002F802abc",
+             u8"\u0E41\u0301abc",        u8"\u0E41\u0301\u0316abc",
+             u8"abc\u0E41c\u0301abc",    u8"abc\u0E41\U0001D000abc",
+             u8"abc\u0E41\U0001D15Fabc", u8"abc\u0E41\U0002F802abc",
+             u8"abc\u0E41\u0301abc",     u8"abc\u0E41\u0301\u0316abc"}};
 
         std::array<text::string_view, cases> const rhs = {
-            {"\u0E41\u0107",
-             "\u0E41\U0001D7CF",
-             "\u0E41\U0001D158\U0001D165",
-             "\u0E41\u4E41",
-             "\u0E41\u0301",
-             "\u0E41\u0316\u0301",
-             "\u0e41\u0e24",
-             "\u0e3f\u0e3f\u0e41\u0e24",
-             "abc\u0E41\u0107",
-             "abc\u0E41\U0001D001",
-             "abc\u0E41\U0001D158\U0001D165",
-             "abc\u0E41\u4E41",
-             "abc\u0E41\u0301",
-             "abc\u0E41\u0316\u0301",
-             "\u0E41\u0107abc",
-             "\u0E41\U0001D001abc",
-             "\u0E41\U0001D158\U0001D165abc",
-             "\u0E41\u4E41abc",
-             "\u0E41\u0301abc",
-             "\u0E41\u0316\u0301abc",
-             "abc\u0E41\u0107abc",
-             "abc\u0E41\U0001D001abc",
-             "abc\u0E41\U0001D158\U0001D165abc",
-             "abc\u0E41\u4E41abc",
-             "abc\u0E41\u0301abc",
-             "abc\u0E41\u0316\u0301abc"}};
+            {u8"\u0E41\u0107",
+             u8"\u0E41\U0001D7CF",
+             u8"\u0E41\U0001D158\U0001D165",
+             u8"\u0E41\u4E41",
+             u8"\u0E41\u0301",
+             u8"\u0E41\u0316\u0301",
+             u8"\u0e41\u0e24",
+             u8"\u0e3f\u0e3f\u0e41\u0e24",
+             u8"abc\u0E41\u0107",
+             u8"abc\u0E41\U0001D001",
+             u8"abc\u0E41\U0001D158\U0001D165",
+             u8"abc\u0E41\u4E41",
+             u8"abc\u0E41\u0301",
+             u8"abc\u0E41\u0316\u0301",
+             u8"\u0E41\u0107abc",
+             u8"\u0E41\U0001D001abc",
+             u8"\u0E41\U0001D158\U0001D165abc",
+             u8"\u0E41\u4E41abc",
+             u8"\u0E41\u0301abc",
+             u8"\u0E41\u0316\u0301abc",
+             u8"abc\u0E41\u0107abc",
+             u8"abc\u0E41\U0001D001abc",
+             u8"abc\u0E41\U0001D158\U0001D165abc",
+             u8"abc\u0E41\u4E41abc",
+             u8"abc\u0E41\u0301abc",
+             u8"abc\u0E41\u0316\u0301abc"}};
 
         // Differs from ICU behavior; changed cases 5, 13, 19, and 25 from 0
         // to -1, since they have secondary differences.  Need to understand
