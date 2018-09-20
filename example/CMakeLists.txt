@@ -59,6 +59,4 @@ if (BUILD_EDITOR)
     if (clang_on_linux)
         target_link_libraries(rope_editor c++)
     endif ()
-
-    message(${CURSES_LIBRARIES})
 endif ()
