@@ -493,12 +493,12 @@ namespace boost { namespace text {
         }
 
 #ifdef BOOST_TEXT_TESTING
-        friend void dump_tree(unencoded_rope const & r)
+        friend void dump_tree(std::ostream & os, unencoded_rope const & r)
         {
             if (r.empty())
-                std::cout << "[EMPTY]\n";
+                os << "[EMPTY]\n";
             else
-                detail::dump_tree(r.ptr_);
+                detail::dump_tree(os, r.ptr_);
         }
 #endif
 
@@ -1655,18 +1655,19 @@ namespace boost { namespace text {
 
 #ifdef BOOST_TEXT_TESTING
         template<typename T>
-        inline void dump_tree(node_ptr<T> const & root, int key, int indent)
+        inline void dump_tree(
+            std::ostream & os, node_ptr<T> const & root, int key, int indent)
         {
-            std::cout << repeated_string_view("    ", indent)
-                      << (root->leaf_ ? "LEAF" : "INTR") << " @0x" << std::hex
-                      << root.get();
+            os << repeated_string_view("    ", indent)
+               << (root->leaf_ ? "LEAF" : "INTR") << " @0x" << std::hex
+               << root.get();
             if (key != -1)
-                std::cout << " < " << std::dec << key;
-            std::cout << " (" << root->refs_ << " refs)\n";
+                os << " < " << std::dec << key;
+            os << " (" << root->refs_ << " refs)\n";
             if (!root->leaf_) {
                 int i = 0;
                 for (auto const & child : children(root)) {
-                    dump_tree(child, keys(root)[i++], indent + 1);
+                    dump_tree(os, child, keys(root)[i++], indent + 1);
                 }
             }
         }

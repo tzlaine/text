@@ -1191,7 +1191,11 @@ namespace boost { namespace text { namespace detail {
 
 #ifdef BOOST_TEXT_TESTING
     template<typename T>
-    void dump_tree(node_ptr<T> const & root, int key = -1, int indent = 0);
+    void dump_tree(
+        std::ostream & os,
+        node_ptr<T> const & root,
+        int key = -1,
+        int indent = 0);
 
     template<typename T>
     inline int check_sizes(node_ptr<T> const & node, int size)
