@@ -18,14 +18,29 @@ namespace {
 
     bool init()
     {
-        ofs << R"(#include <boost/text/segmented_vector.hpp>
+        ofs << R"(#define BOOST_TEXT_TESTING
+#include <boost/text/segmented_vector.hpp>
+#include <cassert>
 
+
+boost::text::segmented_vector<int> seg_vec;
+boost::text::segmented_vector<int> seg_vec_copy;
+
+std::vector<int> vec;
+
+void check()
+{
+    assert(seg_vec.size() == vec.size());
+    auto seg_vec_it = seg_vec.begin();
+    for (std::size_t i = 0, end = vec.size(); i != end; ++i, ++seg_vec_it) {
+        auto const vec_x = vec[i];
+        auto const seg_vec_x = *seg_vec_it;
+        assert(vec_x == seg_vec_x);
+    }
+}
 
 int main()
 {
-    boost::text::segmented_vector<int> seg_vec;
-    boost::text::segmented_vector<int> seg_vec_copy;
-
 )";
 
         return true;
@@ -51,13 +66,10 @@ struct action_t
 
 void check()
 {
-    assert(seg_vec.size() == vec.size());
-
-    auto vec_it = vec.begin();
-    auto const vec_end = vec.end();
+    assert(seg_vec.size() == (ptrdiff_t)vec.size());
     auto seg_vec_it = seg_vec.begin();
-    for (; vec_it != vec_end; ++vec_it, ++seg_vec_it) {
-        auto const vec_x = *vec_it;
+    for (std::size_t i = 0, end = vec.size(); i != end; ++i, ++seg_vec_it) {
+        auto const vec_x = vec[i];
         auto const seg_vec_x = *seg_vec_it;
         assert(vec_x == seg_vec_x);
     }
@@ -65,7 +77,9 @@ void check()
 
 void push_back(int value)
 {
-    ofs << "    seg_vec.push_back(" << value << ");\n" << std::flush;
+    ofs << "    vec.push_back(" << value << ");\n";
+    ofs << "    seg_vec.push_back(" << value << ");\n";
+    ofs << "    check();\n" << std::flush;
 
     vec.push_back(value);
     seg_vec.push_back(value);
@@ -75,9 +89,10 @@ void push_back(int value)
 
 void insert(int i, int value)
 {
+    ofs << "    vec.insert(vec.begin() + " << i << ", " << value << ");\n";
     ofs << "    seg_vec.insert(seg_vec.begin() + " << i << ", " << value
-        << ");\n"
-        << std::flush;
+        << ");\n";
+    ofs << "    check();\n" << std::flush;
 
     vec.insert(vec.begin() + i, value);
     seg_vec.insert(seg_vec.begin() + i, value);
@@ -87,7 +102,9 @@ void insert(int i, int value)
 
 void erase(int i)
 {
-    ofs << "    seg_vec.erase(seg_vec.begin() + " << i << ");\n" << std::flush;
+    ofs << "    vec.erase(vec.begin() + " << i << ");\n";
+    ofs << "    seg_vec.erase(seg_vec.begin() + " << i << ");\n";
+    ofs << "    check();\n" << std::flush;
 
     vec.erase(vec.begin() + i);
     seg_vec.erase(seg_vec.begin() + i);
@@ -97,9 +114,10 @@ void erase(int i)
 
 void replace(int i, int value)
 {
+    ofs << "    vec[" << i << "] = " << value << ";\n";
     ofs << "    seg_vec.replace(seg_vec.begin() + " << i << ", " << value
-        << ");\n"
-        << std::flush;
+        << ");\n";
+    ofs << "    check();\n" << std::flush;
 
     vec[i] = value;
     seg_vec.replace(seg_vec.begin() + i, value);
@@ -117,6 +135,7 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const * data, size_t size)
         if (action_t::first_op <= action.op_ &&
             action.op_ < action_t::num_ops && size < INT_MAX) {
             if (action.op_ == action_t::push_back) {
+                ofs << "\n";
                 push_back(action.value_);
             } else if (action.op_ <= action_t::num_ops && !vec.empty()) {
                 std::size_t const index =
@@ -124,10 +143,10 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const * data, size_t size)
                 assert(index < vec.size());
 
                 if (++action_count & 0x1) {
-                    ofs << "    seg_vec_copy = seg_vec;\n";
+                    ofs << "\n    seg_vec_copy = seg_vec;\n";
                     seg_vec_copy = seg_vec;
                 } else {
-                    ofs << "    seg_vec_copy.clear();\n";
+                    ofs << "\n    seg_vec_copy.clear();\n";
                     seg_vec_copy.clear();
                 }
 
