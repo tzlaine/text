@@ -701,8 +701,7 @@ namespace boost { namespace text {
                 slice_leaf(
                     *found_lo.leaf_,
                     found_lo.offset_,
-                    found_lo.offset_ + rv.size(),
-                    true));
+                    found_lo.offset_ + rv.size()));
             return *this;
         }
 
@@ -719,8 +718,7 @@ namespace boost { namespace text {
                         node = slice_leaf(
                             *found_lo.leaf_,
                             found_lo.offset_,
-                            detail::size(leaf),
-                            true);
+                            detail::size(leaf));
                     } else {
                         node = detail::node_ptr<detail::rope_tag>(leaf);
                     }
@@ -739,8 +737,7 @@ namespace boost { namespace text {
                         ptr_ = detail::btree_insert(
                             ptr_,
                             at,
-                            slice_leaf(
-                                *found_hi.leaf_, 0, found_hi.offset_, true));
+                            slice_leaf(*found_hi.leaf_, 0, found_hi.offset_));
 
                         at += found_hi.offset_;
                     }

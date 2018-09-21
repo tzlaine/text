@@ -24,6 +24,7 @@ namespace boost { namespace text {
         using const_iterator = detail::const_vector_iterator<T>;
         using reverse_iterator = detail::reverse_iterator<iterator>;
         using const_reverse_iterator = detail::reverse_iterator<const_iterator>;
+        using value_type = T;
 
         using size_type = std::ptrdiff_t;
 
@@ -190,7 +191,7 @@ namespace boost { namespace text {
             } else {
                 ptr_ = detail::btree_insert(
                     ptr_,
-                    at - begin(),
+                    offset,
                     detail::make_node(std::vector<T>(1, std::move(t))));
             }
 
@@ -222,7 +223,7 @@ namespace boost { namespace text {
             }
 
             ptr_ = detail::btree_insert(
-                ptr_, at - begin(), detail::make_node(std::move(vec)));
+                ptr_, offset, detail::make_node(std::move(vec)));
 
             return begin() + offset;
         }
@@ -264,9 +265,9 @@ namespace boost { namespace text {
 
             auto const lo = first - begin();
             auto const hi = last - begin();
-            if (vec_insertion insertion = mutable_insertion_leaf(
-                    first, -(hi - lo), would_not_allocate)) {
-                auto const size = hi - lo;
+            auto const size = hi - lo;
+            if (vec_insertion insertion =
+                    mutable_insertion_leaf(first, -size, would_not_allocate)) {
                 bump_along_path_to_leaf(ptr_, lo, -size);
                 insertion.vec_->erase(
                     insertion.vec_->begin() + insertion.found_.offset_,
@@ -290,7 +291,7 @@ namespace boost { namespace text {
                 (*insertion.vec_)[insertion.found_.offset_] = std::move(t);
             } else {
                 auto const offset = at - begin();
-                erase(at);
+                ptr_ = detail::btree_erase(ptr_, offset, offset + 1);
                 ptr_ = detail::btree_insert(
                     ptr_,
                     offset,
@@ -307,8 +308,8 @@ namespace boost { namespace text {
         segmented_vector &
         replace(const_iterator first, const_iterator last, std::vector<T> t)
         {
-            erase(first, last);
-            insert(first + 0, std::move(t));
+            auto const it = erase(first, last);
+            insert(it, std::move(t));
             return *this;
         }
 
@@ -323,8 +324,8 @@ namespace boost { namespace text {
             Iter new_first,
             Sentinel new_last)
         {
-            erase(old_first, old_last);
-            insert(old_first + 0, new_first, new_last);
+            auto const it = erase(old_first, old_last);
+            insert(it, new_first, new_last);
             return *this;
         }
 

@@ -216,14 +216,17 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
     {
         node_ptr<int> root = make_tree_left_min();
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
 
         root =
             btree_erase(root, min_children * 4, children(right)[0].as_leaf());
+
+        left = children(root)[0];
+        right = children(root)[1];
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -236,8 +239,8 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
     {
         node_ptr<int> root = make_tree_left_min();
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
@@ -246,6 +249,9 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
             root,
             min_children * 4 + (max_children - 1) * 5,
             children(right).back().as_leaf());
+
+        left = children(root)[0];
+        right = children(root)[1];
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -262,13 +268,16 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
 
         auto const root_initial_size = size(root.get());
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children);
 
         root = btree_erase(root, 0, children(left).front().as_leaf());
+
+        left = children(root)[0];
+        right = children(root)[1];
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -285,14 +294,17 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
 
         auto const root_initial_size = size(root.get());
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children);
 
         root = btree_erase(
             root, min_children * 4 - 1, children(left).back().as_leaf());
+
+        left = children(root)[0];
+        right = children(root)[1];
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), min_children);
@@ -311,14 +323,17 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
 
         auto const root_initial_size = size(root.get());
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), min_children);
 
         root = btree_erase(
             root, size(root.get()), children(right).back().as_leaf());
+
+        left = children(root)[0];
+        right = children(root)[1];
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children - 1);
@@ -335,14 +350,17 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
 
         auto const root_initial_size = size(root.get());
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), min_children);
 
         root = btree_erase(
             root, max_children * 4, children(right).front().as_leaf());
+
+        left = children(root)[0];
+        right = children(root)[1];
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children - 1);
@@ -359,8 +377,8 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
     {
         node_ptr<int> root = make_tree_left_right<min_children, min_children>();
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), min_children);
@@ -385,8 +403,8 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
     {
         node_ptr<int> root = make_tree_left_right<min_children, min_children>();
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), min_children);
@@ -418,9 +436,9 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         auto const root_initial_size = size(root.get());
 
         {
-            node_ptr<int> const & left = children(root)[0];
-            node_ptr<int> const & center = children(root)[1];
-            node_ptr<int> const & right = children(root)[2];
+            node_ptr<int> left = children(root)[0];
+            node_ptr<int> center = children(root)[1];
+            node_ptr<int> right = children(root)[2];
 
             EXPECT_EQ(num_children(left), min_children);
             EXPECT_EQ(num_children(center), min_children);
@@ -431,8 +449,8 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
 
         EXPECT_EQ(num_children(root), 2);
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children - 1);
         EXPECT_EQ(num_children(right), min_children);
@@ -451,9 +469,9 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         auto const root_initial_size = size(root.get());
 
         {
-            node_ptr<int> const & left = children(root)[0];
-            node_ptr<int> const & center = children(root)[1];
-            node_ptr<int> const & right = children(root)[2];
+            node_ptr<int> left = children(root)[0];
+            node_ptr<int> center = children(root)[1];
+            node_ptr<int> right = children(root)[2];
 
             EXPECT_EQ(num_children(left), min_children);
             EXPECT_EQ(num_children(center), min_children);
@@ -465,8 +483,8 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
 
         EXPECT_EQ(num_children(root), 2);
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children - 1);
         EXPECT_EQ(num_children(right), min_children);
@@ -485,9 +503,9 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
         auto const root_initial_size = size(root.get());
 
         {
-            node_ptr<int> const & left = children(root)[0];
-            node_ptr<int> const & center = children(root)[1];
-            node_ptr<int> const & right = children(root)[2];
+            node_ptr<int> left = children(root)[0];
+            node_ptr<int> center = children(root)[1];
+            node_ptr<int> right = children(root)[2];
 
             EXPECT_EQ(num_children(left), min_children);
             EXPECT_EQ(num_children(center), min_children);
@@ -499,8 +517,8 @@ TEST(detail_btree, test_btree_erase_entire_node_interior_children)
 
         EXPECT_EQ(num_children(root), 2);
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), min_children);
         EXPECT_EQ(num_children(right), max_children - 1);
@@ -553,13 +571,16 @@ TEST(detail_btree, test_btree_erase)
     {
         node_ptr<int> root = make_tree_left_right<max_children, max_children>();
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), max_children);
 
         root = btree_erase(root, (max_children - 1) * 4, max_children * 4);
+
+        left = children(root)[0];
+        right = children(root)[1];
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children - 1);
@@ -574,13 +595,16 @@ TEST(detail_btree, test_btree_erase)
     {
         node_ptr<int> root = make_tree_left_right<max_children, max_children>();
 
-        node_ptr<int> const & left = children(root)[0];
-        node_ptr<int> const & right = children(root)[1];
+        node_ptr<int> left = children(root)[0];
+        node_ptr<int> right = children(root)[1];
 
         EXPECT_EQ(num_children(left), max_children);
         EXPECT_EQ(num_children(right), max_children);
 
         root = btree_erase(root, max_children * 4, max_children * 4 + 5);
+
+        left = children(root)[0];
+        right = children(root)[1];
 
         EXPECT_EQ(num_children(root), 2);
         EXPECT_EQ(num_children(left), max_children);

@@ -281,30 +281,20 @@ namespace boost { namespace text { namespace detail {
     }
 
     inline node_ptr<rope_tag> slice_leaf(
-        node_ptr<rope_tag> const & node,
-        std::ptrdiff_t lo,
-        std::ptrdiff_t hi,
-        bool immutable)
+        node_ptr<rope_tag> const & node, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         BOOST_ASSERT(node);
         BOOST_ASSERT(0 <= lo && lo <= size(node.get()));
         BOOST_ASSERT(0 <= hi && hi <= size(node.get()));
         BOOST_ASSERT(lo < hi);
 
-        bool const leaf_mutable = !immutable && node->refs_ == 1;
+        node_ptr<rope_tag> retval;
 
         switch (node.as_leaf()->which_) {
         case which::t:
             BOOST_ASSERT(lo < INT_MAX);
             BOOST_ASSERT(hi < INT_MAX);
-            if (!leaf_mutable)
-                return make_ref(node.as_leaf(), lo, hi);
-            {
-                auto mut_node = node.write();
-                string & t = mut_node.as_leaf()->as_string();
-                t = string_view(t.begin() + lo, hi - lo);
-            }
-            return node;
+            return make_ref(node.as_leaf(), lo, hi);
         case which::rtv: {
             repeated_string_view const & crtv =
                 node.as_leaf()->as_repeated_string_view();
@@ -314,41 +304,27 @@ namespace boost { namespace text { namespace detail {
                 return make_node(string(crtv.begin() + lo, crtv.begin() + hi));
             } else {
                 auto const count = (hi - lo) / crtv.view().size();
-                if (!leaf_mutable)
-                    return make_node(repeated_string_view(crtv.view(), count));
-                auto mut_node = node.write();
-                repeated_string_view & rtv =
-                    mut_node.as_leaf()->as_repeated_string_view();
-                rtv = repeated_string_view(rtv.view(), count);
+                return make_node(repeated_string_view(crtv.view(), count));
             }
-            return node;
         }
         case which::ref: {
             BOOST_ASSERT(lo < INT_MAX);
             BOOST_ASSERT(hi < INT_MAX);
-            if (!leaf_mutable)
-                return make_ref(node.as_leaf()->as_reference(), lo, hi);
-            {
-                auto mut_node = node.write();
-                reference<rope_tag> & ref = mut_node.as_leaf()->as_reference();
-                ref.ref_ = string_view(ref.ref_.begin() + lo, hi - lo);
-            }
-            return node;
+            return make_ref(node.as_leaf()->as_reference(), lo, hi);
         }
         default: BOOST_ASSERT(!"unhandled rope node case"); break;
         }
-        return node_ptr<rope_tag>(); // This should never execute.
+        return retval; // This should never execute.
     }
 
-    inline leaf_slices<rope_tag>
-    erase_leaf(node_ptr<rope_tag> & node, std::ptrdiff_t lo, std::ptrdiff_t hi)
+    inline leaf_slices<rope_tag> erase_leaf(
+        node_ptr<rope_tag> const & node, std::ptrdiff_t lo, std::ptrdiff_t hi)
     {
         BOOST_ASSERT(node);
         BOOST_ASSERT(0 <= lo && lo <= size(node.get()));
         BOOST_ASSERT(0 <= hi && hi <= size(node.get()));
         BOOST_ASSERT(lo < hi);
 
-        bool const leaf_mutable = node.as_leaf()->refs_ == 1;
         auto const leaf_size = size(node.get());
 
         leaf_slices<rope_tag> retval;
@@ -356,30 +332,15 @@ namespace boost { namespace text { namespace detail {
         if (lo == 0 && hi == leaf_size)
             return retval;
 
-        if (leaf_mutable && node.as_leaf()->which_ == which::t) {
-            {
-                auto mut_node = node.write();
-                string & t = mut_node.as_leaf()->as_string();
-                t.erase(string_view(t.begin() + lo, hi - lo));
-            }
-            retval.slice = node;
-            return retval;
-        }
-
         if (hi != leaf_size)
-            retval.other_slice = slice_leaf(node, hi, leaf_size, true);
+            retval.other_slice = slice_leaf(node, hi, leaf_size);
         if (lo != 0)
-            retval.slice = slice_leaf(node, 0, lo, false);
+            retval.slice = slice_leaf(node, 0, lo);
 
         if (!retval.slice)
             retval.slice.swap(retval.other_slice);
 
         return retval;
-    }
-
-    inline bool child_immutable(node_ptr<rope_tag> const & node)
-    {
-        return node.as_leaf()->which_ == which::t;
     }
 
     struct segment_inserter
