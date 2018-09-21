@@ -506,10 +506,10 @@ namespace boost { namespace text { namespace detail {
             leaf_func(node, n);
             return;
         }
-        int_func(node, n);
         auto const i = find_child(node.as_interior(), n);
         node_ptr<T> const & child = children(node)[i];
         auto const offset_ = offset(node, i);
+        int_func(node, n);
         visit_path_to_leaf(child, n - offset_, leaf_func, int_func);
     }
 
