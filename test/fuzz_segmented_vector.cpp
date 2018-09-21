@@ -91,7 +91,7 @@ void insert(int i, int value)
 
     vec.insert(vec.begin() + i, value);
     seg_vec.insert(seg_vec.begin() + i, value);
-    copied_seg_vec = copied_seg_vec.insert(copied_seg_vec.begin() + i, value);
+    copied_seg_vec.insert(copied_seg_vec.begin() + i, value);
 
     {
         assert(seg_vec.size() == vec.size());
@@ -105,13 +105,10 @@ void insert(int i, int value)
             auto const vec_x = *vec_it;
             auto const seg_vec_x = *seg_vec_it;
             auto const copied_seg_vec_x = *copied_seg_vec_it;
-            if(!(vec_x == copied_seg_vec_x)) {
-                copied_seg_vec_2 =
-                    copied_seg_vec_2.insert(copied_seg_vec.begin() + i, value);
-            }
-            if (!(vec_x == seg_vec_x)) {
+            if(!(vec_x == copied_seg_vec_x))
+                copied_seg_vec_2.insert(copied_seg_vec.begin() + i, value);
+            if (!(vec_x == seg_vec_x))
                 seg_vec_2.insert(seg_vec.begin() + i, value);
-            }
         }
     }
 
@@ -127,7 +124,7 @@ void erase(int i)
 
     vec.erase(vec.begin() + i);
     seg_vec.erase(seg_vec.begin() + i);
-    copied_seg_vec = copied_seg_vec.erase(copied_seg_vec.begin() + i);
+    copied_seg_vec.erase(copied_seg_vec.begin() + i);
 
     check();
 }
