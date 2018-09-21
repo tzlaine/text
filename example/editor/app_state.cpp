@@ -259,7 +259,8 @@ namespace {
         auto & s = state.buffer_.snapshot_;
         auto max_row_ = max_row(s);
         s.cursor_pos_ = xy;
-        s.cursor_pos_.row_ = (std::min)(max_row_, (ptrdiff_t)s.cursor_pos_.row_);
+        s.cursor_pos_.row_ =
+            (std::min)(max_row_ - s.first_row_, (ptrdiff_t)s.cursor_pos_.row_);
         if (cursor_at_last_line(s)) {
             s.cursor_pos_.col_ = 0;
             return std::move(state);
