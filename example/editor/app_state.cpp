@@ -321,35 +321,6 @@ namespace {
         return *click(std::move(state), screen_size, s.cursor_pos_);
     }
 
-    std::ofstream & log()
-    {
-        static std::ofstream log("log");
-        return log;
-    }
-
-    std::ofstream & dump_line(line_t line)
-    {
-        log() << line.code_units_ << "/" << line.graphemes_
-              << (line.hard_break_ ? " *" : "");
-        return log();
-    }
-
-    template<typename Lines>
-    std::ofstream & dump_lines(Lines const & lines)
-    {
-        log() << "  lines:\n";
-        int i = 0;
-        for (auto l : lines) {
-            log() << "    ";
-            dump_line(l);
-            log() << "\n";
-            if (++i == 7)
-                break;
-        }
-        log() << "\n";
-        return log();
-    }
-
 //[ editor_app_state_rebreak
     // When an insertion or erasure happens on line line_index, and line_index
     // does not end in a hard break, we need to re-break the lines from the
@@ -387,12 +358,6 @@ namespace {
         std::vector<line_t> replacements;
         get_lines(graphemes, screen_size.col_, replacements);
 
-        log() << "get_lines() (line_index=" << line_index
-              << ", total_graphemes=" << (total_graphemes + hard_break_grapheme)
-              << ", s.first_row_=" << s.first_row_
-              << ", s.first_char_index_=" << s.first_char_index_ << "):\n";
-        dump_lines(replacements);
-
         // If the edited text ends in a hard line break, we'll end up with an
         // extra line with no code units or graphemes.  If so, keep that.
         if (!std::prev(lines_last)->code_units_)
@@ -401,19 +366,6 @@ namespace {
         s.lines_.replace(lines_it, lines_last, std::move(replacements));
     }
 //]
-
-    std::ofstream & dump_history(app_state_t const & state)
-    {
-        log() << "history:\n";
-        for (auto it = state.buffer_.history_.rbegin(),
-                  end = state.buffer_.history_.rend();
-             it != end;
-             ++it) {
-            dump_lines(it->lines_);
-        }
-        log() << std::endl;
-        return log();
-    }
 
 //[ editor_app_state_erase_at
     boost::optional<app_state_t>
@@ -425,24 +377,13 @@ namespace {
         if (cursor_at_last_line(s) || cursor_its.cursor_ == s.content_.end())
             return std::move(state);
 
-//        log() << "ERASE\ntop\n";
-//        dump_history(state);
-
         state.buffer_.history_.push_back(s);
-
-//        log() << "push\n";
-//        dump_history(state);
 
         auto const cursor_grapheme_cus =
             boost::text::storage_bytes(*cursor_its.cursor_);
         auto line_index = cursor_line(s);
 
-        log() << "initial lines\n";
-        dump_lines(s.lines_);
-
         auto line = s.lines_[line_index];
-        log() << "initial line (idx=" << line_index << "): ";
-        dump_line(line) << "\n";
         if (cursor_its.cursor_ == cursor_its.last_ && line.hard_break_) {
             // End-of-line hard breaks are a special case.
             line.hard_break_ = false;
@@ -455,10 +396,6 @@ namespace {
             line.code_units_ -= cursor_grapheme_cus;
             line.graphemes_ -= 1;
         }
-        log() << "adjusted: "; dump_line(line) << "\n";
-
-        log() << "lines CP 1\n";
-        dump_lines(s.lines_);
 
         // Erasing a single grapheme in the first word on row N can allow that
         // word to fit on row N-1, so we need to start from there when
@@ -469,9 +406,6 @@ namespace {
             decrement_cursor_row(s);
         }
 
-        log() << "lines CP 2\n";
-        dump_lines(s.lines_);
-
         // If there are previous and next lines, combine them with the current
         // line before we re-break lines below.  This gets rid of special
         // cases like when we're erasing at a spot one past the end of the
@@ -481,7 +415,6 @@ namespace {
             line.code_units_ += next_line.code_units_;
             line.graphemes_ += next_line.graphemes_;
             line.hard_break_ = next_line.hard_break_;
-            log() << "replacing line after, idx= " << (line_index + 1) << "\n";
             s.lines_.erase(s.lines_.begin() + line_index + 1);
         }
 
@@ -491,42 +424,11 @@ namespace {
             line.graphemes_ += prev_line.graphemes_;
             s.lines_.erase(s.lines_.begin() + rebreak_line_index);
             s.cursor_pos_.col_ += prev_line.graphemes_;
-            log() << "replacing line before, idx= " << rebreak_line_index
-                  << "\n";
         }
-
-        log() << "combined: "; 
-        dump_line(line) << "\n";
-        log() << "replacing line idx= " << rebreak_line_index << "\n";
-
-        log() << "lines CP 3\n";
-        dump_lines(s.lines_);
 
         s.lines_.replace(s.lines_.begin() + rebreak_line_index, line);
-        log() << "combine\n";
-        dump_lines(s.lines_);
         s.content_.erase(cursor_its.cursor_, std::next(cursor_its.cursor_));
         rebreak_wrapped_line(state, rebreak_line_index, screen_size);
-
-        log() << "cursor=" << s.cursor_pos_.row_ << "," << s.cursor_pos_.col_
-              << std::endl;
-        auto const cursor_line = s.lines_[line_index];
-        log() << "cursor line (idx=" << line_index << "): ";
-        dump_line(cursor_line) << "\n";
-        if (cursor_line.graphemes_ < s.cursor_pos_.col_) {
-            log() << "adj. cursor; " << s.cursor_pos_.row_ << ","
-                  << s.cursor_pos_.col_ << " -> ";
-            log() << s.cursor_pos_.row_ << ","
-                  << s.cursor_pos_.col_ << " -> ";
-            //decrement_cursor_row(s);
-            log() << s.cursor_pos_.row_ << "," << s.cursor_pos_.col_
-                  << std::endl;
-        }
-
-        log() << "final\n";
-        dump_lines(s.lines_);
-//        dump_history(state);
-        log() << "\n\n" << std::endl;
 
         return std::move(state);
     }
