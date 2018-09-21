@@ -97,43 +97,6 @@ TEST(detail_btree_util, test_make_node)
     }
 }
 
-TEST(detail_btree_util_, test_mutable_node_ptr)
-{
-    {
-        std::vector<int> v(9, 3);
-        node_ptr<int> p_text = make_node(v);
-
-        auto mut_p_text = p_text.write(p_text);
-
-        EXPECT_EQ(p_text->refs_, 1);
-        EXPECT_NE(mut_p_text.as_leaf(), p_text.as_leaf());
-
-        mut_p_text.as_leaf()->as_vec().push_back(3);
-
-        EXPECT_EQ(p_text.as_leaf()->as_vec(), std::vector<int>(9, 3));
-        EXPECT_EQ(mut_p_text.as_leaf()->as_vec(), std::vector<int>(10, 3));
-    }
-
-    std::vector<int> v(9, 3);
-    node_ptr<int> p0 = make_node(v);
-    node_ptr<int> p1 = p0;
-
-    {
-        auto mut_p0 = p0.write(p0);
-
-        EXPECT_EQ(p0->refs_, 2);
-        EXPECT_NE(mut_p0.as_leaf(), p0.as_leaf());
-
-        mut_p0.as_leaf()->as_vec().push_back(3);
-        mut_p0.as_leaf()->as_vec().push_back(3);
-
-        EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
-        EXPECT_EQ(mut_p0.as_leaf()->as_vec(), std::vector<int>(11, 3));
-    }
-
-    EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(11, 3));
-}
-
 node_ptr<int> make_tree()
 {
     interior_node_t<int> * int_root = nullptr;

@@ -121,42 +121,6 @@ TEST(rope_detail, test_make_node)
     }
 }
 
-TEST(rope_detail, test_mutable_node_ptr)
-{
-    {
-        string t("some text");
-        node_ptr<rope_tag> p_string = make_node(t);
-
-        auto mut_p_string = p_string.write(p_string);
-
-        EXPECT_EQ(p_string->refs_, 1);
-        EXPECT_NE(mut_p_string.as_leaf(), p_string.as_leaf());
-
-        mut_p_string.as_leaf()->as_string() += ".";
-
-        EXPECT_EQ(p_string.as_leaf()->as_string(), "some text");
-        EXPECT_EQ(mut_p_string.as_leaf()->as_string(), "some text.");
-    }
-
-    string t("some text");
-    node_ptr<rope_tag> p0 = make_node(t);
-    node_ptr<rope_tag> p1 = p0;
-
-    {
-        auto mut_p0 = p0.write(p0);
-
-        EXPECT_EQ(p0->refs_, 2);
-        EXPECT_NE(mut_p0.as_leaf(), p0.as_leaf());
-
-        mut_p0.as_leaf()->as_string() += " --";
-
-        EXPECT_EQ(p0.as_leaf()->as_string(), "some text");
-        EXPECT_EQ(mut_p0.as_leaf()->as_string(), "some text --");
-    }
-
-    EXPECT_EQ(p0.as_leaf()->as_string(), "some text --");
-}
-
 node_ptr<rope_tag> make_tree()
 {
     interior_node_t<rope_tag> * int_root = nullptr;
