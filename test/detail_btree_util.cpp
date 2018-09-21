@@ -485,14 +485,16 @@ TEST(detail_btree_util_0, test_slice_leaf)
         node_ptr<int> p0 = make_node(v);
         node_ptr<int> p1 = slice_leaf(p0, 0, v.size());
         EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
-        EXPECT_EQ(p1.as_leaf()->as_vec(), std::vector<int>(9, 3));
+        EXPECT_EQ(p1.as_leaf()->as_reference().lo_, 0);
+        EXPECT_EQ(p1.as_leaf()->as_reference().hi_, 9);
     }
 
     {
         std::vector<int> v(9, 3);
         node_ptr<int> p0 = make_node(v);
         node_ptr<int> p1 = slice_leaf(p0, 1, v.size() - 1);
-        EXPECT_EQ(p1.as_leaf()->as_vec(), std::vector<int>(7, 3));
+        EXPECT_EQ(p1.as_leaf()->as_reference().lo_, 1);
+        EXPECT_EQ(p1.as_leaf()->as_reference().hi_, 8);
     }
 
     {
@@ -561,7 +563,8 @@ TEST(detail_btree_util_, test_erase_leaf)
         node_ptr<int> p0 = make_node(v);
         leaf_slices<int> slices = erase_leaf(p0, 1, 9);
         EXPECT_EQ(p0.as_leaf()->as_vec(), std::vector<int>(9, 3));
-        EXPECT_EQ(slices.slice.as_leaf()->as_vec(), std::vector<int>(1, 3));
+        EXPECT_EQ(slices.slice.as_leaf()->as_reference().lo_, 0);
+        EXPECT_EQ(slices.slice.as_leaf()->as_reference().hi_, 1);
         EXPECT_EQ(slices.other_slice.get(), nullptr);
     }
 
