@@ -1461,7 +1461,7 @@ TEST(rope_btree, test_btree_erase)
 
         root = btree_erase(root, 1, 8);
 
-        EXPECT_TRUE(root->leaf_);
+        EXPECT_FALSE(root->leaf_);
         EXPECT_EQ(size(root.get()), 2);
     }
 
