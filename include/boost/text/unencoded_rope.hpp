@@ -529,13 +529,18 @@ namespace boost { namespace text {
         };
 
         string_insertion mutable_insertion_leaf(
-            size_type at, size_type size, allocation_note_t allocation_note)
+            size_type at, size_type delta, allocation_note_t allocation_note)
         {
             if (!ptr_)
                 return string_insertion{nullptr};
 
             detail::found_leaf<detail::rope_tag> found;
-            find_leaf(ptr_, at, found);
+            if (0 < delta && at == size()) {
+                find_leaf(ptr_, at - 1, found);
+                ++found.offset_;
+            } else {
+                find_leaf(ptr_, at, found);
+            }
 
             for (auto node : found.path_) {
                 if (1 < node->refs_)
@@ -548,8 +553,8 @@ namespace boost { namespace text {
             if (found.leaf_->as_leaf()->which_ == detail::which::t) {
                 string & t =
                     const_cast<string &>(found.leaf_->as_leaf()->as_string());
-                auto const inserted_size = t.size() + size;
-                if (size < 0 && t.size() < found.offset_ + -size)
+                auto const inserted_size = t.size() + delta;
+                if (delta < 0 && t.size() < found.offset_ + -delta)
                     return string_insertion{nullptr};
                 if ((0 < inserted_size && inserted_size <= t.capacity()) ||
                     (allocation_note == would_allocate &&

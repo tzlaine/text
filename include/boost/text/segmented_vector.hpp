@@ -346,13 +346,18 @@ namespace boost { namespace text {
         };
 
         vec_insertion mutable_insertion_leaf(
-            iterator at, size_type size, allocation_note_t allocation_note)
+            iterator at, size_type delta, allocation_note_t allocation_note)
         {
             if (!ptr_)
                 return vec_insertion{nullptr};
 
             detail::found_leaf<T> found;
-            find_leaf(ptr_, at - begin(), found);
+            if (0 < delta && at == end()) {
+                find_leaf(ptr_, at - begin() - 1, found);
+                ++found.offset_;
+            } else {
+                find_leaf(ptr_, at - begin(), found);
+            }
 
             for (auto node : found.path_) {
                 if (1 < node->refs_)
@@ -366,9 +371,9 @@ namespace boost { namespace text {
                 detail::leaf_node_t<T>::which::vec) {
                 std::vector<T> & v = const_cast<std::vector<T> &>(
                     found.leaf_->as_leaf()->as_vec());
-                auto const inserted_size = v.size() + size;
-                if (size < 0 &&
-                    (std::ptrdiff_t)v.size() < found.offset_ + -size) {
+                auto const inserted_size = v.size() + delta;
+                if (delta < 0 &&
+                    (std::ptrdiff_t)v.size() < found.offset_ + -delta) {
                     return vec_insertion{nullptr};
                 }
                 if ((0 < inserted_size && inserted_size <= v.capacity()) ||
