@@ -1,4 +1,5 @@
 #include <boost/text/string_view.hpp>
+#include <boost/text/utility.hpp>
 
 #include <gtest/gtest.h>
 
@@ -950,5 +951,57 @@ TEST(utf_8, iterator_covnersions)
         text::utf8::from_utf16_iterator<uint16_t const *> const it_const = it;
 
         EXPECT_EQ(it_const, it);
+    }
+}
+
+TEST(utf_8, make_range)
+{
+    // Unicode 9, 3.9/D90-D92
+    std::array<uint32_t, 4> const utf32 = {{0x004d, 0x0430, 0x4e8c, 0x10302}};
+    std::array<uint16_t, 5> const utf16 = {
+        {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02}};
+    std::array<char, 10> const utf8 = {{
+        0x4d,
+        char(0xd0),
+        char(0xb0),
+        char(0xe4),
+        char(0xba),
+        char(0x8c),
+        char(0xf0),
+        char(0x90),
+        char(0x8c),
+        char(0x82),
+    }};
+
+    {
+        int i = 0;
+        for (auto cp : text::make_to_utf32_range(utf8)) {
+            EXPECT_EQ(cp, utf32[i]) << "i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        int i = 0;
+        for (auto cp : text::make_from_utf32_range(utf32)) {
+            EXPECT_EQ(cp, utf8[i]) << "i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        int i = 0;
+        for (auto cp : text::make_to_utf16_range(utf8)) {
+            EXPECT_EQ(cp, utf16[i]) << "i=" << i;
+            ++i;
+        }
+    }
+
+    {
+        int i = 0;
+        for (auto cp : text::make_from_utf16_range(utf16)) {
+            EXPECT_EQ(cp, utf8[i]) << "i=" << i;
+            ++i;
+        }
     }
 }

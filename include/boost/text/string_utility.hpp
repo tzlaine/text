@@ -2,31 +2,11 @@
 #define BOOST_TEXT_STRING_UTILITY_HPP
 
 #include <boost/text/string.hpp>
+#include <boost/text/utility.hpp>
 #include <boost/text/detail/sentinel_tag.hpp>
 
 
 namespace boost { namespace text {
-
-    namespace detail {
-
-        template<typename CPIter, typename Sentinel>
-        auto to_string_impl(CPIter first, Sentinel last, sentinel_tag)
-            -> detail::cp_iter_ret_t<string, CPIter>
-        {
-            return string(
-                utf8::from_utf32_iterator<CPIter, Sentinel>(first, first, last),
-                last);
-        }
-
-        template<typename CPIter>
-        auto to_string_impl(CPIter first, CPIter last, non_sentinel_tag)
-            -> detail::cp_iter_ret_t<string, CPIter>
-        {
-            return string(
-                utf8::from_utf32_iterator<CPIter>(first, first, last),
-                utf8::from_utf32_iterator<CPIter>(first, last, last));
-        }
-    }
 
 #ifdef BOOST_TEXT_DOXYGEN
 
@@ -37,19 +17,29 @@ namespace boost { namespace text {
     template<typename CPIter, typename Sentinel>
     string to_string(CPIter first, Sentinel last);
 
+    /** Returns a UTF-8-encoded string constructed from range.
+
+        This function only participates in overload resolution if
+        <code>CPRange</code> models the CPRange concept. */
+    template<typename CPRange>
+    string to_string(CPRange & range);
+
 #else
 
     template<typename CPIter, typename Sentinel>
     auto to_string(CPIter first, Sentinel last)
         -> detail::cp_iter_ret_t<string, CPIter>
     {
-        return detail::to_string_impl(
-            first,
-            last,
-            typename std::conditional<
-                std::is_same<CPIter, Sentinel>::value,
-                detail::non_sentinel_tag,
-                detail::sentinel_tag>::type{});
+        cp_range<CPIter, Sentinel> cps{first, last};
+        auto const r = make_from_utf32_range(cps);
+        return string(r.begin(), r.end());
+    }
+
+    template<typename CPRange>
+    auto to_string(CPRange & range) -> detail::cp_rng_alg_ret_t<string, CPRange>
+    {
+        auto const r = make_from_utf32_range(range);
+        return string(std::begin(r), std::end(r));
     }
 
 #endif

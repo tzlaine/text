@@ -113,11 +113,11 @@ namespace boost { namespace text { namespace detail {
 
 
 
-    template<typename T, typename U>
-    struct is_convertible_and_1_byte
+    template<typename T, typename U, int N>
+    struct is_convertible_and_n_bytes
         : std::integral_constant<
               bool,
-              std::is_convertible<T, U>::value && sizeof(T) == 1>
+              std::is_convertible<T, U>::value && sizeof(T) == N>
     {
     };
 
@@ -129,19 +129,22 @@ namespace boost { namespace text { namespace detail {
         std::is_same<char *, typename std::remove_cv<T>::type>::value ||
             std::is_same<char const *, typename std::remove_cv<T>::type>::
                 value ||
-            is_convertible_and_1_byte<detected_t<value_type_, T>, char>::value>;
+            is_convertible_and_n_bytes<detected_t<value_type_, T>, char, 1>::
+                value>;
 
     template<typename T>
     using is_char_range = std::integral_constant<
         bool,
         std::is_same<remove_cv_ref_t<T>, unencoded_rope_view>::value ||
             std::is_same<remove_cv_ref_t<T>, unencoded_rope>::value ||
-            (is_convertible_and_1_byte<
+            (is_convertible_and_n_bytes<
                  remove_cv_ref_t<detected_t<has_begin, T>>,
-                 char>::value &&
-             is_convertible_and_1_byte<
+                 char,
+                 1>::value &&
+             is_convertible_and_n_bytes<
                  remove_cv_ref_t<detected_t<has_end, T>>,
-                 char>::value)>;
+                 char,
+                 1>::value)>;
 
 
 
@@ -248,6 +251,39 @@ namespace boost { namespace text { namespace detail {
 
     template<typename T, typename R1, typename R2>
     using contig_rngs_alg_ret_t = typename contig_rngs_alg_ret<T, R1, R2>::type;
+
+
+
+    template<typename T>
+    using is_char16_range = std::integral_constant<
+        bool,
+        (is_convertible_and_n_bytes<
+             remove_cv_ref_t<detected_t<has_begin, T>>,
+             uint16_t,
+             2>::value &&
+         is_convertible_and_n_bytes<
+             remove_cv_ref_t<detected_t<has_end, T>>,
+             uint16_t,
+             2>::value)>;
+
+
+
+    template<
+        typename T,
+        typename R1,
+        bool R1IsChar16Range = is_char16_range<R1>::value>
+    struct rng16_alg_ret
+    {
+    };
+
+    template<typename T, typename R1>
+    struct rng16_alg_ret<T, R1, true>
+    {
+        using type = T;
+    };
+
+    template<typename T, typename R1>
+    using rng16_alg_ret_t = typename rng16_alg_ret<T, R1>::type;
 
 
 

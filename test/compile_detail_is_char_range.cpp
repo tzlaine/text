@@ -90,3 +90,7 @@ static_assert(text::detail::is_contig_grapheme_char_range<text::text>::value, ""
 static_assert(text::detail::is_contig_grapheme_char_range<text::text_view>::value, "");
 static_assert(!text::detail::is_contig_grapheme_char_range<text::rope>::value, "");
 static_assert(!text::detail::is_contig_grapheme_char_range<text::rope_view>::value, "");
+
+static_assert(!text::detail::is_char16_range<text::string_view>::value, "");
+static_assert(!text::detail::is_char16_range<text::string>::value, "");
+static_assert(text::detail::is_char16_range<std::array<uint16_t, 1>>::value, "");
