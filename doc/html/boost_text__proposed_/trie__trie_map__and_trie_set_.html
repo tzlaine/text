@@ -1,0 +1,184 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>trie, trie_map, and trie_set</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="prev" href="segmented_vector_.html" title="segmented_vector">
+<link rel="next" href="examples.html" title="Examples">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="segmented_vector_.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="examples.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_text__proposed_.trie__trie_map__and_trie_set_"></a><a class="link" href="trie__trie_map__and_trie_set_.html" title="trie, trie_map, and trie_set">trie,
+    trie_map, and trie_set </a>
+</h2></div></div></div>
+<p>
+      A <a href="https://en.wikipedia.org/wiki/Trie" target="_top">Trie</a> is a is a prefix-tree
+      that associates keys (which must be sequences) with values. Each node represents
+      a prefix, and each child node represents a possible next element of the key.
+      Here's a diagram of one:
+    </p>
+<p>
+      <span class="inlinemediaobject"><object type="image/svg+xml" data="../../../doc/trie.svg" width="1395" height="700"></object></span>
+    </p>
+<p>
+      This is a trie for the key-value pairs <code class="computeroutput"><span class="identifier">Elements</span>
+      <span class="special">=</span> <span class="special">{(</span><span class="string">"car"</span><span class="special">,</span> <span class="number">15</span><span class="special">),</span> <span class="special">(</span><span class="string">"cat"</span><span class="special">,</span> <span class="number">9</span><span class="special">),</span> <span class="special">(</span><span class="string">"cats"</span><span class="special">,</span> <span class="number">11</span><span class="special">),</span> <span class="special">(</span><span class="string">"ear"</span><span class="special">,</span> <span class="special">-</span><span class="number">3</span><span class="special">),</span>
+      <span class="special">(</span><span class="string">"eat"</span><span class="special">,</span> <span class="number">100</span><span class="special">)}</span></code>.
+      Each node represents a prefix of one or more of the key values in <code class="computeroutput"><span class="identifier">Elements</span></code>. The text in on the left in the
+      node header is the prefix represented by that node. This is for illustration
+      only; the real data structure does not store so much data in each node. The
+      value on the right of each node header is the value associated with that prefix
+      in <code class="computeroutput"><span class="identifier">Elements</span></code>, if any. For instance,
+      <code class="computeroutput"><span class="string">"car"</span></code> is associated with
+      <code class="computeroutput"><span class="number">15</span></code> in <code class="computeroutput"><span class="identifier">Elements</span></code>,
+      and so the <code class="computeroutput"><span class="string">"car"</span></code> node
+      has a value of <code class="computeroutput"><span class="number">15</span></code>, but <code class="computeroutput"><span class="string">"ca"</span></code> is not in <code class="computeroutput"><span class="identifier">Elements</span></code>,
+      so the <code class="computeroutput"><span class="string">"ca"</span></code> node has
+      no associated value.
+    </p>
+<p>
+      A node's children are all of that node's suffixes within the keys in <code class="computeroutput"><span class="identifier">Elements</span></code>. To find a value associated with
+      some key <code class="computeroutput"><span class="identifier">k</span></code>, you simply start
+      at the root, look for the child node for element <code class="computeroutput"><span class="identifier">k</span><span class="special">[</span><span class="number">0</span><span class="special">]</span></code>,
+      then from that node look for the child node that contains the element <code class="computeroutput"><span class="identifier">k</span><span class="special">[</span><span class="number">1</span><span class="special">]</span></code>, etc.
+    </p>
+<p>
+      This data struture has the nice property that a search is linear in the length
+      of the sarched-for key <code class="computeroutput"><span class="identifier">k</span></code>, but
+      is independent of the size of the trie. This is similar to how hash lookups
+      are (in an ideal hash table) independent of the size of the table.
+    </p>
+<p>
+      Lookup performace is comparable to hashing containers, except that a trie additionally
+      allows one to easily do longest-match and match-extension queries. This is
+      something that is unavailable in either tree-based maps or hash maps.
+    </p>
+<p>
+      For example:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="comment">// Starting with a trie, we can:</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">trie</span><span class="special">::</span><span class="identifier">trie</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">trie</span><span class="special">(</span>
+    <span class="special">{{</span><span class="string">"foo"</span><span class="special">,</span> <span class="number">13</span><span class="special">},</span> <span class="special">{</span><span class="string">"bar"</span><span class="special">,</span> <span class="number">17</span><span class="special">},</span> <span class="special">{</span><span class="string">"foos"</span><span class="special">,</span> <span class="number">19</span><span class="special">},</span> <span class="special">{</span><span class="string">""</span><span class="special">,</span> <span class="number">42</span><span class="special">}});</span>
+
+<span class="comment">// look up a specific element;</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">trie</span><span class="special">[</span><span class="string">"foo"</span><span class="special">]</span> <span class="special">==</span> <span class="number">13</span><span class="special">);</span>
+
+<span class="comment">// look for the node that contains as much of the given sequence as possible;</span>
+<span class="keyword">auto</span> <span class="identifier">fo_subsequence</span> <span class="special">=</span> <span class="identifier">trie</span><span class="special">.</span><span class="identifier">longest_subsequence</span><span class="special">(</span><span class="string">"fo"</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(!</span><span class="identifier">fo_subsequence</span><span class="special">.</span><span class="identifier">match</span><span class="special">);</span>
+
+<span class="comment">// try to extend the subsequence by one node;</span>
+<span class="keyword">auto</span> <span class="identifier">foo_subsequence</span> <span class="special">=</span> <span class="identifier">trie</span><span class="special">.</span><span class="identifier">extend_subsequence</span><span class="special">(</span><span class="identifier">fo_subsequence</span><span class="special">,</span> <span class="char">'o'</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">foo_subsequence</span><span class="special">.</span><span class="identifier">match</span><span class="special">);</span>
+
+<span class="comment">// or try to extend the subsequence by multiple nodes;</span>
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">os_str</span> <span class="special">=</span> <span class="string">"os"</span><span class="special">;</span>
+<span class="keyword">auto</span> <span class="identifier">foos_subsequence</span> <span class="special">=</span>
+    <span class="identifier">trie</span><span class="special">.</span><span class="identifier">extend_subsequence</span><span class="special">(</span><span class="identifier">fo_subsequence</span><span class="special">,</span> <span class="identifier">os_str</span><span class="special">,</span> <span class="identifier">os_str</span> <span class="special">+</span> <span class="number">2</span><span class="special">);</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">foos_subsequence</span><span class="special">.</span><span class="identifier">match</span><span class="special">);</span>
+</pre>
+<p>
+    </p>
+<p>
+      <code class="computeroutput"><span class="identifier">trie</span><span class="special">::</span><span class="keyword">operator</span><span class="special">[]</span></code> works
+      differently from how it works in <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span></code>-like
+      containers. It works how I wish the <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">::</span><span class="keyword">operator</span><span class="special">[]</span></code>
+      <span class="emphasis"><em>did</em></span> work:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">trie</span><span class="special">::</span><span class="identifier">trie</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">trie</span><span class="special">(</span>
+    <span class="special">{{</span><span class="string">"foo"</span><span class="special">,</span> <span class="number">13</span><span class="special">},</span> <span class="special">{</span><span class="string">"bar"</span><span class="special">,</span> <span class="number">17</span><span class="special">},</span> <span class="special">{</span><span class="string">"foos"</span><span class="special">,</span> <span class="number">19</span><span class="special">},</span> <span class="special">{</span><span class="string">""</span><span class="special">,</span> <span class="number">42</span><span class="special">}});</span>
+
+<span class="comment">// This is the kind of thing you expect from a `std::map`.</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">trie</span><span class="special">[</span><span class="string">"foo"</span><span class="special">]</span> <span class="special">==</span> <span class="number">13</span><span class="special">);</span>
+<span class="identifier">trie</span><span class="special">[</span><span class="string">"foo"</span><span class="special">]</span> <span class="special">=</span> <span class="number">111</span><span class="special">;</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">trie</span><span class="special">[</span><span class="string">"foo"</span><span class="special">]</span> <span class="special">==</span> <span class="number">111</span><span class="special">);</span>
+
+<span class="comment">// What operator[] actually returns though is an optional_ref.</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">trie</span><span class="special">::</span><span class="identifier">optional_ref</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">element</span> <span class="special">=</span> <span class="identifier">trie</span><span class="special">[</span><span class="string">"foo"</span><span class="special">];</span>
+<span class="comment">// You can ask the optional_ref if it refers to something or not, because it</span>
+<span class="comment">// has an explicit conversion to bool.</span>
+<span class="keyword">if</span> <span class="special">(</span><span class="identifier">element</span><span class="special">)</span> <span class="special">{</span>
+    <span class="comment">// You can read from and write to it as if it was its template parameter</span>
+    <span class="comment">// type T, because it has an implicit conversion to that:</span>
+    <span class="keyword">int</span> <span class="identifier">element_as_int</span> <span class="special">=</span> <span class="identifier">element</span><span class="special">;</span>
+    <span class="identifier">assert</span><span class="special">(</span><span class="identifier">element_as_int</span> <span class="special">==</span> <span class="number">111</span><span class="special">);</span>
+    <span class="comment">// Use element_as_int here....</span>
+<span class="special">}</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">trie</span><span class="special">::</span><span class="identifier">trie</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">&gt;</span> <span class="keyword">const</span> <span class="identifier">const_trie</span><span class="special">(</span>
+    <span class="special">{{</span><span class="string">"foo"</span><span class="special">,</span> <span class="number">13</span><span class="special">},</span> <span class="special">{</span><span class="string">"bar"</span><span class="special">,</span> <span class="number">17</span><span class="special">},</span> <span class="special">{</span><span class="string">"foos"</span><span class="special">,</span> <span class="number">19</span><span class="special">},</span> <span class="special">{</span><span class="string">""</span><span class="special">,</span> <span class="number">42</span><span class="special">}});</span>
+
+<span class="comment">// Because it returns this optional_ref, it's okay to use with constant tries.</span>
+<span class="comment">// operator[] does not mutate the trie, even for mutable tries.</span>
+<span class="keyword">auto</span> <span class="identifier">element_2</span> <span class="special">=</span> <span class="identifier">const_trie</span><span class="special">[</span><span class="string">"foo"</span><span class="special">];</span> <span class="comment">// Whaaaaat?</span>
+<span class="keyword">if</span> <span class="special">(</span><span class="identifier">element_2</span><span class="special">)</span> <span class="special">{</span>
+    <span class="keyword">int</span> <span class="identifier">element_as_int</span> <span class="special">=</span> <span class="identifier">element_2</span><span class="special">;</span>
+    <span class="identifier">assert</span><span class="special">(</span><span class="identifier">element_as_int</span> <span class="special">==</span> <span class="number">13</span><span class="special">);</span>
+    <span class="comment">// Use element_as_int here....</span>
+<span class="special">}</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">trie</span><span class="special">::</span><span class="identifier">trie</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">&gt;</span> <span class="keyword">const</span> <span class="identifier">bool_trie</span><span class="special">(</span>
+    <span class="special">{{</span><span class="string">"foo"</span><span class="special">,</span> <span class="keyword">true</span><span class="special">},</span> <span class="special">{</span><span class="string">"bar"</span><span class="special">,</span> <span class="keyword">true</span><span class="special">},</span> <span class="special">{</span><span class="string">"foos"</span><span class="special">,</span> <span class="keyword">false</span><span class="special">},</span> <span class="special">{</span><span class="string">""</span><span class="special">,</span> <span class="keyword">true</span><span class="special">}});</span>
+
+<span class="comment">// What about optional_ref&lt;bool&gt; you ask?  There are specializations for it</span>
+<span class="comment">// that have no implcit conversions.  You just have to use the familiar</span>
+<span class="comment">// operator* to get its bool value as you would with boost::optional or</span>
+<span class="comment">// std::optional.</span>
+<span class="keyword">auto</span> <span class="identifier">element_3</span> <span class="special">=</span> <span class="identifier">bool_trie</span><span class="special">[</span><span class="string">"foos"</span><span class="special">];</span>
+<span class="keyword">if</span> <span class="special">(</span><span class="identifier">element_3</span><span class="special">)</span> <span class="special">{</span>
+    <span class="comment">// bool element_as_bool = element_3; // Error! No implicit conversion to bool.</span>
+    <span class="keyword">bool</span> <span class="identifier">element_as_bool</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">element_3</span><span class="special">;</span>
+    <span class="identifier">assert</span><span class="special">(</span><span class="identifier">element_as_bool</span> <span class="special">==</span> <span class="keyword">false</span><span class="special">);</span>
+    <span class="comment">// Use element_as_bool here....</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      The only wonky thing about <code class="computeroutput"><span class="identifier">optional_ref</span></code>
+      is the specialization for <code class="computeroutput"><span class="keyword">bool</span></code>.
+      Think about how often a map from <code class="computeroutput"><span class="identifier">T</span></code>
+      to <code class="computeroutput"><span class="keyword">bool</span></code> comes up. It's almost
+      never, because that would more naturally be expressed as a set of <code class="computeroutput"><span class="identifier">T</span></code> anyway.
+    </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        <code class="computeroutput"><span class="identifier">trie</span></code> is not a container.
+        It has no iterators. If you need a version of <code class="computeroutput"><span class="identifier">trie</span></code>
+        that is iterable, use <code class="computeroutput"><span class="identifier">trie_map</span></code>
+        or <code class="computeroutput"><span class="identifier">trie_set</span></code> instead. Note
+        that there is a modest performance overhead associated with the iterator
+        implementations, which is why <code class="computeroutput"><span class="identifier">trie</span></code>
+        does not have them.
+      </p></td></tr>
+</table></div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="segmented_vector_.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="examples.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

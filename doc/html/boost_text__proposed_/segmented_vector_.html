@@ -1,0 +1,204 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>segmented_vector</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Text (Proposed)">
+<link rel="prev" href="the_text_layer.html" title="The Text Layer">
+<link rel="next" href="trie__trie_map__and_trie_set_.html" title="trie, trie_map, and trie_set">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="spirit-nav">
+<a accesskey="p" href="the_text_layer.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="trie__trie_map__and_trie_set_.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_text__proposed_.segmented_vector_"></a><a class="link" href="segmented_vector_.html" title="segmented_vector">segmented_vector
+    </a>
+</h2></div></div></div>
+<p>
+      This <code class="computeroutput"><a class="link" href="../boost/text/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>
+      API is very similar to that of <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code>, except that is
+      supports more types than <code class="computeroutput"><span class="keyword">char</span></code>
+      for the element-type.
+    </p>
+<p>
+      Though <code class="computeroutput"><a class="link" href="../boost/text/segmented_vector.html" title="Struct template segmented_vector">segmented_vector</a></code>
+      is not meant to be a string-like type, it has a <code class="computeroutput"><span class="identifier">replace</span><span class="special">()</span></code> member, since it is considerably more efficient
+      to do a replace operation than to do an erasure followed by an insertion.
+    </p>
+<p>
+      Otherwise, a few interface changes were made from the <code class="computeroutput"><a class="link" href="../boost/text/unencoded_rope.html" title="Struct unencoded_rope">unencoded_rope</a></code> interface to make
+      the type more like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>.
+    </p>
+<p>
+      One nice use case for this template is writing undo systems:
+    </p>
+<p>
+</p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">text</span><span class="special">/</span><span class="identifier">segmented_vector</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">vector</span><span class="special">&gt;</span>
+
+
+<span class="comment">// This is a general-purpose undo/redo system.  It consists of a vector of</span>
+<span class="comment">// states, which is mostly used as a stack, but which we can also iterate</span>
+<span class="comment">// over.  We also have an iterator, which always points to a valid element of</span>
+<span class="comment">// our state vector, indicating the current state.</span>
+
+<span class="comment">// Undo can then be implemented by simply decrementing the current-state</span>
+<span class="comment">// iterator; redo is performed by incrementing it.</span>
+
+<span class="comment">// Copying our entire working state is potentially very expensive, of course.</span>
+<span class="comment">// The data sharing inherent to segmented_vector's operation means that</span>
+<span class="comment">// copying or mutating an entire segmented_vector mostly shares data, making</span>
+<span class="comment">// those program state copies cheap.</span>
+
+<span class="comment">// This gets a new undo state, by erasing any pending redos (more recent</span>
+<span class="comment">// states), then copying the most recent state and returning an iterator to</span>
+<span class="comment">// the copy.</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;::</span><span class="identifier">iterator</span> <span class="identifier">new_undo_state</span><span class="special">(</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="special">&amp;</span> <span class="identifier">history</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;::</span><span class="identifier">iterator</span> <span class="identifier">it</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">history</span><span class="special">.</span><span class="identifier">erase</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">it</span><span class="special">),</span> <span class="identifier">history</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
+    <span class="keyword">return</span> <span class="identifier">history</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">history</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">history</span><span class="special">.</span><span class="identifier">back</span><span class="special">());</span>
+<span class="special">}</span>
+
+<span class="comment">// Undo just decrements the current-state iterator, except that undos that</span>
+<span class="comment">// would underflow are ignored.</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;::</span><span class="identifier">iterator</span> <span class="identifier">undo</span><span class="special">(</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">history</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;::</span><span class="identifier">iterator</span> <span class="identifier">it</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">it</span> <span class="special">!=</span> <span class="identifier">history</span><span class="special">.</span><span class="identifier">begin</span><span class="special">())</span>
+        <span class="special">--</span><span class="identifier">it</span><span class="special">;</span>
+    <span class="keyword">return</span> <span class="identifier">it</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="comment">// Like undo, in reverse.</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;::</span><span class="identifier">iterator</span> <span class="identifier">redo</span><span class="special">(</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">history</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;::</span><span class="identifier">iterator</span> <span class="identifier">it</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">next</span><span class="special">(</span><span class="identifier">it</span><span class="special">)</span> <span class="special">!=</span> <span class="identifier">history</span><span class="special">.</span><span class="identifier">end</span><span class="special">())</span>
+        <span class="special">++</span><span class="identifier">it</span><span class="special">;</span>
+    <span class="keyword">return</span> <span class="identifier">it</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="comment">// Gets a new state to work on by calling new_undo_state(), and then applies</span>
+<span class="comment">// an arbitrary mutation to the new state.</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Func</span><span class="special">&gt;</span>
+<span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;::</span><span class="identifier">iterator</span> <span class="identifier">mutate_state</span><span class="special">(</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="special">&amp;</span> <span class="identifier">history</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;::</span><span class="identifier">iterator</span> <span class="identifier">it</span><span class="special">,</span>
+    <span class="identifier">Func</span> <span class="special">&amp;&amp;</span> <span class="identifier">f</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">it</span> <span class="special">=</span> <span class="identifier">new_undo_state</span><span class="special">(</span><span class="identifier">history</span><span class="special">,</span> <span class="identifier">it</span><span class="special">);</span>
+    <span class="special">*</span><span class="identifier">it</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">Func</span><span class="special">&gt;(</span><span class="identifier">f</span><span class="special">)(*</span><span class="identifier">it</span><span class="special">);</span>
+    <span class="keyword">return</span> <span class="identifier">it</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="comment">// Print the history, latest to oldest.</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">void</span> <span class="identifier">dump_history</span><span class="special">(</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">history</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&gt;::</span><span class="identifier">iterator</span> <span class="identifier">it</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"========================================\n"</span><span class="special">;</span>
+    <span class="keyword">int</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+    <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="identifier">first</span> <span class="special">=</span> <span class="identifier">history</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">last</span> <span class="special">=</span> <span class="identifier">history</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> <span class="identifier">last</span><span class="special">--</span> <span class="special">!=</span> <span class="identifier">first</span><span class="special">;)</span> <span class="special">{</span>
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">last</span> <span class="special">==</span> <span class="identifier">it</span><span class="special">)</span>
+            <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">" -&gt; "</span><span class="special">;</span>
+        <span class="keyword">else</span>
+            <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"    "</span><span class="special">;</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"history "</span> <span class="special">&lt;&lt;</span> <span class="identifier">i</span><span class="special">++</span> <span class="special">&lt;&lt;</span> <span class="string">": [ "</span><span class="special">;</span>
+        <span class="keyword">for</span> <span class="special">(</span><span class="keyword">auto</span> <span class="special">&amp;</span> <span class="identifier">x</span> <span class="special">:</span> <span class="special">*</span><span class="identifier">last</span><span class="special">)</span> <span class="special">{</span>
+            <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">x</span> <span class="special">&lt;&lt;</span> <span class="char">' '</span><span class="special">;</span>
+        <span class="special">}</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"]\n"</span><span class="special">;</span>
+    <span class="special">}</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+<span class="special">}</span>
+
+
+<span class="keyword">int</span> <span class="identifier">main</span> <span class="special">()</span>
+<span class="special">{</span>
+    <span class="keyword">using</span> <span class="identifier">state_type</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">text</span><span class="special">::</span><span class="identifier">segmented_vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;;</span>
+
+    <span class="comment">// Here, we push a single value onto the end of the segmented_vector that</span>
+    <span class="comment">// represents our current state.  This is a cheap operation even if the</span>
+    <span class="comment">// current state contains billions of elements.</span>
+    <span class="keyword">int</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+    <span class="keyword">auto</span> <span class="identifier">push_next</span> <span class="special">=</span> <span class="special">[&amp;</span><span class="identifier">i</span><span class="special">](</span><span class="identifier">state_type</span> <span class="identifier">state</span><span class="special">)</span> <span class="special">{</span>
+        <span class="identifier">state</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">state</span><span class="special">.</span><span class="identifier">end</span><span class="special">(),</span> <span class="identifier">i</span><span class="special">++);</span>
+        <span class="keyword">return</span> <span class="identifier">state</span><span class="special">;</span>
+    <span class="special">};</span>
+
+    <span class="comment">// Start with one empty history entry.</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">state_type</span><span class="special">&gt;</span> <span class="identifier">undo_history</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">state_type</span><span class="special">&gt;::</span><span class="identifier">iterator</span> <span class="identifier">current_state_it</span> <span class="special">=</span> <span class="identifier">undo_history</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
+
+    <span class="comment">// Shows current state as "[ ]".</span>
+    <span class="identifier">dump_history</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">);</span>
+
+    <span class="comment">// Copies the initial empty state; pushes a 0 onto the end of the copy;</span>
+    <span class="comment">// returns an iterator to the result.</span>
+    <span class="identifier">current_state_it</span> <span class="special">=</span> <span class="identifier">mutate_state</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">,</span> <span class="identifier">push_next</span><span class="special">);</span>
+
+    <span class="comment">// Pushes a 1 onto the end of another copy.</span>
+    <span class="identifier">current_state_it</span> <span class="special">=</span> <span class="identifier">mutate_state</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">,</span> <span class="identifier">push_next</span><span class="special">);</span>
+
+    <span class="comment">// Shows current state as "[ 0 1 ]".</span>
+    <span class="identifier">dump_history</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">);</span>
+
+    <span class="comment">// Conditionally decrements a pointer (pointing back to the initial empty</span>
+    <span class="comment">// state).</span>
+    <span class="identifier">current_state_it</span> <span class="special">=</span> <span class="identifier">undo</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">);</span>
+
+    <span class="comment">// Shows current state as "[ 0 ]", with one more recent state "[ 0 1 ]".</span>
+    <span class="identifier">dump_history</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">);</span>
+
+    <span class="comment">// Conditionally increments a pointer (pointing back to the result of the first operation).</span>
+    <span class="identifier">current_state_it</span> <span class="special">=</span> <span class="identifier">redo</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">);</span>
+
+    <span class="comment">// Shows current state as "[ 0 1 ]" again.</span>
+    <span class="identifier">dump_history</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">);</span>
+
+    <span class="comment">// Unodes one state, pushes a 2 onto the end of another copy.  The push</span>
+    <span class="comment">// clears any history that is after the current one.</span>
+    <span class="identifier">current_state_it</span> <span class="special">=</span> <span class="identifier">undo</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">);</span>
+    <span class="identifier">current_state_it</span> <span class="special">=</span> <span class="identifier">mutate_state</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">,</span> <span class="identifier">push_next</span><span class="special">);</span>
+
+    <span class="comment">// Shows current state as "[ 0 2 ]", with no more recent states.</span>
+    <span class="identifier">dump_history</span><span class="special">(</span><span class="identifier">undo_history</span><span class="special">,</span> <span class="identifier">current_state_it</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+    </p>
+<p>
+      I don't know if you've ever written an undo system that can do, undo, or redo
+      any command you can think of, in less than 40 lines of code, but there one
+      is.
+    </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2018 T. Zachary Laine<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="the_text_layer.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="trie__trie_map__and_trie_set_.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
