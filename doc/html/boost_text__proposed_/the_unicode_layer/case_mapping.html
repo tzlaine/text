@@ -22,11 +22,11 @@
         Case mapping is conceptually simple. There are three kinds of case: lower-case,
         upper-case, and title-case. Title-case has an upper-case letter at the beginning
         of each word. There are six operations, though there are a few overloads
-        of each. There are three case-mapping algorithms: <code class="computeroutput"><a class="link" href="../../boost/text/to_lower_idm16010.html" title="Function template to_lower">to_lower()</a></code>,
-        <code class="computeroutput"><a class="link" href="../../boost/text/to_title_idm16119.html" title="Function template to_title">to_title()</a></code>, and <code class="computeroutput"><a class="link" href="../../boost/text/to_upper_idm16228.html" title="Function template to_upper">to_upper()</a></code>.
+        of each. There are three case-mapping algorithms: <code class="computeroutput"><a class="link" href="../../boost/text/to_lower_idm16104.html" title="Function template to_lower">to_lower()</a></code>,
+        <code class="computeroutput"><a class="link" href="../../boost/text/to_title_idm16213.html" title="Function template to_title">to_title()</a></code>, and <code class="computeroutput"><a class="link" href="../../boost/text/to_upper_idm16322.html" title="Function template to_upper">to_upper()</a></code>.
         Each of these outputs its result (as code points) via an out-iterator. There
-        are also three case predicates, <code class="computeroutput"><a class="link" href="../../boost/text/is_lower_idm15976.html" title="Function template is_lower">is_lower()</a></code>,
-        <code class="computeroutput"><a class="link" href="../../boost/text/is_title_idm16070.html" title="Function template is_title">is_title()</a></code>, and <code class="computeroutput"><a class="link" href="../../boost/text/is_upper_idm16194.html" title="Function template is_upper">is_upper()</a></code>.
+        are also three case predicates, <code class="computeroutput"><a class="link" href="../../boost/text/is_lower_idm16070.html" title="Function template is_lower">is_lower()</a></code>,
+        <code class="computeroutput"><a class="link" href="../../boost/text/is_title_idm16164.html" title="Function template is_title">is_title()</a></code>, and <code class="computeroutput"><a class="link" href="../../boost/text/is_upper_idm16288.html" title="Function template is_upper">is_upper()</a></code>.
       </p>
 <p>
         For each of these, there are overloads that take the input code point sequence
@@ -75,7 +75,7 @@
 <p>
         Another complication is that the title-case functions need to know where
         word boundaries are. By default, they use an instance of <code class="computeroutput"><a class="link" href="../../boost/text/next_word_break_callable.html" title="Struct next_word_break_callable">next_word_break_callable</a></code>, which
-        in turn just calls <code class="computeroutput"><a class="link" href="../../boost/text/next_word_break_idm28108.html" title="Function template next_word_break">next_word_break()</a></code>.
+        in turn just calls <code class="computeroutput"><a class="link" href="../../boost/text/next_word_break_idm28327.html" title="Function template next_word_break">next_word_break()</a></code>.
         You can supply your own callable instead if you need tailored word breaking.
       </p>
 <p>
