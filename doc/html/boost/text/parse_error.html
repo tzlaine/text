@@ -25,30 +25,30 @@
 </span>
 <span class="keyword">struct</span> <a class="link" href="parse_error.html" title="Struct parse_error">parse_error</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">exception</span> <span class="special">{</span>
   <span class="comment">// <a class="link" href="parse_error.html#boost.text.parse_errorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="parse_error.html#idm19643-bb"><span class="identifier">parse_error</span></a><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="parse_error.html#idm19657-bb"><span class="identifier">parse_error</span></a><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="parse_error.html#idm19636-bb">public member functions</a></span>
-  <span class="keyword">char</span> <span class="keyword">const</span>  <span class="special">*</span> <a class="link" href="parse_error.html#idm19637-bb"><span class="identifier">what</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">int</span> <a class="link" href="parse_error.html#idm19639-bb"><span class="identifier">line</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">int</span> <a class="link" href="parse_error.html#idm19641-bb"><span class="identifier">column</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="parse_error.html#idm19650-bb">public member functions</a></span>
+  <span class="keyword">char</span> <span class="keyword">const</span>  <span class="special">*</span> <a class="link" href="parse_error.html#idm19651-bb"><span class="identifier">what</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="parse_error.html#idm19653-bb"><span class="identifier">line</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="parse_error.html#idm19655-bb"><span class="identifier">column</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm29578"></a><h2>Description</h2>
+<a name="idm29592"></a><h2>Description</h2>
 <p>The type of exception thrown when a parse error is encountered. </p>
 <div class="refsect2">
-<a name="idm29581"></a><h3>
+<a name="idm29595"></a><h3>
 <a name="boost.text.parse_errorconstruct-copy-destruct"></a><code class="computeroutput">parse_error</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idm19643-bb"></a><span class="identifier">parse_error</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> msg<span class="special">,</span> <span class="keyword">int</span> line<span class="special">,</span> <span class="keyword">int</span> column<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idm19657-bb"></a><span class="identifier">parse_error</span><span class="special">(</span><a class="link" href="string_view.html" title="Struct string_view">string_view</a> msg<span class="special">,</span> <span class="keyword">int</span> line<span class="special">,</span> <span class="keyword">int</span> column<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idm29599"></a><h3>
-<a name="idm19636-bb"></a><code class="computeroutput">parse_error</code> public member functions</h3>
+<a name="idm29613"></a><h3>
+<a name="idm19650-bb"></a><code class="computeroutput">parse_error</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">char</span> <span class="keyword">const</span>  <span class="special">*</span> <a name="idm19637-bb"></a><span class="identifier">what</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">int</span> <a name="idm19639-bb"></a><span class="identifier">line</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">int</span> <a name="idm19641-bb"></a><span class="identifier">column</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">char</span> <span class="keyword">const</span>  <span class="special">*</span> <a name="idm19651-bb"></a><span class="identifier">what</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">int</span> <a name="idm19653-bb"></a><span class="identifier">line</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">int</span> <a name="idm19655-bb"></a><span class="identifier">column</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

@@ -28,37 +28,37 @@
   <span class="keyword">typedef</span> <a class="link" href="utf8/to_utf32_iterator.html" title="Struct template to_utf32_iterator">utf8::to_utf32_iterator</a><span class="special">&lt;</span> <span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span> <span class="special">&gt;</span> <a name="boost.text.grapheme.const_iterator"></a><span class="identifier">const_iterator</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="grapheme.html#boost.text.graphemeconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="grapheme.html#idm17716-bb"><span class="identifier">grapheme</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a class="link" href="grapheme.html#idm17719-bb"><span class="identifier">grapheme</span></a><span class="special">(</span><span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="grapheme.html#idm17733-bb"><span class="identifier">grapheme</span></a><span class="special">(</span><span class="identifier">uint32_t</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a class="link" href="grapheme.html#idm17738-bb"><span class="identifier">grapheme</span></a><span class="special">(</span><a class="link" href="cp_range.html" title="Struct template cp_range">cp_range</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a class="link" href="grapheme.html#idm17753-bb"><span class="identifier">grapheme</span></a><span class="special">(</span><a class="link" href="grapheme_view.html" title="Struct template grapheme_view">grapheme_view</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="grapheme.html#idm17730-bb"><span class="identifier">grapheme</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a class="link" href="grapheme.html#idm17733-bb"><span class="identifier">grapheme</span></a><span class="special">(</span><span class="identifier">CPIter</span><span class="special">,</span> <span class="identifier">CPIter</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="grapheme.html#idm17747-bb"><span class="identifier">grapheme</span></a><span class="special">(</span><span class="identifier">uint32_t</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a class="link" href="grapheme.html#idm17752-bb"><span class="identifier">grapheme</span></a><span class="special">(</span><a class="link" href="cp_range.html" title="Struct template cp_range">cp_range</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a class="link" href="grapheme.html#idm17767-bb"><span class="identifier">grapheme</span></a><span class="special">(</span><a class="link" href="grapheme_view.html" title="Struct template grapheme_view">grapheme_view</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="grapheme.html#idm17703-bb">public member functions</a></span>
-  <span class="keyword">bool</span> <a class="link" href="grapheme.html#idm17704-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">int</span> <a class="link" href="grapheme.html#idm17708-bb"><span class="identifier">distance</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="grapheme.html#idm17712-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="grapheme.html#idm17714-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="grapheme.html#idm17717-bb">public member functions</a></span>
+  <span class="keyword">bool</span> <a class="link" href="grapheme.html#idm17718-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">int</span> <a class="link" href="grapheme.html#idm17722-bb"><span class="identifier">distance</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="grapheme.html#idm17726-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="grapheme.html#idm17728-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="grapheme.html#idm17761-bb">friend functions</a></span>
-  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="grapheme.html#idm17762-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">friend</span> <span class="keyword">int</span> <a class="link" href="grapheme.html#idm17771-bb"><span class="identifier">storage_bytes</span></a><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="grapheme.html#idm17775-bb">friend functions</a></span>
+  <span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a class="link" href="grapheme.html#idm17776-bb"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></a><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span><span class="special">,</span> <a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">friend</span> <span class="keyword">int</span> <a class="link" href="grapheme.html#idm17785-bb"><span class="identifier">storage_bytes</span></a><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm23133"></a><h2>Description</h2>
+<a name="idm23147"></a><h2>Description</h2>
 <p>An owning sequence of code points that comprise a grapheme. </p>
 <div class="refsect2">
-<a name="idm23136"></a><h3>
+<a name="idm23150"></a><h3>
 <a name="boost.text.graphemeconstruct-copy-destruct"></a><code class="computeroutput">grapheme</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><a name="idm17716-bb"></a><span class="identifier">grapheme</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm17730-bb"></a><span class="identifier">grapheme</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>Default ctor. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a name="idm17719-bb"></a><span class="identifier">grapheme</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">CPIter</span> last<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a name="idm17733-bb"></a><span class="identifier">grapheme</span><span class="special">(</span><span class="identifier">CPIter</span> first<span class="special">,</span> <span class="identifier">CPIter</span> last<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs *this from the code points [first, last).</p>
 <p>
 
@@ -81,11 +81,11 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm17733-bb"></a><span class="identifier">grapheme</span><span class="special">(</span><span class="identifier">uint32_t</span> cp<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm17747-bb"></a><span class="identifier">grapheme</span><span class="special">(</span><span class="identifier">uint32_t</span> cp<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs *this from the code point cp. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a name="idm17738-bb"></a><span class="identifier">grapheme</span><span class="special">(</span><a class="link" href="cp_range.html" title="Struct template cp_range">cp_range</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> r<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a name="idm17752-bb"></a><span class="identifier">grapheme</span><span class="special">(</span><a class="link" href="cp_range.html" title="Struct template cp_range">cp_range</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> r<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs *this from r.</p>
 <p>
 
@@ -113,37 +113,37 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a name="idm17753-bb"></a><span class="identifier">grapheme</span><span class="special">(</span><a class="link" href="grapheme_view.html" title="Struct template grapheme_view">grapheme_view</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> g<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> CPIter<span class="special">&gt;</span> <a name="idm17767-bb"></a><span class="identifier">grapheme</span><span class="special">(</span><a class="link" href="grapheme_view.html" title="Struct template grapheme_view">grapheme_view</a><span class="special">&lt;</span> <span class="identifier">CPIter</span> <span class="special">&gt;</span> g<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs *this from g. </p>
 </li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm23234"></a><h3>
-<a name="idm17703-bb"></a><code class="computeroutput">grapheme</code> public member functions</h3>
+<a name="idm23248"></a><h3>
+<a name="idm17717-bb"></a><code class="computeroutput">grapheme</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="idm17704-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idm17718-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Returns true if *this contains no code points. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">int</span> <a name="idm17708-bb"></a><span class="identifier">distance</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">int</span> <a name="idm17722-bb"></a><span class="identifier">distance</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Returns the number of code points contained in *this. This is an O(N) operation. </p>
 </li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm17712-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm17714-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm17726-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm17728-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idm23285"></a><h3>
-<a name="idm17761-bb"></a><code class="computeroutput">grapheme</code> friend functions</h3>
+<a name="idm23299"></a><h3>
+<a name="idm17775-bb"></a><code class="computeroutput">grapheme</code> friend functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm17762-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span> g<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">friend</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <a name="idm17776-bb"></a><span class="keyword">operator</span><span class="special">&lt;&lt;</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> os<span class="special">,</span> <a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span> g<span class="special">)</span><span class="special">;</span></pre>
 <p>Stream inserter; performs unformatted output, in UTF-8 encoding. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">friend</span> <span class="keyword">int</span> <a name="idm17771-bb"></a><span class="identifier">storage_bytes</span><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span> g<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">friend</span> <span class="keyword">int</span> <a name="idm17785-bb"></a><span class="identifier">storage_bytes</span><span class="special">(</span><a class="link" href="grapheme.html" title="Struct grapheme">grapheme</a> <span class="keyword">const</span> <span class="special">&amp;</span> g<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Returns the number of bytes controlled by g. </p>
 </li>
 </ol></div>
