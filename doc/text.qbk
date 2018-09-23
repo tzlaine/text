@@ -170,7 +170,7 @@
 
 [def _ce_                  `constexpr`]
 
-[def _seg_vec_docs_        [link boost_text__proposed_._segmented_vector__ `segmented_vector documentation`]]
+[def _seg_vec_docs_        [link boost_text__proposed_.segmented_vector_ `segmented_vector documentation`]]
 
 [def _Rope_                [@https://en.wikipedia.org/wiki/Rope_(data_structure) Rope]]
 [def _Trie_                [@https://en.wikipedia.org/wiki/Trie Trie]]

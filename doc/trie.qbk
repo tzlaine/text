@@ -1,4 +1,4 @@
-[section `trie`, `trie_map`, and `trie_set` ]
+[section trie, trie_map, and trie_set ]
 
 A _Trie_ is a is a prefix-tree that associates keys (which must be sequences)
 with values. Each node represents a prefix, and each child node represents a
