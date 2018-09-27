@@ -391,24 +391,30 @@ namespace boost { namespace text { namespace utf8 {
         return starts_encoded(it, last);
     }
 
-    /** Returns true if c is a Unicode surrogate, or false otherwise. */
-    inline constexpr bool surrogate(uint32_t c) noexcept
+    /** Returns true if c is a Unicode surrogate, or false otherwise.
+
+        This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool surrogate(uint32_t c) noexcept
     {
         uint32_t const high_surrogate_min = 0xd800;
         uint32_t const low_surrogate_max = 0xdfff;
         return high_surrogate_min <= c && c <= low_surrogate_max;
     }
 
-    /** Returns true if c is a Unicode high surrogate, or false otherwise. */
-    inline constexpr bool high_surrogate(uint32_t c) noexcept
+    /** Returns true if c is a Unicode high surrogate, or false otherwise.
+
+        This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool high_surrogate(uint32_t c) noexcept
     {
         uint32_t const high_surrogate_min = 0xd800;
         uint32_t const high_surrogate_max = 0xdbff;
         return high_surrogate_min <= c && c <= high_surrogate_max;
     }
 
-    /** Returns true if c is a Unicode low surrogate, or false otherwise. */
-    inline constexpr bool low_surrogate(uint32_t c) noexcept
+    /** Returns true if c is a Unicode low surrogate, or false otherwise.
+
+        This function is constexpr in C++14 and later. */
+    inline BOOST_TEXT_CXX14_CONSTEXPR bool low_surrogate(uint32_t c) noexcept
     {
         uint32_t const low_surrogate_min = 0xdc00;
         uint32_t const low_surrogate_max = 0xdfff;
