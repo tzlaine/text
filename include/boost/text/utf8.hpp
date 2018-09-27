@@ -445,7 +445,7 @@ namespace boost { namespace text { namespace utf8 {
         provides the Unicode replacement character on errors. */
     struct use_replacement_character
     {
-        constexpr uint32_t operator()(char const *) noexcept
+        constexpr uint32_t operator()(char const *) const noexcept
         {
             return replacement_character();
         }
