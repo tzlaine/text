@@ -289,6 +289,76 @@ matrix:
               sources:
                 - ubuntu-toolchain-r-test
 
+        - env: GCC_VERSION=7 CPP=14 BUILD_TYPE=Release JOBS=4
+          os: linux
+          compiler: gcc-7
+          addons: &gcc7
+            apt:
+              packages:
+                - g++-7
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=7 CPP=11 BUILD_TYPE=Debug JOBS=4
+          os: linux
+          compiler: gcc-7
+          addons: &gcc7
+            apt:
+              packages:
+                - g++-7
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+        - env: GCC_VERSION=7 CPP=11 BUILD_TYPE=Release JOBS=4
+          os: linux
+          compiler: gcc-7
+          addons: &gcc7
+            apt:
+              packages:
+                - g++-7
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=8 CPP=14 BUILD_TYPE=Release JOBS=4
+          os: linux
+          compiler: gcc-8
+          addons: &gcc8
+            apt:
+              packages:
+                - g++-8
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=8 CPP=11 BUILD_TYPE=Debug JOBS=4
+          os: linux
+          compiler: gcc-8
+          addons: &gcc8
+            apt:
+              packages:
+                - g++-8
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+        - env: GCC_VERSION=8 CPP=11 BUILD_TYPE=Release JOBS=4
+          os: linux
+          compiler: gcc-8
+          addons: &gcc8
+            apt:
+              packages:
+                - g++-8
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+
 install:
     - export CHECKOUT_PATH=`pwd`;
     - if [ -n "$GCC_VERSION" ]; then export CXX="g++-${GCC_VERSION}" CC="gcc-${GCC_VERSION}"; fi
