@@ -43,3 +43,13 @@ target_include_directories(gtest_main INTERFACE ${CMAKE_HOME_DIRECTORY}/googlete
 # Google Benchmark
 ###############################################################################
 add_subdirectory(${CMAKE_SOURCE_DIR}/benchmark-v1.2.0)
+
+
+###############################################################################
+# ICU, for perf comparisons
+###############################################################################
+if (MSVC)
+    find_package(ICU COMPONENTS in dt uc)
+else()
+    find_package(ICU COMPONENTS i18n data uc)
+endif()

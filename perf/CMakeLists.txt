@@ -121,3 +121,32 @@ add_custom_target(find_string_insert_max
     COMMAND string_insert_max_perf_32768
     COMMAND string_insert_max_perf_65536
 )
+
+
+##################################
+# Perf comparisons against ICU   #
+##################################
+if (NOT_ICU_FOUND)
+    return()
+endif()
+
+macro(add_icu_perf_executable name)
+    add_perf_executable(${name})
+    target_include_directories(${name} PRIVATE ${ICU_INCLUDE_DIRS})
+    target_link_libraries(${name} ${ICU_LIBRARIES})
+endmacro()
+
+add_icu_perf_executable(icu_normalization)
+
+if (0) # useful for running all the perf tests in a batch.
+include(CTest)
+
+set(test_data_files english_wiki hindi_wiki_in_russian)
+foreach (file_root ${test_data_files})
+    add_test(
+        icu_normalization_${file_root}
+        ${CMAKE_CURRENT_BINARY_DIR}/icu_normalization
+        ${CMAKE_CURRENT_SOURCE_DIR}/${file_root}.txt
+    )
+endforeach()
+endif()
