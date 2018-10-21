@@ -126,7 +126,7 @@ add_custom_target(find_string_insert_max
 ##################################
 # Perf comparisons against ICU   #
 ##################################
-if (NOT ICU_FOUND AND NOT LIMIT_TESTING_FOR_CI)
+if (NOT ICU_FOUND OR LIMIT_TESTING_FOR_CI)
     return()
 endif()
 
