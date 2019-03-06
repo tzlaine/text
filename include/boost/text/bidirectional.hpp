@@ -576,10 +576,10 @@ namespace boost { namespace text {
             auto it = seq.end();
             auto const first = seq.begin();
             while (it != first) {
-                auto const from_it = find_if_backward(first, it, en);
+                auto const from_it = boost::text::find_if_backward(first, it, en);
                 if (from_it == it)
                     break;
-                auto const pred_it = find_if_backward(first, from_it, strong);
+                auto const pred_it = boost::text::find_if_backward(first, from_it, strong);
                 if ((pred_it == from_it && seq.sos() == trigger) ||
                     pred_it->prop() == trigger) {
                     from_it->prop_ = (uint8_t)replacement;

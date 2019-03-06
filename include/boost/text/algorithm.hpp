@@ -235,8 +235,8 @@ namespace boost { namespace text {
     Func foreach_subrange_if(FwdIter first, Sentinel last, Pred p, Func f)
     {
         while (first != last) {
-            first = find_if(first, last, p);
-            auto const next = find_if_not(first, last, p);
+            first = boost::text::find_if(first, last, p);
+            auto const next = boost::text::find_if_not(first, last, p);
             if (first != next)
                 f(foreach_subrange_range<FwdIter, Sentinel>(first, next));
             first = next;

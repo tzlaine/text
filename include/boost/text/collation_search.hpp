@@ -125,7 +125,7 @@ namespace boost { namespace text {
             }
         };
 
-        collation_element adjust_ce_for_search(
+        collation_element inline adjust_ce_for_search(
             collation_element ce,
             collation_strength strength,
             case_level case_lvl) noexcept
