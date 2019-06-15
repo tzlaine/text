@@ -60,7 +60,7 @@ namespace boost { namespace text { namespace utf8 {
     /** The replacement character used to mark invalid portions of a Unicode
         sequence when converting between two encodings.
 
-        \see Unicode 9, 3.2/C10 */
+        \see Unicode 3.2/C10 */
     constexpr uint32_t replacement_character() noexcept { return 0xfffd; }
 
     /** Given the first (and possibly only) code unit of a UTF-8 code point,
@@ -136,7 +136,7 @@ namespace boost { namespace text { namespace utf8 {
             bool valid_;
         };
 
-        // Follow Table 3-7 in Unicode 9, 3.9/D92
+        // Follow Table 3-7 in Unicode 3.9/D92
         template<typename Iter>
         BOOST_TEXT_CXX14_CONSTEXPR optional_iter<Iter>
         end_of_invalid_utf8(Iter it) noexcept
@@ -426,7 +426,7 @@ namespace boost { namespace text { namespace utf8 {
 
         This function is constexpr in C++14 and later.
 
-        \see Unicode 9, 3.4/D14 */
+        \see Unicode 3.4/D14 */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
     reserved_noncharacter(uint32_t c) noexcept
     {
@@ -441,7 +441,7 @@ namespace boost { namespace text { namespace utf8 {
 
         This function is constexpr in C++14 and later.
 
-        \see Unicode 9, 3.9/D90 */
+        \see Unicode 3.9/D90 */
     inline BOOST_TEXT_CXX14_CONSTEXPR bool valid_code_point(uint32_t c) noexcept
     {
         return c <= 0x10ffff && !surrogate(c) && !reserved_noncharacter(c);
@@ -863,7 +863,7 @@ namespace boost { namespace text { namespace utf8 {
         get_value(unsigned char curr_c) const noexcept(!throw_on_error)
         {
             /*
-                Unicode 9, 3.9/D92
+                Unicode 3.9/D92
                 Table 3-7. Well-Formed UTF-8 Byte Sequences
 
                 Code Points        First Byte Second Byte Third Byte Fourth Byte
@@ -1349,7 +1349,7 @@ namespace boost { namespace text { namespace utf8 {
         int index_;
         std::array<char, 5> buf_;
 
-        // Unicode 9, 3.8/D71-D74
+        // Unicode 3.8/D71-D74
 
         static uint32_t const high_surrogate_min = 0xd800;
         static uint32_t const high_surrogate_max = 0xdbff;
