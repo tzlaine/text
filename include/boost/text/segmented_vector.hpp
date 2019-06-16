@@ -129,12 +129,13 @@ namespace boost { namespace text {
 
         bool operator==(segmented_vector rhs) const noexcept
         {
-            return compare(rhs) == 0;
+            return size() == rhs.size() &&
+                   std::equal(begin(), end(), rhs.begin());
         }
 
         bool operator!=(segmented_vector rhs) const noexcept
         {
-            return compare(rhs) != 0;
+            return !(*this == rhs);
         }
 
         bool operator<(segmented_vector rhs) const noexcept
@@ -421,21 +422,6 @@ namespace boost { namespace text {
 
 #endif
     };
-
-    template<typename T>
-    bool
-    operator==(segmented_vector<T> const & lhs, segmented_vector<T> const & rhs)
-    {
-        return lhs.size() == rhs.size() &&
-               std::equal(lhs.begin(), lhs.end(), rhs.begin());
-    }
-
-    template<typename T>
-    bool
-    operator!=(segmented_vector<T> const & lhs, segmented_vector<T> const & rhs)
-    {
-        return !(lhs == rhs);
-    }
 
 }}
 
