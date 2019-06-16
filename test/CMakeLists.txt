@@ -325,9 +325,6 @@ set(compile_sources
     compile_include_string_view_1.cpp
     compile_include_string_view_2.cpp
     compile_include_string_view_3.cpp
-    compile_include_repeated_string_view_1.cpp
-    compile_include_repeated_string_view_2.cpp
-    compile_include_repeated_string_view_3.cpp
     compile_include_string_1.cpp
     compile_include_string_2.cpp
     compile_include_string_3.cpp

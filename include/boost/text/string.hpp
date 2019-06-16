@@ -893,7 +893,7 @@ namespace boost { namespace text {
 
 }}
 
-#include <boost/text/repeated_string_view.hpp>
+#include <boost/text/string_view.hpp>
 
 namespace boost { namespace text {
 
