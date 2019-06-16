@@ -98,6 +98,15 @@ namespace boost { namespace text {
                 g.begin().base(), g.end().base() - g.begin().base());
         }
 
+        bool operator==(grapheme const & other) const noexcept
+        {
+            return chars_ == other.chars_;
+        }
+        bool operator!=(grapheme const & other) const noexcept
+        {
+            return chars_ != other.chars_;
+        }
+
         /** Returns the number of bytes controlled by g. */
         friend int storage_bytes(grapheme const & g) noexcept
         {
