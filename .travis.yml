@@ -6,23 +6,6 @@ script: cmake
 matrix:
     include:
         # OSX
-        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
-          os: osx
-          osx_image: xcode6.4
-          compiler: clang
-#        - env: CPP=14 MAC_OSX=true BUILD_TYPE=Release JOBS=4
-#          os: osx
-#          osx_image: xcode6.4
-#          compiler: clang
-
-        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
-          os: osx
-          osx_image: xcode6.4
-          compiler: clang
-#        - env: CPP=11 MAC_OSX=true BUILD_TYPE=Release JOBS=4
-#          os: osx
-#          osx_image: xcode6.4
-#          compiler: clang
 
         - env: CPP=14 MAC_OSX=true BUILD_TYPE=Debug JOBS=4
           os: osx
@@ -96,60 +79,7 @@ matrix:
           osx_image: xcode8.2
           compiler: clang
 
-# Travis still chokes on this.
-#        - env: CPP=14 MAC_OSX=true COVERAGE=on JOBS=4
-#          os: osx
-#          osx_image: xcode8.2
-#          compiler: clang
-
         # Gcc
-#        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Debug JOBS=4
-#          os: linux
-#          compiler: gcc-4.8
-#          addons: &gcc48
-#            apt:
-#              packages:
-#                - g++-4.8
-#                - valgrind
-#                - libboost-filesystem-dev
-#                - libboost-system-dev
-#              sources:
-#                - ubuntu-toolchain-r-test
-#        - env: GCC_VERSION=4.8 CPP=14 BUILD_TYPE=Release JOBS=2
-#          os: linux
-#          compiler: gcc-4.8
-#          addons: &gcc48
-#            apt:
-#              packages:
-#                - g++-4.8
-#                - valgrind
-#                - libboost-filesystem-dev
-#                - libboost-system-dev
-#              sources:
-#                - ubuntu-toolchain-r-test
-#
-#        - env: GCC_VERSION=4.8 CPP=11 BUILD_TYPE=Debug JOBS=4
-#          os: linux
-#          compiler: gcc-4.8
-#          addons: &gcc48
-#            apt:
-#              packages:
-#                - g++-4.8
-#                - libboost-filesystem-dev
-#                - libboost-system-dev
-#              sources:
-#                - ubuntu-toolchain-r-test
-#        - env: GCC_VERSION=4.8 CPP=11 BUILD_TYPE=Release JOBS=4
-#          os: linux
-#          compiler: gcc-4.8
-#          addons: &gcc48
-#            apt:
-#              packages:
-#                - g++-4.8
-#                - libboost-filesystem-dev
-#                - libboost-system-dev
-#              sources:
-#                - ubuntu-toolchain-r-test
 
         - env: GCC_VERSION=4.9 CPP=14 BUILD_TYPE=Debug JOBS=4
           os: linux
@@ -354,6 +284,41 @@ matrix:
             apt:
               packages:
                 - g++-8
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=9 CPP=14 BUILD_TYPE=Release JOBS=4
+          os: linux
+          compiler: gcc-9
+          addons: &gcc9
+            apt:
+              packages:
+                - g++-9
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+
+        - env: GCC_VERSION=9 CPP=11 BUILD_TYPE=Debug JOBS=4
+          os: linux
+          compiler: gcc-9
+          addons: &gcc9
+            apt:
+              packages:
+                - g++-9
+                - libboost-filesystem-dev
+                - libboost-system-dev
+              sources:
+                - ubuntu-toolchain-r-test
+        - env: GCC_VERSION=9 CPP=11 BUILD_TYPE=Release JOBS=4
+          os: linux
+          compiler: gcc-9
+          addons: &gcc9
+            apt:
+              packages:
+                - g++-9
                 - libboost-filesystem-dev
                 - libboost-system-dev
               sources:
