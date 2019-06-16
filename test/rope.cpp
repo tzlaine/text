@@ -1083,3 +1083,11 @@ TEST(rope, test_sentinel_api)
         EXPECT_EQ(s, text::text(chars));
     }
 }
+
+TEST(rope, test_reverse_iterators)
+{
+    text::rope rope;
+    rope.insert(rope.begin(), "qwert");
+    EXPECT_FALSE(rope.begin()->empty());
+    EXPECT_FALSE(rope.rbegin()->empty());
+}

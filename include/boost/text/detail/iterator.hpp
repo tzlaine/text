@@ -9,6 +9,18 @@
 namespace boost { namespace text { namespace detail {
 
     template<typename Iter>
+    auto invoke_op_arrow(Iter it) noexcept -> decltype(it.operator->())
+    {
+        return it.operator->();
+    }
+
+    template<typename T>
+    T * invoke_op_arrow(T * it) noexcept
+    {
+        return it;
+    }
+
+    template<typename Iter>
     struct reverse_iterator
     {
         using iterator_category =
@@ -42,7 +54,11 @@ namespace boost { namespace text { namespace detail {
             return *--temp;
         }
 
-        constexpr pointer operator->() const noexcept { return &**this; }
+        constexpr pointer operator->() const noexcept
+        {
+            Iter temp = it_;
+            return invoke_op_arrow(--temp);
+        }
 
         constexpr reference operator[](difference_type n) const noexcept
         {

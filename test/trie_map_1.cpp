@@ -18,7 +18,7 @@ TEST(trie_map1, const_access)
             {{{0, 1, 3}, 13}, {{0}, 17}, {{0, 1, 2}, 19}});
 
         EXPECT_FALSE(trie.empty());
-        EXPECT_EQ(trie.size(), 3);
+        EXPECT_EQ(trie.size(), 3u);
         EXPECT_EQ(trie.max_size(), PTRDIFF_MAX);
 
         {
@@ -77,7 +77,7 @@ TEST(trie_map1, const_access)
         // dump(std::cout, trie);
 #endif
 
-        EXPECT_EQ(trie.size(), 5);
+        EXPECT_EQ(trie.size(), 5u);
 
         {
             EXPECT_TRUE(trie.contains(std::string("foo")));
@@ -242,7 +242,7 @@ TEST(trie_map1, mutable_access)
             {{{0, 1, 3}, 13}, {{0}, 17}, {{0, 1, 2}, 19}});
 
         EXPECT_FALSE(trie.empty());
-        EXPECT_EQ(trie.size(), 3);
+        EXPECT_EQ(trie.size(), 3u);
         EXPECT_EQ(trie.max_size(), PTRDIFF_MAX);
 
         {
@@ -290,7 +290,7 @@ TEST(trie_map1, mutable_access)
         // dump(std::cout, trie);
 #endif
 
-        EXPECT_EQ(trie.size(), 5);
+        EXPECT_EQ(trie.size(), 5u);
 
         {
             EXPECT_TRUE(trie.contains(std::string("foo")));
@@ -587,7 +587,7 @@ TEST(trie_map1, erase)
         EXPECT_EQ(it->key, next_key);
 
         trie.erase(trie.begin(), trie.end());
-        EXPECT_EQ(trie.size(), 0);
+        EXPECT_EQ(trie.size(), 0u);
         EXPECT_TRUE(trie.empty());
     }
 }
@@ -602,7 +602,7 @@ TEST(trie_node_t, all)
         EXPECT_FALSE(node.value());
         EXPECT_EQ(node.parent(), nullptr);
         EXPECT_TRUE(node.empty());
-        EXPECT_EQ(node.size(), 0);
+        EXPECT_EQ(node.size(), 0u);
         EXPECT_EQ(node.begin(), node.end());
         EXPECT_EQ(node.lower_bound('z', trie::less{}), node.end());
         EXPECT_EQ(node.find('z', trie::less{}), node.end());
@@ -614,7 +614,7 @@ TEST(trie_node_t, all)
         EXPECT_FALSE(node.value());
         EXPECT_EQ(node.parent(), nullptr);
         EXPECT_TRUE(node.empty());
-        EXPECT_EQ(node.size(), 0);
+        EXPECT_EQ(node.size(), 0u);
         EXPECT_EQ(node.begin(), node.end());
         EXPECT_EQ(node.lower_bound('z', trie::less{}), node.end());
         EXPECT_EQ(node.find('z', trie::less{}), node.end());
@@ -636,7 +636,7 @@ TEST(trie_node_t, all)
         EXPECT_EQ(root.min_child(), a_ptr);
         EXPECT_EQ(root.max_child(), z_ptr);
         EXPECT_FALSE(root.empty());
-        EXPECT_EQ(root.size(), 2);
+        EXPECT_EQ(root.size(), 2u);
         EXPECT_FALSE(root.min_value());
         EXPECT_FALSE(root.max_value());
         EXPECT_NE(root.begin(), root.end());
@@ -654,7 +654,7 @@ TEST(trie_node_t, all)
         EXPECT_EQ(root.min_child(), z_ptr);
         EXPECT_EQ(root.max_child(), z_ptr);
         EXPECT_FALSE(root.empty());
-        EXPECT_EQ(root.size(), 1);
+        EXPECT_EQ(root.size(), 1u);
         EXPECT_FALSE(root.min_value());
         EXPECT_FALSE(root.max_value());
         EXPECT_NE(root.begin(), root.end());
@@ -683,7 +683,7 @@ TEST(trie_node_t, all)
         EXPECT_EQ(root.min_child(), a_ptr);
         EXPECT_EQ(root.max_child(), z_ptr);
         EXPECT_FALSE(root.empty());
-        EXPECT_EQ(root.size(), 2);
+        EXPECT_EQ(root.size(), 2u);
         EXPECT_FALSE(root.min_value());
         EXPECT_FALSE(root.max_value());
         EXPECT_NE(root.begin(), root.end());
@@ -701,7 +701,7 @@ TEST(trie_node_t, all)
         EXPECT_EQ(root.min_child(), z_ptr);
         EXPECT_EQ(root.max_child(), z_ptr);
         EXPECT_FALSE(root.empty());
-        EXPECT_EQ(root.size(), 1);
+        EXPECT_EQ(root.size(), 1u);
         EXPECT_FALSE(root.min_value());
         EXPECT_FALSE(root.max_value());
         EXPECT_NE(root.begin(), root.end());
