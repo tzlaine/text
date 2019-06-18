@@ -78,7 +78,7 @@ TEST(rope_btree, test_btree_split_child)
     EXPECT_EQ(root->refs_, 1);
     EXPECT_EQ(root_2->refs_, 1);
 
-    EXPECT_EQ(children(root_2).size(), 3);
+    EXPECT_EQ(children(root_2).size(), 3u);
     EXPECT_EQ(keys(root_2)[0], max_children * 2);
     EXPECT_EQ(keys(root_2)[1], max_children * 2 * 2);
     EXPECT_EQ(keys(root_2)[2], max_children * 2 * 2 + (max_children - 1) * 5);
@@ -107,7 +107,7 @@ TEST(rope_btree, test_btree_split_child_extra_ref)
     EXPECT_EQ(extra_ref->refs_, 2);
     EXPECT_EQ(root_2->refs_, 1);
 
-    EXPECT_EQ(children(root_2).size(), 3);
+    EXPECT_EQ(children(root_2).size(), 3u);
     EXPECT_EQ(keys(root_2)[0], max_children * 2);
     EXPECT_EQ(keys(root_2)[1], max_children * 2 * 2);
     EXPECT_EQ(keys(root_2)[2], max_children * 2 * 2 + (max_children - 1) * 5);

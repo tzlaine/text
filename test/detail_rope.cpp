@@ -233,7 +233,7 @@ TEST(rope_detail, test_find)
             find_leaf(root, 0, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left left");
             EXPECT_EQ(found.offset_, 0);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -243,7 +243,7 @@ TEST(rope_detail, test_find)
             find_leaf(root, 8, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left left");
             EXPECT_EQ(found.offset_, 8);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -253,7 +253,7 @@ TEST(rope_detail, test_find)
             find_leaf(root, 9, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left right");
             EXPECT_EQ(found.offset_, 0);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -263,7 +263,7 @@ TEST(rope_detail, test_find)
             find_leaf(root, 10, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left right");
             EXPECT_EQ(found.offset_, 1);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -273,7 +273,7 @@ TEST(rope_detail, test_find)
             find_leaf(root, 13, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left right");
             EXPECT_EQ(found.offset_, 4);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -283,7 +283,7 @@ TEST(rope_detail, test_find)
             find_leaf(root, 18, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "left right");
             EXPECT_EQ(found.offset_, 9);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_left);
         }
@@ -293,7 +293,7 @@ TEST(rope_detail, test_find)
             find_leaf(root, 19, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "right left");
             EXPECT_EQ(found.offset_, 0);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
         }
@@ -303,7 +303,7 @@ TEST(rope_detail, test_find)
             find_leaf(root, 28, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "right left");
             EXPECT_EQ(found.offset_, 9);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
         }
@@ -313,7 +313,7 @@ TEST(rope_detail, test_find)
             find_leaf(root, 29, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "right right");
             EXPECT_EQ(found.offset_, 0);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
         }
@@ -323,7 +323,7 @@ TEST(rope_detail, test_find)
             find_leaf(root, 40, found);
             EXPECT_EQ(found.leaf_->as_leaf()->as_string(), "right right");
             EXPECT_EQ(found.offset_, 11);
-            EXPECT_EQ(found.path_.size(), 2);
+            EXPECT_EQ(found.path_.size(), 2u);
             EXPECT_EQ(found.path_[0], int_root);
             EXPECT_EQ(found.path_[1], int_right);
         }
