@@ -679,7 +679,7 @@ TEST(utf_8, test_utf8_coverage_length_3_d)
         {{char(0xef), char(0xc0), char(0xc0)}, 0xfffd},
         {{char(0xef), char(0xc0), char(0xbf)}, 0xfffd},
         {{char(0xef), char(0xbf), char(0xc0)}, 0xfffd},
-        {{char(0xef), char(0xbf), char(0xbf)}, 0xfffd},
+        {{char(0xef), char(0xbf), char(0xbf)}, 0xffff},
     };
 
     for (auto c : cases) {
@@ -896,7 +896,7 @@ TEST(utf_8, test_end_of_invalid_utf8)
     }
 }
 
-TEST(utf_8, iterator_covnersions)
+TEST(utf_8, iterator_conversions)
 {
     uint32_t utf32[] = {0x004d, 0x0430, 0x4e8c, 0x10302};
     uint16_t utf16[] = {0x004d, 0x0430, 0x4e8c, 0xd800, 0xdf02};

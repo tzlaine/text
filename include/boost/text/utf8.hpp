@@ -430,8 +430,7 @@ namespace boost { namespace text { namespace utf8 {
     inline BOOST_TEXT_CXX14_CONSTEXPR bool
     reserved_noncharacter(uint32_t c) noexcept
     {
-        bool const byte01_reserved =
-            (c & 0xffff) == 0xffff || (c & 0xffff) == 0xfffe;
+        bool const byte01_reserved = (c & 0xffff) >= 0xfffe;
         bool const byte2_at_most_0x10 = ((c & 0xff0000u) >> 16) <= 0x10;
         return (byte01_reserved && byte2_at_most_0x10) ||
                (0xfdd0 <= c && c <= 0xfdef);
@@ -654,8 +653,6 @@ namespace boost { namespace text { namespace utf8 {
         BOOST_TEXT_CXX14_CONSTEXPR int read_into_buf() noexcept(!throw_on_error)
         {
             uint32_t cp = static_cast<uint32_t>(*it_);
-            if (!valid_code_point(cp))
-                cp = ErrorHandler{}("Invalid UTF-32 code point.");
             index_ = 0;
             return detail::read_into_buf(cp, buf_.data());
         }
@@ -1044,11 +1041,6 @@ namespace boost { namespace text { namespace utf8 {
                 ++next;
             }
 
-            if (!valid_code_point(value)) {
-                value = ErrorHandler{}(
-                    "UTF-8 sequence results in invalid UTF-32 code point.");
-            }
-
             return get_value_result{value, next};
         }
 
@@ -1313,12 +1305,6 @@ namespace boost { namespace text { namespace utf8 {
             } else if (surrogate(first)) {
                 ErrorHandler{}("Invalid initial UTF-16 code unit.");
                 cp = replacement_character();
-            }
-
-            if (!valid_code_point(cp)) {
-                cp = ErrorHandler{}(
-                    "UTF-16 sequence results in invalid UTF-32 code "
-                    "point.");
             }
 
             return detail::read_into_buf(cp, buf_.data());
