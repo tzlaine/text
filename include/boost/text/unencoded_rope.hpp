@@ -1332,6 +1332,18 @@ namespace boost { namespace text {
     {}
 
     inline unencoded_rope_view::unencoded_rope_view(
+        unencoded_rope_view const & other) noexcept :
+        ref_(string_view()),
+        which_(other.which_)
+    {
+        switch (which_) {
+        case which::r: ref_.r_ = other.ref_.r_; break;
+        case which::tv: ref_.tv_ = other.ref_.tv_; break;
+        case which::rtv: ref_.rtv_ = other.ref_.rtv_; break;
+        }
+    }
+
+    inline unencoded_rope_view::unencoded_rope_view(
         unencoded_rope const & r, size_type lo, size_type hi) :
         ref_(rope_ref(&r, lo, hi)),
         which_(which::r)
@@ -1568,6 +1580,18 @@ namespace boost { namespace text {
 
                 return true;
             });
+    }
+
+    inline unencoded_rope_view & unencoded_rope_view::
+    operator=(unencoded_rope_view const & other) noexcept
+    {
+        which_ = other.which_;
+        switch (which_) {
+        case which::r: ref_.r_ = other.ref_.r_; break;
+        case which::tv: ref_.tv_ = other.ref_.tv_; break;
+        case which::rtv: ref_.rtv_ = other.ref_.rtv_; break;
+        }
+        return *this;
     }
 
     inline unencoded_rope_view::iterator begin(unencoded_rope_view rv) noexcept

@@ -35,6 +35,8 @@ namespace boost { namespace text {
             unencoded_rope. */
         unencoded_rope_view(unencoded_rope const & r) noexcept;
 
+        unencoded_rope_view(unencoded_rope_view const & r) noexcept;
+
         /** Forbid construction from a temporary unencoded_rope. */
         unencoded_rope_view(unencoded_rope && r) noexcept = delete;
 
@@ -217,6 +219,8 @@ namespace boost { namespace text {
             0 if *this is lexicographically greater than rhs. */
         int compare(unencoded_rope_view rhs) const noexcept;
 
+        unencoded_rope_view & operator=(unencoded_rope_view const & r) noexcept;
+
         /** Assignment from an unencoded_rope. */
         unencoded_rope_view & operator=(unencoded_rope const & r) noexcept
         {
@@ -294,13 +298,6 @@ namespace boost { namespace text {
 
 #endif
 
-        /** Swaps *this with rhs. */
-        void swap(unencoded_rope_view & rhs) noexcept
-        {
-            std::swap(ref_, rhs.ref_);
-            std::swap(which_, rhs.which_);
-        }
-
 #ifndef BOOST_TEXT_DOXYGEN
 
     private:
@@ -345,14 +342,6 @@ namespace boost { namespace text {
             ref(rope_ref r) : r_(r) {}
             ref(string_view tv) : tv_(tv) {}
             ref(repeated_ref rtv) : rtv_(rtv) {}
-
-            ref(ref const & rhs) { memcpy(this, &rhs, sizeof(*this)); }
-
-            ref & operator=(ref const & rhs)
-            {
-                memcpy(this, &rhs, sizeof(*this));
-                return *this;
-            }
 
             rope_ref r_;
             string_view tv_;

@@ -27,9 +27,6 @@ TEST(unencoded_rope_view, test_empty)
     EXPECT_FALSE(rtv > rtv);
     EXPECT_TRUE(rtv >= rtv);
 
-    rtv.swap(rtv);
-    EXPECT_TRUE(rtv == rtv);
-
     EXPECT_EQ(rtv.begin(), begin(rtv));
     EXPECT_EQ(rtv.end(), end(rtv));
 
@@ -61,12 +58,6 @@ struct rope_views
     text::unencoded_rope_view left;
     text::unencoded_rope_view right;
 };
-
-rope_views swapped(text::unencoded_rope_view lhs, text::unencoded_rope_view rhs)
-{
-    lhs.swap(rhs);
-    return rope_views{lhs, rhs};
-}
 
 TEST(unencoded_rope_view, test_non_empty)
 {
@@ -101,9 +92,6 @@ TEST(unencoded_rope_view, test_non_empty)
     EXPECT_EQ(rtv_a.compare(rtv_ab), -1);
     EXPECT_EQ(rtv_a, rtv_a);
     EXPECT_EQ(rtv_a, "a");
-
-    EXPECT_EQ(swapped(rtv_a, rtv_ab).left, rtv_ab);
-    EXPECT_EQ(swapped(rtv_a, rtv_ab).right, rtv_a);
 
     EXPECT_EQ(rtv_a.begin(), begin(rtv_a));
     EXPECT_EQ(rtv_a.end(), end(rtv_a));

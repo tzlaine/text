@@ -221,11 +221,6 @@ namespace boost { namespace text {
         view_.foreach_segment(static_cast<Fn &&>(f));
     }
 
-    inline void rope_view::swap(rope_view & rhs) noexcept
-    {
-        view_.swap(rhs.view_);
-    }
-
     inline rope_view::iterator rope_view::make_iter(
         detail::const_rope_view_iterator first,
         detail::const_rope_view_iterator it,
