@@ -1087,7 +1087,152 @@ TEST(rope, test_sentinel_api)
 TEST(rope, test_reverse_iterators)
 {
     text::rope rope;
-    rope.insert(rope.begin(), "qwert");
-    EXPECT_FALSE(rope.begin()->empty());
-    EXPECT_FALSE(rope.rbegin()->empty());
+    text::string_view const sv("qwerty");
+    rope.insert(rope.begin(), sv);
+
+    {
+        auto it = rope.begin();
+        auto sv_it = sv.begin();
+
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+
+        EXPECT_EQ(it, rope.end());
+        EXPECT_EQ(sv_it, sv.end());
+
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+
+        EXPECT_EQ(it, rope.begin());
+        EXPECT_EQ(sv_it, sv.begin());
+    }
+
+    {
+        auto it = rope.rbegin();
+        auto sv_it = sv.rbegin();
+
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        ++it;
+        ++sv_it;
+
+        EXPECT_EQ(it, rope.rend());
+        EXPECT_EQ(sv_it, sv.rend());
+
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+        --it;
+        --sv_it;
+        EXPECT_FALSE(it->empty());
+        EXPECT_TRUE(
+            algorithm::equal(it->begin(), it->end(), sv_it, std::next(sv_it)));
+
+        EXPECT_EQ(it, rope.rbegin());
+        EXPECT_EQ(sv_it, sv.rbegin());
+    }
 }
